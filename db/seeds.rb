@@ -1,0 +1,74 @@
+# frozen_string_literal: true
+
+require "census/seeds/scopes"
+
+base_path = File.expand_path("seeds", __dir__)
+
+if Rails.env.production?
+  Census::Seeds::Scopes.seed base_path: base_path
+else
+  require "census/faker/document_id"
+
+  Census::Seeds::Scopes.seed(base_path: base_path) unless Scope.count.positive?
+
+  local_scopes = Scope.local.descendants.leafs
+  emigrant_scopes = Scope.local.not_descendants.leafs
+
+  100.times do
+    doc = Person::DOCUMENT_TYPES.sample
+    young = Faker::Boolean.boolean(0.1)
+    emigrant = Faker::Boolean.boolean(0.1)
+    scope = local_scopes.sample
+
+    Person.create!(
+      first_name: Faker::Name.first_name,
+      last_name1: Faker::Name.last_name,
+      last_name2: Faker::Name.last_name,
+      document_type: doc,
+      document_id: Census::Faker::DocumentId.generate(doc),
+      document_scope: doc == "passport" ? Scope.top_level.sample : Scope.local,
+      born_at: young ? Faker::Date.between(18.year.ago, 14.year.ago) : Faker::Date.between(99.year.ago, 18.year.ago),
+      gender: Person::GENDERS.sample,
+      address: Faker::Address.street_address,
+      address_scope: emigrant ? emigrant_scopes.sample : local_scopes.sample,
+      postal_code: Faker::Address.zip_code,
+      email: Faker::Internet.unique.email,
+      phone: "0034" + Faker::Number.number(9),
+      scope: scope,
+      created_at: Faker::Time.between(3.years.ago, 3.day.ago, :all)
+    )
+  end
+
+  admins = Person.first(10)
+
+  # create 50 processed verifications
+  Person.not_verified.order("RANDOM()").limit(50).each do |person|
+    ok = Faker::Boolean.boolean(0.7)
+    date = Faker::Time.between(person.created_at, 3.day.ago, :all)
+    verification = VerificationDocument.create!(person: person,
+                                                information: {},
+                                                created_at: date,
+                                                processed_by: ok.nil? ? nil : admins.sample,
+                                                processed_at: ok.nil? ? nil : Faker::Time.between(date, Date.today, :all),
+                                                result: ok,
+                                                result_comment: ok == false ? Faker::Lorem.paragraph(1, true, 2) : nil)
+    verification.attachments.create!(file: File.new(File.join(__dir__, "seeds", "attachments", "#{person.document_type}-sample1.png")))
+    verification.attachments.create!(file: File.new(File.join(__dir__, "seeds", "attachments", "#{person.document_type}-sample2.png")))
+
+    next unless ok
+    person.verified_by_document = true
+    person.updated_at = verification.processed_at
+    person.to_member if Faker::Boolean.boolean(0.5)
+    person.save
+  end
+
+  # create 10 unprocessed verifications
+  Person.not_verified.order("RANDOM()").limit(10).each do |person|
+    date = Faker::Time.between(3.days.ago, 1.day.ago, :all)
+    verification = VerificationDocument.create!(person: person,
+                                                information: {},
+                                                created_at: date)
+    verification.attachments.create!(file: File.new(File.join(__dir__, "seeds", "attachments", "#{person.document_type}-sample1.png")))
+    verification.attachments.create!(file: File.new(File.join(__dir__, "seeds", "attachments", "#{person.document_type}-sample2.png")))
+  end
+end

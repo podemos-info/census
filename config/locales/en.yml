@@ -1,0 +1,47 @@
+en:
+  activerecord:
+    models:
+      person: Person
+      people: People
+    attributes:
+      person:
+        full_name: Name
+        full_document: Document
+        first_name: First name
+        last_name1: Last name 1
+        last_name2: Last name 2
+        phone: Phone
+        document_type: Document type
+        document_id: Document ID
+        born_at: Born at
+        gender: Gender
+        address: Address
+        postal_code: Postal code
+  census:
+    people:
+      genders:
+        female: Female
+        male: Male
+        other: Other
+        undisclosed: Undisclosed
+      document_types:
+        dni: DNI
+        nie: NIE
+        passport: Passport
+  date:
+    formats:
+      default:
+        "%m/%d/%Y"
+      with_weekday:
+        "%a %m/%d/%y"
+  time:
+    formats:
+      default:
+        "%a, %b %-d, %Y at %r"
+      date:
+        "%b %-d, %Y"
+      short:
+        "%B %d"
+  errors:
+    messages:
+      cycle_detected: a scope's parent can't be one of its descendants

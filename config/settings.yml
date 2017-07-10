@@ -1,0 +1,8 @@
+local_code: ES
+locales:
+  default: es
+  available: # don't include default locale
+    - ca
+    - eu
+    - en
+    - gl

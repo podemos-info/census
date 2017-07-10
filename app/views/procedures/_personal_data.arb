@@ -1,0 +1,20 @@
+panel t("census.procedure.personal_data") do
+  attributes_table_for procedure.person do
+    row :id do
+      link_to procedure.person.id, procedure.person
+    end
+    row :first_name
+    row :last_name1
+    row :last_name2
+    row :document_type do
+      procedure.person.document_type_name
+    end
+    row :document_id
+    row :born_at
+
+    row :address
+    row :address_scope do
+      procedure.person.address_scope.show_path
+    end
+  end
+end

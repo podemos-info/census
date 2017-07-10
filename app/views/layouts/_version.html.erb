@@ -1,0 +1,29 @@
+<% if !@versions.empty? %>
+  <h3>Current Version: <%= @versions.length %></h3>
+
+  <b>Created At:</b>
+  <%= @versions.last.created_at%>
+  <br>
+  <b>Admin</b>: [user]
+  <br>
+  <% if @versions.length.to_i > 1 %>
+    <% if params[:version].to_i > 1 || !params[:version] %>
+      <%= link_to "Previous version", {:version => (params[:version] || @versions.length).to_i - 1}%>
+      <br>
+    <% end %>
+    <% if params[:version] %>
+      <h3>This is <%= "#{params[:version]}"%> version</h3>
+
+      <b>Modify at:</b>
+      <%= @versions[(params[:version].to_i - 1)].created_at %>
+      <br>
+      <b>Admin</b>:
+      [user]
+      <br>
+
+      <%= link_to "Go to current version"%>
+    <% end %>
+  <% end %>
+<% else %>
+  <p>This item does not have any registered version.</p>
+<% end %>

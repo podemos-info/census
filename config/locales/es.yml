@@ -1,0 +1,96 @@
+es:
+  active_admin:
+    dashboard: Inicio
+    scopes:
+      all: Todo
+      person: Personas
+      follower: Simpatizantes
+      young_member: Inscritas jóvenes
+      member: Inscritas
+      activist: Militantes
+      deleted: Bajas
+      pending: Pendientes
+    status_tag:
+      pending: Pendiente
+  activerecord:
+    models:
+      attachment:
+        one: Adjunto
+        other: Adjuntos
+      person:
+        one: Persona
+        other: Personas
+      comment: 
+        one: Comentario
+        other: Comentarios
+      procedure:
+        one: Procedimiento
+        other: Procedimientos
+      verification_document:
+        one: Verificación de documento
+        other: Verificaciones de documento
+    attributes:
+      person:
+        full_name: Nombre
+        full_document: Documento
+        first_name: Nombre
+        last_name1: Primer Apellido
+        last_name2: Segundo Apellido
+        phone: Teléfono
+        document_type: Tipo de documento
+        document_id: Documento
+        born_at: Fecha de nacimiento
+        gender: Género
+        address: Dirección
+        address_scope: Lugar de residencia
+        postal_code: Código postal
+        flags: Marcas
+        level: Nivel
+        level/person: persona
+        level/follower: simpatizante
+        level/young_member: inscrita joven
+        level/member: inscrita
+        level/activist: militante
+        scope: Lugar de participación
+        created_at: Fecha de creación
+        updated_at: Última actualización
+      procedure:
+        person: Persona
+        type: Tipo
+        created_at: Fecha de creación
+        result: Resultado
+        result_comment: Comentario
+        processed_by: Procesado por
+        processed_at: Fecha de procesado
+  census:
+    people:
+      genders:
+        female: Femenino
+        male: Masculino
+        other: Otro
+        undisclosed: No quiero decirlo
+      document_types:
+        dni: DNI
+        nie: NIE
+        passport: Pasaporte
+      flags:
+        has_issues: Alerta
+        verified_by_document: Documento
+        verified_in_person: En persona
+    procedure:
+      personal_data: Datos personales
+      process: Procesar
+      approve: Aceptar
+      deny: Rechazar
+      approved: Aceptado el procedimiento %{link}.
+      denied: Rechazado el procedimiento %{link}.
+  errors:
+    messages:
+      cycle_detected: el padre de un ámbito no puede ser descendiente de este
+      procedure_denial_comment_required: debes indicar la razón del rechazo el procedimiento
+  views:
+    pagination:
+      first: primera
+      previous: anterior
+      next: siguiente
+      last: última

@@ -1,0 +1,80 @@
+// SASS variable overrides must be declared before loading up Active Admin's styles.
+//
+// To view the variables that Active Admin provides, take a look at
+// `app/assets/stylesheets/active_admin/mixins/_variables.scss` in the
+// Active Admin source.
+//
+// For example, to change the sidebar width:
+// $sidebar-width: 242px;
+
+$primary-color: #612d62;
+$error-color: #F44336;
+$success-color: #8BC34A;
+$almost-success-color: #CDDC39;
+
+// Active Admin's got SASS!
+@import "active_admin/mixins";
+@import "arctic_admin";
+
+.status_tag {
+  &.has_issues {
+    background: $error-color;
+  }
+  &.verified_by_document {
+    background: $almost-success-color;
+  }
+  &.verified_in_person {
+    background: $success-color;
+  }
+
+  &.member, &.young_member {
+    background: $almost-success-color;
+  }
+  &.activist {
+    background: $success-color;
+  }
+  &.leave {
+    background: $error-color;
+  }
+
+  &.yes {
+    background: $success-color; 
+  }
+  &.no {
+    background: $error-color; 
+  }
+}
+
+.attachments {
+  .column {
+    @media screen and (min-width: $md-width) {
+      display: inline-block;
+      vertical-align: top;
+
+      &:first-child + .column {
+        max-width: 500px;
+        width: 48% !important;
+      }
+    }
+    @media screen and (max-width: $md-width) {
+      width: 100% !important;
+    }
+  }
+  img {
+    width: 100%;
+  }
+}
+
+input[type=radio] {
+  vertical-align: top;  
+}
+
+#procedure_result_input .choice {
+  display: inline-block;
+  margin-left: 1rem;
+}
+
+.flash a {
+  text-decoration: underline;
+  color: white;
+}

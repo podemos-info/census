@@ -1,0 +1,11 @@
+panel "History" do
+  table_for assigns[:versions] do
+  column ("Item") do |v| 
+    if v.item
+       link_to v.item.id, [:admin, v.item]
+    end
+  end      
+  column ("Type") { |v| v.item_type.underscore.humanize }
+  column ("Modified at") { |v| v.created_at.to_s :long }
+  end
+end
