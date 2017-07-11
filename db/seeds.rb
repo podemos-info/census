@@ -2,8 +2,10 @@
 
 require "census/seeds/scopes"
 
-base_path = File.expand_path("seeds", __dir__)
+# don't seed on Continuous Integration
+return if ENV["CI"]
 
+base_path = File.expand_path("seeds", __dir__)
 if Rails.env.production?
   Census::Seeds::Scopes.seed base_path: base_path
 else

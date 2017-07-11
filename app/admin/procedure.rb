@@ -56,7 +56,7 @@ ActiveAdmin.register Procedure do
               if attachment.image?
                 img src: attachment.file_url
               else
-                t("download")
+                attachment.file.file.original_filename
               end
             end
           end
@@ -84,7 +84,7 @@ ActiveAdmin.register Procedure do
             if attachment.image?
               img src: attachment.file_url
             else
-              t("download")
+              attachment.file.file.original_filename
             end
           end
         end
