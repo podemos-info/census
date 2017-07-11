@@ -2,6 +2,10 @@
 
 require "rails_helper"
 
-RSpec.describe Scope, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Scope, :db do
+  let(:scope) { build(:scope) }
+
+  subject { scope }
+
+  it { is_expected.to be_valid }
 end

@@ -2,6 +2,10 @@
 
 require "rails_helper"
 
-RSpec.describe Attachment, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Attachment, :db do
+  let(:attachment) { build(:attachment) }
+
+  subject { attachment }
+
+  it { is_expected.to be_valid }
 end

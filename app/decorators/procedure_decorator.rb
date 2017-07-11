@@ -3,6 +3,8 @@
 class ProcedureDecorator < ApplicationDecorator
   delegate_all
 
+  attr_accessor :event
+
   def to_s
     "#{type_name} - #{person.full_name}"
   end
@@ -21,5 +23,11 @@ class ProcedureDecorator < ApplicationDecorator
 
   def type_name
     object.model_name.human
+  end
+
+  def available_events_options
+    object.aasm.events(permitted: true).map do |event| 
+      [ I18n.t("census.procedure.events.#{event.name}"), event.name ]
+    end
   end
 end

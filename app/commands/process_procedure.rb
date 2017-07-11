@@ -5,10 +5,12 @@ class ProcessProcedure < Rectify::Command
   # Public: Initializes the command.
   #
   # procedure - A Procedure object.
+  # event - The event that will be processed
   # processor - The person that is processing the procedure
-  def initialize(procedure, processor)
+  def initialize(procedure, event, processor)
     @procedure = procedure
     @processor = processor
+    @event = event
   end
 
   # Executes the command. Broadcasts these events:
@@ -20,6 +22,7 @@ class ProcessProcedure < Rectify::Command
   def call
     @procedure.processed_by = @processor
     @procedure.processed_at = Time.current
+    @procedure.send(@event)
 
     return broadcast(:invalid) unless @procedure.valid?
 

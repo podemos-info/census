@@ -10,6 +10,9 @@ es:
       activist: Militantes
       deleted: Bajas
       pending: Pendientes
+      issues: Incidencias
+      accepted: Aprobados
+      rejected: Rechazados
     status_tag:
       pending: Pendiente
   activerecord:
@@ -36,6 +39,7 @@ es:
         first_name: Nombre
         last_name1: Primer Apellido
         last_name2: Segundo Apellido
+        last_names: Apellidos
         phone: Teléfono
         document_type: Tipo de documento
         document_id: Documento
@@ -58,10 +62,14 @@ es:
         person: Persona
         type: Tipo
         created_at: Fecha de creación
-        result: Resultado
-        result_comment: Comentario
+        comment: Comentario
         processed_by: Procesado por
         processed_at: Fecha de procesado
+        state: Estado
+        state/pending: Pendiente
+        state/issues: Incidencia
+        state/accepted: Aceptado
+        state/rejected: Rechazado
   census:
     people:
       genders:
@@ -79,11 +87,18 @@ es:
         verified_in_person: En persona
     procedure:
       personal_data: Datos personales
+      view_person: ver
       process: Procesar
-      approve: Aceptar
-      deny: Rechazar
-      approved: Aceptado el procedimiento %{link}.
-      denied: Rechazado el procedimiento %{link}.
+      events:
+        set_issues: Incidencia
+        accept: Aceptar
+        reject: Rechazar
+        undo: Deshacer
+      action_message:
+        issues: El procedimiento %{link} ha sido marcado como incidencia. 
+        approved: El procedimiento %{link} ha sido aceptado.
+        rejected: El procedimiento %{link} ha sido rechazado.
+        undone: El procedimiento %{link} ha vuelto a su estado anterior.
   errors:
     messages:
       cycle_detected: el padre de un ámbito no puede ser descendiente de este

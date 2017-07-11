@@ -2,5 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe AttachmentDecorator do
+describe AttachmentDecorator do
+  let(:attachment) { build(:attachment) }
+  subject { AttachmentDecorator.new(attachment) }
 end

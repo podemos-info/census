@@ -2,5 +2,8 @@
 
 require "rails_helper"
 
-RSpec.describe PersonDecorator do
+describe PersonDecorator do
+  let(:person) { build(:person) }
+  subject { PersonDecorator.new(person) }
+
 end

@@ -9,8 +9,9 @@
 
 $primary-color: #612d62;
 $error-color: #F44336;
-$success-color: #8BC34A;
+$warning-color: #FFC107;
 $almost-success-color: #CDDC39;
+$success-color: #4CAF50;
 
 // Active Admin's got SASS!
 @import "active_admin/mixins";
@@ -37,10 +38,13 @@ $almost-success-color: #CDDC39;
     background: $error-color;
   }
 
-  &.yes {
+  &.ok {
     background: $success-color; 
   }
-  &.no {
+  &.issues {
+    background: $warning-color;
+  }
+  &.error {
     background: $error-color; 
   }
 }
@@ -69,7 +73,7 @@ input[type=radio] {
   vertical-align: top;  
 }
 
-#procedure_result_input .choice {
+#procedure_event_input .choice {
   display: inline-block;
   margin-left: 1rem;
 }
@@ -77,4 +81,9 @@ input[type=radio] {
 .flash a {
   text-decoration: underline;
   color: white;
+}
+
+.panel_link {
+  float:right;
+  margin-top: -1.5rem;
 }

@@ -69,11 +69,11 @@ ActiveRecord::Schema.define(version: 20170710080238) do
   create_table "procedures", force: :cascade do |t|
     t.bigint "person_id"
     t.string "type", null: false
+    t.string "state"
     t.jsonb "information", default: {}, null: false
     t.bigint "processed_by_id"
     t.datetime "processed_at"
-    t.boolean "result"
-    t.text "result_comment"
+    t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["person_id"], name: "index_procedures_on_person_id"

@@ -64,9 +64,7 @@ ActiveAdmin.register Person do
             link_to procedure.id, procedure
           end
           column :type, &:type_name
-          column :result do |procedure|
-            status_tag(procedure.result_name)
-          end
+          state_column :state
           column :created_at
         end
       end

@@ -2,6 +2,10 @@
 
 require "rails_helper"
 
-RSpec.describe Procedure, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Procedure, :db do
+  let(:procedure) { build(:procedure) }
+
+  subject { procedure }
+
+  it { is_expected.to be_valid }
 end
