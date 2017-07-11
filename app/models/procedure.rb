@@ -13,13 +13,13 @@ class Procedure < ApplicationRecord
 
   scope :history, -> { order created_at: :desc }
 
-  validates :comment, presence: { message: I18n.t("errors.messages.procedure_denial_comment_required") }, 
-                      if: Proc.new { |procedure| procedure.issues? || procedure.rejected? }
-  validates :processed_by, :processed_at, presence: true, if: Proc.new { |procedure| procedure.accepted? || procedure.rejected? }
+  validates :comment, presence: { message: I18n.t("errors.messages.procedure_denial_comment_required") },
+                      if: Proc { |procedure| procedure.issues? || procedure.rejected? }
+  validates :processed_by, :processed_at, presence: true, if: Proc { |procedure| procedure.accepted? || procedure.rejected? }
 
   aasm column: :state do
     state :pending, initial: true
-    state :accepted, :issues, :rejected
+    state :issues, :accepted, :rejected
 
     event :accept do
       transitions from: [:pending, :issues], to: :accepted
@@ -35,6 +35,14 @@ class Procedure < ApplicationRecord
 
     event :undo do
       transitions from: [:accepted, :rejected], to: :pending, if: :undoable?
+
+      after do
+        self.previous = paper_trail.version_at(processed_at)
+        self.state = previous.state
+        self.processed_by = previous.processed_by
+        self.processed_at = previous.processed_at
+        self.comment = previous.comment
+      end
     end
   end
 
@@ -43,6 +51,6 @@ class Procedure < ApplicationRecord
   end
 
   def undoable?
-    processed_at && processed_at > Settings.undo_minutes.minutes.ago
+    processed_at && processed_at > Settings.undo_minutes.minutes.ago && paper_trail.previous_version
   end
 end

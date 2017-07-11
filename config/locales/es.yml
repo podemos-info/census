@@ -96,9 +96,11 @@ es:
         undo: Deshacer
       action_message:
         issues: El procedimiento %{link} ha sido marcado como incidencia. 
-        approved: El procedimiento %{link} ha sido aceptado.
+        accepted: El procedimiento %{link} ha sido aceptado.
         rejected: El procedimiento %{link} ha sido rechazado.
         undone: El procedimiento %{link} ha vuelto a su estado anterior.
+        cant_undo: No se ha podido devolved al procedimiento %{link} a su estado anterior.
+    sure_question: ¿Estás segura?
   errors:
     messages:
       cycle_detected: el padre de un ámbito no puede ser descendiente de este

@@ -13,9 +13,9 @@ ActiveAdmin.register Procedure do
 
   scope :all
   Procedure.aasm.states.each do |state|
-    scope state.name, default: state==:pending
+    scope state.name, default: state == :pending
   end
-  
+
   index do
     column :person
     column :type, &:type_name
@@ -27,8 +27,10 @@ ActiveAdmin.register Procedure do
       else
         span link_to t("active_admin.view"), procedure_path(procedure), class: "member_link"
       end
-      if procedure.undoable?
-        span link_to t("census.procedure.events.undo"), undo_procedure_path(procedure), class: "member_link"
+      if procedure.may_undo?
+        span link_to t("census.procedure.events.undo"), undo_procedure_path(procedure), method: :patch,
+                                                                                        data: { confirm: t("census.sure_question") },
+                                                                                        class: "member_link"
       end
     end
   end
@@ -90,17 +92,17 @@ ActiveAdmin.register Procedure do
     end
   end
 
-  member_action :undo do
+  member_action :undo, method: :patch do
     procedure = resource
     ProcessProcedure.call(procedure, "undo", current_user) do
       on(:invalid) do
         flash[:error] = t("census.procedure.action_message.cant_undo", link: view_context.link_to(procedure.id, procedure)).html_safe
       end
       on(:ok) do
-        flash[:notice] = t("census.procedure.action_message.undo", link: view_context.link_to(procedure.id, procedure)).html_safe
+        flash[:notice] = t("census.procedure.action_message.undone", link: view_context.link_to(procedure.id, procedure)).html_safe
       end
     end
-    redirect_to(:back)
+    redirect_back(fallback_location: procedures_path)
   end
 
   controller do
@@ -108,7 +110,7 @@ ActiveAdmin.register Procedure do
       procedure = resource
       procedure.comment = params[:procedure][:comment]
       safe_event = (procedure.aasm.events(permitted: true).map(&:name) & [params[:procedure][:event].to_sym]).first
-      
+
       ProcessProcedure.call(procedure, safe_event, current_user) do
         on(:invalid) { render :edit }
         on(:ok) do

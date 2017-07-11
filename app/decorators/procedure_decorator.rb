@@ -26,8 +26,8 @@ class ProcedureDecorator < ApplicationDecorator
   end
 
   def available_events_options
-    object.aasm.events(permitted: true).map do |event| 
-      [ I18n.t("census.procedure.events.#{event.name}"), event.name ]
+    object.aasm.events(permitted: true).map do |event|
+      [I18n.t("census.procedure.events.#{event.name}"), event.name]
     end
   end
 end
