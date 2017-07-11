@@ -14,8 +14,8 @@ class Procedure < ApplicationRecord
   scope :history, -> { order created_at: :desc }
 
   validates :comment, presence: { message: I18n.t("errors.messages.procedure_denial_comment_required") },
-                      if: Proc { |procedure| procedure.issues? || procedure.rejected? }
-  validates :processed_by, :processed_at, presence: true, if: Proc { |procedure| procedure.accepted? || procedure.rejected? }
+                      if: proc { |procedure| procedure.issues? || procedure.rejected? }
+  validates :processed_by, :processed_at, presence: true, if: proc { |procedure| procedure.accepted? || procedure.rejected? }
 
   aasm column: :state do
     state :pending, initial: true

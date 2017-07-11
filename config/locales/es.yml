@@ -11,7 +11,7 @@ es:
       deleted: Bajas
       pending: Pendientes
       issues: Incidencias
-      accepted: Aprobados
+      accepted: Aceptados
       rejected: Rechazados
     status_tag:
       pending: Pendiente
