@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/podemos-info/census.png?label=ready&title=Ready)](https://waffle.io/podemos-info/census?utm_source=badge)
 # Census
 Census Managment Application
 
