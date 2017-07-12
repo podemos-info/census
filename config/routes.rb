@@ -3,7 +3,9 @@
 Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
-  scope :api do
-    resource :person
+  namespace :api do
+    namespace :v1 do
+      resources :people
+    end
   end
 end
