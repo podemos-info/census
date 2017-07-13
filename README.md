@@ -1,24 +1,10 @@
-# README
+# Census
+Census Managment Application
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[![Travis](https://img.shields.io/travis/podemos-info/census.svg)](https://travis-ci.org/podemos-info/census)
+[![Codecov](https://img.shields.io/codecov/c/github/podemos-info/census.svg)](https://codecov.io/gh/podemos-info/census)
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Project management
+[![Waffle.io](https://img.shields.io/waffle/label/podemos-info/census/enhancement.svg)](https://waffle.io/podemos-info/census)
+[![Waffle.io](https://img.shields.io/waffle/label/podemos-info/census/bug.svg)](https://waffle.io/podemos-info/census)
+[![Waffle.io](https://img.shields.io/waffle/label/podemos-info/census/in%20progress.svg)](https://waffle.io/podemos-info/census)
