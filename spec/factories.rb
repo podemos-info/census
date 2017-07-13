@@ -70,7 +70,7 @@ FactoryGirl.define do
       transient do
         number_of_attachments 2
       end
-    
+
       after :build do |procedure, evaluator|
         procedure.attachments.build(attributes_for_list(:attachment, evaluator.number_of_attachments, procedure: procedure))
       end

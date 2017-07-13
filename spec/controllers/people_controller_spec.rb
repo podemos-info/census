@@ -39,19 +39,11 @@ describe PeopleController, type: :controller do
   end
 
   context "create page" do
-    subject do
-      person.assign_attributes first_name: "KKKKKK"
-      put :create, params: { person: person.attributes }
-    end
-    it do
-      subject.code == "302" && person = Person.last
-      expect(subject).to redirect_to(person_path(person.id))
-    end
-
-    it "should have changed the person" do
-      subject.code == "302" && person = Person.last
-      expect(person.first_name).to eq("KKKKKK")
-    end
+    let(:person) { build(:person) }
+    subject { put :create, params: { person: person.attributes } }
+    it { expect { subject } .to change { Person.count }.by(1) }
+    it { expect(subject).to have_http_status(:found) }
+    it { expect(subject.location).to eq(person_url(Person.last)) }
   end
 
   context "edit page" do
@@ -65,11 +57,8 @@ describe PeopleController, type: :controller do
       person.assign_attributes first_name: "KKKKKK"
       patch :update, params: { id: person.id, person: person.attributes }
     end
-    it { expect(subject).to redirect_to(person_path(person.id)) }
-
-    it "should have changed the person" do
-      subject.code == "302" && person.reload
-      expect(person.first_name).to eq("KKKKKK")
-    end
+    it { expect(subject).to have_http_status(:found) }
+    it { expect(subject.location).to eq(person_url(person.id)) }
+    it { expect { subject } .to change { person.first_name }.to("KKKKKK") }
   end
 end

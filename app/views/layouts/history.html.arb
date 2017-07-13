@@ -2,7 +2,7 @@ panel "History" do
   table_for assigns[:versions] do
   column ("Item") do |v| 
     if v.item
-       link_to v.item.id, [:admin, v.item]
+       link_to v.item.id, v.item
     end
   end      
   column ("Type") { |v| v.item_type.underscore.humanize }

@@ -11,6 +11,7 @@ describe "People", type: :request do
   end
 
   context "show page" do
+    let!(:person) { create(:verification_document).person }
     before { get person_path(id: person.id) }
     it { expect(response).to have_http_status(200) }
   end
@@ -22,6 +23,11 @@ describe "People", type: :request do
 
   context "edit page" do
     before { get edit_person_path(id: person.id) }
+    it { expect(response).to have_http_status(200) }
+  end
+
+  context "history page" do
+    before { get history_person_path(id: person.id) }
     it { expect(response).to have_http_status(200) }
   end
 end
