@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe Procedure, :db do
-  let(:procedure) { build(:procedure) }
+  let(:procedure) { build(:verification_document) }
 
   subject { procedure }
 

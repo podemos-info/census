@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe ProcedureDecorator do
   let(:person) { build(:person) }
-  let(:procedure) { build(:procedure, person: person) }
+  let(:procedure) { build(:verification_document, person: person) }
   subject { procedure.decorate }
 
   it "returns the decorated person" do
@@ -37,7 +37,7 @@ describe ProcedureDecorator do
   end
 
   context "processed procedure" do
-    let(:procedure) { build(:procedure, :processed) }
+    let(:procedure) { build(:verification_document, :processed) }
 
     it "returns the processed_by person" do
       expect(subject.processed_by.decorated?).to be_truthy

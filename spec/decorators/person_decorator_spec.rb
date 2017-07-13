@@ -16,7 +16,7 @@ describe PersonDecorator do
 
   context "name composition" do
     let(:person) { build(:person, first_name: "María", last_name1: "Pérez", last_name2: "García") }
-    
+
     it "returns the last names" do
       expect(subject.last_names).to eq("Pérez García")
     end

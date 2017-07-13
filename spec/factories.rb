@@ -21,14 +21,6 @@ FactoryGirl.define do
     name { Census::Faker::Localized.literal(generate(:scope_name)) }
     code { generate(:scope_code) }
     scope_type
-
-    trait :subscope do
-      parent { scope }
-    end
-
-    trait :subsubscope do
-      parent { build(:scope, :subscope) }
-    end
   end
 
   factory :person do
@@ -59,7 +51,7 @@ FactoryGirl.define do
 
   factory :attachment do
     file { test_file("attachments/dni-sample1.png", "image/png") }
-    procedure { build(:procedure) }
+    procedure { build(:verification_document) }
   end
 
   factory :procedure, class: Procedure do

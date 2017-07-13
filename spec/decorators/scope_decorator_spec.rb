@@ -7,9 +7,9 @@ describe ScopeDecorator do
   subject { scope.decorate }
 
   context "paths" do
-    let(:grandparent) { create(:scope, name: Census::Faker::Localized.literal("grandparent")) }
-    let(:parent) { create(:scope, name: Census::Faker::Localized.literal("parent"), parent: grandparent) }
-    let(:scope) { create(:scope, name: Census::Faker::Localized.literal("scope"), parent: parent) }
+    let!(:grandparent) { create(:scope, name: Census::Faker::Localized.literal("grandparent")) }
+    let!(:parent) { create(:scope, name: Census::Faker::Localized.literal("parent"), parent: grandparent) }
+    let!(:scope) { create(:scope, name: Census::Faker::Localized.literal("scope"), parent: parent) }
 
     it "returns the scope path" do
       expect(subject.show_path).to eq("scope, parent, grandparent")

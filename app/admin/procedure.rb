@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Procedure do
+  decorate_with ProcedureDecorator
+
   config.sort_order = "created_at_asc"
 
-  decorate_with ProcedureDecorator
   menu label: -> { "#{Procedure.model_name.human(count: 2)} [#{Procedure.pending.count}/#{Procedure.issues.count}]" }
 
   actions :index, :show, :edit, :update # edit is used for procedure processing

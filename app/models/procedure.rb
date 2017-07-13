@@ -46,6 +46,11 @@ class Procedure < ApplicationRecord
     end
   end
 
+  def initialize(*args)
+    raise "Cannot directly instantiate a Procedure" if self.class == Procedure
+    super
+  end
+
   def processable?
     pending? || issues?
   end

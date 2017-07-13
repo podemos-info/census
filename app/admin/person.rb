@@ -5,8 +5,8 @@ ActiveAdmin.register Person do
 
   actions :index, :show, :new, :create, :edit, :update
 
-  permit_params [:first_name, :last_name1, :last_name2, :document_type, :document_id,
-                 :born_at, :gender, :address, :postal_code, :email, :phone, :extra]
+  permit_params :first_name, :last_name1, :last_name2, :document_type, :document_id,
+                :born_at, :gender, :address, :postal_code, :email, :phone, :extra
 
   index do
     state_column :level
