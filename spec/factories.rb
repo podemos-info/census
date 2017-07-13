@@ -61,9 +61,13 @@ FactoryGirl.define do
 
     trait :processed do
       processed_by { person }
-      processed_at { Faker::Time.between(created_at, DateTime.now, :all) }
+      processed_at { Faker::Time.between(created_at, Settings.undo_minutes.minutes.ago, :all) }
       state { Faker::Boolean.boolean(0.7) ? :accepted : :rejected }
       comment { Faker::Lorem.paragraph(1, true, 2) }
+    end
+
+    trait :undoable do
+      processed_at { Faker::Time.between(Settings.undo_minutes.minutes.ago + 1.minute, DateTime.now, :all) }
     end
 
     trait :with_attachments do

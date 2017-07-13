@@ -6,7 +6,7 @@ describe ProceduresController, type: :controller do
   let(:resource_class) { Procedure }
   let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
   let(:resource) { all_resources[resource_class] }
-  let(:procedure) { create(:verification_document, :with_attachments) }
+  let!(:procedure) { create(:verification_document, :with_attachments) }
 
   it "defines actions" do
     expect(resource.defined_actions).to contain_exactly(:index, :show, :edit, :update)
@@ -27,6 +27,20 @@ describe ProceduresController, type: :controller do
   end
 
   context "show procedure" do
+    subject { get :show, params: { id: procedure.id } }
+    it { expect(subject).to be_success }
+    it { expect(subject).to render_template("show") }
+  end
+
+  context "show processed procedure" do
+    let!(:procedure) { create(:verification_document, :processed) }
+    subject { get :show, params: { id: procedure.id } }
+    it { expect(subject).to be_success }
+    it { expect(subject).to render_template("show") }
+  end
+
+  context "show processed undoable procedure" do
+    let!(:procedure) { create(:verification_document, :processed, :undoable) }
     subject { get :show, params: { id: procedure.id } }
     it { expect(subject).to be_success }
     it { expect(subject).to render_template("show") }
