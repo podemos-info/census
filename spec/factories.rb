@@ -67,7 +67,7 @@ FactoryGirl.define do
     end
 
     trait :with_attachments do
-      ignore do
+      transient do
         number_of_attachments 2
       end
     
