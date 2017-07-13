@@ -36,14 +36,10 @@ ActiveAdmin.register Person do
       row :first_name
       row :last_name1
       row :last_name2
-      row :document_type do
-        person.document_type_name
-      end
+      row :document_type, &:document_type_name
       row :document_id
       row :born_at
-      row :gender do
-        person.gender_name
-      end
+      row :gender, &:gender_name
       row :address
       row :address_scope do
         person.address_scope.show_path

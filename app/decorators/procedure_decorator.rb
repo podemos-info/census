@@ -17,10 +17,6 @@ class ProcedureDecorator < ApplicationDecorator
     object.processed_by&.decorate
   end
 
-  def result_name
-    object.result.nil? ? "pending" : object.result
-  end
-
   def type_name
     object.model_name.human
   end

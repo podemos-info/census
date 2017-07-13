@@ -21,6 +21,14 @@ FactoryGirl.define do
     name { Census::Faker::Localized.literal(generate(:scope_name)) }
     code { generate(:scope_code) }
     scope_type
+
+    trait :subscope do
+      parent { scope }
+    end
+
+    trait :subsubscope do
+      parent { build(:scope, :subscope) }
+    end
   end
 
   factory :person do
@@ -57,16 +65,17 @@ FactoryGirl.define do
   factory :procedure, class: Procedure do
     person
     information { {} }
+    created_at { Faker::Time.between(person.created_at, 3.day.ago, :all) }
 
     trait :processed do
       processed_by { person }
       processed_at { Faker::Time.between(created_at, DateTime.now, :all) }
-      result { Faker::Boolean.boolean }
-      result_comment { result ? Faker::Lorem.paragraph(1, true, 2) : nil }
+      state { Faker::Boolean.boolean(0.7) ? :accepted : :rejected }
+      comment { Faker::Lorem.paragraph(1, true, 2) }
     end
   end
 
-  factory :verification_document, parent: :procedure do
+  factory :verification_document, parent: :procedure, class: VerificationDocument do
   end
 end
 
