@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe ProcedureDecorator do
   let(:person) { build(:person) }
-  let(:procedure) { build(:verification_document, person: person) }
+  let(:procedure) { build(:verification_document, :with_attachments, person: person) }
   subject { procedure.decorate }
 
   it "returns the decorated person" do

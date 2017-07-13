@@ -50,7 +50,7 @@ FactoryGirl.define do
   end
 
   factory :attachment do
-    file { test_file("attachments/dni-sample1.png", "image/png") }
+    file { test_file("attachment-image.png", "image/png") }
     procedure { build(:verification_document) }
   end
 
@@ -65,6 +65,16 @@ FactoryGirl.define do
       state { Faker::Boolean.boolean(0.7) ? :accepted : :rejected }
       comment { Faker::Lorem.paragraph(1, true, 2) }
     end
+
+    trait :with_attachments do
+      ignore do
+        number_of_attachments 2
+      end
+    
+      after :build do |procedure, evaluator|
+        procedure.attachments.build(attributes_for_list(:attachment, evaluator.number_of_attachments, procedure: procedure))
+      end
+    end
   end
 
   factory :verification_document, parent: :procedure, class: VerificationDocument do
@@ -72,5 +82,5 @@ FactoryGirl.define do
 end
 
 def test_file(filename, content_type)
-  Rack::Test::UploadedFile.new(File.expand_path(File.join(__dir__, "..", "db", "seeds", filename)), content_type)
+  Rack::Test::UploadedFile.new(File.expand_path(File.join(__dir__, "fixtures", "files", filename)), content_type)
 end

@@ -6,7 +6,7 @@ describe ProceduresController, type: :controller do
   let(:resource_class) { Procedure }
   let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
   let(:resource) { all_resources[resource_class] }
-  let(:procedure) { create(:verification_document) }
+  let(:procedure) { create(:verification_document, :with_attachments) }
 
   it "defines actions" do
     expect(resource.defined_actions).to contain_exactly(:index, :show, :edit, :update)
