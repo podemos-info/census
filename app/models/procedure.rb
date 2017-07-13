@@ -37,11 +37,10 @@ class Procedure < ApplicationRecord
       transitions from: [:accepted, :rejected], to: :pending, if: :undoable?
 
       after do
-        self.previous = paper_trail.version_at(processed_at)
-        self.state = previous.state
-        self.processed_by = previous.processed_by
-        self.processed_at = previous.processed_at
-        self.comment = previous.comment
+        self.state = undo_version.state
+        self.processed_by = undo_version.processed_by
+        self.processed_at = undo_version.processed_at
+        self.comment = undo_version.comment
       end
     end
   end
@@ -60,6 +59,20 @@ class Procedure < ApplicationRecord
   end
 
   def undoable?
-    processed_at && processed_at > Settings.undo_minutes.minutes.ago && paper_trail.previous_version
+    processed_at && processed_at > Settings.undo_minutes.minutes.ago && undo_version
+  end
+
+  private
+
+  def undo_version
+    defined?(@undo_version) ||
+      versions.reverse.each do |version|
+        previous_version = version.reify
+        if previous_version&.state && previous_version&.state != state
+          @undo_version = previous_version
+          break
+        end
+      end
+    @undo_version
   end
 end

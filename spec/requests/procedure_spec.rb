@@ -26,9 +26,18 @@ describe "Procedures", type: :request do
     it { expect(subject).to eq(200) }
   end
 
-  context "show processed undoable procedure" do
-    let!(:procedure) { create(:verification_document, :processed, :undoable) }
-    subject { get procedure_path(id: procedure.id) }
-    it { expect(subject).to eq(200) }
+  describe "undoable procedure" do
+    before do
+      ProcessProcedure.call(procedure, "accept", Person.first)
+    end
+
+    context "show procedure" do
+      subject { get procedure_path(id: procedure.id) }
+      it { expect(subject).to eq(200) }
+    end
+    context "undo procedure" do
+      subject { patch undo_procedure_path(id: procedure.id) }
+      it { expect(subject).to eq(302) }
+    end
   end
 end
