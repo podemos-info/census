@@ -51,8 +51,12 @@ class Procedure < ApplicationRecord
     super
   end
 
+  def processed?
+    accepted? || rejected?
+  end
+
   def processable?
-    pending? || issues?
+    !processed?
   end
 
   def undoable?

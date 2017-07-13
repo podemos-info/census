@@ -98,6 +98,7 @@ es:
         rejected: El procedimiento %{link} ha sido rechazado.
         undone: El procedimiento %{link} ha vuelto a su estado anterior.
         cant_undo: No se ha podido devolved al procedimiento %{link} a su estado anterior.
+        cant_process: No se puede procesar un procedimiento ya procesado.
     sure_question: ¿Estás segura?
   errors:
     messages:

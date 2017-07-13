@@ -26,16 +26,22 @@ describe ProceduresController, type: :controller do
     it { expect(subject).to render_template("index") }
   end
 
-  context "show page" do
+  context "show procedure" do
     subject { get :show, params: { id: procedure.id } }
     it { expect(subject).to be_success }
     it { expect(subject).to render_template("show") }
   end
 
-  context "edit page" do
+  context "edit procedure" do
     subject { get :edit, params: { id: procedure.id } }
     it { expect(subject).to be_success }
     it { expect(subject).to render_template("edit") }
+  end
+
+  context "edit processed procedure" do
+    let(:procedure) { create(:verification_document, :processed) }
+    subject { get :edit, params: { id: procedure.id } }
+    it { expect(subject).to redirect_to(procedures_path) }
   end
 
   context "update page" do

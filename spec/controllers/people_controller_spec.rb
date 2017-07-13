@@ -6,7 +6,7 @@ describe PeopleController, type: :controller do
   let(:resource_class) { Person }
   let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
   let(:resource) { all_resources[resource_class] }
-  let(:person) { create(:person) }
+  let!(:person) { create(:person) }
 
   it "defines actions" do
     expect(resource.defined_actions).to contain_exactly(:index, :show, :new, :create, :edit, :update)

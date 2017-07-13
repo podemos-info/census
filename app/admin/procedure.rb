@@ -107,6 +107,11 @@ ActiveAdmin.register Procedure do
   end
 
   controller do
+    def edit
+      redirect_back(fallback_location: procedures_path, error: t("census.procedure.action_message.cant_process")) && return if resource.processed?
+      super
+    end
+
     def update
       procedure = resource
       procedure.comment = params[:procedure][:comment]
