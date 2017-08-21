@@ -39,6 +39,7 @@ module Census
             scopes = []
           end
         end
+        save_scopes scopes
       end
 
       private
