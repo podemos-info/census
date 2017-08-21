@@ -1,13 +1,3 @@
-GIT
-  remote: https://github.com/cle61/arctic_admin.git
-  revision: da84e814ca88100b5d38a1ae1cf6914ea436e9aa
-  branch: master
-  specs:
-    arctic_admin (1.2.8)
-      font-awesome-rails
-      jquery-rails
-      jquery-validation-rails
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -77,18 +67,15 @@ GEM
       sshkit (>= 1.6.1, != 1.7.0)
     arbre (1.1.1)
       activesupport (>= 3.0.0)
+    arctic_admin (1.2.9)
+      font-awesome-rails
+      jquery-rails
     arel (8.0.0)
     ast (2.3.0)
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
-    better_errors (2.1.1)
-      coderay (>= 1.0.0)
-      erubis (>= 2.6.6)
-      rack (>= 0.9.0)
-    binding_of_caller (0.7.2)
-      debug_inspector (>= 0.0.1)
     bourbon (4.3.4)
       sass (~> 3.4)
       thor (~> 0.19)
@@ -113,7 +100,6 @@ GEM
       json
       simplecov
       url
-    coderay (1.1.1)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
     coffee-rails (4.2.2)
@@ -128,7 +114,6 @@ GEM
       activesupport (>= 3.0)
       deep_merge (~> 1.1.1)
     database_cleaner (1.6.1)
-    debug_inspector (0.0.3)
     deep_merge (1.1.1)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
@@ -170,6 +155,8 @@ GEM
       activesupport (>= 4.1, < 5.2)
     highline (1.7.8)
     i18n (0.8.4)
+    i18n-debug (1.1.0)
+      i18n (< 1)
     i18n-tasks (0.9.15)
       activesupport (>= 4.0.2)
       ast (>= 2.1.0)
@@ -192,7 +179,6 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
-    jquery-validation-rails (1.16.0)
     json (2.1.0)
     kaminari (1.0.1)
       activesupport (>= 4.1.0)
@@ -381,9 +367,7 @@ DEPENDENCIES
   aasm
   activeadmin
   activeadmin_addons
-  arctic_admin!
-  better_errors
-  binding_of_caller
+  arctic_admin
   byebug
   capistrano-rails
   carrierwave
@@ -395,6 +379,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   flag_shih_tzu
+  i18n-debug
   i18n-tasks
   jquery-rails
   kaminari-i18n

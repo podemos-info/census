@@ -10,7 +10,7 @@ end
 gem "aasm"
 gem "activeadmin"
 gem "activeadmin_addons"
-gem "arctic_admin", github: "cle61/arctic_admin", branch: "master" # remove on release of 1.28 next version
+gem "arctic_admin"
 gem "carrierwave"
 gem "config"
 gem "dotenv"
@@ -46,9 +46,8 @@ group :development, :test do
 end
 
 group :development do
-  gem "better_errors"
-  gem "binding_of_caller"
   gem "capistrano-rails"
+  gem "i18n-debug"
   gem "i18n-tasks"
   gem "listen", "~> 3.0.5"
   gem "spring"
