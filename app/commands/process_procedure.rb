@@ -20,14 +20,27 @@ class ProcessProcedure < Rectify::Command
   #
   # Returns nothing.
   def call
-    @procedure.processed_by = @processor
-    @procedure.processed_at = Time.current
-    @procedure.send(@event)
+    result = Procedure.transaction do
+      process_procedure @procedure
+      :ok
+    end
 
-    return broadcast(:invalid) unless @procedure.valid?
+    broadcast result || :invalid
+  end
 
-    @procedure.save!
+  private
 
-    broadcast(:ok)
+  def process_procedure current_procedure
+    current_procedure.processed_by = @processor
+    current_procedure.processed_at = Time.current
+    current_procedure.send(@event)
+
+    raise ActiveRecord::Rollback unless current_procedure.valid?
+
+    current_procedure.save!
+
+    current_procedure.dependent_procedures.each do |child_procedure|
+      process_procedure child_procedure
+    end
   end
 end

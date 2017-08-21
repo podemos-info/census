@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 ActiveAdmin.register Procedure do
   decorate_with ProcedureDecorator
 
@@ -64,12 +63,29 @@ ActiveAdmin.register Procedure do
         end
       end
     end
+    if procedure.dependent_procedures.any?
+      panel I18n.t("census.procedure.dependent_procedures") do
+        table_for procedure.dependent_procedures, i18n: Procedure do
+          column :type, &:type_name
+          column :information
+        end
+      end
+    end
   end
 
   form title: I18n.t("census.procedure.process"), decorate: true do |f|
     columns class: "attachments" do
       column do
         render partial: "personal_data"
+
+        if procedure.dependent_procedures.any?
+          panel I18n.t("census.procedure.dependent_procedures") do
+            table_for procedure.dependent_procedures, i18n: Procedure do
+              column :type, &:type_name
+              column :information
+            end
+          end
+        end
 
         panel t("census.procedure.process") do
           f.inputs do
@@ -107,6 +123,10 @@ ActiveAdmin.register Procedure do
   end
 
   controller do
+    def scoped_collection
+      end_of_association_chain.independent
+    end
+
     def edit
       redirect_back(fallback_location: procedures_path, error: t("census.procedure.action_message.cant_process")) && return if resource.processed?
       super

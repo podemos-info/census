@@ -1,42 +1,46 @@
 # frozen_string_literal: true
 
-class Api::V1::PeopleController < ApiController
-  before_action :set_person, only: [:show, :update, :destroy]
+module Api
+  class V1::PeopleController < ApiController
+    def create
+      @person = Person.new(person_params)
+      RegisterPerson.call(@person, params[:level], files_params) do
+        on(:invalid) do
+          render json: @person.errors, status: :unprocessable_entity
+        end
+        on(:ok) do
+          render json: @person, status: :created, location: @person
+        end
+      end
+    end
 
-  # GET /people
-  def index
-    @people = Person.all
+    def change_membership_level
+      @person = Person.find_by("extra ->> 'participa_id' = ?", params[:id])
+      ChangeMembershipLevel.call(@person, to_level: params[:level]) do
+        on(:invalid) do
+          render json: @person.errors, status: :unprocessable_entity
+        end
+        on(:ok) do
+          render json: @person, status: :accepted, location: @person
+        end
+      end
+    end
 
-    render json: @people
-  end
+    private
 
-  # GET /people/1
-  def show
-    render json: @person
-  end
+    def person_params
+      params.require(:person).permit(:first_name, :last_name1, :last_name2, :document_type, :document_id, :born_at, :gender, :address, :address_scope_code, :postal_code, :scope_code, :email, :phone, extra: [ :participa_id ])
+    end
 
-  # POST /people
-  def create
-    @person = Person.new(person_params)
-    @person.save
-    render json: @person, status: :created, location: @person
-  end
-
-  # PATCH/PUT /people/1
-  def update
-    @person.update(person_params)
-    render json: @person
-  end
-
-  private
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_person
-    @person = Person.find(params[:id])
-  end
-
-  # Only allow a trusted parameter "white list" through.
-  def person_params
-    params.require(:person).permit(:first_name, :last_name1, :last_name2, :document_type, :document_id, :born_at, :gender, :address, :postal_code, :email, :phone, :extra)
+    def files_params
+      file_params = [ :filename, :content_type, :base64_content ]
+      params.require(:person).permit(document_file1: file_params, document_file2: file_params).to_h.map do |field, file|
+        tempfile = Tempfile.new("")
+        tempfile.binmode
+        tempfile << Base64.decode64(file[:base64_content])
+        tempfile.rewind
+        ActionDispatch::Http::UploadedFile.new(filename: file[:filename], type: file[:content_type], tempfile: tempfile)
+      end
+    end
   end
 end

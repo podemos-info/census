@@ -35,7 +35,11 @@ class Person < ApplicationRecord
 
   aasm column: :level do
     state :person, initial: true
-    state :follower, :young_member, :member, :activist
+    state :follower, :young_member, :member
+
+    event :to_follower do
+      transitions from: [:person, :young_member, :member], to: :follower, guard: :verified?
+    end
 
     event :to_member do
       transitions from: [:person, :follower, :young_member], to: :member, guard: :memberable?
@@ -53,6 +57,18 @@ class Person < ApplicationRecord
 
   def verified?
     verifications.positive?
+  end
+
+  def can_change_level? target
+    aasm.events(permitted: true).map(&:name).include? :"to_#{target}"
+  end
+
+  def scope_code= value
+    self.scope = Scope.find_by_code(value)
+  end
+
+  def address_scope_code= value
+    self.address_scope = Scope.find_by_code(value)
   end
 
   def self.flags

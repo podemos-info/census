@@ -81,7 +81,7 @@ FactoryGirl.define do
     end
   end
 
-  factory :verification_document, parent: :procedure, class: VerificationDocument do
+  factory :verification_document, parent: :procedure, class: Procedures::VerificationDocument do
   end
 end
 

@@ -2,17 +2,12 @@
 
 class PersonDecorator < Draper::Decorator
   delegate_all
+  
+  decorates_association :scope
+  decorates_association :address_scope
 
   def to_s
     full_name
-  end
-
-  def scope
-    object.scope.decorate
-  end
-
-  def address_scope
-    object.address_scope.decorate
   end
 
   def full_name
@@ -49,5 +44,9 @@ class PersonDecorator < Draper::Decorator
     @document_types ||= Person::DOCUMENT_TYPES.map do |document_type|
       [I18n.t("census.people.document_types.#{document_type}"), document_type]
     end.freeze
+  end
+
+  def procedures
+    @procedures ||= object.procedures.independent.order(id: :asc).decorate
   end
 end

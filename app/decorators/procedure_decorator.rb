@@ -4,26 +4,30 @@ class ProcedureDecorator < ApplicationDecorator
   delegate_all
 
   attr_accessor :event
+  decorates_association :person
+  decorates_association :processed_by
+  decorates_association :dependent_procedures
 
   def to_s
     "#{type_name} - #{person.full_name}"
   end
 
-  def person
-    object.person.decorate
-  end
-
-  def processed_by
-    object.processed_by&.decorate
-  end
-
   def type_name
-    object.model_name.human
+    I18n.t("activerecord.models.procedures.#{ActiveSupport::Inflector.underscore(ActiveSupport::Inflector.demodulize(object.model_name.to_s))}.one")
   end
 
   def available_events_options
-    object.aasm.events(permitted: true).map do |event|
+    @available_events_options ||= object.aasm.events(permitted: true).map do |event|
       [I18n.t("census.procedure.events.#{event.name}"), event.name]
+    end
+  end
+
+  def information
+    case object
+    when ::Procedures::MembershipLevelChange
+      h.raw "#{I18n.t("activerecord.attributes.person.level/#{object.from_level}")} &rarr; #{I18n.t("activerecord.attributes.person.level/#{object.to_level}")}"
+    else
+      "-"
     end
   end
 end

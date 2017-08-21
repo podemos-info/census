@@ -5,7 +5,11 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :people
+      resources :people, only: [:create] do
+        member do
+          patch 'change_membership_level'
+        end
+      end
     end
   end
 end

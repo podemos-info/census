@@ -14,7 +14,7 @@ ActiveAdmin.register Person do
     column :full_name, sortable: :last_name1
     column :full_document
     column :scope, sortable: "scopes.name" do |person|
-      person.scope.decorate.show_path(Scope.local)
+      person.scope&.show_path(Scope.local)
     end
     column :flags do |person|
       person_flags person
@@ -42,24 +42,25 @@ ActiveAdmin.register Person do
       row :gender, &:gender_name
       row :address
       row :address_scope do
-        person.address_scope.show_path
+        person.address_scope&.show_path
       end
       row :postal_code
       row :email
       row :phone
       row :scope do
-        person.scope.show_path(Scope.local)
+        person.scope&.show_path(Scope.local)
       end
       row :created_at
       row :updated_at
     end
     if person.procedures.any?
       panel Procedure.model_name.human(count: 2).capitalize do
-        table_for person.procedures.history.decorate, i18n: Procedure do
+        table_for person.procedures, i18n: Procedure do
           column :id do |procedure|
             link_to procedure.id, procedure
           end
           column :type, &:type_name
+          column :information
           state_column :state
           column :created_at
         end

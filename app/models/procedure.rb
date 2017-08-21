@@ -8,21 +8,31 @@ class Procedure < ApplicationRecord
   self.inheritance_column = :type
   belongs_to :person
   belongs_to :processed_by, class_name: "Person", optional: true
+  belongs_to :depends_on, class_name: "Procedure", optional: true
 
+  has_many :dependent_procedures, 
+           foreign_key: "depends_on_id",
+           class_name: "Procedure",
+           inverse_of: :depends_on
   has_many :attachments
 
-  scope :history, -> { order created_at: :desc }
+  scope :independent, -> { where depends_on: nil }
 
   validates :comment, presence: { message: I18n.t("errors.messages.procedure_denial_comment_required") },
                       if: proc { |procedure| procedure.issues? || procedure.rejected? }
   validates :processed_by, :processed_at, presence: true, if: proc { |procedure| procedure.accepted? || procedure.rejected? }
+  validate :depends_on, :depends_on_person
 
   aasm column: :state do
     state :pending, initial: true
     state :issues, :accepted, :rejected
 
     event :accept do
-      transitions from: [:pending, :issues], to: :accepted
+      transitions from: [:pending, :issues], to: :accepted, if: :acceptable?
+
+      after do
+        after_accepted
+      end
     end
 
     event :set_issues do
@@ -37,6 +47,9 @@ class Procedure < ApplicationRecord
       transitions from: [:accepted, :rejected], to: :pending, if: :undoable?
 
       after do
+        dependent_procedures.each do |dependent_procedure|
+          dependent_procedure.undo
+        end
         self.state = undo_version.state
         self.processed_by = undo_version.processed_by
         self.processed_at = undo_version.processed_at
@@ -50,6 +63,31 @@ class Procedure < ApplicationRecord
     super
   end
 
+  # START overridable methods
+  def after_accepted
+  end
+
+  def if_accepted
+    yield
+  end
+
+  def check_acceptable
+    true
+  end
+
+  def undo
+  end
+  # END overridable methods
+
+  def acceptable?
+    check_acceptable && if_accepted do
+      dependent_procedures.all? do |dependent_procedure|
+        dependent_procedure.person = person
+        dependent_procedure.acceptable?
+      end
+    end
+  end
+
   def processed?
     accepted? || rejected?
   end
@@ -59,7 +97,10 @@ class Procedure < ApplicationRecord
   end
 
   def undoable?
-    processed_at && processed_at > Settings.undo_minutes.minutes.ago && undo_version
+    processed_at && processed_at > Settings.undo_minutes.minutes.ago && undo_version && 
+      dependent_procedures.all do |dependent_procedure|
+        dependent_procedure.undoable?
+      end
   end
 
   private
@@ -74,5 +115,9 @@ class Procedure < ApplicationRecord
         end
       end
     @undo_version
+  end
+
+  def depends_on_person
+    errors.add(:depends_on_id, :depends_on_different_person) if depends_on && depends_on.person != person
   end
 end

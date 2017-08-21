@@ -16,7 +16,7 @@ else
   local_scopes = Scope.local.descendants.leafs
   emigrant_scopes = Scope.local.not_descendants.leafs
 
-  100.times do
+  30.times do
     doc = Person::DOCUMENT_TYPES.sample
     young = Faker::Boolean.boolean(0.1)
     emigrant = Faker::Boolean.boolean(0.1)
@@ -32,7 +32,7 @@ else
       born_at: young ? Faker::Date.between(18.year.ago, 14.year.ago) : Faker::Date.between(99.year.ago, 18.year.ago),
       gender: Person::GENDERS.sample,
       address: Faker::Address.street_address,
-      address_scope: emigrant ? emigrant_scopes.sample : local_scopes.sample,
+      address_scope: emigrant ? emigrant_scopes.sample : scope,
       postal_code: Faker::Address.zip_code,
       email: Faker::Internet.unique.email,
       phone: "0034" + Faker::Number.number(9),
@@ -43,10 +43,10 @@ else
 
   admins = Person.first(10)
 
-  # create 50 processed verifications
-  Person.not_verified.order("RANDOM()").limit(50).each do |person|
+  # create 10 processed verifications
+  Person.not_verified.order("RANDOM()").limit(10).each do |person|
     date = Faker::Time.between(person.created_at, 3.day.ago, :all)
-    verification = VerificationDocument.create!(person: person,
+    verification = Procedures::VerificationDocument.create!(person: person,
                                                 information: {},
                                                 created_at: date,
                                                 processed_by: admins.sample,
@@ -64,7 +64,7 @@ else
 
   # create 5 verifications with issues
   Person.not_verified.order("RANDOM()").limit(5).each do |person|
-    verification = VerificationDocument.create!(person: person,
+    verification = Procedures::VerificationDocument.create!(person: person,
                                                 information: {},
                                                 created_at: Faker::Time.between(3.days.ago, 1.day.ago, :all),
                                                 state: :issues,
@@ -75,7 +75,7 @@ else
 
   # create 10 unprocessed verifications
   Person.not_verified.order("RANDOM()").limit(10).each do |person|
-    verification = VerificationDocument.create!(person: person,
+    verification = Procedures::VerificationDocument.create!(person: person,
                                                 information: {},
                                                 created_at: Faker::Time.between(3.days.ago, 1.day.ago, :all))
     verification.attachments.create!(file: File.new(File.join(__dir__, "seeds", "attachments", "#{person.document_type}-sample1.png")))
