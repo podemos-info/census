@@ -97,9 +97,9 @@ ActiveAdmin.register Procedure do
       end
       column do
         procedure.attachments.each do |attachment|
-          a href: attachment.file_url do
+          a href: attachment.view_path do
             if attachment.image?
-              img src: attachment.file_url
+              img src: attachment.view_path
             else
               attachment.file.file.original_filename
             end
@@ -120,6 +120,11 @@ ActiveAdmin.register Procedure do
       end
     end
     redirect_back(fallback_location: procedures_path)
+  end
+
+  member_action :view_attachment do
+    attachment = Attachment.find_by(id: params[:attachment_id], procedure_id: params[:id])
+    send_file attachment.file.file.path, disposition: "inline"
   end
 
   controller do

@@ -7,6 +7,7 @@ class ProcedureDecorator < ApplicationDecorator
   decorates_association :person
   decorates_association :processed_by
   decorates_association :dependent_procedures
+  decorates_association :attachments
 
   def to_s
     "#{type_name} - #{person.full_name}"
