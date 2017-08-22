@@ -10,6 +10,9 @@ namespace :db do
       conn.execute("TRUNCATE attachments, procedures, people, versions RESTART IDENTITY")
     end
 
+    # Delete uploads
+    %w(tmp/uploads non-public/uploads).each { |folder| FileUtils.rm_rf folder }
+
     # Seed fake data again
     Rake::Task["db:seed"].execute
   end
