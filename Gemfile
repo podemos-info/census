@@ -26,7 +26,7 @@ gem "puma", "~> 3.0"
 gem "rails", "~> 5.1"
 gem "rails-i18n"
 gem "rectify"
-gem "rubocop", "~> 0.49.1", require: false
+gem "symmetric-encryption"
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem "jbuilder", "~> 2.5"
@@ -50,6 +50,7 @@ group :development do
   gem "i18n-debug"
   gem "i18n-tasks"
   gem "listen", "~> 3.0.5"
+  gem "rubocop", "~> 0.49.1", require: false
   gem "spring"
   gem "spring-watcher-listen", "~> 2.0.0"
 end
