@@ -59,15 +59,15 @@ class Person < ApplicationRecord
     verifications.positive?
   end
 
-  def can_change_level? target
+  def can_change_level?(target)
     aasm.events(permitted: true).map(&:name).include? :"to_#{target}"
   end
 
-  def scope_code= value
+  def scope_code=(value)
     self.scope = Scope.find_by_code(value)
   end
 
-  def address_scope_code= value
+  def address_scope_code=(value)
     self.address_scope = Scope.find_by_code(value)
   end
 

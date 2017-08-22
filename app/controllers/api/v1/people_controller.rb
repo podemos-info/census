@@ -29,12 +29,14 @@ module Api
     private
 
     def person_params
-      params.require(:person).permit(:first_name, :last_name1, :last_name2, :document_type, :document_id, :born_at, :gender, :address, :address_scope_code, :postal_code, :scope_code, :email, :phone, extra: [ :participa_id ])
+      params.require(:person).permit :first_name, :last_name1, :last_name2, :document_type, :document_id, :born_at,
+                                     :gender, :address, :address_scope_code, :postal_code, :scope_code, :email,
+                                     :phone, extra: [:participa_id]
     end
 
     def files_params
-      file_params = [ :filename, :content_type, :base64_content ]
-      params.require(:person).permit(document_file1: file_params, document_file2: file_params).to_h.map do |field, file|
+      file_params = [:filename, :content_type, :base64_content]
+      params.require(:person).permit(document_file1: file_params, document_file2: file_params).to_h.map do |_, file|
         tempfile = Tempfile.new("")
         tempfile.binmode
         tempfile << Base64.decode64(file[:base64_content])

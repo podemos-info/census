@@ -2,7 +2,7 @@
 
 class PersonDecorator < Draper::Decorator
   delegate_all
-  
+
   decorates_association :scope
   decorates_association :address_scope
 

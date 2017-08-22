@@ -10,7 +10,7 @@ class Procedure < ApplicationRecord
   belongs_to :processed_by, class_name: "Person", optional: true
   belongs_to :depends_on, class_name: "Procedure", optional: true
 
-  has_many :dependent_procedures, 
+  has_many :dependent_procedures,
            foreign_key: "depends_on_id",
            class_name: "Procedure",
            inverse_of: :depends_on
@@ -47,9 +47,7 @@ class Procedure < ApplicationRecord
       transitions from: [:accepted, :rejected], to: :pending, if: :undoable?
 
       after do
-        dependent_procedures.each do |dependent_procedure|
-          dependent_procedure.undo
-        end
+        dependent_procedures.each(&:undo)
         self.state = undo_version.state
         self.processed_by = undo_version.processed_by
         self.processed_at = undo_version.processed_at
@@ -64,8 +62,7 @@ class Procedure < ApplicationRecord
   end
 
   # START overridable methods
-  def after_accepted
-  end
+  def after_accepted; end
 
   def if_accepted
     yield
@@ -75,8 +72,7 @@ class Procedure < ApplicationRecord
     true
   end
 
-  def undo
-  end
+  def undo; end
   # END overridable methods
 
   def acceptable?
@@ -97,10 +93,8 @@ class Procedure < ApplicationRecord
   end
 
   def undoable?
-    processed_at && processed_at > Settings.undo_minutes.minutes.ago && undo_version && 
-      dependent_procedures.all do |dependent_procedure|
-        dependent_procedure.undoable?
-      end
+    processed_at && processed_at > Settings.undo_minutes.minutes.ago &&
+      undo_version && dependent_procedures.all?(&:undoable?)
   end
 
   private

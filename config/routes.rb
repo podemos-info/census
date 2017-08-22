@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :people, only: [:create] do
         member do
-          patch 'change_membership_level'
+          patch :change_membership_level
         end
       end
     end

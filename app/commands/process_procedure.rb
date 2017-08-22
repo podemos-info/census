@@ -30,7 +30,7 @@ class ProcessProcedure < Rectify::Command
 
   private
 
-  def process_procedure current_procedure
+  def process_procedure(current_procedure)
     current_procedure.processed_by = @processor
     current_procedure.processed_at = Time.current
     current_procedure.send(@event)
