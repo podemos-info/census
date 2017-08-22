@@ -1,16 +1,10 @@
 # frozen_string_literal: true
 
-class AttachmentUploader < CarrierWave::Uploader::Base
+class AttachmentUploader < ApplicationUploader
   include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
-  storage :file
-
-  # Override the directory where uploaded files will be stored.
-  # This is a sensible default for uploaders that are meant to be mounted:
-  def store_dir
-    "non-public/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
-  end
+  storage :encrypted_file
 
   process :set_content_type
   process :validate_dimensions

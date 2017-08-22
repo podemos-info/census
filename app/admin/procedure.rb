@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register Procedure do
   decorate_with ProcedureDecorator
 
@@ -52,9 +53,9 @@ ActiveAdmin.register Procedure do
       if procedure.attachments.any?
         column do
           procedure.attachments.each do |attachment|
-            a href: attachment.file_url do
+            a href: attachment.view_path do
               if attachment.image?
-                img src: attachment.file_url
+                img src: attachment.view_path(version: :thumbnail)
               else
                 attachment.file.file.original_filename
               end
@@ -99,7 +100,7 @@ ActiveAdmin.register Procedure do
         procedure.attachments.each do |attachment|
           a href: attachment.view_path do
             if attachment.image?
-              img src: attachment.view_path
+              img src: attachment.view_path(version: :thumbnail)
             else
               attachment.file.file.original_filename
             end
@@ -124,7 +125,8 @@ ActiveAdmin.register Procedure do
 
   member_action :view_attachment do
     attachment = Attachment.find_by(id: params[:attachment_id], procedure_id: params[:id])
-    send_file attachment.file.file.path, disposition: "inline"
+    file = attachment.file.versions[params[:version]] || attachment.file
+    send_data file.file.read, type: attachment.content_type, disposition: "inline"
   end
 
   controller do
