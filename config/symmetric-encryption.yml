@@ -17,14 +17,10 @@ cipher: &cipher
   encoding:          :base64strict
   always_add_header: true
 
-development:
-  <<: *file_based
-  <<: *simple
-
 test:
   <<: *simple
 
-release: 
+development: 
   <<: *file_based
   ciphers:
     -
@@ -41,3 +37,7 @@ production:
       key_filename: /etc/census/keys/production.key
       iv_filename: /etc/census/keys/production.iv
       version: 1
+
+# uncomment this to generate keys for development environment
+#development:
+#  <<: *simple
