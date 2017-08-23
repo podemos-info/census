@@ -10,7 +10,7 @@ simple: &simple
   always_add_header: true
 
 file_based: &file_based
-  private_rsa_key: "<%= ENV.fetch("ATTACHMENTS_KEY").gsub("\n","\\n") %>"
+  private_rsa_key: "<%= ENV.fetch("ATTACHMENTS_KEY", "").gsub("\n","\\n") %>"
 
 cipher: &cipher
   cipher_name:       aes-256-cbc
