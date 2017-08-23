@@ -18,16 +18,14 @@ ActiveAdmin.register Procedure do
   end
 
   index do
+    column :type do |procedure|
+      procedure.view_link procedure.type_name
+    end
     column :person
-    column :type, &:type_name
     column :created_at
     state_column :state
     actions defaults: false do |procedure|
-      if procedure.processable?
-        span link_to t("census.procedure.process"), edit_procedure_path(procedure), class: "member_link"
-      else
-        span link_to t("active_admin.view"), procedure_path(procedure), class: "member_link"
-      end
+      span procedure.view_link
       if procedure.may_undo?
         span link_to t("census.procedure.events.undo"), undo_procedure_path(procedure), method: :patch,
                                                                                         data: { confirm: t("census.sure_question") },

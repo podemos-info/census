@@ -73,10 +73,10 @@ ActiveAdmin.register Person do
       f.input :first_name
       f.input :last_name1
       f.input :last_name2
-      f.input :document_type, as: :select, collection: PersonDecorator.document_type_options
+      f.input :document_type, as: :radio, collection: PersonDecorator.document_type_options
       f.input :document_id
       f.input :born_at, as: :datepicker
-      f.input :gender, as: :select, collection: PersonDecorator.gender_options
+      f.input :gender, as: :radio, collection: PersonDecorator.gender_options
       f.input :address
       f.input :postal_code
       f.input :email
