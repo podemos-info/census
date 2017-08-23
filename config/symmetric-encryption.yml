@@ -13,8 +13,8 @@ file_based: &file_based
   private_rsa_key: "<%= ENV.fetch("ATTACHMENTS_KEY", "").gsub("\n","\\n") %>"
 
 cipher: &cipher
-  cipher_name:       aes-256-cbc
-  encoding:          :base64strict
+  cipher_name: aes-256-cbc
+  encoding: :base64strict
   always_add_header: true
 
 test:

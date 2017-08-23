@@ -31,6 +31,7 @@ module Census
     config.app_generators.scaffold_controller = :scaffold_controller
 
     config.middleware.use Rack::MethodOverride
+    config.middleware.use Rack::Attack
     config.middleware.use ActionDispatch::Flash
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore
