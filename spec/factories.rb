@@ -4,6 +4,8 @@ require "census/faker/localized"
 require "census/faker/document_id"
 
 FactoryGirl.define do
+  sequence(:participa_id)
+
   sequence(:scope_name) do |n|
     "#{Faker::Lorem.sentence(1, true, 3)} #{n}"
   end
@@ -39,7 +41,7 @@ FactoryGirl.define do
     phone { "0034" + Faker::Number.number(9) }
     scope
     created_at { Faker::Time.between(3.years.ago, 3.day.ago, :all) }
-
+    extra { { participa_id: generate(:participa_id) } }
     trait :young do
       born_at { Faker::Date.between(18.year.ago, 14.year.ago) }
     end
@@ -51,11 +53,11 @@ FactoryGirl.define do
 
   factory :attachment do
     file { test_file("attachment-image.png", "image/png") }
-    procedure { build(:verification_document) }
+    association :procedure, factory: :verification_document, strategy: :build
   end
 
   factory :procedure, class: Procedure do
-    person
+    association :person, factory: :person, strategy: :build
     information { {} }
     created_at { Faker::Time.between(person.created_at, 3.day.ago, :all) }
 

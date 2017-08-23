@@ -5,6 +5,8 @@ class Person < ApplicationRecord
   include FlagShihTzu
   include AASM
 
+  store_accessor :extra, :participa_id
+
   belongs_to :document_scope,
              class_name: "Scope",
              optional: true

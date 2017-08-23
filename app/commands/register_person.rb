@@ -29,9 +29,11 @@ class RegisterPerson < Rectify::Command
       end
       verification.save!
 
-      membership_level_change = Procedures::MembershipLevelChange.new(person: @person, from_level: @person.level, to_level: @to_level)
-      membership_level_change.depends_on = verification
-      membership_level_change.save!
+      if @person.level != @to_level
+        membership_level_change = Procedures::MembershipLevelChange.new(person: @person, from_level: @person.level, to_level: @to_level)
+        membership_level_change.depends_on = verification
+        membership_level_change.save!
+      end
 
       :ok
     end

@@ -18,9 +18,12 @@ class ChangeMembershipLevel < Rectify::Command
   #
   # Returns nothing.
   def call
-    membership_level_change = Procedures::MembershipLevelChange.new(person: @person, from_level: @person.level, to_level: @level)
-    return broadcast :invalid unless membership_level_change.save
+    result = :invalid
+    if @person.level != @to_level
+      membership_level_change = Procedures::MembershipLevelChange.new(person: @person, from_level: @person.level, to_level: @to_level)
+      result = :ok if membership_level_change.save
+    end
 
-    broadcast :ok
+    broadcast result
   end
 end

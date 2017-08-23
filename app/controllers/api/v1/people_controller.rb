@@ -9,19 +9,19 @@ module Api
           render json: @person.errors, status: :unprocessable_entity
         end
         on(:ok) do
-          render json: @person, status: :created, location: @person
+          render json: @person, status: :created
         end
       end
     end
 
     def change_membership_level
       @person = Person.find_by("extra ->> 'participa_id' = ?", params[:id])
-      ChangeMembershipLevel.call(@person, to_level: params[:level]) do
+      ChangeMembershipLevel.call(@person, params[:level]) do
         on(:invalid) do
           render json: @person.errors, status: :unprocessable_entity
         end
         on(:ok) do
-          render json: @person, status: :accepted, location: @person
+          render json: @person, status: :accepted
         end
       end
     end

@@ -2,42 +2,96 @@
 
 require "rails_helper"
 
+def format_attachment(attachment)
+  {
+    filename: File.basename(attachment.file.path),
+    content_type: attachment.content_type,
+    base64_content: Base64.encode64(attachment.file.file.read)
+  }
+end
+
 describe Api::V1::PeopleController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Person. As you add validations to Person, be sure to
   # adjust the attributes here as well.
-  let!(:person) { create(:person) }
-
-  context "index method" do
-    subject { get :index }
-    it "returns a success response" do
-      expect(subject).to be_success
-    end
-  end
-
-  context "show method" do
-    subject { get :index, params: { id: person.id } }
-    it "returns a success response" do
-      expect(subject).to be_success
-    end
-  end
+  let(:person) { build(:person) }
 
   context "create method" do
-    let(:person) { build(:person) }
-    subject { post :create, params: { person: person.attributes } }
-    it { expect { subject } .to change { Person.count }.by(1) }
-    it { expect(subject).to have_http_status(:created) }
-    it { expect(subject.content_type).to eq("application/json") }
-    it { expect(subject.location).to eq(person_url(Person.last)) }
+    let(:level) { :person }
+    let(:attachment) { build(:attachment) }
+    let(:params) do
+      params = { person: person.attributes, level: level }
+      params[:person][:scope_code] = person.scope.code
+      params[:person][:address_scope_code] = person.scope.code
+      params[:person][:document_file1] = format_attachment(attachment)
+      params[:person][:document_file2] = format_attachment(attachment)
+      params
+    end
+
+    subject do
+      post :create, params: params
+    end
+
+    it "is valid" do
+      expect(subject).to have_http_status(:created)
+      expect(subject.content_type).to eq("application/json")
+    end
+
+    it "creates a new person" do
+      expect { subject } .to change { Person.count }.by(1)
+    end
+
+    it "creates a new verification procedure" do
+      expect { subject } .to change { Procedure.count }.by(1)
+    end
+
+    it "correctly sets the user scope" do
+      subject
+      expect(Person.last.scope).to eq(person.scope)
+    end
+
+    it "correctly sets the user address_scope" do
+      subject
+      expect(Person.last.address_scope).to eq(person.address_scope)
+    end
+
+    context "when changing level" do
+      let(:level) { :member }
+
+      it "creates a new verification and a new change membership procedure" do
+        expect { subject } .to change { Procedure.count }.by(2)
+      end
+    end
   end
 
-  context "update method" do
+  context "change_membership_level method" do
+    let(:person) { create(:person) }
+    let(:level) { :member }
+
     subject do
-      person.assign_attributes first_name: "KKKKKK"
-      patch :update, params: { id: person.id, person: person.attributes }
+      patch :change_membership_level, params: { id: person.participa_id, level: level }
     end
-    it { expect(subject).to have_http_status(:ok) }
-    it { expect(subject.content_type).to eq("application/json") }
-    it { expect { subject } .to change { person.first_name }.to("KKKKKK") }
+
+    it "is valid" do
+      expect(subject).to have_http_status(:accepted)
+      expect(subject.content_type).to eq("application/json")
+    end
+
+    it "creates a new change membership procedure" do
+      expect { subject } .to change { Procedure.count }.by(1)
+    end
+
+    context "with same level than current" do
+      let(:level) { person.level }
+
+      it "is not valid" do
+        expect(subject).to have_http_status(:unprocessable_entity)
+        expect(subject.content_type).to eq("application/json")
+      end
+
+      it "doesn't create a new change membership procedure" do
+        expect { subject } .to change { Procedure.count }.by(0)
+      end
+    end
   end
 end
