@@ -23,9 +23,11 @@ gem "paper_trail"
 gem "paranoia", "~> 2.2"
 gem "pg"
 gem "puma", "~> 3.0"
+gem "rack-attack"
 gem "rails", "~> 5.1"
 gem "rails-i18n"
 gem "rectify"
+gem "secure_headers"
 gem "symmetric-encryption"
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
