@@ -90,6 +90,16 @@ FactoryGirl.define do
   end
 
   factory :verification_document, parent: :procedure, class: Procedures::VerificationDocument do
+    trait :with_dependent_procedure do
+      after :create do |procedure, evaluator|
+        create(:membership_level_change, depends_on: procedure, person: procedure.person)
+      end
+    end
+  end
+
+  factory :membership_level_change, parent: :procedure, class: Procedures::MembershipLevelChange do
+    from_level { person.level }
+    to_level :member
   end
 end
 
