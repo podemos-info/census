@@ -42,11 +42,11 @@ class Scope < ApplicationRecord
     Scope.where.not("? = ANY (part_of)", id)
   end
 
-  # Gets the scopes from the part_of list
+  # Gets the scopes from the part_of list in descending order (first the top level scope, last itself)
   #
-  # Returns an ActiveRecord::Relation.
-  def path(root = nil)
-    Scope.where(id: part_of - (root ? root.part_of : []))
+  # Returns an array of Scope objects
+  def part_of_scopes(root = nil)
+    Scope.where(id: part_of - (root ? root.part_of : [])).sort { |s1, s2| part_of.index(s2.id) <=> part_of.index(s1.id) }
   end
 
   private
@@ -56,15 +56,15 @@ class Scope < ApplicationRecord
   end
 
   def create_part_of
-    recalculate_part_of
+    build_part_of
     save if changed?
   end
 
   def update_part_of
-    recalculate_part_of
+    build_part_of
   end
 
-  def recalculate_part_of
+  def build_part_of
     if parent
       part_of.clear.append(id).concat(parent.reload.part_of)
     else
