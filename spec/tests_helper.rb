@@ -8,5 +8,5 @@ SimpleCov.formatter = SimpleCov::Formatter::Codecov
 
 # Only useful for request tests
 def use_ip(ip)
-  Rack::Attack::Request.any_instance.stub(:ip).and_return(ip)
+  allow_any_instance_of(Rack::Attack::Request).to receive(:ip).and_return(ip)
 end
