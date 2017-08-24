@@ -23,6 +23,18 @@ describe ProcedureDecorator do
     expect(subject.available_events_options.map(&:count).uniq).to eq([2])
   end
 
+  context "#view_link" do
+    let(:procedure) { create(:verification_document) }
+
+    it "returns the process link" do
+      expect(subject.view_link).to eq("<a class=\"member_link\" href=\"/procedures/#{procedure.id}/edit\">Procesar</a>")
+    end
+
+    it "returns the process link with the given text" do
+      expect(subject.view_link("test")).to eq("<a class=\"member_link\" href=\"/procedures/#{procedure.id}/edit\">test</a>")
+    end
+  end
+
   context "verification document" do
     let(:person) { build(:person, first_name: "María", last_name1: "Pérez", last_name2: "García") }
     let(:procedure) { build(:verification_document, person: person) }
@@ -41,6 +53,18 @@ describe ProcedureDecorator do
 
     it "returns the processed_by person" do
       expect(subject.processed_by.decorated?).to be_truthy
+    end
+
+    context "#view_link" do
+      let(:procedure) { create(:verification_document, :processed) }
+
+      it "returns the process link" do
+        expect(subject.view_link).to eq("<a class=\"member_link\" href=\"/procedures/#{procedure.id}\">Ver</a>")
+      end
+
+      it "returns the process link with the given text" do
+        expect(subject.view_link("test")).to eq("<a class=\"member_link\" href=\"/procedures/#{procedure.id}\">test</a>")
+      end
     end
   end
 end
