@@ -9,4 +9,4 @@ rvm:
 env:
 - CI=true
 script:
- - bundle exec rubocop
+ - bundle exec rubocop -c .rubocop.yml
