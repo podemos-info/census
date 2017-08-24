@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Rack::Attack
   ### Configure Cache ###
 
@@ -11,7 +13,7 @@ class Rack::Attack
   # whitelisting). It must implement .increment and .write like
   # ActiveSupport::Cache::Store
 
-  # Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new 
+  # Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new
 
   ### Throttle Spammy Clients ###
 
@@ -26,21 +28,22 @@ class Rack::Attack
   # Throttle all requests by IP (60rpm)
   #
   # Key: "rack::attack:#{Time.now.to_i/:period}:req/ip:#{req.ip}"
-  throttle("req/ip", limit: 300, period: 5.minutes) do |req|
-    req.ip # unless req.path.start_with?("/assets")
-  end
+  throttle("req/ip", limit: 300, period: 5.minutes, &:ip)
+  # do |req|
+  #  req.ip # unless req.path.start_with?("/assets")
+  # end
 
-  # Block suspicious requests for '/etc/password' or wordpress specific paths.
+  # Block suspicious requests for "/etc/password" or wordpress specific paths.
   # After 3 blocked requests in 10 minutes, block all requests from that IP for 5 minutes.
-  Rack::Attack.blocklist('fail2ban pentesters') do |req|
-    # `filter` returns truthy value if request fails, or if it's from a previously banned IP
+  Rack::Attack.blocklist("fail2ban pentesters") do |req|
+    # `filter` returns truthy value if request fails, or if it"s from a previously banned IP
     # so the request is blocked
     Rack::Attack::Fail2Ban.filter("pentesters-#{req.ip}", maxretry: 3, findtime: 10.minutes, bantime: 5.minutes) do
       # The count for the IP is incremented if the return value is truthy
       CGI.unescape(req.query_string) =~ %r{/etc/passwd} ||
-        req.path.include?('/etc/passwd') ||
-        req.path.include?('wp-admin') ||
-        req.path.include?('wp-login')
+        req.path.include?("/etc/passwd") ||
+        req.path.include?("wp-admin") ||
+        req.path.include?("wp-login")
     end
   end
 
@@ -94,7 +97,7 @@ class Rack::Attack
   # Always allow requests from localhost
   safelist("allow from localhost") do |req|
     # Requests are allowed if the return value is truthy
-    "127.0.0.1" == req.ip || "::1" == req.ip
+    req.ip == "127.0.0.1" || req.ip == "::1"
   end
 
   # Always allow requests from other servers

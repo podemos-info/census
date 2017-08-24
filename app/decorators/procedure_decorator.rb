@@ -32,7 +32,7 @@ class ProcedureDecorator < ApplicationDecorator
     end
   end
 
-  def view_link text = nil
+  def view_link(text = nil)
     if procedure.processable?
       h.link_to text || I18n.t("census.procedure.process"), h.edit_procedure_path(object), class: "member_link"
     else

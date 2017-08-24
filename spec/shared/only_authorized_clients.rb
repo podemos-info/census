@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 shared_examples_for "only authorized clients" do
   context "allow external requests to authorized clients" do
     before do

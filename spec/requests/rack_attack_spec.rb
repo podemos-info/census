@@ -3,7 +3,6 @@
 require "rails_helper"
 
 describe "Rack attack", type: :request do
-
   context "fail2ban rule" do
     before do
       use_ip "PENTESTER"
