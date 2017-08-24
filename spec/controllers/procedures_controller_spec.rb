@@ -39,11 +39,28 @@ describe ProceduresController, type: :controller do
     it { expect(subject).to render_template("show") }
   end
 
-  context "show processed undoable procedure" do
-    let!(:procedure) { create(:verification_document, :processed, :undoable) }
-    subject { get :show, params: { id: procedure.id } }
-    it { expect(subject).to be_success }
-    it { expect(subject).to render_template("show") }
+  context "undoable procedure" do
+    let!(:procedure) { create(:verification_document, :undoable) }
+    it { expect(procedure.undoable?).to be_truthy }
+
+    context "show" do
+      subject { get :show, params: { id: procedure.id } }
+      it { expect(subject).to be_success }
+      it { expect(subject).to render_template("show") }
+    end
+
+    context "undo" do
+      subject { patch :undo, params: { id: procedure.id } }
+
+      it "returns ok" do
+        expect(subject).to redirect_to(procedures_path)
+        expect(flash[:notice]).to be_present
+      end
+
+      it "should have undone the procedure" do
+        expect { subject } .to change { Procedure.find(procedure.id).state } .to("pending")
+      end
+    end
   end
 
   context "edit procedure" do
@@ -63,8 +80,7 @@ describe ProceduresController, type: :controller do
     it { expect(subject).to redirect_to(procedures_path) }
 
     it "should have accepted the procedure" do
-      subject.code == "302" && procedure.reload
-      expect(procedure.state).to eq("accepted")
+      expect { subject } .to change { Procedure.find(procedure.id).state }.from("pending").to("accepted")
     end
   end
 
@@ -74,8 +90,7 @@ describe ProceduresController, type: :controller do
     it { expect(subject).to render_template("edit") }
 
     it "should have not rejected the procedure" do
-      subject.success? && procedure.reload
-      expect(procedure.state).to eq("pending")
+      expect { subject } .to_not change { Procedure.find(procedure.id).state }.from("pending")
     end
   end
 end
