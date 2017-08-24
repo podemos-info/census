@@ -2,7 +2,6 @@
 
 class AttachmentDecorator < Draper::Decorator
   delegate_all
-  decorates_finders
 
   def view_path(options = {})
     version = options[:version]
