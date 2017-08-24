@@ -4,13 +4,9 @@
 class RegisterPerson < Rectify::Command
   # Public: Initializes the command.
   #
-  # person - A person to register.
-  # to_level - The desired level of membership for the person
-  # files - Images that will be used to verify person information
-  def initialize(person, to_level, files)
-    @person = person
-    @to_level = to_level
-    @files = files
+  # form - A form object with the params.
+  def initialize(form)
+    @form = form
   end
 
   # Executes the command. Broadcasts these events:
@@ -21,16 +17,17 @@ class RegisterPerson < Rectify::Command
   # Returns nothing.
   def call
     result = Person.transaction do
-      @person.save!
+      person = create_person
+      person.save!
 
-      verification = Procedures::VerificationDocument.new(person: @person)
-      @files.each do |file|
+      verification = Procedures::VerificationDocument.new(person: person)
+      form.files.each do |file|
         verification.attachments.build(file: file)
       end
       verification.save!
 
-      if @person.level != @to_level
-        membership_level_change = Procedures::MembershipLevelChange.new(person: @person, from_level: @person.level, to_level: @to_level)
+      if person.level != form.level
+        membership_level_change = Procedures::MembershipLevelChange.new(person: person, from_level: person.level, to_level: form.level)
         membership_level_change.depends_on = verification
         membership_level_change.save!
       end
@@ -38,5 +35,29 @@ class RegisterPerson < Rectify::Command
       :ok
     end
     broadcast result || :invalid
+  end
+
+  private
+
+  attr_reader :form
+
+  def create_person
+    Person.new(
+      first_name: form.first_name,
+      last_name1: form.last_name1,
+      last_name2: form.last_name2,
+      document_type: form.document_type,
+      document_id: form.document_id,
+      document_scope: form.document_scope,
+      born_at: form.born_at,
+      gender: form.gender,
+      address: form.address,
+      address_scope: form.address_scope,
+      postal_code: form.postal_code,
+      scope: form.scope,
+      email: form.email,
+      phone: form.phone,
+      extra: form.extra
+    )
   end
 end

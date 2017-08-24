@@ -35,6 +35,10 @@ class Person < ApplicationRecord
   DOCUMENT_TYPES = %w(dni nie passport).freeze
   GENDERS = %w(female male other undisclosed).freeze
 
+  def self.levels
+    @levels ||= Person.aasm.states.map(&:name)
+  end
+
   aasm column: :level do
     state :person, initial: true
     state :follower, :young_member, :member
@@ -47,6 +51,10 @@ class Person < ApplicationRecord
       transitions from: [:person, :follower, :young_member], to: :member, guard: :memberable?
       transitions from: [:person, :follower], to: :young_member, guard: :young_memberable?
     end
+  end
+
+  def self.flags
+    flag_mapping.values.map(&:keys).flatten
   end
 
   def memberable?
@@ -63,17 +71,5 @@ class Person < ApplicationRecord
 
   def can_change_level?(target)
     aasm.events(permitted: true).map(&:name).include? :"to_#{target}"
-  end
-
-  def scope_code=(value)
-    self.scope = Scope.find_by_code(value)
-  end
-
-  def address_scope_code=(value)
-    self.address_scope = Scope.find_by_code(value)
-  end
-
-  def self.flags
-    flag_mapping.values.map(&:keys).flatten
   end
 end
