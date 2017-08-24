@@ -6,7 +6,7 @@ describe ProceduresController, type: :controller do
   let(:resource_class) { Procedure }
   let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
   let(:resource) { all_resources[resource_class] }
-  let!(:procedure) { create(:verification_document, :with_attachments) }
+  let!(:procedure) { create(:verification_document, :with_attachments, :with_dependent_procedure) }
 
   it "defines actions" do
     expect(resource.defined_actions).to contain_exactly(:index, :show, :edit, :update)
@@ -92,5 +92,12 @@ describe ProceduresController, type: :controller do
     it "should have not rejected the procedure" do
       expect { subject } .to_not change { Procedure.find(procedure.id).state }.from("pending")
     end
+  end
+
+  context "download attachment" do
+    subject { get :view_attachment, params: { id: procedure.id, attachment_id: procedure.attachments.first.id } }
+    it { expect(subject).to be_success }
+    it { expect(subject.content_type).to eq("image/png") }
+    it { expect(subject.body).to eq(procedure.attachments.first.file.read) }
   end
 end
