@@ -7,7 +7,7 @@ describe RegisterPerson do
   let(:level) { person.level }
   let(:files) do
     attachment = build(:attachment)
-    2.times.map do
+    Array.new(2) do
       ActionDispatch::Http::UploadedFile.new(filename: attachment.file.filename, type: attachment.content_type, tempfile: attachment.file.file)
     end
   end
