@@ -8,3 +8,5 @@ rvm:
 - 2.4.1
 env:
 - CI=true
+script:
+ - bundle exec rubocop
