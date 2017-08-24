@@ -45,14 +45,6 @@ class Procedure < ApplicationRecord
 
     event :undo do
       transitions from: [:accepted, :rejected], to: :pending, if: :undoable?
-
-      after do
-        dependent_procedures.each(&:undo)
-        self.state = undo_version.state
-        self.processed_by = undo_version.processed_by
-        self.processed_at = undo_version.processed_at
-        self.comment = undo_version.comment
-      end
     end
   end
 
@@ -97,8 +89,6 @@ class Procedure < ApplicationRecord
       undo_version && dependent_procedures.all?(&:undoable?)
   end
 
-  private
-
   def undo_version
     defined?(@undo_version) ||
       versions.reverse.each do |version|
@@ -110,6 +100,8 @@ class Procedure < ApplicationRecord
       end
     @undo_version
   end
+
+  private
 
   def depends_on_person
     errors.add(:depends_on_id, :depends_on_different_person) if depends_on && depends_on.person != person

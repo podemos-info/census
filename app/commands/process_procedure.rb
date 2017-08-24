@@ -20,9 +20,11 @@ class ProcessProcedure < Rectify::Command
   #
   # Returns nothing.
   def call
-    result = Procedure.transaction do
-      process_procedure @procedure
-      :ok
+    if safe_event
+      result = Procedure.transaction do
+        process_procedure @procedure
+        :ok
+      end
     end
 
     broadcast result || :invalid
@@ -33,7 +35,7 @@ class ProcessProcedure < Rectify::Command
   def process_procedure(current_procedure)
     current_procedure.processed_by = @processor
     current_procedure.processed_at = Time.current
-    current_procedure.send(@event)
+    current_procedure.send(safe_event)
 
     raise ActiveRecord::Rollback unless current_procedure.valid?
 
@@ -42,5 +44,9 @@ class ProcessProcedure < Rectify::Command
     current_procedure.dependent_procedures.each do |child_procedure|
       process_procedure child_procedure
     end
+  end
+
+  def safe_event
+    @safe_event ||= ((@procedure.aasm.events(permitted: true).map(&:name) - [:undo]) & [@event.to_sym]).first
   end
 end
