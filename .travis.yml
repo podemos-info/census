@@ -10,3 +10,4 @@ env:
 - CI=true
 script:
  - bundle exec rubocop -c .rubocop.yml
+ - bundle exec rspec
