@@ -32,7 +32,7 @@ describe "Rack attack", type: :request do
     end
 
     subject do
-      300.times { get "/" }
+      10.times { get "/" }
       get "/"
     end
     it { expect(subject).to eq(429) }

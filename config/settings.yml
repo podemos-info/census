@@ -7,3 +7,4 @@ locales:
     - en
     - gl
 undo_minutes: 30
+request_rate_limit: 300
