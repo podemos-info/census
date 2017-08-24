@@ -17,7 +17,6 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
 require "tests_helper"
-require "shared/only_authorized_clients"
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate

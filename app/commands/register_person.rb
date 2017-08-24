@@ -16,8 +16,10 @@ class RegisterPerson < Rectify::Command
   #
   # Returns nothing.
   def call
+    return broadcast(:invalid) if form.invalid?
+
     result = Person.transaction do
-      person = create_person
+      person = build_person
       person.save!
 
       verification = Procedures::VerificationDocument.new(person: person)
@@ -41,7 +43,7 @@ class RegisterPerson < Rectify::Command
 
   attr_reader :form
 
-  def create_person
+  def build_person
     Person.new(
       first_name: form.first_name,
       last_name1: form.last_name1,

@@ -36,7 +36,7 @@ class Person < ApplicationRecord
   GENDERS = %w(female male other undisclosed).freeze
 
   def self.levels
-    @levels ||= Person.aasm.states.map(&:name)
+    @levels ||= Person.aasm.states.map(&:name).map(&:to_s)
   end
 
   aasm column: :level do

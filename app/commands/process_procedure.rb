@@ -20,11 +20,11 @@ class ProcessProcedure < Rectify::Command
   #
   # Returns nothing.
   def call
-    if safe_event
-      result = Procedure.transaction do
-        process_procedure @procedure
-        :ok
-      end
+    return broadcast(:invalid) unless safe_event
+
+    result = Procedure.transaction do
+      process_procedure @procedure
+      :ok
     end
 
     broadcast result || :invalid
