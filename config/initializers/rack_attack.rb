@@ -2,7 +2,7 @@ class Rack::Attack
   ### Configure Cache ###
 
   # Static configuration
-  client_servers_ips = Set.new Rails.application.secrets.client_servers_ips&.split(/[^\.\d]/)
+  api_client_ips = Set.new Rails.application.secrets.api_client_ips&.split(/[^\.\d]/)
 
   # If you don"t want to use Rails.cache (Rack::Attack"s default), then
   # configure it here.
@@ -35,12 +35,12 @@ class Rack::Attack
   Rack::Attack.blocklist('fail2ban pentesters') do |req|
     # `filter` returns truthy value if request fails, or if it's from a previously banned IP
     # so the request is blocked
-    Rack::Attack::Fail2Ban.filter("pentesters-#{req.ip}", :maxretry => 3, :findtime => 10.minutes, :bantime => 5.minutes) do
+    Rack::Attack::Fail2Ban.filter("pentesters-#{req.ip}", maxretry: 3, findtime: 10.minutes, bantime: 5.minutes) do
       # The count for the IP is incremented if the return value is truthy
       CGI.unescape(req.query_string) =~ %r{/etc/passwd} ||
-      req.path.include?('/etc/passwd') ||
-      req.path.include?('wp-admin') ||
-      req.path.include?('wp-login')
+        req.path.include?('/etc/passwd') ||
+        req.path.include?('wp-admin') ||
+        req.path.include?('wp-login')
     end
   end
 
@@ -98,9 +98,9 @@ class Rack::Attack
   end
 
   # Always allow requests from other servers
-  safelist("allow from client servers") do |req|
+  safelist("allow from authorized api clients") do |req|
     # Requests are allowed if the return value is truthy
-    client_servers_ips.member? req.ip
+    api_client_ips.member? req.ip
   end
 
   # Block API requests

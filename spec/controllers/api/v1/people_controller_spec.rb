@@ -15,9 +15,9 @@ describe Api::V1::PeopleController, type: :controller do
   # Person. As you add validations to Person, be sure to
   # adjust the attributes here as well.
   let(:person) { build(:person) }
+  let(:level) { :person }
 
   context "create method" do
-    let(:level) { :person }
     let(:attachment) { build(:attachment) }
     let(:params) do
       params = { person: person.attributes, level: level }
