@@ -46,7 +46,7 @@ class PersonDecorator < Draper::Decorator
     end.freeze
   end
 
-  def procedures
-    @procedures ||= object.procedures.independent.order(id: :asc).decorate
+  def independent_procedures
+    @independent_procedures ||= object.procedures.independent.order(id: :asc).decorate
   end
 end

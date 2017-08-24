@@ -53,9 +53,9 @@ ActiveAdmin.register Person do
       row :created_at
       row :updated_at
     end
-    if person.procedures.any?
+    if person.independent_procedures.any?
       panel Procedure.model_name.human(count: 2).capitalize do
-        table_for person.procedures, i18n: Procedure do
+        table_for person.independent_procedures, i18n: Procedure do
           column :id do |procedure|
             link_to procedure.id, procedure
           end
