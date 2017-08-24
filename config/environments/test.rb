@@ -41,4 +41,7 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # Used for rack attack request tests
+  Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new
 end
