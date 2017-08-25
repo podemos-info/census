@@ -91,7 +91,7 @@ FactoryGirl.define do
     end
 
     trait :with_attachments do
-        after :build do |procedure|
+      after :build do |procedure|
         procedure.attachments.build(attributes_for_list(:attachment, 1, procedure: procedure))
         procedure.attachments.build(attributes_for_list(:attachment, 1, :non_image, procedure: procedure))
       end
