@@ -89,9 +89,9 @@ class Procedure < ApplicationRecord
     !processed?
   end
 
-  def undoable?
-    processed_at && processed_at > Settings.undo_minutes.minutes.ago &&
-      undo_version && dependent_procedures.all?(&:undoable?)
+  def undoable?(processor = nil)
+    (processor.nil? || processor == processed_by) && processed_at && processed_at > Settings.undo_minutes.minutes.ago &&
+      undo_version && dependent_procedures.all? { |dependent_procedure| dependent_procedure.undoable? processor }
   end
 
   def undo_version

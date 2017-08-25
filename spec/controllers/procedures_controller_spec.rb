@@ -44,7 +44,6 @@ describe ProceduresController, type: :controller do
 
   context "undoable procedure" do
     let!(:procedure) { create(:verification_document, :undoable) }
-    it { expect(procedure.undoable?).to be_truthy }
 
     context "show" do
       subject { get :show, params: { id: procedure.id } }
@@ -53,6 +52,10 @@ describe ProceduresController, type: :controller do
     end
 
     context "undo" do
+      before do
+        override_current_user procedure.processed_by
+      end
+      
       subject { patch :undo, params: { id: procedure.id } }
 
       it "returns ok" do

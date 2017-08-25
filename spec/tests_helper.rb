@@ -9,8 +9,12 @@ require "codecov"
 SimpleCov.formatter = SimpleCov::Formatter::Codecov
 
 # Only useful for request tests
-def use_ip(ip)
+def override_ip(ip)
   allow_any_instance_of(Rack::Attack::Request).to receive(:ip).and_return(ip)
+end
+
+def override_current_user(person)
+  allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(person)
 end
 
 # hash with file data that will be received by the API

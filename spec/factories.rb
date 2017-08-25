@@ -75,6 +75,14 @@ FactoryGirl.define do
         procedure.state = Faker::Boolean.boolean(0.7) ? :accepted : :rejected
         procedure.comment = Faker::Lorem.paragraph(1, true, 2)
         procedure.save!
+
+        procedure.dependent_procedures.each do |dependent_procedure|
+          dependent_procedure.processed_by = procedure.processed_by
+          dependent_procedure.processed_at = procedure.processed_at
+          dependent_procedure.state = procedure.state
+          dependent_procedure.comment = procedure.comment
+          dependent_procedure.save!
+        end
       end
     end
 

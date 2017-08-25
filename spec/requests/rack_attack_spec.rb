@@ -5,7 +5,7 @@ require "rails_helper"
 describe "Rack attack", type: :request do
   context "fail2ban rule" do
     before do
-      use_ip "PENTESTER"
+      override_ip "PENTESTER"
     end
 
     subject do
@@ -28,7 +28,7 @@ describe "Rack attack", type: :request do
 
   context "throttle too many request from the same IP" do
     before do
-      use_ip "ANNOYER"
+      override_ip "ANNOYER"
     end
 
     subject do

@@ -18,6 +18,8 @@ class UndoProcedure < Rectify::Command
   #
   # Returns nothing.
   def call
+    return broadcast(:invalid) unless @procedure && @processor
+
     result = Procedure.transaction do
       undo_procedure @procedure
       :ok
@@ -29,7 +31,7 @@ class UndoProcedure < Rectify::Command
   private
 
   def undo_procedure(current_procedure)
-    raise ActiveRecord::Rollback unless current_procedure.undoable?
+    raise ActiveRecord::Rollback unless current_procedure.undoable?(@processor)
 
     current_procedure.dependent_procedures.each do |child_procedure|
       undo_procedure child_procedure
