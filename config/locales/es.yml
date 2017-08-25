@@ -112,3 +112,4 @@ es:
       procedure_denial_comment_required: debes indicar la razón del rechazo el procedimiento
       image_too_big: la imagen es demasiado grande
       depends_on_different_person: el procedimiento debe corresponder a la misma persona que el procedimiento del que depende
+      processed_by_person: el procedimiento no puede ser procesado por la persona a la que afecta

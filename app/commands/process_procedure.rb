@@ -5,12 +5,12 @@ class ProcessProcedure < Rectify::Command
   # Public: Initializes the command.
   #
   # procedure - A Procedure object.
-  # event - The event that will be processed
   # processor - The person that is processing the procedure
-  def initialize(procedure, event, processor)
+  # params - The event that will be processed and the comment for the procedure
+  def initialize(procedure, processor, params = {})
     @procedure = procedure
     @processor = processor
-    @event = event
+    @params = params
   end
 
   # Executes the command. Broadcasts these events:
@@ -20,8 +20,7 @@ class ProcessProcedure < Rectify::Command
   #
   # Returns nothing.
   def call
-    return broadcast(:invalid) unless safe_event
-
+    return broadcast(:invalid) unless @procedure && @processor && safe_event
     result = Procedure.transaction do
       process_procedure @procedure
       :ok
@@ -35,6 +34,7 @@ class ProcessProcedure < Rectify::Command
   def process_procedure(current_procedure)
     current_procedure.processed_by = @processor
     current_procedure.processed_at = Time.current
+    current_procedure.comment = @params[:comment]
     current_procedure.send(safe_event)
 
     raise ActiveRecord::Rollback unless current_procedure.valid?
@@ -47,6 +47,6 @@ class ProcessProcedure < Rectify::Command
   end
 
   def safe_event
-    @safe_event ||= ((@procedure.aasm.events(permitted: true).map(&:name) - [:undo]) & [@event.to_sym]).first
+    @safe_event ||= ((@procedure.permitted_events - [:undo]) & [@params[:event]&.to_sym]).first
   end
 end

@@ -139,9 +139,8 @@ ActiveAdmin.register Procedure do
 
     def update
       procedure = resource
-      procedure.comment = params[:procedure][:comment]
 
-      ProcessProcedure.call(procedure, params[:procedure][:event], current_user) do
+      ProcessProcedure.call(procedure, current_user, params[:procedure]) do
         on(:invalid) { render :edit }
         on(:ok) do
           flash[:notice] = t("census.procedure.action_message.#{procedure.state}", link: view_context.link_to(procedure.id, procedure)).html_safe

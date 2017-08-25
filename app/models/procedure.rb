@@ -20,7 +20,8 @@ class Procedure < ApplicationRecord
 
   validates :comment, presence: { message: I18n.t("errors.messages.procedure_denial_comment_required") },
                       if: proc { |procedure| procedure.issues? || procedure.rejected? }
-  validates :processed_by, :processed_at, presence: true, if: proc { |procedure| procedure.accepted? || procedure.rejected? }
+  validates :processed_by, :processed_at, presence: true, if: :processed?
+  validate :processed_by, :processor_different_from_person
   validate :depends_on, :depends_on_person
 
   aasm column: :state do
@@ -58,6 +59,10 @@ class Procedure < ApplicationRecord
 
   def if_accepted
     yield
+  end
+
+  def permitted_events
+    @permitted_events ||= aasm.events(permitted: true).map(&:name)
   end
 
   def check_acceptable
@@ -102,6 +107,10 @@ class Procedure < ApplicationRecord
   end
 
   private
+
+  def processor_different_from_person
+    errors.add(:processed_by_id, :processed_by_person) if processed_by == person
+  end
 
   def depends_on_person
     errors.add(:depends_on_id, :depends_on_different_person) if depends_on && depends_on.person != person
