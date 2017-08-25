@@ -107,7 +107,7 @@ FactoryGirl.define do
 
   factory :membership_level_change, parent: :procedure, class: Procedures::MembershipLevelChange do
     from_level { person.level }
-    to_level :member
+    to_level "member"
   end
 end
 

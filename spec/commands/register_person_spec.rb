@@ -49,18 +49,18 @@ describe RegisterPerson do
     end
 
     it "register the person" do
-      expect { subject } .to change { Person.count }.by(1)
+      expect { subject } .to change { Person.count } .by(1)
     end
 
     it "create a verification procedure" do
-      expect { subject } .to change { Procedure.count }.by(1)
+      expect { subject } .to change { Procedure.count } .by(1)
     end
 
     context "change membership level" do
       let(:level) { "member" }
 
       it "create a verification procedure and a change of membership level procedure" do
-        expect { subject } .to change { Procedure.count }.by(2)
+        expect { subject } .to change { Procedure.count } .by(2)
       end
     end
   end
@@ -69,7 +69,7 @@ describe RegisterPerson do
     let(:valid) { false }
 
     it "doesn't register the person" do
-      expect { subject } .to change { Person.count }.by(0)
+      expect { subject } .to_not change { Person.count }
     end
   end
 end

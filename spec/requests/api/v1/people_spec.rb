@@ -17,7 +17,7 @@ describe "People", type: :request do
 
   context "update method" do
     let(:person) { create(:person) }
-    subject { patch change_membership_level_api_v1_person_path(id: person.participa_id), params: { level: :member } }
+    subject { patch change_membership_level_api_v1_person_path(id: person.participa_id), params: { level: "member" } }
 
     it { expect(subject).to eq(202) }
 
