@@ -55,7 +55,7 @@ describe ProceduresController, type: :controller do
       before do
         override_current_user procedure.processed_by
       end
-      
+
       subject { patch :undo, params: { id: procedure.id } }
 
       it "returns ok" do
