@@ -24,6 +24,7 @@ describe ProceduresController, type: :controller do
   end
 
   context "index page" do
+    let!(:undoable_procedure) { create(:verification_document, :undoable) }
     subject { get :index }
     it { expect(subject).to be_success }
     it { expect(subject).to render_template("index") }

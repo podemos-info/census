@@ -16,15 +16,6 @@ module Census
         end
       end
 
-      # Builds a paragraph with Lorem Ipsum words. See Faker::Lorem for options.
-      #
-      # Returns a Hash with a value for each locale.
-      def self.paragraph(*args)
-        localized do
-          ::Faker::Lorem.paragraph(*args)
-        end
-      end
-
       # Sets the given text as the value for each locale.
       #
       # text - The String text to set for each locale.

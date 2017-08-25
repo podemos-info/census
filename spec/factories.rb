@@ -54,6 +54,10 @@ FactoryGirl.define do
   factory :attachment do
     file { test_file("attachment-image.png", "image/png") }
     association :procedure, factory: :verification_document, strategy: :build
+
+    trait :non_image do
+      file { test_file("attachment-non-image.pdf", "application/pdf") }
+    end
   end
 
   factory :procedure, class: Procedure do
@@ -87,12 +91,9 @@ FactoryGirl.define do
     end
 
     trait :with_attachments do
-      transient do
-        number_of_attachments 2
-      end
-
-      after :build do |procedure, evaluator|
-        procedure.attachments.build(attributes_for_list(:attachment, evaluator.number_of_attachments, procedure: procedure))
+        after :build do |procedure|
+        procedure.attachments.build(attributes_for_list(:attachment, 1, procedure: procedure))
+        procedure.attachments.build(attributes_for_list(:attachment, 1, :non_image, procedure: procedure))
       end
     end
   end
