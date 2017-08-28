@@ -2,20 +2,15 @@
 
 module Procedures
   class VerificationDocument < Procedure
-    def if_accepted
+    def process_accept
       person.verified_by_document = true
-      ret = yield
-      person.verified_by_document = false
-      ret
     end
 
-    def after_accepted
-      person.verified_by_document = true
-      person.save!
+    def undo_accept
+      person.verified_by_document = false
     end
 
-    def undo
-      person.verified_by_document = false
+    def persist_accept_changes!
       person.save!
     end
   end

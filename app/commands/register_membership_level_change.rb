@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-# A command to register a person.
-class ChangeMembershipLevel < Rectify::Command
+# A command to register a change of membership for a person.
+class RegisterMembershipLevelChange < Rectify::Command
   # Public: Initializes the command.
   #
-  # person - A person to register.
+  # person - A registered person that want to change its level of membership.
   # to_level - The desired level of membership for the person
   def initialize(person, to_level)
     @person = person

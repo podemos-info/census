@@ -24,10 +24,16 @@ describe ProceduresController, type: :controller do
   end
 
   context "index page" do
-    let!(:undoable_procedure) { create(:verification_document, :undoable) }
     subject { get :index }
     it { expect(subject).to be_success }
     it { expect(subject).to render_template("index") }
+
+    context "accepted tab" do
+      subject { get :index, params: { scope: :accepted } }
+      let!(:procedure) { create(:verification_document, :undoable) }
+      it { expect(subject).to be_success }
+      it { expect(subject).to render_template("index") }
+    end
   end
 
   context "show procedure" do
@@ -41,6 +47,15 @@ describe ProceduresController, type: :controller do
     subject { get :show, params: { id: procedure.id } }
     it { expect(subject).to be_success }
     it { expect(subject).to render_template("show") }
+  end
+
+  context "trying to undone when not undoable" do
+    subject { patch :undo, params: { id: procedure.id } }
+
+    it "returns an error" do
+      expect(subject).to redirect_to(procedures_path)
+      expect(flash[:error]).to be_present
+    end
   end
 
   context "undoable procedure" do

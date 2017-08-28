@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Procedure < ApplicationRecord
-  include AASM
+  include ProcedureStates
 
   has_paper_trail
 
@@ -23,88 +23,6 @@ class Procedure < ApplicationRecord
   validates :processed_by, :processed_at, presence: true, if: :processed?
   validate :processed_by, :processor_different_from_person
   validate :depends_on, :depends_on_person
-
-  aasm column: :state do
-    state :pending, initial: true
-    state :issues, :accepted, :rejected
-
-    event :accept do
-      transitions from: [:pending, :issues], to: :accepted, if: :acceptable?
-
-      after do
-        after_accepted
-      end
-    end
-
-    event :set_issues do
-      transitions from: :pending, to: :issues
-    end
-
-    event :reject do
-      transitions from: [:pending, :issues], to: :rejected
-    end
-
-    event :undo do
-      transitions from: [:accepted, :rejected], to: :pending, if: :undoable?
-    end
-  end
-
-  def initialize(*args)
-    raise "Cannot directly instantiate a Procedure" if self.class == Procedure
-    super
-  end
-
-  # START overridable methods
-  def after_accepted; end
-
-  def if_accepted
-    yield
-  end
-
-  def permitted_events
-    @permitted_events ||= aasm.events(permitted: true).map(&:name)
-  end
-
-  def check_acceptable
-    true
-  end
-
-  def undo; end
-  # END overridable methods
-
-  def acceptable?
-    check_acceptable && if_accepted do
-      dependent_procedures.all? do |dependent_procedure|
-        dependent_procedure.person = person
-        dependent_procedure.acceptable?
-      end
-    end
-  end
-
-  def processed?
-    accepted? || rejected?
-  end
-
-  def processable?
-    !processed?
-  end
-
-  def undoable?(processor = nil)
-    (processor.nil? || processor == processed_by) && processed_at && processed_at > Settings.undo_minutes.minutes.ago &&
-      undo_version && dependent_procedures.all? { |dependent_procedure| dependent_procedure.undoable? processor }
-  end
-
-  def undo_version
-    defined?(@undo_version) ||
-      versions.reverse.each do |version|
-        previous_version = version.reify
-        if previous_version&.state && previous_version&.state != state
-          @undo_version = previous_version
-          break
-        end
-      end
-    @undo_version
-  end
 
   private
 

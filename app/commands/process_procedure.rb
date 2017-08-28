@@ -21,6 +21,8 @@ class ProcessProcedure < Rectify::Command
   # Returns nothing.
   def call
     return broadcast(:invalid) unless @procedure && @processor && safe_event
+    return broadcast(:invalid) if safe_event == :accept && !@procedure.full_acceptable?
+
     result = Procedure.transaction do
       process_procedure @procedure
       :ok
@@ -37,13 +39,13 @@ class ProcessProcedure < Rectify::Command
     current_procedure.comment = @params[:comment]
     current_procedure.send(safe_event)
 
-    raise ActiveRecord::Rollback unless current_procedure.valid?
-
-    current_procedure.save!
-
     current_procedure.dependent_procedures.each do |child_procedure|
       process_procedure child_procedure
     end
+
+    raise ActiveRecord::Rollback unless current_procedure.valid?
+
+    current_procedure.save!
   end
 
   def safe_event

@@ -6,23 +6,19 @@ module Procedures
 
     validates :from_level, :to_level, presence: true
 
-    def check_acceptable
+    def acceptable?
       person.can_change_level? to_level
     end
 
-    def if_accepted
-      person.level = to_level
-      ret = yield
-      person.level = from_level
-      ret
+    def process_accept
+      person.send("to_#{to_level}")
     end
 
-    def after_accepted
-      person.send("to_#{to_level}!")
+    def undo_accept
+      person.level = from_level
     end
 
-    def undo
-      person.level = from_level
+    def persist_accept_changes!
       person.save!
     end
   end

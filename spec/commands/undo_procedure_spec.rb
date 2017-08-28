@@ -10,7 +10,7 @@ describe UndoProcedure do
     UndoProcedure.call(procedure, processor)
   end
 
-  describe "when valid" do
+  describe "when undoing an accepted procedure" do
     it "broadcasts :ok" do
       expect { subject } .to broadcast(:ok)
     end
@@ -33,6 +33,50 @@ describe UndoProcedure do
 
     context "on dependent procedures" do
       let(:procedure) { create(:verification_document, :with_dependent_procedure, :undoable) }
+      let(:dependent_procedure) { procedure.dependent_procedures.first }
+
+      it "reverts procedure state" do
+        expect { subject } .to change { Procedure.find(dependent_procedure.id).state } .to("pending")
+      end
+
+      it "reverts processor" do
+        expect { subject } .to change { Procedure.find(dependent_procedure.id).processed_by } .to(nil)
+      end
+
+      it "reverts processing date" do
+        expect { subject } .to change { Procedure.find(dependent_procedure.id).processed_at } .to(nil)
+      end
+
+      it "reverts comment" do
+        expect { subject } .to change { Procedure.find(dependent_procedure.id).comment } .to(nil)
+      end
+    end
+  end
+
+  describe "when undoing a rejected procedure" do
+    let(:procedure) { create(:verification_document, :undoable_rejected) }
+    it "broadcasts :ok" do
+      expect { subject } .to broadcast(:ok)
+    end
+
+    it "reverts procedure state" do
+      expect { subject } .to change { Procedure.find(procedure.id).state } .to("pending")
+    end
+
+    it "reverts the processor" do
+      expect { subject } .to change { Procedure.find(procedure.id).processed_by } .to(nil)
+    end
+
+    it "reverts processing date" do
+      expect { subject } .to change { Procedure.find(procedure.id).processed_at } .to(nil)
+    end
+
+    it "reverts comment" do
+      expect { subject } .to change { Procedure.find(procedure.id).comment } .to(nil)
+    end
+
+    context "on dependent procedures" do
+      let(:procedure) { create(:verification_document, :with_dependent_procedure, :undoable_rejected) }
       let(:dependent_procedure) { procedure.dependent_procedures.first }
 
       it "reverts procedure state" do

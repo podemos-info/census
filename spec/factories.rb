@@ -65,6 +65,12 @@ FactoryGirl.define do
     information { {} }
     created_at { Faker::Time.between(person.created_at, 3.day.ago, :all) }
 
+    trait :ready_to_process do
+      processed_by { build(:person) }
+      processed_at { Time.now }
+      comment { Faker::Lorem.paragraph(1, true, 2) }
+    end
+
     trait :processed do
       processed_by { build(:person) }
       processed_at { Faker::Time.between(created_at, Settings.undo_minutes.minutes.ago, :all) }
@@ -76,16 +82,30 @@ FactoryGirl.define do
       after :create do |procedure|
         procedure.processed_by = build(:person)
         procedure.processed_at = Time.now
-        procedure.state = Faker::Boolean.boolean(0.7) ? :accepted : :rejected
         procedure.comment = Faker::Lorem.paragraph(1, true, 2)
-        procedure.save!
+        procedure.accept!
 
         procedure.dependent_procedures.each do |dependent_procedure|
           dependent_procedure.processed_by = procedure.processed_by
           dependent_procedure.processed_at = procedure.processed_at
-          dependent_procedure.state = procedure.state
           dependent_procedure.comment = procedure.comment
-          dependent_procedure.save!
+          dependent_procedure.accept!
+        end
+      end
+    end
+
+    trait :undoable_rejected do
+      after :create do |procedure|
+        procedure.processed_by = build(:person)
+        procedure.processed_at = Time.now
+        procedure.comment = Faker::Lorem.paragraph(1, true, 2)
+        procedure.reject!
+
+        procedure.dependent_procedures.each do |dependent_procedure|
+          dependent_procedure.processed_by = procedure.processed_by
+          dependent_procedure.processed_at = procedure.processed_at
+          dependent_procedure.comment = procedure.comment
+          dependent_procedure.reject!
         end
       end
     end

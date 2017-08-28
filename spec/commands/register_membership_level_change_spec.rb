@@ -2,12 +2,12 @@
 
 require "rails_helper"
 
-describe ChangeMembershipLevel do
+describe RegisterMembershipLevelChange do
   let!(:person) { create(:person) }
   let(:to_level) { "member" }
 
   subject do
-    ChangeMembershipLevel.call(person, to_level)
+    RegisterMembershipLevelChange.call(person, to_level)
   end
 
   describe "when valid" do
