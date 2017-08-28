@@ -109,7 +109,8 @@ es:
   errors:
     messages:
       cycle_detected: el padre de un ámbito no puede ser descendiente de este
-      procedure_denial_comment_required: debes indicar la razón del rechazo el procedimiento
-      image_too_big: la imagen es demasiado grande
       depends_on_different_person: el procedimiento debe corresponder a la misma persona que el procedimiento del que depende
+      image_too_big: la imagen es demasiado grande
+      mini_magick_processing_error: "MiniMagick no ha podido trabajar con el fichero, tal vez no sea una imagen. Error original: %{e}"
+      procedure_denial_comment_required: debes indicar la razón del rechazo el procedimiento
       processed_by_person: el procedimiento no puede ser procesado por la persona a la que afecta

@@ -5,6 +5,7 @@ class AttachmentUploader < ApplicationUploader
 
   # Choose what kind of storage to use for this uploader:
   storage :encrypted_file
+  cache_storage :encrypted_file
 
   process :set_content_type
   process :validate_dimensions
