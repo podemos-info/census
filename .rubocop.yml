@@ -1255,5 +1255,6 @@ Metrics/BlockLength:
     - 'config/environments/*'
     - 'app/admin/*'
     - 'spec/**/*'
+    - 'spec/*/*'
   ExcludedMethods:
     - included

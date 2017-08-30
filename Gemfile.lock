@@ -207,6 +207,7 @@ GEM
     nio4r (2.1.0)
     nokogiri (1.8.0)
       mini_portile2 (~> 2.2.0)
+    normalizr (0.2.0)
     paper_trail (7.1.1)
       activerecord (>= 4.0, < 5.2)
       request_store (~> 1.1)
@@ -328,6 +329,8 @@ GEM
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.2)
+    spanish_vat_validators (0.0.6)
+      activemodel (>= 3.2.0)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -395,6 +398,7 @@ DEPENDENCIES
   kaminari-i18n
   listen
   mini_magick
+  normalizr
   paper_trail
   paranoia
   pg
@@ -408,6 +412,7 @@ DEPENDENCIES
   rubocop (~> 0.49.1)
   sassc-rails
   secure_headers
+  spanish_vat_validators
   spring
   spring-watcher-listen
   symmetric-encryption

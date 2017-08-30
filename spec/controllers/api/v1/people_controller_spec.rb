@@ -17,7 +17,7 @@ describe Api::V1::PeopleController, type: :controller do
       params[:person][:scope_code] = person.scope.code
       params[:person][:address_scope_code] = person.address_scope.code
       params[:person][:document_scope_code] = person.document_scope.code
-      params[:person][:document_files] = [api_attachment_format(attachment), api_attachment_format(attachment)]
+      params[:person][:files] = [api_attachment_format(attachment), api_attachment_format(attachment)]
       params
     end
 
