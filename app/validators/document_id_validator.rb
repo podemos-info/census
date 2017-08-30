@@ -17,11 +17,16 @@ class DocumentIdValidator < ActiveModel::EachValidator
   end
 
   def validate_document_id(type, scope, value)
+    # Basic check for minimum length
     return false if value.length < Settings.document_id_minimum_length
 
     # This validations apply only for spanish documents.
     return true if scope != "ES"
 
+    validate_spanish_document(type, value)
+  end
+
+  def validate_spanish_document(type, value)
     case type.to_sym
     when :dni
       value.upcase == value && validate_nif(value)
