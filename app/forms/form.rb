@@ -2,4 +2,5 @@
 
 # A base form object to hold common logic
 class Form < Rectify::Form
+  include Normalizr::Concern
 end

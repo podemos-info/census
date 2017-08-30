@@ -22,7 +22,7 @@ describe Scope, :db do
   it { is_expected.to be_valid }
 
   context "local scope" do
-    let!(:scope) { create(:scope, code: Settings.local_code) }
+    let!(:scope) { create(:local_scope) }
 
     it "#local returns configured scope" do
       expect(Scope.local).to eq scope
@@ -33,7 +33,7 @@ describe Scope, :db do
     let(:scope) { create(:scope) }
     let(:child_scope) { create(:scope, parent: scope) }
     let!(:grand_child_scope) { create(:scope, parent: child_scope) }
-    let!(:other_scope) { create(:scope) }
+    let!(:other_scope) { create(:local_scope) }
 
     it "#top_level returns top level scopes" do
       expect(Scope.top_level).to match_scopes [scope, other_scope]

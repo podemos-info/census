@@ -16,27 +16,47 @@ class PersonForm < Form
   attribute :address, String
   attribute :address_scope_code, String
   attribute :postal_code, String
-  attribute :scope_code, String
   attribute :email, String
+  attribute :scope_code, String
   attribute :phone, String
   attribute :extra, Hash
-  attribute :document_files, Array
+  attribute :files, Array
 
   validates :level, presence: true, inclusion: { in: Person.levels }
-  validates :first_name, :last_name1, :last_name2, presence: true
-  validates :document_type, :document_id, presence: true
-  validates :document_type, inclusion: { in: Person::DOCUMENT_TYPES }
+
+  normalize :first_name, :last_name1, :last_name2, with: [:whitespace, :blank]
+  validates :first_name, :last_name1, presence: true
+
+  validates :document_type, inclusion: { in: Person::DOCUMENT_TYPES }, presence: true
+  validates :document_id, document_id: { type: :document_type, scope: :document_scope_code }, presence: true
   validates :document_scope_code, presence: true, if: :require_document_scope?
-  validates :born_at, :gender, presence: true
-  validates :gender, inclusion: { in: Person::GENDERS }
-  validate :document_files_presence
+
+  validates :born_at, presence: true
+
+  validates :gender, inclusion: { in: Person::GENDERS }, presence: true
+
+  normalize :address, :postal_code, with: :whitespace
+  validates :address, :address_scope_code, :postal_code, presence: true
+
+  validates :email, :scope_code, :phone, presence: true
+
+  validate :files_presence
+
+  def document_id=(value)
+    super value && document_type ? Normalizr.normalize(value, :"document_#{document_type}") : value
+  end
+
+  def document_type=(value)
+    super value
+    self.document_id = document_id if document_id.present?
+  end
 
   def require_document_scope?
     document_type != "dni"
   end
 
-  def document_files_presence
-    validates_length_of :document_files, minimum: (document_type == "passport" ? 1 : 2)
+  def files_presence
+    validates_length_of :files, minimum: (document_type == "passport" ? 1 : 2)
   end
 
   def document_scope
@@ -51,13 +71,13 @@ class PersonForm < Form
     Scope.find_by_code(address_scope_code)
   end
 
-  def files
-    @files ||= document_files.map do |file|
-      tempfile = Tempfile.new("")
-      tempfile.binmode
-      tempfile << Base64.decode64(file[:base64_content])
-      tempfile.rewind
-      ActionDispatch::Http::UploadedFile.new(filename: file[:filename], type: file[:content_type], tempfile: tempfile)
-    end
+  def files=(value)
+    super(value.map do |file|
+            tempfile = Tempfile.new("")
+            tempfile.binmode
+            tempfile << Base64.decode64(file[:base64_content])
+            tempfile.rewind
+            ActionDispatch::Http::UploadedFile.new(filename: file[:filename], type: file[:content_type], tempfile: tempfile)
+          end)
   end
 end

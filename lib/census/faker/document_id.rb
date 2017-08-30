@@ -19,7 +19,7 @@ module Census
       end
 
       def self.passport
-        l, n = [[2, 8], [2, 7], [3, 6], [4, 4]].sample
+        l, n = [[1, 10], [2, 6], [3, 6]].sample
         [*"A".."Z"].sample(l).join + ::Faker::Number.number(n)
       end
 
