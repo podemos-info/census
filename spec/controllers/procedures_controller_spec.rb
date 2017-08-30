@@ -29,6 +29,10 @@ describe ProceduresController, type: :controller do
     it { expect(subject).to render_template("index") }
 
     context "accepted tab" do
+      before do
+        override_current_user procedure.processed_by
+      end
+
       subject { get :index, params: { scope: :accepted } }
       let!(:procedure) { create(:verification_document, :undoable) }
       it { expect(subject).to be_success }
