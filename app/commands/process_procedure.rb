@@ -21,7 +21,6 @@ class ProcessProcedure < Rectify::Command
   # Returns nothing.
   def call
     return broadcast(:invalid) unless @procedure && @processor && safe_event
-    return broadcast(:invalid) if safe_event == :accept && !@procedure.full_acceptable?
 
     result = Procedure.transaction do
       process_procedure @procedure
@@ -49,6 +48,6 @@ class ProcessProcedure < Rectify::Command
   end
 
   def safe_event
-    @safe_event ||= ((@procedure.permitted_events - [:undo]) & [@params[:event]&.to_sym]).first
+    @safe_event ||= ((@procedure.permitted_events(@processor) - [:undo]) & [@params[:event]&.to_sym]).first
   end
 end

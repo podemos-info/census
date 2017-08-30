@@ -26,7 +26,7 @@ ActiveAdmin.register Procedure do
     state_column :state
     actions defaults: false do |procedure|
       span procedure.view_link
-      if procedure.may_undo?
+      if procedure.full_undoable_by? controller.current_user
         span link_to t("census.procedure.events.undo"), undo_procedure_path(procedure), method: :patch,
                                                                                         data: { confirm: t("census.sure_question") },
                                                                                         class: "member_link"
@@ -88,7 +88,7 @@ ActiveAdmin.register Procedure do
 
         panel t("census.procedure.process") do
           f.inputs do
-            f.input :event, as: :radio, collection: f.object.available_events_options
+            f.input :event, as: :radio, collection: f.object.permitted_events_options(f.template.controller.current_user)
             f.input :comment, as: :text
           end
           f.actions
