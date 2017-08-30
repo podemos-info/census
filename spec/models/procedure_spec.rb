@@ -3,6 +3,7 @@
 require "rails_helper"
 
 describe Procedure, :db do
+  let(:other_person) { create(:person) }
   let(:procedure) { build(:membership_level_change) }
 
   subject { procedure }
@@ -21,9 +22,9 @@ describe Procedure, :db do
 
     it { is_expected.to be_valid }
 
-    context "#full_acceptable? returns true" do
+    context "#full_acceptable_by? returns true" do
       let(:procedure) { parent_procedure }
-      it { expect(procedure.full_acceptable?).to be_truthy }
+      it { expect(procedure.full_acceptable_by?(other_person)).to be_truthy }
     end
 
     context "#acceptable? in the child procedure returns false" do
@@ -43,11 +44,11 @@ describe Procedure, :db do
       let(:procedure) { child_procedure }
 
       it { is_expected.to be_invalid }
+      it { expect(procedure.full_acceptable_by?(processor)).to be_falsey }
     end
   end
 
   context "undoable" do
-    let(:other_person) { create(:person) }
     let(:procedure) { create(:membership_level_change, :undoable, person: create(:person, :verified)) }
 
     it "is undoable" do

@@ -76,16 +76,18 @@ module ProcedureStates
       @undo_version
     end
 
-    def permitted_events
-      @permitted_events ||= aasm.events(permitted: true).map(&:name)
+    def permitted_events(processor)
+      @permitted_events ||= aasm.events(permitted: true).map do |event|
+        event.name unless (event == :accept && !full_acceptable_by?(processor)) || (event == :undo && !full_undoable_by(processor))
+      end .compact
     end
 
-    def full_acceptable?
-      return false unless acceptable?
+    def full_acceptable_by?(processor)
+      return false unless processor.present? && processor != person && acceptable?
       process_accept
       ret = dependent_procedures.all? do |dependent_procedure|
         dependent_procedure.person = person # use the same person instance
-        dependent_procedure.full_acceptable?
+        dependent_procedure.full_acceptable_by? processor
       end
       undo_accept
       ret

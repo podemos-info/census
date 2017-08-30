@@ -17,9 +17,9 @@ class ProcedureDecorator < ApplicationDecorator
     I18n.t("activerecord.models.procedures.#{ActiveSupport::Inflector.underscore(ActiveSupport::Inflector.demodulize(object.model_name.to_s))}.one")
   end
 
-  def available_events_options
-    @available_events_options ||= object.aasm.events(permitted: true).map do |event|
-      [I18n.t("census.procedure.events.#{event.name}"), event.name]
+  def permitted_events_options(processor)
+    @permitted_events_options ||= object.permitted_events(processor).map do |event|
+      [I18n.t("census.procedure.events.#{event}"), event]
     end
   end
 
