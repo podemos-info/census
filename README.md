@@ -1,7 +1,7 @@
 # Census
 Census Managment Application
 
-[![Travis](https://img.shields.io/travis/podemos-info/census.svg)](https://travis-ci.org/podemos-info/census)
+[![Travis](https://img.shields.io/travis/podemos-info/census/master.svg)](https://travis-ci.org/podemos-info/census)
 [![Codecov](https://img.shields.io/codecov/c/github/podemos-info/census.svg)](https://codecov.io/gh/podemos-info/census)
 [![Scrutinizer](https://img.shields.io/scrutinizer/g/podemos-info/census.svg)](https://scrutinizer-ci.com/g/podemos-info/census/)
 [![Dependency Status](https://www.versioneye.com/user/projects/59a6d9e5368b08003e32dd04/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/59a6d9e5368b08003e32dd04?style=flat)
