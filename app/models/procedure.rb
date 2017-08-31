@@ -3,9 +3,10 @@
 class Procedure < ApplicationRecord
   include ProcedureStates
 
+  self.inheritance_column = :type
+
   has_paper_trail
 
-  self.inheritance_column = :type
   belongs_to :person
   belongs_to :processed_by, class_name: "Person", optional: true
   belongs_to :depends_on, class_name: "Procedure", optional: true

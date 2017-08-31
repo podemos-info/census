@@ -2,6 +2,10 @@
 
 module Procedures
   class VerificationDocument < Procedure
+    def acceptable?
+      true
+    end
+
     def process_accept
       person.verified_by_document = true
     end
