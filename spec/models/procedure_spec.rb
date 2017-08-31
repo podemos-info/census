@@ -80,4 +80,20 @@ describe Procedure, :db do
       end
     end
   end
+
+  context "all descendants implement abstract methods" do
+    Dir["app/models/procedures/*.rb"].each do |file|
+      require_dependency File.expand_path(file)
+    end
+
+    Procedure.descendants.each do |procedure_class|
+      describe "#{procedure_class} implements abstract methods" do
+        let(:procedure) { procedure_class.new }
+        it { is_expected.to respond_to(:process_accept) }
+        it { is_expected.to respond_to(:undo_accept) }
+        it { is_expected.to respond_to(:persist_accept_changes!) }
+        it { is_expected.to respond_to(:acceptable?) }
+      end
+    end
+  end
 end

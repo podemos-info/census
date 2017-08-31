@@ -8,18 +8,6 @@ module ProcedureStates
   included do
     include AASM
 
-    # === START overridable methods
-    def process_accept; end
-
-    def undo_accept; end
-
-    def persist_accept_changes!; end
-
-    def acceptable?
-      true
-    end
-    # === END overridable methods
-
     aasm column: :state do
       state :pending, initial: true
       state :accepted, before_enter: :process_accept, after_enter: :persist_accept_changes!,
