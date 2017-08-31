@@ -2,14 +2,14 @@
 
 require "rails_helper"
 
-describe ProcessProcedure do
+describe Procedures::ProcessProcedure do
   let!(:procedure) { create(:verification_document) }
   let(:event) { :accept }
   let(:params) { { event: event, comment: "This is a comment" } }
   let!(:processor) { create(:person) }
 
   subject do
-    ProcessProcedure.call(procedure, processor, params)
+    described_class.call(procedure, processor, params)
   end
 
   describe "when valid" do

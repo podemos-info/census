@@ -2,12 +2,12 @@
 
 require "rails_helper"
 
-describe UndoProcedure do
+describe Procedures::UndoProcedure do
   let(:procedure) { create(:verification_document, :undoable) }
   let(:processor) { procedure.processed_by }
 
   subject do
-    UndoProcedure.call(procedure, processor)
+    described_class.call(procedure, processor)
   end
 
   describe "when undoing an accepted procedure" do

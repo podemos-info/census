@@ -110,7 +110,7 @@ ActiveAdmin.register Procedure do
 
   member_action :undo, method: :patch do
     procedure = resource
-    UndoProcedure.call(procedure, current_user) do
+    Procedures::UndoProcedure.call(procedure, current_user) do
       on(:invalid) do
         flash[:error] = t("census.procedure.action_message.cant_undo", link: view_context.link_to(procedure.id, procedure)).html_safe
       end
@@ -140,7 +140,7 @@ ActiveAdmin.register Procedure do
     def update
       procedure = resource
 
-      ProcessProcedure.call(procedure, current_user, params[:procedure]) do
+      Procedures::ProcessProcedure.call(procedure, current_user, params[:procedure]) do
         on(:invalid) { render :edit }
         on(:ok) do
           flash[:notice] = t("census.procedure.action_message.#{procedure.state}", link: view_context.link_to(procedure.id, procedure)).html_safe
