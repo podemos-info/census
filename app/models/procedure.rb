@@ -25,6 +25,11 @@ class Procedure < ApplicationRecord
   validate :processed_by, :processor_different_from_person
   validate :depends_on, :depends_on_person
 
+  def initialize(*args)
+    raise "Cannot directly instantiate a Procedure" if self.class == Procedure
+    super
+  end
+
   private
 
   def processor_different_from_person

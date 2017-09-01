@@ -31,11 +31,6 @@ module ProcedureStates
       end
     end
 
-    def initialize(*args)
-      raise "Cannot directly instantiate a Procedure" if self.class == Procedure
-      super
-    end
-
     def processed?
       accepted? || rejected?
     end
