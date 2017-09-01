@@ -5,6 +5,9 @@ class Person < ApplicationRecord
   include PersonLevels
   include FlagShihTzu
 
+  acts_as_paranoid
+  has_paper_trail
+
   store_accessor :extra, :participa_id
 
   belongs_to :document_scope,
@@ -26,12 +29,9 @@ class Person < ApplicationRecord
             column: "verifications",
             check_for_column: false
 
-  acts_as_paranoid
-  has_paper_trail
-
   scope :verified, -> { where.not verifications: 0 }
   scope :not_verified, -> { where verifications: 0 }
 
-  DOCUMENT_TYPES = %w(dni nie passport).freeze
-  GENDERS = %w(female male other undisclosed).freeze
+  enum document_type: [:dni, :nie, :passport], _suffix: true
+  enum gender: [:female, :male, :other, :undisclosed], _suffix: true
 end

@@ -17,7 +17,7 @@ else
   emigrant_scopes = Scope.local.not_descendants.leafs
 
   30.times do
-    doc = Person::DOCUMENT_TYPES.sample
+    doc = Person.document_types.keys.sample
     young = Faker::Boolean.boolean(0.1)
     emigrant = Faker::Boolean.boolean(0.1)
     scope = local_scopes.sample
@@ -30,7 +30,7 @@ else
       document_id: Census::Faker::DocumentId.generate(doc),
       document_scope: doc == "passport" ? Scope.top_level.sample : Scope.local,
       born_at: young ? Faker::Date.between(18.year.ago, 14.year.ago) : Faker::Date.between(99.year.ago, 18.year.ago),
-      gender: Person::GENDERS.sample,
+      gender: Person.genders.keys.sample,
       address: Faker::Address.street_address,
       address_scope: emigrant ? emigrant_scopes.sample : scope,
       postal_code: Faker::Address.zip_code,

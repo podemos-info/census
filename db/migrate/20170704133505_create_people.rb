@@ -6,11 +6,11 @@ class CreatePeople < ActiveRecord::Migration[5.1]
       t.string :first_name
       t.string :last_name1
       t.string :last_name2
-      t.string :document_type
+      t.integer :document_type
       t.string :document_id
       t.references :document_scope, foreign_key: { to_table: :scopes }
       t.date :born_at
-      t.string :gender
+      t.integer :gender
       t.string :address
       t.references :address_scope, foreign_key: { to_table: :scopes }
       t.string :postal_code

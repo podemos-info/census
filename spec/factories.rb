@@ -43,7 +43,7 @@ FactoryGirl.define do
     last_name1 { Faker::Name.last_name }
     last_name2 { Faker::Name.last_name }
     born_at { Faker::Date.between(99.year.ago, 18.year.ago) }
-    gender { Person::GENDERS.sample }
+    gender { Person.genders.keys.sample }
     address { Faker::Address.street_address }
     postal_code { Faker::Address.zip_code }
     email { Faker::Internet.unique.email }

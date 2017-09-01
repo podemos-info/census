@@ -35,13 +35,13 @@ class PersonDecorator < Draper::Decorator
   end
 
   def self.gender_options
-    @gender_options ||= Person::GENDERS.map do |gender|
+    @gender_options ||= Person.genders.keys.map do |gender|
       [I18n.t("census.people.genders.#{gender}"), gender]
     end.freeze
   end
 
   def self.document_type_options
-    @document_types ||= Person::DOCUMENT_TYPES.map do |document_type|
+    @document_types ||= Person.document_types.keys.map do |document_type|
       [I18n.t("census.people.document_types.#{document_type}"), document_type]
     end.freeze
   end

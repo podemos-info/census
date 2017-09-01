@@ -27,13 +27,13 @@ class PersonForm < Form
   normalize :first_name, :last_name1, :last_name2, with: [:whitespace, :blank]
   validates :first_name, :last_name1, presence: true
 
-  validates :document_type, inclusion: { in: Person::DOCUMENT_TYPES }, presence: true
+  validates :document_type, inclusion: { in: Person.document_types.keys }, presence: true
   validates :document_id, document_id: { type: :document_type, scope: :document_scope_code }, presence: true
   validates :document_scope_code, presence: true, if: :require_document_scope?
 
   validates :born_at, presence: true
 
-  validates :gender, inclusion: { in: Person::GENDERS }, presence: true
+  validates :gender, inclusion: { in: Person.genders.keys }, presence: true
 
   normalize :address, :postal_code, with: :whitespace
   validates :address, :address_scope_code, :postal_code, presence: true
