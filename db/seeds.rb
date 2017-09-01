@@ -41,7 +41,11 @@ else
     )
   end
 
-  admins = Person.first(10)
+  # create and verify 4 admins
+  admins = Person.first(4)
+  admins.each do |admin|
+    admin.update_attributes verified_in_person: true
+  end
 
   # create 10 processed verifications
   Person.not_verified.order("RANDOM()").limit(10).each do |person|
