@@ -1,2 +1,3 @@
-request_rate_limit: 10
-local_code: ES
+security:
+  api_client_ips: 1.1.1.1 2.2.2.2
+  request_rate_limit: 10

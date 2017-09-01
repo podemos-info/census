@@ -1,11 +1,17 @@
-local_code: ES
-locales:
-  default: es
-  available: # don't include default locale
-    - ca
-    - eu
-    - en
-    - gl
-undo_minutes: 30
-request_rate_limit: 300
-document_id_minimum_length: 4
+misc:
+  document_id_minimum_length: 4
+  undo_minutes: 30
+
+regional:
+  local_code: ES
+  locales:
+    default: es
+    available: # don't include default locale
+      - ca
+      - eu
+      - en
+      - gl
+
+security:
+  api_client_ips: <%= ENV.fetch("CLIENT_SERVERS_IPS") { "" } %>
+  request_rate_limit: 300

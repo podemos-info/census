@@ -31,7 +31,7 @@ class Scope < ApplicationRecord
   end
 
   def self.local
-    find_by(code: Settings.local_code)
+    find_by(code: Settings.regional.local_code)
   end
 
   def descendants

@@ -4,7 +4,7 @@ class Rack::Attack
   ### Configure Cache ###
 
   # Static configuration
-  api_client_ips = Set.new Rails.application.secrets.api_client_ips&.split(/[^\.\d]/)
+  api_client_ips = Set.new Settings.security.api_client_ips&.split(/[^\.\d]/)
 
   # If you don"t want to use Rails.cache (Rack::Attack"s default), then
   # configure it here.
@@ -28,7 +28,7 @@ class Rack::Attack
   # Throttle all requests by IP (60rpm)
   #
   # Key: "rack::attack:#{Time.now.to_i/:period}:req/ip:#{req.ip}"
-  throttle("req/ip", limit: Settings.request_rate_limit, period: 5.minutes, &:ip)
+  throttle("req/ip", limit: Settings.security.request_rate_limit, period: 5.minutes, &:ip)
   # do |req|
   #  req.ip # unless req.path.start_with?("/assets")
   # end

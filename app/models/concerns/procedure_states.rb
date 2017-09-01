@@ -40,7 +40,7 @@ module ProcedureStates
     end
 
     def undoable?
-      processed_at && processed_at > Settings.undo_minutes.minutes.ago && undo_version.present?
+      processed_at && processed_at > Settings.misc.undo_minutes.minutes.ago && undo_version.present?
     end
 
     def undoable_by?(processor)

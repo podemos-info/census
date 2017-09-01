@@ -26,8 +26,8 @@ FactoryGirl.define do
 
     trait :local do
       name { Census::Faker::Localized.literal("local") }
-      code { Settings.local_code }
-      initialize_with { Scope.find_or_create_by(code: Settings.local_code) }
+      code { Settings.regional.local_code }
+      initialize_with { Scope.find_or_create_by(code: Settings.regional.local_code) }
     end
 
     factory :local_scope, traits: [:local]
@@ -101,7 +101,7 @@ FactoryGirl.define do
 
     trait :processed do
       processed_by { build(:person) }
-      processed_at { Faker::Time.between(created_at, Settings.undo_minutes.minutes.ago, :all) }
+      processed_at { Faker::Time.between(created_at, Settings.misc.undo_minutes.minutes.ago, :all) }
       state { Faker::Boolean.boolean(0.7) ? :accepted : :rejected }
       comment { Faker::Lorem.paragraph(1, true, 2) }
     end
