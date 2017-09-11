@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require "shared/only_authorized_clients"
+require "shared/only_authorized_api_clients"
+require "shared/only_authorized_payment_callbacks"
 
 require "simplecov"
 SimpleCov.start
