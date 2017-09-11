@@ -6,3 +6,4 @@ security:
     payment_callbacks:
       - 3.3.3.3
   request_rate_limit: 10
+  host_url: example.org

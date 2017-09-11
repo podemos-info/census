@@ -20,13 +20,13 @@ module Payments
       end
 
       def parse_error_type(response)
-        return nil unless response.params[:ds_response]
+        return :unknown unless response.params[:ds_response]
         code = response.params[:ds_response].to_i
 
         Processor::ERROR_TYPES.each do |error_type|
           return error_type if Settings.payments.redsys.error_codes[error_type].include?(code)
         end
-        nil
+        :unknown
       end
 
       def external_authorization_params(order)

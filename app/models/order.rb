@@ -5,7 +5,7 @@ class Order < ApplicationRecord
   include OrderStates
 
   belongs_to :person
-  belongs_to :payment_method
+  belongs_to :payment_method, autosave: true
   belongs_to :orders_batch, optional: true
   belongs_to :processed_by, class_name: "Person", optional: true
 

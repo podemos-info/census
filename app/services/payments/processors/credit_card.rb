@@ -26,19 +26,9 @@ module Payments
         # guardar response.message
         if response.success?
           payment_method.authorization_token = parse_authorization_token(response)
-          payment_method.processed_ok!
+          payment_method.processed :ok
         else
-          error_type = parse_error_type(response)
-          case error_type
-          when :warning
-            payment_method.processed_warn
-          when :error
-            payment_method.processed_error
-          when :system
-            #TO-DO: avisar a admin
-          else
-            #TO-DO: desconocido!
-          end
+          payment_method.processed parse_error_type(response)
         end
       end
 

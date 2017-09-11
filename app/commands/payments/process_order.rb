@@ -21,10 +21,11 @@ module Payments
     def call
       return broadcast(:invalid) unless @order && @processed_by && @order.processable?
 
-      result = Order.transaction do
-        payment_processor.process_order!(@order)
-        @order.update_attributes! processed_at: DateTime.now, processed_by: @processed_by
+      payment_processor.process_order @order
+      @order.assign_attributes processed_at: DateTime.now, processed_by: @processed_by
 
+      result = Order.transaction do
+        @order.save!
         :ok
       end
 
