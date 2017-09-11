@@ -1,0 +1,69 @@
+# frozen_string_literal: true
+
+require "rails_helper"
+require_dependency "census/payments/redsys_integration"
+
+describe Census::Payments::RedsysIntegration do
+  subject(:authorization) { described_class.new(params) }
+  let(:settings) { Settings.payments.processors.redsys.auth }
+  let(:params) do
+    {
+      merchant_name: "a merchant name",
+      merchant_code: "a merchant login",
+      terminal: "42",
+      secret_key: "abcdefghijLMNOPQRSTUVW1234567890",
+      notification_url: "https://participation.entity.com/payment/result",
+      return_url: "https://census.entity.com/payment/callback",
+      customer_id: 123_456,
+      product_description: "Purchase test",
+      amount: 1_234
+    }
+  end
+  let(:order_id) do
+    "1".rjust(12, "0")
+  end
+
+  before do
+    allow_any_instance_of(described_class).to receive(:order_id).and_return(order_id)
+  end
+
+  it { is_expected.to be_valid }
+
+  context ".form with fake data" do
+    subject(:form) { described_class.new(params).form }
+
+    it "returns a hash with an action url and a list of fields" do
+      is_expected.to include(:action, :fields)
+    end
+
+    it "uses redsys test url" do
+      expect(subject[:action]).to eq("https://sis-t.redsys.es:25443/sis/realizarPago")
+    end
+
+    it "includes the redsys required fields list" do
+      expect(subject[:fields]).to include(:Ds_MerchantParameters, :Ds_SignatureVersion, :Ds_Signature)
+    end
+
+    it "uses a valid signature version" do
+      expect(subject[:fields][:Ds_SignatureVersion]).to eq("HMAC_SHA256_V1")
+    end
+
+    it "generate a valid signature" do
+      expect(subject[:fields][:Ds_Signature]).to eq("vg/5xGBqB9cO3mx+SKOh2aLjwlwudbvIZU9KwLbRR+c=")
+    end
+
+    it "generates a valid parameters string" do
+      expect(subject[:fields][:Ds_MerchantParameters]).to eq <<~EOD.delete("\n")
+        eyJEU19NRVJDSEFOVF9BTU9VTlQiOiIxMjM0IiwiRFNfTUVSQ0hBTlRfQ09OU1VNRVJMQU5HVUFHRSI6IjAwMSIsIkRTX01FUk
+        NIQU5UX0NVUlJFTkNZIjoiOTc4IiwiRFNfTUVSQ0hBTlRfSURFTlRJRklFUiI6IlJFUVVJUkVEIiwiRFNfTUVSQ0hBTlRfTUVS
+        Q0hBTlRDT0RFIjoiYSBtZXJjaGFudCBsb2dpbiIsIkRTX01FUkNIQU5UX01FUkNIQU5UTkFNRSI6ImEgbWVyY2hhbnQgbmFtZS
+        IsIkRTX01FUkNIQU5UX01FUkNIQU5UVVJMIjoiaHR0cHM6Ly9wYXJ0aWNpcGF0aW9uLmVudGl0eS5jb20vcGF5bWVudC9yZXN1
+        bHQiLCJEU19NRVJDSEFOVF9PUkRFUiI6IjAwMDAwMDAwMDAwMSIsIkRTX01FUkNIQU5UX1BST0RVQ1RERVNDUklQVElPTiI6Il
+        B1cmNoYXNlIHRlc3QiLCJEU19NRVJDSEFOVF9NRVJDSEFOVERBVEEiOiJQdXJjaGFzZSB0ZXN0IiwiRFNfTUVSQ0hBTlRfVEVS
+        TUlOQUwiOiI0MiIsIkRTX01FUkNIQU5UX1RSQU5TQUNUSU9OVFlQRSI6IjAiLCJEU19NRVJDSEFOVF9VUkxLTyI6Imh0dHBzOi
+        8vY2Vuc3VzLmVudGl0eS5jb20vcGF5bWVudC9jYWxsYmFjay9rbyIsIkRTX01FUkNIQU5UX1VSTE9LIjoiaHR0cHM6Ly9jZW5z
+        dXMuZW50aXR5LmNvbS9wYXltZW50L2NhbGxiYWNrL29rIn0=
+      EOD
+    end
+  end
+end
