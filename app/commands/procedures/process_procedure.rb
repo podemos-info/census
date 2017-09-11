@@ -6,11 +6,11 @@ module Procedures
     # Public: Initializes the command.
     #
     # procedure - A Procedure object.
-    # processor - The person that is processing the procedure
+    # processed_by - The person that is processing the procedure
     # params - The event that will be processed and the comment for the procedure
-    def initialize(procedure, processor, params = {})
+    def initialize(procedure, processed_by, params = {})
       @procedure = procedure
-      @processor = processor
+      @processed_by = processed_by
       @params = params
     end
 
@@ -21,7 +21,7 @@ module Procedures
     #
     # Returns nothing.
     def call
-      return broadcast(:invalid) unless @procedure && @processor && safe_event
+      return broadcast(:invalid) unless @procedure && @processed_by && safe_event
 
       result = Procedure.transaction do
         process_procedure @procedure
@@ -34,7 +34,7 @@ module Procedures
     private
 
     def process_procedure(current_procedure)
-      current_procedure.processed_by = @processor
+      current_procedure.processed_by = @processed_by
       current_procedure.processed_at = Time.current
       current_procedure.comment = @params[:comment]
       current_procedure.send(safe_event)
@@ -49,7 +49,7 @@ module Procedures
     end
 
     def safe_event
-      @safe_event ||= ((@procedure.permitted_events(@processor) - [:undo]) & [@params[:event]&.to_sym]).first
+      @safe_event ||= ((@procedure.permitted_events(@processed_by) - [:undo]) & [@params[:event]&.to_sym]).first
     end
   end
 end

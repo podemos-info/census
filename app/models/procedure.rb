@@ -22,7 +22,7 @@ class Procedure < ApplicationRecord
   validates :comment, presence: { message: I18n.t("errors.messages.procedure_denial_comment_required") },
                       if: proc { |procedure| procedure.issues? || procedure.rejected? }
   validates :processed_by, :processed_at, presence: true, if: :processed?
-  validate :processed_by, :processor_different_from_person
+  validate :processed_by, :processed_by_different_from_person
   validate :depends_on, :depends_on_person
 
   def initialize(*args)
@@ -32,7 +32,7 @@ class Procedure < ApplicationRecord
 
   private
 
-  def processor_different_from_person
+  def processed_by_different_from_person
     errors.add(:processed_by_id, :processed_by_person) if processed_by == person
   end
 

@@ -3,14 +3,12 @@
 require "rails_helper"
 
 describe Procedures::ProcessProcedure do
+  subject(:process_procedure) { described_class.call(procedure, processed_by, params) }
+
   let!(:procedure) { create(:verification_document) }
   let(:event) { :accept }
   let(:params) { { event: event, comment: "This is a comment" } }
-  let!(:processor) { create(:person) }
-
-  subject do
-    described_class.call(procedure, processor, params)
-  end
+  let!(:processed_by) { create(:person) }
 
   describe "when valid" do
     it "broadcasts :ok" do
@@ -21,8 +19,8 @@ describe Procedures::ProcessProcedure do
       expect { subject } .to change { Procedure.find(procedure.id).state } .from("pending").to("accepted")
     end
 
-    it "sets processor" do
-      expect { subject } .to change { Procedure.find(procedure.id).processed_by } .to(processor)
+    it "sets processed_by" do
+      expect { subject } .to change { Procedure.find(procedure.id).processed_by } .to(processed_by)
     end
 
     it "sets processing date" do
@@ -41,8 +39,8 @@ describe Procedures::ProcessProcedure do
         expect { subject } .to change { Procedure.find(dependent_procedure.id).state } .from("pending").to("accepted")
       end
 
-      it "sets processor" do
-        expect { subject } .to change { Procedure.find(dependent_procedure.id).processed_by } .to(processor)
+      it "sets processed_by" do
+        expect { subject } .to change { Procedure.find(dependent_procedure.id).processed_by } .to(processed_by)
       end
 
       it "sets processing date" do
@@ -55,9 +53,9 @@ describe Procedures::ProcessProcedure do
     end
   end
 
-  context "when processor" do
+  context "when processed_by" do
     context "is null" do
-      let(:processor) { nil }
+      let(:processed_by) { nil }
 
       it "broadcasts :invalid" do
         expect { subject } .to broadcast(:invalid)
@@ -67,7 +65,7 @@ describe Procedures::ProcessProcedure do
         expect { subject } .to_not change { Procedure.find(procedure.id).state }
       end
 
-      it "does not set processor" do
+      it "does not set processed_by" do
         expect { subject } .to_not change { Procedure.find(procedure.id).processed_by }
       end
 
@@ -80,7 +78,7 @@ describe Procedures::ProcessProcedure do
       end
 
       context "on dependent procedures" do
-        let(:processor) { nil }
+        let(:processed_by) { nil }
         let(:procedure) { create(:verification_document, :with_dependent_procedure) }
         let(:dependent_procedure) { procedure.dependent_procedures.first }
 
@@ -88,7 +86,7 @@ describe Procedures::ProcessProcedure do
           expect { subject } .to_not change { Procedure.find(dependent_procedure.id).state }
         end
 
-        it "does not set processor" do
+        it "does not set processed_by" do
           expect { subject } .to_not change { Procedure.find(dependent_procedure.id).processed_by }
         end
 
@@ -103,7 +101,7 @@ describe Procedures::ProcessProcedure do
     end
 
     context "is the affected person" do
-      let(:processor) { procedure.person }
+      let(:processed_by) { procedure.person }
       it "broadcasts :invalid" do
         expect { subject }.to broadcast(:invalid)
       end

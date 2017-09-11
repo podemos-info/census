@@ -3,12 +3,10 @@
 require "rails_helper"
 
 describe Procedures::UndoProcedure do
-  let(:procedure) { create(:verification_document, :undoable) }
-  let(:processor) { procedure.processed_by }
+  subject(:undo_procedure) { described_class.call(procedure, processed_by) }
 
-  subject do
-    described_class.call(procedure, processor)
-  end
+  let(:procedure) { create(:verification_document, :undoable) }
+  let(:processed_by) { procedure.processed_by }
 
   describe "when undoing an accepted procedure" do
     it "broadcasts :ok" do
@@ -19,7 +17,7 @@ describe Procedures::UndoProcedure do
       expect { subject } .to change { Procedure.find(procedure.id).state } .to("pending")
     end
 
-    it "reverts the processor" do
+    it "reverts the processed_by" do
       expect { subject } .to change { Procedure.find(procedure.id).processed_by } .to(nil)
     end
 
@@ -39,7 +37,7 @@ describe Procedures::UndoProcedure do
         expect { subject } .to change { Procedure.find(dependent_procedure.id).state } .to("pending")
       end
 
-      it "reverts processor" do
+      it "reverts processed_by" do
         expect { subject } .to change { Procedure.find(dependent_procedure.id).processed_by } .to(nil)
       end
 
@@ -63,7 +61,7 @@ describe Procedures::UndoProcedure do
       expect { subject } .to change { Procedure.find(procedure.id).state } .to("pending")
     end
 
-    it "reverts the processor" do
+    it "reverts the processed_by" do
       expect { subject } .to change { Procedure.find(procedure.id).processed_by } .to(nil)
     end
 
@@ -83,7 +81,7 @@ describe Procedures::UndoProcedure do
         expect { subject } .to change { Procedure.find(dependent_procedure.id).state } .to("pending")
       end
 
-      it "reverts processor" do
+      it "reverts processed_by" do
         expect { subject } .to change { Procedure.find(dependent_procedure.id).processed_by } .to(nil)
       end
 
@@ -97,9 +95,9 @@ describe Procedures::UndoProcedure do
     end
   end
 
-  context "when processor" do
+  context "when processed_by" do
     context "is other" do
-      let!(:processor) { create(:person) }
+      let!(:processed_by) { create(:person) }
 
       it "broadcasts :invalid" do
         expect { subject } .to broadcast(:invalid)
@@ -109,7 +107,7 @@ describe Procedures::UndoProcedure do
         expect { subject } .to_not change { Procedure.find(procedure.id).state }
       end
 
-      it "does not revert processor" do
+      it "does not revert processed_by" do
         expect { subject } .to_not change { Procedure.find(procedure.id).processed_by }
       end
 
@@ -129,7 +127,7 @@ describe Procedures::UndoProcedure do
           expect { subject } .to_not change { Procedure.find(dependent_procedure.id).state }
         end
 
-        it "does not revert processor" do
+        it "does not revert processed_by" do
           expect { subject } .to_not change { Procedure.find(dependent_procedure.id).processed_by }
         end
 
@@ -144,7 +142,7 @@ describe Procedures::UndoProcedure do
     end
 
     context "is the affected person" do
-      let(:processor) { procedure.person }
+      let(:processed_by) { procedure.person }
       it "broadcasts :invalid" do
         expect { subject }.to broadcast(:invalid)
       end

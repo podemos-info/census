@@ -3,12 +3,10 @@
 require "rails_helper"
 
 describe Procedures::RegisterMembershipLevelChange do
+  subject(:register_membership_level_change) { described_class.call(person, to_level) }
+
   let!(:person) { create(:person) }
   let(:to_level) { "member" }
-
-  subject do
-    described_class.call(person, to_level)
-  end
 
   describe "when valid" do
     it "broadcasts :ok" do

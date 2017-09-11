@@ -6,10 +6,10 @@ module Procedures
     # Public: Initializes the command.
     #
     # procedure - A Procedure object.
-    # processor - The person that is undoing the procedure
-    def initialize(procedure, processor)
+    # processed_by - The person that is undoing the procedure
+    def initialize(procedure, processed_by)
       @procedure = procedure
-      @processor = processor
+      @processed_by = processed_by
     end
 
     # Executes the command. Broadcasts these events:
@@ -19,7 +19,7 @@ module Procedures
     #
     # Returns nothing.
     def call
-      return broadcast(:invalid) unless @procedure && @processor && @procedure.full_undoable_by?(@processor)
+      return broadcast(:invalid) unless @procedure && @processed_by && @procedure.full_undoable_by?(@processed_by)
 
       result = Procedure.transaction do
         undo_procedure @procedure

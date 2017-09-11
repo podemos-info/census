@@ -5,7 +5,7 @@ require "rails_helper"
 describe ProceduresController, type: :controller do
   render_views
 
-  let!(:processor) { create(:person) }
+  let!(:processed_by) { create(:person) }
   let(:resource_class) { Procedure }
   let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
   let(:resource) { all_resources[resource_class] }
