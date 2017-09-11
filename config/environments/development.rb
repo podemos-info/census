@@ -48,4 +48,9 @@ Rails.application.configure do
 
   # Force SSL access
   config.force_ssl = true
+
+  config.eager_load_paths += Dir["app/services/payments/processors/*.rb"]
+  ActiveSupport::Reloader.to_prepare do
+    Dir["app/services/payments/processors/*.rb"].each { |file| require_dependency file }
+  end
 end

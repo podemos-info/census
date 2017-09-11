@@ -1,3 +1,8 @@
 security:
-  api_client_ips: 1.1.1.1 2.2.2.2
+  allowed_ips:
+    api_clients:
+      - 1.1.1.1
+      - 2.2.2.2
+    payment_callbacks:
+      - 3.3.3.3
   request_rate_limit: 10
