@@ -20,12 +20,31 @@ es:
       attachment:
         one: Adjunto
         other: Adjuntos
-      person:
-        one: Persona
-        other: Personas
       comment: 
         one: Comentario
         other: Comentarios
+      download:
+        one: Descarga
+        other: Descargas
+      order:
+        one: Orden
+        other: Órdenes
+      orders_batch:
+        one: Lote de órdenes
+        other: Lotes de órdenes
+      payment_method:
+        one: Método de pago
+        other: Métodos de pago
+      payment_methods:
+        credit_card:
+          one: Tarjeta de crédito
+          other: Tarjetas de crédito
+        direct_debit:
+          one: Débito directo
+          others: Débitos directos
+      person:
+        one: Persona
+        other: Personas
       procedure:
         one: Procedimiento
         other: Procedimientos
@@ -74,7 +93,18 @@ es:
         state/issues: Incidencia
         state/accepted: Aceptado
         state/rejected: Rechazado
+      order:
+        person: Persona
+        orders_batch: Lote de órdenes
+        full_amount: Total
+        state: Estado
+        state/pending: Pendiente
+        state/ok: Pagada
+        state/error: Errores
+        state/returned: Devuelta
   census:
+    downloads:
+      download: Descargar
     people:
       genders:
         female: Femenino
@@ -105,6 +135,11 @@ es:
         undone: El procedimiento %{link} ha vuelto a su estado anterior.
         cant_undo: No se ha podido devolved al procedimiento %{link} a su estado anterior.
         cant_process: No se puede procesar un procedimiento ya procesado.
+    orders_batch:
+      process: Procesar
+      action_message:
+        processed: El lote de órdenes %{link} ha sido procesado.
+        not_processed: No se pudo procesar el lote de órdenes %{link}.
     sure_question: ¿Estás segura?
   errors:
     messages:
