@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170816142820) do
+ActiveRecord::Schema.define(version: 20170904130745) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,15 +38,67 @@ ActiveRecord::Schema.define(version: 20170816142820) do
     t.index ["procedure_id"], name: "index_attachments_on_procedure_id"
   end
 
+  create_table "downloads", force: :cascade do |t|
+    t.bigint "person_id", null: false
+    t.string "file", null: false
+    t.string "content_type"
+    t.datetime "expires_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["person_id"], name: "index_downloads_on_person_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.bigint "person_id", null: false
+    t.bigint "payment_method_id", null: false
+    t.bigint "orders_batch_id"
+    t.string "currency", null: false
+    t.integer "amount", null: false
+    t.string "description", null: false
+    t.bigint "processed_by_id"
+    t.datetime "processed_at"
+    t.string "state"
+    t.jsonb "information", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["orders_batch_id"], name: "index_orders_on_orders_batch_id"
+    t.index ["payment_method_id"], name: "index_orders_on_payment_method_id"
+    t.index ["person_id"], name: "index_orders_on_person_id"
+    t.index ["processed_by_id"], name: "index_orders_on_processed_by_id"
+  end
+
+  create_table "orders_batches", force: :cascade do |t|
+    t.string "description", null: false
+    t.bigint "processed_by_id"
+    t.datetime "processed_at"
+    t.jsonb "stats", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["processed_by_id"], name: "index_orders_batches_on_processed_by_id"
+  end
+
+  create_table "payment_methods", force: :cascade do |t|
+    t.bigint "person_id", null: false
+    t.string "name", null: false
+    t.string "type", null: false
+    t.integer "flags", default: 0, null: false
+    t.string "payment_processor", null: false
+    t.jsonb "information", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["person_id"], name: "index_payment_methods_on_person_id"
+  end
+
   create_table "people", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name1"
     t.string "last_name2"
-    t.bigint "document_type"
+    t.integer "document_type"
     t.string "document_id"
     t.bigint "document_scope_id"
     t.date "born_at"
-    t.bigint "gender"
+    t.integer "gender"
     t.string "address"
     t.bigint "address_scope_id"
     t.string "postal_code"
@@ -115,6 +167,8 @@ ActiveRecord::Schema.define(version: 20170816142820) do
   end
 
   add_foreign_key "attachments", "procedures"
+  add_foreign_key "orders", "people", column: "processed_by_id"
+  add_foreign_key "orders_batches", "people", column: "processed_by_id"
   add_foreign_key "people", "scopes", column: "address_scope_id"
   add_foreign_key "people", "scopes", column: "document_scope_id"
   add_foreign_key "procedures", "people", column: "processed_by_id"
