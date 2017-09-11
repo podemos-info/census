@@ -18,6 +18,8 @@ class Person < ApplicationRecord
              optional: true
 
   has_many :procedures
+  has_many :orders
+  has_many :payment_methods
 
   belongs_to :scope,
              optional: true
