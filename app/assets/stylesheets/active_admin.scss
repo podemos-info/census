@@ -88,3 +88,16 @@ body.logged_in.edit .input li.choice {
   float:right;
   margin-top: -1.5rem;
 }
+
+table.index {
+  th, td {
+    text-align: center;
+  }
+
+  td.right {
+    text-align: right;
+  }
+  td.left {
+    text-align: left;
+  }
+}

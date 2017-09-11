@@ -11,9 +11,9 @@ ActiveAdmin.register Person do
   index do
     state_column :level
     id_column
-    column :full_name, sortable: :last_name1
-    column :full_document
-    column :scope, sortable: "scopes.name" do |person|
+    column :full_name, sortable: :last_name1, class: :left
+    column :full_document, class: :left
+    column :scope, sortable: "scopes.name", class: :left do |person|
       person.scope&.show_path(Scope.local)
     end
     column :flags do |person|

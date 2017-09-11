@@ -3,6 +3,8 @@
 ActiveAdmin.register Procedure do
   decorate_with ProcedureDecorator
 
+  includes :person
+
   config.sort_order = "created_at_asc"
 
   menu label: -> { "#{Procedure.model_name.human(count: 2)} [#{Procedure.pending.count}/#{Procedure.issues.count}]" }
@@ -21,8 +23,8 @@ ActiveAdmin.register Procedure do
     column :type do |procedure|
       procedure.view_link procedure.type_name
     end
-    column :person
-    column :created_at
+    column :person, class: :left
+    column :created_at, class: :left
     state_column :state
     actions defaults: false do |procedure|
       span procedure.view_link
