@@ -10,6 +10,17 @@ Rails.application.routes.draw do
           patch :change_membership_level
         end
       end
+
+      namespace :payments do
+        resources :orders, only: [:create] do
+        end
+      end
+    end
+  end
+
+  namespace :callbacks do
+    namespace :payments do
+      match ":payment_processor", to: "/callbacks#payments", via: :all
     end
   end
 end
