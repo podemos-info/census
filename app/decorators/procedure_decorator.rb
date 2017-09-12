@@ -14,7 +14,7 @@ class ProcedureDecorator < ApplicationDecorator
   end
 
   def type_name
-    I18n.t("activerecord.models.procedures.#{ActiveSupport::Inflector.underscore(ActiveSupport::Inflector.demodulize(object.model_name.to_s))}.one")
+    super("procedure")
   end
 
   def permitted_events_options(processed_by)

@@ -6,6 +6,6 @@ class PaymentMethodDecorator < Draper::Decorator
   decorates_association :person
 
   def type_name
-    I18n.t("activerecord.models.payment_methods.#{ActiveSupport::Inflector.underscore(ActiveSupport::Inflector.demodulize(object.model_name.to_s))}.one")
+    super("payment_method")
   end
 end
