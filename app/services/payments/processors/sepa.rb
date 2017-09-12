@@ -12,9 +12,13 @@ module Payments
 
         yield
 
-        xml = create_temp_file("#{orders_batch.description.underscore}.xml", @direct_debit.to_xml, "application/xml")
+        form = DownloadForm.new(
+          person: orders_batch.processed_by,
+          file: create_temp_file("#{orders_batch.description.underscore}.xml", @direct_debit.to_xml, "application/xml"),
+          expires_at: Settings.payments.processors.sepa.file_lifespan.hours.from_now
+        )
 
-        ::Downloads::CreateDownload.call(xml, orders_batch.processed_by, Settings.payments.processors.sepa.file_lifespan.hours.from_now) do
+        ::Downloads::CreateDownload.call(form) do
           on(:invalid) do
             raise "Error generating file"
           end

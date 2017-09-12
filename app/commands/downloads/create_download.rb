@@ -5,13 +5,9 @@ module Downloads
   class CreateDownload < Rectify::Command
     # Public: Initializes the command.
     #
-    # file - The file that is going to be available for download
-    # person - The person that can download the file
-    # expires_at - The date until the download is going to be available
-    def initialize(file, person, expires_at)
-      @file = file
-      @person = person
-      @expires_at = expires_at
+    # form - A form object with the params.
+    def initialize(form)
+      @form = form
     end
 
     # Executes the command. Broadcasts these events:
@@ -21,7 +17,9 @@ module Downloads
     #
     # Returns nothing.
     def call
-      result = :ok if build_download.save
+      broadcast(:invalid) && return unless form.valid?
+
+      result = :ok if download.save
 
       broadcast result || :invalid
     end
@@ -30,11 +28,11 @@ module Downloads
 
     attr_reader :form
 
-    def build_download
-      ::Download.new(
-        file: @file,
-        person: @person,
-        expires_at: @expires_at
+    def download
+      @download ||= Download.new(
+        person: form.person,
+        file: form.file,
+        expires_at: form.expires_at
       )
     end
   end
