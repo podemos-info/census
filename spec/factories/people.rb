@@ -82,5 +82,6 @@ FactoryGirl.define do
   factory :download do
     association :person, factory: :person, strategy: :build
     expires_at { Faker::Date.between(1.day.from_now, 30.days.from_now) }
+    file { test_file("attachment-non-image.pdf", "application/pdf") }
   end
 end
