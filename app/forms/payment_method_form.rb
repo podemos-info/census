@@ -24,40 +24,40 @@ class PaymentMethodForm < Form
   validates :authorization_token, :expiration_year, :expiration_month, presence: true, if: :credit_card_authorized?
 
   def existing?
-    payment_method == :existing
+    type == :existing
   end
 
   def direct_debit?
-    payment_method == :direct_debit
+    type == :direct_debit
   end
 
   def credit_card_authorize?
-    payment_method == :credit_card_authorize
+    type == :credit_card_authorize
   end
 
   def credit_card_authorized?
-    payment_method == :credit_card_authorized
+    type == :credit_card_authorized
   end
 
   def build(person)
     if direct_debit?
       PaymentMethods::DirectDebit.new(
         person: person,
-        iban: payment_method.iban,
+        iban: iban,
         processor: Settings.payments.processors.direct_debit
       )
     elsif credit_card_authorize?
       PaymentMethods::CreditCard.new(
         person: person,
-        return_url: payment_method.return_url,
+        return_url: return_url,
         processor: Settings.payments.processors.credit_card
       )
     elsif credit_card_authorized?
       PaymentMethods::CreditCard.new(
         person: person,
-        authorization_token: payment_method.authorization_token,
-        expiration_year: payment_method.expiration_year,
-        expiration_month: payment_method.expiration_month,
+        authorization_token: authorization_token,
+        expiration_year: expiration_year,
+        expiration_month: expiration_month,
         processor: Settings.payments.processors.credit_card,
         verified: true
       )
