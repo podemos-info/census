@@ -6,12 +6,14 @@ class Scope < ApplicationRecord
              class_name: "Scope",
              inverse_of: :children,
              counter_cache: :children_count,
-             optional: true
+             optional: true,
+             autosave: true
 
   has_many :children,
            foreign_key: "parent_id",
            class_name: "Scope",
-           inverse_of: :parent
+           inverse_of: :parent,
+           autosave: true
 
   before_validation :update_part_of, on: :update
 
