@@ -19,29 +19,29 @@ SecureHeaders::Configuration.default do |config|
   config.clear_site_data = %w(cache cookies storage executionContexts)
 
   # TO-DO: review this
-  # config.csp = {
-  #   # "meta" values. these will shape the header, but the values are not included in the header.
-  #   preserve_schemes: true, # default: false. Schemes are removed from host sources to save bytes and discourage mixed content.
+  config.csp = {
+    # "meta" values. these will shape the header, but the values are not included in the header.
+    preserve_schemes: true, # default: false. Schemes are removed from host sources to save bytes and discourage mixed content.
 
-  #   # directive values: these values will directly translate into source directives
-  #   default_src: %w(https: 'self'),
-  #   base_uri: %w('self'),
-  #   block_all_mixed_content: true, # see http://www.w3.org/TR/mixed-content/
-  #   child_src: %w('self'), # if child-src isn't supported, the value for frame-src will be set.
-  #   connect_src: %w(wss:),
-  #   font_src: %w('self' data:),
-  #   form_action: %w('self' github.com),
-  #   frame_ancestors: %w('none'),
-  #   img_src: %w(mycdn.com data:),
-  #   manifest_src: %w('self'),
-  #   media_src: %w(utoob.com),
-  #   object_src: %w('self'),
-  #   plugin_types: %w(),
-  #   script_src: %w('self'),
-  #   style_src: %w('unsafe-inline'),
-  #   upgrade_insecure_requests: true, # see https://www.w3.org/TR/upgrade-insecure-requests/
-  #   report_uri: %w(https://report-uri.io/example-csp)
-  # }
+    # directive values: these values will directly translate into source directives
+    default_src: %w(https: 'self'),
+    # base_uri: %w('self'),
+    # block_all_mixed_content: true, # see http://www.w3.org/TR/mixed-content/
+    # child_src: %w('self'), # if child-src isn't supported, the value for frame-src will be set.
+    # connect_src: %w(https: 'self'),
+    # font_src: %w('self' data:),
+    # form_action: %w('self' github.com),
+    # frame_ancestors: %w('none'),
+    # img_src: %w(mycdn.com data:),
+    # manifest_src: %w('self'),
+    # media_src: %w(utoob.com),
+    # object_src: %w('self'),
+    # plugin_types: %w(),
+    # script_src: %w('self'),
+    # style_src: %w('unsafe-inline'),
+    # upgrade_insecure_requests: true, # see https://www.w3.org/TR/upgrade-insecure-requests/
+    # report_uri: %w(https://report-uri.io/example-csp)
+  }
   # # This is available only from 3.5.0; use the `report_only: true` setting for 3.4.1 and below.
   # config.csp_report_only = config.csp.merge({
   #   img_src: %w(somewhereelse.com),
