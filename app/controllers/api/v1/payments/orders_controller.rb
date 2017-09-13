@@ -3,7 +3,7 @@
 module Api
   class V1::Payments::OrderController < ApiController
     def create
-      form = OrderForm.from_params(params)
+      form = "orders/#{params[:type]}_order_form".classify.constantize.from_params(params)
       CreateOrder.call(form) do
         on(:invalid) do
           render json: form.errors, status: :unprocessable_entity

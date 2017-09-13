@@ -6,16 +6,18 @@ describe Payments::CreateOrder do
   subject(:create_order) { described_class.call(form) }
 
   let(:order) { build(:order) }
+  let(:payment_method) { create(:direct_debit, person: order.person) }
+  let(:form_class) { Orders::ExistingPaymentMethodOrderForm }
   let(:valid) { true }
   let(:form) do
     instance_double(
-      OrderForm,
+      form_class,
       invalid?: !valid,
       valid?: valid,
       description: order.description,
       person: order.person,
       amount: order.amount,
-      payment_method: order.payment_method,
+      payment_method: payment_method,
       currency: order.currency
     )
   end
@@ -31,7 +33,9 @@ describe Payments::CreateOrder do
   end
 
   describe "when require an external authentication" do
-    let(:order) { build(:order, :external) }
+    let(:payment_method) { build(:credit_card, :external, person: order.person) }
+    let(:form_class) { Orders::CreditCardExternalOrderForm }
+
     it "broadcasts :external" do
       expect { subject } .to broadcast(:external)
     end

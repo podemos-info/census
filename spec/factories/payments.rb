@@ -3,7 +3,7 @@
 require "census/faker/bank"
 
 FactoryGirl.define do
-  factory :credit_card, class: PaymentMethods::CreditCard do
+  factory :credit_card, class: :"payment_methods/credit_card" do
     transient do
       expires_at { 4.years.from_now }
     end
@@ -11,7 +11,7 @@ FactoryGirl.define do
     person
     name { "CC - #{person.last_name1}" }
     payment_processor { :redsys }
-    authorization_token { "PATATAT!" }
+    authorization_token { "1234567890abcdef" }
     expiration_year { expires_at.year }
     expiration_month { expires_at.month }
 
@@ -27,7 +27,7 @@ FactoryGirl.define do
     end
   end
 
-  factory :direct_debit, class: PaymentMethods::DirectDebit do
+  factory :direct_debit, class: :"payment_methods/direct_debit" do
     name { "*" * 16 + iban[-4..-1] }
     iban { Census::Faker::Bank.iban("ES") }
     bic { Faker::Bank.swift_bic }

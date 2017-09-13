@@ -10,7 +10,7 @@ FactoryGirl.define do
     end
   end
 
-  factory :procedure, class: Procedure do
+  factory :procedure, class: :procedure do
     association :person, factory: :person, strategy: :build
     information { {} }
     created_at { Faker::Time.between(person.created_at, 3.day.ago, :all) }
@@ -68,7 +68,7 @@ FactoryGirl.define do
     end
   end
 
-  factory :verification_document, parent: :procedure, class: Procedures::VerificationDocument do
+  factory :verification_document, parent: :procedure, class: :"procedures/verification_document" do
     trait :with_dependent_procedure do
       after :create do |procedure|
         create(:membership_level_change, depends_on: procedure, person: procedure.person)
@@ -76,7 +76,7 @@ FactoryGirl.define do
     end
   end
 
-  factory :membership_level_change, parent: :procedure, class: Procedures::MembershipLevelChange do
+  factory :membership_level_change, parent: :procedure, class: :"procedures/membership_level_change" do
     from_level { person.level }
     to_level "member"
   end
