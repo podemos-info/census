@@ -7,6 +7,8 @@ ActiveAdmin.register Download do
 
   includes :person
 
+  actions :index, :show
+
   index do
     id_column
     column :filename
