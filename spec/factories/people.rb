@@ -19,10 +19,10 @@ FactoryGirl.define do
     plural { Census::Faker::Localized.literal(name.values.first.pluralize) }
   end
 
-  factory :scope, aliases: [:address_scope, :document_scope] do
+  factory :scope do
     name { Census::Faker::Localized.literal(generate(:scope_name)) }
     code { generate(:scope_code) }
-    scope_type
+    association :scope_type, factory: :scope_type, strategy: :build
 
     trait :local do
       name { Census::Faker::Localized.literal("local") }
@@ -51,8 +51,8 @@ FactoryGirl.define do
     created_at { Faker::Time.between(3.years.ago, 3.day.ago, :all) }
     extra { { participa_id: generate(:participa_id) } }
 
-    address_scope
-    document_scope
+    association :address_scope, factory: :scope, strategy: :build
+    association :document_scope, factory: :scope, strategy: :build
 
     after :build do |person, evaluator|
       foreign = evaluator.foreign
@@ -64,8 +64,8 @@ FactoryGirl.define do
       end
       person.document_id = Census::Faker::DocumentId.generate(person.document_type) unless person.document_id.present?
 
-      local_scope = create(:local_scope)
-      person.scope = create(:scope, parent: local_scope)
+      local_scope = build(:local_scope)
+      person.scope = build(:scope, parent: local_scope)
       person.address_scope = person.scope unless evaluator.non_local
       person.document_scope = local_scope unless foreign
     end
