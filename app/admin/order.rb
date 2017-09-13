@@ -5,6 +5,8 @@ ActiveAdmin.register Order do
 
   includes :person, :payment_method
 
+  actions :index, :show
+
   index do
     id_column
     column :payment_method
