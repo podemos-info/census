@@ -9,7 +9,7 @@ end
 
 gem "aasm"
 gem "activeadmin"
-gem "activeadmin_addons"
+gem "activeadmin_addons", ">= 1.0"
 gem "activemerchant"
 gem "arctic_admin"
 gem "carrierwave"
