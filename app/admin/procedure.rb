@@ -90,7 +90,7 @@ ActiveAdmin.register Procedure do
 
         panel t("census.procedures.process") do
           f.inputs do
-            f.input :event, as: :radio, label: false, collection: f.object.permitted_events_options(f.template.controller.current_user)
+            f.input :event, as: :radio, label: false, collection: procedure.permitted_events_options(controller.current_user)
             f.input :comment, as: :text
           end
           f.actions
