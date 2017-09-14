@@ -11,6 +11,12 @@ class Order < ApplicationRecord
 
   store_accessor :information, :raw_response
 
+  validate :same_person_than_payment_method
+
+  def same_person_than_payment_method
+    errors.add(:payment_method_id, :different_person_than_payment_method) if payment_method && person != payment_method.person
+  end
+
   def date
     created_at&.to_date || Date.today
   end

@@ -149,3 +149,4 @@ es:
       mini_magick_processing_error: "MiniMagick no ha podido trabajar con el fichero, tal vez no sea una imagen. Error original: %{e}"
       procedure_denial_comment_required: debes indicar la razón del rechazo el procedimiento
       processed_by_person: el procedimiento no puede ser procesado por la persona a la que afecta
+      different_person_than_payment_method: la orden no puede cobrarse con un método de pago correspondiente a una persona diferente
