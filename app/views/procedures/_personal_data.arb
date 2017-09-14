@@ -1,4 +1,4 @@
-panel t("census.procedure.personal_data") do
+panel t("census.procedures.personal_data") do
   div class: "panel_link" do
     a t("active_admin.view"), href: person_path(procedure.person)
     span "|"

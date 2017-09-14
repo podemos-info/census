@@ -29,9 +29,9 @@ ActiveAdmin.register Procedure do
     actions defaults: false do |procedure|
       span procedure.view_link
       if procedure.full_undoable_by? controller.current_user
-        span link_to t("census.procedure.events.undo"), undo_procedure_path(procedure), method: :patch,
-                                                                                        data: { confirm: t("census.sure_question") },
-                                                                                        class: "member_link"
+        span link_to t("census.procedures.events.undo"), undo_procedure_path(procedure), method: :patch,
+                                                                                         data: { confirm: t("census.sure_question") },
+                                                                                         class: "member_link"
       end
     end
   end
@@ -65,7 +65,7 @@ ActiveAdmin.register Procedure do
       end
     end
     if procedure.dependent_procedures.any?
-      panel I18n.t("census.procedure.dependent_procedures") do
+      panel I18n.t("census.procedures.dependent_procedures") do
         table_for procedure.dependent_procedures, i18n: Procedure do
           column :type, &:type_name
           column :information
@@ -74,13 +74,13 @@ ActiveAdmin.register Procedure do
     end
   end
 
-  form title: I18n.t("census.procedure.process"), decorate: true do |f|
+  form title: I18n.t("census.procedures.process"), decorate: true do |f|
     columns class: "attachments" do
       column do
         render partial: "personal_data"
 
         if procedure.dependent_procedures.any?
-          panel I18n.t("census.procedure.dependent_procedures") do
+          panel I18n.t("census.procedures.dependent_procedures") do
             table_for procedure.dependent_procedures, i18n: Procedure do
               column :type, &:type_name
               column :information
@@ -88,9 +88,9 @@ ActiveAdmin.register Procedure do
           end
         end
 
-        panel t("census.procedure.process") do
+        panel t("census.procedures.process") do
           f.inputs do
-            f.input :event, as: :radio, collection: f.object.permitted_events_options(f.template.controller.current_user)
+            f.input :event, as: :radio, label: false, collection: f.object.permitted_events_options(f.template.controller.current_user)
             f.input :comment, as: :text
           end
           f.actions
@@ -114,10 +114,10 @@ ActiveAdmin.register Procedure do
     procedure = resource
     Procedures::UndoProcedure.call(procedure, current_user) do
       on(:invalid) do
-        flash[:error] = t("census.procedure.action_message.cant_undo", link: view_context.link_to(procedure.id, procedure)).html_safe
+        flash[:error] = t("census.procedures.action_message.cant_undo", link: view_context.link_to(procedure.id, procedure)).html_safe
       end
       on(:ok) do
-        flash[:notice] = t("census.procedure.action_message.undone", link: view_context.link_to(procedure.id, procedure)).html_safe
+        flash[:notice] = t("census.procedures.action_message.undone", link: view_context.link_to(procedure.id, procedure)).html_safe
       end
     end
     redirect_back(fallback_location: procedures_path)
@@ -135,7 +135,7 @@ ActiveAdmin.register Procedure do
     end
 
     def edit
-      redirect_back(fallback_location: procedures_path, error: t("census.procedure.action_message.cant_process")) && return if resource.processed?
+      redirect_back(fallback_location: procedures_path, error: t("census.procedures.action_message.cant_process")) && return if resource.processed?
       super
     end
 
@@ -145,7 +145,7 @@ ActiveAdmin.register Procedure do
       Procedures::ProcessProcedure.call(procedure, current_user, params[:procedure]) do
         on(:invalid) { render :edit }
         on(:ok) do
-          flash[:notice] = t("census.procedure.action_message.#{procedure.state}", link: view_context.link_to(procedure.id, procedure)).html_safe
+          flash[:notice] = t("census.procedures.action_message.#{procedure.state}", link: view_context.link_to(procedure.id, procedure)).html_safe
           redirect_to next_pending_path
         end
       end

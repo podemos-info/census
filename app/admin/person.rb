@@ -53,6 +53,7 @@ ActiveAdmin.register Person do
       row :created_at
       row :updated_at
     end
+    show_table(self, t("census.people.extra"), person.extra) if person.extra.any?
     if person.independent_procedures.any?
       panel Procedure.model_name.human(count: 2).capitalize do
         table_for person.independent_procedures, i18n: Procedure do
@@ -66,6 +67,7 @@ ActiveAdmin.register Person do
         end
       end
     end
+    active_admin_comments
   end
 
   form do |f|

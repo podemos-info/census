@@ -16,4 +16,17 @@ ActiveAdmin.register PaymentMethod do
     column :type, &:type_name
     actions
   end
+
+  show do
+    attributes_table do
+      row :id
+      row :person
+      row :name
+      row :type, &:type_name
+      row :created_at
+      row :updated_at
+    end
+    show_table(self, t("census.payment_methods.information"), payment_method.information) if payment_method.information.any?
+    active_admin_comments
+  end
 end

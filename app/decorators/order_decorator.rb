@@ -5,7 +5,11 @@ class OrderDecorator < ApplicationDecorator
 
   decorates_association :person
 
+  def to_s
+    object.description
+  end
+
   def full_amount
-    Money.new(object.amount, object.currency)
+    Money.new(object.amount, object.currency).format
   end
 end

@@ -70,7 +70,7 @@ es:
         address: Dirección
         address_scope: Lugar de residencia
         postal_code: Código postal
-        flags: Marcas
+        flags: Verificaciones
         level: Nivel
         level/person: persona
         level/follower: simpatizante
@@ -85,6 +85,7 @@ es:
         type: Tipo
         information: Información
         created_at: Fecha de creación
+        updated_at: Última actualización
         comment: Comentario
         processed_by: Procesado por
         processed_at: Fecha de procesado
@@ -97,11 +98,26 @@ es:
         person: Persona
         orders_batch: Lote de órdenes
         full_amount: Total
+        payment_method: Método de pago
+        created_at: Fecha de creación
+        updated_at: Última actualización
         state: Estado
         state/pending: Pendiente
         state/ok: Pagada
         state/error: Errores
         state/returned: Devuelta
+      orders_batch:
+        description: Descripción
+        orders_count: Nº de órdenes
+      payment_method:
+        person: Persona
+        name: Nombre
+        type: Tipo
+        created_at: Fecha de creación
+        updated_at: Última actualización
+        authorization_token: Código de autorización
+        expiration_year: Año de expiración
+        expiration_month: Mes de expiración
   census:
     downloads:
       download: Descargar
@@ -119,7 +135,8 @@ es:
         has_issues: Alerta
         verified_by_document: Documento
         verified_in_person: En persona
-    procedure:
+      extra: Información adicional
+    procedures:
       personal_data: Datos personales
       dependent_procedures: Procedimientos dependientes
       process: Procesar
@@ -135,11 +152,15 @@ es:
         undone: El procedimiento %{link} ha vuelto a su estado anterior.
         cant_undo: No se ha podido devolved al procedimiento %{link} a su estado anterior.
         cant_process: No se puede procesar un procedimiento ya procesado.
-    orders_batch:
+    orders:
+      information: Información adicional
+    orders_batches:
       process: Procesar
       action_message:
         processed: El lote de órdenes %{link} ha sido procesado.
         not_processed: No se pudo procesar el lote de órdenes %{link}.
+    payment_methods:
+      information: Información adicional
     sure_question: ¿Estás segura?
   errors:
     messages:
