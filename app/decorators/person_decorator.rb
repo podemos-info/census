@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class PersonDecorator < Draper::Decorator
+class PersonDecorator < ApplicationDecorator
   delegate_all
 
   decorates_association :scope

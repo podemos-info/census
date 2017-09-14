@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class DownloadDecorator < Draper::Decorator
+class DownloadDecorator < ApplicationDecorator
   delegate_all
 
   decorates_association :person

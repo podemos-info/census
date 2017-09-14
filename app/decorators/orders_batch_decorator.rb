@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class OrdersBatchDecorator < Draper::Decorator
+class OrdersBatchDecorator < ApplicationDecorator
   delegate_all
 
   def orders_count

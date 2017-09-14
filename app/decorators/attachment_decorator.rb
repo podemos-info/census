@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AttachmentDecorator < Draper::Decorator
+class AttachmentDecorator < ApplicationDecorator
   delegate_all
 
   def view_path(options = {})
