@@ -5,6 +5,8 @@ ActiveAdmin.register PaymentMethod do
 
   includes :person
 
+  actions :index, :show
+
   menu parent: :orders
 
   index do

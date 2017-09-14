@@ -4,6 +4,8 @@ ActiveAdmin.register OrdersBatch do
   decorate_with OrdersBatchDecorator
   menu parent: :orders
 
+  actions :index, :show
+
   index do
     id_column
     column :description, class: :left
