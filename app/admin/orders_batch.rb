@@ -12,8 +12,8 @@ ActiveAdmin.register OrdersBatch do
     column :orders_count
     actions defaults: true do |orders_batch|
       link_to t("census.orders_batches.process"), process_batch_orders_batch_path(orders_batch), method: :patch,
-                                                                                               data: { confirm: t("census.sure_question") },
-                                                                                               class: :member_link
+                                                                                                 data: { confirm: t("census.sure_question") },
+                                                                                                 class: :member_link
     end
   end
 
