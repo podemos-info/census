@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 module Payments
-  # A command to create a batch of orders to process
+  # A command to create a batch of orders
   class CreateOrdersBatch < Rectify::Command
     # Public: Initializes the command.
     #
-    # name - The name of the orders batch
+    # form - A form object with the params.
+    # description - The description of the orders batch
     # orders - Orders to be included in the batch
-    def initialize(description, orders)
-      @description = description
-      @orders = orders
+    def initialize(form)
+      @form = form
     end
 
     # Executes the command. Broadcasts these events:
@@ -19,12 +19,12 @@ module Payments
     #
     # Returns nothing.
     def call
-      return broadcast(:invalid) unless @description && @orders && @orders.any?
+      return broadcast(:invalid) unless form.valid?
 
       result = OrdersBatch.transaction do
         orders_batch.save!
 
-        @orders.find_each do |order|
+        form.orders.find_each do |order|
           order.orders_batch = orders_batch
           order.save!
         end
@@ -37,8 +37,10 @@ module Payments
 
     private
 
+    attr_reader :form
+
     def orders_batch
-      @orders_batch ||= OrdersBatch.new description: @description
+      @orders_batch ||= OrdersBatch.new description: form.description
     end
   end
 end

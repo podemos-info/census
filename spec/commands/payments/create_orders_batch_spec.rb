@@ -3,11 +3,19 @@
 require "rails_helper"
 
 describe Payments::CreateOrdersBatch do
-  subject(:create_orders_batch) { described_class.call(description, orders) }
+  subject(:create_orders_batch) { described_class.call(form) }
 
   let(:orders_batch) { build(:orders_batch) }
-  let(:orders) { orders_batch.orders }
-  let(:description) { orders_batch.description }
+  let(:valid) { true }
+  let(:form) do
+    instance_double(
+      OrdersBatchForm,
+      invalid?: !valid,
+      valid?: valid,
+      description: orders_batch.description,
+      orders: orders_batch.orders
+    )
+  end
 
   describe "when valid" do
     it "broadcasts :ok" do
@@ -19,8 +27,8 @@ describe Payments::CreateOrdersBatch do
     end
   end
 
-  describe "when has no orders" do
-    let(:orders) { [] }
+  describe "when invalid" do
+    let(:valid) { false }
 
     it "broadcasts :invalid" do
       is_expected.to broadcast(:invalid)
