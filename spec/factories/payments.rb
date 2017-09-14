@@ -28,6 +28,7 @@ FactoryGirl.define do
   end
 
   factory :direct_debit, class: :"payment_methods/direct_debit" do
+    person
     name { "*" * 16 + iban[-4..-1] }
     iban { Census::Faker::Bank.iban("ES") }
     bic { Faker::Bank.swift_bic }
