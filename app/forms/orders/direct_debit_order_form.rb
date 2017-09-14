@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# The form object that handles the data for an order with an existing payment method
+# The form object that handles the data for an order with direct debit payment
 module Orders
   class DirectDebitOrderForm < OrderForm
     attribute :iban, String

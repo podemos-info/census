@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# The form object that handles the data for an order with an existing payment method
+# The form object that handles the data for an order with credit card payment previously authorized
 module Orders
   class CreditCardAuthorizedOrderForm < OrderForm
     attribute :authorization_token, String

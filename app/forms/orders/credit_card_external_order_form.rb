@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# The form object that handles the data for an order with an existing payment method
+# The form object that handles the data for an order with credit card payment that is going to be externally authorized
 module Orders
   class CreditCardExternalOrderForm < OrderForm
     attribute :return_url, String
