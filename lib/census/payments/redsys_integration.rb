@@ -28,6 +28,7 @@ module Census
       attribute :language, Symbol
 
       attribute :result, Boolean
+      attribute :document_literal_style, Boolean
 
       validates :merchant_name, :merchant_code, :terminal, :secret_key, :test, :transaction_type, presence: true
       validates :notification_url, :return_url, presence: true
@@ -35,6 +36,9 @@ module Census
 
       def form
         return nil if invalid?
+
+        self.result = true
+
         {
           action: test ? TEST_URL : LIVE_URL,
           fields: {
@@ -61,8 +65,9 @@ module Census
         return nil unless valid_datetime?(request, date_limit) && valid_signature?(response_parts[:message]["Signature"], response_parts[:raw_request])
 
         self.result = true
+
         {
-          authorization_token: request["Ds_MerchantIdentifier"],
+          authorization_token: request["Ds_Merchant_Identifier"],
           expiration_year: "20#{request["Ds_ExpiryDate"][0..1]}".to_i,
           expiration_month: request["Ds_ExpiryDate"][2..3].to_i,
           raw_response: request
@@ -72,8 +77,7 @@ module Census
       def format_response
         return nil unless result.present? # only can be used to respond parsed responses
 
-        signature = mac256(order_key, response_message)
-        envelope(response_message(signature))
+        envelope(response_message)
       end
 
       private
@@ -103,11 +107,11 @@ module Census
         envelope = Hash.from_xml(response)["Envelope"]["Body"]
         self.document_literal_style = envelope["notificacion"].present?
 
-        raw_message = document_literal_style ? envelope["procesaNotificacionSIS"]["XML"] : envelope["notificacion"]["datoEntrada"]
+        raw_message = document_literal_style ? envelope["notificacion"]["datoEntrada"] : envelope["procesaNotificacionSIS"]["XML"]
         message = Hash.from_xml(raw_message)
 
         {
-          message: message,
+          message: message["Message"],
           raw_request: raw_message.match("<Request(.*)</Request>").to_s,
           request: message["Message"]["Request"]
         }
@@ -115,14 +119,19 @@ module Census
         nil
       end
 
-      def response_message(signature = nil)
+      def response_message
         xml = Builder::XmlMarkup.new
+        response = xml.Response Ds_Version: "0.0" do
+          xml.Ds_Response_Merchant(result ? "OK" : "KO")
+        end
+        signature = mac256(order_key, response)
 
+        xml = Builder::XmlMarkup.new
         xml.Message do
           xml.Response Ds_Version: "0.0" do
             xml.Ds_Response_Merchant(result ? "OK" : "KO")
           end
-          xml.Signature(signature) if signature
+          xml.Signature(signature)
         end
       end
 
@@ -176,12 +185,12 @@ module Census
         @url_ko ||= return_url.sub("__RESULT__", "ko")
       end
 
-      def valid_date?(response, date_limit)
-        DateTime.parse("#{response["Fecha"]} #{response["Hora"]} #{DateTime.now.zone}") < date_limit
+      def valid_datetime?(response, date_limit)
+        DateTime.parse("#{response["Fecha"]} #{response["Hora"]} #{DateTime.now.zone}") > date_limit
       end
 
       def valid_signature?(signature, response_data)
-        signature == mac256(response_data, order_key)
+        signature == mac256(order_key, response_data)
       end
 
       def order_key

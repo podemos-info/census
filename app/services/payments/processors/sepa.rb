@@ -7,7 +7,7 @@ module Payments
         Settings.payments.processors.sepa.main.name.present?
       end
 
-      def process_batch!(orders_batch)
+      def process_batch(orders_batch)
         @direct_debit = SEPA::DirectDebit.new(Settings.payments.processors.sepa.main)
 
         yield
@@ -28,7 +28,7 @@ module Payments
         end
       end
 
-      def process_order!(order)
+      def process_order(order)
         decorated_order = order.decorate
         @direct_debit.add_transaction(
           name: debtor(decorated_order), # Name of the debtor (<= 70 chars)

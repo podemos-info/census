@@ -10,11 +10,13 @@ ActiveAdmin.register OrdersBatch do
     id_column
     column :description, class: :left
     column :orders_count
-    actions defaults: true do |orders_batch|
-      link_to t("census.orders_batches.process"), process_batch_orders_batch_path(orders_batch), method: :patch,
-                                                                                                 data: { confirm: t("census.sure_question") },
-                                                                                                 class: :member_link
-    end
+    actions
+  end
+
+  action_item :process, only: :show do
+    link_to t("census.orders_batches.process"), charge_orders_batch_path(orders_batch), method: :patch,
+                                                                                        data: { confirm: t("census.sure_question") },
+                                                                                        class: :member_link
   end
 
   show do
@@ -27,16 +29,16 @@ ActiveAdmin.register OrdersBatch do
     end
   end
 
-  member_action :process_batch, method: :patch do
+  member_action :charge, method: :patch do # Fails when calling it :process
     orders_batch = resource
     Payments::ProcessOrdersBatch.call(orders_batch, current_user) do
       on(:invalid) do
-        flash[:error] = t("census.orders_batches.action_message.not_processed").html_safe
+        flash[:error] = t("census.orders_batches.action_message.not_processed")
       end
       on(:ok) do
-        flash[:notice] = t("census.orders_batches.action_message.processed").html_safe
+        flash[:notice] = t("census.orders_batches.action_message.processed")
       end
     end
-    redirect_back(fallback_location: orders_batch_path)
+    redirect_back(fallback_location: orders_batches_path)
   end
 end

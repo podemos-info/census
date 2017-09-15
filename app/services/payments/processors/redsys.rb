@@ -43,18 +43,20 @@ module Payments
         params = integration_proxy.parse(params[:_body], Settings.payments.processors.redsys.notification_lifespan.minutes.ago)
         return false unless params
 
-        params.merge(
+        params.merge!(
+          payment_processor: :redsys,
           person_id: integration_proxy.customer_id,
           description: integration_proxy.product_description,
-          amount: integration_proxy.amount
+          amount: integration_proxy.amount,
+          currency: integration_proxy.currency
         )
-        super(order, params, data)
+        super(order, params)
       end
 
       def format_external_authorization_response(result)
         integration_proxy.result = false unless result
 
-        { xml: integration_proxy.format_response }
+        { xml: integration_proxy.format_response, content_type: "text/xml" }
       end
 
       private

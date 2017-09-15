@@ -26,6 +26,7 @@ class PaymentMethod < ApplicationRecord
   belongs_to :person
 
   before_save :remove_issues!, if: :issues_fixed?
+  before_save :default_name, unless: :name?
 
   def active?
     !deleted? && !failing?
@@ -37,5 +38,9 @@ class PaymentMethod < ApplicationRecord
 
   def issues_fixed?
     has_issues? && information_changed?
+  end
+
+  def default_name
+    self.name = I18n.t("census.payment_methods.default_names.#{self.class.to_s.demodulize.underscore}", name_info)
   end
 end

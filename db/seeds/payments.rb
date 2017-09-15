@@ -5,9 +5,8 @@ require "census/faker/bank"
 def create_order(person, credit_card)
   payment_method = if credit_card
                      expires_at = Faker::Date.between(6.month.ago, 4.year.from_now)
-                     PaymentMethods::CreditCard.create!(
+                     PaymentMethods::CreditCard.new(
                        person: person,
-                       name: "CC - #{person.last_name1}",
                        authorization_token: "PATATAT!",
                        expiration_year: expires_at.year,
                        expiration_month: expires_at.month,
@@ -15,14 +14,14 @@ def create_order(person, credit_card)
                      )
                    else
                      iban = Census::Faker::Bank.iban("ES")
-                     PaymentMethods::DirectDebit.create!(
+                     PaymentMethods::DirectDebit.new(
                        person: person,
-                       name: "*" * 16 + iban[-4..-1],
                        iban: iban,
                        bic: Faker::Bank.swift_bic,
                        payment_processor: :sepa
                      )
                    end
+  payment_method.decorate.save!
 
   Order.create!(
     person: person,

@@ -51,6 +51,7 @@ group :development, :test do
   gem "faker"
   gem "rails-controller-testing"
   gem "rspec-rails"
+  gem "timecop"
   gem "wisper-rspec"
 end
 

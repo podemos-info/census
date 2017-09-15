@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Payments
-  # A command to process an orders
+  # A command to process an order
   class ProcessOrder < Rectify::Command
     # Public: Initializes the command.
     #

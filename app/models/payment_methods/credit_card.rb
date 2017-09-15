@@ -22,7 +22,7 @@ module PaymentMethods
     end
 
     def expired?
-      Date.today < expires_at
+      Date.today > expires_at
     end
 
     def expires_at
@@ -31,6 +31,10 @@ module PaymentMethods
 
     def issues_fixed?
       false
+    end
+
+    def name_info
+      { expiration: "#{expiration_month.to_s.rjust(2, "0")}/#{expiration_year}" }
     end
   end
 end

@@ -7,7 +7,7 @@ module Payments
         yield
       end
 
-      def process_order!(order)
+      def process_order(order)
         payment_method = order.payment_method
 
         options = { currency: order.currency }
@@ -27,8 +27,11 @@ module Payments
         if response.success?
           payment_method.authorization_token = parse_authorization_token(response)
           payment_method.processed :ok
+          order.charge
         else
           payment_method.processed parse_error_type(response)
+          order.raw_response = response
+          order.fail
         end
       end
 
@@ -42,14 +45,18 @@ module Payments
         order.person_id = params[:person_id]
         order.description = params[:description]
         order.amount = params[:amount]
+        order.currency = params[:currency]
         order.raw_response = params[:raw_response]
 
         order.payment_method = ::PaymentMethods::CreditCard.new(
+          payment_processor: params[:payment_processor],
+          person_id: params[:person_id],
           authorization_token: params[:authorization_token],
           expiration_year: params[:expiration_year],
           expiration_month: params[:expiration_month]
         )
-        order.payment_method.processed_ok
+        order.payment_method.processed :ok
+        order.charge
         true
       end
 

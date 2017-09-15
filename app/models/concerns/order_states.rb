@@ -8,10 +8,10 @@ module OrderStates
 
     aasm column: :state do
       state :pending, initial: true
-      state :ok, :returned, :error
+      state :processed, :returned, :error
 
-      event :accept do
-        transitions from: :pending, to: :ok
+      event :charge do
+        transitions from: :pending, to: :processed
       end
 
       event :fail do
@@ -19,7 +19,7 @@ module OrderStates
       end
 
       event :return do
-        transitions from: :ok, to: :returned
+        transitions from: :processed, to: :returned
       end
     end
   end

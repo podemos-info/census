@@ -25,10 +25,10 @@ module Payments
         processed_at = DateTime.now
 
         payment_processors.each do |payment_processor|
-          payment_processor.process_batch! @orders_batch do
+          payment_processor.process_batch @orders_batch do
             @orders_batch.orders_for_payment_processor(payment_processor).find_each do |order|
               next unless order.processable?
-              payment_processor.process_order! order
+              payment_processor.process_order order
               order.update_attributes! processed_at: processed_at, processed_by: @processed_by
             end
           end

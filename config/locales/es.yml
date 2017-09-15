@@ -129,14 +129,21 @@ es:
       add_orders_from_payment_methods: Puedes crear órdenes desde la página de una persona o un método de pago.
       created: La orden ha sido creada
       not_created: La orden no ha sido creada
+      process: Procesar
+      action_message:
+        processed: La orden ha sido procesado.
+        not_processed: No se pudo procesar la orden.
     orders_batches:
       process: Procesar
       action_message:
-        processed: El lote de órdenes %{link} ha sido procesado.
-        not_processed: No se pudo procesar el lote de órdenes %{link}.
+        processed: El lote de órdenes ha sido procesado.
+        not_processed: No se pudo procesar el lote de órdenes.
     payment_methods:
       information: Información adicional
       create_order: Crear orden con este método de pago
+      default_names:
+        credit_card: Tarjeta de crédito (vencimiento %{expiration})
+        direct_debit: Cuenta bancaria (acabada en %{iban_last_digits})
     people:
       create_order: Crear orden para esta persona
       document_types:

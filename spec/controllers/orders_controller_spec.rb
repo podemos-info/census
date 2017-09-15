@@ -23,19 +23,19 @@ describe OrdersController, type: :controller do
   end
 
   context "index page" do
-    subject { get :index }
+    subject(:page) { get :index }
     it { is_expected.to be_success }
     it { is_expected.to render_template("index") }
   end
 
   context "show page" do
-    subject { get :show, params: { id: order.id } }
+    subject(:page) { get :show, params: { id: order.id } }
     it { is_expected.to be_success }
     it { is_expected.to render_template("show") }
   end
 
   context "new order" do
-    subject { get :new }
+    subject(:page) { get :new }
     it "redirects to index page" do
       is_expected.to redirect_to(orders_path)
     end
@@ -47,21 +47,21 @@ describe OrdersController, type: :controller do
   end
 
   context "new order for a person page" do
-    subject { get :new, params: { order: { person_id: order.person_id } } }
+    subject(:page) { get :new, params: { order: { person_id: order.person_id } } }
     it { is_expected.to be_success }
     it { is_expected.to render_template("new") }
   end
 
   context "new order for a payment method page" do
-    subject { get :new, params: { order: { payment_method_id: order.payment_method_id } } }
+    subject(:page) { get :new, params: { order: { payment_method_id: order.payment_method_id } } }
     it { is_expected.to be_success }
     it { is_expected.to render_template("new") }
   end
 
   context "create order" do
+    subject(:page) { put :create, params: { order: order.attributes } }
     let(:payment_method) { nil }
     let(:order) { build(:order, payment_method: payment_method) }
-    subject(:page) { put :create, params: { order: order.attributes } }
 
     context "with external authorization payment method" do
       it "does not increment the number of orders" do

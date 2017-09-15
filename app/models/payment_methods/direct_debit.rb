@@ -11,5 +11,9 @@ module PaymentMethods
     def external_authorization?
       false
     end
+
+    def name_info
+      { iban_last_digits: iban[-4..-1] }
+    end
   end
 end

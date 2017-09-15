@@ -34,6 +34,10 @@ ActiveAdmin.register Order do
     active_admin_comments
   end
 
+  action_item :process, only: :show do
+    link_to t("census.orders.process"), charge_order_path(order), method: :patch, data: { confirm: t("census.sure_question") }, class: :member_link
+  end
+
   form decorate: true do |f|
     controller.redirect_to(orders_path) && next unless f.object.person
 
@@ -47,6 +51,19 @@ ActiveAdmin.register Order do
     end
 
     actions
+  end
+
+  member_action :charge, method: :patch do # Fails when calling it :process
+    order = resource
+    Payments::ProcessOrder.call(order, current_user) do
+      on(:invalid) do
+        flash[:error] = t("census.orders.action_message.not_processed")
+      end
+      on(:ok) do
+        flash[:notice] = t("census.orders.action_message.processed")
+      end
+    end
+    redirect_back(fallback_location: orders_path)
   end
 
   collection_action :external_payment_result do
