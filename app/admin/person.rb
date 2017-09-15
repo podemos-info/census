@@ -89,6 +89,10 @@ ActiveAdmin.register Person do
     f.actions
   end
 
+  action_item(:create_order, only: :show) do
+    link_to t("census.people.create_order"), new_order_path(order: { person_id: person.id })
+  end
+
   sidebar :versionate, partial: "layouts/version", only: :show
 
   member_action :history do

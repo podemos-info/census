@@ -23,13 +23,13 @@ describe OrdersBatchesController, type: :controller do
   end
 
   context "index page" do
-    subject { get :index }
+    subject(:page) { get :index }
     it { is_expected.to be_success }
     it { is_expected.to render_template("index") }
   end
 
   context "show page" do
-    subject { get :show, params: { id: orders_batch.id } }
+    subject(:page) { get :show, params: { id: orders_batch.id } }
     it { is_expected.to be_success }
     it { is_expected.to render_template("show") }
   end

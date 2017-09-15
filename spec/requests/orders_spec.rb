@@ -14,4 +14,9 @@ describe "Orders", type: :request do
     subject(:page) { get order_path(id: order.id) }
     it { is_expected.to eq(200) }
   end
+
+  context "new page" do
+    subject { get new_order_path(order: { person_id: order.person_id }) }
+    it { expect(subject).to eq(200) }
+  end
 end

@@ -49,8 +49,10 @@ Rails.application.configure do
   # Force SSL access
   config.force_ssl = true
 
-  config.eager_load_paths += Dir["app/services/payments/processors/*.rb"]
+  PRELOAD_PATHS = %w(app/services/payments/processors/*.rb app/forms/orders/*.rb).freeze
+
+  config.eager_load_paths += Dir[*PRELOAD_PATHS]
   ActiveSupport::Reloader.to_prepare do
-    Dir["app/services/payments/processors/*.rb"].each { |file| require_dependency file }
+    Dir[*PRELOAD_PATHS].each { |file| require_dependency file }
   end
 end

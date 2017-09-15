@@ -10,7 +10,7 @@ module PaymentMethods
     end
 
     def external_authorization?
-      !card_number.present?
+      !authorized? && !card_number.present?
     end
 
     def active?

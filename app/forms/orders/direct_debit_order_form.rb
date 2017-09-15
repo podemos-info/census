@@ -11,7 +11,7 @@ module Orders
       PaymentMethods::DirectDebit.new(
         person: person,
         iban: iban,
-        processor: Settings.payments.processors.direct_debit
+        payment_processor: Settings.payments.processors.direct_debit
       )
     end
   end

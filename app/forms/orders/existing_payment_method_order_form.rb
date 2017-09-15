@@ -6,8 +6,13 @@ module Orders
     attribute :payment_method_id, Integer
     validates :payment_method_id, presence: true
 
+    def payment_method_id=(value)
+      super(value)
+      self.person_id = payment_method.person.id if value
+    end
+
     def payment_method
-      PaymentMethod.find(payment_method_id)
+      @payment_method ||= PaymentMethod.find(payment_method_id)
     end
   end
 end

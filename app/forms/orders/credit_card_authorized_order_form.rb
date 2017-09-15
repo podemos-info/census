@@ -14,7 +14,7 @@ module Orders
         authorization_token: authorization_token,
         expiration_year: expiration_year,
         expiration_month: expiration_month,
-        processor: Settings.payments.processors.credit_card,
+        payment_processor: Settings.payments.processors.credit_card,
         verified: true
       )
     end

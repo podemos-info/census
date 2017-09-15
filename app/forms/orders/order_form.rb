@@ -13,11 +13,11 @@ module Orders
     validates :amount, numericality: { greater_than_or_equal_to: 0 }
 
     def currency
-      Settings.payments.currency
+      @currency ||= Settings.payments.currency
     end
 
     def person
-      Person.find(person_id)
+      @person ||= Person.find(person_id)
     end
   end
 end

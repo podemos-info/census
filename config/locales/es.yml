@@ -99,6 +99,8 @@ es:
         orders_batch: Lote de órdenes
         full_amount: Total
         payment_method: Método de pago
+        description: Descripción
+        amount: Total
         created_at: Fecha de creación
         updated_at: Última actualización
         state: Estado
@@ -121,21 +123,36 @@ es:
   census:
     downloads:
       download: Descargar
+    orders:
+      information: Información adicional
+      create_credit_card_external: Configurar una nueva tarjeta de crédito
+      add_orders_from_payment_methods: Puedes crear órdenes desde la página de una persona o un método de pago.
+      created: La orden ha sido creada
+      not_created: La orden no ha sido creada
+    orders_batches:
+      process: Procesar
+      action_message:
+        processed: El lote de órdenes %{link} ha sido procesado.
+        not_processed: No se pudo procesar el lote de órdenes %{link}.
+    payment_methods:
+      information: Información adicional
+      create_order: Crear orden con este método de pago
     people:
+      create_order: Crear orden para esta persona
+      document_types:
+        dni: DNI
+        nie: NIE
+        passport: Pasaporte
+      extra: Información adicional
+      flags:
+        has_issues: Alerta
+        verified_by_document: Documento
+        verified_in_person: En persona
       genders:
         female: Femenino
         male: Masculino
         other: Otro
         undisclosed: No quiero decirlo
-      document_types:
-        dni: DNI
-        nie: NIE
-        passport: Pasaporte
-      flags:
-        has_issues: Alerta
-        verified_by_document: Documento
-        verified_in_person: En persona
-      extra: Información adicional
     procedures:
       personal_data: Datos personales
       dependent_procedures: Procedimientos dependientes
@@ -152,15 +169,6 @@ es:
         undone: El procedimiento %{link} ha vuelto a su estado anterior.
         cant_undo: No se ha podido devolved al procedimiento %{link} a su estado anterior.
         cant_process: No se puede procesar un procedimiento ya procesado.
-    orders:
-      information: Información adicional
-    orders_batches:
-      process: Procesar
-      action_message:
-        processed: El lote de órdenes %{link} ha sido procesado.
-        not_processed: No se pudo procesar el lote de órdenes %{link}.
-    payment_methods:
-      information: Información adicional
     sure_question: ¿Estás segura?
   errors:
     messages:

@@ -29,4 +29,8 @@ ActiveAdmin.register PaymentMethod do
     show_table(self, t("census.payment_methods.information"), payment_method.information) if payment_method.information.any?
     active_admin_comments
   end
+
+  action_item(:create_order, only: :show) do
+    link_to t("census.payment_methods.create_order"), new_order_path(order: { payment_method_id: payment_method.id })
+  end
 end

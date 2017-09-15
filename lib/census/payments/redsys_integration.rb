@@ -169,11 +169,11 @@ module Census
       end
 
       def url_ok
-        @url_ok ||= return_url + "/ok"
+        @url_ok ||= return_url.sub("__RESULT__", "ok")
       end
 
       def url_ko
-        @url_ko ||= return_url + "/ko"
+        @url_ko ||= return_url.sub("__RESULT__", "ko")
       end
 
       def valid_date?(response, date_limit)

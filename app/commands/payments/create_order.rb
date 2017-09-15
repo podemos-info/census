@@ -21,15 +21,13 @@ module Payments
 
       if order.external_authorization?
         broadcast(:external, payment_processor.external_authorization_params(order))
-        return
+      else
+        result = Order.transaction do
+          order.save!
+          :ok
+        end
+        broadcast(result || :invalid, order)
       end
-
-      result = Order.transaction do
-        order.save!
-        :ok
-      end
-
-      broadcast result || :invalid
     end
 
     private

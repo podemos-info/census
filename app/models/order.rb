@@ -13,6 +13,11 @@ class Order < ApplicationRecord
 
   validate :same_person_than_payment_method
 
+  def payment_method=(value)
+    super value
+    self.person = value.person if value&.person
+  end
+
   def same_person_than_payment_method
     errors.add(:payment_method_id, :different_person_than_payment_method) if payment_method && person != payment_method.person
   end
