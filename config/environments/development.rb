@@ -55,4 +55,8 @@ Rails.application.configure do
   ActiveSupport::Reloader.to_prepare do
     Dir[*PRELOAD_PATHS].each { |file| require_dependency file }
   end
+
+  Settings.security.allowed_ips.development&.each do |ip|
+    BetterErrors::Middleware.allow_ip! ip
+  end
 end

@@ -22,10 +22,9 @@ module Payments
         options[:order_id] = format_order_id(order)
 
         response = gateway.purchase(order.amount, credit_card, options)
-
         # guardar response.message
         if response.success?
-          payment_method.authorization_token = parse_authorization_token(response)
+          payment_method.authorization_token = parse_authorization_token(response) unless payment_method.authorized?
           payment_method.processed :ok
           order.charge
         else

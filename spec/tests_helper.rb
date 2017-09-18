@@ -9,6 +9,12 @@ SimpleCov.start
 require "codecov"
 SimpleCov.formatter = SimpleCov::Formatter::Codecov
 
+require "vcr"
+VCR.configure do |config|
+  config.cassette_library_dir = "spec/factories/vcr_cassettes"
+  config.hook_into :webmock
+end
+
 # Only useful for request tests
 def override_ip(ip)
   allow_any_instance_of(Rack::Attack::Request).to receive(:ip).and_return(ip)

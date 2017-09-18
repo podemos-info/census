@@ -14,7 +14,7 @@ payments:
         name: <%= ENV["REDSYS_NAME"] %>
         login: <%= ENV["REDSYS_MERCHANT_ID"] %>
         secret_key: <%= ENV["REDSYS_SECRET_KEY"] %>
-        terminal: 1
+        terminal: <%= ENV["REDSYS_TERMINAL"] %>
         test: <%= !Rails.env.production? %>
       return_codes:
         warning: [102, 9104]

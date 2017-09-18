@@ -37,8 +37,8 @@ SecureHeaders::Configuration.default do |config|
     # media_src: %w(utoob.com),
     # object_src: %w('self'),
     # plugin_types: %w(),
-    # script_src: %w('self'),
-    # style_src: %w('unsafe-inline'),
+    script_src: ["'self' 'unsafe-inline'"],
+    style_src: ["'self' 'unsafe-inline'"],
     # upgrade_insecure_requests: true, # see https://www.w3.org/TR/upgrade-insecure-requests/
     # report_uri: %w(https://report-uri.io/example-csp)
   }

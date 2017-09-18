@@ -25,6 +25,12 @@ FactoryGirl.define do
       expiration_year { nil }
       expiration_month { nil }
     end
+
+    trait :external_authorized do
+      authorization_token { "f9b36152f049a8fbe6a800bcb49837cfb4808d37" }
+      expiration_year { 2020 }
+      expiration_month { 12 }
+    end
   end
 
   factory :direct_debit, class: :"payment_methods/direct_debit" do

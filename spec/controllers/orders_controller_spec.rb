@@ -85,4 +85,20 @@ describe OrdersController, type: :controller do
       end
     end
   end
+
+  context "charge credit card order" do
+    subject(:page) do
+      VCR.use_cassette("payments") do
+        patch :charge, params: { id: order.id }
+      end
+    end
+    let(:payment_method) { create(:credit_card, :external_authorized) }
+    let(:order) { create(:order, payment_method: payment_method) }
+    it "success" do
+      is_expected.to have_http_status(:found)
+    end
+    it "set the order as processed" do
+      expect { subject } .to change { Order.find(order.id).state } .from("pending").to("processed")
+    end
+  end
 end

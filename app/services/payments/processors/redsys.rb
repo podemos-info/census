@@ -12,11 +12,11 @@ module Payments
       end
 
       def gateway
-        @gateway ||= ActiveMerchant::Billing::RedsysGateway.new(Settings.payments.processors.redsys.auth.to_h.merge(signature_algorithm: :sha256))
+        @gateway ||= ActiveMerchant::Billing::RedsysGateway.new(Settings.payments.processors.redsys.auth.to_h.merge(signature_algorithm: "sha256"))
       end
 
       def parse_authorization_token(response)
-        response[:ds_merchant_identifier]
+        response.params["ds_merchant_identifier"]
       end
 
       def parse_error_type(response)
