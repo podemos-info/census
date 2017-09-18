@@ -27,7 +27,7 @@ module Census
       attribute :currency, String
       attribute :language, Symbol
 
-      attribute :result, Boolean
+      attribute :response_code, Integer
       attribute :document_literal_style, Boolean
 
       validates :merchant_name, :merchant_code, :terminal, :secret_key, :test, :transaction_type, presence: true
@@ -36,8 +36,6 @@ module Census
 
       def form
         return nil if invalid?
-
-        self.result = true
 
         {
           action: test ? TEST_URL : LIVE_URL,
@@ -50,11 +48,11 @@ module Census
       end
 
       def parse(response, date_limit)
-        self.result = false
         response_parts = parse_response(response)
         return nil unless response_parts
 
         request = response_parts[:request]
+
         self.order_id = request["Ds_Order"]
         self.amount = request["Ds_Amount"].to_i
         self.currency_code = request["Ds_Currency"]
@@ -64,7 +62,8 @@ module Census
 
         return nil unless valid_datetime?(request, date_limit) && valid_signature?(response_parts[:message]["Signature"], response_parts[:raw_request])
 
-        self.result = true
+        self.response_code = request["Ds_Response"]
+        return { raw_response: request } unless success?
 
         {
           authorization_token: request["Ds_Merchant_Identifier"],
@@ -75,9 +74,14 @@ module Census
       end
 
       def format_response
-        return nil unless result.present? # only can be used to respond parsed responses
+        return nil unless response_code.present? # only can be used to respond parsed responses
 
         envelope(response_message)
+      end
+
+      def success?
+        return nil unless response_code
+        @success ||= response_code < 100 || [400, 481, 500, 900].include?(response_code)
       end
 
       private
@@ -122,14 +126,14 @@ module Census
       def response_message
         xml = Builder::XmlMarkup.new
         response = xml.Response Ds_Version: "0.0" do
-          xml.Ds_Response_Merchant(result ? "OK" : "KO")
+          xml.Ds_Response_Merchant(success? ? "OK" : "KO")
         end
         signature = mac256(order_key, response)
 
         xml = Builder::XmlMarkup.new
         xml.Message do
           xml.Response Ds_Version: "0.0" do
-            xml.Ds_Response_Merchant(result ? "OK" : "KO")
+            xml.Ds_Response_Merchant(success? ? "OK" : "KO")
           end
           xml.Signature(signature)
         end

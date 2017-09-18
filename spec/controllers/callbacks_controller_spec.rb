@@ -49,6 +49,17 @@ describe CallbacksController, type: :controller do
     </SOAP-ENV:Envelope>
   EOD
 
+  ERROR_REQUEST = <<~EOD.delete("\n")
+    <?xml version="1.0" encoding="UTF-8"?>
+    <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <soapenv:Body>
+    <notificacion xmlns="http://notificador.webservice.sis.redsys.es">
+    <datoEntrada>&lt;Message&gt;&lt;Request Ds_Version='0.0'&gt;&lt;Fecha&gt;18/09/2017&lt;/Fecha&gt;&lt;Hora&gt;19:19&lt;/Hora&gt;&lt;Ds_SecurePayment&gt;0&lt;/Ds_SecurePayment&gt;&lt;Ds_Card_Country&gt;0&lt;/Ds_Card_Country&gt;&lt;Ds_Amount&gt;1234&lt;/Ds_Amount&gt;&lt;Ds_Currency&gt;978&lt;/Ds_Currency&gt;&lt;Ds_Order&gt;3378e2000001&lt;/Ds_Order&gt;&lt;Ds_MerchantCode&gt;306003724&lt;/Ds_MerchantCode&gt;&lt;Ds_Terminal&gt;001&lt;/Ds_Terminal&gt;&lt;Ds_Response&gt;0180&lt;/Ds_Response&gt;&lt;Ds_MerchantData&gt;Test error&lt;/Ds_MerchantData&gt;&lt;Ds_TransactionType&gt;0&lt;/Ds_TransactionType&gt;&lt;Ds_ConsumerLanguage&gt;1&lt;/Ds_ConsumerLanguage&gt;&lt;Ds_ErrorCode&gt;SIS0093&lt;/Ds_ErrorCode&gt;&lt;Ds_AuthorisationCode&gt;      &lt;/Ds_AuthorisationCode&gt;&lt;/Request&gt;&lt;Signature&gt;xJMkbjK4SItYG9LZ8jMeJw2tvR+vqAk14liRbVzGxxw=&lt;/Signature&gt;&lt;/Message&gt;</datoEntrada>
+    </notificacion>
+    </soapenv:Body>
+    </soapenv:Envelope>
+  EOD
+
   context "redsys payment callbacks" do
     subject(:page) { post :payments, params: { payment_processor: :redsys }, body: redsys_response.to_s }
     let!(:person) { create(:person, id: 1) }
@@ -63,6 +74,10 @@ describe CallbacksController, type: :controller do
       end
       it "creates a new order" do
         expect { subject } .to change { Order.count } .by(1)
+      end
+      it "the new order is marked as processed" do
+        subject
+        expect(Order.last.state) .to eq("processed")
       end
       it "creates a new credit card payment method" do
         expect { subject } .to change { PaymentMethods::CreditCard.count } .by(1)
@@ -89,7 +104,7 @@ describe CallbacksController, type: :controller do
     end
 
     context "when redsys response is correct in literal style" do
-      before { Timecop.freeze(Time.local(2017, 9, 15, 18, 7)) }
+      before { Timecop.freeze(Time.local(2017, 9, 18, 18, 56)) }
       after { Timecop.return }
       let(:redsys_response) { OK_REQUEST_LITERAL }
 
@@ -104,6 +119,26 @@ describe CallbacksController, type: :controller do
       end
       it "responds an OK WSDL message" do
         expect(subject.body.delete("\n")) .to eq OK_RESPONSE_LITERAL
+      end
+    end
+
+    context "when redsys response contains an error code" do
+      before { Timecop.freeze(Time.local(2017, 9, 18, 19, 19)) }
+      after { Timecop.return }
+      let(:redsys_response) { ERROR_REQUEST }
+
+      it "returns ok" do
+        is_expected.to be_success
+      end
+      it "creates a new order" do
+        expect { subject } .to change { Order.count } .by(1)
+      end
+      it "the new order is marked as processed" do
+        subject
+        expect(Order.last.state) .to eq("error")
+      end
+      it "creates a new credit card payment method" do
+        expect { subject } .to change { PaymentMethods::CreditCard.count } .by(1)
       end
     end
   end

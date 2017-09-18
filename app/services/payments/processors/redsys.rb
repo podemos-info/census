@@ -13,12 +13,7 @@ module Payments
 
       def parse_error_type(response)
         return :unknown unless response.params["ds_response"]
-        code = response.params["ds_response"].to_i
-
-        Processor::ERROR_TYPES.each do |error_type|
-          return error_type if Settings.payments.redsys.error_codes[error_type].include?(code)
-        end
-        :unknown
+        error_type(response.params["ds_response"].to_i)
       end
 
       def external_authorization_params(order)
@@ -34,6 +29,8 @@ module Payments
       def parse_external_authorization_response(order, params)
         params = integration_proxy.parse(params[:_body], Settings.payments.processors.redsys.notification_lifespan.minutes.ago)
         return false unless params
+
+        params[:error_type] = error_type(integration_proxy.response_code) unless integration_proxy.success?
 
         params.merge!(
           payment_processor: :redsys,
@@ -67,6 +64,13 @@ module Payments
             language: I18n.locale
           )
         end
+      end
+
+      def error_type(code)
+        Processor::ERROR_TYPES.each do |type|
+          return type if Settings.payments.processors.redsys.response_codes[type].include?(code)
+        end
+        :unknown
       end
     end
   end

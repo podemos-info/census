@@ -16,7 +16,7 @@ payments:
         secret_key: <%= ENV["REDSYS_SECRET_KEY"] %>
         terminal: <%= ENV["REDSYS_TERMINAL"] %>
         test: <%= !Rails.env.production? %>
-      return_codes:
+      response_codes:
         warning: [102, 9104]
         error: [118, 129, 180, 184, 190, 202, 9915]
         system: [913]

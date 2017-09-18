@@ -44,8 +44,14 @@ module Payments
           expiration_year: params[:expiration_year],
           expiration_month: params[:expiration_month]
         )
-        order.payment_method.processed :ok
-        order.charge
+
+        if params[:error_type].present?
+          order.payment_method.processed params[:error_type]
+          order.fail
+        else
+          order.payment_method.processed :ok
+          order.charge
+        end
         true
       end
     end
