@@ -88,17 +88,40 @@ describe OrdersController, type: :controller do
 
   context "charge credit card order" do
     subject(:page) do
-      VCR.use_cassette("payments") do
+      VCR.use_cassette(cassete) do
         patch :charge, params: { id: order.id }
       end
     end
-    let(:payment_method) { create(:credit_card, :external_authorized) }
-    let(:order) { create(:order, payment_method: payment_method) }
-    it "success" do
-      is_expected.to have_http_status(:found)
+
+    context "with a valid authorization token" do
+      let(:payment_method) { create(:credit_card, :external_authorized) }
+      let(:order) { create(:order, payment_method: payment_method) }
+      let(:cassete) { "credit_card_payment_valid" }
+      it "success" do
+        is_expected.to have_http_status(:found)
+      end
+      it "sets the order as processed" do
+        expect { subject } .to change { Order.find(order.id).state } .from("pending").to("processed")
+      end
+      it "saves the server response" do
+        expect { subject } .to change { Order.find(order.id).raw_response } .from(nil)
+      end
     end
-    it "set the order as processed" do
-      expect { subject } .to change { Order.find(order.id).state } .from("pending").to("processed")
+
+    context "with an invalid authorization token" do
+      let(:payment_method) { create(:credit_card, :external_authorized, authorization_token: "test") }
+      let(:order) { create(:order, payment_method: payment_method) }
+      let(:cassete) { "credit_card_payment_invalid" }
+
+      it "success" do
+        is_expected.to have_http_status(:found)
+      end
+      it "set the order as error" do
+        expect { subject } .to change { Order.find(order.id).state } .from("pending").to("error")
+      end
+      it "saves the server response" do
+        expect { subject } .to change { Order.find(order.id).raw_response } .from(nil)
+      end
     end
   end
 end

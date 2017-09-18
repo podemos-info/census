@@ -26,8 +26,8 @@ class Order < ApplicationRecord
     created_at&.to_date || Date.today
   end
 
-  def processable?
-    pending? && payment_method.processable?(self)
+  def processable?(in_batch = false)
+    pending? && payment_method.processable?(in_batch)
   end
 
   def external_authorization?

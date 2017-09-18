@@ -35,7 +35,7 @@ ActiveAdmin.register Order do
   end
 
   action_item :process, only: :show do
-    link_to t("census.orders.process"), charge_order_path(order), method: :patch, data: { confirm: t("census.sure_question") }, class: :member_link
+    link_to(t("census.orders.process"), charge_order_path(order), method: :patch, data: { confirm: t("census.sure_question") }, class: :member_link) if order.processable?(false)
   end
 
   form decorate: true do |f|

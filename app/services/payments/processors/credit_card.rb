@@ -3,33 +3,23 @@
 module Payments
   module Processors
     class CreditCard < Payments::Processor
-      def process_batch!(_orders_batch)
+      def process_batch(_orders_batch)
         yield
       end
 
       def process_order(order)
         payment_method = order.payment_method
 
-        options = { currency: order.currency }
-        if payment_method.authorized?
-          credit_card = payment_method.authorization_token
-        else
-          credit_card = create_credit_card(order, payment_method)
-          options[:store] = true
-          return false if credit_card.valid?
-        end
+        options = { currency: order.currency, order_id: format_order_id(order) }
 
-        options[:order_id] = format_order_id(order)
+        response = gateway.purchase(order.amount, payment_method.authorization_token, options)
+        order.raw_response = response
 
-        response = gateway.purchase(order.amount, credit_card, options)
-        # guardar response.message
         if response.success?
-          payment_method.authorization_token = parse_authorization_token(response) unless payment_method.authorized?
           payment_method.processed :ok
           order.charge
         else
           payment_method.processed parse_error_type(response)
-          order.raw_response = response
           order.fail
         end
       end
@@ -57,20 +47,6 @@ module Payments
         order.payment_method.processed :ok
         order.charge
         true
-      end
-
-      private
-
-      def create_credit_card(order, payment_method)
-        decorated_person = order.person.decorate
-        ActiveMerchant::Billing::CreditCard.new(
-          number: payment_method.card_number,
-          verification_value: payment_method.ccv,
-          year: payment_method.expiration_year.to_s,
-          month: payment_method.expiration_month.to_s,
-          first_name: decorated_person.first_name,
-          last_name: decorated_person.last_names
-        )
       end
     end
   end

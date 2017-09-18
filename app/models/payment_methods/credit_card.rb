@@ -3,14 +3,14 @@
 module PaymentMethods
   class CreditCard < PaymentMethod
     store_accessor :information, :authorization_token, :expiration_year, :expiration_month
-    attr_accessor :card_number, :ccv, :return_url
+    attr_accessor :return_url
 
-    def processable?(_order)
+    def processable?(_in_batch)
       authorized? && active?
     end
 
     def external_authorization?
-      !authorized? && !card_number.present?
+      !authorized?
     end
 
     def active?
