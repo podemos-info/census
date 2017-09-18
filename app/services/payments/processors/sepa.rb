@@ -3,10 +3,6 @@
 module Payments
   module Processors
     class Sepa < Payments::Processor
-      def available?
-        Settings.payments.processors.sepa.main.name.present?
-      end
-
       def process_batch(orders_batch)
         @direct_debit = SEPA::DirectDebit.new(Settings.payments.processors.sepa.main)
 

@@ -36,16 +36,8 @@ describe Payments::CreateOrder do
     let(:payment_method) { build(:credit_card, :external, person: order.person) }
     let(:form_class) { Orders::CreditCardExternalOrderForm }
 
-    it "broadcasts :external" do
-      expect { subject } .to broadcast(:external)
-    end
-
-    it "returns the external parameters" do
-      subject do
-        on(:external) do |external_parameters|
-          expect(external_parameters).to include(:action, :fields)
-        end
-      end
+    it "broadcasts :external and the external parameters" do
+      expect { subject } .to broadcast(:external, hash_including(:action, :fields))
     end
 
     it "doesn't save the order" do

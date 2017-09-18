@@ -18,7 +18,6 @@ module Payments
     # Returns nothing.
     def call
       broadcast(:invalid) && return unless form.valid?
-
       if order.external_authorization?
         broadcast(:external, payment_processor.external_authorization_params(order))
       else

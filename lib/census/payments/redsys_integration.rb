@@ -143,8 +143,8 @@ module Census
                                       "xmlns:xsd" => "http://www.w3.org/2001/XMLSchema" do
           xml.tag! "SOAP-ENV:Body" do
             if document_literal_style
-              xml.notificacion xmlns: "http://notificador.webservice.sis.redsys.es" do
-                xml.trataPeticionReturn message
+              xml.notificacionResponse xmlns: "http://notificador.webservice.sis.redsys.es" do
+                xml.notificacionReturn message, xmlns: "http://notificador.webservice.sis.redsys.es"
               end
             else
               xml.ns1 :procesaNotificacionSIS, "xmlns:ns1" => "InotificacionSIS", "SOAP-ENV:encodingStyle" => "http://schemas.xmlsoap.org/soap/encoding/" do
