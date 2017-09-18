@@ -33,4 +33,11 @@ describe DownloadsController, type: :controller do
     it { is_expected.to be_success }
     it { is_expected.to render_template("show") }
   end
+
+  context "download file" do
+    subject { get :download, params: { id: download.id } }
+    it { expect(subject).to be_success }
+    it { expect(subject.content_type).to eq("application/pdf") }
+    it { expect(subject.body).to eq(download.file.read) }
+  end
 end

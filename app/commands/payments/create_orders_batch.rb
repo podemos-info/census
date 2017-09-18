@@ -23,8 +23,7 @@ module Payments
 
       result = OrdersBatch.transaction do
         orders_batch.save!
-
-        form.orders.find_each do |order|
+        form.orders.each do |order|
           order.orders_batch = orders_batch
           order.save!
         end

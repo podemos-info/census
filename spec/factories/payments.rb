@@ -9,7 +9,6 @@ FactoryGirl.define do
     end
 
     person
-    name { "CC - #{person.last_name1}" }
     payment_processor { :redsys }
     authorization_token { "1234567890abcdef" }
     expiration_year { expires_at.year }
@@ -35,10 +34,13 @@ FactoryGirl.define do
 
   factory :direct_debit, class: :"payment_methods/direct_debit" do
     person
-    name { "*" * 16 + iban[-4..-1] }
     iban { Census::Faker::Bank.iban("ES") }
     bic { Faker::Bank.swift_bic }
     payment_processor { :sepa }
+
+    trait :verified do
+      verified { true }
+    end
   end
 
   factory :order do
@@ -65,13 +67,22 @@ FactoryGirl.define do
     trait :external_invalid do
       payment_method { FactoryGirl.build(:credit_card, :external_authorized, authorization_token: "invalid", person: person) }
     end
+
+    trait :processed do
+      state { :processed }
+    end
+
+    trait :verified do
+      payment_method { FactoryGirl.build(:direct_debit, :verified, person: person) }
+    end
   end
 
   factory :orders_batch do
     description { Faker::Lorem.sentence(1, true, 4) }
 
     after :build do |orders_batch|
-      orders_batch.orders = build_list(:order, 4, orders_batch: orders_batch)
+      orders_batch.orders = build_list(:order, 2, orders_batch: orders_batch)
+      orders_batch.orders = build_list(:order, 2, :verified, orders_batch: orders_batch)
       orders_batch.orders += build_list(:order, 2, :credit_card, :external_authorized, orders_batch: orders_batch)
       orders_batch.orders += build_list(:order, 2, :credit_card, :external_invalid, orders_batch: orders_batch)
     end

@@ -123,5 +123,52 @@ describe OrdersController, type: :controller do
         expect { subject } .to change { Order.find(order.id).raw_response } .from(nil)
       end
     end
+
+    context "with a processed order" do
+      let(:cassete) { "processed_order" }
+      let(:order) { create(:order, :processed) }
+      it "success" do
+        is_expected.to have_http_status(:found)
+      end
+      it "shows an error message" do
+        subject
+        expect(flash[:error]).to be_present
+      end
+      it "shows the index page" do
+        expect(subject.location).to eq(orders_url)
+      end
+    end
+  end
+
+  context "external payment result page" do
+    subject(:page) { get :external_payment_result, params: { result: result } }
+
+    context "when payment was ok" do
+      let(:result) { "ok" }
+      it "success" do
+        is_expected.to have_http_status(:found)
+      end
+      it "shows an ok message" do
+        subject
+        expect(flash[:notice]).to be_present
+      end
+      it "shows the index page" do
+        expect(subject.location).to eq(orders_url)
+      end
+    end
+
+    context "when payment was ko" do
+      let(:result) { "ko" }
+      it "success" do
+        is_expected.to have_http_status(:found)
+      end
+      it "shows an error message" do
+        subject
+        expect(flash[:error]).to be_present
+      end
+      it "shows the index page" do
+        expect(subject.location).to eq(orders_url)
+      end
+    end
   end
 end
