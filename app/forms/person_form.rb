@@ -72,12 +72,6 @@ class PersonForm < Form
   end
 
   def files=(value)
-    super(value.map do |file|
-            tempfile = Tempfile.new("")
-            tempfile.binmode
-            tempfile << Base64.decode64(file[:base64_content])
-            tempfile.rewind
-            ActionDispatch::Http::UploadedFile.new(filename: file[:filename], type: file[:content_type], tempfile: tempfile)
-          end)
+    super(value.map { |file| parse_uploaded_file file })
   end
 end

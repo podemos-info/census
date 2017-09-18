@@ -24,15 +24,16 @@ module Payments
       result = OrdersBatch.transaction do
         processed_at = DateTime.now
 
-        payment_processors.each do |payment_processor|
+        payment_processors.each do |payment_processor_name|
+          payment_processor = Payments::Processor.for(payment_processor_name)
           payment_processor.process_batch @orders_batch do
-            @orders_batch.orders_for_payment_processor(payment_processor).find_each do |order|
+            @orders_batch.orders_for_payment_processor(payment_processor_name).find_each do |order|
               next unless order.processable?(true)
               payment_processor.process_order order
               order.update_attributes! processed_at: processed_at, processed_by: @processed_by
             end
+            @orders_batch.update_attributes! processed_at: processed_at, processed_by: @processed_by
           end
-          @orders_batch.update_attributes! processed_at: processed_at, processed_by: @processed_by
         end
 
         :ok
@@ -44,7 +45,7 @@ module Payments
     private
 
     def payment_processors
-      @payment_processors ||= @orders_batch.payment_processors.map { |processor| Payments::Processor.for(processor) }
+      @payment_processors ||= @orders_batch.payment_processors
     end
   end
 end

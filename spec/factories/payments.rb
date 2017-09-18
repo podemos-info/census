@@ -57,13 +57,23 @@ FactoryGirl.define do
     trait :external do
       payment_method { FactoryGirl.build(:credit_card, :external, person: person) }
     end
+
+    trait :external_authorized do
+      payment_method { FactoryGirl.build(:credit_card, :external_authorized, person: person) }
+    end
+
+    trait :external_invalid do
+      payment_method { FactoryGirl.build(:credit_card, :external_authorized, authorization_token: "invalid", person: person) }
+    end
   end
 
   factory :orders_batch do
     description { Faker::Lorem.sentence(1, true, 4) }
 
     after :build do |orders_batch|
-      orders_batch.orders = build_list(:order, 10, orders_batch: orders_batch) + build_list(:order, 10, :credit_card, orders_batch: orders_batch)
+      orders_batch.orders = build_list(:order, 4, orders_batch: orders_batch)
+      orders_batch.orders += build_list(:order, 2, :credit_card, :external_authorized, orders_batch: orders_batch)
+      orders_batch.orders += build_list(:order, 2, :credit_card, :external_invalid, orders_batch: orders_batch)
     end
   end
 end

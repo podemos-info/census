@@ -7,21 +7,13 @@ module Payments
     class Redsys < CreditCard
       delegate :url_helpers, to: "Rails.application.routes"
 
-      def available?
-        Settings.payments.processors.redsys.auth.login.present?
-      end
-
       def gateway
         @gateway ||= ActiveMerchant::Billing::RedsysGateway.new(Settings.payments.processors.redsys.auth.to_h.merge(signature_algorithm: "sha256"))
       end
 
-      def parse_authorization_token(response)
-        response.params["ds_merchant_identifier"]
-      end
-
       def parse_error_type(response)
-        return :unknown unless response.params[:ds_response]
-        code = response.params[:ds_response].to_i
+        return :unknown unless response.params["ds_response"]
+        code = response.params["ds_response"].to_i
 
         Processor::ERROR_TYPES.each do |error_type|
           return error_type if Settings.payments.redsys.error_codes[error_type].include?(code)

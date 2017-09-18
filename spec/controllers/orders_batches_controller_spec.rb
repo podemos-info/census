@@ -33,4 +33,31 @@ describe OrdersBatchesController, type: :controller do
     it { is_expected.to be_success }
     it { is_expected.to render_template("show") }
   end
+
+  context "charge orders batch" do
+    subject(:page) do
+      VCR.use_cassette(cassete) do
+        patch :charge, params: { id: orders_batch.id }
+      end
+    end
+
+    context "with a valid authorization token" do
+      let(:cassete) { "orders_batch_payment" }
+      it "success" do
+        is_expected.to have_http_status(:found)
+      end
+      it "sets the orders batch as processed" do
+        expect { subject } .to change { OrdersBatch.find(orders_batch.id).processed_at } .from(nil)
+      end
+      it "sets the orders batch as processed" do
+        expect { subject } .to change { OrdersBatch.find(orders_batch.id).processed_by } .from(nil)
+      end
+      it "sets the orders as processed or error" do
+        expect { subject } .to change { OrdersBatch.find(orders_batch.id).orders.map(&:state).uniq } .from(["pending"])
+      end
+      it "saves the server responses" do
+        expect { subject } .to change { OrdersBatch.find(orders_batch.id).orders.map(&:raw_response).uniq } .from([nil])
+      end
+    end
+  end
 end

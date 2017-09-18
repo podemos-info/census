@@ -13,8 +13,8 @@ module Payments
         yield
 
         form = DownloadForm.new(
-          person: orders_batch.processed_by,
-          file: create_temp_file("#{orders_batch.description.underscore}.xml", @direct_debit.to_xml, "application/xml"),
+          person_id: orders_batch.processed_by_id,
+          file: { filename: "#{orders_batch.description.underscore}.xml", content: @direct_debit.to_xml, content_type: "application/xml" },
           expires_at: Settings.payments.processors.sepa.file_lifespan.hours.from_now
         )
 
@@ -57,7 +57,7 @@ module Payments
       end
 
       def format_amount(order)
-        order.amount / Settings.payments.fractions_per_unit
+        1.0 * order.amount / Settings.payments.fractions_per_unit
       end
 
       def debtor(order)
@@ -70,15 +70,6 @@ module Payments
 
       def reference(order)
         "#{order.date}-#{order.id.to_s.rjust(12, "0")}"
-      end
-
-      def create_temp_file(filename, contents, content_type)
-        # creates a temporary file in tmp/
-        tempfile = Tempfile.new("")
-        tempfile.binmode
-        tempfile << contents
-        tempfile.rewind
-        ActionDispatch::Http::UploadedFile.new(filename: filename, type: content_type, tempfile: tempfile)
       end
     end
   end
