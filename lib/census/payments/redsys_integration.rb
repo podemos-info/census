@@ -108,7 +108,8 @@ module Census
       end
 
       def parse_response(response)
-        envelope = Hash.from_xml(response).dig("Envelope", "Body")
+        envelope = Hash.from_xml(response)
+        envelope = envelope.dig("Envelope", "Body") if envelope.present?
         return nil unless envelope
 
         self.document_literal_style = envelope["notificacion"].present?

@@ -19,7 +19,7 @@ class Order < ApplicationRecord
   end
 
   def same_person_than_payment_method
-    errors.add(:payment_method_id, :different_person_than_payment_method) if payment_method && person != payment_method.person
+    errors.add(:payment_method_id, :different_person_than_payment_method) if person != payment_method&.person
   end
 
   def date
