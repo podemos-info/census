@@ -37,6 +37,6 @@ class Procedure < ApplicationRecord
   end
 
   def depends_on_person
-    errors.add(:depends_on_id, :depends_on_different_person) if depends_on && depends_on.person != person
+    errors.add(:depends_on_id, :depends_on_different_person) if depends_on&.person != person
   end
 end

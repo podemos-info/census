@@ -5,7 +5,7 @@ require "rails_helper"
 describe CallbacksController, type: :controller do
   render_views
 
-  OK_REQUEST = <<~EOD
+  OK_REQUEST = <<~XML
     <?xml version='1.0' encoding='UTF-8'?>
     <SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <SOAP-ENV:Body>
@@ -14,9 +14,9 @@ describe CallbacksController, type: :controller do
     </ns1:procesaNotificacionSIS>
     </SOAP-ENV:Body>
     </SOAP-ENV:Envelope>
-  EOD
+  XML
 
-  OK_REQUEST_LITERAL = <<~EOD
+  OK_REQUEST_LITERAL = <<~XML
     <?xml version="1.0" encoding="UTF-8"?>
     <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
      <soapenv:Body>
@@ -25,9 +25,9 @@ describe CallbacksController, type: :controller do
       </notificacion>
      </soapenv:Body>
     </soapenv:Envelope>
-  EOD
+  XML
 
-  OK_RESPONSE = <<~EOD.delete("\n")
+  OK_RESPONSE = <<~XML.delete("\n")
     <?xml version="1.0" encoding="UTF-8"?>
     <SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <SOAP-ENV:Body>
@@ -36,9 +36,9 @@ describe CallbacksController, type: :controller do
     </ns1:procesaNotificacionSIS>
     </SOAP-ENV:Body>
     </SOAP-ENV:Envelope>
-  EOD
+  XML
 
-  OK_RESPONSE_LITERAL = <<~EOD.delete("\n")
+  OK_RESPONSE_LITERAL = <<~XML.delete("\n")
     <?xml version="1.0" encoding="UTF-8"?>
     <SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <SOAP-ENV:Body>
@@ -47,9 +47,9 @@ describe CallbacksController, type: :controller do
     </notificacionResponse>
     </SOAP-ENV:Body>
     </SOAP-ENV:Envelope>
-  EOD
+  XML
 
-  ERROR_REQUEST = <<~EOD.delete("\n")
+  ERROR_REQUEST = <<~XML.delete("\n")
     <?xml version="1.0" encoding="UTF-8"?>
     <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <soapenv:Body>
@@ -58,7 +58,7 @@ describe CallbacksController, type: :controller do
     </notificacion>
     </soapenv:Body>
     </soapenv:Envelope>
-  EOD
+  XML
 
   context "redsys payment callbacks" do
     subject(:page) { post :payments, params: { payment_processor: :redsys }, body: redsys_response.to_s }

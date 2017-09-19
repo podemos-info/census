@@ -108,18 +108,20 @@ module Census
       end
 
       def parse_response(response)
-        envelope = Hash.from_xml(response)["Envelope"]["Body"]
+        envelope = Hash.from_xml(response).dig("Envelope", "Body")
+        return nil unless envelope
+
         self.document_literal_style = envelope["notificacion"].present?
+        raw_message = document_literal_style ? envelope.dig("notificacion", "datoEntrada") : envelope.dig("procesaNotificacionSIS", "XML")
+        return nil unless raw_message
 
-        raw_message = document_literal_style ? envelope["notificacion"]["datoEntrada"] : envelope["procesaNotificacionSIS"]["XML"]
         message = Hash.from_xml(raw_message)
-
         {
           message: message["Message"],
           raw_request: raw_message.match("<Request(.*)</Request>").to_s,
-          request: message["Message"]["Request"]
+          request: message.dig("Message", "Request")
         }
-      rescue
+      rescue REXML::ParseException
         nil
       end
 

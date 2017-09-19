@@ -19,7 +19,7 @@ module Census
         end
 
         ScopeType.transaction do
-          @scope_types.values.each do |info|
+          @scope_types.each_value do |info|
             ScopeType.find_or_initialize_by(id: info[:id]).update_attributes!(info)
           end
         end

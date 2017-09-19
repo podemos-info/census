@@ -53,7 +53,7 @@ describe Census::Payments::RedsysIntegration do
     end
 
     it "generates a valid parameters string" do
-      expect(subject[:fields][:Ds_MerchantParameters]).to eq <<~EOD.delete("\n")
+      expect(subject[:fields][:Ds_MerchantParameters]).to eq <<~PARAMETERS.delete("\n")
         eyJEU19NRVJDSEFOVF9BTU9VTlQiOiIxMjM0IiwiRFNfTUVSQ0hBTlRfQ09OU1VNRVJMQU5HVUFHRSI6IjAwMSIsIkRT
         X01FUkNIQU5UX0NVUlJFTkNZIjoiOTc4IiwiRFNfTUVSQ0hBTlRfSURFTlRJRklFUiI6IlJFUVVJUkVEIiwiRFNfTUVS
         Q0hBTlRfTUVSQ0hBTlRDT0RFIjoiYSBtZXJjaGFudCBsb2dpbiIsIkRTX01FUkNIQU5UX01FUkNIQU5UTkFNRSI6ImEg
@@ -63,7 +63,7 @@ describe Census::Payments::RedsysIntegration do
         aGFzZSB0ZXN0IiwiRFNfTUVSQ0hBTlRfVEVSTUlOQUwiOiI0MiIsIkRTX01FUkNIQU5UX1RSQU5TQUNUSU9OVFlQRSI6
         IjAiLCJEU19NRVJDSEFOVF9VUkxLTyI6Imh0dHBzOi8vY2Vuc3VzLmVudGl0eS5jb20vcGF5bWVudC9jYWxsYmFjayIs
         IkRTX01FUkNIQU5UX1VSTE9LIjoiaHR0cHM6Ly9jZW5zdXMuZW50aXR5LmNvbS9wYXltZW50L2NhbGxiYWNrIn0=
-      EOD
+      PARAMETERS
     end
   end
 end

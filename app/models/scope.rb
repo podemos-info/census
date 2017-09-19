@@ -54,7 +54,7 @@ class Scope < ApplicationRecord
   private
 
   def forbid_cycles
-    errors.add(:parent_id, :cycle_detected) if parent && parent.part_of.include?(id)
+    errors.add(:parent_id, :cycle_detected) if parent&.part_of&.include?(id)
   end
 
   def create_part_of
