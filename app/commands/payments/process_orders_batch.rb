@@ -22,22 +22,11 @@ module Payments
       return broadcast(:invalid) unless @orders_batch && @processed_by
 
       result = OrdersBatch.transaction do
-        processed_at = DateTime.now
-
-        result = true
-        payment_processors.each do |payment_processor_name|
-          payment_processor = Payments::Processor.for(payment_processor_name)
-          result &= payment_processor.process_batch @orders_batch do
-            @orders_batch.orders_for_payment_processor(payment_processor_name).find_each do |order|
-              next unless order.processable?(true)
-              payment_processor.process_order order
-              order.update_attributes! processed_at: processed_at, processed_by: @processed_by
-            end
-            @orders_batch.update_attributes! processed_at: processed_at, processed_by: @processed_by
-          end
+        payment_results = @orders_batch.payment_processors.map do |payment_processor|
+          process_processor_batch_orders(Payments::Processor.for(payment_processor)) ? :ok : :issues
         end
 
-        result ? :ok : :issues
+        payment_results.member?(:issues) ? :issues : :ok
       end
 
       broadcast result || :invalid
@@ -45,8 +34,15 @@ module Payments
 
     private
 
-    def payment_processors
-      @payment_processors ||= @orders_batch.payment_processors
+    def process_processor_batch_orders(processor)
+      processor.process_batch @orders_batch do
+        @orders_batch.orders_for_payment_processor(processor.name).find_each do |order|
+          next unless order.processable?(true)
+          processor.process_order order
+          order.update_attributes! processed_at: DateTime.now, processed_by: @processed_by
+        end
+        @orders_batch.update_attributes! processed_at: DateTime.now, processed_by: @processed_by
+      end
     end
   end
 end
