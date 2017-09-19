@@ -94,7 +94,7 @@ describe OrdersController, type: :controller do
     end
 
     context "with a valid authorization token" do
-      let(:payment_method) { create(:credit_card, :external_authorized) }
+      let(:payment_method) { create(:credit_card, :external_verified) }
       let(:order) { create(:order, payment_method: payment_method) }
       let(:cassete) { "credit_card_payment_valid" }
       it "success" do
@@ -109,7 +109,7 @@ describe OrdersController, type: :controller do
     end
 
     context "with an invalid authorization token" do
-      let(:payment_method) { create(:credit_card, :external_authorized, authorization_token: "test") }
+      let(:payment_method) { create(:credit_card, :external_verified, authorization_token: "test") }
       let(:order) { create(:order, payment_method: payment_method) }
       let(:cassete) { "credit_card_payment_invalid" }
 

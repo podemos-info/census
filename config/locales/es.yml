@@ -138,6 +138,7 @@ es:
       action_message:
         processed: El lote de órdenes ha sido procesado.
         not_processed: No se pudo procesar el lote de órdenes.
+        issues: El lote de órdenes ha sido procesado, pero han ocurrido incidencias durante el proceso. Por favor, contacta con el administrador del sistema.
     payment_methods:
       information: Información adicional
       create_order: Crear orden con este método de pago

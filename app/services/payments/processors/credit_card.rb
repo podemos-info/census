@@ -5,6 +5,7 @@ module Payments
     class CreditCard < Payments::Processor
       def process_batch(_orders_batch)
         yield
+        true
       end
 
       def process_order(order)
@@ -31,6 +32,21 @@ module Payments
         # check required keys presence (probably should be added by provider processor)
         return false unless (params.keys && REQUIRED_EXTERNAL_PARAMS) == REQUIRED_EXTERNAL_PARAMS
 
+        fill_order(order, params)
+
+        if params[:error_type].present?
+          order.payment_method.processed params[:error_type]
+          order.fail
+        else
+          order.payment_method.processed :ok
+          order.charge
+        end
+        true
+      end
+
+      private
+
+      def fill_order(order, params)
         order.person_id = params[:person_id]
         order.description = params[:description]
         order.amount = params[:amount]
@@ -44,15 +60,6 @@ module Payments
           expiration_year: params[:expiration_year],
           expiration_month: params[:expiration_month]
         )
-
-        if params[:error_type].present?
-          order.payment_method.processed params[:error_type]
-          order.fail
-        else
-          order.payment_method.processed :ok
-          order.charge
-        end
-        true
       end
     end
   end

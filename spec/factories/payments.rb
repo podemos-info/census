@@ -25,10 +25,11 @@ FactoryGirl.define do
       expiration_month { nil }
     end
 
-    trait :external_authorized do
+    trait :external_verified do
       authorization_token { "f9b36152f049a8fbe6a800bcb49837cfb4808d37" }
       expiration_year { 2020 }
       expiration_month { 12 }
+      verified { true }
     end
   end
 
@@ -60,12 +61,12 @@ FactoryGirl.define do
       payment_method { FactoryGirl.build(:credit_card, :external, person: person) }
     end
 
-    trait :external_authorized do
-      payment_method { FactoryGirl.build(:credit_card, :external_authorized, person: person) }
+    trait :external_verified do
+      payment_method { FactoryGirl.build(:credit_card, :external_verified, person: person) }
     end
 
     trait :external_invalid do
-      payment_method { FactoryGirl.build(:credit_card, :external_authorized, authorization_token: "invalid", person: person) }
+      payment_method { FactoryGirl.build(:credit_card, :external_verified, authorization_token: "invalid", person: person) }
     end
 
     trait :processed do
@@ -78,13 +79,25 @@ FactoryGirl.define do
   end
 
   factory :orders_batch do
+    transient do
+      debit_orders { 2 }
+      debit_orders_verified { 2 }
+      credit_card_orders_verified { 2 }
+      credit_card_orders_invalid { 2 }
+    end
+
     description { Faker::Lorem.sentence(1, true, 4) }
 
-    after :build do |orders_batch|
-      orders_batch.orders = build_list(:order, 2, orders_batch: orders_batch)
-      orders_batch.orders = build_list(:order, 2, :verified, orders_batch: orders_batch)
-      orders_batch.orders += build_list(:order, 2, :credit_card, :external_authorized, orders_batch: orders_batch)
-      orders_batch.orders += build_list(:order, 2, :credit_card, :external_invalid, orders_batch: orders_batch)
+    after :build do |orders_batch, evaluator|
+      orders_batch.orders = build_list(:order, evaluator.debit_orders, orders_batch: orders_batch)
+      orders_batch.orders += build_list(:order, evaluator.debit_orders_verified, :verified, orders_batch: orders_batch)
+      orders_batch.orders += build_list(:order, evaluator.credit_card_orders_verified, :credit_card, :external_verified, orders_batch: orders_batch)
+      orders_batch.orders += build_list(:order, evaluator.credit_card_orders_invalid, :credit_card, :external_invalid, orders_batch: orders_batch)
+    end
+
+    trait :debit_only do
+      credit_card_orders_invalid { 0 }
+      credit_card_orders_verified { 0 }
     end
   end
 end

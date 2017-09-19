@@ -2,8 +2,6 @@
 
 module Payments
   class Processor
-    ERROR_TYPES = [:warning, :error, :system].freeze
-
     def format_order_id(order)
       order.date.strftime("%y%m%d") + (order.id % 1_000_000).to_s.rjust(6, "0")
     end

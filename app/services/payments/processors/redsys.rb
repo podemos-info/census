@@ -67,8 +67,8 @@ module Payments
       end
 
       def error_type(code)
-        Processor::ERROR_TYPES.each do |type|
-          return type if Settings.payments.processors.redsys.response_codes[type].include?(code)
+        Settings.payments.processors.redsys.response_codes.each do |type, codes|
+          return type if codes.include?(code)
         end
         :unknown
       end

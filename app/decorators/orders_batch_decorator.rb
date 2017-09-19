@@ -7,10 +7,6 @@ class OrdersBatchDecorator < ApplicationDecorator
     object.orders.count
   end
 
-  def to_s
-    object.description
-  end
-
   def name
     object.description
   end

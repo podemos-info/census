@@ -16,10 +16,10 @@ module Payments
 
         ::Downloads::CreateDownload.call(form) do
           on(:invalid) do
-            raise "Error generating file"
+            return false
           end
           on(:ok) do
-            true
+            return true
           end
         end
       end
@@ -33,7 +33,7 @@ module Payments
           amount: format_amount(decorated_order), # Amount, number with two decimal digit
           currency: decorated_order.currency, # Currency (ISO 4217 standard, 3 chars)
           instruction: internal_reference(decorated_order), # Instruction Identification, will not be submitted to the debtor (<= 35 chars, optional)
-          reference: reference(decorated_order), # End-To-End-Identification, will be submitted to the debtor (<= 35 chars, optional)
+          reference: internal_reference(decorated_order), # End-To-End-Identification, will be submitted to the debtor (<= 35 chars, optional)
           remittance_information: decorated_order.description, # Unstructured remittance information, (<= 140 chars, optional)
           mandate_id: format_order_id(decorated_order), # Mandate identification (<= 35 chars)
           mandate_date_of_signature: decorated_order.date, # Mandate Date of signature
@@ -61,10 +61,6 @@ module Payments
       end
 
       def internal_reference(order)
-        "#{order.date}-#{order.id.to_s.rjust(12, "0")}"
-      end
-
-      def reference(order)
         "#{order.date}-#{order.id.to_s.rjust(12, "0")}"
       end
     end

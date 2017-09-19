@@ -35,6 +35,9 @@ ActiveAdmin.register OrdersBatch do
       on(:invalid) do
         flash[:error] = t("census.orders_batches.action_message.not_processed")
       end
+      on(:issues) do
+        flash[:warning] = t("census.orders_batches.action_message.issues")
+      end
       on(:ok) do
         flash[:notice] = t("census.orders_batches.action_message.processed")
       end

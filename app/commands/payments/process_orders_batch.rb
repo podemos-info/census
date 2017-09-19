@@ -24,9 +24,10 @@ module Payments
       result = OrdersBatch.transaction do
         processed_at = DateTime.now
 
+        result = true
         payment_processors.each do |payment_processor_name|
           payment_processor = Payments::Processor.for(payment_processor_name)
-          payment_processor.process_batch @orders_batch do
+          result &= payment_processor.process_batch @orders_batch do
             @orders_batch.orders_for_payment_processor(payment_processor_name).find_each do |order|
               next unless order.processable?(true)
               payment_processor.process_order order
@@ -36,7 +37,7 @@ module Payments
           end
         end
 
-        :ok
+        result ? :ok : :issues
       end
 
       broadcast result || :invalid
