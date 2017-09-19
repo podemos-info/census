@@ -1,3 +1,5 @@
+//= require activeadmin_addons/all
+
 // SASS variable overrides must be declared before loading up Active Admin's styles.
 //
 // To view the variables that Active Admin provides, take a look at
@@ -87,4 +89,17 @@ body.logged_in.edit .input li.choice {
 .panel_link {
   float:right;
   margin-top: -1.5rem;
+}
+
+table.index {
+  th, td {
+    text-align: center;
+  }
+
+  td.right {
+    text-align: right;
+  }
+  td.left {
+    text-align: left;
+  }
 }

@@ -61,7 +61,7 @@ describe PersonDecorator do
 
   context "options" do
     it "returns the right number of gender options" do
-      expect(PersonDecorator.gender_options.count).to eq(Person::GENDERS.count)
+      expect(PersonDecorator.gender_options.count).to eq(Person.genders.count)
     end
 
     it "returns gender options well formatted" do
@@ -69,7 +69,7 @@ describe PersonDecorator do
     end
 
     it "returns the right number of document type options" do
-      expect(PersonDecorator.document_type_options.count).to eq(Person::DOCUMENT_TYPES.count)
+      expect(PersonDecorator.document_type_options.count).to eq(Person.document_types.count)
     end
 
     it "returns document type options well formatted" do

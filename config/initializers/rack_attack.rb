@@ -4,7 +4,8 @@ class Rack::Attack
   ### Configure Cache ###
 
   # Static configuration
-  api_client_ips = Set.new Rails.application.secrets.api_client_ips&.split(/[^\.\d]/)
+  api_client_ips = Set.new Settings.security.allowed_ips.api_clients
+  payment_callbacks_ips = Set.new Settings.security.allowed_ips.payment_callbacks
 
   # If you don"t want to use Rails.cache (Rack::Attack"s default), then
   # configure it here.
@@ -28,7 +29,7 @@ class Rack::Attack
   # Throttle all requests by IP (60rpm)
   #
   # Key: "rack::attack:#{Time.now.to_i/:period}:req/ip:#{req.ip}"
-  throttle("req/ip", limit: Settings.request_rate_limit, period: 5.minutes, &:ip)
+  throttle("req/ip", limit: Settings.security.request_rate_limit, period: 5.minutes, &:ip)
   # do |req|
   #  req.ip # unless req.path.start_with?("/assets")
   # end
@@ -100,15 +101,27 @@ class Rack::Attack
     req.ip == "127.0.0.1" || req.ip == "::1"
   end
 
-  # Always allow requests from other servers
+  # Always allow API requests for API clients
   safelist("allow from authorized api clients") do |req|
     # Requests are allowed if the return value is truthy
-    api_client_ips.member? req.ip
+    req.path.start_with?("/api/") && api_client_ips.member?(req.ip)
+  end
+
+  # Always allow callbacks requests for payment responses
+  safelist("allow from authorized payment callbacks") do |req|
+    # Requests are allowed if the return value is truthy
+    req.path.start_with?("/callbacks/payments/") && payment_callbacks_ips.member?(req.ip)
   end
 
   # Block API requests
   Rack::Attack.blocklist("API requests") do |req|
     # Requests are blocked if the return value is truthy
     req.path.start_with?("/api/")
+  end
+
+  # Block callbacks requests
+  Rack::Attack.blocklist("callbacks requests") do |req|
+    # Requests are blocked if the return value is truthy
+    req.path.start_with?("/callbacks/")
   end
 end

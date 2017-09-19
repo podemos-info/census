@@ -15,10 +15,10 @@ describe Procedure, :db do
   end
 
   context "with dependent procedure (acceptable only after the parent)" do
-    let(:processor) { nil }
+    let(:processed_by) { nil }
     let(:parent_procedure) { create(:verification_document) }
     let(:person) { parent_procedure.person }
-    let(:child_procedure) { build(:membership_level_change, depends_on: parent_procedure, person: person, processed_by: processor) }
+    let(:child_procedure) { build(:membership_level_change, depends_on: parent_procedure, person: person, processed_by: processed_by) }
 
     it { is_expected.to be_valid }
 
@@ -40,11 +40,11 @@ describe Procedure, :db do
     end
 
     context "can't be processed by the affected person" do
-      let(:processor) { person }
+      let(:processed_by) { person }
       let(:procedure) { child_procedure }
 
       it { is_expected.to be_invalid }
-      it { expect(procedure.full_acceptable_by?(processor)).to be_falsey }
+      it { expect(procedure.full_acceptable_by?(processed_by)).to be_falsey }
     end
   end
 

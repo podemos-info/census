@@ -35,5 +35,11 @@ module Census
     config.middleware.use ActionDispatch::Flash
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore
+
+    # Prevent host header injection (http://carlos.bueno.org/2008/06/host-header-injection.html)
+    if Settings.security.host_url
+      routes.default_url_options = { host: Settings.security.host_url }
+      config.action_controller.asset_host = Settings.security.host_url
+    end
   end
 end

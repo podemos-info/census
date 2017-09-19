@@ -1,12 +1,19 @@
 # frozen_string_literal: true
 
-require "shared/only_authorized_clients"
+require "shared/only_authorized_api_clients"
+require "shared/only_authorized_payment_callbacks"
 
 require "simplecov"
 SimpleCov.start
 
 require "codecov"
 SimpleCov.formatter = SimpleCov::Formatter::Codecov
+
+require "vcr"
+VCR.configure do |config|
+  config.cassette_library_dir = "spec/factories/vcr_cassettes"
+  config.hook_into :webmock
+end
 
 # Only useful for request tests
 def override_ip(ip)

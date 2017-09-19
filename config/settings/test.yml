@@ -1,2 +1,9 @@
-request_rate_limit: 10
-local_code: ES
+security:
+  allowed_ips:
+    api_clients:
+      - 1.1.1.1
+      - 2.2.2.2
+    payment_callbacks:
+      - 3.3.3.3
+  request_rate_limit: 10
+  host_url: example.org

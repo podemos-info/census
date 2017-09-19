@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe ProcedureDecorator do
-  let(:processor) { build(:person) }
+  let(:processed_by) { build(:person) }
   let(:person) { build(:person) }
   let(:procedure) { build(:verification_document, :with_attachments, person: person) }
   subject { procedure.decorate }
@@ -17,11 +17,11 @@ describe ProcedureDecorator do
   end
 
   it "returns the right number of event options" do
-    expect(subject.permitted_events_options(processor).count).to eq(3)
+    expect(subject.permitted_events_options(processed_by).count).to eq(3)
   end
 
   it "returns event options well formatted" do
-    expect(subject.permitted_events_options(processor).map(&:count).uniq).to eq([2])
+    expect(subject.permitted_events_options(processed_by).map(&:count).uniq).to eq([2])
   end
 
   context "#view_link" do

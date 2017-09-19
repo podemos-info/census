@@ -3,9 +3,6 @@
 require "rails_helper"
 
 describe Api::V1::PeopleController, type: :controller do
-  # This should return the minimal set of attributes required to create a valid
-  # Person. As you add validations to Person, be sure to
-  # adjust the attributes here as well.
   let(:person) { build(:person) }
   let(:level) { "person" }
 
@@ -39,11 +36,14 @@ describe Api::V1::PeopleController, type: :controller do
     end
 
     it "correctly sets the user scope" do
+      person.scope.save! # person scope should exists on database
       subject
+
       expect(Person.last.scope).to eq(person.scope)
     end
 
     it "correctly sets the user address_scope" do
+      person.address_scope.save! # person address_scope should exists on database
       subject
       expect(Person.last.address_scope).to eq(person.address_scope)
     end

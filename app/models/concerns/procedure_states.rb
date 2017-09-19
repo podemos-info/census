@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "active_support/concern"
-
 module ProcedureStates
   extend ActiveSupport::Concern
 
@@ -31,11 +29,6 @@ module ProcedureStates
       end
     end
 
-    def initialize(*args)
-      raise "Cannot directly instantiate a Procedure" if self.class == Procedure
-      super
-    end
-
     def processed?
       accepted? || rejected?
     end
@@ -45,7 +38,7 @@ module ProcedureStates
     end
 
     def undoable?
-      processed_at && processed_at > Settings.undo_minutes.minutes.ago && undo_version.present?
+      processed_at && processed_at > Settings.misc.undo_minutes.minutes.ago && undo_version.present?
     end
 
     def undoable_by?(processor)

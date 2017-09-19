@@ -1,0 +1,73 @@
+en:
+  faker:
+    bank:
+      iban_details:
+        - bank_country_code: "AT"
+          iban_letter_code: '0'
+          iban_digits: '16'
+        - bank_country_code: "BE"
+          iban_letter_code: '0'
+          iban_digits: '12'
+        - bank_country_code: "CY"
+          iban_letter_code: '0'
+          iban_digits: '24'
+        - bank_country_code: "CZ"
+          iban_letter_code: '0'
+          iban_digits: '20'
+        - bank_country_code: "DE"
+          iban_letter_code: '0'
+          iban_digits: '18'
+        - bank_country_code: "DK"
+          iban_letter_code: '0'
+          iban_digits: '14'
+        - bank_country_code: "EE"
+          iban_letter_code: '0'
+          iban_digits: '16'
+        - bank_country_code: "ES"
+          iban_letter_code: '0'
+          iban_digits: '20'
+        - bank_country_code: "FI"
+          iban_letter_code: '0'
+          iban_digits: '14'
+        - bank_country_code: "FR"
+          iban_letter_code: '0'
+          iban_digits: '23'
+        - bank_country_code: "GR"
+          iban_letter_code: '0'
+          iban_digits: '23'
+        - bank_country_code: "HU"
+          iban_letter_code: '0'
+          iban_digits: '24'
+        - bank_country_code: "HR"
+          iban_letter_code: '0'
+          iban_digits: '17'
+        - bank_country_code: "IE"
+          iban_letter_code: '4'
+          iban_digits: '14'
+        - bank_country_code: "IT"
+          iban_letter_code: '0'
+          iban_digits: '23'
+        - bank_country_code: "LV"
+          iban_letter_code: '4'
+          iban_digits: '13'
+        - bank_country_code: "LT"
+          iban_letter_code: '0'
+          iban_digits: '16'
+        - bank_country_code: "PT"
+          iban_letter_code: '0'
+          iban_digits: '21'
+        - bank_country_code: "MT"
+          iban_letter_code: '4'
+          iban_digits: '23'
+        - bank_country_code: "NL"
+          iban_letter_code: '4'
+          iban_digits: '10'
+        - bank_country_code: "RO"
+          iban_letter_code: '4'
+          iban_digits: '16'
+        - bank_country_code: "SE"
+          iban_letter_code: '0'
+          iban_digits: '20'
+        - bank_country_code: "SK"
+          iban_letter_code: '0'
+          iban_digits: '20'

@@ -11,9 +11,9 @@ ActiveAdmin.register Person do
   index do
     state_column :level
     id_column
-    column :full_name, sortable: :last_name1
-    column :full_document
-    column :scope, sortable: "scopes.name" do |person|
+    column :full_name, sortable: :last_name1, class: :left
+    column :full_document, class: :left
+    column :scope, sortable: "scopes.name", class: :left do |person|
       person.scope&.show_path(Scope.local)
     end
     column :flags do |person|
@@ -53,6 +53,7 @@ ActiveAdmin.register Person do
       row :created_at
       row :updated_at
     end
+    show_table(self, t("census.people.extra"), person.extra) if person.extra.any?
     if person.independent_procedures.any?
       panel Procedure.model_name.human(count: 2).capitalize do
         table_for person.independent_procedures, i18n: Procedure do
@@ -66,6 +67,7 @@ ActiveAdmin.register Person do
         end
       end
     end
+    active_admin_comments
   end
 
   form do |f|
@@ -85,6 +87,10 @@ ActiveAdmin.register Person do
     end
 
     f.actions
+  end
+
+  action_item(:create_order, only: :show) do
+    link_to t("census.people.create_order"), new_order_path(order: { person_id: person.id })
   end
 
   sidebar :versionate, partial: "layouts/version", only: :show

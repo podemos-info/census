@@ -56,7 +56,7 @@ module Census
       def save_scopes(scopes)
         Scope.transaction do
           scopes.each do |row|
-            print "\r#{row["UID"].ljust(30)}"
+            print "#{row["UID"].ljust(30)}\r"
             code = row["UID"]
 
             scope = Scope.find_or_initialize_by(code: code)

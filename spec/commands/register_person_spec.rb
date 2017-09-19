@@ -11,6 +11,7 @@ describe RegisterPerson do
       ActionDispatch::Http::UploadedFile.new(filename: attachment.file.filename, type: attachment.content_type, tempfile: attachment.file.file)
     end
   end
+  let(:valid) { true }
 
   let(:form) do
     instance_double(
@@ -42,8 +43,6 @@ describe RegisterPerson do
   end
 
   describe "when valid" do
-    let(:valid) { true }
-
     it "broadcasts :ok" do
       expect { subject } .to broadcast(:ok)
     end

@@ -1,0 +1,40 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sis-t.redsys.es:25443/sis/operaciones
+    body:
+      encoding: UTF-8
+      string: entrada=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CREQUEST%3E%3CDATOSENTRADA%3E%3CDS_Version%3E0.1%3C%2FDS_Version%3E%3CDS_MERCHANT_CURRENCY%3E978%3C%2FDS_MERCHANT_CURRENCY%3E%3CDS_MERCHANT_AMOUNT%3E6223%3C%2FDS_MERCHANT_AMOUNT%3E%3CDS_MERCHANT_ORDER%3E170918000364%3C%2FDS_MERCHANT_ORDER%3E%3CDS_MERCHANT_TRANSACTIONTYPE%3EA%3C%2FDS_MERCHANT_TRANSACTIONTYPE%3E%3CDS_MERCHANT_PRODUCTDESCRIPTION%2F%3E%3CDS_MERCHANT_TERMINAL%3E001%3C%2FDS_MERCHANT_TERMINAL%3E%3CDS_MERCHANT_MERCHANTCODE%3E306003724%3C%2FDS_MERCHANT_MERCHANTCODE%3E%3CDS_MERCHANT_IDENTIFIER%3Ef9b36152f049a8fbe6a800bcb49837cfb4808d37%3C%2FDS_MERCHANT_IDENTIFIER%3E%3CDS_MERCHANT_DIRECTPAYMENT%3Etrue%3C%2FDS_MERCHANT_DIRECTPAYMENT%3E%3C%2FDATOSENTRADA%3E%3CDS_SIGNATUREVERSION%3EHMAC_SHA256_V1%3C%2FDS_SIGNATUREVERSION%3E%3CDS_SIGNATURE%3E2cFNItRavbuDDSiQECHhUjzNty6jsIctxdbqgEz6%2FJk%3D%3C%2FDS_SIGNATURE%3E%3C%2FREQUEST%3E
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 18 Sep 2017 11:39:20 GMT
+      X-Powered-By:
+      - Servlet/3.0
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - text/plain
+      Content-Language:
+      - en-US
+    body:
+      encoding: UTF-8
+      string: '<?xml version=''1.0'' encoding="UTF-8" ?><RETORNOXML><CODIGO>0</CODIGO><Ds_Version>0.1</Ds_Version><OPERACION><Ds_Amount>6223</Ds_Amount><Ds_Currency>978</Ds_Currency><Ds_Order>170918000364</Ds_Order><Ds_Signature>8E3aZ+9kLASOqOk9RLUtlBLRmHNG/aIGkimkBWmyYyI=</Ds_Signature><Ds_MerchantCode>306003724</Ds_MerchantCode><Ds_Terminal>1</Ds_Terminal><Ds_Response>0000</Ds_Response><Ds_AuthorisationCode>295734</Ds_AuthorisationCode><Ds_TransactionType>A</Ds_TransactionType><Ds_SecurePayment>0</Ds_SecurePayment><Ds_Language>1</Ds_Language><Ds_Merchant_Identifier>f9b36152f049a8fbe6a800bcb49837cfb4808d37</Ds_Merchant_Identifier><Ds_MerchantData></Ds_MerchantData><Ds_Card_Country>724</Ds_Card_Country><Ds_Card_Brand>1</Ds_Card_Brand></OPERACION></RETORNOXML>
+
+'
+    http_version: ""
+  recorded_at: Mon, 18 Sep 2017 11:39:20 GMT
+recorded_with: VCR 3.0.3

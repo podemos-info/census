@@ -1,0 +1,11 @@
+text_node Arbre::HTML::Document.new.doctype
+html do
+  body do
+    form id: :form, action: order_info[:action], method: :post do
+      order_info[:fields].each do |key, value|
+        input type: :hidden, name: key, value: value
+      end
+    end
+    script raw("document.getElementById('form').submit()")
+  end
+end

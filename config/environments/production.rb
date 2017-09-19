@@ -77,7 +77,5 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  # Prevent host header injection (http://carlos.bueno.org/2008/06/host-header-injection.html)
-  config.action_controller.default_url_options = { host: ENV.fetch("HOST_URL") }
-  config.action_controller.asset_host = ENV.fetch("HOST_URL")
+  raise "Please set HOST_URL environment variable before running this application on production mode" unless Settings.security.host_url
 end

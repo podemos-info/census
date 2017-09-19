@@ -12,7 +12,7 @@ describe "People", type: :request do
       expect(subject).to eq(422)
     end
 
-    include_examples "only authorized clients"
+    include_examples "only authorized api clients"
   end
 
   context "update method" do
@@ -21,6 +21,6 @@ describe "People", type: :request do
 
     it { expect(subject).to eq(202) }
 
-    include_examples "only authorized clients"
+    include_examples "only authorized api clients"
   end
 end

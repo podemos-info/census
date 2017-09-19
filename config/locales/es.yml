@@ -20,12 +20,31 @@ es:
       attachment:
         one: Adjunto
         other: Adjuntos
-      person:
-        one: Persona
-        other: Personas
       comment: 
         one: Comentario
         other: Comentarios
+      download:
+        one: Descarga
+        other: Descargas
+      order:
+        one: Orden
+        other: Órdenes
+      orders_batch:
+        one: Lote de órdenes
+        other: Lotes de órdenes
+      payment_method:
+        one: Método de pago
+        other: Métodos de pago
+      payment_methods:
+        credit_card:
+          one: Tarjeta de crédito
+          other: Tarjetas de crédito
+        direct_debit:
+          one: Débito directo
+          others: Débitos directos
+      person:
+        one: Persona
+        other: Personas
       procedure:
         one: Procedimiento
         other: Procedimientos
@@ -51,7 +70,7 @@ es:
         address: Dirección
         address_scope: Lugar de residencia
         postal_code: Código postal
-        flags: Marcas
+        flags: Verificaciones
         level: Nivel
         level/person: persona
         level/follower: simpatizante
@@ -66,6 +85,7 @@ es:
         type: Tipo
         information: Información
         created_at: Fecha de creación
+        updated_at: Última actualización
         comment: Comentario
         processed_by: Procesado por
         processed_at: Fecha de procesado
@@ -74,22 +94,74 @@ es:
         state/issues: Incidencia
         state/accepted: Aceptado
         state/rejected: Rechazado
+      order:
+        person: Persona
+        orders_batch: Lote de órdenes
+        full_amount: Total
+        payment_method: Método de pago
+        description: Descripción
+        amount: Total
+        created_at: Fecha de creación
+        updated_at: Última actualización
+        state: Estado
+        state/pending: Pendiente
+        state/ok: Pagada
+        state/error: Errores
+        state/returned: Devuelta
+      orders_batch:
+        description: Descripción
+        orders_count: Nº de órdenes
+      payment_method:
+        person: Persona
+        name: Nombre
+        type: Tipo
+        created_at: Fecha de creación
+        updated_at: Última actualización
+        authorization_token: Código de autorización
+        expiration_year: Año de expiración
+        expiration_month: Mes de expiración
   census:
+    downloads:
+      download: Descargar
+    orders:
+      information: Información adicional
+      create_credit_card_external: Configurar una nueva tarjeta de crédito
+      add_orders_from_payment_methods: Puedes crear órdenes desde la página de una persona o un método de pago.
+      created: La orden ha sido creada
+      not_created: La orden no ha sido creada
+      process: Procesar
+      action_message:
+        processed: La orden ha sido procesado.
+        not_processed: No se pudo procesar la orden.
+    orders_batches:
+      process: Procesar
+      action_message:
+        processed: El lote de órdenes ha sido procesado.
+        not_processed: No se pudo procesar el lote de órdenes.
+        issues: El lote de órdenes ha sido procesado, pero han ocurrido incidencias durante el proceso. Por favor, contacta con el administrador del sistema.
+    payment_methods:
+      information: Información adicional
+      create_order: Crear orden con este método de pago
+      default_names:
+        credit_card: Tarjeta de crédito (vencimiento %{expiration})
+        direct_debit: Cuenta bancaria (acabada en %{iban_last_digits})
     people:
+      create_order: Crear orden para esta persona
+      document_types:
+        dni: DNI
+        nie: NIE
+        passport: Pasaporte
+      extra: Información adicional
+      flags:
+        has_issues: Alerta
+        verified_by_document: Documento
+        verified_in_person: En persona
       genders:
         female: Femenino
         male: Masculino
         other: Otro
         undisclosed: No quiero decirlo
-      document_types:
-        dni: DNI
-        nie: NIE
-        passport: Pasaporte
-      flags:
-        has_issues: Alerta
-        verified_by_document: Documento
-        verified_in_person: En persona
-    procedure:
+    procedures:
       personal_data: Datos personales
       dependent_procedures: Procedimientos dependientes
       process: Procesar
@@ -114,3 +186,4 @@ es:
       mini_magick_processing_error: "MiniMagick no ha podido trabajar con el fichero, tal vez no sea una imagen. Error original: %{e}"
       procedure_denial_comment_required: debes indicar la razón del rechazo el procedimiento
       processed_by_person: el procedimiento no puede ser procesado por la persona a la que afecta
+      different_person_than_payment_method: la orden no puede cobrarse con un método de pago correspondiente a una persona diferente

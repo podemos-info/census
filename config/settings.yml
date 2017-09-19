@@ -1,11 +1,47 @@
-local_code: ES
-locales:
-  default: es
-  available: # don't include default locale
-    - ca
-    - eu
-    - en
-    - gl
-undo_minutes: 30
-request_rate_limit: 300
-document_id_minimum_length: 4
+misc:
+  document_id_minimum_length: 4
+  undo_minutes: 30
+
+payments:
+  currency: EUR
+  fractions_per_unit: 100
+  processors:
+    credit_card: redsys
+    direct_debit: sepa
+    redsys:
+      notification_lifespan: 30 #minutes
+      auth:
+        name: <%= ENV["REDSYS_NAME"] %>
+        login: <%= ENV["REDSYS_MERCHANT_ID"] %>
+        secret_key: <%= ENV["REDSYS_SECRET_KEY"] %>
+        terminal: <%= ENV["REDSYS_TERMINAL"] %>
+        test: <%= !Rails.env.production? %>
+      response_codes:
+        ok: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 400, 481, 500, 900]
+        warning: [102, 9104]
+        error: [118, 129, 180, 184, 190, 202, 9915]
+        system: [913]
+    sepa:
+      main:
+        name: <%= ENV["SEPA_NAME"] %> # Name of the initiating party and creditor (max. 70 chars)
+        iban: <%= ENV["SEPA_IBAN"] %> # International Bank Account Number of the creditor (max. 34 chars)
+        bic: <%= ENV["SEPA_BIC"] %> # International Bank Account Number of the creditor (8 or 11 chars)
+        creditor_identifier: <%= ENV["SEPA_CREDITOR_IDENTIFIER"] %> # Creditor Identifier (max. 35 chars)
+      file_lifespan: 48 #hours
+
+regional:
+  local_code: ES
+  locales:
+    default: es
+    available: # don't include default locale
+      - ca
+      - eu
+      - en
+      - gl
+
+security:
+  allowed_ips:
+    api_clients: <%= ENV.fetch("ALLOWED_IPS_API_CLIENTS") { "" } &.split(/[^\.\d]/) %>
+    payment_callbacks: <%= ENV.fetch("ALLOWED_IPS_CALLBACK_PAYMENTS") { "" } &.split(/[^\.\d]/) %>
+  request_rate_limit: 300
+  host_url: <%= ENV["HOST_URL"] %>
