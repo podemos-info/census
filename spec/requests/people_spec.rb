@@ -3,6 +3,8 @@
 require "rails_helper"
 
 describe "People", type: :request do
+  include_context "devise login"
+
   let!(:person) { create(:person, :verified) }
 
   context "index page" do

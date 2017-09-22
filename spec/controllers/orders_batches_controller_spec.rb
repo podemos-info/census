@@ -4,6 +4,7 @@ require "rails_helper"
 
 describe OrdersBatchesController, type: :controller do
   render_views
+  include_context "devise login"
 
   subject(:resource) { all_resources[resource_class] }
   let(:resource_class) { OrdersBatch }
@@ -60,29 +61,13 @@ describe OrdersBatchesController, type: :controller do
       end
     end
 
-    context "without a processor" do
-      let(:cassete) { "orders_batch_without_processor" }
-      before do
-        override_current_user(nil)
-      end
-      it "success" do
-        is_expected.to have_http_status(:found)
-      end
-      it "shows an error message" do
-        subject
-        expect(flash[:error]).to be_present
-      end
-      it "shows the index page" do
-        expect(subject.location).to eq(orders_batches_url)
-      end
-    end
-
     context "on errors on generating downloadable file" do
       let!(:orders_batch) { create(:orders_batch, :debit_only) }
       let(:cassete) { "orders_batch_create_download_error" }
       before do
         allow_any_instance_of(Download).to receive(:save).and_return(false)
       end
+
       it "success" do
         is_expected.to have_http_status(:found)
       end

@@ -4,8 +4,9 @@ require "rails_helper"
 
 describe ProceduresController, type: :controller do
   render_views
+  include_context "devise login"
 
-  let!(:processed_by) { create(:person) }
+  let!(:processed_by) { create(:admin) }
   let(:resource_class) { Procedure }
   let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
   let(:resource) { all_resources[resource_class] }
@@ -29,11 +30,8 @@ describe ProceduresController, type: :controller do
     it { expect(subject).to render_template("index") }
 
     context "accepted tab" do
-      before do
-        override_current_user procedure.processed_by
-      end
-
       subject { get :index, params: { scope: :accepted } }
+      let(:current_admin) { procedure.processed_by }
       let!(:procedure) { create(:verification_document, :undoable) }
       it { expect(subject).to be_success }
       it { expect(subject).to render_template("index") }
@@ -72,11 +70,8 @@ describe ProceduresController, type: :controller do
     end
 
     context "undo" do
-      before do
-        override_current_user procedure.processed_by
-      end
-
       subject { patch :undo, params: { id: procedure.id } }
+      let(:current_admin) { procedure.processed_by }
 
       it "returns ok" do
         expect(subject).to redirect_to(procedures_path)

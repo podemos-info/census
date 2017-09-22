@@ -16,13 +16,13 @@ FactoryGirl.define do
     created_at { Faker::Time.between(person.created_at, 3.day.ago, :all) }
 
     trait :ready_to_process do
-      processed_by { build(:person) }
+      processed_by { build(:admin) }
       processed_at { Time.now }
       comment { Faker::Lorem.paragraph(1, true, 2) }
     end
 
     trait :processed do
-      processed_by { build(:person) }
+      processed_by { build(:admin) }
       processed_at { Faker::Time.between(created_at, Settings.misc.undo_minutes.minutes.ago, :all) }
       state { Faker::Boolean.boolean(0.7) ? :accepted : :rejected }
       comment { Faker::Lorem.paragraph(1, true, 2) }
@@ -30,7 +30,7 @@ FactoryGirl.define do
 
     trait :undoable do
       after :create do |procedure|
-        procedure.processed_by = build(:person)
+        procedure.processed_by = build(:admin)
         procedure.processed_at = Time.now
         procedure.comment = Faker::Lorem.paragraph(1, true, 2)
         procedure.accept!
@@ -46,7 +46,7 @@ FactoryGirl.define do
 
     trait :undoable_rejected do
       after :create do |procedure|
-        procedure.processed_by = build(:person)
+        procedure.processed_by = build(:admin)
         procedure.processed_at = Time.now
         procedure.comment = Faker::Lorem.paragraph(1, true, 2)
         procedure.reject!

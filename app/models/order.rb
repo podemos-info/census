@@ -7,7 +7,7 @@ class Order < ApplicationRecord
   belongs_to :person
   belongs_to :payment_method, autosave: true
   belongs_to :orders_batch, optional: true
-  belongs_to :processed_by, class_name: "Person", optional: true
+  belongs_to :processed_by, class_name: "Admin", optional: true
 
   store_accessor :information, :raw_response
 

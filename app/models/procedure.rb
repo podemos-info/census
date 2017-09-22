@@ -8,7 +8,7 @@ class Procedure < ApplicationRecord
   has_paper_trail
 
   belongs_to :person
-  belongs_to :processed_by, class_name: "Person", optional: true
+  belongs_to :processed_by, class_name: "Admin", optional: true
   belongs_to :depends_on, class_name: "Procedure", optional: true
 
   has_many :dependent_procedures,
@@ -33,7 +33,7 @@ class Procedure < ApplicationRecord
   private
 
   def processed_by_different_from_person
-    errors.add(:processed_by_id, :processed_by_person) if processed_by == person
+    errors.add(:processed_by_id, :processed_by_person) if processed_by&.person == person
   end
 
   def depends_on_person

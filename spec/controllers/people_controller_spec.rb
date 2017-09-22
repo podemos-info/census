@@ -4,6 +4,7 @@ require "rails_helper"
 
 describe PeopleController, type: :controller do
   render_views
+  include_context "devise login"
 
   let(:resource_class) { Person }
   let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }

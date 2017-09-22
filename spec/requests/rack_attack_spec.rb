@@ -14,7 +14,7 @@ describe "Rack attack", type: :request do
 
     it "blocks pentester IP for only one request" do
       expect(subject).to eq(403)
-      expect(get("/")).to eq(200)
+      expect(get("/")).to eq(302)
     end
 
     context "blocks pentester IP on repeated requests" do

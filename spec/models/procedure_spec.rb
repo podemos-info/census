@@ -40,7 +40,7 @@ describe Procedure, :db do
     end
 
     context "can't be processed by the affected person" do
-      let(:processed_by) { person }
+      let(:processed_by) { create(:admin, person: person) }
       let(:procedure) { child_procedure }
 
       it { is_expected.to be_invalid }

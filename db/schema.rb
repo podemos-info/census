@@ -29,6 +29,27 @@ ActiveRecord::Schema.define(version: 20170904130745) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
   end
 
+  create_table "admins", force: :cascade do |t|
+    t.bigint "person_id", null: false
+    t.string "roles", null: false, array: true
+    t.bigint "scope_id"
+    t.string "username", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet "current_sign_in_ip"
+    t.inet "last_sign_in_ip"
+    t.integer "failed_attempts", default: 0, null: false
+    t.datetime "locked_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["person_id"], name: "index_admins_on_person_id"
+    t.index ["scope_id"], name: "index_admins_on_scope_id"
+    t.index ["username"], name: "index_admins_on_username", unique: true
+  end
+
   create_table "attachments", force: :cascade do |t|
     t.bigint "procedure_id"
     t.string "file", null: false
@@ -39,7 +60,7 @@ ActiveRecord::Schema.define(version: 20170904130745) do
   end
 
   create_table "downloads", force: :cascade do |t|
-    t.bigint "person_id", null: false
+    t.bigint "person_id"
     t.string "file", null: false
     t.string "content_type"
     t.datetime "expires_at", null: false
@@ -167,11 +188,11 @@ ActiveRecord::Schema.define(version: 20170904130745) do
   end
 
   add_foreign_key "attachments", "procedures"
-  add_foreign_key "orders", "people", column: "processed_by_id"
-  add_foreign_key "orders_batches", "people", column: "processed_by_id"
+  add_foreign_key "orders", "admins", column: "processed_by_id"
+  add_foreign_key "orders_batches", "admins", column: "processed_by_id"
   add_foreign_key "people", "scopes", column: "address_scope_id"
   add_foreign_key "people", "scopes", column: "document_scope_id"
-  add_foreign_key "procedures", "people", column: "processed_by_id"
+  add_foreign_key "procedures", "admins", column: "processed_by_id"
   add_foreign_key "procedures", "procedures", column: "depends_on_id"
   add_foreign_key "scopes", "scope_types"
   add_foreign_key "scopes", "scopes", column: "parent_id"

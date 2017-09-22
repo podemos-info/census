@@ -8,7 +8,7 @@ describe Procedures::ProcessProcedure do
   let!(:procedure) { create(:verification_document) }
   let(:event) { :accept }
   let(:params) { { event: event, comment: "This is a comment" } }
-  let!(:processed_by) { create(:person) }
+  let!(:processed_by) { create(:admin) }
 
   describe "when valid" do
     it "broadcasts :ok" do
@@ -101,7 +101,7 @@ describe Procedures::ProcessProcedure do
     end
 
     context "is the affected person" do
-      let(:processed_by) { procedure.person }
+      let(:processed_by) { build(:admin, person: procedure.person) }
       it "broadcasts :invalid" do
         expect { subject }.to broadcast(:invalid)
       end

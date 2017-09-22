@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "shared/devise_login"
 require "shared/only_authorized_api_clients"
 require "shared/only_authorized_payment_callbacks"
 
@@ -20,8 +21,8 @@ def override_ip(ip)
   allow_any_instance_of(Rack::Attack::Request).to receive(:ip).and_return(ip)
 end
 
-def override_current_user(person)
-  allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(person)
+def override_current_admin(admin)
+  allow_any_instance_of(ApplicationController).to receive(:current_admin).and_return(admin)
 end
 
 # hash with file data that will be received by the API

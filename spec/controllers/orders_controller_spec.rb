@@ -4,6 +4,7 @@ require "rails_helper"
 
 describe OrdersController, type: :controller do
   render_views
+  include_context "devise login"
 
   subject(:resource) { all_resources[resource_class] }
   let(:resource_class) { Order }

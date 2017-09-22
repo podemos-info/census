@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
-admins = Person.first(4)
+# create and verify 4 admin users
+people = Person.where.not(id: Admin.all.pluck(:id)).first(4)
+admins = people.map do |person|
+  person.update_attributes verified_in_person: true
+  Admin.create! username: Faker::Internet.user_name, password: person.email, person: person, roles: ["procedures"]
+end
+
 attachments_path = File.join(__dir__, "attachments")
 
 # create 10 processed verifications
