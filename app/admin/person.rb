@@ -93,6 +93,14 @@ ActiveAdmin.register Person do
     link_to t("census.people.create_order"), new_order_path(order: { person_id: person.id })
   end
 
+  action_item(:view_orders, only: :show) do
+    link_to t("census.people.view_orders"), person_orders_path(person_id: person.id)
+  end
+
+  action_item(:view_payment_methods, only: :show) do
+    link_to t("census.people.view_payment_methods"), person_payment_methods_path(person_id: person.id)
+  end
+
   sidebar :versionate, partial: "layouts/version", only: :show
 
   member_action :history do

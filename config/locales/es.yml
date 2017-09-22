@@ -149,7 +149,9 @@ es:
         credit_card: Tarjeta de crédito (vencimiento %{expiration})
         direct_debit: Cuenta bancaria (acabada en %{iban_last_digits})
     people:
-      create_order: Crear orden para esta persona
+      create_order: Crear orden
+      view_orders: Ver órdenes
+      view_payment_methods: Ver métodos de pago
       document_types:
         dni: DNI
         nie: NIE

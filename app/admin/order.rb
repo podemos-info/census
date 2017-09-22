@@ -2,6 +2,7 @@
 
 ActiveAdmin.register Order do
   decorate_with OrderDecorator
+  belongs_to :person, optional: true
 
   includes :person, :payment_method
 
@@ -9,6 +10,12 @@ ActiveAdmin.register Order do
 
   actions :index, :show, :new, :create
   config.clear_action_items!
+
+  [:direct_debit, :credit_card].each do |payment_method|
+    scope(payment_method) do |scope|
+      scope.joins(:payment_method).where(payment_methods: { type: "PaymentMethods::#{payment_method.to_s.classify}" })
+    end
+  end
 
   index do
     id_column

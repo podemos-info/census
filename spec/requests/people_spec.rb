@@ -32,4 +32,14 @@ describe "People", type: :request do
     subject { get history_person_path(id: person.id) }
     it { expect(subject).to eq(200) }
   end
+
+  context "person orders page" do
+    subject { get person_orders_path(person_id: person.id) }
+    it { expect(subject).to eq(200) }
+  end
+
+  context "person payment methods" do
+    subject { get person_payment_methods_path(person_id: person.id) }
+    it { expect(subject).to eq(200) }
+  end
 end

@@ -2,12 +2,17 @@
 
 ActiveAdmin.register PaymentMethod do
   decorate_with PaymentMethodDecorator
+  belongs_to :person, optional: true
 
   includes :person
 
   actions :index, :show
 
   menu parent: :orders
+
+  [:direct_debit, :credit_card].each do |payment_method|
+    scope(payment_method) { |scope| scope.where type: "PaymentMethods::#{payment_method.to_s.classify}" }
+  end
 
   index do
     id_column
