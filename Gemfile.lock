@@ -1,3 +1,13 @@
+GIT
+  remote: https://github.com/leio10/active_merchant.git
+  revision: 17ac8bc1e382427d09d6e7dcb64c67e4b7bb51d4
+  specs:
+    activemerchant (1.72.0)
+      activesupport (>= 3.2.14, < 6.x)
+      builder (>= 2.1.2, < 4.0.0)
+      i18n (>= 0.6.9)
+      nokogiri (~> 1.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -46,11 +56,6 @@ GEM
     activejob (5.1.4)
       activesupport (= 5.1.4)
       globalid (>= 0.3.6)
-    activemerchant (1.71.0)
-      activesupport (>= 3.2.14, < 6.x)
-      builder (>= 2.1.2, < 4.0.0)
-      i18n (>= 0.6.9)
-      nokogiri (~> 1.4)
     activemodel (5.1.4)
       activesupport (= 5.1.4)
     activemodel-serializers-xml (1.0.2)
@@ -425,7 +430,7 @@ DEPENDENCIES
   aasm
   activeadmin
   activeadmin_addons (>= 1.0)
-  activemerchant
+  activemerchant!
   arctic_admin
   better_errors
   binding_of_caller

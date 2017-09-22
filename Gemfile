@@ -10,7 +10,7 @@ end
 gem "aasm"
 gem "activeadmin"
 gem "activeadmin_addons", ">= 1.0"
-gem "activemerchant"
+gem "activemerchant", github: "leio10/active_merchant"
 gem "arctic_admin"
 gem "carrierwave"
 gem "config"
