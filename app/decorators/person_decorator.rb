@@ -10,10 +10,6 @@ class PersonDecorator < ApplicationDecorator
     full_name
   end
 
-  def name
-    full_name
-  end
-
   def full_name
     "#{last_names}, #{object.first_name}"
   end
