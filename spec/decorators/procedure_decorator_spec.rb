@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe ProcedureDecorator do
-  let(:processed_by) { build(:person) }
+  let(:processed_by) { build(:admin) }
   let(:person) { build(:person) }
   let(:procedure) { build(:verification_document, :with_attachments, person: person) }
   subject { procedure.decorate }

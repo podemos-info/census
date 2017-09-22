@@ -3,19 +3,45 @@
 require "rails_helper"
 
 describe Payments::ProcessOrder do
-  subject(:process_order) { described_class.call(order, processed_by) }
-  let(:order) { create(:order, :credit_card) }
-  let!(:processed_by) { create(:person) }
+  subject(:process_order) do
+    VCR.use_cassette(cassete) do
+      described_class.call(order, processed_by)
+    end
+  end
 
-  describe "when invalid" do
-    let(:order) { create(:order) }
+  let(:order) { create(:order, :credit_card, :external_verified) }
+  let!(:processed_by) { create(:admin) }
 
-    it "broadcasts :invalid" do
-      is_expected.to broadcast(:invalid)
+  describe "when valid" do
+    let(:cassete) { "valid_process_order_command" }
+    it "broadcasts :ok" do
+      expect { subject } .to broadcast(:ok)
     end
 
-    it "doesn't update the order" do
-      expect { subject } .not_to change { Order.find(order.id).state }
+    it "updates the order state to processed" do
+      expect { subject } .to change { Order.find(order.id).state } .to("processed")
+    end
+  end
+
+  describe "when the payment fails" do
+    let(:cassete) { "failed_process_order_command" }
+    let(:order) { create(:order, :credit_card) }
+
+    it "broadcasts :ok" do
+      expect { subject } .to broadcast(:ok)
+    end
+
+    it "updates the order state to error" do
+      expect { subject } .to change { Order.find(order.id).state } .to("error")
+    end
+  end
+
+  describe "when invalid" do
+    let(:cassete) { "invalid_process_order_command" }
+    let(:order) { nil }
+
+    it "broadcasts :invalid" do
+      expect { subject } .to broadcast(:invalid)
     end
   end
 end

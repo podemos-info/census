@@ -31,7 +31,7 @@ ActiveAdmin.register OrdersBatch do
 
   member_action :charge, method: :patch do # Fails when calling it :process
     orders_batch = resource
-    Payments::ProcessOrdersBatch.call(orders_batch, current_user) do
+    Payments::ProcessOrdersBatch.call(orders_batch, current_admin) do
       on(:invalid) do
         flash[:error] = t("census.orders_batches.action_message.not_processed")
       end

@@ -3,6 +3,8 @@
 require "rails_helper"
 
 describe "PaymentMethods", type: :request do
+  include_context "devise login"
+
   subject(:page) { get payment_methods_path }
   let!(:payment_method) { create(:direct_debit) }
 

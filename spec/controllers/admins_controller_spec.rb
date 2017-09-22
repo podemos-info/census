@@ -2,21 +2,21 @@
 
 require "rails_helper"
 
-describe PaymentMethodsController, type: :controller do
+describe AdminsController, type: :controller do
   render_views
   include_context "devise login"
 
   subject(:resource) { all_resources[resource_class] }
-  let(:resource_class) { PaymentMethod }
+  let(:resource_class) { Admin }
   let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
-  let!(:payment_method) { create(:direct_debit) }
+  let!(:admin) { create(:admin) }
 
   it "defines actions" do
     expect(subject.defined_actions).to contain_exactly(:index, :show)
   end
 
-  it "handles payment methods" do
-    expect(subject.resource_name).to eq("PaymentMethod")
+  it "handles admins" do
+    expect(subject.resource_name).to eq("Admin")
   end
 
   it "shows menu" do
@@ -30,7 +30,7 @@ describe PaymentMethodsController, type: :controller do
   end
 
   context "show page" do
-    subject { get :show, params: { id: payment_method.id } }
+    subject { get :show, params: { id: admin.id } }
     it { is_expected.to be_success }
     it { is_expected.to render_template("show") }
   end

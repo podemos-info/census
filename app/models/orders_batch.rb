@@ -5,7 +5,7 @@ class OrdersBatch < ApplicationRecord
   has_many :orders
   has_many :payment_methods, through: :orders
 
-  belongs_to :processed_by, class_name: "Person", optional: true
+  belongs_to :processed_by, class_name: "Admin", optional: true
 
   def payment_processors
     orders.joins(:payment_method).distinct(:payment_processor).pluck(:payment_processor)

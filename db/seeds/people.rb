@@ -30,8 +30,6 @@ emigrant_scopes = Scope.local.not_descendants.leafs
   )
 end
 
-# create and verify 4 admins
-admins = Person.first(4)
-admins.each do |admin|
-  admin.update_attributes verified_in_person: true
-end
+admin = Person.first
+admin.update_attributes verified_in_person: true
+Admin.create! username: "admin", password: "admin", password_confirmation: "admin", person: admin, roles: ["admin"]

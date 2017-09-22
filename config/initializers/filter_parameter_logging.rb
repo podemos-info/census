@@ -3,4 +3,4 @@
 # Be sure to restart your server when you modify this file.
 
 # Configure sensitive parameters which will be filtered from the log file.
-Rails.application.config.filter_parameters += [:password, :base64_content]
+Rails.application.config.filter_parameters += [:password, :content, :base64_content]

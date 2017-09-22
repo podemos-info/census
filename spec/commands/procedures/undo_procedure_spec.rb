@@ -97,7 +97,7 @@ describe Procedures::UndoProcedure do
 
   context "when processed_by" do
     context "is other" do
-      let!(:processed_by) { create(:person) }
+      let!(:processed_by) { create(:admin) }
 
       it "broadcasts :invalid" do
         expect { subject } .to broadcast(:invalid)
@@ -142,7 +142,7 @@ describe Procedures::UndoProcedure do
     end
 
     context "is the affected person" do
-      let(:processed_by) { procedure.person }
+      let(:processed_by) { build(:admin, person: procedure.person) }
       it "broadcasts :invalid" do
         expect { subject }.to broadcast(:invalid)
       end

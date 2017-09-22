@@ -17,6 +17,9 @@ es:
       pending: Pendiente
   activerecord:
     models:
+      admins:
+        one: Administrador
+        other: Administradores
       attachment:
         one: Adjunto
         other: Adjuntos

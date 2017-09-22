@@ -3,6 +3,8 @@
 require "rails_helper"
 
 describe "Orders", type: :request do
+  include_context "devise login"
+
   subject(:page) { get orders_path }
   let!(:order) { create(:order) }
 

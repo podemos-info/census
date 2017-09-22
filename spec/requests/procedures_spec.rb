@@ -3,6 +3,8 @@
 require "rails_helper"
 
 describe "Procedures", type: :request do
+  include_context "devise login"
+
   let!(:procedure) { create(:verification_document, :with_attachments) }
 
   context "index page" do

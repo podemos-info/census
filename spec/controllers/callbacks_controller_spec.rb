@@ -87,6 +87,20 @@ describe CallbacksController, type: :controller do
       end
     end
 
+    context "when redsys response has an invalid format" do
+      let(:redsys_response) { "<WRONG DATA<!" }
+
+      it "returns ok" do
+        is_expected.to be_success
+      end
+      it "does not create a new order" do
+        expect { subject } .not_to change { Order.count }
+      end
+      it "does not create a new credit card payment method" do
+        expect { subject } .not_to change { PaymentMethods::CreditCard.count }
+      end
+    end
+
     context "when redsys response is out of date" do
       before { Timecop.freeze(Time.local(2017, 9, 16)) }
       after { Timecop.return }

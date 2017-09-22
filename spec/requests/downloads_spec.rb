@@ -3,6 +3,8 @@
 require "rails_helper"
 
 describe "Downloads", type: :request do
+  include_context "devise login"
+
   subject(:page) { get downloads_path }
   let!(:download) { create(:download) }
 

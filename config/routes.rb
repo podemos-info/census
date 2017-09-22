@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  ActiveAdmin.routes(self)
-
   namespace :api do
     namespace :v1 do
       resources :people, only: [:create] do
@@ -23,4 +21,7 @@ Rails.application.routes.draw do
       match ":payment_processor", to: "/callbacks#payments", via: :all
     end
   end
+
+  devise_for :admins, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
 end
