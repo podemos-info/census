@@ -63,11 +63,11 @@ end
 
 group :development do
   gem "better_errors"
-  gem "binding_of_caller"
   gem "capistrano-rails"
   gem "i18n-debug"
   gem "i18n-tasks"
   gem "listen"
+  gem "pry-rails"
   gem "rubocop", "~> 0.50.0", require: false
   gem "spring"
   gem "spring-watcher-listen"
