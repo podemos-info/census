@@ -4,7 +4,17 @@ module PersonLevels
   extend ActiveSupport::Concern
 
   included do
+    include FlagShihTzu
     include AASM
+
+    scope :verified, -> { where.not verifications: 0 }
+    scope :not_verified, -> { where verifications: 0 }
+    has_flags 1 => :verified_by_document,
+              2 => :verified_in_person,
+              column: "verifications",
+              check_for_column: false
+    has_flags 1 => :has_issues,
+              check_for_column: false
 
     aasm column: :level do
       state :person, initial: true
