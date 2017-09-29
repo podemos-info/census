@@ -16,4 +16,9 @@ module ActiveAdmin::BaseHelper
       end
     end
   end
+
+  def classed_changeset(version, classes)
+    return {} unless version.event == "update"
+    Hash[version.object_changes.keys.map { |field| [field.to_sym, classes] }]
+  end
 end

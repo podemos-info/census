@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-require_dependency "census/payments/redsys_integration"
+require "census/payments/redsys_integration"
 
 describe Census::Payments::RedsysIntegration do
   subject(:authorization) { described_class.new(params) }

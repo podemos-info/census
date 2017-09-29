@@ -6,7 +6,7 @@ class Person < ApplicationRecord
   include FlagShihTzu
 
   acts_as_paranoid
-  has_paper_trail
+  has_paper_trail class_name: "Version"
 
   store_accessor :extra, :participa_id
 
@@ -16,6 +16,8 @@ class Person < ApplicationRecord
   belongs_to :address_scope,
              class_name: "Scope",
              optional: true
+
+  has_many :versions, as: :item
 
   has_many :procedures
   has_many :orders

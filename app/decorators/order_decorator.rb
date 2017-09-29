@@ -6,7 +6,7 @@ class OrderDecorator < ApplicationDecorator
   decorates_association :person
   decorates_association :payment_method
 
-  def to_s
+  def name
     object.description
   end
 

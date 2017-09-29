@@ -1255,9 +1255,11 @@ Rails/Validation:
 
 Metrics/BlockLength:
   Exclude:
+    - 'app/admin/*.rb'
+    - 'app/admin/**/*.rb'
     - 'config/routes.rb'
     - 'config/environments/*'
-    - 'app/admin/*'
+    - 'db/migrate/*'
     - 'spec/**/*'
   ExcludedMethods:
     - included

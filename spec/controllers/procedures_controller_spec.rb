@@ -38,48 +38,50 @@ describe ProceduresController, type: :controller do
     end
   end
 
-  context "show procedure" do
-    subject { get :show, params: { id: procedure.id } }
-    it { expect(subject).to be_success }
-    it { expect(subject).to render_template("show") }
-  end
-
-  context "show processed procedure" do
-    let!(:procedure) { create(:verification_document, :processed) }
-    subject { get :show, params: { id: procedure.id } }
-    it { expect(subject).to be_success }
-    it { expect(subject).to render_template("show") }
-  end
-
-  context "trying to undone when not undoable" do
-    subject { patch :undo, params: { id: procedure.id } }
-
-    it "returns an error" do
-      expect(subject).to redirect_to(procedures_path)
-      expect(flash[:error]).to be_present
-    end
-  end
-
-  context "undoable procedure" do
-    let!(:procedure) { create(:verification_document, :undoable) }
-
-    context "show" do
+  with_versioning do
+    context "show procedure" do
       subject { get :show, params: { id: procedure.id } }
       it { expect(subject).to be_success }
       it { expect(subject).to render_template("show") }
     end
 
-    context "undo" do
-      subject { patch :undo, params: { id: procedure.id } }
-      let(:current_admin) { procedure.processed_by }
+    context "show processed procedure" do
+      let!(:procedure) { create(:verification_document, :processed) }
+      subject { get :show, params: { id: procedure.id } }
+      it { expect(subject).to be_success }
+      it { expect(subject).to render_template("show") }
+    end
 
-      it "returns ok" do
+    context "trying to undone when not undoable" do
+      subject { patch :undo, params: { id: procedure.id } }
+
+      it "returns an error" do
         expect(subject).to redirect_to(procedures_path)
-        expect(flash[:notice]).to be_present
+        expect(flash[:error]).to be_present
+      end
+    end
+
+    context "undoable procedure" do
+      let!(:procedure) { create(:verification_document, :undoable) }
+
+      context "show" do
+        subject { get :show, params: { id: procedure.id } }
+        it { expect(subject).to be_success }
+        it { expect(subject).to render_template("show") }
       end
 
-      it "should have undone the procedure" do
-        expect { subject } .to change { Procedure.find(procedure.id).state } .to("pending")
+      context "undo" do
+        subject { patch :undo, params: { id: procedure.id } }
+        let(:current_admin) { procedure.processed_by }
+
+        it "returns ok" do
+          expect(subject).to redirect_to(procedures_path)
+          expect(flash[:notice]).to be_present
+        end
+
+        it "should have undone the procedure" do
+          expect { subject } .to change { Procedure.find(procedure.id).state } .to("pending")
+        end
       end
     end
   end

@@ -29,10 +29,12 @@ describe OrdersBatchesController, type: :controller do
     it { is_expected.to render_template("index") }
   end
 
-  context "show page" do
-    subject(:page) { get :show, params: { id: orders_batch.id } }
-    it { is_expected.to be_success }
-    it { is_expected.to render_template("show") }
+  with_versioning do
+    context "show page" do
+      subject(:page) { get :show, params: { id: orders_batch.id } }
+      it { is_expected.to be_success }
+      it { is_expected.to render_template("show") }
+    end
   end
 
   context "charge orders batch" do

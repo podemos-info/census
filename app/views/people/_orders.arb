@@ -1,0 +1,15 @@
+# frozen_string_literal: true
+
+table_for person.last_orders do
+  column do |order|
+    span link_to order.created_at.to_date.to_s(:db), url_for([person, order])
+  end
+  column do |order|
+    span order.full_amount
+  end
+end
+ul do
+  li link_to t("census.people.create_order"), new_order_path(order: { person_id: person.id })
+  li link_to t("census.people.view_orders", count: person.count_orders), person_orders_path(person_id: person.id)
+  li link_to t("census.people.view_payment_methods", count: person.count_payment_methods), person_payment_methods_path(person_id: person.id)
+end

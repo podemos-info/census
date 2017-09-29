@@ -6,7 +6,7 @@ class PersonDecorator < ApplicationDecorator
   decorates_association :scope
   decorates_association :address_scope
 
-  def to_s
+  def name
     full_name
   end
 
@@ -34,6 +34,10 @@ class PersonDecorator < ApplicationDecorator
     @flags ||= Person.flags.select { |flag| person.send(flag) }
   end
 
+  def full_name_link
+    h.link_to full_name, object
+  end
+
   def self.gender_options
     @gender_options ||= Person.genders.keys.map do |gender|
       [I18n.t("census.people.genders.#{gender}"), gender]
@@ -47,6 +51,26 @@ class PersonDecorator < ApplicationDecorator
   end
 
   def independent_procedures
-    @independent_procedures ||= object.procedures.independent.order(id: :asc).decorate
+    @independent_procedures ||= object.procedures.independent.decorate
+  end
+
+  def last_procedures
+    @last_procedures ||= object.procedures.independent.order(created_at: :desc).limit(3).decorate
+  end
+
+  def count_procedures
+    @count_procedures ||= independent_procedures.count
+  end
+
+  def last_orders
+    @last_orders ||= object.orders.order(created_at: :desc).limit(3).decorate
+  end
+
+  def count_orders
+    @count_orders ||= object.orders.count
+  end
+
+  def count_payment_methods
+    @count_payment_methods ||= object.payment_methods.count
   end
 end

@@ -29,12 +29,6 @@ describe PeopleController, type: :controller do
     it { expect(subject).to render_template("index") }
   end
 
-  context "show page" do
-    subject { get :show, params: { id: person.id } }
-    it { expect(subject).to be_success }
-    it { expect(subject).to render_template("show") }
-  end
-
   context "new page" do
     subject { get :new }
     it { expect(subject).to be_success }
@@ -55,13 +49,21 @@ describe PeopleController, type: :controller do
     it { expect(subject).to render_template("edit") }
   end
 
-  context "update page" do
-    subject do
-      person.assign_attributes first_name: "KKKKKK"
-      patch :update, params: { id: person.id, person: person.attributes }
+  with_versioning do
+    context "show page" do
+      subject { get :show, params: { id: person.id } }
+      it { expect(subject).to be_success }
+      it { expect(subject).to render_template("show") }
     end
-    it { expect(subject).to have_http_status(:found) }
-    it { expect(subject.location).to eq(person_url(person.id)) }
-    it { expect { subject } .to change { person.first_name }.to("KKKKKK") }
+
+    context "update page" do
+      subject do
+        person.assign_attributes first_name: "KKKKKK"
+        patch :update, params: { id: person.id, person: person.attributes }
+      end
+      it { expect(subject).to have_http_status(:found) }
+      it { expect(subject.location).to eq(person_url(person.id)) }
+      it { expect { subject } .to change { person.first_name }.to("KKKKKK") }
+    end
   end
 end

@@ -9,8 +9,12 @@ class ProcedureDecorator < ApplicationDecorator
   decorates_association :dependent_procedures
   decorates_association :attachments
 
-  def to_s
+  def description
     "#{type_name} - #{person.full_name}"
+  end
+
+  def name
+    "#{type_name} ##{id}"
   end
 
   def permitted_events_options(processed_by)
@@ -24,7 +28,7 @@ class ProcedureDecorator < ApplicationDecorator
     when ::Procedures::MembershipLevelChange
       h.raw "#{I18n.t("activerecord.attributes.person.level/#{object.from_level}")} &rarr; #{I18n.t("activerecord.attributes.person.level/#{object.to_level}")}"
     else
-      "-"
+      ""
     end
   end
 
@@ -34,5 +38,13 @@ class ProcedureDecorator < ApplicationDecorator
     else
       h.link_to text || I18n.t("active_admin.view"), h.procedure_path(object), class: "member_link"
     end
+  end
+
+  def route_key
+    "procedures"
+  end
+
+  def singular_route_key
+    "procedure"
   end
 end

@@ -12,12 +12,6 @@ describe "People", type: :request do
     it { expect(subject).to eq(200) }
   end
 
-  context "show page" do
-    let(:person) { create(:verification_document).person }
-    subject { get person_path(id: person.id) }
-    it { expect(subject).to eq(200) }
-  end
-
   context "new page" do
     subject { get new_person_path }
     it { expect(subject).to eq(200) }
@@ -28,18 +22,38 @@ describe "People", type: :request do
     it { expect(subject).to eq(200) }
   end
 
-  context "history page" do
-    subject { get history_person_path(id: person.id) }
-    it { expect(subject).to eq(200) }
-  end
-
   context "person orders page" do
+    let!(:order) { create(:order, person: person) }
     subject { get person_orders_path(person_id: person.id) }
     it { expect(subject).to eq(200) }
   end
 
   context "person payment methods" do
+    let!(:payment_method) { create(:direct_debit, person: person) }
     subject { get person_payment_methods_path(person_id: person.id) }
+    it { expect(subject).to eq(200) }
+  end
+
+  with_versioning do
+    context "show page" do
+      let(:person) { create(:verification_document).person }
+      subject { get person_path(id: person.id) }
+      it { expect(subject).to eq(200) }
+    end
+
+    context "person versions page" do
+      before do
+        PaperTrail.whodunnit = create(:admin)
+        person.update_attributes! first_name: "#{person.first_name} A" # create a person version
+      end
+      subject { get person_versions_path(person_id: person.id) }
+      it { expect(subject).to eq(200) }
+    end
+  end
+
+  context "person procedures page" do
+    let!(:procedure) { create(:verification_document, person: person) }
+    subject { get person_procedures_path(person_id: person.id) }
     it { expect(subject).to eq(200) }
   end
 end

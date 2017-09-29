@@ -1,0 +1,36 @@
+# frozen_string_literal: true
+
+context.instance_eval do
+  panel title do
+    attributes_table_for resource do
+      state_row :level, class: classes[:level]
+      row :id, class: classes[:id]
+      row :flags, class: [classes[:flags], classes[:verifications]].join(' ') do |resource|
+        person_flags(resource)
+      end
+      row :first_name, class: classes[:first_name]
+      row :last_name1, class: classes[:last_name1]
+      row :last_name2, class: classes[:last_name2]
+      row :document_type, class: classes[:document_type], &:document_type_name
+      row :document_id, class: classes[:document_id]
+      row :born_at, class: classes[:born_at]
+      row :gender, class: classes[:gender], &:gender_name
+      row :address, class: classes[:address]
+      row :address_scope, class: classes[:address_scope_id] do
+        resource.address_scope&.show_path
+      end
+      row :postal_code, class: classes[:postal_code]
+      row :email do
+        link_to resource.email, "mailto:#{resource.email}"
+      end
+      row :email, class: classes[:email]
+      row :phone, class: classes[:phone]
+      row :scope, class: classes[:scope_id] do
+        resource.scope&.show_path(Scope.local)
+      end
+      row :created_at, class: classes[:created_at]
+      row :updated_at, class: classes[:updated_at]
+    end
+    show_table(self, t("census.people.extra"), resource.extra) if resource.extra.present?
+  end
+end

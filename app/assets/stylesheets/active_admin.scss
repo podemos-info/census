@@ -104,3 +104,23 @@ table.index {
     text-align: left;
   }
 }
+
+.version_change {
+  th, td {
+    font-weight: bold;
+  }
+  &.old_value th, &.old_value td {
+    color: $error-color;
+    a {
+      color: $error-color;
+      text-decoration: underline;
+    }
+  }
+  &.new_value th, &.new_value td {
+    color: $success-color;
+    a {
+      color: $success-color;
+      text-decoration: underline;
+    }
+  }
+}

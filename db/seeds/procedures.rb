@@ -9,42 +9,63 @@ end
 
 attachments_path = File.join(__dir__, "attachments")
 
+real_now = DateTime.now
+
 # create 10 processed verifications
 Person.not_verified.order("RANDOM()").limit(10).each do |person|
-  date = Faker::Time.between(person.created_at, 3.day.ago, :all)
+  Timecop.freeze Faker::Time.between(person.created_at, 3.days.ago(real_now), :all)
+  PaperTrail.whodunnit = person
+
   verification = Procedures::VerificationDocument.create!(person: person,
                                                           information: {},
-                                                          created_at: date,
-                                                          processed_by: admins.sample,
-                                                          processed_at: Faker::Time.between(date, DateTime.now, :all),
-                                                          state: Faker::Boolean.boolean(0.7) ? :accepted : :rejected,
-                                                          comment: Faker::Lorem.paragraph(1, true, 2))
+                                                          state: :pending)
 
   verification.attachments.create!(file: File.new(File.join(attachments_path, "#{person.document_type}-sample1.png")))
   verification.attachments.create!(file: File.new(File.join(attachments_path, "#{person.document_type}-sample2.png")))
 
+  Timecop.freeze Faker::Time.between(DateTime.now, real_now, :all)
+  PaperTrail.whodunnit = admins.sample
+
+  verification.update_attributes!(
+    processed_by: PaperTrail.actor,
+    processed_at: DateTime.now,
+    state: Faker::Boolean.boolean(0.7) ? :accepted : :rejected,
+    comment: Faker::Lorem.paragraph(1, true, 2)
+  )
+
+  next if verification.accepted?
   person.verified_by_document = true
-  person.updated_at = verification.processed_at
   person.to_member if Faker::Boolean.boolean(0.5)
   person.save
 end
 
 # create 5 verifications with issues
 Person.not_verified.order("RANDOM()").limit(5).each do |person|
+  Timecop.freeze Faker::Time.between(3.days.ago(real_now), 1.days.ago(real_now), :all)
+  PaperTrail.whodunnit = person
   verification = Procedures::VerificationDocument.create!(person: person,
                                                           information: {},
-                                                          created_at: Faker::Time.between(3.days.ago, 1.day.ago, :all),
-                                                          state: :issues,
-                                                          comment: Faker::Lorem.paragraph(1, true, 2))
+                                                          state: :pending)
   verification.attachments.create!(file: File.new(File.join(attachments_path, "#{person.document_type}-sample1.png")))
   verification.attachments.create!(file: File.new(File.join(attachments_path, "#{person.document_type}-sample2.png")))
+
+  Timecop.freeze Faker::Time.between(DateTime.now, real_now, :all)
+  PaperTrail.whodunnit = admins.sample
+
+  verification.update_attributes!(
+    processed_by: PaperTrail.actor,
+    processed_at: DateTime.now,
+    state: :issues,
+    comment: Faker::Lorem.paragraph(1, true, 2)
+  )
 end
 
 # create 10 unprocessed verifications
 Person.not_verified.order("RANDOM()").limit(10).each do |person|
+  Timecop.freeze Faker::Time.between(3.days.ago(real_now), 1.days.ago(real_now), :all)
+  PaperTrail.whodunnit = person
   verification = Procedures::VerificationDocument.create!(person: person,
-                                                          information: {},
-                                                          created_at: Faker::Time.between(3.days.ago, 1.day.ago, :all))
+                                                          information: {})
   verification.attachments.create!(file: File.new(File.join(attachments_path, "#{person.document_type}-sample1.png")))
   verification.attachments.create!(file: File.new(File.join(attachments_path, "#{person.document_type}-sample2.png")))
 end

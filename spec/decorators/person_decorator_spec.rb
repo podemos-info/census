@@ -25,8 +25,8 @@ describe PersonDecorator do
       expect(subject.full_name).to eq("Pérez García, María")
     end
 
-    it "returns the full name when casting to string" do
-      expect(subject.to_s).to eq("Pérez García, María")
+    it "returns the full name when retrieving name" do
+      expect(subject.name).to eq("Pérez García, María")
     end
   end
 

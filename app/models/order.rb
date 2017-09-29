@@ -4,6 +4,10 @@
 class Order < ApplicationRecord
   include OrderStates
 
+  acts_as_paranoid
+  has_paper_trail class_name: "Version"
+  has_many :versions, as: :item
+
   belongs_to :person
   belongs_to :payment_method, autosave: true
   belongs_to :orders_batch, optional: true

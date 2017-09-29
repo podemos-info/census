@@ -1,0 +1,14 @@
+# frozen_string_literal: true
+
+table_for person.last_procedures do
+  column do |procedure|
+    span link_to procedure.created_at.to_date.to_s(:db), url_for([person, procedure])
+  end
+  column do |procedure|
+    span procedure.type_name
+    span procedure.information
+  end
+end
+ul do
+  li link_to t("census.people.view_procedures", count: person.count_procedures), person_procedures_path(person_id: person.id)
+end

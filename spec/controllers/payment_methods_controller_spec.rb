@@ -29,9 +29,11 @@ describe PaymentMethodsController, type: :controller do
     it { is_expected.to render_template("index") }
   end
 
-  context "show page" do
-    subject { get :show, params: { id: payment_method.id } }
-    it { is_expected.to be_success }
-    it { is_expected.to render_template("show") }
+  with_versioning do
+    context "show page" do
+      subject { get :show, params: { id: payment_method.id } }
+      it { is_expected.to be_success }
+      it { is_expected.to render_template("show") }
+    end
   end
 end

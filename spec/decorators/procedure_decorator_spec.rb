@@ -38,14 +38,14 @@ describe ProcedureDecorator do
 
   context "verification document" do
     let(:person) { build(:person, first_name: "María", last_name1: "Pérez", last_name2: "García") }
-    let(:procedure) { build(:verification_document, person: person) }
+    let(:procedure) { create(:verification_document, person: person) }
 
     it "returns the type name" do
       expect(subject.type_name).to eq("Verificación de documento")
     end
 
-    it "returns the type name and person name when casting to string" do
-      expect(subject.to_s).to eq("Verificación de documento - Pérez García, María")
+    it "returns the type name and the id when retrieving name" do
+      expect(subject.name).to eq("Verificación de documento ##{procedure.id}")
     end
   end
 

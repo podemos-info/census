@@ -3,20 +3,23 @@
 require "census/faker/bank"
 
 def create_order(person, credit_card)
-  payment_method = if credit_card
-                     expires_at = Faker::Date.between(6.month.ago, 4.year.from_now)
-                     PaymentMethods::CreditCard.new person: person, payment_processor: :redsys,
-                                                    authorization_token: "invalid code", expiration_year: expires_at.year, expiration_month: expires_at.month
-                   else
-                     iban = Census::Faker::Bank.iban("ES")
-                     PaymentMethods::DirectDebit.new person: person, payment_processor: :sepa,
-                                                     iban: iban, bic: Faker::Bank.swift_bic
-                   end
-  payment_method.decorate.save!
+  PaperTrail.whodunnit = person
+  Timecop.travel Faker::Time.between(3.years.ago, 3.day.ago, :all) do
+    payment_method = if credit_card
+                       expires_at = Faker::Date.between(6.month.ago, 4.year.from_now)
+                       PaymentMethods::CreditCard.new person: person, payment_processor: :redsys,
+                                                      authorization_token: "invalid code", expiration_year: expires_at.year, expiration_month: expires_at.month
+                     else
+                       iban = Census::Faker::Bank.iban("ES")
+                       PaymentMethods::DirectDebit.new person: person, payment_processor: :sepa,
+                                                       iban: iban, bic: Faker::Bank.swift_bic
+                     end
+    payment_method.decorate.save!
 
-  Order.create! person: person, payment_method: payment_method,
-                description: Faker::Lorem.sentence(1, true, 4),
-                currency: "EUR", amount: Faker::Number.between(1, 10_000)
+    Order.create! person: person, payment_method: payment_method,
+                  description: Faker::Lorem.sentence(1, true, 4),
+                  currency: "EUR", amount: Faker::Number.between(1, 10_000)
+  end
 end
 
 3.times do
@@ -30,6 +33,7 @@ end
     create_order person, true
   end
 
+  PaperTrail.whodunnit = Admin.first
   # add orders to an order batch
   OrdersBatch.create!(
     description: Faker::Lorem.sentence(1, true, 4),

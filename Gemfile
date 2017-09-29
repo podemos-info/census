@@ -24,6 +24,7 @@ gem "mini_magick"
 gem "money"
 gem "normalizr"
 gem "paper_trail"
+gem "paper_trail-globalid"
 gem "paranoia"
 gem "pg"
 gem "puma"
@@ -36,6 +37,8 @@ gem "secure_headers"
 gem "sepa_king"
 gem "spanish_vat_validators"
 gem "symmetric-encryption"
+
+gem "ahoy_matey" # must appear after devise gem
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem "jbuilder", "~> 2.5"
