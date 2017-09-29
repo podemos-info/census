@@ -6,13 +6,8 @@ describe "Versions", type: :request do
   include_context "devise login"
 
   with_versioning do
-    subject(:page) { get visits_path }
-    let!(:version) do
-      person = create(:person)
-      PaperTrail.whodunnit = create(:admin)
-      person.update_attributes! first_name: "#{person.first_name} A"
-      person.versions.last
-    end
+    subject(:page) { get versions_path }
+    let!(:version) { create(:version) }
 
     context "index page" do
       it { is_expected.to eq(200) }

@@ -4,12 +4,29 @@ require "rails_helper"
 
 describe "People", type: :request do
   include_context "devise login"
-
   let!(:person) { create(:person, :verified) }
 
   context "index page" do
-    subject { get people_path }
+    subject(:page) { get people_path(params) }
+    let(:params) { {} }
     it { expect(subject).to eq(200) }
+
+    context "ordered by full_name" do
+      let(:params) { { order: "full_name_desc" } }
+      it { expect(subject).to eq(200) }
+    end
+    context "ordered by full_document" do
+      let(:params) { { order: "full_document_asc" } }
+      it { expect(subject).to eq(200) }
+    end
+    context "ordered by scope" do
+      let(:params) { { order: "scope_desc" } }
+      it { expect(subject).to eq(200) }
+    end
+    context "ordered by flags" do
+      let(:params) { { order: "flags_asc" } }
+      it { expect(subject).to eq(200) }
+    end
   end
 
   context "new page" do

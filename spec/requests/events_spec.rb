@@ -7,6 +7,11 @@ describe "Events", type: :request do
 
   subject(:page) { get events_path }
   let!(:event) { create(:event) }
+  before do
+    post csp_report_path(info: { test_info: [1, 2, 3] })
+    get people_path(q: { first_name_eq: "Test" })
+    get person_path(id: create(:person).id)
+  end
 
   context "index page" do
     it { is_expected.to eq(200) }

@@ -9,10 +9,6 @@ class ProcedureDecorator < ApplicationDecorator
   decorates_association :dependent_procedures
   decorates_association :attachments
 
-  def description
-    "#{type_name} - #{person.full_name}"
-  end
-
   def name
     "#{type_name} ##{id}"
   end

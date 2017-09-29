@@ -46,10 +46,6 @@ class VersionDecorator < ApplicationDecorator
     @after.decorate
   end
 
-  def changes
-    object.object_changes.keys
-  end
-
   def item_route_key
     item.respond_to?(:route_key) ? item.route_key : object.item.class.name.underscore.pluralize
   end

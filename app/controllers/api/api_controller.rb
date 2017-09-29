@@ -2,6 +2,8 @@
 
 module Api
   class ApiController < ActionController::API
+    before_action :set_paper_trail_whodunnit
+
     def person
       unless defined?(@person)
         person_id = params[:participa_id] || params[:id]

@@ -10,12 +10,7 @@ describe VersionsController, type: :controller do
     subject(:resource) { all_resources[resource_class] }
     let(:resource_class) { Version }
     let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
-    let!(:version) do
-      person = create(:person)
-      PaperTrail.whodunnit = create(:admin)
-      person.update_attributes! first_name: "#{person.first_name} A"
-      person.versions.last
-    end
+    let!(:version) { create(:version) }
 
     it "defines actions" do
       expect(subject.defined_actions).to contain_exactly(:index, :show)

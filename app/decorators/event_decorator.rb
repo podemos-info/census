@@ -25,7 +25,7 @@ class EventDecorator < ApplicationDecorator
       event_object = controller_model.find(properties["id"])
       h.link_to event_object.decorate.name, event_object
     elsif properties["q"]
-      ActiveAdmin::Filters::Active.new(controller_model, controller_model.ransack(properties["q"])).filters.flat_map do |filter|
+      ActiveAdmin::Filters::Active.new(controller_class, controller_model.ransack(properties["q"])).filters.flat_map do |filter|
         filter.condition.attributes.flat_map do |attribute|
           "#{controller_model.human_attribute_name(attribute.name)} #{filter.predicate_name} '#{filter.values.first}'"
         end
@@ -36,6 +36,10 @@ class EventDecorator < ApplicationDecorator
   end
 
   private
+
+  def controller_class
+    "#{properties["controller"]}_controller".classify&.constantize
+  end
 
   def controller_model
     properties["controller"]&.classify&.constantize

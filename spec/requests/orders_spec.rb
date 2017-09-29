@@ -4,16 +4,20 @@ require "rails_helper"
 
 describe "Orders", type: :request do
   include_context "devise login"
-
-  subject(:page) { get orders_path }
   let!(:order) { create(:order) }
 
   context "index page" do
+    subject(:page) { get orders_path(params) }
+    let(:params) { {} }
     it { is_expected.to eq(200) }
+    context "ordered by full_name" do
+      let(:params) { { order: "full_name_desc" } }
+      it { expect(subject).to eq(200) }
+    end
   end
 
   context "new page" do
-    subject { get new_order_path(order: { person_id: order.person_id }) }
+    subject(:page) { get new_order_path(order: { person_id: order.person_id }) }
     it { expect(subject).to eq(200) }
   end
 
@@ -28,7 +32,7 @@ describe "Orders", type: :request do
         PaperTrail.whodunnit = create(:admin)
         order.update_attributes! description: "#{order.description} A" # create an order version
       end
-      subject { get order_versions_path(order_id: order.id) }
+      subject(:page) { get order_versions_path(order_id: order.id) }
       it { expect(subject).to eq(200) }
     end
   end

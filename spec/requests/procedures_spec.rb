@@ -4,28 +4,37 @@ require "rails_helper"
 
 describe "Procedures", type: :request do
   include_context "devise login"
-
   let!(:procedure) { create(:verification_document, :with_attachments) }
 
   context "index page" do
-    subject { get procedures_path }
+    subject(:page) { get procedures_path(params) }
+    let(:params) { {} }
     it { expect(subject).to eq(200) }
+
+    context "ordered by full_name" do
+      let(:params) { { order: "full_name_desc" } }
+      it { expect(subject).to eq(200) }
+    end
+    context "ordered by type" do
+      let(:params) { { order: "type_asc" } }
+      it { expect(subject).to eq(200) }
+    end
   end
 
   context "edit page" do
-    subject { get edit_procedure_path(id: procedure.id) }
+    subject(:page) { get edit_procedure_path(id: procedure.id) }
     it { expect(subject).to eq(200) }
   end
 
   with_versioning do
     context "show page" do
-      subject { get procedure_path(id: procedure.id) }
+      subject(:page) { get procedure_path(id: procedure.id) }
       it { expect(subject).to eq(200) }
     end
 
     context "show processed procedure" do
       let!(:procedure) { create(:verification_document, :processed) }
-      subject { get procedure_path(id: procedure.id) }
+      subject(:page) { get procedure_path(id: procedure.id) }
       it { expect(subject).to eq(200) }
     end
 

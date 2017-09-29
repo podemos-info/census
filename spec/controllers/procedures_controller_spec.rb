@@ -24,21 +24,21 @@ describe ProceduresController, type: :controller do
     expect(resource).to be_include_in_menu
   end
 
-  context "index page" do
-    subject { get :index }
-    it { expect(subject).to be_success }
-    it { expect(subject).to render_template("index") }
-
-    context "accepted tab" do
-      subject { get :index, params: { scope: :accepted } }
-      let(:current_admin) { procedure.processed_by }
-      let!(:procedure) { create(:verification_document, :undoable) }
+  with_versioning do
+    context "index page" do
+      subject { get :index }
       it { expect(subject).to be_success }
       it { expect(subject).to render_template("index") }
-    end
-  end
 
-  with_versioning do
+      context "accepted tab" do
+        subject { get :index, params: { scope: :accepted } }
+        let(:current_admin) { procedure.processed_by }
+        let!(:procedure) { create(:verification_document, :undoable) }
+        it { expect(subject).to be_success }
+        it { expect(subject).to render_template("index") }
+      end
+    end
+
     context "show procedure" do
       subject { get :show, params: { id: procedure.id } }
       it { expect(subject).to be_success }

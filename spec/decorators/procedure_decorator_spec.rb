@@ -3,10 +3,10 @@
 require "rails_helper"
 
 describe ProcedureDecorator do
+  subject(:decorator) { procedure.decorate }
   let(:processed_by) { build(:admin) }
   let(:person) { build(:person) }
   let(:procedure) { build(:verification_document, :with_attachments, person: person) }
-  subject { procedure.decorate }
 
   it "returns the decorated person" do
     expect(subject.person.decorated?).to be_truthy
@@ -67,5 +67,15 @@ describe ProcedureDecorator do
         expect(subject.view_link("test")).to eq("<a class=\"member_link\" href=\"/procedures/#{procedure.id}\">test</a>")
       end
     end
+  end
+
+  context "#route_key" do
+    subject(:method) { decorator.route_key }
+    it { is_expected.to eq("procedures") }
+  end
+
+  context "#singular_route_key" do
+    subject(:method) { decorator.singular_route_key }
+    it { is_expected.to eq("procedure") }
   end
 end

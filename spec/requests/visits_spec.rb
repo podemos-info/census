@@ -16,4 +16,10 @@ describe "Visits", type: :request do
     subject(:page) { get visit_path(id: visit.id) }
     it { is_expected.to eq(200) }
   end
+
+  context "visit events page" do
+    let!(:event) { create(:event, visit: visit) }
+    subject { get visit_events_path(visit_id: visit.id) }
+    it { expect(subject).to eq(200) }
+  end
 end

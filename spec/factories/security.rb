@@ -47,4 +47,28 @@ FactoryGirl.define do
     utm_campaign ""
     started_at { DateTime.now }
   end
+
+  factory :version do
+    transient do
+      changes { { first_name: "Changed first_name" } }
+    end
+
+    whodunnit { create(:admin) }
+
+    initialize_with do
+      person = create(:person)
+      PaperTrail.whodunnit = create(:admin)
+      person.update_attributes! changes
+      person.versions.last
+    end
+
+    trait :many_changes do
+      transient do
+        changes do
+          { first_name: "Changed first_name", last_name1: "Changed last_name1", last_name2: "Changed last_name2",
+            address: "Changed address", phone: "Changed phone" }
+        end
+      end
+    end
+  end
 end
