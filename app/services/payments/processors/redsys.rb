@@ -8,7 +8,7 @@ module Payments
       delegate :url_helpers, to: "Rails.application.routes"
 
       def gateway
-        @gateway ||= ActiveMerchant::Billing::RedsysGateway.new(Settings.payments.processors.redsys.auth.to_h.merge(signature_algorithm: "sha256"))
+        @gateway ||= ActiveMerchant::Billing::RedsysGateway.new(Settings.payments.processors.redsys.auth.to_h.merge!(signature_algorithm: "sha256"))
       end
 
       def parse_error_type(response)

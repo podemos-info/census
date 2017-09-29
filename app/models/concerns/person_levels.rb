@@ -35,7 +35,7 @@ module PersonLevels
     end
 
     def self.flags
-      flag_mapping.values.map(&:keys).flatten
+      flag_mapping.values.flat_map(&:keys)
     end
 
     def memberable?
