@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170904130745) do
+ActiveRecord::Schema.define(version: 20170925133959) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,18 @@ ActiveRecord::Schema.define(version: 20170904130745) do
     t.index ["person_id"], name: "index_downloads_on_person_id"
   end
 
+  create_table "events", force: :cascade do |t|
+    t.integer "visit_id"
+    t.bigint "admin_id"
+    t.string "name"
+    t.jsonb "properties"
+    t.datetime "time"
+    t.index ["admin_id", "name"], name: "index_events_on_admin_id_and_name"
+    t.index ["admin_id"], name: "index_events_on_admin_id"
+    t.index ["name", "time"], name: "index_events_on_name_and_time"
+    t.index ["visit_id", "name"], name: "index_events_on_visit_id_and_name"
+  end
+
   create_table "orders", force: :cascade do |t|
     t.bigint "person_id", null: false
     t.bigint "payment_method_id", null: false
@@ -82,6 +94,7 @@ ActiveRecord::Schema.define(version: 20170904130745) do
     t.jsonb "information", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
     t.index ["orders_batch_id"], name: "index_orders_on_orders_batch_id"
     t.index ["payment_method_id"], name: "index_orders_on_payment_method_id"
     t.index ["person_id"], name: "index_orders_on_person_id"
@@ -182,9 +195,41 @@ ActiveRecord::Schema.define(version: 20170904130745) do
     t.integer "item_id", null: false
     t.string "event", null: false
     t.string "whodunnit"
-    t.text "object"
+    t.jsonb "object"
+    t.jsonb "object_changes"
     t.datetime "created_at"
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
+  end
+
+  create_table "visits", force: :cascade do |t|
+    t.string "visit_token"
+    t.string "visitor_token"
+    t.string "ip"
+    t.text "user_agent"
+    t.text "referrer"
+    t.text "landing_page"
+    t.bigint "admin_id"
+    t.string "referring_domain"
+    t.string "search_keyword"
+    t.string "browser"
+    t.string "os"
+    t.string "device_type"
+    t.integer "screen_height"
+    t.integer "screen_width"
+    t.string "country"
+    t.string "region"
+    t.string "city"
+    t.string "postal_code"
+    t.decimal "latitude"
+    t.decimal "longitude"
+    t.string "utm_source"
+    t.string "utm_medium"
+    t.string "utm_term"
+    t.string "utm_content"
+    t.string "utm_campaign"
+    t.datetime "started_at"
+    t.index ["admin_id"], name: "index_visits_on_admin_id"
+    t.index ["visit_token"], name: "index_visits_on_visit_token", unique: true
   end
 
   add_foreign_key "attachments", "procedures"

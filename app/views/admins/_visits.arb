@@ -1,0 +1,13 @@
+# frozen_string_literal: true
+
+table_for admin.last_visits do
+  column do |visit|
+    span link_to visit.started_at.to_date.to_s(:db), url_for([admin, visit])
+  end
+  column do |visit|
+    span visit.location
+  end
+end
+ul do
+  li link_to t("census.admins.view_visits", count: admin.count_visits), admin_visits_path(admin_id: admin.id)
+end

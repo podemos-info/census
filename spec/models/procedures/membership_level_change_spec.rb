@@ -22,31 +22,33 @@ describe Procedures::MembershipLevelChange, :db do
     expect { procedure.reject! } .to_not change { Person.find(person.id).level }
   end
 
-  context "after accepting the procedure" do
-    before do
-      procedure.accept!
-    end
-
-    it "undo revert person level to previous value" do
-      expect { procedure.undo! } .to change { Person.find(person.id).level } .from("member").to("person")
-    end
-  end
-
-  context "after rejecting the procedure" do
-    before do
-      procedure.reject!
-    end
-
-    it "undo does not change person level" do
-      expect { procedure.undo! } .to_not change { Person.find(person.id).level }
-    end
-  end
-
   context "when the target level is not allowed" do
     let!(:person) { create(:person) }
 
     it "#acceptable? returns false" do
       expect(procedure.acceptable?).to be_falsey
+    end
+  end
+
+  with_versioning do
+    context "after accepting the procedure" do
+      before do
+        procedure.accept!
+      end
+
+      it "undo revert person level to previous value" do
+        expect { procedure.undo! } .to change { Person.find(person.id).level } .from("member").to("person")
+      end
+    end
+
+    context "after rejecting the procedure" do
+      before do
+        procedure.reject!
+      end
+
+      it "undo does not change person level" do
+        expect { procedure.undo! } .to_not change { Person.find(person.id).level }
+      end
     end
   end
 end

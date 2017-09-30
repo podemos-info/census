@@ -17,7 +17,9 @@ class CreateOrders < ActiveRecord::Migration[5.1]
 
       t.string :state
       t.jsonb :information, default: {}, null: false
+
       t.timestamps
+      t.datetime :deleted_at
     end
   end
 end

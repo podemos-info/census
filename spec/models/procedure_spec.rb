@@ -48,35 +48,37 @@ describe Procedure, :db do
     end
   end
 
-  context "undoable" do
-    let(:procedure) { create(:membership_level_change, :undoable, person: create(:person, :verified)) }
+  with_versioning do
+    context "undoable" do
+      let(:procedure) { create(:membership_level_change, :undoable, person: create(:person, :verified)) }
 
-    it "is undoable" do
-      expect(subject.undoable?).to be_truthy
-    end
-
-    it "is undoable by the same person that processed it" do
-      expect(subject.undoable_by?(subject.processed_by)).to be_truthy
-    end
-
-    it "is not undoable by other person that the one processed it" do
-      expect(subject.undoable_by?(other_person)).to be_falsey
-    end
-
-    it "has an undo version" do
-      expect(subject.undo_version).to be_present
-    end
-
-    context "with dependent procedure" do
-      let(:procedure) { create(:verification_document, :undoable, person: create(:person, :verified)) }
-      let!(:child_procedure) { create(:membership_level_change, depends_on: procedure, person: procedure.person) }
-
-      it "is fully undoable by the same person that processed it" do
-        expect(subject.full_undoable_by?(procedure.processed_by)).to be_truthy
+      it "is undoable" do
+        expect(subject.undoable?).to be_truthy
       end
 
-      it "is not fully undoable by other person that the one processed it" do
-        expect(subject.full_undoable_by?(other_person)).to be_falsey
+      it "is undoable by the same person that processed it" do
+        expect(subject.undoable_by?(subject.processed_by)).to be_truthy
+      end
+
+      it "is not undoable by other person that the one processed it" do
+        expect(subject.undoable_by?(other_person)).to be_falsey
+      end
+
+      it "has an undo version" do
+        expect(subject.undo_version).to be_present
+      end
+
+      context "with dependent procedure" do
+        let(:procedure) { create(:verification_document, :undoable, person: create(:person, :verified)) }
+        let!(:child_procedure) { create(:membership_level_change, depends_on: procedure, person: procedure.person) }
+
+        it "is fully undoable by the same person that processed it" do
+          expect(subject.full_undoable_by?(procedure.processed_by)).to be_truthy
+        end
+
+        it "is not fully undoable by other person that the one processed it" do
+          expect(subject.full_undoable_by?(other_person)).to be_falsey
+        end
       end
     end
   end

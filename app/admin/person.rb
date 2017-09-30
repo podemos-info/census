@@ -3,20 +3,38 @@
 ActiveAdmin.register Person do
   decorate_with PersonDecorator
 
+  includes :scope
+
   actions :index, :show, :new, :create, :edit, :update
 
   permit_params :first_name, :last_name1, :last_name2, :document_type, :document_id,
                 :born_at, :gender, :address, :postal_code, :email, :phone, :extra
 
+  order_by(:full_name) do |order_clause|
+    "last_name1 #{order_clause.order}, last_name2 #{order_clause.order}, first_name #{order_clause.order}"
+  end
+
+  order_by(:full_document) do |order_clause|
+    "document_type #{order_clause.order}, document_id #{order_clause.order}"
+  end
+
+  order_by(:scope) do |order_clause|
+    "scopes.name #{order_clause.order}"
+  end
+
+  order_by(:flags) do |order_clause|
+    "verifications #{order_clause.order}, flags #{order_clause.order}"
+  end
+
   index do
-    state_column :level
     id_column
-    column :full_name, sortable: :last_name1, class: :left
-    column :full_document, class: :left
-    column :scope, sortable: "scopes.name", class: :left do |person|
+    state_column :level
+    column :full_name_link, sortable: :full_name, class: :left
+    column :full_document, sortable: :full_document, class: :left
+    column :scope, sortable: :scope, class: :left do |person|
       person.scope&.show_path(Scope.local)
     end
-    column :flags do |person|
+    column :flags, sortable: :flags do |person|
       person_flags person
     end
     actions
@@ -29,44 +47,7 @@ ActiveAdmin.register Person do
   scope :deleted
 
   show do
-    attributes_table do
-      state_row :level
-      row :id
-      row :flags { |person| person_flags(person) } if person.flags.any?
-      row :first_name
-      row :last_name1
-      row :last_name2
-      row :document_type, &:document_type_name
-      row :document_id
-      row :born_at
-      row :gender, &:gender_name
-      row :address
-      row :address_scope do
-        person.address_scope&.show_path
-      end
-      row :postal_code
-      row :email
-      row :phone
-      row :scope do
-        person.scope&.show_path(Scope.local)
-      end
-      row :created_at
-      row :updated_at
-    end
-    show_table(self, t("census.people.extra"), person.extra) if person.extra.any?
-    if person.independent_procedures.any?
-      panel Procedure.model_name.human(count: 2).capitalize do
-        table_for person.independent_procedures, i18n: Procedure do
-          column :id do |procedure|
-            link_to procedure.id, procedure
-          end
-          column :type, &:type_name
-          column :information
-          state_column :state
-          column :created_at
-        end
-      end
-    end
+    render "show", context: self, classes: classed_changeset(resource.versions.last, "version_change")
     active_admin_comments
   end
 
@@ -89,34 +70,7 @@ ActiveAdmin.register Person do
     f.actions
   end
 
-  action_item(:create_order, only: :show) do
-    link_to t("census.people.create_order"), new_order_path(order: { person_id: person.id })
-  end
-
-  action_item(:view_orders, only: :show) do
-    link_to t("census.people.view_orders"), person_orders_path(person_id: person.id)
-  end
-
-  action_item(:view_payment_methods, only: :show) do
-    link_to t("census.people.view_payment_methods"), person_payment_methods_path(person_id: person.id)
-  end
-
-  sidebar :versionate, partial: "layouts/version", only: :show
-
-  member_action :history do
-    @versions = resource.versions
-    render "layouts/history"
-  end
-
-  controller do
-    def scoped_collection
-      Person.includes(:scope)
-    end
-
-    def show
-      @versions = resource.versions
-      @person = resource.versions[params[:version].to_i].reify.decorate if params[:version]
-      show!
-    end
-  end
+  sidebar :versions, partial: "people/versions", only: :show
+  sidebar :procedures, partial: "people/procedures", only: :show
+  sidebar :orders, partial: "people/orders", only: :show
 end

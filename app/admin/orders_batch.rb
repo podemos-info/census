@@ -19,14 +19,11 @@ ActiveAdmin.register OrdersBatch do
                                                                                         class: :member_link
   end
 
+  sidebar :versions, partial: "orders_batches/versions", only: :show
+
   show do
-    attributes_table do
-      row :id
-      row :description
-      row :orders_count
-      row :created_at
-      row :updated_at
-    end
+    render "show", context: self, classes: classed_changeset(resource.versions.last, "version_change")
+    active_admin_comments
   end
 
   member_action :charge, method: :patch do # Fails when calling it :process

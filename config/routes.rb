@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     end
   end
 
+  post "csp-report", to: "misc#csp_report", as: :csp_report
+
   namespace :callbacks do
     namespace :payments do
       match ":payment_processor", to: "/callbacks#payments", via: :all
@@ -24,4 +26,17 @@ Rails.application.routes.draw do
 
   devise_for :admins, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+
+  # multiple belongs_to for activeadmin hack
+  resources :versions
+  [
+    :admins, :people,
+    :orders, :orders_batch,
+    :procedures, :procedures_verification_document, :procedures_membership_level_change,
+    :payment_methods, :payment_methods_direct_debit, :payment_methods_credit_card
+  ].each do |resource|
+    resources resource do
+      resources :versions
+    end
+  end
 end

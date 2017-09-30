@@ -1,0 +1,13 @@
+# frozen_string_literal: true
+
+table_for payment_method.last_versions do
+  column do |version|
+    span link_to version.created_at.to_date.to_s(:db), url_for([payment_method, version])
+  end
+  column do |version|
+    span version.description
+  end
+end
+ul do
+  li link_to t("census.payment_methods.view_versions", count: payment_method.count_versions), payment_method_versions_path(payment_method_id: payment_method.id)
+end

@@ -14,26 +14,25 @@ ActiveAdmin.register PaymentMethod do
     scope(payment_method) { |scope| scope.where type: "PaymentMethods::#{payment_method.to_s.classify}" }
   end
 
+  order_by(:full_name) do |order_clause|
+    "people.last_name1 #{order_clause.order}, people.last_name2 #{order_clause.order}, people.first_name #{order_clause.order}"
+  end
+
   index do
-    id_column
-    column :person, class: :left, sortable: "people.last_name1"
-    column :name, class: :left
+    column :name, class: :left do |payment_method|
+      link_to payment_method.name, payment_method_path(id: payment_method.id)
+    end
+    column :person, class: :left, sortable: :full_name
     column :type, &:type_name
     actions
   end
 
   show do
-    attributes_table do
-      row :id
-      row :person
-      row :name
-      row :type, &:type_name
-      row :created_at
-      row :updated_at
-    end
-    show_table(self, t("census.payment_methods.information"), payment_method.information) if payment_method.information.any?
+    render "show", context: self, classes: classed_changeset(resource.versions.last, "version_change")
     active_admin_comments
   end
+
+  sidebar :versions, partial: "payment_methods/versions", only: :show
 
   action_item(:create_order, only: :show) do
     link_to t("census.payment_methods.create_order"), new_order_path(order: { payment_method_id: payment_method.id })

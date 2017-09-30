@@ -29,10 +29,12 @@ describe OrdersController, type: :controller do
     it { is_expected.to render_template("index") }
   end
 
-  context "show page" do
-    subject(:page) { get :show, params: { id: order.id } }
-    it { is_expected.to be_success }
-    it { is_expected.to render_template("show") }
+  with_versioning do
+    context "show page" do
+      subject(:page) { get :show, params: { id: order.id } }
+      it { is_expected.to be_success }
+      it { is_expected.to render_template("show") }
+    end
   end
 
   context "new order" do

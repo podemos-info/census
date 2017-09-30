@@ -3,14 +3,14 @@
 ActiveAdmin.register Admin do
   decorate_with AdminDecorator
 
-  menu parent: :people
+  menu parent: :system
 
   actions :index, :show
 
   index do
-    selectable_column
-    id_column
-    column :username
+    column :username, class: :left do |admin|
+      link_to admin.username, admin_path(id: admin.id)
+    end
     column :current_sign_in_at
     column :sign_in_count
     column :created_at
@@ -18,12 +18,10 @@ ActiveAdmin.register Admin do
   end
 
   show do
-    attributes_table do
-      row :person
-      row :username
-      row :current_sign_in_at
-      row :sign_in_count
-      row :created_at
-    end
+    render "show", context: self, classes: classed_changeset(resource.versions.last, "version_change")
+    active_admin_comments
   end
+
+  sidebar :versions, partial: "admins/versions", only: :show
+  sidebar :visits, partial: "admins/visits", only: :show
 end

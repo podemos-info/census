@@ -3,10 +3,10 @@
 require "rails_helper"
 
 describe ProcedureDecorator do
+  subject(:decorator) { procedure.decorate }
   let(:processed_by) { build(:admin) }
   let(:person) { build(:person) }
   let(:procedure) { build(:verification_document, :with_attachments, person: person) }
-  subject { procedure.decorate }
 
   it "returns the decorated person" do
     expect(subject.person.decorated?).to be_truthy
@@ -38,14 +38,14 @@ describe ProcedureDecorator do
 
   context "verification document" do
     let(:person) { build(:person, first_name: "María", last_name1: "Pérez", last_name2: "García") }
-    let(:procedure) { build(:verification_document, person: person) }
+    let(:procedure) { create(:verification_document, person: person) }
 
     it "returns the type name" do
       expect(subject.type_name).to eq("Verificación de documento")
     end
 
-    it "returns the type name and person name when casting to string" do
-      expect(subject.to_s).to eq("Verificación de documento - Pérez García, María")
+    it "returns the type name and the id when retrieving name" do
+      expect(subject.name).to eq("Verificación de documento ##{procedure.id}")
     end
   end
 
@@ -67,5 +67,15 @@ describe ProcedureDecorator do
         expect(subject.view_link("test")).to eq("<a class=\"member_link\" href=\"/procedures/#{procedure.id}\">test</a>")
       end
     end
+  end
+
+  context "#route_key" do
+    subject(:method) { decorator.route_key }
+    it { is_expected.to eq("procedures") }
+  end
+
+  context "#singular_route_key" do
+    subject(:method) { decorator.singular_route_key }
+    it { is_expected.to eq("procedure") }
   end
 end

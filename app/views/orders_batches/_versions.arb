@@ -1,0 +1,13 @@
+# frozen_string_literal: true
+
+table_for orders_batch.last_versions do
+  column do |version|
+    span link_to version.created_at.to_date.to_s(:db), url_for([orders_batch, version])
+  end
+  column do |version|
+    span version.description
+  end
+end
+ul do
+  li link_to t("census.orders_batches.view_versions", count: orders_batch.count_versions), orders_batch_versions_path(orders_batch_id: orders_batch.id)
+end

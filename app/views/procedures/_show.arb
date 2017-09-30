@@ -1,0 +1,14 @@
+# frozen_string_literal: true
+
+context.instance_eval do
+  panel title do
+    attributes_table_for resource do
+      row :type, &:type_name
+      row :created_at
+      state_row :state
+      row :processed_by
+      row :processed_at
+      row :comment if resource.comment.present?
+    end
+  end
+end

@@ -4,7 +4,7 @@ ActiveAdmin.register Order do
   decorate_with OrderDecorator
   belongs_to :person, optional: true
 
-  includes :person, :payment_method
+  includes :person, :payment_method, :orders_batch
 
   permit_params :person_id, :payment_method_id, :description, :amount
 
@@ -17,10 +17,16 @@ ActiveAdmin.register Order do
     end
   end
 
+  order_by(:full_name) do |order_clause|
+    "people.last_name1 #{order_clause.order}, people.last_name2 #{order_clause.order}, people.first_name #{order_clause.order}"
+  end
+
   index do
-    id_column
+    column :name, class: :left, sortable: :id do |order|
+      link_to order.name, order_path(id: order.id)
+    end
     column :payment_method
-    column :person, class: :left
+    column :person, class: :left, sortable: :full_name
     column :orders_batch
     state_column :state
     column :full_amount, class: :right
@@ -28,18 +34,11 @@ ActiveAdmin.register Order do
   end
 
   show do
-    attributes_table do
-      state_row :state
-      row :id
-      row :payment_method
-      row :description
-      row :full_amount
-      row :created_at
-      row :updated_at
-    end
-    show_table(self, t("census.orders.information"), order.information) if order.information.any?
+    render "show", context: self, classes: classed_changeset(resource.versions.last, "version_change")
     active_admin_comments
   end
+
+  sidebar :versions, partial: "orders/versions", only: :show
 
   action_item :process, only: :show do
     link_to(t("census.orders.process"), charge_order_path(order), method: :patch, data: { confirm: t("census.sure_question") }, class: :member_link) if order.processable?(false)

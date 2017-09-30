@@ -22,23 +22,25 @@ describe Procedures::VerificationDocument, :db do
     expect { procedure.reject! } .to_not change { Person.find(person.id).verified? }
   end
 
-  context "after accepting the procedure" do
-    before do
-      procedure.accept!
+  with_versioning do
+    context "after accepting the procedure" do
+      before do
+        procedure.accept!
+      end
+
+      it "undo revert person level to previous value" do
+        expect { procedure.undo! } .to change { Person.find(person.id).verified? } .from(true).to(false)
+      end
     end
 
-    it "undo revert person level to previous value" do
-      expect { procedure.undo! } .to change { Person.find(person.id).verified? } .from(true).to(false)
-    end
-  end
+    context "after rejecting the procedure" do
+      before do
+        procedure.reject!
+      end
 
-  context "after rejecting the procedure" do
-    before do
-      procedure.reject!
-    end
-
-    it "undo does not change person level" do
-      expect { procedure.undo! } .to_not change { Person.find(person.id).verified? }
+      it "undo does not change person level" do
+        expect { procedure.undo! } .to_not change { Person.find(person.id).verified? }
+      end
     end
   end
 end

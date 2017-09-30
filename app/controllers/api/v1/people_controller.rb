@@ -15,10 +15,9 @@ module Api
     end
 
     def change_membership_level
-      @person = Person.find_by("extra ->> 'participa_id' = ?", params[:id])
-      Procedures::RegisterMembershipLevelChange.call(@person, params[:level]) do
+      Procedures::RegisterMembershipLevelChange.call(person, params[:level]) do
         on(:invalid) do
-          render json: @person.errors, status: :unprocessable_entity
+          render json: person.errors, status: :unprocessable_entity
         end
         on(:ok) do
           render json: {}, status: :accepted

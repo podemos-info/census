@@ -59,4 +59,6 @@ Rails.application.configure do
   Settings.security.allowed_ips.development&.each do |ip|
     BetterErrors::Middleware.allow_ip! ip
   end
+
+  I18n::Debug.logger = Logger.new(File.join(Rails.root, "log", "i18n-debug.log"))
 end

@@ -12,8 +12,18 @@ describe "Admins", type: :request do
     it { is_expected.to eq(200) }
   end
 
-  context "show page" do
-    subject(:page) { get admin_path(id: admin.id) }
-    it { is_expected.to eq(200) }
+  with_versioning do
+    context "show page" do
+      subject(:page) { get admin_path(id: admin.id) }
+      it { is_expected.to eq(200) }
+    end
+
+    context "admin versions page" do
+      before do
+        admin.update_attributes! username: "#{admin.username}A" # create an admin version
+      end
+      subject { get admin_versions_path(admin_id: admin.id) }
+      it { expect(subject).to eq(200) }
+    end
   end
 end

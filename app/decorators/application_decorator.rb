@@ -5,4 +5,16 @@ class ApplicationDecorator < Draper::Decorator
     model_name = ActiveSupport::Inflector.underscore(ActiveSupport::Inflector.demodulize(object.model_name.to_s))
     I18n.t("activerecord.models.#{object.class.to_s.underscore.split("/").first}.#{model_name}.one")
   end
+
+  def format_ip(object)
+    object.is_a?(Hash) ? IPAddr.new(object["addr"], object["family"]) : object
+  end
+
+  def last_versions
+    @last_versions ||= object.versions.reorder(created_at: :desc).limit(3).decorate
+  end
+
+  def count_versions
+    @count_versions ||= object.versions.where(event: "update").count + 1
+  end
 end

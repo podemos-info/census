@@ -1,0 +1,15 @@
+# frozen_string_literal: true
+
+context.instance_eval do
+  panel title do
+    attributes_table_for resource do
+      row :id, class: classes[:id]
+      row :person, class: classes[:person_id]
+      row :name, class: classes[:name]
+      row :type, class: classes[:type], &:type_name
+      row :created_at, class: classes[:created_at]
+      row :updated_at, class: classes[:updated_at]
+    end
+    show_table(self, t("census.payment_methods.information"), resource.information) if resource.information.any?
+  end
+end

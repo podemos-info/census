@@ -1,0 +1,13 @@
+# frozen_string_literal: true
+
+table_for person.last_versions do
+  column do |version|
+    span link_to version.created_at.to_date.to_s(:db), url_for([person, version])
+  end
+  column do |version|
+    span version.description
+  end
+end
+ul do
+  li link_to t("census.people.view_versions", count: person.count_versions), person_versions_path(person_id: person.id)
+end

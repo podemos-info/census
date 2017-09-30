@@ -1,0 +1,17 @@
+# frozen_string_literal: true
+
+context.instance_eval do
+  panel title do
+    attributes_table_for resource do
+      state_row :state, class: classes[:state]
+      row :id, class: classes[:id]
+      row :payment_method, class: classes[:payment_method]
+      row :description, class: classes[:description]
+      row :full_amount, class: classes[:full_amount]
+      row :orders_batch, class: classes[:orders_batch_id]
+      row :created_at, class: classes[:created_at]
+      row :updated_at, class: classes[:updated_at]
+    end
+    show_table(self, t("census.orders.information"), resource.information) if resource.information.any?
+  end
+end

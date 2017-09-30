@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 text_node Arbre::HTML::Document.new.doctype
 html do
   body do
@@ -6,6 +8,13 @@ html do
         input type: :hidden, name: key, value: value
       end
     end
-    script raw("document.getElementById('form').submit()")
+    script raw("""
+      if (window.location.hash == '#sent') {
+        window.history.go(-1);
+      } else {
+        window.history.replaceState( {} , '', '#sent' );
+        document.getElementById('form').submit()
+      }
+    """)
   end
 end

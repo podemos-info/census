@@ -7,6 +7,9 @@ class OrdersBatch < ApplicationRecord
 
   belongs_to :processed_by, class_name: "Admin", optional: true
 
+  has_paper_trail class_name: "Version"
+  has_many :versions, as: :item
+
   def payment_processors
     orders.joins(:payment_method).distinct(:payment_processor).pluck(:payment_processor)
   end

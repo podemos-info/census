@@ -2,17 +2,26 @@
 
 ActiveAdmin.register Procedure do
   decorate_with ProcedureDecorator
+  belongs_to :person, optional: true
 
   includes :person
 
   config.sort_order = "created_at_asc"
 
-  menu label: -> { "#{Procedure.model_name.human(count: 2)} [#{Procedure.pending.count}/#{Procedure.issues.count}]" }
-
   actions :index, :show, :edit, :update # edit is used for procedure processing
   config.clear_action_items! # hide edit button on show view
 
   permit_params [:result_comment, :result]
+
+  filter :type_name
+
+  order_by(:full_name) do |order_clause|
+    "people.last_name1 #{order_clause.order}, people.last_name2 #{order_clause.order}, people.first_name #{order_clause.order}"
+  end
+
+  order_by(:type) do |order_clause|
+    "#{order_clause.to_sql}, id #{order_clause.order}"
+  end
 
   scope :all
   Procedure.aasm.states.each do |state|
@@ -20,10 +29,10 @@ ActiveAdmin.register Procedure do
   end
 
   index do
-    column :type do |procedure|
-      procedure.view_link procedure.type_name
+    column :type, sortable: :type do |procedure|
+      procedure.view_link procedure.name
     end
-    column :person, class: :left
+    column :person, class: :left, sortable: :full_name
     column :created_at, class: :left
     state_column :state
     actions defaults: false do |procedure|
@@ -39,16 +48,8 @@ ActiveAdmin.register Procedure do
   show do
     columns class: "attachments" do
       column do
-        attributes_table do
-          row :type, &:type_name
-          row :created_at
-          state_row :state
-          row :processed_by
-          row :processed_at
-          row :comment if procedure.comment.present?
-        end
-
-        render partial: "personal_data"
+        render "show", context: self, classes: classed_changeset(resource.versions.last, "version_change")
+        render "personal_data"
       end
       if procedure.attachments.any?
         column do
@@ -72,6 +73,7 @@ ActiveAdmin.register Procedure do
         end
       end
     end
+    active_admin_comments
   end
 
   form title: I18n.t("census.procedures.process"), decorate: true do |f|
