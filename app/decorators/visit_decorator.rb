@@ -17,7 +17,4 @@ class VisitDecorator < ApplicationDecorator
     [object.latitude, object.longitude].join ", "
   end
 
-  def screen_resolution
-    [object.screen_height, object.screen_width].join "x"
-  end
 end

@@ -36,7 +36,6 @@ ActiveAdmin.register Visit do
         row :browser
         row :os
         row :device_type
-        row :screen_resolution
       end
     end
 

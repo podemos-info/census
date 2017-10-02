@@ -18,6 +18,8 @@ class ApplicationController < ActionController::Base
   def track_action
     return unless track_page_view?
 
+    ahoy.track_visit unless current_visit
+
     f = ActionDispatch::Http::ParameterFilter.new(Rails.application.config.filter_parameters)
     ahoy.track("page_view", f.filter(params.to_unsafe_hash))
   end
