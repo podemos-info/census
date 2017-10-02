@@ -17,4 +17,11 @@ class VisitDecorator < ApplicationDecorator
     [object.latitude, object.longitude].join ", "
   end
 
+  def last_events
+    @last_events ||= object.events.order(time: :desc).limit(10).decorate
+  end
+
+  def count_events
+    @count_events ||= object.events.count
+  end
 end

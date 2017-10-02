@@ -26,7 +26,7 @@ class AdminDecorator < ApplicationDecorator
   end
 
   def last_visits
-    @last_visits ||= object.visits.order(started_at: :desc).limit(3).decorate
+    @last_visits ||= object.visits.reorder(started_at: :desc).limit(3).decorate
   end
 
   def count_visits
