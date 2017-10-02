@@ -12,7 +12,11 @@ ActiveAdmin.register Visit do
 
   index do
     column :started_at, class: :left do |visit|
-      link_to pretty_format(visit.started_at), admin_visit_path(admin_id: visit.admin.id, id: visit.id)
+      if association_chain.any?
+        link_to pretty_format(visit.started_at), admin_visit_path(admin_id: visit.admin_id, id: visit.id)
+      else
+        link_to pretty_format(visit.started_at), visit_path(id: visit.id)
+      end
     end
     column :admin
     column :ip
@@ -36,7 +40,6 @@ ActiveAdmin.register Visit do
         row :browser
         row :os
         row :device_type
-        row :screen_resolution
       end
     end
 
@@ -49,7 +52,5 @@ ActiveAdmin.register Visit do
     end
   end
 
-  action_item :view_events, only: :show do
-    link_to t("census.visits.view_events"), visit_events_path(visit_id: resource.id)
-  end
+  sidebar :visits, partial: "visits/events", only: :show
 end

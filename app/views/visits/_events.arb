@@ -1,0 +1,11 @@
+# frozen_string_literal: true
+
+table_for visit.last_events do
+  column do |event|
+    span link_to event.name, url_for([visit, event])
+    div event.description if event.description
+  end
+end
+ul do
+  li link_to t("census.visits.view_events", count: visit.count_events), visit_events_path(visit_id: visit.id)
+end

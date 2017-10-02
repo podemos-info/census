@@ -12,6 +12,12 @@ describe "Admins", type: :request do
     it { is_expected.to eq(200) }
   end
 
+  context "admin visits page" do
+    let!(:visit) { create(:visit, admin: admin) }
+    subject { get admin_visits_path(admin_id: admin.id) }
+    it { expect(subject).to eq(200) }
+  end
+
   with_versioning do
     context "show page" do
       subject(:page) { get admin_path(id: admin.id) }
