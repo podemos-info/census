@@ -3,7 +3,7 @@
 ActiveAdmin.register Admin do
   decorate_with AdminDecorator
 
-  menu parent: :system
+  menu parent: I18n.t("active_admin.system")
 
   actions :index, :show
 

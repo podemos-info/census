@@ -11,8 +11,7 @@ def create_order(person, credit_card)
                                                       authorization_token: "invalid code", expiration_year: expires_at.year, expiration_month: expires_at.month
                      else
                        iban = Census::Faker::Bank.iban("ES")
-                       PaymentMethods::DirectDebit.new person: person, payment_processor: :sepa,
-                                                       iban: iban, bic: Faker::Bank.swift_bic
+                       PaymentMethods::DirectDebit.new person: person, payment_processor: :sepa, iban: iban
                      end
     payment_method.decorate.save!
 

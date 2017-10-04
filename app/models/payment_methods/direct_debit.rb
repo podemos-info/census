@@ -2,7 +2,8 @@
 
 module PaymentMethods
   class DirectDebit < PaymentMethod
-    store_accessor :information, :iban, :bic
+    store_accessor :information, :iban
+    additional_information :iban, :bic
 
     def processable?(in_batch)
       in_batch
@@ -14,6 +15,10 @@ module PaymentMethods
 
     def name_info
       { iban_last_digits: iban[-4..-1] }
+    end
+
+    def bic
+      IbanBic.calculate_bic(iban)
     end
   end
 end

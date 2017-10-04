@@ -8,7 +8,7 @@ ActiveAdmin.register PaymentMethod do
 
   actions :index, :show
 
-  menu parent: :orders
+  menu parent: I18n.t("active_admin.payments")
 
   [:direct_debit, :credit_card].each do |payment_method|
     scope(payment_method) { |scope| scope.where type: "PaymentMethods::#{payment_method.to_s.classify}" }

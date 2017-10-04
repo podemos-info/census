@@ -3,6 +3,8 @@
 ActiveAdmin.register Person do
   decorate_with PersonDecorator
 
+  menu parent: I18n.t("active_admin.census")
+
   includes :scope
 
   actions :index, :show, :new, :create, :edit, :update

@@ -4,7 +4,7 @@ ActiveAdmin.register Version do
   decorate_with VersionDecorator
   before_action :do_not_track_page_view
 
-  menu parent: :system
+  menu parent: I18n.t("active_admin.system")
 
   controller do
     belongs_to :admin, :order, :orders_batch, :person, :procedure, :payment_method, polymorphic: true, optional: true

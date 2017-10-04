@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170925133959) do
+ActiveRecord::Schema.define(version: 20171003213438) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,13 @@ ActiveRecord::Schema.define(version: 20170925133959) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["procedure_id"], name: "index_attachments_on_procedure_id"
+  end
+
+  create_table "bics", force: :cascade do |t|
+    t.string "country", null: false
+    t.string "bank_code", null: false
+    t.string "bic", null: false
+    t.index ["country", "bank_code"], name: "index_bics_on_country_and_bank_code", unique: true
   end
 
   create_table "downloads", force: :cascade do |t|
@@ -195,8 +202,8 @@ ActiveRecord::Schema.define(version: 20170925133959) do
     t.integer "item_id", null: false
     t.string "event", null: false
     t.string "whodunnit"
-    t.jsonb "object"
-    t.jsonb "object_changes"
+    t.json "object"
+    t.json "object_changes"
     t.datetime "created_at"
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end

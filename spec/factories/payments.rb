@@ -36,7 +36,6 @@ FactoryGirl.define do
   factory :direct_debit, class: :"payment_methods/direct_debit" do
     person
     iban { Census::Faker::Bank.iban("ES") }
-    bic { Faker::Bank.swift_bic }
     payment_processor { :sepa }
 
     trait :verified do
@@ -99,5 +98,11 @@ FactoryGirl.define do
       credit_card_orders_invalid { 0 }
       credit_card_orders_verified { 0 }
     end
+  end
+
+  factory :bic do
+    country "ES"
+    bank_code { Faker::Number.between(1, 10_000).to_s.rjust(4, "0") }
+    bic { SecureRandom.base58(8).upcase }
   end
 end
