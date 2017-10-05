@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "census/faker/bank"
+require "iban_bic/random"
 
 FactoryGirl.define do
   factory :credit_card, class: :"payment_methods/credit_card" do
@@ -35,7 +35,7 @@ FactoryGirl.define do
 
   factory :direct_debit, class: :"payment_methods/direct_debit" do
     person
-    iban { "ES8700030000300000000000" }
+    iban { IbanBic.random_iban(tags: [:sepa], not_tags: [:fixed_iban_check]) }
     payment_processor { :sepa }
 
     trait :verified do
@@ -43,7 +43,7 @@ FactoryGirl.define do
     end
 
     trait :non_sepa do
-      iban { "AD7100030000300000000000" }
+      iban { IbanBic.random_iban(not_tags: [:fixed_iban_check, :sepa]) }
     end
   end
 
