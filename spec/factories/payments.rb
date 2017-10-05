@@ -27,19 +27,23 @@ FactoryGirl.define do
 
     trait :external_verified do
       authorization_token { "f9b36152f049a8fbe6a800bcb49837cfb4808d37" }
-      expiration_year { 2020 }
-      expiration_month { 12 }
+      expiration_year { "2020" }
+      expiration_month { "12" }
       verified { true }
     end
   end
 
   factory :direct_debit, class: :"payment_methods/direct_debit" do
     person
-    iban { Census::Faker::Bank.iban("ES") }
+    iban { "ES8700030000300000000000" }
     payment_processor { :sepa }
 
     trait :verified do
       verified { true }
+    end
+
+    trait :non_sepa do
+      iban { "AD7100030000300000000000" }
     end
   end
 

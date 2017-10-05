@@ -27,7 +27,7 @@ module PaymentMethods
     end
 
     def expires_at
-      Date.civil(expiration_year, expiration_month, 1) + 1.month
+      Date.civil(expiration_year.to_i, expiration_month.to_i, 1) + 1.month
     end
 
     def issues_fixed?
