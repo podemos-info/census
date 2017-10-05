@@ -4,8 +4,7 @@
 module Orders
   class DirectDebitOrderForm < OrderForm
     attribute :iban, String
-    validates :iban, presence: true
-    validates_with SEPA::IBANValidator, field_name: :iban
+    validates :iban, presence: true, iban: { tags: [:sepa] }
 
     def payment_method
       PaymentMethods::DirectDebit.new(

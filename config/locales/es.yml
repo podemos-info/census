@@ -1,6 +1,8 @@
 es:
   active_admin:
+    census: Censo
     dashboard: Inicio
+    payments: Pagos
     powered_by: ""
     scopes:
       all: Todo
@@ -30,6 +32,9 @@ es:
       attachment:
         one: Adjunto
         other: Adjuntos
+      bic:
+        one: BIC
+        other: BICs
       comment: 
         one: Comentario
         other: Comentarios
@@ -86,6 +91,11 @@ es:
         person: Persona
         sign_in_count: Número de accesos
         username: Nombre de usuario
+      bic:
+        bank_code: Código de entidad
+        bic: Código BIC/SWIFT
+        country: Código de país
+        name_link: País - entidad
       event:
         name: Actividad
         description: Descripción

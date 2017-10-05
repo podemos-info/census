@@ -4,7 +4,7 @@ ActiveAdmin.register Event do
   decorate_with EventDecorator
   before_action :do_not_track_page_view
 
-  menu parent: :system
+  menu parent: I18n.t("active_admin.system")
 
   belongs_to :visit, optional: true
 

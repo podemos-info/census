@@ -2,7 +2,8 @@
 
 ActiveAdmin.register OrdersBatch do
   decorate_with OrdersBatchDecorator
-  menu parent: :orders
+
+  menu parent: I18n.t("active_admin.payments")
 
   actions :index, :show
 

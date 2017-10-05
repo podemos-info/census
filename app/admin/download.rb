@@ -3,7 +3,7 @@
 ActiveAdmin.register Download do
   decorate_with DownloadDecorator
 
-  menu parent: :people
+  menu parent: I18n.t("active_admin.census")
 
   includes :person
 

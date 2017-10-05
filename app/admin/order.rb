@@ -4,6 +4,8 @@ ActiveAdmin.register Order do
   decorate_with OrderDecorator
   belongs_to :person, optional: true
 
+  menu parent: I18n.t("active_admin.payments")
+
   includes :person, :payment_method, :orders_batch
 
   permit_params :person_id, :payment_method_id, :description, :amount

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "census/faker/bank"
+require "iban_bic/random"
 
 FactoryGirl.define do
   factory :credit_card, class: :"payment_methods/credit_card" do
@@ -27,20 +27,23 @@ FactoryGirl.define do
 
     trait :external_verified do
       authorization_token { "f9b36152f049a8fbe6a800bcb49837cfb4808d37" }
-      expiration_year { 2020 }
-      expiration_month { 12 }
+      expiration_year { "2020" }
+      expiration_month { "12" }
       verified { true }
     end
   end
 
   factory :direct_debit, class: :"payment_methods/direct_debit" do
     person
-    iban { Census::Faker::Bank.iban("ES") }
-    bic { Faker::Bank.swift_bic }
+    iban { IbanBic.random_iban(tags: [:sepa], not_tags: [:fixed_iban_check]) }
     payment_processor { :sepa }
 
     trait :verified do
       verified { true }
+    end
+
+    trait :non_sepa do
+      iban { IbanBic.random_iban(not_tags: [:fixed_iban_check, :sepa]) }
     end
   end
 
@@ -99,5 +102,11 @@ FactoryGirl.define do
       credit_card_orders_invalid { 0 }
       credit_card_orders_verified { 0 }
     end
+  end
+
+  factory :bic do
+    country "ES"
+    bank_code { Faker::Number.between(1, 10_000).to_s.rjust(4, "0") }
+    bic { SecureRandom.base58(8).upcase }
   end
 end

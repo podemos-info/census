@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "census/faker/bank"
+require "iban_bic/random"
 
 def create_order(person, credit_card)
   PaperTrail.whodunnit = person
@@ -10,9 +10,7 @@ def create_order(person, credit_card)
                        PaymentMethods::CreditCard.new person: person, payment_processor: :redsys,
                                                       authorization_token: "invalid code", expiration_year: expires_at.year, expiration_month: expires_at.month
                      else
-                       iban = Census::Faker::Bank.iban("ES")
-                       PaymentMethods::DirectDebit.new person: person, payment_processor: :sepa,
-                                                       iban: iban, bic: Faker::Bank.swift_bic
+                       PaymentMethods::DirectDebit.new person: person, payment_processor: :sepa, iban: IbanBic.random_iban(tags: [:sepa], not_tags: [:fixed_iban_check])
                      end
     payment_method.decorate.save!
 

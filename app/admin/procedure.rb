@@ -4,6 +4,8 @@ ActiveAdmin.register Procedure do
   decorate_with ProcedureDecorator
   belongs_to :person, optional: true
 
+  menu parent: I18n.t("active_admin.census")
+
   includes :person
 
   config.sort_order = "created_at_asc"

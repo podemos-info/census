@@ -10,6 +10,6 @@ context.instance_eval do
       row :created_at, class: classes[:created_at]
       row :updated_at, class: classes[:updated_at]
     end
-    show_table(self, t("census.payment_methods.information"), resource.information) if resource.information.any?
+    show_table(self, t("census.payment_methods.information"), resource.additional_information) if resource.additional_information.any?
   end
 end

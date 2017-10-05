@@ -2,6 +2,7 @@
 
 class PaymentMethod < ApplicationRecord
   include FlagShihTzu
+  include AdditionalInformation
 
   self.inheritance_column = :type
 

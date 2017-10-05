@@ -3,6 +3,7 @@
 module PaymentMethods
   class CreditCard < PaymentMethod
     store_accessor :information, :authorization_token, :expiration_year, :expiration_month
+    additional_information :expiration_month, :expiration_year
     attr_accessor :return_url
 
     def processable?(_in_batch)
@@ -26,7 +27,7 @@ module PaymentMethods
     end
 
     def expires_at
-      Date.civil(expiration_year, expiration_month, 1) + 1.month
+      Date.civil(expiration_year.to_i, expiration_month.to_i, 1) + 1.month
     end
 
     def issues_fixed?
