@@ -63,7 +63,7 @@ ActiveAdmin.register PaymentMethod do
 
   controller do
     def build_resource
-      flash[:alert] = t("census.payment_methods.add_orders_from_people") unless permitted_params[:payment_method][:person_id]
+      flash[:alert] = t("census.payment_methods.add_payment_methods_from_people") unless permitted_params[:payment_method][:person_id]
       resource = decorator_class.new(PaymentMethods::DirectDebit.new(permitted_params[:payment_method]))
       set_resource_ivar resource
 
