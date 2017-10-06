@@ -52,5 +52,5 @@ ActiveAdmin.register Visit do
     end
   end
 
-  sidebar :visits, partial: "visits/events", only: :show
+  sidebar :events, partial: "visits/events", only: :show
 end

@@ -5,6 +5,10 @@ class PaymentMethodDecorator < ApplicationDecorator
 
   decorates_association :person
 
+  def person_full_name
+    person.decorate.full_name
+  end
+
   def route_key
     "payment_methods"
   end

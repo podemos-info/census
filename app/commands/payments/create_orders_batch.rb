@@ -31,7 +31,7 @@ module Payments
         :ok
       end
 
-      broadcast result || :invalid
+      broadcast(result || :invalid, orders_batch)
     end
 
     private

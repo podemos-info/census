@@ -15,6 +15,6 @@ class ApplicationDecorator < Draper::Decorator
   end
 
   def count_versions
-    @count_versions ||= VersionableUpdateVersions.new(object).count + 1
+    @count_versions ||= VersionableCountVersions.for(object)
   end
 end

@@ -2,7 +2,7 @@
 
 class OrdersBatchTotalsPerState < Rectify::Query
   def self.for(orders_batch)
-    new(orders_batch).query
+    new(orders_batch).values
   end
 
   def initialize(orders_batch)
@@ -10,6 +10,10 @@ class OrdersBatchTotalsPerState < Rectify::Query
   end
 
   def query
-    @orders_batch.orders.group("state, currency").pluck("state, currency, sum(amount) as amount")
+    @orders_batch.orders.reorder(nil).group("state, currency")
+  end
+
+  def values
+    query.pluck("state, currency, count(id) as count, sum(amount) as amount")
   end
 end

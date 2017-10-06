@@ -1,0 +1,36 @@
+# frozen_string_literal: true
+
+table_for orders_batch.orders_totals do
+  column t("census.orders_batches.totals") do |orders_block|
+    span orders_block[:full_amount]
+  end
+  column do |orders_block|
+    span orders_block[:count]
+  end
+end
+
+table_for orders_batch.orders_per_state do
+  column t("census.orders_batches.by_state") do |orders_block|
+    span t("activerecord.attributes.order.state/#{orders_block[:state]}")
+  end
+  column do |orders_block|
+    span orders_block[:full_amount]
+  end
+  column do |orders_block|
+    span orders_block[:count]
+  end
+end
+table_for orders_batch.orders_per_type do
+  column t("census.orders_batches.by_payment_method") do |orders_block|
+    span orders_block[:payment_method].model_name.human
+  end
+  column do |orders_block|
+    span orders_block[:full_amount]
+  end
+  column do |orders_block|
+    span orders_block[:count]
+  end
+end
+ul do
+  li link_to t("census.orders_batches.view_orders", count: orders_batch.count_orders), orders_batch_orders_path(orders_batch_id: orders_batch.id)
+end

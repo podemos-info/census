@@ -5,12 +5,14 @@ ActiveAdmin.register OrdersBatch do
 
   menu parent: I18n.t("active_admin.payments")
 
-  actions :index, :show
+  actions :index, :show, :new, :create, :edit, :update
+
+  permit_params :description, :orders_from, :orders_to
 
   index do
     id_column
     column :description, class: :left
-    column :orders_count
+    column :orders_totals_text
     actions
   end
 
@@ -21,10 +23,24 @@ ActiveAdmin.register OrdersBatch do
   end
 
   sidebar :versions, partial: "orders_batches/versions", only: :show
+  sidebar :orders, partial: "orders_batches/orders", only: :show
 
   show do
     render "show", context: self, classes: classed_changeset(resource.versions.last, "version_change")
     active_admin_comments
+  end
+
+  form decorate: true do |f|
+    f.inputs do
+      input :description, as: :string
+      input :orders_totals_text, as: :string, input_html: { disabled: true }
+      unless f.object.persisted?
+        input :orders_from, as: :datepicker
+        input :orders_to, as: :datepicker
+      end
+    end
+
+    actions
   end
 
   member_action :charge, method: :patch do # Fails when calling it :process
@@ -41,5 +57,26 @@ ActiveAdmin.register OrdersBatch do
       end
     end
     redirect_back(fallback_location: orders_batches_path)
+  end
+
+  controller do
+    def build_resource
+      build_params = permitted_params[:orders_batch] || {}
+      build_params[:orders_from] = OrdersWithoutOrdersBatch.new.merge(OrdersPending.new).first.created_at.to_date unless build_params[:orders_from]
+      build_params[:orders_to] = Date.today unless build_params[:orders_to]
+
+      resource = decorator_class.new(OrdersBatchForm.from_params(build_params))
+      set_resource_ivar resource
+
+      resource
+    end
+
+    def create
+      form = build_resource
+      Payments::CreateOrdersBatch.call(form) do
+        on(:invalid) { render :new }
+        on(:ok) { |orders_batch| redirect_to orders_batch_path(id: orders_batch.id) }
+      end
+    end
   end
 end

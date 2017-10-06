@@ -17,9 +17,10 @@ es:
       accepted: Aceptados
       rejected: Rechazados
     sidebars:
-      versions: Versiones
+      events: Actividad
       orders: Órdenes
       procedures: Procedimientos
+      versions: Versiones
       visits: Visitas
     status_tag:
       pending: Pendiente
@@ -60,6 +61,8 @@ es:
         direct_debit:
           one: Débito directo
           others: Débitos directos
+      payment_methods/credit_card: Tarjeta de crédito
+      payment_methods/direct_debit: Débito directo
       person:
         one: Persona
         other: Personas
@@ -159,7 +162,9 @@ es:
         state/returned: Devuelta
       orders_batch:
         description: Descripción
-        orders_count: Nº de órdenes
+        orders_totals_text: Totales
+        orders_from: Incluir órdenes desde
+        orders_to: Incluir órdenes hasta
       payment_method:
         authorization_token: Código de autorización
         created_at: Fecha de creación
@@ -167,7 +172,7 @@ es:
         expiration_month: Mes de expiración
         name: Nombre
         person: Persona
-        type: Tipo
+        type_name: Tipo
         updated_at: Última actualización
       version:
         author: Autor
@@ -228,9 +233,14 @@ es:
         processed: El lote de órdenes ha sido procesado.
         not_processed: No se pudo procesar el lote de órdenes.
         issues: El lote de órdenes ha sido procesado, pero han ocurrido incidencias durante el proceso. Por favor, contacta con el administrador del sistema.
+      by_state: Por estado
+      by_payment_method: Por método de pago
       process: Procesar
+      totals: Totales
       view_versions: Ver versiones (%{count})
+      view_orders: Ver órdenes (%{count})
     payment_methods:
+      add_payment_methods_from_people: Puedes crear métodos de pago desde la página de una persona.
       create_order: Crear orden con este método de pago
       default_names:
         credit_card: Tarjeta de crédito (vencimiento %{expiration})
@@ -239,6 +249,7 @@ es:
       view_versions: Ver versiones (%{count})
     people:
       create_order: Crear orden
+      create_payment_method: Crear método de pago
       document_types:
         dni: DNI
         nie: NIE
@@ -288,7 +299,7 @@ es:
       basic: Datos básicos
       browsing: Navegación
       location: Ubicación
-      view_events: Ver actividad
+      view_events: Ver toda la actividad
   errors:
     messages:
       cycle_detected: el padre de un ámbito no puede ser descendiente de este

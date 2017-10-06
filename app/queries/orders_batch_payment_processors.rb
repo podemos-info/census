@@ -2,7 +2,7 @@
 
 class OrdersBatchPaymentProcessors < Rectify::Query
   def self.for(orders_batch)
-    new(orders_batch).query
+    new(orders_batch).values
   end
 
   def initialize(orders_batch)
@@ -10,6 +10,10 @@ class OrdersBatchPaymentProcessors < Rectify::Query
   end
 
   def query
-    @orders_batch.orders.joins(:payment_method).distinct(:payment_processor).pluck(:payment_processor)
+    @orders_batch.orders.joins(:payment_method).distinct(:payment_processor)
+  end
+
+  def values
+    query.pluck(:payment_processor)
   end
 end

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class VersionableUpdateVersions < Rectify::Query
+class VersionableCountVersions < Rectify::Query
   def self.for(versionable)
-    new(versionable).query
+    new(versionable).value
   end
 
   def initialize(versionable)
@@ -11,5 +11,9 @@ class VersionableUpdateVersions < Rectify::Query
 
   def query
     @versionable.versions.where(event: "update")
+  end
+
+  def value
+    query.count + 1
   end
 end
