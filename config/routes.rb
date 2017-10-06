@@ -39,4 +39,13 @@ Rails.application.routes.draw do
       resources :versions
     end
   end
+
+  resources :orders
+  [
+    :people, :orders_batches
+  ].each do |resource|
+    resources resource do
+      resources :orders
+    end
+  end
 end

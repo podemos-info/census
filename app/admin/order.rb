@@ -2,7 +2,10 @@
 
 ActiveAdmin.register Order do
   decorate_with OrderDecorator
-  belongs_to :person, optional: true
+
+  controller do
+    belongs_to :orders_batch, :person, optional: true
+  end
 
   menu parent: I18n.t("active_admin.payments")
 
@@ -29,6 +32,7 @@ ActiveAdmin.register Order do
     end
     column :payment_method
     column :person, class: :left, sortable: :full_name
+    column :created_at, class: :left
     column :orders_batch
     state_column :state
     column :full_amount, class: :right
