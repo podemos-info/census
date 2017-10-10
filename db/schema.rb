@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 20171003213438) do
     t.string "file", null: false
     t.string "content_type"
     t.datetime "expires_at", null: false
+    t.jsonb "information", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["person_id"], name: "index_downloads_on_person_id"
@@ -97,6 +98,7 @@ ActiveRecord::Schema.define(version: 20171003213438) do
     t.string "description", null: false
     t.bigint "processed_by_id"
     t.datetime "processed_at"
+    t.string "response_code"
     t.string "state"
     t.jsonb "information", default: {}, null: false
     t.datetime "created_at", null: false
@@ -112,7 +114,6 @@ ActiveRecord::Schema.define(version: 20171003213438) do
     t.string "description", null: false
     t.bigint "processed_by_id"
     t.datetime "processed_at"
-    t.jsonb "stats", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["processed_by_id"], name: "index_orders_batches_on_processed_by_id"
@@ -124,6 +125,7 @@ ActiveRecord::Schema.define(version: 20171003213438) do
     t.string "type", null: false
     t.integer "flags", default: 0, null: false
     t.string "payment_processor", null: false
+    t.string "response_code"
     t.jsonb "information", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -202,8 +204,8 @@ ActiveRecord::Schema.define(version: 20171003213438) do
     t.integer "item_id", null: false
     t.string "event", null: false
     t.string "whodunnit"
-    t.json "object"
-    t.json "object_changes"
+    t.jsonb "object"
+    t.jsonb "object_changes"
     t.datetime "created_at"
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end

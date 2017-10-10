@@ -14,6 +14,7 @@ class CreateOrders < ActiveRecord::Migration[5.1]
 
       t.references :processed_by, foreign_key: { to_table: :admins }
       t.datetime :processed_at
+      t.string :response_code
 
       t.string :state
       t.jsonb :information, default: {}, null: false

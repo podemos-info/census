@@ -7,6 +7,7 @@ class CreateDownloads < ActiveRecord::Migration[5.1]
       t.string :file, null: false
       t.string :content_type
       t.datetime :expires_at, null: false
+      t.jsonb :information, default: {}, null: false
       t.timestamps
     end
   end
