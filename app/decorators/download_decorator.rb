@@ -5,6 +5,10 @@ class DownloadDecorator < ApplicationDecorator
 
   decorates_association :person
 
+  def name
+    filename
+  end
+
   def filename
     object.file.file.filename
   end

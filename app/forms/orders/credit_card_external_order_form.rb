@@ -10,7 +10,7 @@ module Orders
       PaymentMethods::CreditCard.new(
         person: person,
         return_url: return_url,
-        payment_processor: Settings.payments.processors.credit_card
+        payment_processor: Settings.payments.default_processors.credit_card
       )
     end
   end

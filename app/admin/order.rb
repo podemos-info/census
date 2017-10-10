@@ -16,10 +16,9 @@ ActiveAdmin.register Order do
   actions :index, :show, :new, :create
   config.clear_action_items!
 
-  [:direct_debit, :credit_card].each do |payment_method|
-    scope(payment_method) do |scope|
-      scope.joins(:payment_method).where(payment_methods: { type: "PaymentMethods::#{payment_method.to_s.classify}" })
-    end
+  scope :all
+  Order.states.each do |state|
+    scope state.to_sym
   end
 
   order_by(:full_name) do |order_clause|
@@ -47,7 +46,13 @@ ActiveAdmin.register Order do
   sidebar :versions, partial: "orders/versions", only: :show
 
   action_item :process, only: :show do
-    link_to(t("census.orders.process"), charge_order_path(order), method: :patch, data: { confirm: t("census.sure_question") }, class: :member_link) if order.processable?(false)
+    if order.processable?(inside_batch?: false)
+      link_to(
+        t("census.orders.process"), charge_order_path(order), method: :patch,
+                                                              data: { confirm: t("census.sure_question") },
+                                                              class: :member_link
+      )
+    end
   end
 
   form decorate: true do |f|

@@ -12,7 +12,7 @@ describe PaymentMethodsController, type: :controller do
   let!(:payment_method) { create(:direct_debit) }
 
   it "defines actions" do
-    expect(subject.defined_actions).to contain_exactly(:index, :show)
+    expect(subject.defined_actions).to contain_exactly(:index, :new, :show, :create, :destroy, :edit, :update)
   end
 
   it "handles payment methods" do

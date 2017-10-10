@@ -6,7 +6,7 @@ context.instance_eval do
       state_row :level, class: classes[:level]
       row :id, class: classes[:id]
       row :flags, class: [classes[:flags], classes[:verifications]].join(' ') do |resource|
-        person_flags(resource)
+        model_flags(resource)
       end
       row :first_name, class: classes[:first_name]
       row :last_name1, class: classes[:last_name1]
@@ -23,7 +23,6 @@ context.instance_eval do
       row :email do
         link_to resource.email, "mailto:#{resource.email}"
       end
-      row :email, class: classes[:email]
       row :phone, class: classes[:phone]
       row :scope, class: classes[:scope_id] do
         resource.scope&.show_path(Scope.local)

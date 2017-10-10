@@ -1,0 +1,13 @@
+# frozen_string_literal: true
+
+table_for person.last_downloads do
+  column do |download|
+    span link_to download.name, url_for([person, download])
+  end
+  column do |download|
+    span download.created_at.to_date.to_s(:db)
+  end
+end
+ul do
+  li link_to t("census.people.view_downloads"), person_downloads_path(person_id: person.id)
+end

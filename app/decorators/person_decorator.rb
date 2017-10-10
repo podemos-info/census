@@ -73,4 +73,8 @@ class PersonDecorator < ApplicationDecorator
   def count_payment_methods
     @count_payment_methods ||= object.payment_methods.count
   end
+
+  def last_downloads
+    @last_downloads ||= PersonLastActiveDownloads.for(object).decorate
+  end
 end

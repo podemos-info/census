@@ -47,7 +47,17 @@ $success-color: #4CAF50;
     background: $warning-color;
   }
   &.error {
-    background: $error-color; 
+    background: $error-color;
+  }
+
+  &.verified {
+    background: $success-color;
+  }
+  &.admin_issues {
+    background: $warning-color;
+  }
+  &.failing {
+    background: $error-color;
   }
 }
 

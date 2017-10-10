@@ -3,7 +3,7 @@
 ActiveAdmin.register Bic do
   decorate_with BicDecorator
 
-  menu parent: I18n.t("active_admin.payments")
+  menu false
 
   permit_params :country, :bank_code, :bic
 

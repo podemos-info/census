@@ -1,0 +1,30 @@
+# frozen_string_literal: true
+
+h3 "BICs pendientes"
+form class: "formtastic", action: review_orders_orders_batch_path, method: :post do
+  fieldset class: "inputs" do
+    ol do
+      pending_bics.each do |iban, bic|
+        classes = bic.errors.any? ? { li: "error", div: "field_with_errors", para: "inline-errors" } : {}
+        li class: "string input required #{classes[:li]}" do
+          div class: classes[:div] do
+            label for: "pending_bics[#{bic.country}_#{bic.bank_code}]", class: "label" do
+              span "#{bic.country} - #{bic.bank_code}"
+              br
+              small iban
+            end
+          end
+          div class: classes[:div] do
+            input name: "pending_bics[#{bic.country}_#{bic.bank_code}]", type: :text
+          end
+          bic.errors.messages.each do |field, message|
+            para class: classes[:para] do
+              message.to_sentence
+            end
+          end
+        end
+      end
+    end
+  end
+  input type: :submit
+end

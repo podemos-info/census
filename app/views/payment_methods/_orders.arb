@@ -1,0 +1,10 @@
+# frozen_string_literal: true
+
+table_for payment_method.last_orders do
+  column do |order|
+    span link_to order.created_at.to_date.to_s(:db), order
+  end
+  column do |order|
+    span order.full_amount
+  end
+end

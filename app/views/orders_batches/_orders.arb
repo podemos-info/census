@@ -33,4 +33,5 @@ table_for orders_batch.orders_per_type do
 end
 ul do
   li link_to t("census.orders_batches.view_orders", count: orders_batch.count_orders), orders_batch_orders_path(orders_batch_id: orders_batch.id)
+  li link_to t("census.orders_batches.manage_bics"), bics_path
 end

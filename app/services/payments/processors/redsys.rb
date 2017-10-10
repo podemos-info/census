@@ -11,9 +11,8 @@ module Payments
         @gateway ||= ActiveMerchant::Billing::RedsysGateway.new(Settings.payments.processors.redsys.auth.to_h.merge!(signature_algorithm: "sha256"))
       end
 
-      def parse_error_type(response)
-        return :unknown unless response.params["ds_response"]
-        error_type(response.params["ds_response"].to_i)
+      def get_response_code(response)
+        response.params["ds_response"]
       end
 
       def external_authorization_params(order)
@@ -30,7 +29,8 @@ module Payments
         params = integration_proxy.parse(params[:_body], Settings.payments.processors.redsys.notification_lifespan.minutes.ago)
         return false unless params
 
-        params[:error_type] = error_type(integration_proxy.response_code) unless integration_proxy.success?
+        params[:response_code] = integration_proxy.response_code
+        params[:success?] = integration_proxy.success?
 
         params.merge!(
           payment_processor: :redsys,
@@ -64,13 +64,6 @@ module Payments
             language: I18n.locale
           )
         end
-      end
-
-      def error_type(code)
-        Settings.payments.processors.redsys.response_codes.each do |type, codes|
-          return type if codes.include?(code)
-        end
-        :unknown
       end
     end
   end

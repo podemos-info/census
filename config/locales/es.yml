@@ -8,16 +8,25 @@ es:
     scopes:
       accepted: Aceptados
       activist: Militantes
+      admin_issues: Incidencias de gestióna
       all: Todo
       deleted: Bajas
+      error: Con errores
       follower: Simpatizantes
+      inactive: Inactivos
       issues: Incidencias
       member: Inscritas
       pending: Pendientes
       person: Personas
+      processed: Procesadas
       rejected: Rechazados
+      returned: Devueltas
+      system_issues: Incidencias de sistema
+      user_issues: Incidencias usuario
+      verified: Verificados
       young_member: Inscritas jóvenes
     sidebars:
+      downloads: Descargas
       events: Actividad
       orders: Órdenes
       procedures: Procedimientos
@@ -44,6 +53,11 @@ es:
         bic: Código BIC/SWIFT
         country: Código de país
         name_link: País - entidad
+      download:
+        created_at: Fecha de creación
+        expires_at: Fecha de expiración
+        filename: Nombre del fichero
+        person: Persona
       event:
         admin: Usuario
         description: Descripción
@@ -61,15 +75,20 @@ es:
         person: Persona
         state: Estado
         state/error: Errores
-        state/ok: Pagada
         state/pending: Pendiente
+        state/processed: Pagada
         state/returned: Devuelta
         updated_at: Última actualización
       orders_batch:
+        created_at: Fecha de creación
         description: Descripción
         orders_from: Incluir órdenes desde
         orders_to: Incluir órdenes hasta
         orders_totals_text: Totales
+        processed_at: Fecha de procesado
+        processed_by: Procesado por
+        processed_by_id: Procesado por
+        updated_at: Última actualización
       payment_method:
         authorization_token: Código de autorización
         created_at: Fecha de creación
@@ -77,6 +96,7 @@ es:
         expiration_year: Año de expiración
         name: Nombre
         person: Persona
+        status_message: Estado actual
         type_name: Tipo
         updated_at: Última actualización
       person:
@@ -232,21 +252,43 @@ es:
     orders_batches:
       action_message:
         issues: El lote de órdenes ha sido procesado, pero han ocurrido incidencias durante el proceso. Por favor, contacta con el administrador del sistema.
+        needs_review: Algunas órdenes deben ser revisadas antes de ser procesadas.
         not_processed: No se pudo procesar el lote de órdenes.
         processed: El lote de órdenes ha sido procesado.
       by_payment_method: Por método de pago
       by_state: Por estado
-      process: Procesar
+      manage_bics: Gestionar BICs
+      process_orders: Procesar órdenes pendientes
+      process_orders_again: Procesar órdenes nuevamente
+      review_orders: Revisar órdenes con incidencias
       totals: Totales
       view_orders: Ver órdenes (%{count})
       view_versions: Ver versiones (%{count})
     payment_methods:
+      action_message:
+        cant_dismiss_issues: No se pudieron descartar las incidencias
+        issues_dismissed: Las incidencias han sido descartadas
       add_payment_methods_from_people: Puedes crear métodos de pago desde la página de una persona.
       create_order: Crear orden con este método de pago
       default_names:
         credit_card: Tarjeta de crédito (vencimiento %{expiration})
         direct_debit: Cuenta bancaria (acabada en %{iban_last_digits})
+      dismiss_issues: Descartar incidencias
+      flags:
+        admin_issues: Incidencia de gestión
+        failing: No funciona
+        system_issues: Incidencia de sistema
+        user_issues: Incidencia de usuario
+        verified: Verificado
       information: Información adicional
+      status_messages:
+        expired: Tarjeta de crédito caducada
+        fraud: Posible caso de fraude
+        no_bic: Falta el código BIC/SWIFT asociado al número de cuenta
+        no_credit: Problemas con el límite de crédito
+        ok: Funcionando correctamente
+        system: Problema de la aplicación. Contactar con el administrador del sistema.
+        wrong_data: Datos del método de pago incorrectos
       view_versions: Ver versiones (%{count})
     people:
       create_order: Crear orden
@@ -265,6 +307,7 @@ es:
         male: Masculino
         other: Otro
         undisclosed: No quiero decirlo
+      view_downloads: Ver descargas
       view_orders: Ver órdenes (%{count})
       view_payment_methods: Ver métodos de pago (%{count})
       view_procedures: Ver procedimientos (%{count})

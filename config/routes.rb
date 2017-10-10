@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   resources :versions
   [
     :admins, :people,
-    :orders, :orders_batch,
+    :orders, :orders_batches,
     :procedures, :procedures_verification_document, :procedures_membership_level_change,
     :payment_methods, :payment_methods_direct_debit, :payment_methods_credit_card
   ].each do |resource|

@@ -10,9 +10,14 @@ describe OrdersBatchesController, type: :controller do
   let(:resource_class) { OrdersBatch }
   let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
   let!(:orders_batch) { create(:orders_batch) }
+  let(:force_valid_bic) { true }
+
+  before do
+    allow(IbanBic).to receive(:calculate_bic).and_return("ABCESXXX") if force_valid_bic
+  end
 
   it "defines actions" do
-    expect(subject.defined_actions).to contain_exactly(:index, :show)
+    expect(subject.defined_actions).to contain_exactly(:index, :show, :create, :edit, :new, :update)
   end
 
   it "handles orders" do
@@ -37,22 +42,22 @@ describe OrdersBatchesController, type: :controller do
     end
   end
 
-  context "charge orders batch" do
+  describe "charge orders batch" do
     subject(:page) do
       VCR.use_cassette(cassete) do
         patch :charge, params: { id: orders_batch.id }
       end
     end
 
-    context "with a valid authorization token" do
+    context "without orders that needs review" do
       let(:cassete) { "orders_batch_payment" }
       it "success" do
         is_expected.to have_http_status(:found)
       end
-      it "sets the orders batch as processed" do
+      it "sets the orders batch processed date" do
         expect { subject } .to change { OrdersBatch.find(orders_batch.id).processed_at } .from(nil)
       end
-      it "sets the orders batch as processed" do
+      it "sets the orders batch processed user" do
         expect { subject } .to change { OrdersBatch.find(orders_batch.id).processed_by } .from(nil)
       end
       it "sets the orders as processed or error" do
@@ -60,6 +65,18 @@ describe OrdersBatchesController, type: :controller do
       end
       it "saves the server responses" do
         expect { subject } .to change { OrdersBatch.find(orders_batch.id).orders.map(&:raw_response).uniq } .from([nil])
+      end
+    end
+
+    context "with orders that needs review" do
+      let(:force_valid_bic) { false }
+      let(:cassete) { "orders_batch_payment_review" }
+
+      it "success" do
+        is_expected.to have_http_status(:found)
+      end
+      it "shows the review orders page" do
+        expect(subject.location).to eq(review_orders_orders_batch_url(orders_batch))
       end
     end
 
@@ -95,6 +112,21 @@ describe OrdersBatchesController, type: :controller do
       end
       it "shows the index page" do
         expect(subject.location).to eq(orders_batches_url)
+      end
+    end
+  end
+
+  describe "review orders orders batch" do
+    subject(:page) do
+      VCR.use_cassette(cassete) do
+        patch :review_orders, params: { id: orders_batch.id }
+      end
+    end
+
+    context "without orders that needs review" do
+      let(:cassete) { "orders_batch_review_orders" }
+      it "success" do
+        is_expected.to have_http_status(:found)
       end
     end
   end

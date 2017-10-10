@@ -27,7 +27,7 @@ module Census
       attribute :currency, String
       attribute :language, Symbol
 
-      attribute :response_code, Integer
+      attribute :response_code, String
       attribute :document_literal_style, Boolean
 
       validates :merchant_name, :merchant_code, :terminal, :secret_key, :test, :transaction_type, presence: true
@@ -48,6 +48,9 @@ module Census
       end
 
       def parse(response, date_limit)
+        # By default use raw response as response code
+        self.response_code = response
+
         response_parts = parse_response(response)
         return nil unless response_parts
 
@@ -80,8 +83,8 @@ module Census
       end
 
       def success?
-        return nil unless response_code
-        @success ||= response_code < 100 || [400, 481, 500, 900].include?(response_code)
+        return nil unless response_code&.to_i
+        @success ||= response_code.to_i <= 100 || %w(0400 0481 0500 0900).include?(response_code)
       end
 
       private

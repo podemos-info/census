@@ -22,5 +22,9 @@ module OrderStates
         transitions from: :processed, to: :returned
       end
     end
+
+    def self.states
+      @states ||= Order.aasm.states.map(&:name).map(&:to_s)
+    end
   end
 end
