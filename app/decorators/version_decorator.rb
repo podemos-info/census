@@ -13,16 +13,18 @@ class VersionDecorator < ApplicationDecorator
   end
 
   def description
-    item_class = object.item.class
+    item_class = object.item_type.constantize
     item_class_name = item_class.model_name.human
-    changes = object.object_changes.keys - IGNORE_FIELD_CHANGES
     if !object.update?
       I18n.t("paper_trail.events.#{object.event}", model: item_class_name)
-    elsif changes.count <= 3
-      changes_list = changes.map { |field| item_class.human_attribute_name(field).downcase }
-      I18n.t("paper_trail.events.update_of_list", model: item_class_name, list: changes_list.to_sentence)
     else
-      I18n.t("paper_trail.events.update_of_number", model: item_class_name, number: changes.count)
+      changes = object.object_changes.keys - IGNORE_FIELD_CHANGES
+      if changes.count <= 3
+        changes_list = changes.map { |field| item_class.human_attribute_name(field).downcase }
+        I18n.t("paper_trail.events.update_of_list", model: item_class_name, list: changes_list.to_sentence)
+      else
+        I18n.t("paper_trail.events.update_of_number", model: item_class_name, number: changes.count)
+      end
     end .capitalize
   end
 

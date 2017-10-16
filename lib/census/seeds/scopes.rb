@@ -44,10 +44,6 @@ module Census
 
       private
 
-      def root_code(code)
-        code.split(/\W/i).first
-      end
-
       def parent_code(code)
         parent_code = code.rindex(/\W/i)
         parent_code ? code[0..parent_code - 1] : nil

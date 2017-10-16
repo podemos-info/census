@@ -74,6 +74,8 @@ FactoryGirl.define do
 
     trait :processed do
       state { :processed }
+      processed_at { Faker::Time.between(3.days.ago, 1.day.ago, :all) }
+      processed_by { build(:admin) }
     end
 
     trait :verified do

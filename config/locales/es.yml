@@ -1,30 +1,162 @@
+---
 es:
   active_admin:
     census: Censo
     dashboard: Inicio
     payments: Pagos
-    powered_by: ""
+    powered_by: ''
     scopes:
-      all: Todo
-      person: Personas
-      follower: Simpatizantes
-      young_member: Inscritas jóvenes
-      member: Inscritas
-      activist: Militantes
-      deleted: Bajas
-      pending: Pendientes
-      issues: Incidencias
       accepted: Aceptados
+      activist: Militantes
+      admin_issues: Incidencias de gestióna
+      all: Todo
+      deleted: Bajas
+      error: Con errores
+      follower: Simpatizantes
+      inactive: Inactivos
+      issues: Incidencias
+      member: Inscritas
+      pending: Pendientes
+      person: Personas
+      processed: Procesadas
       rejected: Rechazados
+      returned: Devueltas
+      system_issues: Incidencias de sistema
+      user_issues: Incidencias usuario
+      verified: Verificados
+      young_member: Inscritas jóvenes
     sidebars:
-      versions: Versiones
+      downloads: Descargas
+      events: Actividad
       orders: Órdenes
       procedures: Procedimientos
+      versions: Versiones
       visits: Visitas
     status_tag:
       pending: Pendiente
     system: Sistema
   activerecord:
+    attributes:
+      admin:
+        created_at: Fecha de creación
+        current_sign_in_at: Fecha de acceso
+        current_sign_in_ip: IP actual
+        failed_attempts: Número de intentos de acceso fallidos
+        last_sign_in_at: Fecha de acceso anterior
+        last_sign_in_ip: IP anterior
+        locked_at: Fecha de bloqueo
+        person: Persona
+        sign_in_count: Número de accesos
+        username: Nombre de usuario
+      bic:
+        bank_code: Código de entidad
+        bic: Código BIC/SWIFT
+        country: Código de país
+        name_link: País - entidad
+      download:
+        created_at: Fecha de creación
+        expires_at: Fecha de expiración
+        filename: Nombre del fichero
+        person: Persona
+      event:
+        admin: Usuario
+        description: Descripción
+        name: Actividad
+        time: Fecha y hora
+        visit: Visita
+      order:
+        amount: Total
+        created_at: Fecha de creación
+        description: Descripción
+        full_amount: Total
+        orders_batch: Lote de órdenes
+        orders_batch_id: Lote de órdenes
+        payment_method: Método de pago
+        person: Persona
+        state: Estado
+        state/error: Errores
+        state/pending: Pendiente
+        state/processed: Pagada
+        state/returned: Devuelta
+        updated_at: Última actualización
+      orders_batch:
+        created_at: Fecha de creación
+        description: Descripción
+        orders_from: Incluir órdenes desde
+        orders_to: Incluir órdenes hasta
+        orders_totals_text: Totales
+        processed_at: Fecha de procesado
+        processed_by: Procesado por
+        processed_by_id: Procesado por
+        updated_at: Última actualización
+      payment_method:
+        authorization_token: Código de autorización
+        created_at: Fecha de creación
+        expiration_month: Mes de expiración
+        expiration_year: Año de expiración
+        name: Nombre
+        person: Persona
+        status_message: Estado actual
+        type_name: Tipo
+        updated_at: Última actualización
+      person:
+        address: Dirección
+        address_scope: Lugar de residencia
+        born_at: Fecha de nacimiento
+        created_at: Fecha de creación
+        document_id: Documento
+        document_type: Tipo de documento
+        first_name: Nombre
+        flags: Verificaciones / Marcas
+        full_document: Documento
+        full_name: Nombre
+        full_name_link: Nombre
+        gender: Género
+        last_name1: Primer Apellido
+        last_name2: Segundo Apellido
+        level: Nivel
+        level/activist: militante
+        level/follower: simpatizante
+        level/member: inscrita
+        level/person: persona
+        level/young_member: inscrita joven
+        phone: Teléfono
+        postal_code: Código postal
+        scope: Lugar de participación
+        updated_at: Última actualización
+        verifications: Verificaciones
+      procedure:
+        comment: Comentario
+        created_at: Fecha de creación
+        information: Información
+        person: Persona
+        processed_at: Fecha de procesado
+        processed_by: Procesado por
+        state: Estado
+        state/accepted: Aceptado
+        state/issues: Incidencia
+        state/pending: Pendiente
+        state/rejected: Rechazado
+        type: Tipo
+        updated_at: Última actualización
+      version:
+        author: Autor
+        created_at: Fecha
+        description: Descripción
+        item: Objeto
+      visit:
+        admin: Usuario
+        browser: Navegador
+        coordinates: Coordenadas
+        device_type: Tipo de dispositivo
+        ip: Dirección IP
+        landing_page: Ṕágina de inicio de la visita
+        location: Ubicación
+        os: Sistema operativo
+        postal_code: Código postal
+        referrer: Página de origen
+        screen_resolution: Resolución de pantalla
+        started_at: Fecha y hora
     models:
       admin:
         one: Administrador
@@ -35,7 +167,7 @@ es:
       bic:
         one: BIC
         other: BICs
-      comment: 
+      comment:
         one: Comentario
         other: Comentarios
       download:
@@ -60,6 +192,8 @@ es:
         direct_debit:
           one: Débito directo
           others: Débitos directos
+      payment_methods/credit_card: Tarjeta de crédito
+      payment_methods/direct_debit: Débito directo
       person:
         one: Persona
         other: Personas
@@ -67,155 +201,47 @@ es:
         one: Procedimiento
         other: Procedimientos
       procedures:
-        verification_document:
-          one: Verificación de documento
-          other: Verificaciones de documento
         membership_level_change:
           one: Cambio de nivel de membresía
           other: Cambios de nivel de membresía
+        verification_document:
+          one: Verificación de documento
+          other: Verificaciones de documento
       version:
         one: Versión
         other: Versiones
       visit:
         one: Visita
         other: Visitas
-    attributes:
-      admin:
-        created_at: Fecha de creación
-        current_sign_in_at: Fecha de acceso
-        current_sign_in_ip: IP actual
-        failed_attempts: Número de intentos de acceso fallidos
-        last_sign_in_at: Fecha de acceso anterior
-        last_sign_in_ip: IP anterior
-        locked_at: Fecha de bloqueo
-        person: Persona
-        sign_in_count: Número de accesos
-        username: Nombre de usuario
-      bic:
-        bank_code: Código de entidad
-        bic: Código BIC/SWIFT
-        country: Código de país
-        name_link: País - entidad
-      event:
-        name: Actividad
-        description: Descripción
-        time: Fecha y hora
-        admin: Usuario
-        visit: Visita
-      person:
-        address: Dirección
-        address_scope: Lugar de residencia
-        born_at: Fecha de nacimiento
-        created_at: Fecha de creación
-        document_id: Documento
-        document_type: Tipo de documento
-        first_name: Nombre
-        flags: Verificaciones / Marcas
-        full_document: Documento
-        full_name: Nombre
-        full_name_link: Nombre
-        gender: Género
-        last_name1: Primer Apellido
-        last_name2: Segundo Apellido
-        level/activist: militante
-        level/follower: simpatizante
-        level/member: inscrita
-        level/person: persona
-        level/young_member: inscrita joven
-        level: Nivel
-        phone: Teléfono
-        postal_code: Código postal
-        scope: Lugar de participación
-        updated_at: Última actualización
-        verifications: Verificaciones
-      procedure:
-        person: Persona
-        type: Tipo
-        information: Información
-        created_at: Fecha de creación
-        updated_at: Última actualización
-        comment: Comentario
-        processed_by: Procesado por
-        processed_at: Fecha de procesado
-        state: Estado
-        state/pending: Pendiente
-        state/issues: Incidencia
-        state/accepted: Aceptado
-        state/rejected: Rechazado
-      order:
-        person: Persona
-        orders_batch: Lote de órdenes
-        orders_batch_id: Lote de órdenes
-        full_amount: Total
-        payment_method: Método de pago
-        description: Descripción
-        amount: Total
-        created_at: Fecha de creación
-        updated_at: Última actualización
-        state: Estado
-        state/pending: Pendiente
-        state/ok: Pagada
-        state/error: Errores
-        state/returned: Devuelta
-      orders_batch:
-        description: Descripción
-        orders_count: Nº de órdenes
-      payment_method:
-        authorization_token: Código de autorización
-        created_at: Fecha de creación
-        expiration_year: Año de expiración
-        expiration_month: Mes de expiración
-        name: Nombre
-        person: Persona
-        type: Tipo
-        updated_at: Última actualización
-      version:
-        author: Autor
-        created_at: Fecha
-        description: Descripción
-        item: Objeto
-      visit:
-        admin: Usuario
-        browser: Navegador
-        coordinates: Coordenadas
-        device_type: Tipo de dispositivo
-        ip: Dirección IP
-        landing_page: Ṕágina de inicio de la visita
-        location: Ubicación
-        os: Sistema operativo
-        postal_code: Código postal
-        referrer: Página de origen
-        screen_resolution: Resolución de pantalla
-        started_at: Fecha y hora
   census:
     admins:
-      view_visits: Ver actividad
       view_versions: Ver versiones (%{count})
+      view_visits: Ver actividad
     downloads:
       download: Descargar
     events:
-      type:
-        page_view: "%{action} %{controller}"
-        security_report: Informe de seguridad
       action:
+        create: Guardar
+        destroy: Borrar
+        edit: Modificar
         index: Ver
+        new: Crear
         search: Buscar
         show: Ver
-        new: Crear
-        create: Guardar
-        edit: Modificar
         update: Actualizar
-        destroy: Borrar
         view_attachment: Ver adjunto de
       controller:
         active_admin/devise/session: Sesión
         dashboard: Portada
         system: Sistema
         version: Version
+      type:
+        page_view: "%{action} %{controller}"
+        security_report: Informe de seguridad
     orders:
       action_message:
-        processed: La orden ha sido procesado.
         not_processed: No se pudo procesar la orden.
+        processed: La orden ha sido procesado.
       add_orders_from_payment_methods: Puedes crear órdenes desde la página de una persona o un método de pago.
       create_credit_card_external: Configurar una nueva tarjeta de crédito
       created: La orden ha sido creada
@@ -225,20 +251,49 @@ es:
       view_versions: Ver versiones (%{count})
     orders_batches:
       action_message:
-        processed: El lote de órdenes ha sido procesado.
-        not_processed: No se pudo procesar el lote de órdenes.
         issues: El lote de órdenes ha sido procesado, pero han ocurrido incidencias durante el proceso. Por favor, contacta con el administrador del sistema.
-      process: Procesar
+        needs_review: Algunas órdenes deben ser revisadas antes de ser procesadas.
+        not_processed: No se pudo procesar el lote de órdenes.
+        processed: El lote de órdenes ha sido procesado.
+      by_payment_method: Por método de pago
+      by_state: Por estado
+      manage_bics: Gestionar BICs
+      no_pending_orders: No hay órdenes pendientes para incluir en el lote de órdenes
+      process_orders: Procesar órdenes pendientes
+      process_orders_again: Procesar órdenes nuevamente
+      review_orders: Revisar órdenes con incidencias
+      totals: Totales
+      view_orders: Ver órdenes (%{count})
       view_versions: Ver versiones (%{count})
     payment_methods:
+      action_message:
+        cant_dismiss_issues: No se pudieron descartar las incidencias
+        issues_dismissed: Las incidencias han sido descartadas
+      add_payment_methods_from_people: Puedes crear métodos de pago desde la página de una persona.
       create_order: Crear orden con este método de pago
       default_names:
         credit_card: Tarjeta de crédito (vencimiento %{expiration})
         direct_debit: Cuenta bancaria (acabada en %{iban_last_digits})
+      dismiss_issues: Descartar incidencias
+      flags:
+        admin_issues: Incidencia de gestión
+        failing: No funciona
+        system_issues: Incidencia de sistema
+        user_issues: Incidencia de usuario
+        verified: Verificado
       information: Información adicional
+      status_messages:
+        expired: Tarjeta de crédito caducada
+        fraud: Posible caso de fraude
+        no_bic: Falta el código BIC/SWIFT asociado al número de cuenta
+        no_credit: Problemas con el límite de crédito
+        ok: Funcionando correctamente
+        system: Problema de la aplicación. Contactar con el administrador del sistema.
+        wrong_data: Datos del método de pago incorrectos
       view_versions: Ver versiones (%{count})
     people:
       create_order: Crear orden
+      create_payment_method: Crear método de pago
       document_types:
         dni: DNI
         nie: NIE
@@ -253,56 +308,58 @@ es:
         male: Masculino
         other: Otro
         undisclosed: No quiero decirlo
+      view_downloads: Ver descargas
       view_orders: Ver órdenes (%{count})
       view_payment_methods: Ver métodos de pago (%{count})
       view_procedures: Ver procedimientos (%{count})
       view_versions: Ver versiones (%{count})
     procedures:
-      personal_data: Datos personales
-      dependent_procedures: Procedimientos dependientes
-      process: Procesar
-      events:
-        set_issues: Incidencia
-        accept: Aceptar
-        reject: Rechazar
-        undo: Deshacer
       action_message:
-        issues: El procedimiento %{link} ha sido marcado como incidencia. 
         accepted: El procedimiento %{link} ha sido aceptado.
+        cant_process: No se puede procesar un procedimiento ya procesado.
+        cant_undo: No se ha podido devolved al procedimiento %{link} a su estado anterior.
+        issues: El procedimiento %{link} ha sido marcado como incidencia.
         rejected: El procedimiento %{link} ha sido rechazado.
         undone: El procedimiento %{link} ha vuelto a su estado anterior.
-        cant_undo: No se ha podido devolved al procedimiento %{link} a su estado anterior.
-        cant_process: No se puede procesar un procedimiento ya procesado.
-    sure_question: ¿Estás segura?
+      dependent_procedures: Procedimientos dependientes
+      events:
+        accept: Aceptar
+        reject: Rechazar
+        set_issues: Incidencia
+        undo: Deshacer
+      personal_data: Datos personales
+      process: Procesar
+    sure_question: "¿Estás segura?"
     versions:
-      description:
-        tab: Descripción
-        title: Detalles de la versión
-      before:
-        tab: Antes
-        title: Datos del objeto antes del cambio
       after:
         tab: Después
         title: Datos del objeto después del cambio
+      before:
+        tab: Antes
+        title: Datos del objeto antes del cambio
+      description:
+        tab: Descripción
+        title: Detalles de la versión
     visits:
       basic: Datos básicos
       browsing: Navegación
       location: Ubicación
-      view_events: Ver actividad
+      view_events: Ver toda la actividad
   errors:
     messages:
       cycle_detected: el padre de un ámbito no puede ser descendiente de este
       depends_on_different_person: el procedimiento debe corresponder a la misma persona que el procedimiento del que depende
+      different_person_than_payment_method: la orden no puede cobrarse con un método de pago correspondiente a una persona diferente
       image_too_big: la imagen es demasiado grande
-      mini_magick_processing_error: "MiniMagick no ha podido trabajar con el fichero, tal vez no sea una imagen. Error original: %{e}"
+      inactive_payment_method: no se puede ser utilizar el método de pago elegido
+      mini_magick_processing_error: 'MiniMagick no ha podido trabajar con el fichero, tal vez no sea una imagen. Error original: %{e}'
       procedure_denial_comment_required: debes indicar la razón del rechazo el procedimiento
       processed_by_person: el procedimiento no puede ser procesado por la persona a la que afecta
-      different_person_than_payment_method: la orden no puede cobrarse con un método de pago correspondiente a una persona diferente
   paper_trail:
     events:
-      create: "Creación de %{model}"
-      update: "Actualización de %{model}"
-      update_of_list: "Actualización de %{list} en %{model}"
-      update_of_number: "Actualización de %{number} valores en %{model}"
-      destroy: "Borrado de %{model}"
+      create: Creación de %{model}
+      destroy: Borrado de %{model}
+      update: Actualización de %{model}
+      update_of_list: Actualización de %{list} en %{model}
+      update_of_number: Actualización de %{number} valores en %{model}
     unknown_author: "-"

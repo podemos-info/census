@@ -7,12 +7,29 @@ describe VersionDecorator do
   let(:version) { create(:version) }
 
   with_versioning do
-    context "#description" do
+    describe "#description" do
       subject(:method) { decorator.description }
-      let(:version) { create(:version, :many_changes) }
 
-      it "returns the scope path" do
-        is_expected.to eq("Actualización de 5 valores en persona")
+      context "when is a creation" do
+        let(:version) { create(:version, :creation) }
+
+        it { is_expected.to eq("Creación de persona") }
+      end
+
+      context "when has one change" do
+        it { is_expected.to eq("Actualización de nombre en persona") }
+      end
+
+      context "when has many changes" do
+        let(:version) { create(:version, :many_changes) }
+
+        it { is_expected.to eq("Actualización de 5 valores en persona") }
+      end
+
+      context "when is a deletion" do
+        let(:version) { build(:version, :deletion) }
+
+        it { is_expected.to eq("Borrado de persona") }
       end
     end
   end

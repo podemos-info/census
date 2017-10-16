@@ -15,7 +15,7 @@ UID	Code	Locale	Singular	Plural
 14	autonomous republic	es	República autónoma	Repúblicas autónomas
 15	autonomous sector	es	Sector autónomo	Sectores autónomos
 16	autonomous territorial unit	es	Unidad territorial autónoma	Unidades territoriales autónomas
-17	borough	es	Municipalidad	Municipalidades
+17	borough	es	Municipio	Municipios
 18	canton	es	Cantón	Cantones
 19	capital city	es	Ciudad capital	Ciudades capitales
 20	capital district	es	Distrito capital	Distritos capitales
@@ -53,13 +53,13 @@ UID	Code	Locale	Singular	Plural
 52	island council	es	Consejo insular	Consejos insulares
 53	island group	es	Grupo de islas	Grupos de islas
 54	local council	es	Consejo local	Consejos locales
-55	london borough	es	Municipalidad londinense	Municipalidades londinenses
+55	london borough	es	Municipio londinense	Municipios londinenses
 56	metropolitan cities	es	Ciudades metropolitanas	Ciudades metropolitanas
 57	metropolitan department	es	Departamento metropolitano	Departamentos metropolitanos
 58	metropolitan district	es	Distrito metropolitano	Distritos metropolitanos
 59	metropolitan region	es	Región metropolitana	Regiones metropolitanas
-60	municipalities	es	Municipalidades	Municipalidades
-61	municipality	es	Municipalidad	Municipalidades
+60	municipalities	es	Municipios	Municipios
+61	municipality	es	Municipio	Municipios
 62	oblast	es	Óblast	Óblast
 63	outlying area	es	Área periférica	Áreas periféricas
 64	overseas region/department	es	Región de ultramar	Regiones de ultramar
@@ -79,7 +79,7 @@ UID	Code	Locale	Singular	Plural
 78	special city	es	Ciudad especial	Ciudades especiales
 79	special district	es	Distrito especial	Distritos especiales
 80	special island authority	es	Autoridad insular especial	Autoridades insulares especiales
-81	special municipality	es	Municipalidad especial	Municipalidades especiales
+81	special municipality	es	Municipio especial	Municipios especiales
 82	special region	es	Región especial	Regiones especiales
 83	special zone	es	Zona especial	Zonas especiales
 84	state	es	Estado	Estados

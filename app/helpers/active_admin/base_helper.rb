@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 module ActiveAdmin::BaseHelper
-  def person_flags(person)
+  def model_flags(model)
     Arbre::Context.new do
-      person.flags.map do |flag|
-        status_tag I18n.t("census.people.flags.#{flag}"), class: flag
+      model.flags.map do |flag|
+        status_tag I18n.t("census.#{model.model_name.plural}.flags.#{flag}"), class: flag
       end
     end
   end

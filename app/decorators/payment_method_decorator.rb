@@ -5,6 +5,18 @@ class PaymentMethodDecorator < ApplicationDecorator
 
   decorates_association :person
 
+  def flags
+    @flags ||= PaymentMethod.flags.select { |flag| object.send(flag) }
+  end
+
+  def person_full_name
+    person.decorate.full_name
+  end
+
+  def last_orders
+    @last_orders ||= PaymentMethodLastOrders.for(object).decorate
+  end
+
   def route_key
     "payment_methods"
   end

@@ -9,5 +9,6 @@ rvm:
 env:
 - CI=true
 script:
+ - bundle exec i18n-tasks health
  - bundle exec rubocop -c .rubocop.yml
  - bundle exec rspec

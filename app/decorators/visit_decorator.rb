@@ -18,7 +18,7 @@ class VisitDecorator < ApplicationDecorator
   end
 
   def last_events
-    @last_events ||= object.events.order(time: :desc).limit(10).decorate
+    @last_events ||= VisitLastEvents.for(object).decorate
   end
 
   def count_events

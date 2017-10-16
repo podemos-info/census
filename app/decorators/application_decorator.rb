@@ -11,10 +11,10 @@ class ApplicationDecorator < Draper::Decorator
   end
 
   def last_versions
-    @last_versions ||= object.versions.reorder(created_at: :desc).limit(3).decorate
+    @last_versions ||= VersionableLastVersions.for(object).decorate
   end
 
   def count_versions
-    @count_versions ||= object.versions.where(event: "update").count + 1
+    @count_versions ||= VersionableCountVersions.for(object)
   end
 end

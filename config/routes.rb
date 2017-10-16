@@ -10,8 +10,7 @@ Rails.application.routes.draw do
       end
 
       namespace :payments do
-        resources :orders, only: [:create] do
-        end
+        resources :orders, only: [:create]
       end
     end
   end
@@ -31,12 +30,21 @@ Rails.application.routes.draw do
   resources :versions
   [
     :admins, :people,
-    :orders, :orders_batch,
+    :orders, :orders_batches,
     :procedures, :procedures_verification_document, :procedures_membership_level_change,
     :payment_methods, :payment_methods_direct_debit, :payment_methods_credit_card
   ].each do |resource|
     resources resource do
       resources :versions
+    end
+  end
+
+  resources :orders
+  [
+    :people, :orders_batches
+  ].each do |resource|
+    resources resource do
+      resources :orders
     end
   end
 end

@@ -5,10 +5,12 @@ require "shared/only_authorized_api_clients"
 require "shared/only_authorized_payment_callbacks"
 
 require "simplecov"
-SimpleCov.start
+SimpleCov.start "rails"
 
-require "codecov"
-SimpleCov.formatter = SimpleCov::Formatter::Codecov
+if ENV["CI"]
+  require "codecov"
+  SimpleCov.formatter = SimpleCov::Formatter::Codecov
+end
 
 require "vcr"
 VCR.configure do |config|

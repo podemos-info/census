@@ -19,7 +19,7 @@ module Payments
     #
     # Returns nothing.
     def call
-      return broadcast(:invalid) unless @order && @processed_by && @order.processable?(false)
+      return broadcast(:invalid) unless @order && @processed_by && @order.processable?(inside_batch?: false)
 
       payment_processor.process_order @order
       @order.assign_attributes processed_at: DateTime.now, processed_by: @processed_by

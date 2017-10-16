@@ -8,8 +8,6 @@ class CreateOrdersBatches < ActiveRecord::Migration[5.1]
       t.references :processed_by, foreign_key: { to_table: :admins }
       t.datetime :processed_at
 
-      t.jsonb :stats, default: {}, null: false
-
       t.timestamps
     end
   end

@@ -12,7 +12,7 @@ module Api
       @person
     end
 
-    def current_user
+    def user_for_paper_trail
       person
     end
   end

@@ -37,14 +37,14 @@ ActiveAdmin.register Person do
       person.scope&.show_path(Scope.local)
     end
     column :flags, sortable: :flags do |person|
-      person_flags person
+      model_flags person
     end
     actions
   end
 
   scope :all
-  Person.aasm.states.each do |state|
-    scope state.name
+  Person.levels.each do |level|
+    scope level.to_sym
   end
   scope :deleted
 
@@ -53,7 +53,7 @@ ActiveAdmin.register Person do
     active_admin_comments
   end
 
-  form do |f|
+  form decorate: true do |f|
     f.inputs do
       f.input :first_name
       f.input :last_name1
@@ -72,7 +72,8 @@ ActiveAdmin.register Person do
     f.actions
   end
 
-  sidebar :versions, partial: "people/versions", only: :show
   sidebar :procedures, partial: "people/procedures", only: :show
   sidebar :orders, partial: "people/orders", only: :show
+  sidebar :downloads, partial: "people/downloads", only: :show
+  sidebar :versions, partial: "people/versions", only: :show
 end

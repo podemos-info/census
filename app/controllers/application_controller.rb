@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   after_action :track_action
 
-  def current_user
+  def user_for_paper_trail
     current_admin
   end
 

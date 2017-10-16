@@ -5,8 +5,12 @@ class OrdersBatchForm < Form
   mimic :orders_batch
 
   attribute :description, String
-  attribute :orders, Array
+  attribute :orders_from, Date
+  attribute :orders_to, Date
 
-  validates :description, :orders, presence: true
-  validates :orders, length: { minimum: 1 }
+  validates :description, :orders_from, :orders_to, presence: true
+
+  def orders
+    @orders ||= (OrdersWithoutOrdersBatch.new | OrdersPending.new | OrdersBetweenDates.new(orders_from, orders_to)).query
+  end
 end

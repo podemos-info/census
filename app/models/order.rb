@@ -6,8 +6,8 @@ class Order < ApplicationRecord
 
   acts_as_paranoid
   has_paper_trail class_name: "Version"
-  has_many :versions, as: :item
 
+  has_many :versions, as: :item
   belongs_to :person
   belongs_to :payment_method, autosave: true
   belongs_to :orders_batch, optional: true
@@ -30,8 +30,17 @@ class Order < ApplicationRecord
     created_at&.to_date || Date.today
   end
 
-  def processable?(in_batch = false)
-    pending? && payment_method.processable?(in_batch)
+  def processable?(args = {})
+    payment_method.processable?(args) &&
+      pending? || reprocessable?
+  end
+
+  def reprocessable?
+    processed? && payment_method.reprocessable? && processed_at > Settings.payments.allow_reprocess_hours.hours.ago
+  end
+
+  def needs_review?(args = {})
+    processable?(args) && payment_method.needs_review?(args)
   end
 
   def external_authorization?

@@ -6,20 +6,37 @@ describe Orders::OrdersBatchForm do
   subject(:form) do
     described_class.new(
       description: description,
-      orders: orders
+      orders_from: orders_from,
+      orders_to: orders_to
     )
   end
   let(:orders_batch) { build(:orders_batch) }
-  let(:orders) { orders_batch.orders }
+  let(:orders_from) { 1.year.ago }
+  let(:orders_to) { DateTime.now }
   let(:description) { orders_batch.description }
+  let(:orders) do
+    orders_batch.orders.map do |order|
+      order.orders_batch = nil
+      order.save
+      order
+    end
+  end
 
-  it { expect(subject).to be_valid }
+  it { is_expected.to be_valid }
 
-  context "without orders" do
-    let(:orders) { [] }
+  context "without orders_from" do
+    let(:orders_from) { nil }
 
     it "is invalid" do
-      expect(subject).not_to be_valid
+      is_expected.to be_invalid
+    end
+  end
+
+  context "without orders_to" do
+    let(:orders_to) { nil }
+
+    it "is invalid" do
+      is_expected.to be_invalid
     end
   end
 
@@ -27,7 +44,13 @@ describe Orders::OrdersBatchForm do
     let(:description) { nil }
 
     it "is invalid" do
-      expect(subject).not_to be_valid
+      is_expected.to be_invalid
     end
+  end
+
+  describe "#orders" do
+    subject(:method) { form.orders }
+
+    it { is_expected.to eq(orders) }
   end
 end

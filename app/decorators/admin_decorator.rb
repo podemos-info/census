@@ -17,16 +17,8 @@ class AdminDecorator < ApplicationDecorator
     format_ip object.last_sign_in_ip
   end
 
-  def last_versions
-    @last_versions ||= object.versions.reorder(created_at: :desc).limit(3).decorate
-  end
-
-  def count_versions
-    @count_versions ||= object.versions.where(event: "update").count + 1
-  end
-
   def last_visits
-    @last_visits ||= object.visits.reorder(started_at: :desc).limit(3).decorate
+    @last_visits ||= AdminLastVisits.for(object).decorate
   end
 
   def count_visits

@@ -13,13 +13,13 @@ def create_admin
   PaperTrail.whodunnit = Admin.first
 end
 
-30.times do
-  doc = Person.document_types.keys.sample
-  young = Faker::Boolean.boolean(0.1)
-  emigrant = Faker::Boolean.boolean(0.1)
-  scope = local_scopes.sample
+Timecop.travel 3.years.ago do
+  36.times do
+    doc = Person.document_types.keys.sample
+    young = Faker::Boolean.boolean(0.1)
+    emigrant = Faker::Boolean.boolean(0.1)
+    scope = local_scopes.sample
 
-  Timecop.travel Faker::Time.between(3.years.ago, 3.day.ago, :all) do
     Person.create!(
       first_name: Faker::Name.first_name,
       last_name1: Faker::Name.last_name,
@@ -38,5 +38,6 @@ end
     )
 
     admin ||= create_admin
+    Timecop.travel 1.month.from_now
   end
 end

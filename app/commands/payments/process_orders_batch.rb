@@ -15,14 +15,16 @@ module Payments
     # Executes the command. Broadcasts these events:
     #
     # - :ok when everything is valid.
-    # - :invalid if the batch couldn't be created.
+    # - :review if any order in the batch needs to be reviewed before processed.
+    # - :invalid if the batch couldn't be processed.
     #
     # Returns nothing.
     def call
       return broadcast(:invalid) unless @orders_batch && @processed_by
+      return broadcast(:review) if @orders_batch.orders.map { |order| order.needs_review?(inside_batch?: true) } .any?
 
       result = OrdersBatch.transaction do
-        payment_results = @orders_batch.payment_processors.map do |payment_processor|
+        payment_results = OrdersBatchPaymentProcessors.for(@orders_batch).map do |payment_processor|
           process_processor_batch_orders(Payments::Processor.for(payment_processor)) ? :ok : :issues
         end
 
@@ -36,8 +38,8 @@ module Payments
 
     def process_processor_batch_orders(processor)
       processor.process_batch @orders_batch do
-        @orders_batch.orders_for_payment_processor(processor.name).find_each do |order|
-          next unless order.processable?(true)
+        OrdersBatchPaymentProcessorOrders.for(@orders_batch, processor.name).find_each do |order|
+          next unless order.processable?(inside_batch?: true)
           processor.process_order order
           order.update_attributes! processed_at: DateTime.now, processed_by: @processed_by
         end

@@ -9,6 +9,7 @@ class CreatePaymentMethods < ActiveRecord::Migration[5.1]
       t.integer :flags, default: 0, null: false
 
       t.string :payment_processor, null: false
+      t.string :response_code
       t.jsonb :information, default: {}, null: false
 
       t.timestamps

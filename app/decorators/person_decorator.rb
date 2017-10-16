@@ -51,11 +51,11 @@ class PersonDecorator < ApplicationDecorator
   end
 
   def independent_procedures
-    @independent_procedures ||= object.procedures.independent.decorate
+    @independent_procedures ||= PersonIndependentProcedures.for(object).decorate
   end
 
   def last_procedures
-    @last_procedures ||= object.procedures.independent.order(created_at: :desc).limit(3).decorate
+    @last_procedures ||= PersonLastIndependentProcedures.for(object).decorate
   end
 
   def count_procedures
@@ -63,7 +63,7 @@ class PersonDecorator < ApplicationDecorator
   end
 
   def last_orders
-    @last_orders ||= object.orders.order(created_at: :desc).limit(3).decorate
+    @last_orders ||= PersonLastOrders.for(object).decorate
   end
 
   def count_orders
@@ -72,5 +72,9 @@ class PersonDecorator < ApplicationDecorator
 
   def count_payment_methods
     @count_payment_methods ||= object.payment_methods.count
+  end
+
+  def last_downloads
+    @last_downloads ||= PersonLastActiveDownloads.for(object).decorate
   end
 end

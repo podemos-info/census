@@ -9,7 +9,7 @@ describe OrdersController, type: :controller do
   subject(:resource) { all_resources[resource_class] }
   let(:resource_class) { Order }
   let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
-  let!(:order) { create(:order) }
+  let!(:order) { create(:order, :external_verified) }
 
   it "defines actions" do
     expect(subject.defined_actions).to contain_exactly(:index, :show, :new, :create)
@@ -95,10 +95,10 @@ describe OrdersController, type: :controller do
         patch :charge, params: { id: order.id }
       end
     end
+    let(:payment_method) { create(:credit_card, :external_verified) }
+    let(:order) { create(:order, payment_method: payment_method) }
 
     context "with a valid authorization token" do
-      let(:payment_method) { create(:credit_card, :external_verified) }
-      let(:order) { create(:order, payment_method: payment_method) }
       let(:cassete) { "credit_card_payment_valid" }
       it "success" do
         is_expected.to have_http_status(:found)
@@ -113,7 +113,6 @@ describe OrdersController, type: :controller do
 
     context "with an invalid authorization token" do
       let(:payment_method) { create(:credit_card, :external_verified, authorization_token: "test") }
-      let(:order) { create(:order, payment_method: payment_method) }
       let(:cassete) { "credit_card_payment_invalid" }
 
       it "success" do
@@ -129,7 +128,7 @@ describe OrdersController, type: :controller do
 
     context "with a processed order" do
       let(:cassete) { "processed_order" }
-      let(:order) { create(:order, :processed) }
+      let(:order) { create(:order, :processed, payment_method: payment_method) }
       it "success" do
         is_expected.to have_http_status(:found)
       end

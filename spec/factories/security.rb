@@ -17,6 +17,13 @@ FactoryGirl.define do
     name "page_view"
     properties controller: "dashboard", action: "index"
     time { DateTime.now }
+
+    trait :person_view do
+      transient do
+        person { create(:person) }
+      end
+      properties { { controller: "person", action: "show", id: person.id } }
+    end
   end
 
   factory :visit do
@@ -53,11 +60,11 @@ FactoryGirl.define do
       changes { { first_name: "Changed first_name" } }
     end
 
-    whodunnit { create(:admin) }
+    to_create { |instance| instance } # initialized version is already saved
 
     initialize_with do
-      person = create(:person)
       PaperTrail.whodunnit = create(:admin)
+      person = create(:person)
       person.update_attributes! changes
       person.versions.last
     end
@@ -68,6 +75,23 @@ FactoryGirl.define do
           { first_name: "Changed first_name", last_name1: "Changed last_name1", last_name2: "Changed last_name2",
             address: "Changed address", phone: "Changed phone" }
         end
+      end
+    end
+
+    trait :creation do
+      initialize_with do
+        PaperTrail.whodunnit = create(:admin)
+        person = create(:person)
+        person.versions.last
+      end
+    end
+
+    trait :deletion do
+      initialize_with do
+        PaperTrail.whodunnit = create(:admin)
+        person = create(:person)
+        person.destroy
+        person.versions.last
       end
     end
   end
