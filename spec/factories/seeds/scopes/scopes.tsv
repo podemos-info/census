@@ -1,0 +1,21 @@
+UID	Type	Name
+AD	country	Andorra
+AD-02	parish	Canillo
+AD-03	parish	Encamp
+ES	country	Spain
+ES-AN	autonomous community	Andalusia
+ES-AN-AL	province	Almería
+ES-AN-CA	province	Cádiz
+ES-AN-CO	province	Córdoba
+ES-AN-GR	province	Granada
+ES-PV-VI	province	Álava
+ES-PV-SS	province	Guipúzcoa / Gipuzkoa
+ES-PV-BI	province	Vizcaya / Bizkaia
+ES-CE-001	municipality	Ceuta
+ES-ML-001	municipality	Melilla
+ES-PV-BI-001	municipality	Abadiño
+ES-PV-BI-019	municipality	Berriz
+ES-PV-BI-020	municipality	Bilbao
+ES-PV-BI-020-01	district	Deusto
+ES-PV-BI-020-02	district	Uribarri
+ES-PV-BI-020-03	district	Otxarkoaga / Txurdinaga
