@@ -5,7 +5,7 @@ require "census/seeds/scopes"
 
 describe Census::Seeds::Scopes do
   describe "#seed" do
-    subject(:method) { described_class.seed base_path: base_path }
+    subject(:method) { described_class.seed base_path: base_path, batch_size: 10 }
     let(:base_path) { File.expand_path("../../../factories/seeds", __dir__) }
 
     it "load scopes data" do
