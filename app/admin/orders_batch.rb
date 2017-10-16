@@ -40,6 +40,8 @@ ActiveAdmin.register OrdersBatch do
   end
 
   form decorate: true do |f|
+    controller.redirect_to(orders_batches_path) && next unless f.object.orders.any?
+
     f.inputs do
       input :description, as: :string
       input :orders_totals_text, as: :string, input_html: { disabled: true }
@@ -100,10 +102,17 @@ ActiveAdmin.register OrdersBatch do
   controller do
     def build_resource
       build_params = permitted_params[:orders_batch] || {}
-      build_params[:orders_from] = OrdersWithoutOrdersBatch.new.merge(OrdersPending.new).first.created_at.to_date unless build_params[:orders_from]
-      build_params[:orders_to] = Date.today unless build_params[:orders_to]
+      first_pending_order = OrdersWithoutOrdersBatch.new.merge(OrdersPending.new).first
 
-      resource = decorator_class.new(OrdersBatchForm.from_params(build_params))
+      if first_pending_order
+        build_params[:orders_from] = first_pending_order.created_at.to_date unless build_params[:orders_from]
+        build_params[:orders_to] = Date.today unless build_params[:orders_to]
+
+        resource = decorator_class.new(OrdersBatchForm.from_params(build_params))
+      else
+        resource = OrdersBatch.new
+        flash[:alert] = t("census.orders_batches.no_pending_orders")
+      end
       set_resource_ivar resource
 
       resource

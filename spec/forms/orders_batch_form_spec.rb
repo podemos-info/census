@@ -14,6 +14,13 @@ describe Orders::OrdersBatchForm do
   let(:orders_from) { 1.year.ago }
   let(:orders_to) { DateTime.now }
   let(:description) { orders_batch.description }
+  let(:orders) do
+    orders_batch.orders.map do |order|
+      order.orders_batch = nil
+      order.save
+      order
+    end
+  end
 
   it { is_expected.to be_valid }
 
@@ -39,5 +46,11 @@ describe Orders::OrdersBatchForm do
     it "is invalid" do
       is_expected.to be_invalid
     end
+  end
+
+  describe "#orders" do
+    subject(:method) { form.orders }
+
+    it { is_expected.to eq(orders) }
   end
 end

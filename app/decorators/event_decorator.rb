@@ -26,7 +26,7 @@ class EventDecorator < ApplicationDecorator
       if event_object
         h.link_to event_object.decorate.name, event_object
       else
-        properties["id"]
+        properties["id"].to_s
       end
     elsif properties["q"]
       ActiveAdmin::Filters::Active.new(controller_class, controller_model.ransack(properties["q"])).filters.flat_map do |filter|

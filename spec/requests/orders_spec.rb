@@ -10,6 +10,7 @@ describe "Orders", type: :request do
     subject(:page) { get orders_path(params) }
     let(:params) { {} }
     it { is_expected.to eq(200) }
+
     context "ordered by full_name" do
       let(:params) { { order: "full_name_desc" } }
       it { expect(subject).to eq(200) }

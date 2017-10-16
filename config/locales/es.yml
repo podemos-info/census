@@ -258,6 +258,7 @@ es:
       by_payment_method: Por método de pago
       by_state: Por estado
       manage_bics: Gestionar BICs
+      no_pending_orders: No hay órdenes pendientes para incluir en el lote de órdenes
       process_orders: Procesar órdenes pendientes
       process_orders_again: Procesar órdenes nuevamente
       review_orders: Revisar órdenes con incidencias
@@ -350,6 +351,7 @@ es:
       depends_on_different_person: el procedimiento debe corresponder a la misma persona que el procedimiento del que depende
       different_person_than_payment_method: la orden no puede cobrarse con un método de pago correspondiente a una persona diferente
       image_too_big: la imagen es demasiado grande
+      inactive_payment_method: no se puede ser utilizar el método de pago elegido
       mini_magick_processing_error: 'MiniMagick no ha podido trabajar con el fichero, tal vez no sea una imagen. Error original: %{e}'
       procedure_denial_comment_required: debes indicar la razón del rechazo el procedimiento
       processed_by_person: el procedimiento no puede ser procesado por la persona a la que afecta

@@ -19,16 +19,9 @@ module Payments
     #
     # Returns nothing.
     def call
-      return broadcast(:invalid) unless @payment_method && @issues_type
+      return broadcast(:invalid) unless @payment_method && @issues_type && %w(user_issues admin_issues system_issues).member?(@issues_type.to_s)
 
-      case issues_type
-      when :user
-        @payment_method.user_issues = false
-      when :admin
-        @payment_method.admin_issues = false
-      when :system
-        @payment_method.system_issues = false
-      end
+      @payment_method.send("#{@issues_type}=", false)
 
       broadcast(@payment_method.save ? :ok : :invalid)
     end

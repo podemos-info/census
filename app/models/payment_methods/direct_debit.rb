@@ -6,6 +6,7 @@ module PaymentMethods
     additional_information :iban, :bic
 
     before_save :check_missing_bic
+    before_validation :set_payment_processor
 
     def processable?(args = {})
       args[:inside_batch?]
@@ -27,14 +28,6 @@ module PaymentMethods
       IbanBic.calculate_bic(iban)
     end
 
-    def check_missing_bic
-      if !admin_issues && !bic
-        self.admin_issues = true
-      elsif admin_issues && !response_code && bic
-        self.admin_issues = false
-      end
-    end
-
     def needs_review?(_args = {})
       check_missing_bic
       save
@@ -42,8 +35,21 @@ module PaymentMethods
     end
 
     def status_message
-      return I18n.t("census.payment_methods.status_messages.no_bic") unless bic
-      super
+      bic ? I18n.t("census.payment_methods.status_messages.no_bic") : super
+    end
+
+    private
+
+    def set_payment_processor
+      self.payment_processor ||= Settings.payments.default_processors.direct_debit
+    end
+
+    def check_missing_bic
+      if !admin_issues && !bic
+        self.admin_issues = true
+      elsif admin_issues && !response_code && bic
+        self.admin_issues = false
+      end
     end
   end
 end

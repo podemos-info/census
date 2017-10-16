@@ -32,7 +32,7 @@ describe Payments::CreateOrder do
     end
   end
 
-  describe "when require an external authentication" do
+  describe "when payment method is credit card with external authentication" do
     let(:payment_method) { build(:credit_card, :external, person: order.person) }
     let(:form_class) { Orders::CreditCardExternalOrderForm }
 
@@ -54,6 +54,32 @@ describe Payments::CreateOrder do
 
     it "doesn't save the order" do
       expect { subject } .not_to change { Order.count }
+    end
+  end
+
+  describe "when payment method is an authorized credit card" do
+    let(:payment_method) { build(:credit_card, :external_verified, person: order.person) }
+    let(:form_class) { Orders::CreditCardAuthorizedOrderForm }
+
+    it "broadcasts :ok" do
+      is_expected.to broadcast(:ok)
+    end
+
+    it "saves the order" do
+      expect { subject } .to change { Order.count } .by(1)
+    end
+  end
+
+  describe "when payment method is a new direct debit" do
+    let(:payment_method) { build(:direct_debit, person: order.person) }
+    let(:form_class) { Orders::DirectDebitOrderForm }
+
+    it "broadcasts :ok" do
+      is_expected.to broadcast(:ok)
+    end
+
+    it "saves the order" do
+      expect { subject } .to change { Order.count } .by(1)
     end
   end
 end

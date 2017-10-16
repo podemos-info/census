@@ -10,8 +10,7 @@ Rails.application.routes.draw do
       end
 
       namespace :payments do
-        resources :orders, only: [:create] do
-        end
+        resources :orders, only: [:create]
       end
     end
   end

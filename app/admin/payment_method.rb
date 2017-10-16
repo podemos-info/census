@@ -83,7 +83,7 @@ ActiveAdmin.register PaymentMethod do
         flash[:notice] = t("census.payment_methods.action_message.issues_dismissed")
       end
     end
-    redirect_back(fallback_location: payment_methods_path)
+    redirect_back(fallback_location: payment_method_path(resource))
   end
 
   controller do
