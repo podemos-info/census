@@ -102,6 +102,7 @@ es:
       person:
         address: Dirección
         address_scope: Lugar de residencia
+        address_scope_id: Lugar de residencia
         born_at: Fecha de nacimiento
         created_at: Fecha de creación
         document_id: Documento
@@ -123,6 +124,7 @@ es:
         phone: Teléfono
         postal_code: Código postal
         scope: Lugar de participación
+        scope_id: Lugar de participación
         updated_at: Última actualización
         verifications: Verificaciones
       procedure:
@@ -329,6 +331,12 @@ es:
         undo: Deshacer
       personal_data: Datos personales
       process: Procesar
+    scopes:
+      picker:
+        title: Elige %{field}
+        choose: Elegir
+        cancel: Cancelar
+        world: Mundo
     sure_question: "¿Estás segura?"
     versions:
       after:

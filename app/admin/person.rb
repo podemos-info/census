@@ -10,7 +10,7 @@ ActiveAdmin.register Person do
   actions :index, :show, :new, :create, :edit, :update
 
   permit_params :first_name, :last_name1, :last_name2, :document_type, :document_id,
-                :born_at, :gender, :address, :postal_code, :email, :phone, :extra
+                :born_at, :gender, :address, :postal_code, :email, :phone, :scope_id, :address_scope_id
 
   order_by(:full_name) do |order_clause|
     "last_name1 #{order_clause.order}, last_name2 #{order_clause.order}, first_name #{order_clause.order}"
@@ -66,7 +66,10 @@ ActiveAdmin.register Person do
       f.input :postal_code
       f.input :email
       f.input :phone
-      f.input :extra, as: :text
+      f.input :scope_id, as: :data_picker, text: :full_scope,
+                         url: browse_scopes_path(root: Scope.local, current: person.scope_id, title: Person.human_attribute_name(:scope).downcase)
+      f.input :address_scope_id, as: :data_picker, text: :full_address_scope,
+                                 url: browse_scopes_path(current: person.address_scope_id, title: Person.human_attribute_name(:address_scope).downcase)
     end
 
     f.actions

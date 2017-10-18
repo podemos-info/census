@@ -1,0 +1,50 @@
+# frozen_string_literal: true
+
+div class: "picker-header" do
+  h2 t("census.scopes.picker.title", field: title)
+  ul do
+    li do
+      a href: browse_scopes_path(**context) do
+        t("census.scopes.picker.world")
+      end
+    end unless root
+    parent_scopes.each do |scope|
+      li do
+        a href: browse_scopes_path(current: scope.id, **context) do
+          scope.name
+        end
+      end
+    end
+  end
+end
+
+div class: "picker-content" do
+  div class: "picker-scrollable-content" do
+    ul do
+      scopes.each do |scope|
+        li do
+          a href: browse_scopes_path(current: scope.id, **context) do
+            scope.name
+          end
+        end
+      end
+    end if scopes.any?
+  end
+end
+
+div class: "picker-footer" do
+  div class: "buttons" do
+    if current
+      a class: "btn btn-ok", href: browse_scopes_path(current: current.id, **context), "data-picker-choose-value" => current.id, "data-picker-choose-text" => current.show_path do
+        t("census.scopes.picker.choose")
+      end
+    else
+      a class: "btn btn-disable", href: "#" do
+        t("census.scopes.picker.choose")
+      end
+    end
+    a class: "btn btn-cancel", href: "#", "data-modal-close" => "close" do
+      t("census.scopes.picker.cancel")
+    end
+  end
+end
