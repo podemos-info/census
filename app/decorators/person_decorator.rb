@@ -22,6 +22,14 @@ class PersonDecorator < ApplicationDecorator
     "#{I18n.t("census.people.document_types.#{object.document_type}")} - #{object.document_id}"
   end
 
+  def full_scope
+    scope&.show_path
+  end
+
+  def full_address_scope
+    address_scope&.show_path
+  end
+
   def gender_name
     I18n.t("census.people.genders.#{gender}")
   end

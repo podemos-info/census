@@ -15,9 +15,11 @@ $error-color: #F44336;
 $warning-color: #FFC107;
 $almost-success-color: #CDDC39;
 $success-color: #4CAF50;
+$disable-color: #CACACA;
 
 // Active Admin's got SASS!
 @import "arctic_admin/base";
+@import "data_picker";
 
 .status_tag {
   &.has_issues {
