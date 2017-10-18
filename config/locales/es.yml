@@ -333,9 +333,9 @@ es:
       process: Procesar
     scopes:
       picker:
-        title: Elige %{field}
-        choose: Elegir
         cancel: Cancelar
+        choose: Elegir
+        title: Elige %{field}
         world: Mundo
     sure_question: "¿Estás segura?"
     versions:

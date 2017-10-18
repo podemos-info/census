@@ -3,7 +3,6 @@
 class ScopeDecorator < ApplicationDecorator
   delegate_all
 
-  decorates_association :scope_type
   decorates_association :parent
 
   def show_path(parent = nil)

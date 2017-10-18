@@ -23,11 +23,11 @@ class PersonDecorator < ApplicationDecorator
   end
 
   def full_scope
-    scope.show_path
+    scope&.show_path
   end
 
   def full_address_scope
-    address_scope.show_path
+    address_scope&.show_path
   end
 
   def gender_name
