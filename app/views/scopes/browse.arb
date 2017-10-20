@@ -3,11 +3,13 @@
 div class: "picker-header" do
   h2 t("census.scopes.picker.title", field: title)
   ul do
-    li do
-      a href: browse_scopes_path(**context) do
-        t("census.scopes.picker.world")
+    unless root
+      li do
+        a href: browse_scopes_path(**context) do
+          t("census.scopes.picker.world")
+        end
       end
-    end unless root
+    end
     parent_scopes.each do |scope|
       li do
         a href: browse_scopes_path(current: scope.id, **context) do
@@ -20,15 +22,17 @@ end
 
 div class: "picker-content" do
   div class: "picker-scrollable-content" do
-    ul do
-      scopes.each do |scope|
-        li do
-          a href: browse_scopes_path(current: scope.id, **context) do
-            scope.name
+    if scopes.any?
+      ul do
+        scopes.each do |scope|
+          li do
+            a href: browse_scopes_path(current: scope.id, **context) do
+              scope.name
+            end
           end
         end
       end
-    end if scopes.any?
+    end
   end
 end
 

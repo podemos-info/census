@@ -8,13 +8,13 @@ html do
         input type: :hidden, name: key, value: value
       end
     end
-    script raw("""
+    script raw <<~NO_BACK_SCRIPT
       if (window.location.hash == '#sent') {
         window.history.go(-1);
       } else {
         window.history.replaceState( {} , '', '#sent' );
         document.getElementById('form').submit()
       }
-    """)
+    NO_BACK_SCRIPT
   end
 end

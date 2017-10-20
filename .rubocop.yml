@@ -1,5 +1,9 @@
 # Common configuration.
 AllCops:
+  Include:
+    - '**/Rakefile'
+    - '**/Gemfile'
+    - '**/*.arb'
   Exclude:
     - 'db/schema.rb'
     - 'vendor/**/*'
@@ -1249,6 +1253,7 @@ Rails/Validation:
 
 Metrics/BlockLength:
   Exclude:
+    - '**/*.arb'
     - 'app/admin/*.rb'
     - 'app/admin/**/*.rb'
     - 'config/routes.rb'
