@@ -41,9 +41,9 @@ module Payments
         OrdersBatchPaymentProcessorOrders.for(@orders_batch, processor.name).find_each do |order|
           next unless order.processable?(inside_batch?: true)
           processor.process_order order
-          order.update_attributes! processed_at: DateTime.now, processed_by: @processed_by
+          order.update_attributes! processed_at: Time.now, processed_by: @processed_by
         end
-        @orders_batch.update_attributes! processed_at: DateTime.now, processed_by: @processed_by
+        @orders_batch.update_attributes! processed_at: Time.now, processed_by: @processed_by
       end
     end
   end

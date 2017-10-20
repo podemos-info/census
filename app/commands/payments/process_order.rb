@@ -22,7 +22,7 @@ module Payments
       return broadcast(:invalid) unless @order && @processed_by && @order.processable?(inside_batch?: false)
 
       payment_processor.process_order @order
-      @order.assign_attributes processed_at: DateTime.now, processed_by: @processed_by
+      @order.assign_attributes processed_at: Time.now, processed_by: @processed_by
 
       result = Order.transaction do
         @order.save!

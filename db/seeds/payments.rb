@@ -21,12 +21,12 @@ end
 Timecop.travel 3.years.ago do
   35.times do
     # create 10 direct debit payment methods and orders
-    orders = Person.where("created_at < ?", DateTime.now).order("RANDOM()").limit(10).map do |person|
+    orders = Person.where("created_at < ?", Time.now).order("RANDOM()").limit(10).map do |person|
       create_order person, false
     end
 
     # create 10 direct credit card methods and orders
-    orders2 = Person.where("created_at < ?", DateTime.now).order("RANDOM()").limit(10).map do |person|
+    orders2 = Person.where("created_at < ?", Time.now).order("RANDOM()").limit(10).map do |person|
       create_order person, true
     end
 
@@ -40,12 +40,12 @@ Timecop.travel 3.years.ago do
   end
 
   # create 10 direct debit payment methods and orders
-  Person.where("created_at < ?", DateTime.now).order("RANDOM()").limit(10).map do |person|
+  Person.where("created_at < ?", Time.now).order("RANDOM()").limit(10).map do |person|
     create_order person, false
   end
 
   # create 10 direct credit card methods and orders
-  Person.where("created_at < ?", DateTime.now).order("RANDOM()").limit(10).map do |person|
+  Person.where("created_at < ?", Time.now).order("RANDOM()").limit(10).map do |person|
     create_order person, true
   end
 end

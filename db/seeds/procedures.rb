@@ -9,7 +9,7 @@ end
 
 attachments_path = File.join(__dir__, "attachments")
 
-real_now = DateTime.now
+real_now = Time.now
 
 # create 10 processed verifications
 Person.not_verified.order("RANDOM()").limit(10).each do |person|
@@ -23,12 +23,12 @@ Person.not_verified.order("RANDOM()").limit(10).each do |person|
   verification.attachments.create!(file: File.new(File.join(attachments_path, "#{person.document_type}-sample1.png")))
   verification.attachments.create!(file: File.new(File.join(attachments_path, "#{person.document_type}-sample2.png")))
 
-  Timecop.freeze Faker::Time.between(DateTime.now, real_now, :all)
+  Timecop.freeze Faker::Time.between(Time.now, real_now, :all)
   PaperTrail.whodunnit = admins.sample
 
   verification.update_attributes!(
     processed_by: PaperTrail.actor,
-    processed_at: DateTime.now,
+    processed_at: Time.now,
     state: Faker::Boolean.boolean(0.7) ? :accepted : :rejected,
     comment: Faker::Lorem.paragraph(1, true, 2)
   )
@@ -49,12 +49,12 @@ Person.not_verified.order("RANDOM()").limit(5).each do |person|
   verification.attachments.create!(file: File.new(File.join(attachments_path, "#{person.document_type}-sample1.png")))
   verification.attachments.create!(file: File.new(File.join(attachments_path, "#{person.document_type}-sample2.png")))
 
-  Timecop.freeze Faker::Time.between(DateTime.now, real_now, :all)
+  Timecop.freeze Faker::Time.between(Time.now, real_now, :all)
   PaperTrail.whodunnit = admins.sample
 
   verification.update_attributes!(
     processed_by: PaperTrail.actor,
-    processed_at: DateTime.now,
+    processed_at: Time.now,
     state: :issues,
     comment: Faker::Lorem.paragraph(1, true, 2)
   )

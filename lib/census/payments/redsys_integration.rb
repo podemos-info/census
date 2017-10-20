@@ -196,7 +196,7 @@ module Census
       end
 
       def valid_datetime?(response, date_limit)
-        DateTime.parse("#{response["Fecha"]} #{response["Hora"]} #{DateTime.now.zone}") > date_limit
+        Time.parse("#{response["Fecha"]} #{response["Hora"]} #{Time.now.zone}") > date_limit
       end
 
       def valid_signature?(signature, response_data)
