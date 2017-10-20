@@ -70,7 +70,7 @@ group :development do
   gem "i18n-tasks"
   gem "listen"
   gem "pry-rails"
-  gem "rubocop", "~> 0.50.0", require: false
+  gem "rubocop", "~> 0.51.0", require: false
   gem "spring"
   gem "spring-watcher-listen"
 end
