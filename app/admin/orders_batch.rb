@@ -70,7 +70,7 @@ ActiveAdmin.register OrdersBatch do
 
     redirect_to orders_batch_path unless @pending_bics.any?
 
-    params[:controller] = "edit" # Ugly hack to reuse activeadmin edit styles (adds edit class to body)
+    @extra_body_class = "edit"
   end
 
   member_action :charge, method: :patch do # Fails when calling it :process
@@ -100,6 +100,8 @@ ActiveAdmin.register OrdersBatch do
   end
 
   controller do
+    attr_accessor :extra_body_class
+
     def build_resource
       build_params = permitted_params[:orders_batch] || {}
       first_pending_order = OrdersWithoutOrdersBatch.new.merge(OrdersPending.new).first

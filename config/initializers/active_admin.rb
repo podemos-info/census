@@ -284,3 +284,11 @@ ActiveAdmin.setup do |config|
   #
   # config.order_clause = MyOrderClause
 end
+
+ActiveAdmin::Views::Pages::Base.class_eval do
+  alias_method :old_add_classes_to_body, :add_classes_to_body
+  def add_classes_to_body
+    old_add_classes_to_body
+    @body.add_class(controller.extra_body_class) if controller.respond_to? :extra_body_class && controller.extra_body_class
+  end
+end
