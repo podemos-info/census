@@ -22,7 +22,7 @@ ActiveAdmin.register OrdersBatch do
     if OrdersBatchNeedsReviewOrders.for(resource).any?
       link_to t("census.orders_batches.review_orders"), review_orders_orders_batch_path
     else
-      process_text = resource.processed_at ? t("census.orders_batches.process_orders") : t("census.orders_batches.process_orders_again")
+      process_text = resource.processed_at ? t("census.orders_batches.process_orders_again") : t("census.orders_batches.process_orders")
       link_to process_text,
               charge_orders_batch_path,
               method: :patch,
