@@ -5,12 +5,14 @@ ActiveAdmin.register Admin do
 
   menu parent: I18n.t("active_admin.system")
 
-  actions :index, :show
+  actions :index, :show, :edit, :update
 
   index do
     column :username, class: :left do |admin|
       link_to admin.username, admin_path(id: admin.id)
     end
+    column :name
+    column :role_name
     column :current_sign_in_at
     column :sign_in_count
     column :created_at
@@ -24,4 +26,16 @@ ActiveAdmin.register Admin do
 
   sidebar :versions, partial: "admins/versions", only: :show
   sidebar :visits, partial: "admins/visits", only: :show
+
+  permit_params :role
+
+  form decorate: true do |f|
+    f.inputs do
+      f.input :username, as: :string, input_html: { disabled: true }
+      f.input :name, label: t("activerecord.attributes.admin.person"), as: :string, input_html: { disabled: true }
+      f.input :role, as: :radio, collection: AdminDecorator.role_options
+    end
+
+    f.actions
+  end
 end

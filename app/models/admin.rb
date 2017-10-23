@@ -11,4 +11,6 @@ class Admin < ApplicationRecord
   has_many :events
 
   belongs_to :person
+
+  enum role: [:system, :lopd, :lopd_help, :finances], _suffix: true
 end

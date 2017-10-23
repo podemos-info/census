@@ -17,6 +17,7 @@ describe OrdersBatchesController, type: :controller do
   let(:force_valid_bic) { true }
   let!(:orders_batch) { create(:orders_batch) }
   let!(:pending_order) { create(:order) }
+  let(:current_admin) { create(:admin, :finances) }
 
   it "defines actions" do
     expect(subject.defined_actions).to contain_exactly(:index, :show, :create, :edit, :new, :update)
@@ -142,9 +143,11 @@ describe OrdersBatchesController, type: :controller do
       end
     end
 
-    context "without a processor" do
-      let(:cassete) { "orders_batch_without_processor" }
-      before { override_current_admin(nil) }
+    context "with invalid parameters" do
+      let(:cassete) { "orders_batch_invalid_charge" }
+      before do
+        stub_command("Payments::ProcessOrdersBatch", :invalid)
+      end
 
       it "success" do
         is_expected.to have_http_status(:found)

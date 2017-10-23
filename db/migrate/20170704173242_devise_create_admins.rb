@@ -4,7 +4,7 @@ class DeviseCreateAdmins < ActiveRecord::Migration[5.1]
   def change
     create_table :admins do |t|
       t.references :person, null: false
-      t.string :roles, array: true, null: false
+      t.integer :role, null: false
       t.references :scope
 
       ## Database authenticatable

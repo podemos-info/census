@@ -19,8 +19,8 @@ describe BicsController, type: :controller do
     expect(resource.resource_name).to eq("Bic")
   end
 
-  it "does not show menu" do
-    is_expected.not_to be_include_in_menu
+  it "shows menu" do
+    is_expected.to be_include_in_menu
   end
 
   context "index page" do

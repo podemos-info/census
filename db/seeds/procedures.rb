@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
-# create and verify 4 admin users
-people = Person.where.not(id: Admin.all.pluck(:id)).first(4)
-admins = people.map do |person|
-  person.update_attributes verified_in_person: true
-  Admin.create! username: Faker::Internet.user_name, password: person.email, person: person, roles: ["procedures"]
-end
+admins = Admin.where role: [:lopd, :lopd_help]
 
 attachments_path = File.join(__dir__, "attachments")
 

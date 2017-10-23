@@ -9,6 +9,16 @@ class AdminDecorator < ApplicationDecorator
     person.full_name
   end
 
+  def role_name
+    I18n.t("census.admins.roles.#{object.role}")
+  end
+
+  def self.role_options
+    @roles ||= Admin.roles.keys.map do |role|
+      [I18n.t("census.admins.roles.#{role}"), role]
+    end.freeze
+  end
+
   def current_sign_in_ip
     format_ip object.current_sign_in_ip
   end

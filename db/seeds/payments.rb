@@ -2,6 +2,8 @@
 
 require "iban_bic/random"
 
+admins = Admin.where role: [:finances]
+
 def create_order(person, credit_card)
   PaperTrail.whodunnit = person
   payment_method = if credit_card
@@ -30,7 +32,7 @@ Timecop.travel 3.years.ago do
       create_order person, true
     end
 
-    PaperTrail.whodunnit = Admin.first
+    PaperTrail.whodunnit = admins.sample
     # add orders to an order batch
     OrdersBatch.create!(
       description: I18n.l(Date.today, format: "%B %Y"),

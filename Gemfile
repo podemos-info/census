@@ -30,6 +30,7 @@ gem "paper_trail-globalid"
 gem "paranoia"
 gem "pg"
 gem "puma"
+gem "pundit"
 gem "rack-attack"
 gem "rails", "~> 5.1"
 gem "rails-i18n"
@@ -61,6 +62,10 @@ group :development, :test do
   gem "vcr"
   gem "webmock"
   gem "wisper-rspec"
+end
+
+group :test do
+  gem "pundit-matchers", "~> 1.3.1"
 end
 
 group :development do
