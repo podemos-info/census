@@ -30,6 +30,7 @@ gem "paper_trail-globalid"
 gem "paranoia"
 gem "pg"
 gem "puma"
+gem "pundit"
 gem "rack-attack"
 gem "rails", "~> 5.1"
 gem "rails-i18n"
@@ -63,6 +64,10 @@ group :development, :test do
   gem "wisper-rspec"
 end
 
+group :test do
+  gem "pundit-matchers", "~> 1.3.1"
+end
+
 group :development do
   gem "better_errors"
   gem "capistrano-rails"
@@ -70,7 +75,7 @@ group :development do
   gem "i18n-tasks"
   gem "listen"
   gem "pry-rails"
-  gem "rubocop", "~> 0.50.0", require: false
+  gem "rubocop", "~> 0.51.0", require: false
   gem "spring"
   gem "spring-watcher-listen"
 end

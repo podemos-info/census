@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 namespace :db do
-  desc "Rebuild database"
-  task :fake_reseed, [] => :environment do
+  desc "Reseed database without loading all scopes again"
+  task :reseed, [] => :environment do
     raise "Not allowed to run on production" if Rails.env.production?
 
     # Delete fake data

@@ -75,8 +75,8 @@ ActiveAdmin.register Person do
     f.actions
   end
 
-  sidebar :procedures, partial: "people/procedures", only: :show
-  sidebar :orders, partial: "people/orders", only: :show
-  sidebar :downloads, partial: "people/downloads", only: :show
-  sidebar :versions, partial: "people/versions", only: :show
+  sidebar :procedures, partial: "people/procedures", only: :show, if: -> { policy(Procedure).index? }
+  sidebar :orders, partial: "people/orders", only: :show, if: -> { policy(Order).index? }
+  sidebar :downloads, partial: "people/downloads", only: :show, if: -> { policy(Download).index? }
+  sidebar :versions, partial: "people/versions", only: :show, if: -> { policy(Version).index? }
 end

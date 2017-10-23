@@ -3,7 +3,7 @@
 ActiveAdmin.register Bic do
   decorate_with BicDecorator
 
-  menu false
+  menu parent: I18n.t("active_admin.payments"), if: -> { controller_name == "bics" }
 
   permit_params :country, :bank_code, :bic
 

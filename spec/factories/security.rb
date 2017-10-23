@@ -5,7 +5,19 @@ FactoryGirl.define do
     person
     username { Faker::Internet.user_name }
     password { Faker::Internet.password }
-    roles { ["admin"] }
+    role { "system" }
+
+    trait :lopd do
+      role { "lopd" }
+    end
+
+    trait :finances do
+      role { "finances" }
+    end
+
+    trait :lopd_help do
+      role { "lopd_help" }
+    end
   end
 
   factory :event do
@@ -16,7 +28,7 @@ FactoryGirl.define do
     admin { visit.admin }
     name "page_view"
     properties controller: "dashboard", action: "index"
-    time { DateTime.now }
+    time { Time.now }
 
     trait :person_view do
       transient do
@@ -52,7 +64,7 @@ FactoryGirl.define do
     utm_term ""
     utm_content ""
     utm_campaign ""
-    started_at { DateTime.now }
+    started_at { Time.now }
   end
 
   factory :version do

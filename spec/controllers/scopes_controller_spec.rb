@@ -12,7 +12,7 @@ describe ScopesController, type: :controller do
   let!(:scope) { create(:scope) }
 
   it "defines actions" do
-    expect(subject.defined_actions).to contain_exactly(:index)
+    expect(subject.defined_actions).to be_empty
   end
 
   it "handles people" do

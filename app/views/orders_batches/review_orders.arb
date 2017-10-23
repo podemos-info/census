@@ -17,7 +17,7 @@ form class: "formtastic", action: review_orders_orders_batch_path, method: :post
           div class: classes[:div] do
             input name: "pending_bics[#{bic.country}_#{bic.bank_code}]", type: :text
           end
-          bic.errors.messages.each do |field, message|
+          bic.errors.messages.each_value do |message|
             para class: classes[:para] do
               message.to_sentence
             end
@@ -26,5 +26,16 @@ form class: "formtastic", action: review_orders_orders_batch_path, method: :post
       end
     end
   end
-  input type: :submit
+  fieldset class: "actions" do
+    ol do
+      li class: "action input_action" do
+        input type: :submit, value: t("formtastic.update", model: t("activerecord.models.bic", count: pending_bics.count))
+      end
+      li class: "cancel" do
+        a href: orders_batch_path do
+          t("active_admin.cancel")
+        end
+      end
+    end
+  end
 end

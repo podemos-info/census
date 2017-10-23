@@ -10,6 +10,7 @@ describe OrdersController, type: :controller do
   let(:resource_class) { Order }
   let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
   let!(:order) { create(:order, :external_verified) }
+  let(:current_admin) { create(:admin, :finances) }
 
   it "defines actions" do
     expect(subject.defined_actions).to contain_exactly(:index, :show, :new, :create)

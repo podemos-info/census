@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Scope do
+  before_action :do_not_track_page_view
   menu false
 
-  actions :index
+  actions :browse
 
   collection_action :browse do
     title = params[:title]

@@ -2,6 +2,8 @@
 
 require "iban_bic/random"
 
+admins = Admin.where role: [:finances]
+
 def create_order(person, credit_card)
   PaperTrail.whodunnit = person
   payment_method = if credit_card
@@ -21,16 +23,16 @@ end
 Timecop.travel 3.years.ago do
   35.times do
     # create 10 direct debit payment methods and orders
-    orders = Person.where("created_at < ?", DateTime.now).order("RANDOM()").limit(10).map do |person|
+    orders = Person.where("created_at < ?", Time.now).order("RANDOM()").limit(10).map do |person|
       create_order person, false
     end
 
     # create 10 direct credit card methods and orders
-    orders2 = Person.where("created_at < ?", DateTime.now).order("RANDOM()").limit(10).map do |person|
+    orders2 = Person.where("created_at < ?", Time.now).order("RANDOM()").limit(10).map do |person|
       create_order person, true
     end
 
-    PaperTrail.whodunnit = Admin.first
+    PaperTrail.whodunnit = admins.sample
     # add orders to an order batch
     OrdersBatch.create!(
       description: I18n.l(Date.today, format: "%B %Y"),
@@ -40,12 +42,12 @@ Timecop.travel 3.years.ago do
   end
 
   # create 10 direct debit payment methods and orders
-  Person.where("created_at < ?", DateTime.now).order("RANDOM()").limit(10).map do |person|
+  Person.where("created_at < ?", Time.now).order("RANDOM()").limit(10).map do |person|
     create_order person, false
   end
 
   # create 10 direct credit card methods and orders
-  Person.where("created_at < ?", DateTime.now).order("RANDOM()").limit(10).map do |person|
+  Person.where("created_at < ?", Time.now).order("RANDOM()").limit(10).map do |person|
     create_order person, true
   end
 end

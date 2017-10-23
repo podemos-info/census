@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20171003213438) do
 
   create_table "admins", force: :cascade do |t|
     t.bigint "person_id", null: false
-    t.string "roles", null: false, array: true
+    t.integer "role", null: false
     t.bigint "scope_id"
     t.string "username", default: "", null: false
     t.string "encrypted_password", default: "", null: false

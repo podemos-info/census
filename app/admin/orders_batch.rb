@@ -22,7 +22,7 @@ ActiveAdmin.register OrdersBatch do
     if OrdersBatchNeedsReviewOrders.for(resource).any?
       link_to t("census.orders_batches.review_orders"), review_orders_orders_batch_path
     else
-      process_text = resource.processed_at ? t("census.orders_batches.process_orders") : t("census.orders_batches.process_orders_again")
+      process_text = resource.processed_at ? t("census.orders_batches.process_orders_again") : t("census.orders_batches.process_orders")
       link_to process_text,
               charge_orders_batch_path,
               method: :patch,
@@ -70,7 +70,7 @@ ActiveAdmin.register OrdersBatch do
 
     redirect_to orders_batch_path unless @pending_bics.any?
 
-    params[:controller] = "edit" # Ugly hack to reuse activeadmin edit styles (adds edit class to body)
+    @extra_body_class = "edit"
   end
 
   member_action :charge, method: :patch do # Fails when calling it :process
@@ -100,6 +100,8 @@ ActiveAdmin.register OrdersBatch do
   end
 
   controller do
+    attr_accessor :extra_body_class
+
     def build_resource
       build_params = permitted_params[:orders_batch] || {}
       first_pending_order = OrdersWithoutOrdersBatch.new.merge(OrdersPending.new).first

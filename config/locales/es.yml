@@ -46,6 +46,8 @@ es:
         last_sign_in_ip: IP anterior
         locked_at: Fecha de bloqueo
         person: Persona
+        role: Rol
+        role_name: Rol
         sign_in_count: Número de accesos
         username: Nombre de usuario
       bic:
@@ -217,6 +219,11 @@ es:
         other: Visitas
   census:
     admins:
+      roles:
+        finances: Finanzas
+        lopd: LOPD
+        lopd_help: Apoyo LOPD
+        system: Sistema
       view_versions: Ver versiones (%{count})
       view_visits: Ver actividad
     downloads:

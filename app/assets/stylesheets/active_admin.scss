@@ -94,6 +94,10 @@ body.logged_in.edit .input li.choice {
   margin: 0 1rem 0 0;
 }
 
+body.logged_in.edit.review_orders .input .label {
+  padding-top: 2px
+}
+
 .flash a {
   text-decoration: underline;
   color: white;

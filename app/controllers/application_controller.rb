@@ -2,6 +2,7 @@
 
 class ApplicationController < ActionController::Base
   include Rectify::ControllerHelpers
+  include Pundit
 
   helper TranslationsHelper
 
@@ -10,6 +11,10 @@ class ApplicationController < ActionController::Base
   after_action :track_action
 
   def user_for_paper_trail
+    current_admin
+  end
+
+  def pundit_user
     current_admin
   end
 
