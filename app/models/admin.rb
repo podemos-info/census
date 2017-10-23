@@ -5,7 +5,7 @@ class Admin < ApplicationRecord
   has_paper_trail class_name: "Version"
   has_many :versions, as: :item
 
-  devise :database_authenticatable, :timeoutable, :lockable, :trackable
+  devise :database_authenticatable, :timeoutable, :lockable
 
   has_many :visits
   has_many :events
