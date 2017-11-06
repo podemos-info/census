@@ -3,48 +3,46 @@
 require "rails_helper"
 
 describe Person, :db do
-  let(:person) { build(:person) }
-
-  subject { person }
+  subject(:person) { build(:person) }
 
   it { is_expected.to be_valid }
 
   context "is not verified" do
-    it { expect(person.verified?).to eq(false) }
+    it { is_expected.not_to be_verified }
 
     it "is not memberable" do
-      expect(person.memberable?).to eq(false)
+      is_expected.not_to be_memberable
     end
 
     it "is not young memberable" do
-      expect(person.young_memberable?).to eq(false)
+      is_expected.not_to be_young_memberable
     end
   end
 
   context "a verified person" do
-    let(:person) { build(:person, :verified) }
+    subject(:person) { build(:person, :verified) }
 
-    it { expect(person.verified?).to eq(true) }
+    it { is_expected.to be_verified }
 
     it "is memberable" do
-      expect(person.memberable?).to eq(true)
+      is_expected.to be_memberable
     end
 
     it "is not young memberable" do
-      expect(person.young_memberable?).to eq(false)
+      is_expected.not_to be_young_memberable
     end
 
     context "is young" do
-      let(:person) { build(:person, :verified, :young) }
+      subject(:person) { build(:person, :verified, :young) }
 
-      it { expect(person.verified?).to eq(true) }
+      it { is_expected.to be_verified }
 
       it "is not memberable" do
-        expect(person.memberable?).to eq(false)
+        is_expected.not_to be_memberable
       end
 
       it "is young memberable" do
-        expect(person.young_memberable?).to eq(true)
+        is_expected.to be_young_memberable
       end
     end
   end
