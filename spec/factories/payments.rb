@@ -72,14 +72,28 @@ FactoryBot.define do
       payment_method { build(:credit_card, :external_verified, authorization_token: "invalid", person: person) }
     end
 
+    trait :verified do
+      payment_method { build(:direct_debit, :verified, person: person) }
+    end
+
     trait :processed do
       state { :processed }
       processed_at { Faker::Time.between(3.days.ago, 1.day.ago, :all) }
       processed_by { build(:admin) }
+      response_code "0000"
+      after :build do |order|
+        order.payment_method.response_code = order.response_code
+      end
     end
 
-    trait :verified do
-      payment_method { build(:direct_debit, :verified, person: person) }
+    trait :user_issue do
+      response_code "0180"
+    end
+    trait :finances_issue do
+      response_code "0102"
+    end
+    trait :system_issue do
+      response_code "9999"
     end
   end
 

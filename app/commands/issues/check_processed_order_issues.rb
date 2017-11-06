@@ -23,12 +23,13 @@ module Issues
     end
 
     def has_issue?
-      payment_method.response_code.present? && response_code_info[:target].present?
+      payment_method.create_user_issues? && payment_method.response_code.present? && response_code_info[:role].present?
     end
 
     def issue
       @issue ||= ::PaymentMethodProcessingIssues.for(payment_method).merge(::IssuesNonFixed.for).first || Issue.new(
         issue_type: :processed_response_code,
+        description: issue_message,
         role: issue_role,
         level: :medium,
         assigned_to: issue_assigned_to,
@@ -40,11 +41,15 @@ module Issues
     end
 
     def issue_assigned_to
-      @issue_assigned_to ||= response_code_info[:target] == "user" ? @order.person : nil
+      @issue_assigned_to ||= response_code_info[:role] == "user" ? @order.person : nil
     end
 
     def issue_role
-      @issue_role ||= response_code_info[:target] == "user" ? nil : Admin.roles[response_code_info[:target]]
+      @issue_role ||= response_code_info[:role] == "user" ? nil : Admin.roles[response_code_info[:role]]
+    end
+
+    def issue_message
+      @issue_message ||= response_code_info[:message]
     end
 
     def response_code_info

@@ -24,6 +24,7 @@ module Payments
       result = Order.transaction do
         Payments::SavePaymentMethod.call(payment_method: order.payment_method, admin: nil)
         order.save!
+        Issues::CheckProcessedOrderIssues.call(order: order, admin: nil)
         true
       end
 

@@ -140,6 +140,7 @@ describe CallbacksController, type: :controller do
       before { Timecop.freeze(Time.local(2017, 9, 18, 19, 19)) }
       after { Timecop.return }
       let(:redsys_response) { ERROR_REQUEST }
+      let(:created_issue) { Issue.last }
 
       it "returns ok" do
         is_expected.to be_success
@@ -147,12 +148,15 @@ describe CallbacksController, type: :controller do
       it "creates a new order" do
         expect { subject } .to change { Order.count } .by(1)
       end
-      it "the new order is marked as processed" do
+      it "the new order is marked as error" do
         subject
         expect(Order.last.state) .to eq("error")
       end
       it "creates a new credit card payment method" do
         expect { subject } .to change { PaymentMethods::CreditCard.count } .by(1)
+      end
+      it "does not create a new issue" do
+        expect { subject } .not_to change { Issue.count }
       end
     end
   end

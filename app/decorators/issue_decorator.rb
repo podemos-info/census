@@ -21,6 +21,14 @@ class IssueDecorator < ApplicationDecorator
     I18n.t("census.issues.levels.#{object.level}")
   end
 
+  def description
+    if object.issue_type.to_sym == :processed_response_code
+      I18n.t("census.payment_methods.issues_messages.#{object.description}")
+    else
+      object.description
+    end
+  end
+
   def objects_links
     object.issue_objects.map do |issue_object|
       object = issue_object.object.decorate

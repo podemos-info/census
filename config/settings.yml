@@ -35,7 +35,7 @@ payments:
           role: user
           flags:
             - inactive
-          codes: ["0118", "0125", "0129", "0180", "0191", "0280", "9064", "9093"]
+          codes: ["0118", "0125", "0129", "0180", "0184", 0191", "0280", "9064", "9093"]
         fraud:
           role: finances
           codes: ["0102", "0107", "0167", "0202", "0207", "0208", "0209"]
@@ -46,7 +46,12 @@ payments:
         bic: <%= ENV["SEPA_BIC"] %> # International Bank Account Number of the creditor (8 or 11 chars)
         creditor_identifier: <%= ENV["SEPA_CREDITOR_IDENTIFIER"] %> # Creditor Identifier (max. 35 chars)
       file_lifespan: 48 #hours
-
+      response_codes:
+        ok:
+          flags:
+            - verified
+          codes:
+            - OK
 regional:
   local_code: ES
   locales:
