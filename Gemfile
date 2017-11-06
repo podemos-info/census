@@ -51,6 +51,7 @@ gem "ahoy_matey" # must appear after devise gem
 # gem "rack-cors"
 
 group :development, :test do
+  gem "brakeman", require: false
   gem "byebug", platform: :mri
   gem "codecov", require: false
   gem "database_cleaner"
