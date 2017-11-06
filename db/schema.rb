@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171003213438) do
+ActiveRecord::Schema.define(version: 20171024074056) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,6 +84,37 @@ ActiveRecord::Schema.define(version: 20171003213438) do
     t.index ["visit_id", "name"], name: "index_events_on_visit_id_and_name"
   end
 
+  create_table "issue_objects", force: :cascade do |t|
+    t.bigint "issue_id"
+    t.string "object_type"
+    t.bigint "object_id"
+    t.index ["issue_id"], name: "index_issue_objects_on_issue_id"
+    t.index ["object_type", "object_id"], name: "index_issue_objects_on_object_type_and_object_id"
+  end
+
+  create_table "issue_unreads", force: :cascade do |t|
+    t.bigint "admin_id"
+    t.bigint "issue_id"
+    t.index ["admin_id", "issue_id"], name: "index_issue_unreads_on_admin_id_and_issue_id", unique: true
+    t.index ["issue_id"], name: "index_issue_unreads_on_issue_id"
+  end
+
+  create_table "issues", force: :cascade do |t|
+    t.string "issue_type", null: false
+    t.string "description"
+    t.integer "role"
+    t.integer "level", null: false
+    t.bigint "assigned_to_id"
+    t.jsonb "information", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "fixed_at"
+    t.index ["assigned_to_id", "fixed_at"], name: "index_issues_on_assigned_to_id_and_fixed_at"
+    t.index ["assigned_to_id"], name: "index_issues_on_assigned_to_id"
+    t.index ["information"], name: "index_issues_on_information", using: :gin
+    t.index ["issue_type", "fixed_at"], name: "index_issues_on_issue_type_and_fixed_at"
+  end
+
   create_table "orders", force: :cascade do |t|
     t.bigint "person_id", null: false
     t.bigint "payment_method_id", null: false
@@ -125,6 +156,7 @@ ActiveRecord::Schema.define(version: 20171003213438) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
+    t.index ["information"], name: "index_payment_methods_on_information", using: :gin
     t.index ["person_id"], name: "index_payment_methods_on_person_id"
   end
 
@@ -152,6 +184,7 @@ ActiveRecord::Schema.define(version: 20171003213438) do
     t.datetime "deleted_at"
     t.index ["address_scope_id"], name: "index_people_on_address_scope_id"
     t.index ["document_scope_id"], name: "index_people_on_document_scope_id"
+    t.index ["extra"], name: "index_people_on_extra", using: :gin
     t.index ["scope_id"], name: "index_people_on_scope_id"
     t.index ["verifications"], name: "index_people_on_verifications"
   end
@@ -237,6 +270,7 @@ ActiveRecord::Schema.define(version: 20171003213438) do
   end
 
   add_foreign_key "attachments", "procedures"
+  add_foreign_key "issues", "people", column: "assigned_to_id"
   add_foreign_key "orders", "admins", column: "processed_by_id"
   add_foreign_key "orders_batches", "admins", column: "processed_by_id"
   add_foreign_key "people", "scopes", column: "address_scope_id"

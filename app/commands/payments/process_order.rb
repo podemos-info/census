@@ -6,26 +6,29 @@ module Payments
     # Public: Initializes the command.
     #
     # order - Order to be processed
-    # processed_by - The person that is processing the order
-    def initialize(order, processed_by)
+    # admin - The admin user processing the order
+    def initialize(order:, admin:)
       @order = order
-      @processed_by = processed_by
+      @admin = admin
     end
 
     # Executes the command. Broadcasts these events:
     #
     # - :ok when everything is valid.
-    # - :invalid if the batch couldn't be created.
+    # - :invalid if the order couldn't be processed.
     #
     # Returns nothing.
     def call
-      return broadcast(:invalid) unless @order && @processed_by && @order.processable?(inside_batch?: false)
+      return broadcast(:invalid) unless order && admin && order.processable?(inside_batch?: false)
 
-      payment_processor.process_order @order
-      @order.assign_attributes processed_at: Time.now, processed_by: @processed_by
+      payment_processor.process_order order
+      @order.assign_attributes processed_at: Time.now, processed_by: admin
 
       result = Order.transaction do
-        @order.save!
+        Payments::SavePaymentMethod.call(payment_method: order.payment_method, admin: admin)
+        order.save!
+        Issues::CheckProcessedOrderIssues.call(order: order, admin: admin)
+
         :ok
       end
 
@@ -34,8 +37,10 @@ module Payments
 
     private
 
+    attr_reader :order, :admin
+
     def payment_processor
-      @payment_processor ||= Payments::Processor.for(@order.payment_processor)
+      @payment_processor ||= Payments::Processor.for(order.payment_processor)
     end
   end
 end

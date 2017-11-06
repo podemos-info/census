@@ -104,6 +104,12 @@ FactoryBot.define do
       credit_card_orders_invalid { 0 }
       credit_card_orders_verified { 0 }
     end
+
+    trait :with_issues do
+      after :create do |orders_batch|
+        create(:issue, :missing_bic, order: orders_batch.orders.first)
+      end
+    end
   end
 
   factory :bic do

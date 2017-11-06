@@ -10,18 +10,22 @@ es:
       activist: Militantes
       admin_issues: Incidencias de gestióna
       all: Todo
+      assigned: Asignadas
       deleted: Bajas
       error: Con errores
+      fixed: Resueltas
       follower: Simpatizantes
       inactive: Inactivos
       issues: Incidencias
       member: Inscritas
+      non_fixed: Sin resolver
       pending: Pendientes
       person: Personas
       processed: Procesadas
       rejected: Rechazados
       returned: Devueltas
       system_issues: Incidencias de sistema
+      unread: Nuevas
       user_issues: Incidencias usuario
       verified: Verificados
       young_member: Inscritas jóvenes
@@ -66,6 +70,22 @@ es:
         name: Actividad
         time: Fecha y hora
         visit: Visita
+      issue:
+        assigned_to: Asignada a
+        bank_code: Código de banco
+        country: País
+        created_at: Fecha de creación
+        description: Descripción
+        document_id: Número de documento
+        document_scope: País del documento
+        document_type: Tipo de documento
+        fixed_at: Fecha de resolución
+        iban: IBAN
+        issue_type_name: Tipo
+        level_name: Importancia
+        objects_links: Registros afectados
+        role_name: Rol
+        updated_at: Fecha de expiración
       order:
         amount: Total
         created_at: Fecha de creación
@@ -93,9 +113,11 @@ es:
         updated_at: Última actualización
       payment_method:
         authorization_token: Código de autorización
+        bic: BIC/SWIFT
         created_at: Fecha de creación
         expiration_month: Mes de expiración
         expiration_year: Año de expiración
+        iban: IBAN
         name: Nombre
         person: Persona
         status_message: Estado actual
@@ -180,6 +202,9 @@ es:
       event:
         one: Actividad
         other: Actividad
+      issue:
+        one: Incidencia
+        other: Incidencias
       order:
         one: Orden
         other: Órdenes
@@ -247,6 +272,20 @@ es:
       type:
         page_view: "%{action} %{controller}"
         security_report: Informe de seguridad
+    issues:
+      assign_me: Asignármela
+      information: Información adicional
+      issues_for_resource: "¡Atención! Existen <a href='%{resource_path}'>incidencias asociadas a este registro</a>."
+      levels:
+        high: Alta
+        low: Baja
+        medium: Media
+        very_high: Crítica
+        very_low: Muy Baja
+      mark_as_fixed: Marcar como resuelta
+      types:
+        duplicated_document: Documento duplicado
+        missing_bic: BIC desconocido
     orders:
       action_message:
         not_processed: No se pudo procesar la orden.
@@ -275,30 +314,15 @@ es:
       view_orders: Ver órdenes (%{count})
       view_versions: Ver versiones (%{count})
     payment_methods:
-      action_message:
-        cant_dismiss_issues: No se pudieron descartar las incidencias
-        issues_dismissed: Las incidencias han sido descartadas
       add_payment_methods_from_people: Puedes crear métodos de pago desde la página de una persona.
       create_order: Crear orden con este método de pago
       default_names:
         credit_card: Tarjeta de crédito (vencimiento %{expiration})
         direct_debit: Cuenta bancaria (acabada en %{iban_last_digits})
-      dismiss_issues: Descartar incidencias
       flags:
-        admin_issues: Incidencia de gestión
         failing: No funciona
-        system_issues: Incidencia de sistema
-        user_issues: Incidencia de usuario
         verified: Verificado
       information: Información adicional
-      status_messages:
-        expired: Tarjeta de crédito caducada
-        fraud: Posible caso de fraude
-        no_bic: Falta el código BIC/SWIFT asociado al número de cuenta
-        no_credit: Problemas con el límite de crédito
-        ok: Funcionando correctamente
-        system: Problema de la aplicación. Contactar con el administrador del sistema.
-        wrong_data: Datos del método de pago incorrectos
       view_versions: Ver versiones (%{count})
     people:
       create_order: Crear orden
@@ -363,7 +387,8 @@ es:
   errors:
     messages:
       cycle_detected: el padre de un ámbito no puede ser descendiente de este
-      depends_on_different_person: el procedimiento debe corresponder a la misma persona que el procedimiento del que depende
+      depends_on_different_person: el procedimiento debe corresponder a la misma persona que el procedimiento del que dependende
+      record_not_destroyed: el registro no ha podido ser borrado
       different_person_than_payment_method: la orden no puede cobrarse con un método de pago correspondiente a una persona diferente
       image_too_big: la imagen es demasiado grande
       inactive_payment_method: no se puede ser utilizar el método de pago elegido

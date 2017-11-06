@@ -77,6 +77,17 @@ FactoryBot.define do
     trait :verified do
       verified_by_document { true }
     end
+
+    trait :copy do
+      transient do
+        from { build(:person) }
+      end
+
+      after :build do |person, evaluator|
+        person.assign_attributes evaluator.from.attributes
+        person.id = nil
+      end
+    end
   end
 
   factory :download do

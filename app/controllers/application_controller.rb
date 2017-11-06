@@ -3,10 +3,12 @@
 class ApplicationController < ActionController::Base
   include Rectify::ControllerHelpers
   include Pundit
+  protect_from_forgery with: :exception
 
   helper TranslationsHelper
 
   before_action :set_paper_trail_whodunnit
+  before_action :check_resource_issues, only: :show
 
   after_action :track_action
 
@@ -18,7 +20,17 @@ class ApplicationController < ActionController::Base
     current_admin
   end
 
+  def check_resource_issues
+    issue = issue_for_resource
+    flash.now[:alert] = I18n.t("census.issues.issues_for_resource", resource_path: url_for(issue)).html_safe if issue
+  end
+
   protected
+
+  def issue_for_resource
+    return unless resource.respond_to?(:issues)
+    AdminIssues.for(current_admin).merge(IssuesNonFixed.for).merge(resource.issues).first
+  end
 
   def track_action
     return unless track_page_view?

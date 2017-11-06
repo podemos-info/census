@@ -41,8 +41,14 @@ Timecop.travel 3.years.ago do
     Timecop.travel 1.month.from_now
   end
 
-  35.times do
+  34.times do
     create_person
     Timecop.travel 1.month.from_now
+  end
+
+  # create some duplicated persons
+  Person.order("RANDOM()").limit(3).each do |person|
+    person.dup.save!
+    Issues::CheckPersonIssues.call(person: person, admin: Admin.first)
   end
 end

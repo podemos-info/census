@@ -10,78 +10,16 @@
 
 @import "activeadmin_addons/all";
 
-$primary-color: #612d62;
-$error-color: #F44336;
-$warning-color: #FFC107;
-$almost-success-color: #CDDC39;
-$success-color: #4CAF50;
-$disable-color: #CACACA;
+@import "_colors";
 
 // Active Admin's got SASS!
 @import "arctic_admin/base";
 @import "data_picker";
 
-.status_tag {
-  &.has_issues {
-    background: $error-color;
-  }
-  &.verified_by_document {
-    background: $almost-success-color;
-  }
-  &.verified_in_person {
-    background: $success-color;
-  }
-
-  &.member, &.young_member {
-    background: $almost-success-color;
-  }
-  &.activist {
-    background: $success-color;
-  }
-  &.leave {
-    background: $error-color;
-  }
-
-  &.ok {
-    background: $success-color; 
-  }
-  &.issues {
-    background: $warning-color;
-  }
-  &.error {
-    background: $error-color;
-  }
-
-  &.verified {
-    background: $success-color;
-  }
-  &.admin_issues {
-    background: $warning-color;
-  }
-  &.failing {
-    background: $error-color;
-  }
-}
-
-.attachments {
-  .column {
-    @media screen and (min-width: $md-width) {
-      display: inline-block;
-      vertical-align: top;
-
-      &:first-child + .column {
-        max-width: 500px;
-        width: 48% !important;
-      }
-    }
-    @media screen and (max-width: $md-width) {
-      width: 100% !important;
-    }
-  }
-  img {
-    width: 100%;
-  }
-}
+@import "_attachments";
+@import "_issues";
+@import "_status_tag";
+@import "_versions";
 
 input[type=radio] {
   vertical-align: middle;
@@ -118,25 +56,5 @@ table.index {
   }
   td.left {
     text-align: left;
-  }
-}
-
-.version_change {
-  th, td {
-    font-weight: bold;
-  }
-  &.old_value th, &.old_value td {
-    color: $error-color;
-    a {
-      color: $error-color;
-      text-decoration: underline;
-    }
-  }
-  &.new_value th, &.new_value td {
-    color: $success-color;
-    a {
-      color: $success-color;
-      text-decoration: underline;
-    }
   }
 }

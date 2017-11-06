@@ -2,6 +2,7 @@
 
 class Procedure < ApplicationRecord
   include ProcedureStates
+  include Issuable
 
   self.inheritance_column = :type
 

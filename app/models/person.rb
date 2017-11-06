@@ -3,6 +3,7 @@
 # The person model.
 class Person < ApplicationRecord
   include PersonLevels
+  include Issuable
 
   acts_as_paranoid
   has_paper_trail class_name: "Version"
@@ -18,6 +19,7 @@ class Person < ApplicationRecord
   belongs_to :scope,
              optional: true
 
+  has_many :issues_assigned, foreign_key: "assigned_to_id", class_name: "Issue"
   has_many :versions, as: :item
   has_many :procedures
   has_many :orders

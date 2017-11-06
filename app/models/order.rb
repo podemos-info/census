@@ -3,6 +3,7 @@
 # The order model.
 class Order < ApplicationRecord
   include OrderStates
+  include Issuable
 
   acts_as_paranoid
   has_paper_trail class_name: "Version"
@@ -37,10 +38,6 @@ class Order < ApplicationRecord
 
   def reprocessable?
     processed? && payment_method.reprocessable? && processed_at > Settings.payments.allow_reprocess_hours.hours.ago
-  end
-
-  def needs_review?(args = {})
-    processable?(args) && payment_method.needs_review?(args)
   end
 
   def external_authorization?

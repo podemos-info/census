@@ -22,6 +22,7 @@ module Payments
       return unless payment_processor.parse_external_authorization_response(order, @params)
 
       result = Order.transaction do
+        Payments::SavePaymentMethod.call(payment_method: order.payment_method, admin: nil)
         order.save!
         true
       end

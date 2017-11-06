@@ -6,6 +6,7 @@ class AdminPolicy < ApplicationPolicy
   end
 
   def show?
+    return true if user == record
     user.lopd_role? || super
   end
 

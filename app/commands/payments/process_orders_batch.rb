@@ -6,10 +6,10 @@ module Payments
     # Public: Initializes the command.
     #
     # orders_batch - Orders batch to be processed
-    # processed_by - The person that is processing the orders batch
-    def initialize(orders_batch, processed_by)
+    # current_admin - The person that is processing the orders batch
+    def initialize(orders_batch:, admin:)
       @orders_batch = orders_batch
-      @processed_by = processed_by
+      @admin = admin
     end
 
     # Executes the command. Broadcasts these events:
@@ -20,11 +20,11 @@ module Payments
     #
     # Returns nothing.
     def call
-      return broadcast(:invalid) unless @orders_batch && @processed_by
-      return broadcast(:review) if @orders_batch.orders.map { |order| order.needs_review?(inside_batch?: true) } .any?
+      return broadcast(:invalid) unless orders_batch && admin
+      return broadcast(:review) if OrdersBatchIssues.for(orders_batch).any?
 
       result = OrdersBatch.transaction do
-        payment_results = OrdersBatchPaymentProcessors.for(@orders_batch).map do |payment_processor|
+        payment_results = OrdersBatchPaymentProcessors.for(orders_batch).map do |payment_processor|
           process_processor_batch_orders(Payments::Processor.for(payment_processor)) ? :ok : :issues
         end
 
@@ -36,14 +36,18 @@ module Payments
 
     private
 
+    attr_reader :orders_batch, :admin
+
     def process_processor_batch_orders(processor)
-      processor.process_batch @orders_batch do
-        OrdersBatchPaymentProcessorOrders.for(@orders_batch, processor.name).find_each do |order|
+      processor.process_batch orders_batch do
+        OrdersBatchPaymentProcessorOrders.for(orders_batch, processor.name).find_each do |order|
           next unless order.processable?(inside_batch?: true)
           processor.process_order order
-          order.update_attributes! processed_at: Time.now, processed_by: @processed_by
+          Payments::SavePaymentMethod.call(payment_method: order.payment_method, admin: admin)
+          order.update_attributes! processed_at: Time.now, processed_by: admin
+          Issues::CheckProcessedOrderIssues.call(order: order, admin: admin)
         end
-        @orders_batch.update_attributes! processed_at: Time.now, processed_by: @processed_by
+        orders_batch.update_attributes! processed_at: Time.now, processed_by: admin
       end
     end
   end

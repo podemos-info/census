@@ -25,7 +25,7 @@ ActiveAdmin.register Procedure do
     "#{order_clause.to_sql}, id #{order_clause.order}"
   end
 
-  scope :all
+  scope :all, default: true
   Procedure.aasm.states.each do |state|
     scope state.name, default: state == :pending
   end

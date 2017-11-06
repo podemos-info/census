@@ -3,6 +3,7 @@
 require "rails_helper"
 
 describe RegisterPerson do
+  let!(:admin) { create(:admin) }
   let(:person) { build(:person) }
   let(:level) { person.level }
   let(:files) do
@@ -39,36 +40,38 @@ describe RegisterPerson do
   end
 
   subject do
-    RegisterPerson.call(form)
+    RegisterPerson.call(form: form, admin: admin)
   end
 
-  describe "when valid" do
-    it "broadcasts :ok" do
-      expect { subject } .to broadcast(:ok)
-    end
+  with_versioning do
+    describe "when valid" do
+      it "broadcasts :ok" do
+        expect { subject } .to broadcast(:ok)
+      end
 
-    it "register the person" do
-      expect { subject } .to change { Person.count } .by(1)
-    end
+      it "register the person" do
+        expect { subject } .to change { Person.count } .by(1)
+      end
 
-    it "create a verification procedure" do
-      expect { subject } .to change { Procedure.count } .by(1)
-    end
+      it "create a verification procedure" do
+        expect { subject } .to change { Procedure.count } .by(1)
+      end
 
-    context "change membership level" do
-      let(:level) { "member" }
+      context "change membership level" do
+        let(:level) { "member" }
 
-      it "create a verification procedure and a change of membership level procedure" do
-        expect { subject } .to change { Procedure.count } .by(2)
+        it "create a verification procedure and a change of membership level procedure" do
+          expect { subject } .to change { Procedure.count } .by(2)
+        end
       end
     end
-  end
 
-  describe "when invalid" do
-    let(:valid) { false }
+    describe "when invalid" do
+      let(:valid) { false }
 
-    it "doesn't register the person" do
-      expect { subject } .to_not change { Person.count }
+      it "doesn't register the person" do
+        expect { subject } .to_not change { Person.count }
+      end
     end
   end
 end

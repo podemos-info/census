@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Admin < ApplicationRecord
+  include HasRole
+
   acts_as_paranoid
   has_paper_trail class_name: "Version"
   has_many :versions, as: :item
@@ -12,5 +14,6 @@ class Admin < ApplicationRecord
 
   belongs_to :person
 
-  enum role: [:system, :lopd, :lopd_help, :finances], _suffix: true
+  has_many :issue_unreads
+  has_many :unread_issues, through: :issue_unreads, foreign_key: "issue_id", class_name: "Issue"
 end

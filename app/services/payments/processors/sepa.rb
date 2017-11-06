@@ -14,7 +14,7 @@ module Payments
           expires_at: Settings.payments.processors.sepa.file_lifespan.hours.from_now
         )
 
-        ::Downloads::CreateDownload.call(form) do
+        ::Downloads::CreateDownload.call(form: form) do
           on(:invalid) do
             return false
           end
