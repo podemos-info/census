@@ -322,13 +322,13 @@ es:
         failing: No funciona
         verified: Verificado
       information: Información adicional
-      view_versions: Ver versiones (%{count})
       issues_messages:
         expired: Tarjeta de crédito caducada
         fraud: Posible caso de fraude
         no_credit: Problemas con el límite de crédito
         unknown: Código de respuesta desconocido
         wrong_data: Datos del método de pago incorrectos
+      view_versions: Ver versiones (%{count})
     people:
       create_order: Crear orden
       create_payment_method: Crear método de pago
