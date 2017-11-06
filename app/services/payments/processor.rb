@@ -10,13 +10,27 @@ module Payments
       self.class.to_s.demodulize.underscore
     end
 
+    def processed_order(order:, response_code:)
+      order.response_code = response_code
+      order.payment_method.response_code = response_code
+      flags(response_code).each do |flag|
+        order.payment_method.enable_flag flag.to_sym
+      end
+    end
+
+    private
+
+    def flags(response_code)
+      Processor.payment_processor_response_code_info(payment_processor: name, response_code: response_code)[:flags] || []
+    end
+
     class << self
       def for(name)
         "payments/processors/#{name}".camelize.constantize.new
       end
 
       def payment_processor_response_code_info(payment_processor:, response_code:)
-        payment_processor_response_code.dig(payment_processor, response_code) || { message: :unknown, target: :system }
+        payment_processor_response_code.dig(payment_processor, response_code) || { message: :unknown, role: :system }
       end
 
       private
@@ -32,7 +46,7 @@ module Payments
               end
             end
           end
-          ret.freeze
+          ret.with_indifferent_access.freeze
         end
       end
     end

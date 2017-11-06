@@ -8,7 +8,6 @@ es:
     scopes:
       accepted: Aceptados
       activist: Militantes
-      admin_issues: Incidencias de gestióna
       all: Todo
       assigned: Asignadas
       deleted: Bajas
@@ -24,9 +23,7 @@ es:
       processed: Procesadas
       rejected: Rechazados
       returned: Devueltas
-      system_issues: Incidencias de sistema
       unread: Nuevas
-      user_issues: Incidencias usuario
       verified: Verificados
       young_member: Inscritas jóvenes
     sidebars:
@@ -117,6 +114,7 @@ es:
         created_at: Fecha de creación
         expiration_month: Mes de expiración
         expiration_year: Año de expiración
+        flags: Marcas
         iban: IBAN
         name: Nombre
         person: Persona
@@ -286,6 +284,7 @@ es:
       types:
         duplicated_document: Documento duplicado
         missing_bic: BIC desconocido
+        processed_response_code: Problemas al cobrar orden
     orders:
       action_message:
         not_processed: No se pudo procesar la orden.
@@ -324,6 +323,12 @@ es:
         verified: Verificado
       information: Información adicional
       view_versions: Ver versiones (%{count})
+      issues_messages:
+        expired: Tarjeta de crédito caducada
+        fraud: Posible caso de fraude
+        no_credit: Problemas con el límite de crédito
+        unknown: Código de respuesta desconocido
+        wrong_data: Datos del método de pago incorrectos
     people:
       create_order: Crear orden
       create_payment_method: Crear método de pago

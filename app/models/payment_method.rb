@@ -27,6 +27,10 @@ class PaymentMethod < ApplicationRecord
     false
   end
 
+  def create_user_issues?
+    true
+  end
+
   def default_name
     self.name = I18n.t("census.payment_methods.default_names.#{self.class.to_s.demodulize.underscore}", name_info)
   end

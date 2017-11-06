@@ -15,6 +15,10 @@ module PaymentMethods
       !authorized?
     end
 
+    def create_user_issues?
+      verified?
+    end
+
     def active?
       super && !expired?
     end

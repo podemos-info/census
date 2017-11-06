@@ -31,6 +31,16 @@ FactoryBot.define do
       end
     end
 
+    trait :processed_response_code do
+      payment_issue
+      issue_type { :processed_response_code }
+      after :build do |issue, evaluator|
+        issue.information = {
+          response_code: evaluator.order.response_code
+        }
+      end
+    end
+
     trait :unknown_error do
       payment_issue
       role { "system" }

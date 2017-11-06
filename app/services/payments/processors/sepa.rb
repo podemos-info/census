@@ -40,6 +40,7 @@ module Payments
           local_instrument: "CORE", # Local instrument ("CORE", "COR1" or "B2B")
           sequence_type: sequence_type(decorated_order.payment_method), # Sequence type ("FRST", "RCUR", "OOFF" or "FNAL")
         )
+        processed_order order: order, response_code: "OK"
         order.charge
       end
 

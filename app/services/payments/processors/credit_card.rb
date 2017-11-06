@@ -15,8 +15,7 @@ module Payments
 
         response = gateway.purchase(order.amount, payment_method.authorization_token, options)
         order.raw_response = response
-        order.payment_method.response_code = order.response_code = get_response_code(response)
-
+        processed_order order: order, response_code: get_response_code(response)
         response.success? ? order.charge : order.fail
       end
 
@@ -27,8 +26,8 @@ module Payments
         # check required keys presence (probably should be added by provider processor)
         return false unless (params.keys && REQUIRED_EXTERNAL_PARAMS) == REQUIRED_EXTERNAL_PARAMS
 
-        fill_order(order, params)
-        order.payment_method.response_code = order.response_code = params[:response_code]
+        fill_order order, params
+        processed_order order: order, response_code: params[:response_code]
         params[:success?] ? order.charge : order.fail
 
         true

@@ -21,6 +21,11 @@ describe Payments::ProcessOrder do
     it "updates the order state to processed" do
       expect { subject } .to change { Order.find(order.id).state } .to("processed")
     end
+
+    it "sets the payment method verified flag" do
+      subject
+      expect(order.payment_method).to be_verified
+    end
   end
 
   describe "when the payment fails" do

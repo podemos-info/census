@@ -3,11 +3,10 @@
 context.instance_eval do
   panel title do
     attributes_table_for resource do
+      row :id, class: classes[:id]
       row :flags, class: classes[:flags] do |resource|
         model_flags(resource)
       end
-      row :status_message, class: classes[:response_code]
-      row :id, class: classes[:id]
       row :person, class: classes[:person_id]
       row :name, class: classes[:name]
       row :type_name, class: classes[:type]
