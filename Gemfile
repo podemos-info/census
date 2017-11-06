@@ -55,7 +55,7 @@ group :development, :test do
   gem "byebug", platform: :mri
   gem "codecov", require: false
   gem "database_cleaner"
-  gem "factory_girl_rails"
+  gem "factory_bot_rails"
   gem "faker"
   gem "rails-controller-testing"
   gem "rspec-rails"

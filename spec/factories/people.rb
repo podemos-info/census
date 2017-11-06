@@ -3,7 +3,7 @@
 require "census/faker/localized"
 require "census/faker/document_id"
 
-FactoryGirl.define do
+FactoryBot.define do
   sequence(:participa_id)
 
   sequence(:scope_name) do |n|
