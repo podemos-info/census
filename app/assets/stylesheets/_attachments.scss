@@ -1,0 +1,19 @@
+.attachments {
+  .column {
+    @media screen and (min-width: $md-width) {
+      display: inline-block;
+      vertical-align: top;
+
+      &:first-child + .column {
+        max-width: 500px;
+        width: 48% !important;
+      }
+    }
+    @media screen and (max-width: $md-width) {
+      width: 100% !important;
+    }
+  }
+  img {
+    width: 100%;
+  }
+}
