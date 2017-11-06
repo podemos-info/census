@@ -2,7 +2,7 @@
 
 class ProcedurePolicy < ApplicationPolicy
   def base_role?
-    user.lopd_role? || user.lopd_help_role? || super
+    user.lopd_help_role? || super
   end
 
   def scope

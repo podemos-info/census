@@ -3,7 +3,7 @@
 require "census/faker/localized"
 require "census/faker/document_id"
 
-FactoryGirl.define do
+FactoryBot.define do
   sequence(:participa_id)
 
   sequence(:scope_name) do |n|
@@ -76,6 +76,17 @@ FactoryGirl.define do
 
     trait :verified do
       verified_by_document { true }
+    end
+
+    trait :copy do
+      transient do
+        from { build(:person) }
+      end
+
+      after :build do |person, evaluator|
+        person.assign_attributes evaluator.from.attributes
+        person.id = nil
+      end
     end
   end
 

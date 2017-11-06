@@ -5,12 +5,12 @@ require "rails_helper"
 describe Payments::ProcessOrder do
   subject(:process_order) do
     VCR.use_cassette(cassete) do
-      described_class.call(order, processed_by)
+      described_class.call(order: order, admin: admin)
     end
   end
 
   let(:order) { create(:order, :credit_card, :external_verified) }
-  let!(:processed_by) { create(:admin) }
+  let(:admin) { create(:admin) }
 
   describe "when valid" do
     let(:cassete) { "valid_process_order_command" }

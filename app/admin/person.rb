@@ -7,10 +7,10 @@ ActiveAdmin.register Person do
 
   includes :scope
 
-  actions :index, :show, :new, :create, :edit, :update
-
   permit_params :first_name, :last_name1, :last_name2, :document_type, :document_id,
                 :born_at, :gender, :address, :postal_code, :email, :phone, :scope_id, :address_scope_id
+
+  actions :index, :show, :new, :create, :edit, :update
 
   order_by(:full_name) do |order_clause|
     "last_name1 #{order_clause.order}, last_name2 #{order_clause.order}, first_name #{order_clause.order}"
@@ -42,7 +42,7 @@ ActiveAdmin.register Person do
     actions
   end
 
-  scope :all
+  scope :all, default: true
   Person.levels.each do |level|
     scope level.to_sym
   end

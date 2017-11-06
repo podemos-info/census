@@ -26,5 +26,6 @@ class CreatePeople < ActiveRecord::Migration[5.1]
       t.timestamps
       t.datetime :deleted_at
     end
+    add_index :people, :extra, using: :gin
   end
 end

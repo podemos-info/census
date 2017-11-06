@@ -6,8 +6,10 @@ module Payments
     # Public: Initializes the command.
     #
     # form - A form object with the params.
-    def initialize(form)
+    # admin - The admin user creating the order.
+    def initialize(form:, admin: nil)
       @form = form
+      @admin = admin
     end
 
     # Executes the command. Broadcasts these events:
@@ -17,11 +19,12 @@ module Payments
     #
     # Returns nothing.
     def call
-      broadcast(:invalid) && return unless form.valid?
+      return broadcast(:invalid) unless form.valid?
       if order.external_authorization?
         broadcast(:external, payment_processor.external_authorization_params(order))
       else
         result = Order.transaction do
+          Payments::SavePaymentMethod.call(payment_method: order.payment_method, admin: admin)
           order.save!
           :ok
         end
@@ -31,7 +34,7 @@ module Payments
 
     private
 
-    attr_reader :form
+    attr_reader :form, :admin
 
     def order
       @order ||= Order.new(

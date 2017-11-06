@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :attachment do
     file { test_file("attachment-image.png", "image/png") }
     association :procedure, factory: :verification_document, strategy: :build

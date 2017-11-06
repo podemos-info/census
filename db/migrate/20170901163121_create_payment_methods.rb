@@ -15,5 +15,6 @@ class CreatePaymentMethods < ActiveRecord::Migration[5.1]
       t.timestamps
       t.datetime :deleted_at
     end
+    add_index :payment_methods, :information, using: :gin
   end
 end

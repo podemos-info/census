@@ -3,8 +3,9 @@
 require "rails_helper"
 
 describe Payments::CreateOrdersBatch do
-  subject(:create_orders_batch) { described_class.call(form) }
+  subject(:create_orders_batch) { described_class.call(form: form, admin: admin) }
 
+  let(:admin) { create(:admin) }
   let(:orders_batch) { build(:orders_batch) }
   let(:valid) { true }
   let(:form) do
@@ -19,7 +20,7 @@ describe Payments::CreateOrdersBatch do
 
   describe "when valid" do
     it "broadcasts :ok" do
-      is_expected.to broadcast(:ok)
+      expect { subject } .to broadcast(:ok)
     end
 
     it "saves the order" do
@@ -31,7 +32,7 @@ describe Payments::CreateOrdersBatch do
     let(:valid) { false }
 
     it "broadcasts :invalid" do
-      is_expected.to broadcast(:invalid)
+      expect { subject } .to broadcast(:invalid)
     end
 
     it "doesn't save the orders batch" do

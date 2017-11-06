@@ -66,26 +66,6 @@ ActiveAdmin.register PaymentMethod do
     link_to t("census.payment_methods.create_order"), new_order_path(order: { payment_method_id: payment_method.id })
   end
 
-  action_item :dismiss_issues, only: :show do
-    if resource.system_issues?
-      link_to t("census.payment_methods.dismiss_issues"), dismiss_issues_payment_method_path(issues_type: :system)
-    elsif resource.admin_issues?
-      link_to t("census.payment_methods.dismiss_issues"), dismiss_issues_payment_method_path(issues_type: :admin)
-    end
-  end
-
-  member_action :dismiss_issues do
-    Payments::DismissPaymentMethodIssues.call(resource, params[:issues_type]) do
-      on(:invalid) do
-        flash[:error] = t("census.payment_methods.action_message.cant_dismiss_issues")
-      end
-      on(:ok) do
-        flash[:notice] = t("census.payment_methods.action_message.issues_dismissed")
-      end
-    end
-    redirect_back(fallback_location: payment_method_path(resource))
-  end
-
   controller do
     def build_resource
       flash[:alert] = t("census.payment_methods.add_payment_methods_from_people") unless permitted_params[:payment_method][:person_id]
@@ -93,6 +73,24 @@ ActiveAdmin.register PaymentMethod do
       set_resource_ivar resource
 
       resource
+    end
+
+    def create
+      payment_method = build_resource
+      Payments::SavePaymentMethod.call(payment_method: payment_method, admin: current_admin) do
+        on(:invalid) { render :new }
+        on(:ok) { redirect_to person_payment_method_path(payment_method.person, payment_method) }
+      end
+    end
+
+    def update
+      payment_method = resource
+      payment_method.assign_attributes permitted_params[:payment_method]
+
+      Payments::SavePaymentMethod.call(payment_method: payment_method, admin: current_admin) do
+        on(:invalid) { render :edit }
+        on(:ok) { redirect_back(fallback_location: payment_method_path(resource)) }
+      end
     end
   end
 end

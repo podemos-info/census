@@ -6,10 +6,10 @@ module Payments
     # Public: Initializes the command.
     #
     # form - A form object with the params.
-    # description - The description of the orders batch
-    # orders - Orders to be included in the batch
-    def initialize(form)
+    # admin - The admin user creating the orders_batch.
+    def initialize(form:, admin:)
       @form = form
+      @admin = admin
     end
 
     # Executes the command. Broadcasts these events:

@@ -2,7 +2,7 @@
 
 require "iban_bic/random"
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :credit_card, class: :"payment_methods/credit_card" do
     transient do
       expires_at { 4.years.from_now }
@@ -49,7 +49,7 @@ FactoryGirl.define do
 
   factory :order do
     person
-    payment_method { FactoryGirl.create(:direct_debit, person: person) }
+    payment_method { create(:direct_debit, person: person) }
 
     currency { "EUR" }
     amount { Faker::Number.between(1, 10_000) }
@@ -57,19 +57,19 @@ FactoryGirl.define do
     description { Faker::Lorem.sentence(1, true, 4) }
 
     trait :credit_card do
-      payment_method { FactoryGirl.build(:credit_card, person: person) }
+      payment_method { build(:credit_card, person: person) }
     end
 
     trait :external do
-      payment_method { FactoryGirl.build(:credit_card, :external, person: person) }
+      payment_method { build(:credit_card, :external, person: person) }
     end
 
     trait :external_verified do
-      payment_method { FactoryGirl.build(:credit_card, :external_verified, person: person) }
+      payment_method { build(:credit_card, :external_verified, person: person) }
     end
 
     trait :external_invalid do
-      payment_method { FactoryGirl.build(:credit_card, :external_verified, authorization_token: "invalid", person: person) }
+      payment_method { build(:credit_card, :external_verified, authorization_token: "invalid", person: person) }
     end
 
     trait :processed do
@@ -79,7 +79,7 @@ FactoryGirl.define do
     end
 
     trait :verified do
-      payment_method { FactoryGirl.build(:direct_debit, :verified, person: person) }
+      payment_method { build(:direct_debit, :verified, person: person) }
     end
   end
 
@@ -103,6 +103,12 @@ FactoryGirl.define do
     trait :debit_only do
       credit_card_orders_invalid { 0 }
       credit_card_orders_verified { 0 }
+    end
+
+    trait :with_issues do
+      after :create do |orders_batch|
+        create(:issue, :missing_bic, order: orders_batch.orders.first)
+      end
     end
   end
 

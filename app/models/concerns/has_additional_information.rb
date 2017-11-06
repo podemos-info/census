@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module AdditionalInformation
+module HasAdditionalInformation
   extend ActiveSupport::Concern
 
   included do

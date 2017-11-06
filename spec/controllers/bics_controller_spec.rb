@@ -23,19 +23,19 @@ describe BicsController, type: :controller do
     is_expected.to be_include_in_menu
   end
 
-  context "index page" do
+  describe "index page" do
     subject { get :index }
     it { is_expected.to be_success }
     it { is_expected.to render_template("index") }
   end
 
-  context "new page" do
+  describe "new page" do
     subject { get :new }
     it { is_expected.to be_success }
     it { is_expected.to render_template("new") }
   end
 
-  context "create page" do
+  describe "create page" do
     let(:bic) { build(:bic) }
     subject { put :create, params: { bic: bic.attributes } }
     it { expect { subject } .to change { Bic.count }.by(1) }
@@ -43,9 +43,26 @@ describe BicsController, type: :controller do
     it { expect(subject.location).to eq(bic_url(Bic.last)) }
   end
 
-  context "edit page" do
+  describe "edit page" do
     subject { get :edit, params: { id: bic.id } }
     it { is_expected.to be_success }
     it { is_expected.to render_template("edit") }
+  end
+
+  describe "update page" do
+    subject do
+      bic.assign_attributes bank_code: "KKKKKK"
+      patch :update, params: { id: bic.id, bic: bic.attributes }
+    end
+    it { expect(subject).to have_http_status(:found) }
+    it { expect(subject.location).to eq(bic_url(bic.id)) }
+    it { expect { subject } .to change { bic.bank_code }.to("KKKKKK") }
+  end
+
+  describe "destroy page" do
+    subject { put :destroy, params: { id: bic.id } }
+    it { expect { subject } .to change { Bic.count }.by(-1) }
+    it { is_expected.to have_http_status(:found) }
+    it { expect(subject.location).to eq(bics_url) }
   end
 end

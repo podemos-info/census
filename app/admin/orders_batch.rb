@@ -19,7 +19,7 @@ ActiveAdmin.register OrdersBatch do
   end
 
   action_item :process, only: :show do
-    if OrdersBatchNeedsReviewOrders.for(resource).any?
+    if issue_for_resource
       link_to t("census.orders_batches.review_orders"), review_orders_orders_batch_path
     else
       process_text = resource.processed_at ? t("census.orders_batches.process_orders_again") : t("census.orders_batches.process_orders")
@@ -55,17 +55,13 @@ ActiveAdmin.register OrdersBatch do
   end
 
   member_action :review_orders, method: [:get, :post] do
-    @pending_bics = Hash[OrdersBatchNeedsReviewOrders.for(resource).map do |order|
-      iban = order.payment_method.iban
-      iban_parts = IbanBic.parse(iban)
-
-      bic = Bic.new(country: iban_parts[:country], bank_code: iban_parts[:bank])
-      if params[:pending_bics]
-        bic.bic = params[:pending_bics]["#{iban_parts[:country]}_#{iban_parts[:bank]}"].strip
-        bic.save
-      end
-      next unless order.needs_review?(inside_batch?: true)
-      [iban, bic]
+    params[:pending_bics]&.each do |key, value|
+      country, bank_code = key.split("_")
+      form = BicForm.new(country: country, bank_code: bank_code, bic: value)
+      Payments::CreateBic.call(form: form, admin: current_admin)
+    end
+    @pending_bics = Hash[OrdersBatchIssues.for(resource).merge(IssuesNonFixed.for).map do |issue|
+      [issue.information[:iban], Bic.new(country: issue.information[:country], bank_code: issue.information[:bank_code])]
     end .compact]
 
     redirect_to orders_batch_path unless @pending_bics.any?
@@ -76,7 +72,7 @@ ActiveAdmin.register OrdersBatch do
   member_action :charge, method: :patch do # Fails when calling it :process
     orders_batch = resource
     needs_review_orders = false
-    Payments::ProcessOrdersBatch.call(orders_batch, current_admin) do
+    Payments::ProcessOrdersBatch.call(orders_batch: orders_batch, admin: current_admin) do
       on(:invalid) do
         flash[:error] = t("census.orders_batches.action_message.not_processed")
       end
@@ -122,10 +118,14 @@ ActiveAdmin.register OrdersBatch do
 
     def create
       form = build_resource
-      Payments::CreateOrdersBatch.call(form) do
+      Payments::CreateOrdersBatch.call(form: form, admin: current_admin) do
         on(:invalid) { render :new }
         on(:ok) { |orders_batch| redirect_to orders_batch_path(id: orders_batch.id) }
       end
+    end
+
+    def issue_for_resource
+      @issue_for_resource ||= super || OrdersBatchIssues.for(resource).merge(IssuesNonFixed.for).merge(AdminIssues.for(current_admin)).first
     end
   end
 end

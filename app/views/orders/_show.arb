@@ -12,6 +12,6 @@ context.instance_eval do
       row :created_at, class: classes[:created_at]
       row :updated_at, class: classes[:updated_at]
     end
-    show_table(self, t("census.orders.information"), resource.information) if resource.information.any?
+    show_table(context: self, title: t("census.orders.information"), table: resource.information) if resource.information.any?
   end
 end

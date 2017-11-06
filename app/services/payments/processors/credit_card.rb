@@ -15,9 +15,8 @@ module Payments
 
         response = gateway.purchase(order.amount, payment_method.authorization_token, options)
         order.raw_response = response
-        order.response_code = get_response_code(response)
+        order.payment_method.response_code = order.response_code = get_response_code(response)
 
-        payment_method.processed order.response_code
         response.success? ? order.charge : order.fail
       end
 
@@ -29,8 +28,7 @@ module Payments
         return false unless (params.keys && REQUIRED_EXTERNAL_PARAMS) == REQUIRED_EXTERNAL_PARAMS
 
         fill_order(order, params)
-        order.response_code = params[:response_code]
-        order.payment_method.processed params[:response_code]
+        order.payment_method.response_code = order.response_code = params[:response_code]
         params[:success?] ? order.charge : order.fail
 
         true

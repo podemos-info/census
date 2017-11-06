@@ -1,0 +1,41 @@
+.status_tag {
+  &.has_issues {
+    background: $error-color;
+  }
+  &.verified_by_document {
+    background: $almost-success-color;
+  }
+  &.verified_in_person {
+    background: $success-color;
+  }
+
+  &.member, &.young_member {
+    background: $almost-success-color;
+  }
+  &.activist {
+    background: $success-color;
+  }
+  &.leave {
+    background: $error-color;
+  }
+
+  &.ok {
+    background: $success-color;
+  }
+  &.issues {
+    background: $warning-color;
+  }
+  &.error {
+    background: $error-color;
+  }
+
+  &.verified {
+    background: $success-color;
+  }
+  &.admin_issues {
+    background: $warning-color;
+  }
+  &.failing {
+    background: $error-color;
+  }
+}

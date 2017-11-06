@@ -4,7 +4,7 @@ module Api
   class V1::PeopleController < ApiController
     def create
       form = PersonForm.from_params(params)
-      RegisterPerson.call(form) do
+      RegisterPerson.call(form: form) do
         on(:invalid) do
           render json: form.errors, status: :unprocessable_entity
         end

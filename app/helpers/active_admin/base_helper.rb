@@ -9,7 +9,7 @@ module ActiveAdmin::BaseHelper
     end
   end
 
-  def show_table(context, title, table)
+  def show_table(context:, title:, table:)
     context.attributes_table title: title do
       table.to_a.each do |key, value|
         context.row(key) { value }

@@ -37,37 +37,6 @@ describe PaymentMethodsController, type: :controller do
     end
   end
 
-  context "show page with system issues" do
-    let!(:payment_method) { create(:direct_debit, system_issues: true) }
-    subject { get :show, params: { id: payment_method.id } }
-    it { is_expected.to be_success }
-    it { is_expected.to render_template("show") }
-  end
-
-  describe "dismiss payment method issues" do
-    subject { get :dismiss_issues, params: params }
-    let(:params) { { id: payment_method.id, issues_type: issues_type } }
-    let!(:payment_method) { create(:direct_debit, issues_type => true) }
-    let(:issues_type) { :admin_issues }
-
-    context "admin issues" do
-      it { is_expected.to have_http_status(:found) }
-      it { expect(subject.location).to eq(payment_method_url(payment_method)) }
-    end
-
-    context "system issues" do
-      let(:issues_type) { :system_issues }
-      it { is_expected.to have_http_status(:found) }
-      it { expect(subject.location).to eq(payment_method_url(payment_method)) }
-    end
-
-    context "without issues type" do
-      let(:params) { { id: payment_method.id } }
-      it { is_expected.to have_http_status(:found) }
-      it { expect(subject.location).to eq(payment_method_url(payment_method)) }
-    end
-  end
-
   context "new page" do
     let(:person) { create(:person) }
     subject { get :new, params: { payment_method: { person_id: person.id } } }
@@ -88,5 +57,15 @@ describe PaymentMethodsController, type: :controller do
     subject { get :edit, params: { id: payment_method.id } }
     it { expect(subject).to be_success }
     it { expect(subject).to render_template("edit") }
+  end
+
+  context "update page" do
+    subject do
+      payment_method.assign_attributes name: "KKKKKK"
+      patch :update, params: { id: payment_method.id, payment_method: payment_method.attributes }
+    end
+    it { expect(subject).to have_http_status(:found) }
+    it { expect(subject.location).to eq(payment_method_url(payment_method)) }
+    it { expect { subject } .to change { payment_method.name }.to("KKKKKK") }
   end
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class OrdersBatchNeedsReviewOrders < Rectify::Query
+class OrdersBatchIssues < Rectify::Query
   def self.for(orders_batch)
     new(orders_batch).query
   end
@@ -10,6 +10,6 @@ class OrdersBatchNeedsReviewOrders < Rectify::Query
   end
 
   def query
-    @orders_batch.orders.joins(:payment_method).merge(PaymentMethod.admin_issues)
+    Issue.joins(:payment_methods).merge(@orders_batch.payment_methods)
   end
 end

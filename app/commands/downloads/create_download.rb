@@ -6,7 +6,7 @@ module Downloads
     # Public: Initializes the command.
     #
     # form - A form object with the params.
-    def initialize(form)
+    def initialize(form:)
       @form = form
     end
 

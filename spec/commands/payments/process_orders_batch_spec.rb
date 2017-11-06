@@ -5,16 +5,11 @@ require "rails_helper"
 describe Payments::ProcessOrdersBatch do
   subject(:process_orders_batch) do
     VCR.use_cassette(cassete) do
-      described_class.call(orders_batch, processed_by)
+      described_class.call(orders_batch: orders_batch, admin: admin)
     end
   end
+  let!(:admin) { create(:admin) }
   let(:orders_batch) { create(:orders_batch) }
-  let!(:processed_by) { create(:admin) }
-  let(:force_valid_bic) { true }
-
-  before do
-    allow(IbanBic).to receive(:calculate_bic).and_return("ABCESXXX") if force_valid_bic
-  end
 
   describe "when valid" do
     let(:cassete) { "valid_process_orders_batch_command" }
@@ -29,7 +24,7 @@ describe Payments::ProcessOrdersBatch do
 
   describe "when invalid" do
     let(:cassete) { "invalid_process_orders_batch_command" }
-    let(:processed_by) { nil }
+    let(:admin) { nil }
 
     it "broadcasts :invalid" do
       expect { subject } .to broadcast(:invalid)
@@ -41,12 +36,11 @@ describe Payments::ProcessOrdersBatch do
   end
 
   describe "when needs review" do
-    let(:force_valid_bic) { false }
+    let(:orders_batch) { create(:orders_batch, :with_issues) }
     let(:cassete) { "needs_review_process_orders_batch_command" }
-    let(:processed_by) { nil }
 
-    it "broadcasts :invalid" do
-      expect { subject } .to broadcast(:invalid)
+    it "broadcasts :review" do
+      expect { subject } .to broadcast(:review)
     end
 
     it "doesn't update the orders batch" do

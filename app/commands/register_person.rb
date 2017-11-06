@@ -3,10 +3,11 @@
 # A command to register a person.
 class RegisterPerson < Rectify::Command
   # Public: Initializes the command.
-  #
   # form - A form object with the params.
-  def initialize(form)
+  # admin - The admin user creating the person.
+  def initialize(form:, admin: nil)
     @form = form
+    @admin = admin
   end
 
   # Executes the command. Broadcasts these events:
@@ -21,6 +22,9 @@ class RegisterPerson < Rectify::Command
     result = Person.transaction do
       person = build_person
       person.save!
+      person.versions.first.update_attributes(whodunnit: person) unless PaperTrail.whodunnit
+
+      Issues::CheckPersonIssues.call(person: person, admin: admin)
 
       verification = Procedures::VerificationDocument.new(person: person)
       form.files.each do |file|
@@ -41,7 +45,7 @@ class RegisterPerson < Rectify::Command
 
   private
 
-  attr_reader :form
+  attr_reader :form, :admin
 
   def build_person
     Person.new(

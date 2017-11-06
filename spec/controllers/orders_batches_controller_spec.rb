@@ -8,14 +8,10 @@ describe OrdersBatchesController, type: :controller do
 
   subject(:resource) { all_resources[resource_class] }
 
-  before do
-    allow(IbanBic).to receive(:calculate_bic).and_return("ABCESXXX") if force_valid_bic
-  end
-
   let(:resource_class) { OrdersBatch }
   let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
   let(:force_valid_bic) { true }
-  let!(:orders_batch) { create(:orders_batch) }
+  let(:orders_batch) { create(:orders_batch) }
   let!(:pending_order) { create(:order) }
   let(:current_admin) { create(:admin, :finances) }
 
@@ -43,8 +39,8 @@ describe OrdersBatchesController, type: :controller do
       it { is_expected.to be_success }
       it { is_expected.to render_template("show") }
 
-      context "with orders that needs review" do
-        let(:force_valid_bic) { false }
+      context "with orders with issues" do
+        let(:orders_batch) { create(:orders_batch, :with_issues) }
         it { is_expected.to be_success }
         it { is_expected.to render_template("show") }
       end
@@ -91,7 +87,7 @@ describe OrdersBatchesController, type: :controller do
       end
     end
 
-    context "without orders that needs review" do
+    context "without orders with issues" do
       let(:cassete) { "orders_batch_payment" }
       it "success" do
         is_expected.to have_http_status(:found)
@@ -131,8 +127,8 @@ describe OrdersBatchesController, type: :controller do
       end
     end
 
-    context "with orders that needs review" do
-      let(:force_valid_bic) { false }
+    context "with orders with issues" do
+      let(:orders_batch) { create(:orders_batch, :with_issues) }
       let(:cassete) { "orders_batch_payment_review" }
 
       it "success" do
@@ -183,15 +179,14 @@ describe OrdersBatchesController, type: :controller do
 
   describe "review orders orders batch" do
     subject(:page) { get :review_orders, params: { id: orders_batch.id } }
-
-    context "without orders that needs review" do
+    context "without orders with issues" do
       it "success" do
         is_expected.to have_http_status(:found)
       end
     end
 
-    context "with orders that needs review" do
-      let(:force_valid_bic) { false }
+    context "with orders with issues" do
+      let(:orders_batch) { create(:orders_batch, :with_issues) }
 
       it { is_expected.to be_success }
 
@@ -199,7 +194,7 @@ describe OrdersBatchesController, type: :controller do
         subject(:page) { post :review_orders, params: { id: orders_batch.id, pending_bics: pending_bics } }
         let(:pending_bics) do
           Hash[orders_batch.orders.map do |order|
-            next unless order.payment_method.is_a?(PaymentMethods::DirectDebit)
+            next unless order.payment_method.is_a?(PaymentMethods::DirectDebit) && order.payment_method.bic.nil?
             iban_parts = IbanBic.parse(order.payment_method.iban)
             ["#{iban_parts[:country]}_#{iban_parts[:bank]}", "ABCESXXX"]
           end .compact]

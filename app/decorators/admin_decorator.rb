@@ -19,19 +19,19 @@ class AdminDecorator < ApplicationDecorator
     end.freeze
   end
 
-  def current_sign_in_ip
-    format_ip object.current_sign_in_ip
-  end
-
-  def last_sign_in_ip
-    format_ip object.last_sign_in_ip
-  end
-
   def last_visits
     @last_visits ||= AdminLastVisits.for(object).decorate
   end
 
   def count_visits
     @count_visits ||= object.visits.count
+  end
+
+  def count_unread_issues
+    @count_unread_issues ||= object.issue_unreads.count
+  end
+
+  def has_unread_issues?
+    count_unread_issues.positive?
   end
 end

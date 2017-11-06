@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe Downloads::CreateDownload do
-  subject(:command) { described_class.call(form) }
+  subject(:command) { described_class.call(form: form) }
   let(:download) { build(:download) }
   let(:valid) { true }
   let(:file) do

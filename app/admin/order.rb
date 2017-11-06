@@ -16,7 +16,7 @@ ActiveAdmin.register Order do
   actions :index, :show, :new, :create
   config.clear_action_items!
 
-  scope :all
+  scope :all, default: true
   Order.states.each do |state|
     scope state.to_sym
   end
@@ -72,7 +72,7 @@ ActiveAdmin.register Order do
 
   member_action :charge, method: :patch do # Fails when calling it :process
     order = resource
-    Payments::ProcessOrder.call(order, current_admin) do
+    Payments::ProcessOrder.call(order: order, admin: current_admin) do
       on(:invalid) do
         flash[:error] = t("census.orders.action_message.not_processed")
       end
@@ -113,7 +113,7 @@ ActiveAdmin.register Order do
 
     def create
       form = build_resource
-      Payments::CreateOrder.call(form) do
+      Payments::CreateOrder.call(form: form, admin: current_admin) do
         on(:invalid) { render :new }
         on(:external) do |order_info|
           append_content_security_policy_directives script_src: ["'unsafe-inline'"]
@@ -122,6 +122,10 @@ ActiveAdmin.register Order do
         end
         on(:ok) { |order| redirect_to order_path(id: order.id) }
       end
+    end
+
+    def issue_for_resource
+      super || IssuesNonFixed.for.merge(AdminIssues.for(current_admin)).merge(resource.payment_method.issues).first
     end
   end
 end

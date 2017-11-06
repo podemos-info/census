@@ -19,5 +19,11 @@ module Orders
     def person
       @person ||= Person.find(person_id)
     end
+
+    def self.from_params(params)
+      return super unless self == OrderForm
+      class_name = "orders/#{params[:type]}_order_form".classify
+      class_name.constantize.from_params(params) if Object.const_defined?(class_name)
+    end
   end
 end

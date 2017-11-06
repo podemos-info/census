@@ -3,8 +3,9 @@
 require "rails_helper"
 
 describe Payments::CreateOrder do
-  subject(:create_order) { described_class.call(form) }
+  subject(:create_order) { described_class.call(form: form, admin: admin) }
 
+  let(:admin) { create(:admin) }
   let(:order) { build(:order) }
   let(:payment_method) { create(:direct_debit, person: order.person) }
   let(:form_class) { Orders::ExistingPaymentMethodOrderForm }
@@ -24,7 +25,7 @@ describe Payments::CreateOrder do
 
   describe "when valid" do
     it "broadcasts :ok" do
-      is_expected.to broadcast(:ok)
+      expect { subject } .to broadcast(:ok)
     end
 
     it "saves the order" do
@@ -62,7 +63,7 @@ describe Payments::CreateOrder do
     let(:form_class) { Orders::CreditCardAuthorizedOrderForm }
 
     it "broadcasts :ok" do
-      is_expected.to broadcast(:ok)
+      expect { subject } .to broadcast(:ok)
     end
 
     it "saves the order" do
@@ -75,7 +76,7 @@ describe Payments::CreateOrder do
     let(:form_class) { Orders::DirectDebitOrderForm }
 
     it "broadcasts :ok" do
-      is_expected.to broadcast(:ok)
+      expect { subject } .to broadcast(:ok)
     end
 
     it "saves the order" do
