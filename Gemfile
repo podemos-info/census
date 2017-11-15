@@ -71,7 +71,9 @@ end
 
 group :development do
   gem "better_errors"
-  gem "capistrano-rails"
+  gem "capistrano", "~> 3.6", require: false
+  gem "capistrano-rails", "~> 1.3", require: false
+  gem "capistrano3-puma", require: false
   gem "i18n-debug"
   gem "i18n-tasks"
   gem "listen"
