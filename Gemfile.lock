@@ -143,7 +143,7 @@ GEM
       dry-validation (>= 0.10.4)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
-    crass (1.0.2)
+    crass (1.0.3)
     database_cleaner (1.6.2)
     deep_merge (1.1.1)
     descendants_tracker (0.0.4)
@@ -236,7 +236,7 @@ GEM
       rainbow (~> 2.2)
       terminal-table (>= 1.5.1)
     iban-tools (1.1.0)
-    iban_bic (1.2.0)
+    iban_bic (1.3.0)
       rails (~> 5.1)
       regexp-examples (~> 1.3)
     ice_nine (0.11.2)
@@ -282,7 +282,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
     mini_magick (4.8.0)
-    mini_mime (0.1.4)
+    mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.10.3)
     money (6.10.0)
@@ -376,7 +376,7 @@ GEM
       virtus (~> 1.0.5)
       wisper (>= 1.6.1)
     referer-parser (0.3.0)
-    regexp-examples (1.4.0)
+    regexp-examples (1.4.1)
     request_store (1.3.2)
     require_all (1.4.0)
     responders (2.4.0)
@@ -487,7 +487,7 @@ GEM
       hashdiff
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
-    websocket-extensions (0.1.2)
+    websocket-extensions (0.1.3)
     wisper (2.0.0)
     wisper-rspec (1.0.0)
     xdan-datetimepicker-rails (2.5.4)
@@ -556,4 +556,4 @@ DEPENDENCIES
   wisper-rspec
 
 BUNDLED WITH
-   1.15.4
+   1.16.0
