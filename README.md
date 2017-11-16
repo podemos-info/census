@@ -11,4 +11,4 @@ Census Managment Application
 [![Waffle.io](https://img.shields.io/waffle/label/podemos-info/census/in%20progress.svg)](https://waffle.io/podemos-info/census)
 
 
-[API guide](blob/master/API.md)
+[API guide](API.md)
