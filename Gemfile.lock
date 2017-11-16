@@ -427,7 +427,7 @@ GEM
       sprockets (> 2.11)
       sprockets-rails
       tilt
-    secure_headers (5.0.1)
+    secure_headers (5.0.2)
       useragent (>= 0.15.0)
     select2-rails (4.0.3)
       thor (~> 0.14)
@@ -556,4 +556,4 @@ DEPENDENCIES
   wisper-rspec
 
 BUNDLED WITH
-   1.15.4
+   1.16.0
