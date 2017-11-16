@@ -8,6 +8,9 @@ module Api
         on(:invalid) do
           render json: form.errors, status: :unprocessable_entity
         end
+        on(:external) do |order_info|
+          render json: { order_info: order_info }, status: :created
+        end
         on(:ok) do
           render json: {}, status: :created
         end

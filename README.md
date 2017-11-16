@@ -9,3 +9,6 @@ Census Managment Application
 [![Enhancements](https://img.shields.io/github/issues-raw/podemos-info/census/enhancement.svg?label=enhancement)](https://github.com/podemos-info/census/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement)
 [![Bugs](https://img.shields.io/github/issues-raw/podemos-info/census/bug.svg?label=bug)](https://github.com/podemos-info/census/issues?q=is%3Aissue+is%3Aopen+label%3Abug)
 [![Waffle.io](https://img.shields.io/waffle/label/podemos-info/census/in%20progress.svg)](https://waffle.io/podemos-info/census)
+
+
+[API guide](blob/master/API.md)

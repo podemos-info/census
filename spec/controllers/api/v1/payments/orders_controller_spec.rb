@@ -7,7 +7,7 @@ describe Api::V1::Payments::OrdersController, type: :controller do
 
   let(:params) do
     {
-      type: "existing_payment_method",
+      payment_method_type: "existing_payment_method",
       payment_method_id: payment_method.id,
       person_id: person.id,
       description: order.description,
