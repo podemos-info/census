@@ -5,7 +5,7 @@
 ### Order creation
 :round_pushpin: Creates an order for a person. It can use an existing payment method or can create a new one.
 ```
-POST api/v1/orders
+POST api/v1/payments/orders
 ```
 
 Parameter         | Description            | Only when `payment_method_type` is ...
