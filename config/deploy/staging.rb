@@ -6,7 +6,10 @@
 # You can define all roles on a single server, or split them:
 
 server "census-staging-master", user: "deploy", roles: %w(app db web)
-server "census-staging-slave", user: "deploy", roles: %w(app db web)
+server "census-staging-slave", user: "deploy", roles: %w(app web)
+
+set :rails_env, :production
+
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
 # server "db.example.com", user: "deploy", roles: %w{db}
 
@@ -29,6 +32,10 @@ server "census-staging-slave", user: "deploy", roles: %w(app db web)
 # For available Capistrano configuration variables see the documentation page.
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
+
+# Use RVM system installation
+set :rvm_type, :system
+set :rvm_custom_path, "/usr/share/rvm"
 
 # Custom SSH Options
 # ==================
