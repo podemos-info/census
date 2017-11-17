@@ -25,6 +25,9 @@ set :repo_url, "git@github.com:podemos-info/census.git"
 # Default value for :linked_files is []
 append :linked_files, ".env"
 
+# Symlink encryption settings if configured
+after "deploy:symlink:linked_files", "encryption:symlink"
+
 # Default value for linked_dirs is []
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "non-public", "config/keys"
 

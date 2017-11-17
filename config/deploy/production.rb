@@ -1,13 +1,12 @@
+# frozen_string_literal: true
+
 # server-based syntax
 # ======================
 # Defines a single server with a list of roles and multiple properties.
 # You can define all roles on a single server, or split them:
 
-# server "example.com", user: "deploy", roles: %w{app db web}, my_property: :my_value
-# server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
-# server "db.example.com", user: "deploy", roles: %w{db}
-
-
+server "census-production-master", user: "deploy", roles: %w(master app db web)
+server "census-production-slave", user: "deploy", roles: %w(slave app web)
 
 # role-based syntax
 # ==================
@@ -21,8 +20,6 @@
 # role :web, %w{user1@primary.com user2@additional.com}, other_property: :other_value
 # role :db,  %w{deploy@example.com}
 
-
-
 # Configuration
 # =============
 # You can set any configuration variable like in config/deploy.rb
@@ -31,7 +28,9 @@
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
 
-
+# Use RVM system installation
+set :rvm_type, :system
+set :rvm_custom_path, "/usr/share/rvm"
 
 # Custom SSH Options
 # ==================

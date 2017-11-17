@@ -1255,6 +1255,7 @@ Rails/Validation:
 Metrics/BlockLength:
   Exclude:
     - '**/*.arb'
+    - '**/*.rake'
     - 'app/admin/*.rb'
     - 'app/admin/**/*.rb'
     - 'config/routes.rb'
