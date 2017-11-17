@@ -19,4 +19,4 @@ test:
   database: <%= ENV.fetch("DATABASE_NAME") { "census_test" } %>
 
 production:
-  url: <%= ENV['DATABASE_URL'] %>
+  url: <%= ENV["DATABASE_URL"] %>
