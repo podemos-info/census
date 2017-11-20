@@ -15,7 +15,7 @@ module PaymentMethods
       !authorized?
     end
 
-    def create_user_issues?
+    def user_visible?
       verified?
     end
 
