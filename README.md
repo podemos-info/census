@@ -12,3 +12,4 @@ Census Managment Application
 
 
 [API guide](API.md)
+[Deployment guide](DEPLOY.md)

@@ -118,6 +118,13 @@ GEM
     capistrano-rails (1.3.0)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
+    capistrano-rvm (0.1.2)
+      capistrano (~> 3.0)
+      sshkit (~> 1.2)
+    capistrano3-puma (3.1.1)
+      capistrano (~> 3.7)
+      capistrano-bundler
+      puma (~> 3.4)
     carrierwave (1.2.1)
       activemodel (>= 4.0.0)
       activesupport (>= 4.0.0)
@@ -158,6 +165,10 @@ GEM
       devise (>= 3.1)
     diff-lcs (1.3)
     docile (1.1.5)
+    dotenv (2.2.1)
+    dotenv-rails (2.2.1)
+      dotenv (= 2.2.1)
+      railties (>= 3.2, < 5.2)
     draper (3.0.1)
       actionpack (~> 5.0)
       activemodel (~> 5.0)
@@ -507,13 +518,17 @@ DEPENDENCIES
   better_errors
   brakeman
   byebug
-  capistrano-rails
+  capistrano (~> 3.6)
+  capistrano-rails (~> 1.3)
+  capistrano-rvm
+  capistrano3-puma
   carrierwave
   codecov
   config
   database_cleaner
   devise
   devise-i18n
+  dotenv-rails
   draper
   factory_bot_rails
   faker
@@ -556,4 +571,4 @@ DEPENDENCIES
   wisper-rspec
 
 BUNDLED WITH
-   1.15.4
+   1.16.0
