@@ -21,7 +21,7 @@ module Census
       attribute :notification_url, String
       attribute :return_url, String
 
-      attribute :customer_id, Integer
+      attribute :order_id, Integer
       attribute :product_description, String
       attribute :amount, Integer
       attribute :currency, String
@@ -32,7 +32,7 @@ module Census
 
       validates :merchant_name, :merchant_code, :terminal, :secret_key, :test, :transaction_type, presence: true
       validates :notification_url, :return_url, presence: true
-      validates :customer_id, :amount, presence: true
+      validates :order_id, :amount, presence: true
 
       def form
         return nil if invalid?
@@ -56,7 +56,7 @@ module Census
 
         request = response_parts[:request]
 
-        self.order_id = request["Ds_Order"]
+        self.order_unique_id = request["Ds_Order"]
         self.amount = request["Ds_Amount"].to_i
         self.currency_code = request["Ds_Currency"]
         self.product_description = request["Ds_MerchantData"]
@@ -99,7 +99,7 @@ module Census
             DS_MERCHANT_MERCHANTCODE: merchant_code,
             DS_MERCHANT_MERCHANTNAME: merchant_name,
             DS_MERCHANT_MERCHANTURL: notification_url,
-            DS_MERCHANT_ORDER: order_id,
+            DS_MERCHANT_ORDER: order_unique_id,
             DS_MERCHANT_PRODUCTDESCRIPTION: product_description,
             DS_MERCHANT_MERCHANTDATA: product_description,
             DS_MERCHANT_TERMINAL: terminal,
@@ -178,13 +178,13 @@ module Census
         LANGUAGES[language&.downcase] || LANGUAGES[:es]
       end
 
-      def order_id
-        @order_id ||= SecureRandom.random_number(10_000).to_s + SecureRandom.base58[0..1] + customer_id.to_s(36).rjust(6, "0")
+      def order_unique_id
+        @order_unique_id ||= SecureRandom.random_number(10_000).to_s + order_id.to_s(36).rjust(8, "0")
       end
 
-      def order_id=(value)
-        @order_id = value
-        self.customer_id = value[6..11].to_i(36)
+      def order_unique_id=(value)
+        @order_unique_id = value
+        @order_id = value[4..11].to_i(36)
       end
 
       def url_ok
@@ -204,7 +204,7 @@ module Census
       end
 
       def order_key
-        encrypt(Base64.strict_decode64(secret_key), order_id)
+        encrypt(Base64.strict_decode64(secret_key), order_unique_id)
       end
 
       def mac256(key, data)

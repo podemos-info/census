@@ -16,7 +16,7 @@ module Payments
       end
 
       def external_authorization_params(order)
-        integration_proxy.customer_id = order.person_id
+        integration_proxy.order_id = order.id
         integration_proxy.product_description = order.description
         integration_proxy.amount = order.amount
         integration_proxy.currency = order.currency
@@ -25,7 +25,7 @@ module Payments
         integration_proxy.form
       end
 
-      def parse_external_authorization_response(order, params)
+      def parse_external_authorization_response(params)
         params = integration_proxy.parse(params[:_body], Settings.payments.processors.redsys.notification_lifespan.minutes.ago)
         return false unless params
 
@@ -34,12 +34,12 @@ module Payments
 
         params.merge!(
           payment_processor: :redsys,
-          person_id: integration_proxy.customer_id,
+          order_id: integration_proxy.order_id,
           description: integration_proxy.product_description,
           amount: integration_proxy.amount,
           currency: integration_proxy.currency
         )
-        super(order, params)
+        super(params)
       end
 
       def format_external_authorization_response(result)

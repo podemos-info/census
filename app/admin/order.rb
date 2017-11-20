@@ -11,7 +11,7 @@ ActiveAdmin.register Order do
 
   includes :person, :payment_method, :orders_batch
 
-  permit_params :person_id, :payment_method_id, :description, :amount
+  permit_params :person_id, :payment_method_id, :description, :full_amount, :campaign_code
 
   actions :index, :show, :new, :create
   config.clear_action_items!
@@ -64,7 +64,8 @@ ActiveAdmin.register Order do
       input :person_full_name, label: t("activerecord.attributes.order.person"), as: :string, input_html: { disabled: true }
       input :payment_method_name, label: t("activerecord.attributes.order.payment_method"), as: :string, input_html: { disabled: true }
       input :description
-      input :amount, as: :number
+      input :full_amount, as: :number
+      input :campaign_code
     end
 
     actions
@@ -95,7 +96,7 @@ ActiveAdmin.register Order do
   controller do
     def build_resource
       build_params = permitted_params[:order] || {}
-      build_params[:amount] = (build_params[:amount].to_f * 100).to_i
+      build_params[:amount] = (build_params[:full_amount].to_f * 100).to_i
       if build_params[:payment_method_id].present?
         form_class = Orders::ExistingPaymentMethodOrderForm
       elsif build_params[:person_id]
@@ -115,7 +116,7 @@ ActiveAdmin.register Order do
       form = build_resource
       Payments::CreateOrder.call(form: form, admin: current_admin) do
         on(:invalid) { render :new }
-        on(:external) do |order_info|
+        on(:external) do |_order, order_info|
           append_content_security_policy_directives script_src: ["'unsafe-inline'"]
           append_content_security_policy_directives form_action: [order_info[:action]]
           render "payment_form", locals: { order_info: order_info }

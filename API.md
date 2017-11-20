@@ -20,8 +20,8 @@ Parameter             | Data type | Description            | Only when `payment_
 `iban`                |  string   | Normalized bank account's IBAN (no speces or symbols, only letters and numbers) | `direct_debit`
 
 #### Return value
-* When order is successfully created, server response will be `:created` (HTTP 201).
-* When using `credit_card_external` payment method, server response will be `:accepted` (HTTP 202) and a JSON with information to generate a page with a `<FORM>` tag that should be sumbitted to the payment gateway. This form could be submitted automatically with JavaSscript or could present a summary of the payment and a submit button to proceed. The JSON will contain two top level keys:
+* When order is successfully created, server response will be `:created` (HTTP 201) with a JSON with the used payment method identifier in the `payment_method_id` key.
+* When using `credit_card_external` payment method, server response will be `:accepted` (HTTP 202) and the JSON will also include the `order_info` key, with information to generate a page with a `<FORM>` tag that should be sumbitted to the payment gateway. This form could be submitted automatically with JavaSscript or could present a summary of the payment and a submit button to proceed. This hash will contain two keys:
   * `action` is the URL where the form should be submitted
   * `fields` is a `Hash` with key/value pairs that should be included in the form with hidden input fields.
 * When there is an error creating the order, server response will be `:unprocessable_entity` (HTTP 422) and a JSON with the errors.

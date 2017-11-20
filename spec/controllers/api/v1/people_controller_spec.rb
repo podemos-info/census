@@ -63,7 +63,7 @@ describe Api::V1::PeopleController, type: :controller do
       let(:level) { "member" }
 
       subject do
-        patch :change_membership_level, params: { person_id: person.id, level: level }
+        patch :change_membership_level, params: { id: person.id, level: level }
       end
 
       it "is valid" do

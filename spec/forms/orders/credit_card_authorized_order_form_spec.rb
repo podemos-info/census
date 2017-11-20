@@ -8,6 +8,7 @@ describe Orders::CreditCardAuthorizedOrderForm do
       person_id: person_id,
       description: description,
       amount: amount,
+      campaign_code: campaign_code,
       authorization_token: authorization_token,
       expiration_year: expiration_year,
       expiration_month: expiration_month
@@ -18,6 +19,7 @@ describe Orders::CreditCardAuthorizedOrderForm do
   let(:person_id) { order.person.id }
   let(:description) { order.description }
   let(:amount) { order.amount }
+  let(:campaign_code) { order.campaign_code }
   let(:authorization_token) { order.payment_method.authorization_token }
   let(:expiration_year) { order.payment_method.expiration_year }
   let(:expiration_month) { order.payment_method.expiration_month }

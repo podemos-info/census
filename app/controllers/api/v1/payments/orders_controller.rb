@@ -8,11 +8,11 @@ module Api
         on(:invalid) do
           render json: form.errors, status: :unprocessable_entity
         end
-        on(:external) do |order_info|
-          render json: { order_info: order_info }, status: :created
+        on(:external) do |order, order_info|
+          render json: { order_info: order_info, payment_method_id: order.payment_method_id }, status: :accepted
         end
-        on(:ok) do
-          render json: {}, status: :created
+        on(:ok) do |order|
+          render json: { payment_method_id: order.payment_method_id }, status: :created
         end
       end
     end

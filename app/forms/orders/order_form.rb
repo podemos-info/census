@@ -22,7 +22,7 @@ module Orders
     end
 
     def campaign
-      @campaign ||= Campaign.find_or_initialize(campaign_code: campaign_code)
+      @campaign ||= Campaign.find_or_initialize_by(campaign_code: campaign_code)
     end
 
     def self.from_params(params)

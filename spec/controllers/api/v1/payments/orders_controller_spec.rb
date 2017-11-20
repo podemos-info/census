@@ -11,7 +11,8 @@ describe Api::V1::Payments::OrdersController, type: :controller do
       payment_method_id: payment_method.id,
       person_id: person.id,
       description: order.description,
-      amount: order.amount
+      amount: order.amount,
+      campaign_code: order.campaign_code
     }
   end
   let(:person) { create(:person) }

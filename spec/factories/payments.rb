@@ -3,6 +3,10 @@
 require "iban_bic/random"
 
 FactoryBot.define do
+  sequence(:campaign_code) do |n|
+    "#{Faker::Lorem.word}-#{n}"
+  end
+
   factory :credit_card, class: :"payment_methods/credit_card" do
     transient do
       expires_at { 4.years.from_now }
@@ -53,8 +57,8 @@ FactoryBot.define do
 
     currency { "EUR" }
     amount { Faker::Number.between(1, 10_000) }
-
     description { Faker::Lorem.sentence(1, true, 4) }
+    campaign
 
     trait :credit_card do
       payment_method { build(:credit_card, person: person) }
@@ -130,5 +134,10 @@ FactoryBot.define do
     country "ES"
     bank_code { Faker::Number.between(1, 10_000).to_s.rjust(4, "0") }
     bic { SecureRandom.base58(8).upcase }
+  end
+
+  factory :campaign do
+    description { Faker::Lorem.sentence(1, true, 4) }
+    campaign_code { generate(:campaign_code) }
   end
 end

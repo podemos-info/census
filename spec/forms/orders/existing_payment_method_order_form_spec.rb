@@ -8,6 +8,7 @@ describe Orders::ExistingPaymentMethodOrderForm do
       person_id: person_id,
       description: description,
       amount: amount,
+      campaign_code: campaign_code,
       payment_method_id: payment_method_id
     )
   end
@@ -17,6 +18,7 @@ describe Orders::ExistingPaymentMethodOrderForm do
   let(:person_id) { order.person.id }
   let(:description) { order.description }
   let(:amount) { order.amount }
+  let(:campaign_code) { order.campaign_code }
 
   it { is_expected.to be_valid }
 
