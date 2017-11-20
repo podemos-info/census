@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171024074056) do
+ActiveRecord::Schema.define(version: 20171120095545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,14 @@ ActiveRecord::Schema.define(version: 20171024074056) do
     t.string "bank_code", null: false
     t.string "bic", null: false
     t.index ["country", "bank_code"], name: "index_bics_on_country_and_bank_code", unique: true
+  end
+
+  create_table "campaigns", force: :cascade do |t|
+    t.string "campaign_code", null: false
+    t.bigint "payee_id"
+    t.string "description"
+    t.index ["campaign_code"], name: "index_campaigns_on_campaign_code", unique: true
+    t.index ["payee_id"], name: "index_campaigns_on_payee_id"
   end
 
   create_table "downloads", force: :cascade do |t|
@@ -130,6 +138,8 @@ ActiveRecord::Schema.define(version: 20171024074056) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
+    t.bigint "campaign_id"
+    t.index ["campaign_id"], name: "index_orders_on_campaign_id"
     t.index ["orders_batch_id"], name: "index_orders_on_orders_batch_id"
     t.index ["payment_method_id"], name: "index_orders_on_payment_method_id"
     t.index ["person_id"], name: "index_orders_on_person_id"
@@ -143,6 +153,13 @@ ActiveRecord::Schema.define(version: 20171024074056) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["processed_by_id"], name: "index_orders_batches_on_processed_by_id"
+  end
+
+  create_table "payees", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "scope_id"
+    t.string "iban"
+    t.index ["scope_id"], name: "index_payees_on_scope_id"
   end
 
   create_table "payment_methods", force: :cascade do |t|

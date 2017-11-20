@@ -8,6 +8,7 @@ context.instance_eval do
       row :payment_method, class: classes[:payment_method]
       row :description, class: classes[:description]
       row :full_amount, class: classes[:full_amount]
+      row :campaign, class: classes[:campaign_id]
       row :orders_batch, class: classes[:orders_batch_id]
       row :created_at, class: classes[:created_at]
       row :updated_at, class: classes[:updated_at]

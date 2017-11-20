@@ -42,6 +42,7 @@ module Payments
         description: form.description,
         currency: form.currency,
         amount: form.amount,
+        campaign: form.campaign,
         payment_method: form.payment_method
       )
     end

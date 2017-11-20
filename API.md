@@ -8,15 +8,16 @@
 POST api/v1/payments/orders
 ```
 
-Parameter         | Description            | Only when `payment_method_type` is ...
-------------------|------------------|------------------
-`person_id`         | Person identifier at Census
-`description`       | Order description
-`amount`            | Order amount (in cents, `1000` will be 10.00€)
-`payment_method_type` | `existing_payment_method`, `direct_debit` or `credit_card_external`
-`payment_method_id` | Payment method identifier at Census | `existing_payment_method`
-`return_url`        | After payment back URL (string must include `__RESULT__` that will be replaced by `ok` or `ko`)  | `credit_card_external`
-`iban`              | Bank account's IBAN | `direct_debit`
+Parameter             | Data type | Description            | Only when `payment_method_type` is ...
+----------------------|-----------|------------------------|------------------
+`person_id`           |  integer  | Person identifier at Census
+`description`         |  string   | Order description
+`amount`              |  integer  | Order amount (in cents, `1000` will be 10.00€)
+`campaign_code`       |  string   | Unique identifier for the campaign related to the order
+`payment_method_type` |  string   | `existing_payment_method`, `direct_debit` or `credit_card_external`
+`payment_method_id`   |  integer  | Payment method identifier at Census | `existing_payment_method`
+`return_url`          |  string   | After payment back URL (string must include `__RESULT__` that will be replaced by `ok` or `ko`)  | `credit_card_external`
+`iban`                |  string   | Normalized bank account's IBAN (no speces or symbols, only letters and numbers) | `direct_debit`
 
 #### Return value
 * When order is successfully created, server response will be `:created` (HTTP 201).

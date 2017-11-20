@@ -8,8 +8,9 @@ module Orders
     attribute :person_id, Integer
     attribute :description, String
     attribute :amount, Integer
+    attribute :campaign_code, String
 
-    validates :person_id, :description, :amount, presence: true
+    validates :person_id, :description, :amount, :campaign_code, presence: true
     validates :amount, numericality: { greater_than_or_equal_to: 0 }
 
     def currency
@@ -18,6 +19,10 @@ module Orders
 
     def person
       @person ||= Person.find(person_id)
+    end
+
+    def campaign
+      @campaign ||= Campaign.find_or_initialize(campaign_code: campaign_code)
     end
 
     def self.from_params(params)
