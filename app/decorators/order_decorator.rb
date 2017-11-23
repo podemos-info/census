@@ -3,9 +3,10 @@
 class OrderDecorator < ApplicationDecorator
   delegate_all
 
-  decorates_association :person
-  decorates_association :payment_method
+  decorates_association :campaign
   decorates_association :orders_batch
+  decorates_association :payment_method
+  decorates_association :person
 
   def name
     object.description

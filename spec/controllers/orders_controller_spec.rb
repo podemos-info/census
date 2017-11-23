@@ -63,13 +63,13 @@ describe OrdersController, type: :controller do
   end
 
   context "create order" do
-    subject(:page) { put :create, params: { order: order.attributes } }
+    subject(:page) { put :create, params: { order: order.attributes.merge(campaign_code: "test") } }
     let(:payment_method) { nil }
     let(:order) { build(:order, payment_method: payment_method) }
 
     context "with external authorization payment method" do
-      it "does not increment the number of orders" do
-        expect { subject } .not_to change { Order.count }
+      it "increment the number of orders" do
+        expect { subject } .to change { Order.count }
       end
       it "generate the form with the data for the payment" do
         is_expected.to render_template("orders/payment_form")

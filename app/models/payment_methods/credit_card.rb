@@ -15,7 +15,7 @@ module PaymentMethods
       !authorized?
     end
 
-    def create_user_issues?
+    def user_visible?
       verified?
     end
 
@@ -36,7 +36,11 @@ module PaymentMethods
     end
 
     def name_info
-      { expiration: "#{expiration_month.to_s.rjust(2, "0")}/#{expiration_year}" }
+      if authorization_token
+        { expiration: "#{expiration_month.to_s.rjust(2, "0")}/#{expiration_year}" }
+      else
+        { expiration: I18n.t("census.payment_methods.incomplete") }
+      end
     end
 
     private

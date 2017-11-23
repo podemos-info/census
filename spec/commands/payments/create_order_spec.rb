@@ -19,13 +19,14 @@ describe Payments::CreateOrder do
       person: order.person,
       amount: order.amount,
       payment_method: payment_method,
-      currency: order.currency
+      currency: order.currency,
+      campaign: order.campaign
     )
   end
 
   describe "when valid" do
     it "broadcasts :ok" do
-      expect { subject } .to broadcast(:ok)
+      expect { subject } .to broadcast(:ok, hash_including(:order))
     end
 
     it "saves the order" do
@@ -38,11 +39,11 @@ describe Payments::CreateOrder do
     let(:form_class) { Orders::CreditCardExternalOrderForm }
 
     it "broadcasts :external and the external parameters" do
-      expect { subject } .to broadcast(:external, hash_including(:action, :fields))
+      expect { subject } .to broadcast(:external, hash_including(:order, :form))
     end
 
-    it "doesn't save the order" do
-      expect { subject } .not_to change { Order.count }
+    it "saves the order" do
+      expect { subject } .to change { Order.count }
     end
   end
 
@@ -63,7 +64,7 @@ describe Payments::CreateOrder do
     let(:form_class) { Orders::CreditCardAuthorizedOrderForm }
 
     it "broadcasts :ok" do
-      expect { subject } .to broadcast(:ok)
+      expect { subject } .to broadcast(:ok, hash_including(:order))
     end
 
     it "saves the order" do
@@ -76,7 +77,7 @@ describe Payments::CreateOrder do
     let(:form_class) { Orders::DirectDebitOrderForm }
 
     it "broadcasts :ok" do
-      expect { subject } .to broadcast(:ok)
+      expect { subject } .to broadcast(:ok, hash_including(:order))
     end
 
     it "saves the order" do

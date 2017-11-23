@@ -18,23 +18,21 @@ module Payments
     #
     # Returns nothing.
     def call
-      # procesar respuesta
-      return unless payment_processor.parse_external_authorization_response(order, @params)
+      return unless order
 
-      result = Order.transaction do
+      Order.transaction do
         Payments::SavePaymentMethod.call(payment_method: order.payment_method, admin: nil)
         order.save!
         Issues::CheckProcessedOrderIssues.call(order: order, admin: nil)
-        true
       end
 
-      broadcast(:ok, payment_processor.format_external_authorization_response(result))
+      broadcast(:ok, payment_processor.format_external_authorization_response(order.processed?))
     end
 
     private
 
     def order
-      @order ||= Order.new
+      @order ||= payment_processor.parse_external_authorization_response(@params)
     end
 
     def payment_processor

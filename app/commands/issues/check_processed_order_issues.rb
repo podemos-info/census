@@ -23,7 +23,7 @@ module Issues
     end
 
     def has_issue?
-      payment_method.create_user_issues? && payment_method.response_code.present? && response_code_info[:role].present?
+      payment_method.user_visible? && payment_method.response_code.present? && response_code_info[:role].present?
     end
 
     def issue

@@ -5,15 +5,17 @@ module Api
     before_action :set_paper_trail_whodunnit
 
     def person
-      unless defined?(@person)
-        person_id = params[:participa_id] || params[:id]
-        @person = Person.find_by("extra ->> 'participa_id' = ?", person_id) if person_id
-      end
-      @person
+      @person ||= Person.find(params[person_id_param]) if params[person_id_param]
     end
 
     def user_for_paper_trail
       person
+    end
+
+    protected
+
+    def person_id_param
+      :person_id
     end
   end
 end

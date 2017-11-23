@@ -27,7 +27,7 @@ class PaymentMethod < ApplicationRecord
     false
   end
 
-  def create_user_issues?
+  def user_visible?
     true
   end
 

@@ -24,5 +24,11 @@ module Api
         end
       end
     end
+
+    protected
+
+    def person_id_param
+      :id
+    end
   end
 end

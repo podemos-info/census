@@ -10,6 +10,7 @@ end
 gem "dotenv-rails", require: "dotenv/rails-now"
 
 gem "aasm"
+gem "active_model_serializers"
 gem "activeadmin"
 gem "activeadmin_addons", ">= 1.0"
 gem "activemerchant", github: "leio10/active_merchant"
