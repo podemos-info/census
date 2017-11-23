@@ -13,6 +13,7 @@ class Order < ApplicationRecord
   belongs_to :payment_method, autosave: true
   belongs_to :orders_batch, optional: true
   belongs_to :processed_by, class_name: "Admin", optional: true
+  belongs_to :campaign
 
   store_accessor :information, :raw_response
 

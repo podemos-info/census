@@ -56,6 +56,10 @@ es:
         bic: Código BIC/SWIFT
         country: Código de país
         name_link: País - entidad
+      campaign:
+        campaign_code: Código de campaña
+        description: Descripción
+        payee: Beneficiario
       download:
         created_at: Fecha de creación
         expires_at: Fecha de expiración
@@ -85,6 +89,7 @@ es:
         updated_at: Fecha de expiración
       order:
         amount: Total
+        campaign: Campaña
         created_at: Fecha de creación
         description: Descripción
         full_amount: Total
@@ -108,6 +113,11 @@ es:
         processed_by: Procesado por
         processed_by_id: Procesado por
         updated_at: Última actualización
+      payee:
+        iban: IBAN
+        name: Nombre
+        scope: Ámbito
+        scope_id: Ámbito
       payment_method:
         authorization_token: Código de autorización
         bic: BIC/SWIFT
@@ -191,6 +201,9 @@ es:
       bic:
         one: BIC
         other: BICs
+      campaign:
+        one: Campaña
+        other: Campañas
       comment:
         one: Comentario
         other: Comentarios
@@ -209,6 +222,9 @@ es:
       orders_batch:
         one: Lote de órdenes
         other: Lotes de órdenes
+      payee:
+        one: Beneficiario
+        other: Beneficiarios
       payment_method:
         one: Método de pago
         other: Métodos de pago
@@ -321,6 +337,7 @@ es:
       flags:
         failing: No funciona
         verified: Verificado
+      incomplete: inacabada
       information: Información adicional
       issues_messages:
         expired: Tarjeta de crédito caducada

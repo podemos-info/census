@@ -49,7 +49,8 @@ Rails.application.configure do
   # Force SSL access
   config.force_ssl = true
 
-  PRELOAD_PATHS = %w(app/services/payments/processors/*.rb app/forms/orders/*.rb).freeze
+  # Preload services and order forms
+  PRELOAD_PATHS = %w(app/services/payments/processors/*.rb).freeze
 
   config.eager_load_paths += Dir[*PRELOAD_PATHS]
   ActiveSupport::Reloader.to_prepare do

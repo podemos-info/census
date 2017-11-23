@@ -2,21 +2,21 @@
 
 require "rails_helper"
 
-describe BicsController, type: :controller do
+describe PayeesController, type: :controller do
   render_views
   include_context "devise login"
 
   subject(:resource) { all_resources[resource_class] }
-  let(:resource_class) { Bic }
+  let(:resource_class) { Payee }
   let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
-  let!(:bic) { create(:bic) }
+  let!(:payee) { create(:payee) }
 
   it "defines actions" do
     expect(resource.defined_actions).to contain_exactly(:index, :show, :new, :create, :edit, :update, :destroy)
   end
 
-  it "handles bics" do
-    expect(resource.resource_name).to eq("Bic")
+  it "handles payees" do
+    expect(resource.resource_name).to eq("Payee")
   end
 
   it "shows menu" do
@@ -30,7 +30,7 @@ describe BicsController, type: :controller do
   end
 
   context "show page" do
-    subject { get :show, params: { id: bic.id } }
+    subject { get :show, params: { id: payee.id } }
     it { is_expected.to be_success }
     it { is_expected.to render_template("show") }
   end
@@ -42,33 +42,33 @@ describe BicsController, type: :controller do
   end
 
   describe "create page" do
-    let(:bic) { build(:bic) }
-    subject { put :create, params: { bic: bic.attributes } }
-    it { expect { subject } .to change { Bic.count }.by(1) }
+    let(:payee) { build(:payee) }
+    subject { put :create, params: { payee: payee.attributes } }
+    it { expect { subject } .to change { Payee.count }.by(1) }
     it { is_expected.to have_http_status(:found) }
-    it { expect(subject.location).to eq(bic_url(Bic.last)) }
+    it { expect(subject.location).to eq(payee_url(Payee.last)) }
   end
 
   describe "edit page" do
-    subject { get :edit, params: { id: bic.id } }
+    subject { get :edit, params: { id: payee.id } }
     it { is_expected.to be_success }
     it { is_expected.to render_template("edit") }
   end
 
   describe "update page" do
     subject do
-      bic.assign_attributes bank_code: "KKKKKK"
-      patch :update, params: { id: bic.id, bic: bic.attributes }
+      payee.assign_attributes name: "KKKKKK"
+      patch :update, params: { id: payee.id, payee: payee.attributes }
     end
     it { expect(subject).to have_http_status(:found) }
-    it { expect(subject.location).to eq(bic_url(bic.id)) }
-    it { expect { subject } .to change { bic.bank_code }.to("KKKKKK") }
+    it { expect(subject.location).to eq(payee_url(payee.id)) }
+    it { expect { subject } .to change { payee.name }.to("KKKKKK") }
   end
 
   describe "destroy page" do
-    subject { put :destroy, params: { id: bic.id } }
-    it { expect { subject } .to change { Bic.count }.by(-1) }
+    subject { put :destroy, params: { id: payee.id } }
+    it { expect { subject } .to change { Payee.count }.by(-1) }
     it { is_expected.to have_http_status(:found) }
-    it { expect(subject.location).to eq(bics_url) }
+    it { expect(subject.location).to eq(payees_url) }
   end
 end

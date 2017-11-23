@@ -21,7 +21,7 @@ module Census
       attribute :notification_url, String
       attribute :return_url, String
 
-      attribute :customer_id, Integer
+      attribute :order_id, Integer
       attribute :product_description, String
       attribute :amount, Integer
       attribute :currency, String
@@ -32,7 +32,7 @@ module Census
 
       validates :merchant_name, :merchant_code, :terminal, :secret_key, :test, :transaction_type, presence: true
       validates :notification_url, :return_url, presence: true
-      validates :customer_id, :amount, presence: true
+      validates :order_id, :amount, presence: true
 
       def form
         return nil if invalid?
@@ -47,7 +47,7 @@ module Census
         }
       end
 
-      def parse(response, date_limit)
+      def parse(response, date_span)
         # By default use raw response as response code
         self.response_code = response
 
@@ -56,14 +56,13 @@ module Census
 
         request = response_parts[:request]
 
-        self.order_id = request["Ds_Order"]
+        self.order_unique_id = request["Ds_Order"]
         self.amount = request["Ds_Amount"].to_i
         self.currency_code = request["Ds_Currency"]
         self.product_description = request["Ds_MerchantData"]
         self.merchant_code = request["Ds_MerchantCode"]
         self.terminal = request["Ds_Terminal"]
-
-        return nil unless valid_datetime?(request, date_limit) && valid_signature?(response_parts[:message]["Signature"], response_parts[:raw_request])
+        return nil unless valid_datetime?(request, date_span) && valid_signature?(response_parts[:message]["Signature"], response_parts[:raw_request])
 
         self.response_code = request["Ds_Response"]
         return { raw_response: request } unless success?
@@ -76,8 +75,9 @@ module Census
         }
       end
 
-      def format_response
+      def format_response(force_error)
         return nil unless response_code.present? # only can be used to respond parsed responses
+        @success = false if force_error
 
         envelope(response_message)
       end
@@ -99,7 +99,7 @@ module Census
             DS_MERCHANT_MERCHANTCODE: merchant_code,
             DS_MERCHANT_MERCHANTNAME: merchant_name,
             DS_MERCHANT_MERCHANTURL: notification_url,
-            DS_MERCHANT_ORDER: order_id,
+            DS_MERCHANT_ORDER: order_unique_id,
             DS_MERCHANT_PRODUCTDESCRIPTION: product_description,
             DS_MERCHANT_MERCHANTDATA: product_description,
             DS_MERCHANT_TERMINAL: terminal,
@@ -178,13 +178,13 @@ module Census
         LANGUAGES[language&.downcase] || LANGUAGES[:es]
       end
 
-      def order_id
-        @order_id ||= SecureRandom.random_number(10_000).to_s + SecureRandom.base58[0..1] + customer_id.to_s(36).rjust(6, "0")
+      def order_unique_id
+        @order_unique_id ||= SecureRandom.random_number(10_000).to_s + order_id.to_s(36).rjust(8, "0")
       end
 
-      def order_id=(value)
-        @order_id = value
-        self.customer_id = value[6..11].to_i(36)
+      def order_unique_id=(value)
+        @order_unique_id = value
+        @order_id = value[4..11].to_i(36)
       end
 
       def url_ok
@@ -195,8 +195,8 @@ module Census
         @url_ko ||= return_url.sub("__RESULT__", "ko")
       end
 
-      def valid_datetime?(response, date_limit)
-        Time.parse("#{response["Fecha"]} #{response["Hora"]} #{Time.now.zone}") > date_limit
+      def valid_datetime?(response, date_span)
+        Time.parse("#{response["Fecha"]} #{response["Hora"]} #{Time.now.zone}").between? date_span.ago, date_span.from_now
       end
 
       def valid_signature?(signature, response_data)
@@ -204,7 +204,7 @@ module Census
       end
 
       def order_key
-        encrypt(Base64.strict_decode64(secret_key), order_id)
+        encrypt(Base64.strict_decode64(secret_key), order_unique_id)
       end
 
       def mac256(key, data)
