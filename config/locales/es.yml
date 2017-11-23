@@ -114,10 +114,10 @@ es:
         processed_by_id: Procesado por
         updated_at: Última actualización
       payee:
+        iban: IBAN
         name: Nombre
         scope: Ámbito
         scope_id: Ámbito
-        iban: IBAN
       payment_method:
         authorization_token: Código de autorización
         bic: BIC/SWIFT
@@ -337,6 +337,7 @@ es:
       flags:
         failing: No funciona
         verified: Verificado
+      incomplete: inacabada
       information: Información adicional
       issues_messages:
         expired: Tarjeta de crédito caducada
@@ -344,7 +345,6 @@ es:
         no_credit: Problemas con el límite de crédito
         unknown: Código de respuesta desconocido
         wrong_data: Datos del método de pago incorrectos
-      incomplete: inacabada
       view_versions: Ver versiones (%{count})
     people:
       create_order: Crear orden

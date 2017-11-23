@@ -10,8 +10,18 @@ describe Api::V1::Payments::PaymentMethodsController, type: :controller do
     let!(:payment_method2) { create(:direct_debit, person: person) }
 
     it { is_expected.to be_success }
-    it "returns person payment methods" do
-      expect(JSON.parse(subject.body).count) .to eq(2)
+
+    context "returned data" do
+      subject(:response) { JSON.parse(endpoint.body) }
+      it "include both person's payment methods" do
+        expect(subject.count).to eq(2)
+      end
+
+      it "each returned payment method includes only id, name and type" do
+        subject.each do |payment_method|
+          expect(payment_method.keys) .to contain_exactly("id", "name", "type")
+        end
+      end
     end
   end
 end

@@ -140,4 +140,10 @@ FactoryBot.define do
     description { Faker::Lorem.sentence(1, true, 4) }
     campaign_code { generate(:campaign_code) }
   end
+
+  factory :payee do
+    name { Faker::Lorem.sentence(1, true, 4) }
+    iban { IbanBic.random_iban(tags: [:sepa], not_tags: [:fixed_iban_check]) }
+    scope
+  end
 end

@@ -7,7 +7,7 @@ namespace :db do
 
     # Delete fake data
     ActiveRecord::Base.connection_pool.with_connection do |conn|
-      conn.execute("TRUNCATE admins, attachments, bics, campaigns, events, issues, issue_objects, issue_unreads, payees, orders, "\
+      conn.execute("TRUNCATE admins, attachments, campaigns, events, issues, issue_objects, issue_unreads, payees, orders, "\
                    "orders_batches, people, procedures, versions, visits RESTART IDENTITY")
     end
 

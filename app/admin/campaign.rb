@@ -5,6 +5,8 @@ ActiveAdmin.register Campaign do
 
   menu parent: I18n.t("active_admin.payments")
 
+  actions :index, :show, :edit, :update, :destroy
+
   index do
     column :campaign_code
     column :description

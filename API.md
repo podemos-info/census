@@ -32,11 +32,18 @@ Parameter             | Data type | Description            | Only when `payment_
 GET api/v1/payments/payment_methods
 ```
 
-Parameter             | Data type | Description            | Only when `payment_method_type` is ...
-----------------------|-----------|------------------------|------------------
+Parameter             | Data type | Description
+----------------------|-----------|------------------------
 `person_id`           |  integer  | Person identifier at Census
 
-
 #### Return value
-* When the person exists in the database, server response will be `:ok` (HTTP 200) with a JSON with all the payment methods related to that person.
+* When the person exists in the database, server response will be `:ok` (HTTP 200) with a JSON with all the payment methods related to that person:
+ (fields `id`.
+
+Parameter             | Data type | Description
+----------------------|-----------|------------------------
+`id`                  |  integer  | Payment method identifier at Census
+`name`                |  string   | Payment method human name
+`type`                |  string   | Payment method type: `PaymentMethods::DirectDebit` or `PaymentMethods::CreditCard`
+
 * When there is no person for the given `person_id`, server response will be `:unprocessable_entity` (HTTP 422) and an empty JSON.
