@@ -47,7 +47,7 @@ module Census
         }
       end
 
-      def parse(response, date_limit)
+      def parse(response, date_span)
         # By default use raw response as response code
         self.response_code = response
 
@@ -62,8 +62,7 @@ module Census
         self.product_description = request["Ds_MerchantData"]
         self.merchant_code = request["Ds_MerchantCode"]
         self.terminal = request["Ds_Terminal"]
-
-        return nil unless valid_datetime?(request, date_limit) && valid_signature?(response_parts[:message]["Signature"], response_parts[:raw_request])
+        return nil unless valid_datetime?(request, date_span) && valid_signature?(response_parts[:message]["Signature"], response_parts[:raw_request])
 
         self.response_code = request["Ds_Response"]
         return { raw_response: request } unless success?
@@ -76,8 +75,9 @@ module Census
         }
       end
 
-      def format_response
+      def format_response(force_error)
         return nil unless response_code.present? # only can be used to respond parsed responses
+        @success = false if force_error
 
         envelope(response_message)
       end
@@ -195,8 +195,8 @@ module Census
         @url_ko ||= return_url.sub("__RESULT__", "ko")
       end
 
-      def valid_datetime?(response, date_limit)
-        Time.parse("#{response["Fecha"]} #{response["Hora"]} #{Time.now.zone}") > date_limit
+      def valid_datetime?(response, date_span)
+        Time.parse("#{response["Fecha"]} #{response["Hora"]} #{Time.now.zone}").between? date_span.ago, date_span.from_now
       end
 
       def valid_signature?(signature, response_data)

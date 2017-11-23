@@ -20,47 +20,51 @@ def create_order(person, credit_card, campaign)
                 currency: "EUR", amount: Faker::Number.between(1, 10_000), campaign: campaign
 end
 
-Timecop.travel 3.years.ago do
-  # create payees
-  Scope.local.children.each do |scope|
-    Payee.create! scope: scope, name: "#{scope.name[:es]} payee", iban: IbanBic.random_iban(tags: [:sepa], not_tags: [:fixed_iban_check])
-  end
+# Once upon a time...
+Timecop.travel 3.years.ago
 
-  campaigns = (1..10).map do |i|
-    Campaign.create! campaign_code: "DECIDIM-#{i}"
-  end
+# create payees
+Scope.local.children.each do |scope|
+  Payee.create! scope: scope, name: "#{scope.name[:es]} payee", iban: IbanBic.random_iban(tags: [:sepa], not_tags: [:fixed_iban_check])
+end
 
-  35.times do
-    # create 10 direct debit payment methods and orders
-    orders = Person.where("created_at < ?", Time.now).order("RANDOM()").limit(10).map do |person|
-      create_order person, false, campaigns.sample
-    end
+campaigns = (1..10).map do |i|
+  Campaign.create! campaign_code: "DECIDIM-#{i}"
+end
 
-    # create 10 direct credit card methods and orders
-    orders2 = Person.where("created_at < ?", Time.now).order("RANDOM()").limit(10).map do |person|
-      create_order person, true, campaigns.sample
-    end
-
-    PaperTrail.whodunnit = admins.sample
-    # add orders to an order batch
-    OrdersBatch.create!(
-      description: I18n.l(Date.today, format: "%B %Y"),
-      orders: orders + orders2
-    )
-    Timecop.travel 1.month.from_now
-  end
-
+35.times do
   # create 10 direct debit payment methods and orders
-  Person.where("created_at < ?", Time.now).order("RANDOM()").limit(10).map do |person|
+  orders = Person.where("created_at < ?", Time.now).order("RANDOM()").limit(10).map do |person|
     create_order person, false, campaigns.sample
   end
 
   # create 10 direct credit card methods and orders
-  Person.where("created_at < ?", Time.now).order("RANDOM()").limit(10).map do |person|
+  orders2 = Person.where("created_at < ?", Time.now).order("RANDOM()").limit(10).map do |person|
     create_order person, true, campaigns.sample
   end
 
-  campaigns.sample(5) do |campaign|
-    campaign.update_attributes description: Faker::Lorem.sentence(1, true, 4), payee: Payee.order("RANDOM()").first
-  end
+  PaperTrail.whodunnit = admins.sample
+  # add orders to an order batch
+  OrdersBatch.create!(
+    description: I18n.l(Date.today, format: "%B %Y"),
+    orders: orders + orders2
+  )
+  Timecop.travel 1.month.from_now
 end
+
+# create 10 direct debit payment methods and orders
+Person.where("created_at < ?", Time.now).order("RANDOM()").limit(10).map do |person|
+  create_order person, false, campaigns.sample
+end
+
+# create 10 direct credit card methods and orders
+Person.where("created_at < ?", Time.now).order("RANDOM()").limit(10).map do |person|
+  create_order person, true, campaigns.sample
+end
+
+campaigns.sample(5) do |campaign|
+  campaign.update_attributes description: Faker::Lorem.sentence(1, true, 4), payee: Payee.order("RANDOM()").first
+end
+
+# Back to reality
+Timecop.return

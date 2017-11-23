@@ -16,7 +16,7 @@ describe Orders::OrderForm do
   let(:person_id) { order.person.id }
   let(:description) { order.description }
   let(:amount) { order.amount }
-  let(:campaign_code) { order.campaign_code }
+  let(:campaign_code) { order.campaign.campaign_code }
 
   it { is_expected.to be_valid }
 

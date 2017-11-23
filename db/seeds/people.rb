@@ -30,25 +30,29 @@ def create_person
   person
 end
 
-Timecop.travel 3.years.ago do
-  Admin.roles.each_key do |role|
-    2.times do |i|
-      person = create_person
-      PaperTrail.whodunnit = person
-      person.update_attributes verified_in_person: true
-      Admin.create! username: "#{role}#{i}", password: role, password_confirmation: role, person: person, role: role
-    end
-    Timecop.travel 1.month.from_now
-  end
+# Once upon a time...
+Timecop.travel 3.years.ago
 
-  34.times do
-    create_person
-    Timecop.travel 1.month.from_now
+Admin.roles.each_key do |role|
+  2.times do |i|
+    person = create_person
+    PaperTrail.whodunnit = person
+    person.update_attributes verified_in_person: true
+    Admin.create! username: "#{role}#{i}", password: role, password_confirmation: role, person: person, role: role
   end
-
-  # create some duplicated persons
-  Person.order("RANDOM()").limit(3).each do |person|
-    person.dup.save!
-    Issues::CheckPersonIssues.call(person: person, admin: Admin.first)
-  end
+  Timecop.travel 1.month.from_now
 end
+
+34.times do
+  create_person
+  Timecop.travel 1.month.from_now
+end
+
+# create some duplicated persons
+Person.order("RANDOM()").limit(3).each do |person|
+  person.dup.save!
+  Issues::CheckPersonIssues.call(person: person, admin: Admin.first)
+end
+
+# Back to reality
+Timecop.return

@@ -28,7 +28,7 @@ module Orders
     def self.from_params(params)
       return super unless self == OrderForm
       class_name = "orders/#{params[:payment_method_type]}_order_form".classify
-      class_name.constantize.from_params(params) if Object.const_defined?(class_name)
+      class_name.constantize.from_params(params)
     end
   end
 end

@@ -14,17 +14,17 @@ describe Census::Payments::RedsysIntegration do
       secret_key: "abcdefghijLMNOPQRSTUVW1234567890",
       notification_url: "https://participation.entity.com/payment/result",
       return_url: "https://census.entity.com/payment/callback",
-      customer_id: 123_456,
+      order_id: 123_456,
       product_description: "Purchase test",
       amount: 1_234
     }
   end
-  let(:order_id) do
+  let(:order_unique_id) do
     "1".rjust(12, "0")
   end
 
   before do
-    allow_any_instance_of(described_class).to receive(:order_id).and_return(order_id)
+    allow_any_instance_of(described_class).to receive(:order_unique_id).and_return(order_unique_id)
   end
 
   it { is_expected.to be_valid }

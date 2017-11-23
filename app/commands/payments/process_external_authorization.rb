@@ -18,7 +18,6 @@ module Payments
     #
     # Returns nothing.
     def call
-      # procesar respuesta
       return unless order
 
       Order.transaction do

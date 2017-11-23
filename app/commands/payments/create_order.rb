@@ -19,7 +19,7 @@ module Payments
     #
     # Returns nothing.
     def call
-      return broadcast(:invalid) unless form.valid?
+      return broadcast(:invalid) unless form&.valid?
       result = Order.transaction do
         Payments::SavePaymentMethod.call(payment_method: order.payment_method, admin: admin)
         order.save!
@@ -27,9 +27,9 @@ module Payments
       end
 
       if order.external_authorization?
-        broadcast(:external, order, payment_processor.external_authorization_params(order))
+        broadcast(:external, order: order, form: payment_processor.external_authorization_params(order))
       else
-        broadcast(result || :invalid, order)
+        broadcast(result || :invalid, order: order)
       end
     end
 

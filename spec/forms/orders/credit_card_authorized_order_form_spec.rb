@@ -19,7 +19,7 @@ describe Orders::CreditCardAuthorizedOrderForm do
   let(:person_id) { order.person.id }
   let(:description) { order.description }
   let(:amount) { order.amount }
-  let(:campaign_code) { order.campaign_code }
+  let(:campaign_code) { order.campaign.campaign_code }
   let(:authorization_token) { order.payment_method.authorization_token }
   let(:expiration_year) { order.payment_method.expiration_year }
   let(:expiration_month) { order.payment_method.expiration_month }

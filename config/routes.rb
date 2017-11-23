@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
       namespace :payments do
         resources :orders, only: [:create]
+        resources :payment_methods
       end
     end
   end

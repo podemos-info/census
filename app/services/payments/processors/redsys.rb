@@ -26,7 +26,7 @@ module Payments
       end
 
       def parse_external_authorization_response(params)
-        params = integration_proxy.parse(params[:_body], Settings.payments.processors.redsys.notification_lifespan.minutes.ago)
+        params = integration_proxy.parse(params[:_body], Settings.payments.processors.redsys.notification_lifespan.minutes)
         return false unless params
 
         params[:response_code] = integration_proxy.response_code
@@ -43,9 +43,7 @@ module Payments
       end
 
       def format_external_authorization_response(result)
-        integration_proxy.result = false unless result
-
-        { xml: integration_proxy.format_response, content_type: "text/xml" }
+        { xml: integration_proxy.format_response(!result), content_type: "text/xml" }
       end
 
       private

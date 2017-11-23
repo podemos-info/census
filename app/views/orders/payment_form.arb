@@ -3,8 +3,8 @@
 text_node Arbre::HTML::Document.new.doctype
 html do
   body do
-    form id: :form, action: order_info[:action], method: :post do
-      order_info[:fields].each do |key, value|
+    form id: :form, action: form_info[:action], method: :post do
+      form_info[:fields].each do |key, value|
         input type: :hidden, name: key, value: value
       end
     end

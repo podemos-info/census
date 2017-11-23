@@ -116,12 +116,12 @@ ActiveAdmin.register Order do
       form = build_resource
       Payments::CreateOrder.call(form: form, admin: current_admin) do
         on(:invalid) { render :new }
-        on(:external) do |_order, order_info|
+        on(:external) do |order_info|
           append_content_security_policy_directives script_src: ["'unsafe-inline'"]
-          append_content_security_policy_directives form_action: [order_info[:action]]
-          render "payment_form", locals: { order_info: order_info }
+          append_content_security_policy_directives form_action: [order_info[:form][:action]]
+          render "payment_form", locals: { form_info: order_info[:form] }
         end
-        on(:ok) { |order| redirect_to order_path(id: order.id) }
+        on(:ok) { |order_info| redirect_to order_path(id: order_info[:order].id) }
       end
     end
 

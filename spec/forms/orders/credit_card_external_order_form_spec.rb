@@ -17,7 +17,7 @@ describe Orders::CreditCardExternalOrderForm do
   let(:person_id) { order.person.id }
   let(:description) { order.description }
   let(:amount) { order.amount }
-  let(:campaign_code) { order.campaign_code }
+  let(:campaign_code) { order.campaign.campaign_code }
   let(:return_url) { order.payment_method.return_url }
 
   it { expect(subject).to be_valid }
