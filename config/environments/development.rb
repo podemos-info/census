@@ -47,7 +47,7 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # Force SSL access
-  config.force_ssl = true
+  config.force_ssl = false
 
   # Preload services and order forms
   PRELOAD_PATHS = %w(app/services/payments/processors/*.rb).freeze
