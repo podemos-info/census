@@ -16,5 +16,11 @@ module Api
         end
       end
     end
+
+    def total
+      orders = OrdersByCampaign.for(campaign_code: params[:campaign_code]).merge(Order.processed)
+      orders = orders.merge(person.orders) if person
+      render json: { amount: orders.sum(:amount) }
+    end
   end
 end
