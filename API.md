@@ -26,6 +26,23 @@ Parameter             | Data type | Description            | Only when `payment_
   * `fields` is a `Hash` with key/value pairs that should be included in the form with hidden input fields.
 * When there is an error creating the order, server response will be `:unprocessable_entity` (HTTP 422) and a JSON with the errors.
 
+### Totals
+:round_pushpin: Returns total amount for processed orders for a campaign and/or a person. Also they can be filtered by a span of time.
+```
+GET api/v1/payments/orders/total
+```
+
+Parameter             | Data type | Description
+----------------------|-----------|------------------------
+`campaign_code`       |  string   | Optional. Unique identifier for the campaign
+`person_id`           |  integer  | Optional. Person identifier at Census
+`from_date`           |  datetime | Optional. Include orders created after this date (use ISO datetime format)
+`until_date`          |  datetime | Optional. Include orders created before this date (use ISO datetime format)
+
+#### Return value
+* Server response will be `:ok` (HTTP 200) with a JSON with the `amount` key.
+* Person or campaign filter should be used, server response will be `:unprocessable_entity` (HTTP 422) otherwise.
+
 ### Payment methods retrieval
 :round_pushpin: Retrieves all the payment methods for a person.
 ```
