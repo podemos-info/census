@@ -29,7 +29,7 @@ Parameter             | Data type | Description            | Only when `payment_
 ### Totals
 :round_pushpin: Returns total amount for processed orders for a campaign and/or a person. Also they can be filtered by a span of time.
 ```
-GET api/v1/payments/orders
+GET api/v1/payments/orders/total
 ```
 
 Parameter             | Data type | Description
