@@ -54,13 +54,35 @@ Parameter             | Data type | Description
 `person_id`           |  integer  | Person identifier at Census
 
 #### Return value
-* When the person exists in the database, server response will be `:ok` (HTTP 200) with a JSON with all the payment methods related to that person:
- (fields `id`.
+* When the person exists in the database, server response will be `:ok` (HTTP 200) with a JSON with all the payment methods related to that person and the following information about them.
 
 Parameter             | Data type | Description
 ----------------------|-----------|------------------------
 `id`                  |  integer  | Payment method identifier at Census
 `name`                |  string   | Payment method human name
 `type`                |  string   | Payment method type: `PaymentMethods::DirectDebit` or `PaymentMethods::CreditCard`
+`status`              |  string   | `pending`, `active` or `inactive`
 
 * When there is no person for the given `person_id`, server response will be `:unprocessable_entity` (HTTP 422) and an empty JSON.
+
+### Payment method retrieval
+:round_pushpin: Retrieves information for a payment method .
+```
+GET api/v1/payments/payment_method
+```
+
+Parameter             | Data type | Description
+----------------------|-----------|------------------------
+`id`                  |  integer  | Payment method identifier at Census
+
+#### Return value
+* When the payment method exists in the database, server response will be `:ok` (HTTP 200) with a JSON with the following information.
+
+Parameter             | Data type | Description
+----------------------|-----------|------------------------
+`id`                  |  integer  | Payment method identifier at Census
+`name`                |  string   | Payment method human name
+`type`                |  string   | Payment method type: `PaymentMethods::DirectDebit` or `PaymentMethods::CreditCard`
+`status`              |  string   | `pending`, `active` or `inactive`
+
+* When there is no payment method for the given `id`, server response will be `:not_found` (HTTP 404) and an empty JSON.
