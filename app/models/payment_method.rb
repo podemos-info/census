@@ -38,4 +38,16 @@ class PaymentMethod < ApplicationRecord
   def self.flags
     flag_mapping.values.flat_map(&:keys)
   end
+
+  def status
+    if active?
+      if verified?
+        "active"
+      else
+        "pending"
+      end
+    else
+      "inactive"
+    end
+  end
 end
