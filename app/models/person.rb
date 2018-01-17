@@ -2,7 +2,7 @@
 
 # The person model.
 class Person < ApplicationRecord
-  include PersonLevels
+  include PersonMembershipLevels
   include Issuable
 
   acts_as_paranoid

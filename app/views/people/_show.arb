@@ -3,7 +3,7 @@
 context.instance_eval do
   panel title do
     attributes_table_for resource do
-      state_row :level, class: classes[:level]
+      state_row :membership_level, class: classes[:membership_level]
       row :id, class: classes[:id]
       row :flags, class: [classes[:flags], classes[:verifications]].join(" ") do |resource|
         model_flags(resource)

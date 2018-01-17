@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module PersonLevels
+module PersonMembershipLevels
   extend ActiveSupport::Concern
 
   included do
@@ -16,7 +16,7 @@ module PersonLevels
     has_flags 1 => :has_issues,
               check_for_column: false
 
-    aasm column: :level do
+    aasm column: :membership_level do
       state :person, initial: true
       state :follower, :young_member, :member
 
@@ -30,8 +30,8 @@ module PersonLevels
       end
     end
 
-    def self.levels
-      @levels ||= Person.aasm.states.map(&:name).map(&:to_s)
+    def self.membership_levels
+      @membership_levels ||= Person.aasm.states.map(&:name).map(&:to_s)
     end
 
     def self.flags
@@ -50,7 +50,7 @@ module PersonLevels
       verifications.positive?
     end
 
-    def can_change_level?(target)
+    def can_change_membership_level?(target)
       aasm.events(permitted: true).map(&:name).include? :"to_#{target}"
     end
   end

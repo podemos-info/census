@@ -192,7 +192,7 @@ ActiveRecord::Schema.define(version: 20171120095545) do
     t.string "email"
     t.string "phone"
     t.bigint "scope_id"
-    t.string "level"
+    t.string "membership_level"
     t.integer "verifications", default: 0, null: false
     t.integer "flags", default: 0, null: false
     t.jsonb "extra", default: {}, null: false

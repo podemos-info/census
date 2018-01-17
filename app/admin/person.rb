@@ -30,7 +30,7 @@ ActiveAdmin.register Person do
 
   index do
     id_column
-    state_column :level
+    state_column :membership_level
     column :full_name_link, sortable: :full_name, class: :left
     column :full_document, sortable: :full_document, class: :left
     column :scope, sortable: :scope, class: :left do |person|
@@ -43,8 +43,8 @@ ActiveAdmin.register Person do
   end
 
   scope :all, default: true
-  Person.levels.each do |level|
-    scope level.to_sym
+  Person.membership_levels.each do |membership_level|
+    scope membership_level.to_sym
   end
   scope :deleted
 

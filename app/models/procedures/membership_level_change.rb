@@ -2,20 +2,20 @@
 
 module Procedures
   class MembershipLevelChange < Procedure
-    store_accessor :information, :from_level, :to_level
+    store_accessor :information, :from_membership_level, :to_membership_level
 
-    validates :from_level, :to_level, presence: true
+    validates :from_membership_level, :to_membership_level, presence: true
 
     def acceptable?
-      person.can_change_level? to_level
+      person.can_change_membership_level? to_membership_level
     end
 
     def process_accept
-      person.send("to_#{to_level}")
+      person.send("to_membership_#{to_membership_level}")
     end
 
     def undo_accept
-      person.level = from_level
+      person.membership_level = from_membership_level
     end
 
     def persist_accept_changes!

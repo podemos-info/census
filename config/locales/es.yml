@@ -147,12 +147,12 @@ es:
         gender: Género
         last_name1: Primer Apellido
         last_name2: Segundo Apellido
-        level: Nivel
-        level/activist: militante
-        level/follower: simpatizante
-        level/member: inscrita
-        level/person: persona
-        level/young_member: inscrita joven
+        membership_level: Nivel
+        membership_level/activist: militante
+        membership_level/follower: simpatizante
+        membership_level/member: inscrita
+        membership_level/person: persona
+        membership_level/young_member: inscrita joven
         phone: Teléfono
         postal_code: Código postal
         scope: Lugar de participación
