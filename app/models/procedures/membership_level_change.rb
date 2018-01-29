@@ -11,7 +11,7 @@ module Procedures
     end
 
     def process_accept
-      person.send("to_membership_#{to_membership_level}")
+      person.send("to_#{to_membership_level}")
     end
 
     def undo_accept

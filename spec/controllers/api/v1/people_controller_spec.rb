@@ -6,7 +6,6 @@ describe Api::V1::PeopleController, type: :controller do
   let(:person) { build(:person) }
   let(:scope) { create(:scope) }
   let(:address_scope) { create(:scope) }
-  let(:level) { "person" }
 
   with_versioning do
     describe "create method" do

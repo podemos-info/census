@@ -16,12 +16,12 @@ en:
         address_scope: Address scope
         postal_code: Postal code
         flags: Flags
-        level: Level
-        level/person: Person
-        level/follower: Follower
-        level/young_member: Young member
-        level/member: Member
-        level/activist: Activist
+        membership_level: Membership level
+        membership_level/person: Person
+        membership_level/follower: Follower
+        membership_level/young_member: Young member
+        membership_level/member: Member
+        membership_level/activist: Activist
         scope: Scope
         created_at: Created at
         updated_at: Updated at

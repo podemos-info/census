@@ -2,12 +2,11 @@
 
 require "rails_helper"
 
-describe PersonForm do
+describe People::PersonForm do
   let(:person) { build(:person) }
 
   subject do
     described_class.new(
-      level: level,
       first_name: first_name,
       last_name1: last_name1,
       last_name2: last_name2,
@@ -22,15 +21,8 @@ describe PersonForm do
       scope_code: scope_code,
       email: email,
       phone: phone,
-      extra: extra,
-      files: files
+      extra: extra
     )
-  end
-
-  let(:level) { person.level }
-  let(:files) do
-    attachment = build(:attachment)
-    [api_attachment_format(attachment), api_attachment_format(attachment)]
   end
 
   let(:first_name) { person.first_name }

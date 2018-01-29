@@ -2,24 +2,36 @@
 
 require "rails_helper"
 
-describe Procedures::RegisterMembershipLevelChange do
-  subject(:register_membership_level_change) { described_class.call(person, to_level) }
+describe Procedures::CreateMembershipLevelChange do
+  subject(:create_membership_level_change) { described_class.call(form) }
 
   let!(:person) { create(:person) }
-  let(:to_level) { "member" }
+  let(:membership_level) { "member" }
+  let(:form_class) { People::MembershipLevelForm }
+  let(:valid) { true }
+
+  let(:form) do
+    instance_double(
+      form_class,
+      invalid?: !valid,
+      valid?: valid,
+      person: person,
+      membership_level: membership_level
+    )
+  end
 
   describe "when valid" do
     it "broadcasts :ok" do
       expect { subject } .to broadcast(:ok)
     end
 
-    it "create a new procedure to change the person level" do
+    it "create a new procedure to change the person membership level" do
       expect { subject } .to change { Procedure.count } .by(1)
     end
   end
 
   describe "when invalid" do
-    let(:to_level) { person.level }
+    let(:valid) { false }
 
     it "broadcasts :invalid" do
       expect { subject } .to broadcast(:invalid)
