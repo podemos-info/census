@@ -28,7 +28,7 @@ describe Procedures::VerificationDocument, :db do
         procedure.accept!
       end
 
-      it "undo revert person level to previous value" do
+      it "undo revert person membership level to previous value" do
         expect { procedure.undo! } .to change { Person.find(person.id).verified? } .from(true).to(false)
       end
     end
@@ -38,7 +38,7 @@ describe Procedures::VerificationDocument, :db do
         procedure.reject!
       end
 
-      it "undo does not change person level" do
+      it "undo does not change person membership level" do
         expect { procedure.undo! } .to_not change { Person.find(person.id).verified? }
       end
     end

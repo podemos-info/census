@@ -18,7 +18,7 @@ class CreatePeople < ActiveRecord::Migration[5.1]
       t.string :phone
 
       t.references :scope
-      t.string :level
+      t.string :membership_level
       t.integer :verifications, default: 0, null: false, index: true
       t.integer :flags, default: 0, null: false
       t.jsonb :extra, default: {}, null: false

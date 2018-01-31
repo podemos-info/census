@@ -22,7 +22,8 @@ class ProcedureDecorator < ApplicationDecorator
   def information
     case object
     when ::Procedures::MembershipLevelChange
-      h.raw "#{I18n.t("activerecord.attributes.person.level/#{object.from_level}")} &rarr; #{I18n.t("activerecord.attributes.person.level/#{object.to_level}")}"
+      h.raw "#{I18n.t("activerecord.attributes.person.membership_level/#{object.from_membership_level}")}
+             &rarr; #{I18n.t("activerecord.attributes.person.membership_level/#{object.to_membership_level}")}"
     else
       ""
     end

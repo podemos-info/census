@@ -7,12 +7,10 @@ ActiveAdmin.register Issue do
 
   actions :index, :show
 
-  scope :unread, default: true do |scope|
-    AdminUnreadIssues.for(current_admin).merge(scope)
-  end
-  scope :assigned { |scope| AdminAssignedIssues.for(current_admin).merge(scope) }
-  scope :non_fixed { |scope| AdminIssues.for(current_admin).merge(IssuesNonFixed.for).merge(scope) }
-  scope :fixed { |scope| AdminIssues.for(current_admin).merge(IssuesFixed.for).merge(scope) }
+  scope(:unread, default: true) { |scope| AdminUnreadIssues.for(current_admin).merge(scope) }
+  scope(:assigned) { |scope| AdminAssignedIssues.for(current_admin).merge(scope) }
+  scope(:non_fixed) { |scope| AdminIssues.for(current_admin).merge(IssuesNonFixed.for).merge(scope) }
+  scope(:fixed) { |scope| AdminIssues.for(current_admin).merge(IssuesFixed.for).merge(scope) }
 
   index do
     column :issue_type_name, class: :left do |issue|

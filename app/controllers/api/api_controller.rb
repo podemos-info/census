@@ -5,7 +5,7 @@ module Api
     before_action :set_paper_trail_whodunnit
 
     def person
-      @person ||= Person.find(params[person_id_param]) if params[person_id_param]
+      @person ||= Person.find_by(id: params[person_id_param]) if params[person_id_param]
     end
 
     def user_for_paper_trail

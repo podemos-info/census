@@ -3,10 +3,9 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      resources :people, only: [:create] do
-        member do
-          patch :change_membership_level
-        end
+      resources :people do
+        resources :verifications, only: [:create], controller: "people/verifications"
+        resources :membership_levels, only: [:create], controller: "people/membership_levels"
       end
 
       namespace :payments do
