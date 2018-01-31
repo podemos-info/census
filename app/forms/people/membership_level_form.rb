@@ -12,11 +12,11 @@ module People
     validates :membership_level, presence: true, inclusion: { in: Person.membership_levels }
 
     def person
-      @person ||= Person.find(person_id)
+      @person ||= Person.find_by(id: person_id)
     end
 
     def change?
-      person.membership_level != membership_level
+      person&.membership_level != membership_level
     end
   end
 end

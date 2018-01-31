@@ -12,11 +12,11 @@ module People
     validate :files_presence
 
     def person
-      @person ||= Person.find(person_id)
+      @person ||= Person.find_by(id: person_id)
     end
 
     def files_presence
-      validates_length_of :files, minimum: (person.document_type == "passport" ? 1 : 2)
+      validates_length_of :files, minimum: (person&.document_type == "passport" ? 1 : 2)
     end
 
     def files=(value)

@@ -33,8 +33,8 @@ module Api
 
     private
 
-    def person
-      @person ||= Person.find_by_id(params[:id])
+    def person_id_param
+      :id
     end
   end
 end
