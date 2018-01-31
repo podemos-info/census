@@ -7,7 +7,7 @@ describe Api::V1::People::MembershipLevelsController, type: :controller do
   let(:membership_level) { "member" }
 
   with_versioning do
-    context "create method" do
+    describe "create method" do
       let(:attachment) { build(:attachment) }
       let(:params) { { person_id: person.id, membership_level: membership_level } }
 
@@ -33,6 +33,17 @@ describe Api::V1::People::MembershipLevelsController, type: :controller do
 
         it "doesn't create a new change membership procedure" do
           expect { subject } .to change { Procedure.count }.by(0)
+        end
+      end
+
+      context "with an invalid person id" do
+        before do
+          person.delete
+        end
+
+        it "is not valid" do
+          expect(subject).to have_http_status(:unprocessable_entity)
+          expect(subject.content_type).to eq("application/json")
         end
       end
     end

@@ -39,6 +39,8 @@ module People
 
     validates :email, :scope_code, presence: true
 
+    validates :scope, :address_scope, :document_scope, presence: true
+
     def document_id=(value)
       super value && document_type ? Normalizr.normalize(value, :"document_#{document_type}") : value
     end

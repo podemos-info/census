@@ -3,19 +3,23 @@
 require "rails_helper"
 
 describe Api::V1::PeopleController, type: :controller do
+  let(:scope) { create(:scope) }
+  let(:address_scope) { create(:scope) }
+  let(:document_scope) { create(:scope) }
+  let(:scope_code) { scope.code }
+  let(:address_scope_code) { address_scope.code }
+  let(:document_scope_code) { document_scope.code }
+
   with_versioning do
     describe "create method" do
       subject(:endpoint) { post :create, params: params }
 
       let(:person) { build(:person) }
-      let(:scope) { create(:scope) }
-      let(:address_scope) { create(:scope) }
-      let(:document_scope) { create(:scope) }
       let(:params) do
         params = { person: person.attributes.deep_symbolize_keys }
-        params[:person][:scope_code] = scope.code
-        params[:person][:address_scope_code] = address_scope.code
-        params[:person][:document_scope_code] = document_scope.code
+        params[:person][:scope_code] = scope_code
+        params[:person][:address_scope_code] = address_scope_code
+        params[:person][:document_scope_code] = document_scope_code
         params
       end
 
@@ -39,6 +43,19 @@ describe Api::V1::PeopleController, type: :controller do
         it "correctly sets the user address_scope" do
           expect(created_person.address_scope).to eq(address_scope)
         end
+
+        it "correctly sets the user document_scope" do
+          expect(created_person.document_scope).to eq(document_scope)
+        end
+      end
+
+      context "with an invalid scope id" do
+        let(:scope_code) { "AN INVALID SCOPE CODE" }
+
+        it "is not valid" do
+          expect(subject).to have_http_status(:unprocessable_entity)
+          expect(subject.content_type).to eq("application/json")
+        end
       end
     end
 
@@ -46,15 +63,12 @@ describe Api::V1::PeopleController, type: :controller do
       subject(:endpoint) { patch :update, params: { id: person.id, **params } }
 
       let(:person) { create(:person) }
-      let(:scope) { person.scope }
-      let(:address_scope) { person.address_scope }
-      let(:document_scope) { person.document_scope }
       let(:params) do
         params = { person: person.attributes.deep_symbolize_keys }
         params[:person][:first_name] = "CHANGED"
-        params[:person][:scope_code] = scope.code
-        params[:person][:address_scope_code] = address_scope.code
-        params[:person][:document_scope_code] = document_scope.code
+        params[:person][:scope_code] = scope_code
+        params[:person][:address_scope_code] = address_scope_code
+        params[:person][:document_scope_code] = document_scope_code
         params
       end
 
@@ -72,6 +86,15 @@ describe Api::V1::PeopleController, type: :controller do
 
         it "correctly sets the user scope" do
           expect { subject } .to change { Person.last.scope } .from(person.scope).to(scope)
+        end
+      end
+
+      context "with an invalid scope id" do
+        let(:scope_code) { "AN INVALID SCOPE CODE" }
+
+        it "is not valid" do
+          expect(subject).to have_http_status(:unprocessable_entity)
+          expect(subject.content_type).to eq("application/json")
         end
       end
     end
