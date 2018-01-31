@@ -6,7 +6,7 @@ describe Api::V1::People::VerificationsController, type: :controller do
   let(:person) { create(:person) }
 
   with_versioning do
-    context "create method" do
+    describe "create method" do
       let(:attachment) { build(:attachment) }
       let(:params) { { person_id: person.id, files: [api_attachment_format(attachment), api_attachment_format(attachment)] } }
 
@@ -36,6 +36,17 @@ describe Api::V1::People::VerificationsController, type: :controller do
             expect(saved_attachment.file.file.filename).to eq(attachment.file.filename)
             expect(saved_attachment.file.file.read).to eq(attachment.file.read)
           end
+        end
+      end
+
+      context "with an invalid person id" do
+        before do
+          person.delete
+        end
+
+        it "is not valid" do
+          expect(subject).to have_http_status(:unprocessable_entity)
+          expect(subject.content_type).to eq("application/json")
         end
       end
     end
