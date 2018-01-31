@@ -3,18 +3,19 @@
 require "rails_helper"
 
 describe Api::V1::PeopleController, type: :controller do
-  let(:person) { build(:person) }
-  let(:scope) { create(:scope) }
-  let(:address_scope) { create(:scope) }
-
   with_versioning do
     describe "create method" do
       subject(:endpoint) { post :create, params: params }
+
+      let(:person) { build(:person) }
+      let(:scope) { create(:scope) }
+      let(:address_scope) { create(:scope) }
+      let(:document_scope) { create(:scope) }
       let(:params) do
         params = { person: person.attributes.deep_symbolize_keys }
         params[:person][:scope_code] = scope.code
         params[:person][:address_scope_code] = address_scope.code
-        params[:person][:document_scope_code] = person.document_scope.code
+        params[:person][:document_scope_code] = document_scope.code
         params
       end
 
@@ -38,6 +39,38 @@ describe Api::V1::PeopleController, type: :controller do
         it "correctly sets the user address_scope" do
           expect(created_person.address_scope).to eq(address_scope)
         end
+      end
+    end
+  end
+
+  describe "retrieve person information" do
+    subject(:endpoint) { get :show, params: { id: person.id } }
+
+    let(:person) { create(:person) }
+
+    it { is_expected.to be_success }
+
+    context "returned data" do
+      subject(:response) { JSON.parse(endpoint.body) }
+
+      it "includes person first name" do
+        expect(subject["first_name"]).to eq(person.first_name)
+      end
+
+      it "includes person scope code" do
+        expect(subject["scope_code"]).to eq(person.scope.code)
+      end
+
+      it "includes person document scope code" do
+        expect(subject["address_scope_code"]).to eq(person.address_scope.code)
+      end
+
+      it "includes person document scope code" do
+        expect(subject["document_scope_code"]).to eq(person.document_scope.code)
+      end
+
+      it "does not include hidden fields" do
+        expect(subject.keys).not_to include(%w(created_at updated_at deleted_at flags verifications scope_id address_scope_id document_scope_id))
       end
     end
   end
