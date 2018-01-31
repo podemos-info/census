@@ -25,18 +25,22 @@ describe People::PersonForm do
     )
   end
 
+  let(:scope) { create(:scope) }
+  let(:address_scope) { create(:scope) }
+  let(:document_scope) { create(:scope) }
+
   let(:first_name) { person.first_name }
   let(:last_name1) { person.last_name1 }
   let(:last_name2) { person.last_name2 }
   let(:document_type) { person.document_type }
   let(:document_id) { person.document_id }
-  let(:document_scope_code) { person.document_scope.code }
+  let(:document_scope_code) { document_scope.code }
   let(:born_at) { person.born_at }
   let(:gender) { person.gender }
   let(:address) { person.address }
-  let(:address_scope_code) { person.address_scope.code }
+  let(:address_scope_code) { address_scope.code }
   let(:postal_code) { person.postal_code }
-  let(:scope_code) { person.scope.code }
+  let(:scope_code) { scope.code }
   let(:email) { person.email }
   let(:phone) { person.phone }
   let(:extra) { person.extra }
