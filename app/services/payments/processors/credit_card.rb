@@ -4,8 +4,8 @@ module Payments
   module Processors
     class CreditCard < Payments::Processor
       def process_batch(_orders_batch)
-        yield
-        true
+        return :aborted unless yield
+        :ok
       end
 
       def process_order(order)

@@ -29,6 +29,7 @@ es:
     sidebars:
       downloads: Descargas
       events: Actividad
+      jobs: Tareas
       orders: Órdenes
       procedures: Procedimientos
       versions: Versiones
@@ -38,6 +39,10 @@ es:
     system: Sistema
   activerecord:
     attributes:
+      active_job_reporter/job_message:
+        created_at: Fecha
+        message_type: Tipo de mensaje
+        message: Mensaje
       admin:
         created_at: Fecha de creación
         current_sign_in_at: Fecha de acceso
@@ -87,6 +92,15 @@ es:
         objects_links: Registros afectados
         role_name: Rol
         updated_at: Fecha de expiración
+      job:
+        job_type_link: Tarea
+        job_type_name: Tipo de tarea
+        status_name: Estado
+        result_name: Resultado
+        user: Usuario
+        objects_links: Elementos relacionados
+        created_at: Fecha de creación
+        updated_at: Última actualización
       order:
         amount: Total
         campaign: Campaña
@@ -128,7 +142,6 @@ es:
         iban: IBAN
         name: Nombre
         person: Persona
-        status_message: Estado actual
         type_name: Tipo
         updated_at: Última actualización
       person:
@@ -216,6 +229,9 @@ es:
       issue:
         one: Incidencia
         other: Incidencias
+      job:
+        one: Tarea
+        other: Cola de tareas
       order:
         one: Orden
         other: Órdenes
@@ -301,6 +317,32 @@ es:
         duplicated_document: Documento duplicado
         missing_bic: BIC desconocido
         processed_response_code: Problemas al cobrar orden
+    jobs:
+      messages: Registro de actividad
+      job_messages:
+        process_orders_batch_job:
+          processor_completed: Órdenes para el sistema de cobro procesadas por completo
+          processor_error: Ha ocurrido un error durante el procesamiento de las órdenes para el sistema de cobro
+          processor_aborted: Procesamiento interrumpido por exceso de órdenes con errores
+          unprocessable_order: Orden no procesada
+          order_error: Ha ocurrido un error durante el procesamiento de la orden, verifique el registro para comprobar su estado real
+          order_issues: Orden con incidencias
+          order_ok: Orden procesada correctamente
+      result:
+        ok: Correcto
+        error: Con errores de procesamiento
+        review: Debe ser revisado antes de procesarlo
+        invalid: Información incorrecta, no puede ser procesado
+      status:
+        pending: Pendiente
+        running: Procesando
+        finished: Finalizada
+      types:
+        check_bic_issues_job: "Comprobar incidencias para BIC actualizado"
+        check_payment_method_issues_job: "Comprobar incidencias asociadas al método de pago actualizado"
+        check_person_issues_job: "Comprobar incidencias para los datos de la persona"
+        check_processed_order_issues_job: "Comprobar incidencias para la orden procesada"
+        process_orders_batch_job: "Procesar lote de órdenes"
     orders:
       action_message:
         not_processed: No se pudo procesar la orden.
@@ -314,10 +356,7 @@ es:
       view_versions: Ver versiones (%{count})
     orders_batches:
       action_message:
-        issues: El lote de órdenes ha sido procesado, pero han ocurrido incidencias durante el proceso. Por favor, contacta con el administrador del sistema.
-        needs_review: Algunas órdenes deben ser revisadas antes de ser procesadas.
-        not_processed: No se pudo procesar el lote de órdenes.
-        processed: El lote de órdenes ha sido procesado.
+        will_be_processed: El lote de órdenes está siendo procesado.
       by_payment_method: Por método de pago
       by_state: Por estado
       manage_bics: Gestionar BICs
@@ -417,6 +456,9 @@ es:
       procedure_denial_comment_required: debes indicar la razón del rechazo el procedimiento
       processed_by_person: el procedimiento no puede ser procesado por la persona a la que afecta
       record_not_destroyed: el registro no ha podido ser borrado
+    attributes:
+      bic:
+        invalid_format: Formato de BIC inválido (debe ser similar a ABCDESMM o ABCDESMM123)
   paper_trail:
     events:
       create: Creación de %{model}

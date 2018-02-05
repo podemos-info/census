@@ -14,17 +14,20 @@ module Issues
 
     # Executes the command. Broadcasts these events:
     #
-    # - :ok when everything is valid.
-    # - :invalid if anything fails
+    # - :ok when everything was ok.
+    # - :invalid when given data is invalid.
+    # - :error if the assignment couldn't be saved.
     #
     # Returns nothing.
     def call
+      return broadcast(:invalid) unless issue && admin
+
       result = Issue.transaction do
         issue.assigned_to = admin.person
         issue.save!
         :ok
       end
-      broadcast(result || :invalid)
+      broadcast(result || :error)
     end
 
     private

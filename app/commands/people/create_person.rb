@@ -24,11 +24,11 @@ module People
         person.save!
         person.versions.first.update_attributes(whodunnit: person) unless PaperTrail.whodunnit
 
-        Issues::CheckPersonIssues.call(person: person, admin: admin)
-
         :ok
       end
       broadcast result || :invalid, person
+
+      CheckPersonIssuesJob.perform_later(person: person, admin: admin) if result == :ok
     end
 
     private

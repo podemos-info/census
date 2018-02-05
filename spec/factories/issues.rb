@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  sequence(:job_id) do |n|
+    "ACTIVE-JOB-#{n}"
+  end
+
   factory :issue do
     issue_type { :duplicated_document }
     role { "lopd" }

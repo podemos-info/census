@@ -99,6 +99,8 @@ ignore_unused:
 - 'active_admin.scopes.*'
 - 'active_admin.status_tag.*'
 - 'errors.messages.*'
+- 'errors.attributes.*'
+- 'census.jobs.job_messages.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'

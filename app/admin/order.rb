@@ -46,7 +46,7 @@ ActiveAdmin.register Order do
   sidebar :versions, partial: "orders/versions", only: :show
 
   action_item :process, only: :show do
-    if order.processable?(inside_batch?: false)
+    if policy(resource).charge? && order.processable?(inside_batch?: false)
       link_to(
         t("census.orders.process"), charge_order_path(order), method: :patch,
                                                               data: { confirm: t("census.sure_question") },

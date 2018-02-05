@@ -20,14 +20,10 @@ module People
     def call
       return broadcast(:invalid) if form.invalid?
 
-      result = Person.transaction do
-        person.save!
-
-        Issues::CheckPersonIssues.call(person: person, admin: admin)
-
-        :ok
-      end
+      result = :ok if person.save
       broadcast result || :invalid, person
+
+      CheckPersonIssuesJob.perform_later(person: person, admin: admin) if result == :ok
     end
 
     private

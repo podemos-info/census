@@ -33,7 +33,7 @@ module Issues
       )
     end
 
-    attr_reader :payment_method, :admin
+    attr_reader :payment_method
 
     def update_affected_objects
       issue.payment_methods = payment_methods

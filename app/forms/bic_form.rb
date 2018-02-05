@@ -8,5 +8,8 @@ class BicForm < Form
   attribute :bank_code, String
   attribute :bic, String
 
-  validates :country, :bank_code, :bic, presence: true
+  normalize :country, :bic, with: [:clean, :upcase]
+
+  validates :bic, bic: { country: :country }, presence: true
+  validates :country, :bank_code, presence: true, unless: :persisted?
 end

@@ -19,19 +19,22 @@ ActiveAdmin.register OrdersBatch do
   end
 
   action_item :process, only: :show do
-    if issue_for_resource
-      link_to t("census.orders_batches.review_orders"), review_orders_orders_batch_path
-    else
-      process_text = resource.processed_at ? t("census.orders_batches.process_orders_again") : t("census.orders_batches.process_orders")
-      link_to process_text,
-              charge_orders_batch_path,
-              method: :patch,
-              data: { confirm: t("census.sure_question") },
-              class: :member_link
+    if policy(resource).charge?
+      if issue_for_resource
+        link_to t("census.orders_batches.review_orders"), review_orders_orders_batch_path
+      else
+        process_text = resource.processed_at ? t("census.orders_batches.process_orders_again") : t("census.orders_batches.process_orders")
+        link_to process_text,
+                charge_orders_batch_path,
+                method: :patch,
+                data: { confirm: t("census.sure_question") },
+                class: :member_link
+      end
     end
   end
 
   sidebar :orders, partial: "orders_batches/orders", only: :show
+  sidebar :jobs, partial: "orders_batches/jobs", only: :show
   sidebar :versions, partial: "orders_batches/versions", only: :show
 
   show do
@@ -55,44 +58,34 @@ ActiveAdmin.register OrdersBatch do
   end
 
   member_action :review_orders, method: [:get, :post] do
-    params[:pending_bics]&.each do |key, value|
-      country, bank_code = key.split("_")
-      form = BicForm.new(country: country, bank_code: bank_code, bic: value)
-      Payments::CreateBic.call(form: form, admin: current_admin)
-    end
     @pending_bics = Hash[OrdersBatchIssues.for(resource).merge(IssuesNonFixed.for).map do |issue|
-      [issue.information[:iban], Bic.new(country: issue.information[:country], bank_code: issue.information[:bank_code])]
+      country = issue.information["country"]
+      bank_code = issue.information["bank_code"]
+      key = "#{country}_#{bank_code}"
+
+      info = { country: country, bank_code: bank_code, iban: issue.information["iban"] }
+      if params.dig(:pending_bics, key)
+        info[:value] = params[:pending_bics][key]
+        form = BicForm.new(country: country, bank_code: bank_code, bic: params[:pending_bics][key])
+        Payments::SaveBic.call(form: form, admin: current_admin) do
+          on(:invalid) { info[:errors] = form.errors }
+          on(:ok) { info[:fixed] = true }
+        end
+      end
+      [key, info] unless info[:fixed]
     end .compact]
 
-    redirect_to orders_batch_path unless @pending_bics.any?
-
-    @extra_body_class = "edit"
+    if @pending_bics.any?
+      @extra_body_class = "edit"
+    else
+      redirect_to orders_batch_path
+    end
   end
 
-  member_action :charge, method: :patch do # Fails when calling it :process
-    orders_batch = resource
-    needs_review_orders = false
-    Payments::ProcessOrdersBatch.call(orders_batch: orders_batch, admin: current_admin) do
-      on(:invalid) do
-        flash[:error] = t("census.orders_batches.action_message.not_processed")
-      end
-      on(:review) do
-        flash[:warning] = t("census.orders_batches.action_message.needs_review")
-        needs_review_orders = true
-      end
-      on(:issues) do
-        flash[:warning] = t("census.orders_batches.action_message.issues")
-      end
-      on(:ok) do
-        flash[:notice] = t("census.orders_batches.action_message.processed")
-      end
-    end
-
-    if needs_review_orders
-      redirect_to review_orders_orders_batch_path
-    else
-      redirect_back fallback_location: orders_batches_path
-    end
+  member_action :charge, method: :patch do # Fails when naming it :process
+    ProcessOrdersBatchJob.perform_later(orders_batch: resource, admin: current_admin)
+    flash[:notice] = t("census.orders_batches.action_message.will_be_processed")
+    redirect_back fallback_location: orders_batches_path
   end
 
   controller do
@@ -120,7 +113,7 @@ ActiveAdmin.register OrdersBatch do
       form = build_resource
       Payments::CreateOrdersBatch.call(form: form, admin: current_admin) do
         on(:invalid) { render :new }
-        on(:ok) { |orders_batch| redirect_to orders_batch_path(id: orders_batch.id) }
+        on(:ok) { |info| redirect_to orders_batch_path(id: info[:orders_batch].id) }
       end
     end
 

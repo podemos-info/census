@@ -1265,7 +1265,7 @@ ES-RI-LO	province	La Rioja
 ES-VC	autonomous community	Valencian Community
 ES-VC-A	province	Alicante
 ES-VC-CS	province	Castellón
-ES-VC-V	province	Valencia
+ES-VC-V	province	Valencia / València
 ET	country	Ethiopia
 ET-AA	administration	Ādīs Ābeba
 ET-AF	state	Āfar
@@ -5099,17 +5099,17 @@ ZW-MN	province	Matabeleland North
 ZW-MS	province	Matabeleland South
 ZW-MV	province	Masvingo
 ZW-MW	province	Mashonaland West
-ES-IB-PM+IFO	island	Formentera
-ES-IB-PM+IIB	island	Ibiza
-ES-IB-PM+IMA	island	Mallorca
-ES-IB-PM+IME	island	Menorca
-ES-CN-GC+IFU	island	Fuerteventura
-ES-CN-GC+IGC	island	Gran Canaria
-ES-CN-GC+ILA	island	Lanzarote
-ES-CN-TF+ILG	island	La Gomera
-ES-CN-TF+IEH	island	El Hierro
-ES-CN-TF+ILP	island	La Palma
-ES-CN-TF+ITF	island	Tenerife
+ES-IB-PM-FO	island	Formentera
+ES-IB-PM-IB	island	Ibiza
+ES-IB-PM-MA	island	Mallorca
+ES-IB-PM-ME	island	Menorca
+ES-CN-GC-FU	island	Fuerteventura
+ES-CN-GC-GC	island	Gran Canaria
+ES-CN-GC-LA	island	Lanzarote
+ES-CN-TF-LG	island	La Gomera
+ES-CN-TF-EH	island	El Hierro
+ES-CN-TF-LP	island	La Palma
+ES-CN-TF-TF	island	Tenerife
 ES-PV-VI-051	municipality	Agurain/Salvatierra
 ES-PV-VI-001	municipality	Alegría-Dulantzi
 ES-PV-VI-002	municipality	Amurrio
@@ -5905,73 +5905,73 @@ ES-EX-BA-159	municipality	Zahínos
 ES-EX-BA-160	municipality	Zalamea de la Serena
 ES-EX-BA-162	municipality	La Zarza
 ES-EX-BA-161	municipality	Zarza-Capilla
-ES-IB-PM-002	municipality	Alaior
-ES-IB-PM-001	municipality	Alaró
-ES-IB-PM-003	municipality	Alcúdia
-ES-IB-PM-004	municipality	Algaida
-ES-IB-PM-005	municipality	Andratx
-ES-IB-PM-901	municipality	Ariany
-ES-IB-PM-006	municipality	Artà
-ES-IB-PM-007	municipality	Banyalbufar
-ES-IB-PM-008	municipality	Binissalem
-ES-IB-PM-009	municipality	Búger
-ES-IB-PM-010	municipality	Bunyola
-ES-IB-PM-011	municipality	Calvià
-ES-IB-PM-012	municipality	Campanet
-ES-IB-PM-013	municipality	Campos
-ES-IB-PM-014	municipality	Capdepera
-ES-IB-PM-064	municipality	Es Castell
-ES-IB-PM-015	municipality	Ciutadella de Menorca
-ES-IB-PM-016	municipality	Consell
-ES-IB-PM-017	municipality	Costitx
-ES-IB-PM-018	municipality	Deià
-ES-IB-PM-026	municipality	Eivissa
-ES-IB-PM-019	municipality	Escorca
-ES-IB-PM-020	municipality	Esporles
-ES-IB-PM-021	municipality	Estellencs
-ES-IB-PM-022	municipality	Felanitx
-ES-IB-PM-023	municipality	Ferreries
-ES-IB-PM-024	municipality	Formentera
-ES-IB-PM-025	municipality	Fornalutx
-ES-IB-PM-027	municipality	Inca
-ES-IB-PM-028	municipality	Lloret de Vistalegre
-ES-IB-PM-029	municipality	Lloseta
-ES-IB-PM-030	municipality	Llubí
-ES-IB-PM-031	municipality	Llucmajor
-ES-IB-PM-033	municipality	Manacor
-ES-IB-PM-034	municipality	Mancor de la Vall
-ES-IB-PM-032	municipality	Maó-Mahón
-ES-IB-PM-035	municipality	Maria de la Salut
-ES-IB-PM-036	municipality	Marratxí
-ES-IB-PM-037	municipality	Es Mercadal
-ES-IB-PM-902	municipality	Es Migjorn Gran
-ES-IB-PM-038	municipality	Montuïri
-ES-IB-PM-039	municipality	Muro
-ES-IB-PM-040	municipality	Palma de Mallorca
-ES-IB-PM-041	municipality	Petra
-ES-IB-PM-044	municipality	Sa Pobla
-ES-IB-PM-042	municipality	Pollença
-ES-IB-PM-043	municipality	Porreres
-ES-IB-PM-045	municipality	Puigpunyent
-ES-IB-PM-059	municipality	Ses Salines
-ES-IB-PM-046	municipality	Sant Antoni de Portmany
-ES-IB-PM-049	municipality	Sant Joan
-ES-IB-PM-050	municipality	Sant Joan de Labritja
-ES-IB-PM-048	municipality	Sant Josep de sa Talaia
-ES-IB-PM-051	municipality	Sant Llorenç des Cardassar
-ES-IB-PM-052	municipality	Sant Lluís
-ES-IB-PM-053	municipality	Santa Eugènia
-ES-IB-PM-054	municipality	Santa Eulària des Riu
-ES-IB-PM-055	municipality	Santa Margalida
-ES-IB-PM-056	municipality	Santa María del Camí
-ES-IB-PM-057	municipality	Santanyí
-ES-IB-PM-058	municipality	Selva
-ES-IB-PM-047	municipality	Sencelles
-ES-IB-PM-060	municipality	Sineu
-ES-IB-PM-061	municipality	Sóller
-ES-IB-PM-062	municipality	Son Servera
-ES-IB-PM-063	municipality	Valldemossa
-ES-IB-PM-065	municipality	Vilafranca de Bonany
+ES-IB-PM-ME-002	municipality	Alaior
+ES-IB-PM-MA-001	municipality	Alaró
+ES-IB-PM-MA-003	municipality	Alcúdia
+ES-IB-PM-MA-004	municipality	Algaida
+ES-IB-PM-MA-005	municipality	Andratx
+ES-IB-PM-MA-901	municipality	Ariany
+ES-IB-PM-MA-006	municipality	Artà
+ES-IB-PM-MA-007	municipality	Banyalbufar
+ES-IB-PM-MA-008	municipality	Binissalem
+ES-IB-PM-MA-009	municipality	Búger
+ES-IB-PM-MA-010	municipality	Bunyola
+ES-IB-PM-MA-011	municipality	Calvià
+ES-IB-PM-MA-012	municipality	Campanet
+ES-IB-PM-MA-013	municipality	Campos
+ES-IB-PM-MA-014	municipality	Capdepera
+ES-IB-PM-ME-064	municipality	Es Castell
+ES-IB-PM-ME-015	municipality	Ciutadella de Menorca
+ES-IB-PM-MA-016	municipality	Consell
+ES-IB-PM-MA-017	municipality	Costitx
+ES-IB-PM-MA-018	municipality	Deià
+ES-IB-PM-IB-026	municipality	Eivissa
+ES-IB-PM-MA-019	municipality	Escorca
+ES-IB-PM-MA-020	municipality	Esporles
+ES-IB-PM-MA-021	municipality	Estellencs
+ES-IB-PM-MA-022	municipality	Felanitx
+ES-IB-PM-ME-023	municipality	Ferreries
+ES-IB-PM-FO-024	municipality	Formentera
+ES-IB-PM-MA-025	municipality	Fornalutx
+ES-IB-PM-MA-027	municipality	Inca
+ES-IB-PM-MA-028	municipality	Lloret de Vistalegre
+ES-IB-PM-MA-029	municipality	Lloseta
+ES-IB-PM-MA-030	municipality	Llubí
+ES-IB-PM-MA-031	municipality	Llucmajor
+ES-IB-PM-MA-033	municipality	Manacor
+ES-IB-PM-MA-034	municipality	Mancor de la Vall
+ES-IB-PM-ME-032	municipality	Maó-Mahón
+ES-IB-PM-MA-035	municipality	Maria de la Salut
+ES-IB-PM-MA-036	municipality	Marratxí
+ES-IB-PM-ME-037	municipality	Es Mercadal
+ES-IB-PM-ME-902	municipality	Es Migjorn Gran
+ES-IB-PM-MA-038	municipality	Montuïri
+ES-IB-PM-MA-039	municipality	Muro
+ES-IB-PM-MA-040	municipality	Palma de Mallorca
+ES-IB-PM-MA-041	municipality	Petra
+ES-IB-PM-MA-044	municipality	Sa Pobla
+ES-IB-PM-MA-042	municipality	Pollença
+ES-IB-PM-MA-043	municipality	Porreres
+ES-IB-PM-MA-045	municipality	Puigpunyent
+ES-IB-PM-MA-059	municipality	Ses Salines
+ES-IB-PM-IB-046	municipality	Sant Antoni de Portmany
+ES-IB-PM-MA-049	municipality	Sant Joan
+ES-IB-PM-IB-050	municipality	Sant Joan de Labritja
+ES-IB-PM-IB-048	municipality	Sant Josep de sa Talaia
+ES-IB-PM-MA-051	municipality	Sant Llorenç des Cardassar
+ES-IB-PM-ME-052	municipality	Sant Lluís
+ES-IB-PM-MA-053	municipality	Santa Eugènia
+ES-IB-PM-IB-054	municipality	Santa Eulària des Riu
+ES-IB-PM-MA-055	municipality	Santa Margalida
+ES-IB-PM-MA-056	municipality	Santa María del Camí
+ES-IB-PM-MA-057	municipality	Santanyí
+ES-IB-PM-MA-058	municipality	Selva
+ES-IB-PM-MA-047	municipality	Sencelles
+ES-IB-PM-MA-060	municipality	Sineu
+ES-IB-PM-MA-061	municipality	Sóller
+ES-IB-PM-MA-062	municipality	Son Servera
+ES-IB-PM-MA-063	municipality	Valldemossa
+ES-IB-PM-MA-065	municipality	Vilafranca de Bonany
 ES-CT-B-001	municipality	Abrera
 ES-CT-B-002	municipality	Aguilar de Segarra
 ES-CT-B-014	municipality	Aiguafreda
@@ -10354,40 +10354,40 @@ ES-CL-P-242	municipality	Villodrigo
 ES-CL-P-243	municipality	Villoldo
 ES-CL-P-245	municipality	Villota del Páramo
 ES-CL-P-246	municipality	Villovieco
-ES-CN-GC-001	municipality	Agaete
-ES-CN-GC-002	municipality	Agüimes
-ES-CN-GC-020	municipality	La Aldea de San Nicolás
-ES-CN-GC-003	municipality	Antigua
-ES-CN-GC-004	municipality	Arrecife
-ES-CN-GC-005	municipality	Artenara
-ES-CN-GC-006	municipality	Arucas
-ES-CN-GC-007	municipality	Betancuria
-ES-CN-GC-008	municipality	Firgas
-ES-CN-GC-009	municipality	Gáldar
-ES-CN-GC-010	municipality	Haría
-ES-CN-GC-011	municipality	Ingenio
-ES-CN-GC-012	municipality	Mogán
-ES-CN-GC-013	municipality	Moya
-ES-CN-GC-014	municipality	La Oliva
-ES-CN-GC-015	municipality	Pájara
-ES-CN-GC-016	municipality	Las Palmas de Gran Canaria
-ES-CN-GC-017	municipality	Puerto del Rosario
-ES-CN-GC-018	municipality	San Bartolomé
-ES-CN-GC-019	municipality	San Bartolomé de Tirajana
-ES-CN-GC-021	municipality	Santa Brígida
-ES-CN-GC-022	municipality	Santa Lucía de Tirajana
-ES-CN-GC-023	municipality	Santa María de Guía de Gran Canaria
-ES-CN-GC-024	municipality	Teguise
-ES-CN-GC-025	municipality	Tejeda
-ES-CN-GC-026	municipality	Telde
-ES-CN-GC-027	municipality	Teror
-ES-CN-GC-028	municipality	Tías
-ES-CN-GC-029	municipality	Tinajo
-ES-CN-GC-030	municipality	Tuineje
-ES-CN-GC-032	municipality	Valleseco
-ES-CN-GC-031	municipality	Valsequillo de Gran Canaria
-ES-CN-GC-033	municipality	Vega de San Mateo
-ES-CN-GC-034	municipality	Yaiza
+ES-CN-GC-GC-001	municipality	Agaete
+ES-CN-GC-GC-002	municipality	Agüimes
+ES-CN-GC-GC-020	municipality	La Aldea de San Nicolás
+ES-CN-GC-FU-003	municipality	Antigua
+ES-CN-GC-LA-004	municipality	Arrecife
+ES-CN-GC-GC-005	municipality	Artenara
+ES-CN-GC-GC-006	municipality	Arucas
+ES-CN-GC-FU-007	municipality	Betancuria
+ES-CN-GC-GC-008	municipality	Firgas
+ES-CN-GC-GC-009	municipality	Gáldar
+ES-CN-GC-LA-010	municipality	Haría
+ES-CN-GC-GC-011	municipality	Ingenio
+ES-CN-GC-GC-012	municipality	Mogán
+ES-CN-GC-GC-013	municipality	Moya
+ES-CN-GC-FU-014	municipality	La Oliva
+ES-CN-GC-FU-015	municipality	Pájara
+ES-CN-GC-GC-016	municipality	Las Palmas de Gran Canaria
+ES-CN-GC-FU-017	municipality	Puerto del Rosario
+ES-CN-GC-LA-018	municipality	San Bartolomé
+ES-CN-GC-GC-019	municipality	San Bartolomé de Tirajana
+ES-CN-GC-GC-021	municipality	Santa Brígida
+ES-CN-GC-GC-022	municipality	Santa Lucía de Tirajana
+ES-CN-GC-GC-023	municipality	Santa María de Guía de Gran Canaria
+ES-CN-GC-LA-024	municipality	Teguise
+ES-CN-GC-GC-025	municipality	Tejeda
+ES-CN-GC-GC-026	municipality	Telde
+ES-CN-GC-GC-027	municipality	Teror
+ES-CN-GC-LA-028	municipality	Tías
+ES-CN-GC-LA-029	municipality	Tinajo
+ES-CN-GC-FU-030	municipality	Tuineje
+ES-CN-GC-GC-032	municipality	Valleseco
+ES-CN-GC-GC-031	municipality	Valsequillo de Gran Canaria
+ES-CN-GC-GC-033	municipality	Vega de San Mateo
+ES-CN-GC-LA-034	municipality	Yaiza
 ES-GA-PO-020	municipality	Agolada
 ES-GA-PO-001	municipality	Arbo
 ES-GA-PO-003	municipality	Baiona
@@ -10811,60 +10811,60 @@ ES-CL-SA-379	municipality	Zamayón
 ES-CL-SA-380	municipality	Zarapicos
 ES-CL-SA-381	municipality	La Zarza de Pumareda
 ES-CL-SA-382	municipality	Zorita de la Frontera
-ES-CN-TF-001	municipality	Adeje
-ES-CN-TF-002	municipality	Agulo
-ES-CN-TF-003	municipality	Alajeró
-ES-CN-TF-004	municipality	Arafo
-ES-CN-TF-005	municipality	Arico
-ES-CN-TF-006	municipality	Arona
-ES-CN-TF-007	municipality	Barlovento
-ES-CN-TF-008	municipality	Breña Alta
-ES-CN-TF-009	municipality	Breña Baja
-ES-CN-TF-010	municipality	Buenavista del Norte
-ES-CN-TF-011	municipality	Candelaria
-ES-CN-TF-012	municipality	Fasnia
-ES-CN-TF-013	municipality	Frontera
-ES-CN-TF-014	municipality	Fuencaliente de la Palma
-ES-CN-TF-015	municipality	Garachico
-ES-CN-TF-016	municipality	Garafía
-ES-CN-TF-017	municipality	Granadilla de Abona
-ES-CN-TF-018	municipality	La Guancha
-ES-CN-TF-019	municipality	Guía de Isora
-ES-CN-TF-020	municipality	Güímar
-ES-CN-TF-021	municipality	Hermigua
-ES-CN-TF-022	municipality	Icod de los Vinos
-ES-CN-TF-024	municipality	Los Llanos de Aridane
-ES-CN-TF-025	municipality	La Matanza de Acentejo
-ES-CN-TF-026	municipality	La Orotava
-ES-CN-TF-027	municipality	El Paso
-ES-CN-TF-901	municipality	El Pinar de El Hierro
-ES-CN-TF-028	municipality	Puerto de la Cruz
-ES-CN-TF-029	municipality	Puntagorda
-ES-CN-TF-030	municipality	Puntallana
-ES-CN-TF-031	municipality	Los Realejos
-ES-CN-TF-032	municipality	El Rosario
-ES-CN-TF-033	municipality	San Andrés y Sauces
-ES-CN-TF-023	municipality	San Cristóbal de La Laguna
-ES-CN-TF-034	municipality	San Juan de la Rambla
-ES-CN-TF-035	municipality	San Miguel de Abona
-ES-CN-TF-036	municipality	San Sebastián de la Gomera
-ES-CN-TF-037	municipality	Santa Cruz de la Palma
-ES-CN-TF-038	municipality	Santa Cruz de Tenerife
-ES-CN-TF-039	municipality	Santa Úrsula
-ES-CN-TF-040	municipality	Santiago del Teide
-ES-CN-TF-041	municipality	El Sauzal
-ES-CN-TF-042	municipality	Los Silos
-ES-CN-TF-043	municipality	Tacoronte
-ES-CN-TF-044	municipality	El Tanque
-ES-CN-TF-045	municipality	Tazacorte
-ES-CN-TF-046	municipality	Tegueste
-ES-CN-TF-047	municipality	Tijarafe
-ES-CN-TF-049	municipality	Valle Gran Rey
-ES-CN-TF-050	municipality	Vallehermoso
-ES-CN-TF-048	municipality	Valverde
-ES-CN-TF-051	municipality	La Victoria de Acentejo
-ES-CN-TF-052	municipality	Vilaflor de Chasna
-ES-CN-TF-053	municipality	Villa de Mazo
+ES-CN-TF-TF-001	municipality	Adeje
+ES-CN-TF-LG-002	municipality	Agulo
+ES-CN-TF-LG-003	municipality	Alajeró
+ES-CN-TF-TF-004	municipality	Arafo
+ES-CN-TF-TF-005	municipality	Arico
+ES-CN-TF-TF-006	municipality	Arona
+ES-CN-TF-LP-007	municipality	Barlovento
+ES-CN-TF-LP-008	municipality	Breña Alta
+ES-CN-TF-LP-009	municipality	Breña Baja
+ES-CN-TF-TF-010	municipality	Buenavista del Norte
+ES-CN-TF-TF-011	municipality	Candelaria
+ES-CN-TF-TF-012	municipality	Fasnia
+ES-CN-TF-EH-013	municipality	Frontera
+ES-CN-TF-LP-014	municipality	Fuencaliente de la Palma
+ES-CN-TF-TF-015	municipality	Garachico
+ES-CN-TF-LP-016	municipality	Garafía
+ES-CN-TF-TF-017	municipality	Granadilla de Abona
+ES-CN-TF-TF-018	municipality	La Guancha
+ES-CN-TF-TF-019	municipality	Guía de Isora
+ES-CN-TF-TF-020	municipality	Güímar
+ES-CN-TF-LG-021	municipality	Hermigua
+ES-CN-TF-TF-022	municipality	Icod de los Vinos
+ES-CN-TF-LP-024	municipality	Los Llanos de Aridane
+ES-CN-TF-TF-025	municipality	La Matanza de Acentejo
+ES-CN-TF-TF-026	municipality	La Orotava
+ES-CN-TF-LP-027	municipality	El Paso
+ES-CN-TF-EH-901	municipality	El Pinar de El Hierro
+ES-CN-TF-TF-028	municipality	Puerto de la Cruz
+ES-CN-TF-LP-029	municipality	Puntagorda
+ES-CN-TF-LP-030	municipality	Puntallana
+ES-CN-TF-TF-031	municipality	Los Realejos
+ES-CN-TF-TF-032	municipality	El Rosario
+ES-CN-TF-LP-033	municipality	San Andrés y Sauces
+ES-CN-TF-TF-023	municipality	San Cristóbal de La Laguna
+ES-CN-TF-TF-034	municipality	San Juan de la Rambla
+ES-CN-TF-TF-035	municipality	San Miguel de Abona
+ES-CN-TF-LG-036	municipality	San Sebastián de la Gomera
+ES-CN-TF-LP-037	municipality	Santa Cruz de la Palma
+ES-CN-TF-TF-038	municipality	Santa Cruz de Tenerife
+ES-CN-TF-TF-039	municipality	Santa Úrsula
+ES-CN-TF-TF-040	municipality	Santiago del Teide
+ES-CN-TF-TF-041	municipality	El Sauzal
+ES-CN-TF-TF-042	municipality	Los Silos
+ES-CN-TF-TF-043	municipality	Tacoronte
+ES-CN-TF-TF-044	municipality	El Tanque
+ES-CN-TF-LP-045	municipality	Tazacorte
+ES-CN-TF-TF-046	municipality	Tegueste
+ES-CN-TF-LP-047	municipality	Tijarafe
+ES-CN-TF-LG-049	municipality	Valle Gran Rey
+ES-CN-TF-LG-050	municipality	Vallehermoso
+ES-CN-TF-EH-048	municipality	Valverde
+ES-CN-TF-TF-051	municipality	La Victoria de Acentejo
+ES-CN-TF-TF-052	municipality	Vilaflor de Chasna
+ES-CN-TF-LP-053	municipality	Villa de Mazo
 ES-CB-S-001	municipality	Alfoz de Lloredo
 ES-CB-S-002	municipality	Ampuero
 ES-CB-S-003	municipality	Anievas

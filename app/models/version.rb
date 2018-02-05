@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Version < ActiveRecord::Base
+class Version < ApplicationRecord
   include PaperTrail::VersionConcern
 
   belongs_to :item, polymorphic: true

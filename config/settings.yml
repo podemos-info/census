@@ -6,6 +6,7 @@ payments:
   currency: EUR
   fractions_per_unit: 100
   allow_reprocess_hours: 120
+  orders_batch_processing_errors_limit: 3
   default_processors:
     credit_card: redsys
     direct_debit: sepa

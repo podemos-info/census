@@ -123,6 +123,35 @@ ActiveRecord::Schema.define(version: 20171120095545) do
     t.index ["issue_type", "fixed_at"], name: "index_issues_on_issue_type_and_fixed_at"
   end
 
+  create_table "job_messages", force: :cascade do |t|
+    t.bigint "job_id"
+    t.string "message_type", null: false
+    t.datetime "created_at", null: false
+    t.text "message", null: false
+    t.index ["job_id"], name: "index_job_messages_on_job_id"
+  end
+
+  create_table "job_objects", force: :cascade do |t|
+    t.bigint "job_id"
+    t.string "object_type"
+    t.bigint "object_id"
+    t.index ["job_id"], name: "index_job_objects_on_job_id"
+    t.index ["object_type", "object_id"], name: "index_job_objects_on_object_type_and_object_id"
+  end
+
+  create_table "jobs", force: :cascade do |t|
+    t.string "job_id", null: false
+    t.string "job_type", null: false
+    t.integer "status", null: false
+    t.text "result"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_id"], name: "index_jobs_on_job_id", unique: true
+    t.index ["status"], name: "index_jobs_on_status"
+    t.index ["user_id"], name: "index_jobs_on_user_id"
+  end
+
   create_table "orders", force: :cascade do |t|
     t.bigint "person_id", null: false
     t.bigint "payment_method_id", null: false
@@ -288,6 +317,8 @@ ActiveRecord::Schema.define(version: 20171120095545) do
 
   add_foreign_key "attachments", "procedures"
   add_foreign_key "issues", "people", column: "assigned_to_id"
+  add_foreign_key "job_messages", "jobs"
+  add_foreign_key "job_objects", "jobs"
   add_foreign_key "orders", "admins", column: "processed_by_id"
   add_foreign_key "orders_batches", "admins", column: "processed_by_id"
   add_foreign_key "people", "scopes", column: "address_scope_id"

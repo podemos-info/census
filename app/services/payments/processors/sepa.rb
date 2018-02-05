@@ -6,7 +6,7 @@ module Payments
       def process_batch(orders_batch)
         @direct_debit = SEPA::DirectDebit.new(Settings.payments.processors.sepa.main)
 
-        yield
+        return :aborted unless yield
 
         form = DownloadForm.new(
           person_id: orders_batch.processed_by.person_id,
@@ -14,14 +14,13 @@ module Payments
           expires_at: Settings.payments.processors.sepa.file_lifespan.hours.from_now
         )
 
+        ret = :ok
         ::Downloads::CreateDownload.call(form: form) do
-          on(:invalid) do
-            return false
-          end
-          on(:ok) do
-            return true
-          end
+          on(:invalid) { ret = :error }
+          on(:error) { ret = :error }
+          on(:ok) { ret = :ok }
         end
+        ret
       end
 
       def process_order(order)
@@ -41,7 +40,6 @@ module Payments
           sequence_type: sequence_type(decorated_order.payment_method), # Sequence type ("FRST", "RCUR", "OOFF" or "FNAL")
         )
         processed_order order: order, response_code: "OK"
-        order.charge
       end
 
       private

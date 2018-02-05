@@ -15,7 +15,7 @@ module Issues
 
     private
 
-    attr_reader :order, :payment_method, :admin
+    attr_reader :order, :payment_method
 
     def update_affected_objects
       issue.orders << order

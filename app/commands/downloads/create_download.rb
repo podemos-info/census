@@ -12,16 +12,16 @@ module Downloads
 
     # Executes the command. Broadcasts these events:
     #
-    # - :ok when everything is valid.
-    # - :invalid if the order couldn't be created.
+    # - :ok when everything was ok. Includes the created download.
+    # - :invalid when the download data is invalid.
+    # - :error if the download couldn't be created.
     #
     # Returns nothing.
     def call
-      broadcast(:invalid) && return unless form.valid?
+      return broadcast(:invalid) unless form.valid?
+      return broadcast(:error) unless download.save
 
-      result = :ok if download.save
-
-      broadcast result || :invalid
+      broadcast(:ok, download: download)
     end
 
     private

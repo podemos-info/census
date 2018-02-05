@@ -46,7 +46,7 @@ describe BicsController, type: :controller do
     subject { put :create, params: { bic: bic.attributes } }
     it { expect { subject } .to change { Bic.count }.by(1) }
     it { is_expected.to have_http_status(:found) }
-    it { expect(subject.location).to eq(bic_url(Bic.last)) }
+    it { expect(subject.location).to eq(bic_url(Bic.last.id)) }
   end
 
   describe "edit page" do

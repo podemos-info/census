@@ -2,22 +2,23 @@
 
 h3 "BICs pendientes"
 form class: "formtastic", action: review_orders_orders_batch_path, method: :post do
+  input name: "authenticity_token", type: "hidden", value: form_authenticity_token.to_s
   fieldset class: "inputs" do
     ol do
-      pending_bics.each do |iban, bic|
-        classes = bic.errors.any? ? { li: "error", div: "field_with_errors", para: "inline-errors" } : {}
+      pending_bics.each do |key, info|
+        classes = info[:errors]&.any? ? { li: "error", div: "field_with_errors", para: "inline-errors" } : {}
         li class: "string input required #{classes[:li]}" do
           div class: classes[:div] do
-            label for: "pending_bics[#{bic.country}_#{bic.bank_code}]", class: "label" do
-              span "#{bic.country} - #{bic.bank_code}"
+            label for: "pending_bics[#{key}]", class: "label" do
+              span "#{info[:country]} - #{info[:bank_code]}"
               br
-              small iban
+              small info[:iban]
             end
           end
           div class: classes[:div] do
-            input name: "pending_bics[#{bic.country}_#{bic.bank_code}]", type: :text
+            input name: "pending_bics[#{key}]", type: :text, value: info[:value]
           end
-          bic.errors.messages.each_value do |message|
+          info[:errors]&.messages&.each_value do |message|
             para class: classes[:para] do
               message.to_sentence
             end

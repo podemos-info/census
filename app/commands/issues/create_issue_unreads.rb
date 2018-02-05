@@ -6,25 +6,30 @@ module Issues
     # Public: Initializes the command.
     #
     # issue - The issue to mark as unread
-    def initialize(issue:)
+    # admin - The admin that is creating the issue
+    def initialize(issue:, admin: nil)
       @issue = issue
+      @admin = admin
     end
 
     # Executes the command. Broadcasts these events:
     #
-    # - :ok when everything is valid.
-    # - :invalid if the issue unread mark couldn't be created.
+    # - :ok when everything was ok.
+    # - :invalid when given data is invalid.
+    # - :error if the issue unread mark couldn't be created.
     #
     # Returns nothing.
     def call
+      return broadcast(:invalid) unless issue
       return broadcast(:ok) unless issue.role
+
       result = Issue.transaction do
         admins.each do |admin|
           IssueUnread.create!(issue: issue, admin: admin)
         end
         :ok
       end
-      broadcast(result || :invalid)
+      broadcast(result || :error)
     end
 
     private

@@ -59,6 +59,19 @@ describe Payments::CreateOrder do
     end
   end
 
+  describe "when payment method is inactive" do
+    let(:payment_method) { create(:credit_card, :expired, person: order.person) }
+    let(:valid) { false }
+
+    it "broadcasts :invalid" do
+      expect { subject } .to broadcast(:invalid)
+    end
+
+    it "doesn't save the order" do
+      expect { subject } .not_to change { Order.count }
+    end
+  end
+
   describe "when payment method is an authorized credit card" do
     let(:payment_method) { build(:credit_card, :external_verified, person: order.person) }
     let(:form_class) { Orders::CreditCardAuthorizedOrderForm }
@@ -82,6 +95,44 @@ describe Payments::CreateOrder do
 
     it "saves the order" do
       expect { subject } .to change { Order.count } .by(1)
+    end
+  end
+
+  context "unexpected fails scenario" do
+    describe "when payment method is invalid" do
+      before { stub_command("Payments::SavePaymentMethod", :invalid) }
+
+      it "broadcasts :invalid" do
+        expect { subject } .to broadcast(:invalid)
+      end
+
+      it "doesn't save the order" do
+        expect { subject } .not_to change { Order.count }
+      end
+    end
+
+    describe "when payment method save fails" do
+      before { stub_command("Payments::SavePaymentMethod", :error) }
+
+      it "broadcasts :error" do
+        expect { subject } .to broadcast(:error)
+      end
+
+      it "doesn't save the order" do
+        expect { subject } .not_to change { Order.count }
+      end
+    end
+
+    describe "when order save fails" do
+      before { allow_any_instance_of(Order).to receive(:save!).and_raise(ActiveRecord::Rollback) }
+
+      it "broadcasts :error" do
+        expect { subject } .to broadcast(:error)
+      end
+
+      it "doesn't save the order" do
+        expect { subject } .not_to change { Order.count }
+      end
     end
   end
 end

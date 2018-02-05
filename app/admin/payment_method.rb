@@ -79,7 +79,7 @@ ActiveAdmin.register PaymentMethod do
       payment_method = build_resource
       Payments::SavePaymentMethod.call(payment_method: payment_method, admin: current_admin) do
         on(:invalid) { render :new }
-        on(:ok) { redirect_to person_payment_method_path(payment_method.person, payment_method) }
+        on(:ok) { |info| redirect_to person_payment_method_path(info[:payment_method].person, info[:payment_method]) }
       end
     end
 
@@ -89,7 +89,7 @@ ActiveAdmin.register PaymentMethod do
 
       Payments::SavePaymentMethod.call(payment_method: payment_method, admin: current_admin) do
         on(:invalid) { render :edit }
-        on(:ok) { redirect_back(fallback_location: payment_method_path(resource)) }
+        on(:ok) { |info| redirect_back(fallback_location: payment_method_path(info[:payment_method])) }
       end
     end
   end

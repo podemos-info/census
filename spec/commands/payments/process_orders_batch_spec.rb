@@ -47,4 +47,27 @@ describe Payments::ProcessOrdersBatch do
       expect { subject } .not_to change { OrdersBatch.find(orders_batch.id).updated_at }
     end
   end
+
+  describe "when there are too many errors saving the payment methods" do
+    let(:cassete) { "process_orders_batch_command_too_many_save_payment_method_errors" }
+    before { stub_command("Payments::SavePaymentMethod", :error) }
+
+    it "broadcasts :processor_aborted and error" do
+      expect { subject } .to broadcast(:processor_aborted).and broadcast(:error)
+    end
+  end
+
+  describe "when there are too many errors saving the orders" do
+    let(:cassete) { "process_orders_batch_command_too_many_save_order_errors" }
+    before { allow_any_instance_of(Order).to receive(:save!).and_raise(ActiveRecord::Rollback) }
+
+    it "broadcasts :processor_aborted and error" do
+      expect { subject } .to broadcast(:processor_aborted).and broadcast(:error)
+    end
+
+    it "logs order information to avoid losing information" do
+      expect(Census::Payments.logger).to receive(:error).exactly(2 * Settings.payments.orders_batch_processing_errors_limit).times
+      subject
+    end
+  end
 end

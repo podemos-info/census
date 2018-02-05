@@ -14,17 +14,20 @@ module Issues
 
     # Executes the command. Broadcasts these events:
     #
-    # - :ok when everything is valid.
-    # - :invalid if anything fails
+    # - :ok when everything was ok.
+    # - :invalid when given data is invalid.
+    # - :error if the issue couldn't be set as read.
     #
     # Returns nothing.
     def call
+      return broadcast(:invalid) unless issue && admin
       return broadcast(:ok) unless issue_unread
+
       result = Issue.transaction do
         issue_unread.destroy!
         :ok
       end
-      broadcast(result || :invalid)
+      broadcast(result || :error)
     end
 
     private

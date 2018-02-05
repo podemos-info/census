@@ -7,6 +7,8 @@ class Admin < ApplicationRecord
   has_paper_trail class_name: "Version"
   has_many :versions, as: :item
 
+  has_many :jobs, foreign_key: "user_id"
+
   devise :database_authenticatable, :timeoutable, :lockable
 
   has_many :visits

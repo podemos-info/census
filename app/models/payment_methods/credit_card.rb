@@ -28,11 +28,12 @@ module PaymentMethods
     end
 
     def expired?
-      Date.today > expires_at
+      expires_at && Date.today > expires_at
     end
 
     def expires_at
-      Date.civil(expiration_year.to_i, expiration_month.to_i, 1) + 1.month
+      return nil unless expiration_year && expiration_month
+      @expires_at ||= Date.civil(expiration_year.to_i, expiration_month.to_i, 1) + 1.month
     end
 
     def name_info

@@ -287,6 +287,7 @@ ActiveAdmin.setup do |config|
 
   config.namespace false do |admin|
     admin.build_menu :utility_navigation do |menu|
+      menu.add id: "user_jobs", priority: 5, label: "-", url: -> { jobs_path }
       menu.add id: "issues_unread", priority: 5, label: "-", url: -> { issues_path(scope: :unread) },
                if: -> { current_active_admin_user&.decorate&.has_unread_issues? }
       menu.add id: "issues_read", priority: 5, label: "-", url: -> { issues_path },

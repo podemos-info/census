@@ -26,6 +26,7 @@ describe Api::V1::PeopleController, type: :controller do
       it "is valid" do
         is_expected.to have_http_status(:created)
         expect(subject.content_type).to eq("application/json")
+        expect(subject.body).to eq({ person: { id: Person.last.id } }.to_json)
       end
 
       it "creates a new person" do

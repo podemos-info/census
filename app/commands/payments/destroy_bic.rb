@@ -7,36 +7,29 @@ module Payments
     #
     # bic - A bic object to destroy.
     # admin - The admin user creating the bic.
-    def initialize(bic:, admin:)
+    def initialize(bic:, admin: nil)
       @bic = bic
       @admin = admin
     end
 
     # Executes the command. Broadcasts these events:
     #
-    # - :ok when everything is valid.
-    # - :invalid if the bic couldn't be created.
+    # - :ok when everything was ok.
+    # - :invalid when the given bic is invalid.
+    # - :error if the bic couldn't be destroyed.
     #
     # Returns nothing.
     def call
       return broadcast(:invalid) unless bic
+      return broadcast(:error) unless bic.destroy
 
-      result = Bic.transaction do
-        @bic.destroy!
-        IbanBic.clear_cache # force clear IbanBic cache before commit
-        Issues::CheckPaymentMethodIssues.call(payment_method: payment_method, admin: admin)
+      broadcast(:ok)
 
-        :ok
-      end
-      broadcast(result || :invalid)
+      CheckBicIssuesJob.perform_later(country: bic.country, bank_code: bic.bank_code, admin: admin)
     end
 
     private
 
     attr_reader :bic, :admin
-
-    def payment_method
-      @payment_method ||= ::PaymentMethodsForBank.for_parts(country: bic.country, bank: bic.bank_code).first
-    end
   end
 end

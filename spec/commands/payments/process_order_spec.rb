@@ -49,4 +49,37 @@ describe Payments::ProcessOrder do
       expect { subject } .to broadcast(:invalid)
     end
   end
+
+  describe "when there is an error saving the payment method" do
+    let(:cassete) { "process_order_command_save_payment_method_error" }
+    before { stub_command("Payments::SavePaymentMethod", :error) }
+
+    it "broadcasts :error" do
+      expect { subject } .to broadcast(:error)
+    end
+
+    it "logs payment method information to avoid losing information" do
+      expect(Census::Payments.logger).to receive(:error).with(/#{Regexp.escape(order.payment_method.name)}/)
+      subject
+    end
+
+    it "logs order information to avoid losing information" do
+      expect(Census::Payments.logger).to receive(:error).with(/#{Regexp.escape(order.description)}/)
+      subject
+    end
+  end
+
+  describe "when there is an error saving the order" do
+    let(:cassete) { "process_order_command_save_order_error" }
+    before { allow(order).to receive(:save!).and_raise(ActiveRecord::Rollback) }
+
+    it "broadcasts :error" do
+      expect { subject } .to broadcast(:error)
+    end
+
+    it "logs order information to avoid losing information" do
+      expect(Census::Payments.logger).to receive(:error).with(/#{Regexp.escape(order.description)}/)
+      subject
+    end
+  end
 end

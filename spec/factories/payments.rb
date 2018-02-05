@@ -105,8 +105,10 @@ FactoryBot.define do
     transient do
       debit_orders { 2 }
       debit_orders_verified { 2 }
+      debit_orders_processed { 0 }
       credit_card_orders_verified { 2 }
       credit_card_orders_invalid { 2 }
+      credit_card_orders_processed { 0 }
     end
 
     description { Faker::Lorem.sentence(1, true, 4) }
@@ -116,11 +118,24 @@ FactoryBot.define do
       orders_batch.orders += build_list(:order, evaluator.debit_orders_verified, :verified, orders_batch: orders_batch)
       orders_batch.orders += build_list(:order, evaluator.credit_card_orders_verified, :credit_card, :external_verified, orders_batch: orders_batch)
       orders_batch.orders += build_list(:order, evaluator.credit_card_orders_invalid, :credit_card, :external_invalid, orders_batch: orders_batch)
+      orders_batch.orders += build_list(:order, evaluator.debit_orders_processed, :credit_card, :processed, orders_batch: orders_batch,
+                                                                                                            processed_by: orders_batch.processed_by,
+                                                                                                            processed_at: orders_batch.processed_at)
+      orders_batch.orders += build_list(:order, evaluator.credit_card_orders_processed, :credit_card, :processed, orders_batch: orders_batch,
+                                                                                                                  processed_by: orders_batch.processed_by,
+                                                                                                                  processed_at: orders_batch.processed_at)
     end
 
     trait :debit_only do
       credit_card_orders_invalid { 0 }
       credit_card_orders_verified { 0 }
+    end
+
+    trait :processed do
+      credit_card_orders_processed { 2 }
+      debit_orders_processed { 2 }
+      processed_at { Faker::Time.between(3.days.ago, 1.day.ago, :all) }
+      processed_by { build(:admin) }
     end
 
     trait :with_issues do
@@ -133,7 +148,7 @@ FactoryBot.define do
   factory :bic do
     country "ES"
     bank_code { Faker::Number.between(1, 10_000).to_s.rjust(4, "0") }
-    bic { SecureRandom.base58(8).upcase }
+    bic { "#{[*("A".."Z")].sample(4).join}#{country}#{[*("A".."Z")].sample(2).join}" }
   end
 
   factory :campaign do

@@ -14,22 +14,32 @@ module Payments
 
     # Executes the command. Broadcasts these events:
     #
-    # - :ok when everything is valid.
-    # - :invalid if the order couldn't be created.
+    # - :ok when everything was ok. Includes the created order.
+    # - :external when everything was ok and the payment method should be authorized.
+    # - :invalid when the order data is invalid or the payment method not active.
+    # - :error if the order couldn't be created.
     #
     # Returns nothing.
     def call
-      return broadcast(:invalid) unless form&.valid?
-      result = Order.transaction do
-        Payments::SavePaymentMethod.call(payment_method: order.payment_method, admin: admin)
+      return broadcast(:invalid) unless form&.valid? && order.payment_method&.active?
+
+      result = :error
+      Order.transaction do
+        Payments::SavePaymentMethod.call(payment_method: order.payment_method, admin: admin) do
+          on(:invalid) do
+            result = :invalid
+            raise ActiveRecord::Rollback, "Invalid payment method information"
+          end
+          on(:error) { raise ActiveRecord::Rollback, "Error saving payment method" }
+        end
         order.save!
-        :ok
+        result = :ok
       end
 
-      if order.external_authorization?
+      if result == :ok && order.external_authorization?
         broadcast(:external, order: order, form: payment_processor.external_authorization_params(order))
       else
-        broadcast(result || :invalid, order: order)
+        broadcast(result, order: order)
       end
     end
 
