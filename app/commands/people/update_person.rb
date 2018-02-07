@@ -20,10 +20,7 @@ module People
     def call
       return broadcast(:invalid) if form.invalid?
 
-      result = :ok if person.save
-      broadcast result || :invalid, person
-
-      CheckPersonIssuesJob.perform_later(person: person, admin: admin) if result == :ok
+      broadcast update_person || :error, person: person
     end
 
     private
@@ -54,6 +51,12 @@ module People
         end
         ret
       end
+    end
+
+    def update_person
+      return unless person.save
+      CheckPersonIssuesJob.perform_later(person: person, admin: admin)
+      :ok
     end
   end
 end

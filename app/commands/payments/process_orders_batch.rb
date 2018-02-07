@@ -26,8 +26,8 @@ module Payments
     #
     # Returns nothing.
     def call
-      return broadcast(:invalid) unless orders_batch && admin
-      return broadcast(:review) if OrdersBatchIssues.for(orders_batch).merge(IssuesNonFixed.for).any?
+      return broadcast(:invalid) unless valid?
+      return broadcast(:review) if review?
 
       orders_batch.update_attributes! processed_at: Time.now, processed_by: admin
 
@@ -48,24 +48,41 @@ module Payments
 
     attr_reader :orders_batch, :admin
 
+    def valid?
+      orders_batch && admin
+    end
+
+    def review?
+      OrdersBatchIssues.for(orders_batch).merge(IssuesNonFixed.for).any?
+    end
+
     def process_orders(processor, orders_batch)
       errors_count = 0
       OrdersBatchPaymentProcessorOrders.for(orders_batch, processor.name).find_each do |order|
-        broadcast(:unprocessable_order, order: order) && next unless order.processable?(inside_batch?: true)
+        order_result = process_order(processor, order)
 
-        processor.process_order order
-        order.assign_attributes processed_at: Time.now, processed_by: admin
+        errors_count += 1 if order_result == :order_error
 
-        result = if save_payment_method(order) && save_order(order)
-                   has_issues?(order) ? :order_issues : :order_ok
-                 else
-                   errors_count += 1
-                   :order_error
-                 end
-        broadcast(result, order: order)
+        broadcast(order_result, order: order)
+
         return false if errors_count >= Settings.payments.orders_batch_processing_errors_limit
       end
       true
+    end
+
+    def process_order(processor, order)
+      return :unprocessable_order unless order.processable?(inside_batch?: true)
+
+      processor.process_order order
+      order.assign_attributes processed_at: Time.now, processed_by: admin
+
+      return :order_error unless save_all(order)
+
+      check_issues(order)
+    end
+
+    def save_all(order)
+      save_payment_method(order) && save_order(order)
     end
 
     def save_payment_method(order)
@@ -89,13 +106,13 @@ module Payments
       false
     end
 
-    def has_issues?(order)
-      ret = false
+    def check_issues(order)
+      ret = :order_issues
       Issues::CheckProcessedOrderIssues.call(order: order, admin: admin) do
-        on(:new_issue) { ret = true }
-        on(:existing_issue) { ret = true }
-        on(:fixed_issue) {}
-        on(:ok) {}
+        on(:new_issue) {}
+        on(:existing_issue) {}
+        on(:fixed_issue) { ret = :ok }
+        on(:ok) { ret = :ok }
       end
       ret
     end

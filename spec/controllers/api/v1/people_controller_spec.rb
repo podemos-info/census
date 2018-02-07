@@ -58,6 +58,15 @@ describe Api::V1::PeopleController, type: :controller do
           expect(subject.content_type).to eq("application/json")
         end
       end
+
+      context "when saving fails" do
+        before { stub_command("People::CreatePerson", :error) }
+
+        it "is returns an error" do
+          expect(subject).to have_http_status(:internal_server_error)
+          expect(subject.content_type).to eq("application/json")
+        end
+      end
     end
 
     describe "update method" do
@@ -95,6 +104,15 @@ describe Api::V1::PeopleController, type: :controller do
 
         it "is not valid" do
           expect(subject).to have_http_status(:unprocessable_entity)
+          expect(subject.content_type).to eq("application/json")
+        end
+      end
+
+      context "when saving fails" do
+        before { stub_command("People::UpdatePerson", :error) }
+
+        it "is returns an error" do
+          expect(subject).to have_http_status(:internal_server_error)
           expect(subject.content_type).to eq("application/json")
         end
       end

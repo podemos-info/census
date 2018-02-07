@@ -21,15 +21,7 @@ module Payments
     def call
       return broadcast(:invalid) unless params && order
 
-      result = Order.transaction do
-        Payments::SavePaymentMethod.call(payment_method: order.payment_method, admin: nil) do
-          on(:invalid) { raise ActiveRecord::Rollback, "Invalid payment method information" }
-          on(:error) { raise ActiveRecord::Rollback, "Error saving payment method" }
-        end
-        order.save!
-        order.processed?
-      end
-
+      result = process_authorization
       broadcast(:ok, response: payment_processor.format_external_authorization_response(result))
 
       CheckProcessedOrderIssuesJob.perform_later(order: order, admin: nil) if result
@@ -43,6 +35,17 @@ module Payments
 
     def payment_processor
       @payment_processor ||= Payments::Processor.for(@payment_processor_name)
+    end
+
+    def process_authorization
+      Order.transaction do
+        Payments::SavePaymentMethod.call(payment_method: order.payment_method, admin: nil) do
+          on(:invalid) { raise ActiveRecord::Rollback, "Invalid payment method information" }
+          on(:error) { raise ActiveRecord::Rollback, "Error saving payment method" }
+        end
+        order.save!
+        order.processed?
+      end
     end
   end
 end

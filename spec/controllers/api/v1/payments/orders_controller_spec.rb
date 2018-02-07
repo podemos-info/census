@@ -44,6 +44,15 @@ describe Api::V1::Payments::OrdersController, type: :controller do
           expect(subject.content_type).to eq("application/json")
         end
       end
+
+      context "when saving fails" do
+        before { stub_command("Payments::CreateOrder", :error) }
+
+        it "is returns an error" do
+          expect(subject).to have_http_status(:internal_server_error)
+          expect(subject.content_type).to eq("application/json")
+        end
+      end
     end
 
     describe "for a new credit card payment" do

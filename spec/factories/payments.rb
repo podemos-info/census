@@ -149,6 +149,10 @@ FactoryBot.define do
     country "ES"
     bank_code { Faker::Number.between(1, 10_000).to_s.rjust(4, "0") }
     bic { "#{[*("A".."Z")].sample(4).join}#{country}#{[*("A".."Z")].sample(2).join}" }
+
+    trait :invalid do
+      bic { "1eE23" }
+    end
   end
 
   factory :campaign do

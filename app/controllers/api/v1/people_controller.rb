@@ -8,8 +8,11 @@ module Api
         on(:invalid) do
           render json: form.errors, status: :unprocessable_entity
         end
-        on(:ok) do |person|
-          render json: { person: { id: person.id } }, status: :created
+        on(:error) do
+          render json: {}, status: :internal_server_error
+        end
+        on(:ok) do |info|
+          render json: { person: { id: info[:person].id } }, status: :created
         end
       end
     end
@@ -19,6 +22,9 @@ module Api
       ::People::UpdatePerson.call(form: form) do
         on(:invalid) do
           render json: form.errors, status: :unprocessable_entity
+        end
+        on(:error) do
+          render json: {}, status: :internal_server_error
         end
         on(:ok) do
           render json: {}, status: :accepted

@@ -23,43 +23,50 @@ describe PaymentMethodsController, type: :controller do
     is_expected.to be_include_in_menu
   end
 
-  context "index page" do
+  describe "index page" do
     subject { get :index }
     it { is_expected.to be_success }
     it { is_expected.to render_template("index") }
   end
 
   with_versioning do
-    context "show page" do
+    describe "show page" do
       subject { get :show, params: { id: payment_method.id } }
       it { is_expected.to be_success }
       it { is_expected.to render_template("show") }
     end
   end
 
-  context "new page" do
+  describe "new page" do
     let(:person) { create(:person) }
     subject { get :new, params: { payment_method: { person_id: person.id } } }
     it { expect(subject).to be_success }
     it { expect(subject).to render_template("new") }
   end
 
-  context "create page" do
+  describe "create page" do
     let(:payment_method) { build(:direct_debit, person: person) }
     let(:person) { create(:person) }
     subject { put :create, params: { person_id: person.id, payment_method: payment_method.attributes.merge(payment_method.additional_information) } }
     it { expect { subject } .to change { PaymentMethod.count }.by(1) }
     it { expect(subject).to have_http_status(:found) }
     it { expect(subject.location).to eq(person_payment_method_url(person, PaymentMethod.last)) }
+
+    context "when saving fails" do
+      before { stub_command("Payments::SavePaymentMethod", :error) }
+
+      it { is_expected.to be_success }
+      it { is_expected.to render_template("new") }
+    end
   end
 
-  context "edit page" do
+  describe "edit page" do
     subject { get :edit, params: { id: payment_method.id } }
     it { expect(subject).to be_success }
     it { expect(subject).to render_template("edit") }
   end
 
-  context "update page" do
+  describe "update page" do
     subject do
       payment_method.assign_attributes name: "KKKKKK"
       patch :update, params: { id: payment_method.id, payment_method: payment_method.attributes }
@@ -67,5 +74,12 @@ describe PaymentMethodsController, type: :controller do
     it { expect(subject).to have_http_status(:found) }
     it { expect(subject.location).to eq(payment_method_url(payment_method)) }
     it { expect { subject } .to change { payment_method.name }.to("KKKKKK") }
+
+    context "when saving fails" do
+      before { stub_command("Payments::SavePaymentMethod", :error) }
+
+      it { is_expected.to be_success }
+      it { is_expected.to render_template("edit") }
+    end
   end
 end

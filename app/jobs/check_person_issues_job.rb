@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class CheckPersonIssuesJob < ApplicationJob
+  include ::IssuesChecker
   queue_as :lopd
 
   def related_objects
@@ -10,6 +11,6 @@ class CheckPersonIssuesJob < ApplicationJob
   end
 
   def perform(person:, admin:)
-    Issues::CheckPersonIssues.call(person: person, admin: admin)
+    Issues::CheckPersonIssues.call(person: person, admin: admin, &log_issues_message)
   end
 end

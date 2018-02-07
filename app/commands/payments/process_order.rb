@@ -22,15 +22,7 @@ module Payments
     def call
       return broadcast(:invalid) unless order&.processable?(inside_batch?: false)
 
-      payment_processor.process_order order
-      order.assign_attributes processed_at: Time.now, processed_by: admin
-
-      result = if save_payment_method && save_order
-                 has_issues? ? :order_issues : :ok
-               else
-                 :error
-               end
-      broadcast result
+      broadcast process_order
     end
 
     private
@@ -39,6 +31,19 @@ module Payments
 
     def payment_processor
       @payment_processor ||= Payments::Processor.for(order.payment_processor)
+    end
+
+    def process_order
+      payment_processor.process_order order
+      order.assign_attributes processed_at: Time.now, processed_by: admin
+
+      return :error unless save_all
+
+      check_issues
+    end
+
+    def save_all
+      save_payment_method && save_order
     end
 
     def save_payment_method
@@ -62,15 +67,15 @@ module Payments
       false
     end
 
-    def has_issues?
-      result = false
+    def check_issues
+      ret = :order_issues
       Issues::CheckProcessedOrderIssues.call(order: order, admin: admin) do
-        on(:new_issue) { result = true }
-        on(:existing_issue) { result = true }
-        on(:fixed_issue) {}
-        on(:ok) {}
+        on(:new_issue) {}
+        on(:existing_issue) {}
+        on(:fixed_issue) { ret = :ok }
+        on(:ok) { ret = :ok }
       end
-      result
+      ret
     end
   end
 end

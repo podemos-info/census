@@ -23,17 +23,7 @@ module Payments
     def call
       return broadcast(:invalid) unless form&.valid?
 
-      result = OrdersBatch.transaction do
-        orders_batch.save!
-        form.orders.each do |order|
-          order.orders_batch = orders_batch
-          order.save!
-        end
-
-        :ok
-      end
-
-      broadcast(result || :error, orders_batch: orders_batch)
+      broadcast(create_orders_batch || :error, orders_batch: orders_batch)
     end
 
     private
@@ -42,6 +32,18 @@ module Payments
 
     def orders_batch
       @orders_batch ||= OrdersBatch.new description: form.description
+    end
+
+    def create_orders_batch
+      OrdersBatch.transaction do
+        orders_batch.save!
+        form.orders.each do |order|
+          order.orders_batch = orders_batch
+          order.save!
+        end
+
+        :ok
+      end
     end
   end
 end

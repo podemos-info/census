@@ -27,12 +27,6 @@ def override_current_admin(admin)
   allow_any_instance_of(ApplicationController).to receive(:current_admin).and_return(admin)
 end
 
-def override_command_broadcast(command, signal)
-  allow_any_instance_of(command).to receive(:call) do |instance, *_args|
-    instance.broadcast(signal)
-  end
-end
-
 # hash with file data that will be received by the API
 def api_attachment_format(attachment)
   {

@@ -72,6 +72,17 @@ describe OrdersBatchesController, type: :controller do
     it { expect { subject } .to change { OrdersBatch.count }.by(1) }
     it { is_expected.to have_http_status(:found) }
     it { expect(subject.location).to eq(orders_batch_url(OrdersBatch.last)) }
+
+    context "when saving fails" do
+      before { stub_command("Payments::CreateOrdersBatch", :error) }
+
+      it { is_expected.to be_success }
+      it { expect(subject).to render_template("new") }
+      it "shows an error message" do
+        subject
+        expect(flash[:error]).to be_present
+      end
+    end
   end
 
   describe "edit page" do

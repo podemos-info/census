@@ -22,15 +22,7 @@ module Issues
     def call
       return broadcast(:invalid) unless issue
 
-      result = Issue.transaction do
-        issue.assigned_to ||= admin.person if admin
-        issue.fixed_at = Time.now
-        issue.save!
-
-        issue_unreads.destroy_all
-        :ok
-      end
-      broadcast(result || :error)
+      broadcast fix || :error
     end
 
     private
@@ -39,6 +31,16 @@ module Issues
 
     def issue_unreads
       @issue_unreads ||= issue.issue_unreads
+    end
+
+    def fix
+      Issue.transaction do
+        issue.assigned_to ||= admin.person if admin
+        issue.fixed_at = Time.now
+        issue.save!
+        issue_unreads.destroy_all
+        :ok
+      end
     end
   end
 end

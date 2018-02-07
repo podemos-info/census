@@ -64,13 +64,13 @@ describe ProceduresController, type: :controller do
     context "undoable procedure" do
       let!(:procedure) { create(:verification_document, :undoable) }
 
-      context "show" do
+      describe "show" do
         subject { get :show, params: { id: procedure.id } }
         it { expect(subject).to be_success }
         it { expect(subject).to render_template("show") }
       end
 
-      context "undo" do
+      describe "undo" do
         subject { patch :undo, params: { id: procedure.id } }
         let(:current_admin) { procedure.processed_by }
 
@@ -81,6 +81,16 @@ describe ProceduresController, type: :controller do
 
         it "should have undone the procedure" do
           expect { subject } .to change { Procedure.find(procedure.id).state } .to("pending")
+        end
+
+        context "when saving fails" do
+          before { stub_command("Procedures::UndoProcedure", :error) }
+
+          it { is_expected.to redirect_to(procedures_path) }
+          it "shows an error message" do
+            subject
+            expect(flash[:error]).to be_present
+          end
         end
       end
     end
@@ -98,22 +108,37 @@ describe ProceduresController, type: :controller do
     it { expect(subject).to redirect_to(procedures_path) }
   end
 
-  context "update page" do
-    subject { patch :update, params: { id: procedure.id, procedure: { event: "accept", comment: Faker::Lorem.paragraph(1, true, 2) } } }
+  describe "update page" do
+    subject { patch :update, params: { id: procedure.id, procedure: params } }
+    let(:params) { { event: "reject", comment: Faker::Lorem.paragraph(1, true, 2) } }
+
     it { expect(subject).to redirect_to(procedures_path) }
 
     it "should have accepted the procedure" do
-      expect { subject } .to change { Procedure.find(procedure.id).state }.from("pending").to("accepted")
+      expect { subject } .to change { Procedure.find(procedure.id).state }.from("pending").to("rejected")
     end
-  end
 
-  context "update error page" do
-    subject { patch :update, params: { id: procedure.id, procedure: { event: "reject" } } }
-    it { expect(subject).to be_success }
-    it { expect(subject).to render_template("edit") }
+    context "when there are missing params" do
+      let(:params) { { event: "reject" } }
 
-    it "should have not rejected the procedure" do
-      expect { subject } .to_not change { Procedure.find(procedure.id).state }.from("pending")
+      it { is_expected.to be_success }
+      it { is_expected.to render_template("edit") }
+
+      it "should have not rejected the procedure" do
+        expect { subject } .to_not change { Procedure.find(procedure.id).state }.from("pending")
+      end
+    end
+
+    context "when saving fails" do
+      before { stub_command("Procedures::ProcessProcedure", :error) }
+
+      it { is_expected.to be_success }
+      it { is_expected.to render_template("edit") }
+
+      it "shows an error message" do
+        subject
+        expect(flash[:error]).to be_present
+      end
     end
   end
 

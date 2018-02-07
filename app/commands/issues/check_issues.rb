@@ -30,7 +30,7 @@ module Issues
         current_issue
       end
 
-      broadcast(result || :error)
+      broadcast(result || :error, issue: issue)
     end
 
     attr_reader :admin

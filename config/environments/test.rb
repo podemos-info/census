@@ -42,6 +42,9 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
+  # Use a queue adapter for tests
+  Rails.application.config.active_job.queue_adapter = :test
+
   # Used for rack attack request tests
   Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new
 end

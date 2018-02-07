@@ -18,9 +18,7 @@ module Procedures
     def call
       return broadcast(:invalid) if form.invalid?
 
-      result = :ok if verification.save
-
-      broadcast result || :invalid
+      broadcast create_procedure || :error, procedure: verification
     end
 
     private
@@ -37,6 +35,10 @@ module Procedures
         end
         ret
       end
+    end
+
+    def create_procedure
+      :ok if verification.save
     end
   end
 end

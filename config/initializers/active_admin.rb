@@ -1,5 +1,19 @@
 # frozen_string_literal: true
 
+def config_menu(config)
+  config.namespace false do |admin|
+    admin.build_menu :utility_navigation do |menu|
+      menu.add id: "user_jobs", priority: 5, label: "-", url: -> { jobs_path }
+      menu.add id: "issues_unread", priority: 5, label: "-", url: -> { issues_path(scope: :unread) },
+               if: -> { current_active_admin_user&.decorate&.has_unread_issues? }
+      menu.add id: "issues_read", priority: 5, label: "-", url: -> { issues_path },
+               if: -> { current_active_admin_user? && !current_active_admin_user.decorate.has_unread_issues? }
+      admin.add_current_user_to_menu menu
+      admin.add_logout_button_to_menu menu
+    end
+  end
+end
+
 ActiveAdmin.setup do |config|
   # == Site Title
   #
@@ -284,18 +298,7 @@ ActiveAdmin.setup do |config|
   # You can inherit it with own class and inject it for all resources
   #
   # config.order_clause = MyOrderClause
-
-  config.namespace false do |admin|
-    admin.build_menu :utility_navigation do |menu|
-      menu.add id: "user_jobs", priority: 5, label: "-", url: -> { jobs_path }
-      menu.add id: "issues_unread", priority: 5, label: "-", url: -> { issues_path(scope: :unread) },
-               if: -> { current_active_admin_user&.decorate&.has_unread_issues? }
-      menu.add id: "issues_read", priority: 5, label: "-", url: -> { issues_path },
-               if: -> { current_active_admin_user? && !current_active_admin_user.decorate.has_unread_issues? }
-      admin.add_current_user_to_menu menu
-      admin.add_logout_button_to_menu menu
-    end
-  end
+  config_menu(config)
 end
 
 ActiveAdmin::Views::Pages::Base.class_eval do

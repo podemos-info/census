@@ -31,5 +31,7 @@ module Census
       routes.default_url_options = { host: Settings.security.host_url }
       config.action_controller.asset_host = Settings.security.host_url
     end
+
+    config.autoload_paths << "#{Rails.root}/app/jobs/concerns"
   end
 end

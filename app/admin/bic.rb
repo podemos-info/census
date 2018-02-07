@@ -29,17 +29,21 @@ ActiveAdmin.register Bic do
     end
 
     def create
-      bic = build_resource
-      Payments::SaveBic.call(form: bic, admin: current_admin) do
-        on(:invalid) { render :new }
-        on(:ok) { |info| redirect_to url_for(info[:bic]) }
-      end
+      save_bic(:new)
     end
 
     def update
+      save_bic(:edit)
+    end
+
+    def save_bic(action)
       bic = build_resource
       Payments::SaveBic.call(form: bic, admin: current_admin) do
-        on(:invalid) { render :edit }
+        on(:invalid) { render action }
+        on(:error) do
+          flash[:error] = t("census.messages.error_occurred")
+          render action
+        end
         on(:ok) { |info| redirect_to url_for(info[:bic]) }
       end
     end

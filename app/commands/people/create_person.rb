@@ -18,17 +18,9 @@ module People
     #
     # Returns nothing.
     def call
-      return broadcast(:invalid) if form.invalid?
+      return broadcast(:invalid) if form&.invalid?
 
-      result = Person.transaction do
-        person.save!
-        person.versions.first.update_attributes(whodunnit: person) unless PaperTrail.whodunnit
-
-        :ok
-      end
-      broadcast result || :invalid, person
-
-      CheckPersonIssuesJob.perform_later(person: person, admin: admin) if result == :ok
+      broadcast create_person || :error, person: person
     end
 
     private
@@ -53,6 +45,16 @@ module People
         phone: form.phone,
         extra: form.extra
       )
+    end
+
+    def create_person
+      Person.transaction do
+        person.save!
+        person.versions.first.update_attributes(whodunnit: person) unless PaperTrail.whodunnit
+
+        CheckPersonIssuesJob.perform_later(person: person, admin: admin)
+        :ok
+      end
     end
   end
 end

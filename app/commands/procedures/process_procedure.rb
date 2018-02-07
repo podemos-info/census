@@ -23,27 +23,37 @@ module Procedures
     def call
       return broadcast(:invalid) unless @procedure && @processed_by && safe_event
 
-      result = Procedure.transaction do
-        process_procedure @procedure
-        :ok
-      end
+      process_procedure
 
-      broadcast result || :invalid
+      broadcast result, procedure: @procedure
     end
 
     private
 
-    def process_procedure(current_procedure)
+    attr_accessor :result
+
+    def process_procedure
+      @result = :error
+      Procedure.transaction do
+        process @procedure
+        @result = :ok
+      end
+    end
+
+    def process(current_procedure)
       current_procedure.processed_by = @processed_by
       current_procedure.processed_at = Time.current
       current_procedure.comment = @params[:comment]
       current_procedure.send(safe_event)
 
       current_procedure.dependent_procedures.each do |child_procedure|
-        process_procedure child_procedure
+        process child_procedure
       end
 
-      raise ActiveRecord::Rollback unless current_procedure.valid?
+      if current_procedure.invalid?
+        @result = :invalid
+        raise ActiveRecord::Rollback
+      end
 
       current_procedure.save!
     end

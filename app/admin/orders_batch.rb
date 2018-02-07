@@ -27,7 +27,7 @@ ActiveAdmin.register OrdersBatch do
         link_to process_text,
                 charge_orders_batch_path,
                 method: :patch,
-                data: { confirm: t("census.sure_question") },
+                data: { confirm: t("census.messages.sure_question") },
                 class: :member_link
       end
     end
@@ -69,6 +69,7 @@ ActiveAdmin.register OrdersBatch do
         form = BicForm.new(country: country, bank_code: bank_code, bic: params[:pending_bics][key])
         Payments::SaveBic.call(form: form, admin: current_admin) do
           on(:invalid) { info[:errors] = form.errors }
+          on(:error) { flash.now[:error] = t("census.messages.error_occurred") }
           on(:ok) { info[:fixed] = true }
         end
       end
@@ -113,6 +114,10 @@ ActiveAdmin.register OrdersBatch do
       form = build_resource
       Payments::CreateOrdersBatch.call(form: form, admin: current_admin) do
         on(:invalid) { render :new }
+        on(:error) do
+          flash.now[:error] = t("census.messages.error_occurred")
+          render :new
+        end
         on(:ok) { |info| redirect_to orders_batch_path(id: info[:orders_batch].id) }
       end
     end

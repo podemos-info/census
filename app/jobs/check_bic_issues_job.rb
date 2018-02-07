@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class CheckBicIssuesJob < ApplicationJob
+  include ::IssuesChecker
+
   queue_as :finances
 
   def related_objects
@@ -14,7 +16,7 @@ class CheckBicIssuesJob < ApplicationJob
   def perform(country:, bank_code:, admin:)
     @country = country
     @bank_code = bank_code
-    Issues::CheckPaymentMethodIssues.call(payment_method: payment_method, admin: admin)
+    Issues::CheckPaymentMethodIssues.call(payment_method: payment_method, admin: admin, &log_issues_message)
   end
 
   private

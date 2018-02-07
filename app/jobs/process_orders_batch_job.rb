@@ -15,27 +15,15 @@ class ProcessOrdersBatchJob < ApplicationJob
       on(:review) { self.result = :review }
       on(:error) { self.result = :error }
       on(:ok) { self.result = :ok }
-      on(:processor_ok) do |info|
-        log :user, key: "process_orders_batch_job.processor_completed", related: [info[:processor]]
-      end
-      on(:processor_aborted) do |info|
-        log :user, key: "process_orders_batch_job.processor_aborted", related: [info[:processor]]
-      end
-      on(:processor_error) do |info|
-        log :user, key: "process_orders_batch_job.processor_error", related: [info[:processor]]
-      end
-      on(:unprocessable_order) do |info|
-        log :user, key: "process_orders_batch_job.unprocessable_order", related: [info[:order].to_gid_param]
-      end
-      on(:order_error) do |info|
-        log :user, key: "process_orders_batch_job.order_error", related: [info[:order].to_gid_param]
-      end
-      on(:order_issues) do |info|
-        log :user, key: "process_orders_batch_job.order_issues", related: [info[:order].to_gid_param]
-      end
-      on(:order_ok) do |info|
-        log :user, key: "process_orders_batch_job.order_ok", related: [info[:order].to_gid_param]
-      end
+
+      on(:processor_ok) { |info| log :user, key: "process_orders_batch_job.processor_completed", related: [info[:processor]] }
+      on(:processor_aborted) { |info| log :user, key: "process_orders_batch_job.processor_aborted", related: [info[:processor]] }
+      on(:processor_error) { |info| log :user, key: "process_orders_batch_job.processor_error", related: [info[:processor]] }
+
+      on(:unprocessable_order) { |info| log :user, key: "process_orders_batch_job.unprocessable_order", related: [info[:order].to_gid_param] }
+      on(:order_error) { |info| log :user, key: "process_orders_batch_job.order_error", related: [info[:order].to_gid_param] }
+      on(:order_issues) { |info| log :user, key: "process_orders_batch_job.order_issues", related: [info[:order].to_gid_param] }
+      on(:order_ok) { |info| log :user, key: "process_orders_batch_job.order_ok", related: [info[:order].to_gid_param] }
     end
   end
 end

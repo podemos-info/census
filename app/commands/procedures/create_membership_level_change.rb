@@ -18,9 +18,7 @@ module Procedures
     def call
       return broadcast(:invalid) if form.invalid?
 
-      result = :ok if membership_level_change.save
-
-      broadcast result || :invalid
+      broadcast create_procedure || :error, procedure: membership_level_change
     end
 
     private
@@ -33,6 +31,10 @@ module Procedures
         from_membership_level: form.person.membership_level,
         to_membership_level: form.membership_level
       )
+    end
+
+    def create_procedure
+      :ok if membership_level_change.save
     end
   end
 end
