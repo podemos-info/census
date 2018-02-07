@@ -41,7 +41,7 @@ ActiveAdmin.register Procedure do
       span procedure.view_link
       if procedure.full_undoable_by? controller.current_admin
         span link_to t("census.procedures.events.undo"), undo_procedure_path(procedure), method: :patch,
-                                                                                         data: { confirm: t("census.sure_question") },
+                                                                                         data: { confirm: t("census.messages.sure_question") },
                                                                                          class: "member_link"
       end
     end
@@ -120,6 +120,9 @@ ActiveAdmin.register Procedure do
       on(:invalid) do
         flash[:error] = t("census.procedures.action_message.cant_undo", link: view_context.link_to(procedure.id, procedure)).html_safe
       end
+      on(:error) do
+        flash[:error] = t("census.procedures.action_message.error_undo", link: view_context.link_to(procedure.id, procedure)).html_safe
+      end
       on(:ok) do
         flash[:notice] = t("census.procedures.action_message.undone", link: view_context.link_to(procedure.id, procedure)).html_safe
       end
@@ -148,6 +151,10 @@ ActiveAdmin.register Procedure do
 
       Procedures::ProcessProcedure.call(procedure, current_admin, params[:procedure]) do
         on(:invalid) { render :edit }
+        on(:error) do
+          flash[:error] = t("census.procedures.action_message.error")
+          render :edit
+        end
         on(:ok) do
           flash[:notice] = t("census.procedures.action_message.#{procedure.state}", link: view_context.link_to(procedure.id, procedure)).html_safe
           redirect_to next_pending_path

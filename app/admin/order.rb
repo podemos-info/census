@@ -46,10 +46,10 @@ ActiveAdmin.register Order do
   sidebar :versions, partial: "orders/versions", only: :show
 
   action_item :process, only: :show do
-    if order.processable?(inside_batch?: false)
+    if policy(resource).charge? && order.processable?(inside_batch?: false)
       link_to(
         t("census.orders.process"), charge_order_path(order), method: :patch,
-                                                              data: { confirm: t("census.sure_question") },
+                                                              data: { confirm: t("census.messages.sure_question") },
                                                               class: :member_link
       )
     end
@@ -76,6 +76,9 @@ ActiveAdmin.register Order do
     Payments::ProcessOrder.call(order: order, admin: current_admin) do
       on(:invalid) do
         flash[:error] = t("census.orders.action_message.not_processed")
+      end
+      on(:error) do
+        flash[:error] = t("census.orders.action_message.processing_error")
       end
       on(:ok) do
         flash[:notice] = t("census.orders.action_message.processed")
@@ -116,12 +119,16 @@ ActiveAdmin.register Order do
       form = build_resource
       Payments::CreateOrder.call(form: form, admin: current_admin) do
         on(:invalid) { render :new }
-        on(:external) do |order_info|
-          append_content_security_policy_directives script_src: ["'unsafe-inline'"]
-          append_content_security_policy_directives form_action: [order_info[:form][:action]]
-          render "payment_form", locals: { form_info: order_info[:form] }
+        on(:error) do
+          flash[:error] = t("census.messages.error_occurred")
+          render :new
         end
-        on(:ok) { |order_info| redirect_to order_path(id: order_info[:order].id) }
+        on(:external) do |info|
+          append_content_security_policy_directives script_src: ["'unsafe-inline'"]
+          append_content_security_policy_directives form_action: [info[:form][:action]]
+          render "payment_form", locals: { form_info: info[:form] }
+        end
+        on(:ok) { |info| redirect_to order_path(id: info[:order].id) }
       end
     end
 

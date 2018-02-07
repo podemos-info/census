@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# The order model.
 class Order < ApplicationRecord
   include OrderStates
   include Issuable
@@ -34,7 +33,7 @@ class Order < ApplicationRecord
 
   def processable?(args = {})
     payment_method.processable?(args) &&
-      pending? || reprocessable?
+      (pending? || reprocessable?)
   end
 
   def reprocessable?

@@ -38,5 +38,37 @@ describe Payments::CreateOrdersBatch do
     it "doesn't save the orders batch" do
       expect { subject } .not_to change { OrdersBatch.count }
     end
+
+    it "doesn't modify the orders for the orders batch" do
+      expect { subject } .not_to change { Order.where(id: orders_batch.orders).pluck(:updated_at) }
+    end
+  end
+
+  describe "when orders batch save fails" do
+    before { allow_any_instance_of(OrdersBatch).to receive(:save!).and_raise(ActiveRecord::Rollback) }
+
+    it "broadcasts :error" do
+      expect { subject } .to broadcast(:error)
+    end
+
+    it "doesn't save the orders batch" do
+      expect { subject } .not_to change { OrdersBatch.count }
+    end
+  end
+
+  describe "when order save fails" do
+    before { allow_any_instance_of(Order).to receive(:save!).and_raise(ActiveRecord::Rollback) }
+
+    it "broadcasts :error" do
+      expect { subject } .to broadcast(:error)
+    end
+
+    it "doesn't save the orders batch" do
+      expect { subject } .not_to change { OrdersBatch.count }
+    end
+
+    it "doesn't modify the orders for the orders batch" do
+      expect { subject } .not_to change { Order.where(id: orders_batch.orders).pluck(:updated_at) }
+    end
   end
 end

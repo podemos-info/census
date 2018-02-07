@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-# The orders batch model.
 class OrdersBatch < ApplicationRecord
+  include ActiveJobReporter::HasJobs
+
   has_many :orders
   has_many :payment_methods, through: :orders
 

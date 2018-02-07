@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-namespace :encryption do
+namespace :encryption do # rubocop: disable Metrics/BlockLength
   CONFIG_FILE = "symmetric-encryption.yml"
 
-  task :remove do
+  task :remove do # rubocop: disable Metrics/BlockLength
     set :confirmed, proc {
       puts <<-WARN
 
@@ -50,7 +50,7 @@ namespace :encryption do
     end
   end
 
-  task :setup do
+  task :setup do # rubocop: disable Metrics/BlockLength
     on roles(:master) do
       within current_path do
         config_path = shared_path.join(CONFIG_FILE)

@@ -1,0 +1,10 @@
+# frozen_string_literal: true
+
+table_for orders_batch.last_jobs do
+  column do |job|
+    span job.created_at.to_s(:short)
+  end
+  column do |job|
+    method(job.running? ? :strong : :span).call link_to job.name, job
+  end
+end

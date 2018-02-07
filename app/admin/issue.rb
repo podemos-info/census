@@ -40,12 +40,12 @@ ActiveAdmin.register Issue do
 
   action_item :assign_me, only: :show do
     unless resource.fixed_at || resource.assigned_to_id == current_admin.person_id
-      link_to t("census.issues.assign_me"), assign_me_issue_path, method: :patch, data: { confirm: t("census.sure_question") }
+      link_to t("census.issues.assign_me"), assign_me_issue_path, method: :patch, data: { confirm: t("census.messages.sure_question") }
     end
   end
 
   action_item :mark_as_fixed, only: :show do
-    link_to t("census.issues.mark_as_fixed"), mark_as_fixed_issue_path, method: :patch, data: { confirm: t("census.sure_question") } unless resource.fixed_at
+    link_to t("census.issues.mark_as_fixed"), mark_as_fixed_issue_path, method: :patch, data: { confirm: t("census.messages.sure_question") } unless resource.fixed_at
   end
 
   member_action :assign_me, method: :patch do

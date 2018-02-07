@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# The person model.
 class Person < ApplicationRecord
   include PersonMembershipLevels
   include Issuable

@@ -6333,7 +6333,7 @@ ES-VC-V	es	Valencia
 ES-VC-V	ca	València
 ES-VC-V	eu	Valencia
 ES-VC-V	ga	Valencia
-ES-VC-V	en	Valencia
+ES-VC-V	en	Valencia / València
 ET	es	Etiopía
 ET	ca	Etiopía
 ET	eu	Etiopía
@@ -25499,17 +25499,17 @@ ZW-MW	ca	Mashonaland West
 ZW-MW	eu	Mashonaland West
 ZW-MW	ga	Mashonaland West
 ZW-MW	en	Mashonaland West
-ES-IB-PM+IFO	es	Formentera
-ES-IB-PM+IIB	es	Ibiza
-ES-IB-PM+IMA	es	Mallorca
-ES-IB-PM+IME	es	Menorca
-ES-CN-GC+IFU	es	Fuerteventura
-ES-CN-GC+IGC	es	Gran Canaria
-ES-CN-GC+ILA	es	Lanzarote
-ES-CN-TF+ILG	es	La Gomera
-ES-CN-TF+IEH	es	El Hierro
-ES-CN-TF+ILP	es	La Palma
-ES-CN-TF+ITF	es	Tenerife
+ES-IB-PM-FO	es	Formentera
+ES-IB-PM-IB	es	Ibiza
+ES-IB-PM-MA	es	Mallorca
+ES-IB-PM-ME	es	Menorca
+ES-CN-GC-FU	es	Fuerteventura
+ES-CN-GC-GC	es	Gran Canaria
+ES-CN-GC-LA	es	Lanzarote
+ES-CN-TF-LG	es	La Gomera
+ES-CN-TF-EH	es	El Hierro
+ES-CN-TF-LP	es	La Palma
+ES-CN-TF-TF	es	Tenerife
 ES-PV-VI-051	es	Agurain/Salvatierra
 ES-PV-VI-001	es	Alegría-Dulantzi
 ES-PV-VI-002	es	Amurrio
@@ -26305,73 +26305,73 @@ ES-EX-BA-159	es	Zahínos
 ES-EX-BA-160	es	Zalamea de la Serena
 ES-EX-BA-162	es	La Zarza
 ES-EX-BA-161	es	Zarza-Capilla
-ES-IB-PM-002	es	Alaior
-ES-IB-PM-001	es	Alaró
-ES-IB-PM-003	es	Alcúdia
-ES-IB-PM-004	es	Algaida
-ES-IB-PM-005	es	Andratx
-ES-IB-PM-901	es	Ariany
-ES-IB-PM-006	es	Artà
-ES-IB-PM-007	es	Banyalbufar
-ES-IB-PM-008	es	Binissalem
-ES-IB-PM-009	es	Búger
-ES-IB-PM-010	es	Bunyola
-ES-IB-PM-011	es	Calvià
-ES-IB-PM-012	es	Campanet
-ES-IB-PM-013	es	Campos
-ES-IB-PM-014	es	Capdepera
-ES-IB-PM-064	es	Es Castell
-ES-IB-PM-015	es	Ciutadella de Menorca
-ES-IB-PM-016	es	Consell
-ES-IB-PM-017	es	Costitx
-ES-IB-PM-018	es	Deià
-ES-IB-PM-026	es	Eivissa
-ES-IB-PM-019	es	Escorca
-ES-IB-PM-020	es	Esporles
-ES-IB-PM-021	es	Estellencs
-ES-IB-PM-022	es	Felanitx
-ES-IB-PM-023	es	Ferreries
-ES-IB-PM-024	es	Formentera
-ES-IB-PM-025	es	Fornalutx
-ES-IB-PM-027	es	Inca
-ES-IB-PM-028	es	Lloret de Vistalegre
-ES-IB-PM-029	es	Lloseta
-ES-IB-PM-030	es	Llubí
-ES-IB-PM-031	es	Llucmajor
-ES-IB-PM-033	es	Manacor
-ES-IB-PM-034	es	Mancor de la Vall
-ES-IB-PM-032	es	Maó-Mahón
-ES-IB-PM-035	es	Maria de la Salut
-ES-IB-PM-036	es	Marratxí
-ES-IB-PM-037	es	Es Mercadal
-ES-IB-PM-902	es	Es Migjorn Gran
-ES-IB-PM-038	es	Montuïri
-ES-IB-PM-039	es	Muro
-ES-IB-PM-040	es	Palma de Mallorca
-ES-IB-PM-041	es	Petra
-ES-IB-PM-044	es	Sa Pobla
-ES-IB-PM-042	es	Pollença
-ES-IB-PM-043	es	Porreres
-ES-IB-PM-045	es	Puigpunyent
-ES-IB-PM-059	es	Ses Salines
-ES-IB-PM-046	es	Sant Antoni de Portmany
-ES-IB-PM-049	es	Sant Joan
-ES-IB-PM-050	es	Sant Joan de Labritja
-ES-IB-PM-048	es	Sant Josep de sa Talaia
-ES-IB-PM-051	es	Sant Llorenç des Cardassar
-ES-IB-PM-052	es	Sant Lluís
-ES-IB-PM-053	es	Santa Eugènia
-ES-IB-PM-054	es	Santa Eulària des Riu
-ES-IB-PM-055	es	Santa Margalida
-ES-IB-PM-056	es	Santa María del Camí
-ES-IB-PM-057	es	Santanyí
-ES-IB-PM-058	es	Selva
-ES-IB-PM-047	es	Sencelles
-ES-IB-PM-060	es	Sineu
-ES-IB-PM-061	es	Sóller
-ES-IB-PM-062	es	Son Servera
-ES-IB-PM-063	es	Valldemossa
-ES-IB-PM-065	es	Vilafranca de Bonany
+ES-IB-PM-ME-002	es	Alaior
+ES-IB-PM-MA-001	es	Alaró
+ES-IB-PM-MA-003	es	Alcúdia
+ES-IB-PM-MA-004	es	Algaida
+ES-IB-PM-MA-005	es	Andratx
+ES-IB-PM-MA-901	es	Ariany
+ES-IB-PM-MA-006	es	Artà
+ES-IB-PM-MA-007	es	Banyalbufar
+ES-IB-PM-MA-008	es	Binissalem
+ES-IB-PM-MA-009	es	Búger
+ES-IB-PM-MA-010	es	Bunyola
+ES-IB-PM-MA-011	es	Calvià
+ES-IB-PM-MA-012	es	Campanet
+ES-IB-PM-MA-013	es	Campos
+ES-IB-PM-MA-014	es	Capdepera
+ES-IB-PM-ME-064	es	Es Castell
+ES-IB-PM-ME-015	es	Ciutadella de Menorca
+ES-IB-PM-MA-016	es	Consell
+ES-IB-PM-MA-017	es	Costitx
+ES-IB-PM-MA-018	es	Deià
+ES-IB-PM-IB-026	es	Eivissa
+ES-IB-PM-MA-019	es	Escorca
+ES-IB-PM-MA-020	es	Esporles
+ES-IB-PM-MA-021	es	Estellencs
+ES-IB-PM-MA-022	es	Felanitx
+ES-IB-PM-ME-023	es	Ferreries
+ES-IB-PM-FO-024	es	Formentera
+ES-IB-PM-MA-025	es	Fornalutx
+ES-IB-PM-MA-027	es	Inca
+ES-IB-PM-MA-028	es	Lloret de Vistalegre
+ES-IB-PM-MA-029	es	Lloseta
+ES-IB-PM-MA-030	es	Llubí
+ES-IB-PM-MA-031	es	Llucmajor
+ES-IB-PM-MA-033	es	Manacor
+ES-IB-PM-MA-034	es	Mancor de la Vall
+ES-IB-PM-ME-032	es	Maó-Mahón
+ES-IB-PM-MA-035	es	Maria de la Salut
+ES-IB-PM-MA-036	es	Marratxí
+ES-IB-PM-ME-037	es	Es Mercadal
+ES-IB-PM-ME-902	es	Es Migjorn Gran
+ES-IB-PM-MA-038	es	Montuïri
+ES-IB-PM-MA-039	es	Muro
+ES-IB-PM-MA-040	es	Palma de Mallorca
+ES-IB-PM-MA-041	es	Petra
+ES-IB-PM-MA-044	es	Sa Pobla
+ES-IB-PM-MA-042	es	Pollença
+ES-IB-PM-MA-043	es	Porreres
+ES-IB-PM-MA-045	es	Puigpunyent
+ES-IB-PM-MA-059	es	Ses Salines
+ES-IB-PM-IB-046	es	Sant Antoni de Portmany
+ES-IB-PM-MA-049	es	Sant Joan
+ES-IB-PM-IB-050	es	Sant Joan de Labritja
+ES-IB-PM-IB-048	es	Sant Josep de sa Talaia
+ES-IB-PM-MA-051	es	Sant Llorenç des Cardassar
+ES-IB-PM-ME-052	es	Sant Lluís
+ES-IB-PM-MA-053	es	Santa Eugènia
+ES-IB-PM-IB-054	es	Santa Eulària des Riu
+ES-IB-PM-MA-055	es	Santa Margalida
+ES-IB-PM-MA-056	es	Santa María del Camí
+ES-IB-PM-MA-057	es	Santanyí
+ES-IB-PM-MA-058	es	Selva
+ES-IB-PM-MA-047	es	Sencelles
+ES-IB-PM-MA-060	es	Sineu
+ES-IB-PM-MA-061	es	Sóller
+ES-IB-PM-MA-062	es	Son Servera
+ES-IB-PM-MA-063	es	Valldemossa
+ES-IB-PM-MA-065	es	Vilafranca de Bonany
 ES-CT-B-001	es	Abrera
 ES-CT-B-002	es	Aguilar de Segarra
 ES-CT-B-014	es	Aiguafreda
@@ -30754,40 +30754,40 @@ ES-CL-P-242	es	Villodrigo
 ES-CL-P-243	es	Villoldo
 ES-CL-P-245	es	Villota del Páramo
 ES-CL-P-246	es	Villovieco
-ES-CN-GC-001	es	Agaete
-ES-CN-GC-002	es	Agüimes
-ES-CN-GC-020	es	La Aldea de San Nicolás
-ES-CN-GC-003	es	Antigua
-ES-CN-GC-004	es	Arrecife
-ES-CN-GC-005	es	Artenara
-ES-CN-GC-006	es	Arucas
-ES-CN-GC-007	es	Betancuria
-ES-CN-GC-008	es	Firgas
-ES-CN-GC-009	es	Gáldar
-ES-CN-GC-010	es	Haría
-ES-CN-GC-011	es	Ingenio
-ES-CN-GC-012	es	Mogán
-ES-CN-GC-013	es	Moya
-ES-CN-GC-014	es	La Oliva
-ES-CN-GC-015	es	Pájara
-ES-CN-GC-016	es	Las Palmas de Gran Canaria
-ES-CN-GC-017	es	Puerto del Rosario
-ES-CN-GC-018	es	San Bartolomé
-ES-CN-GC-019	es	San Bartolomé de Tirajana
-ES-CN-GC-021	es	Santa Brígida
-ES-CN-GC-022	es	Santa Lucía de Tirajana
-ES-CN-GC-023	es	Santa María de Guía de Gran Canaria
-ES-CN-GC-024	es	Teguise
-ES-CN-GC-025	es	Tejeda
-ES-CN-GC-026	es	Telde
-ES-CN-GC-027	es	Teror
-ES-CN-GC-028	es	Tías
-ES-CN-GC-029	es	Tinajo
-ES-CN-GC-030	es	Tuineje
-ES-CN-GC-032	es	Valleseco
-ES-CN-GC-031	es	Valsequillo de Gran Canaria
-ES-CN-GC-033	es	Vega de San Mateo
-ES-CN-GC-034	es	Yaiza
+ES-CN-GC-GC-001	es	Agaete
+ES-CN-GC-GC-002	es	Agüimes
+ES-CN-GC-GC-020	es	La Aldea de San Nicolás
+ES-CN-GC-FU-003	es	Antigua
+ES-CN-GC-LA-004	es	Arrecife
+ES-CN-GC-GC-005	es	Artenara
+ES-CN-GC-GC-006	es	Arucas
+ES-CN-GC-FU-007	es	Betancuria
+ES-CN-GC-GC-008	es	Firgas
+ES-CN-GC-GC-009	es	Gáldar
+ES-CN-GC-LA-010	es	Haría
+ES-CN-GC-GC-011	es	Ingenio
+ES-CN-GC-GC-012	es	Mogán
+ES-CN-GC-GC-013	es	Moya
+ES-CN-GC-FU-014	es	La Oliva
+ES-CN-GC-FU-015	es	Pájara
+ES-CN-GC-GC-016	es	Las Palmas de Gran Canaria
+ES-CN-GC-FU-017	es	Puerto del Rosario
+ES-CN-GC-LA-018	es	San Bartolomé
+ES-CN-GC-GC-019	es	San Bartolomé de Tirajana
+ES-CN-GC-GC-021	es	Santa Brígida
+ES-CN-GC-GC-022	es	Santa Lucía de Tirajana
+ES-CN-GC-GC-023	es	Santa María de Guía de Gran Canaria
+ES-CN-GC-LA-024	es	Teguise
+ES-CN-GC-GC-025	es	Tejeda
+ES-CN-GC-GC-026	es	Telde
+ES-CN-GC-GC-027	es	Teror
+ES-CN-GC-LA-028	es	Tías
+ES-CN-GC-LA-029	es	Tinajo
+ES-CN-GC-FU-030	es	Tuineje
+ES-CN-GC-GC-032	es	Valleseco
+ES-CN-GC-GC-031	es	Valsequillo de Gran Canaria
+ES-CN-GC-GC-033	es	Vega de San Mateo
+ES-CN-GC-LA-034	es	Yaiza
 ES-GA-PO-020	es	Agolada
 ES-GA-PO-001	es	Arbo
 ES-GA-PO-003	es	Baiona
@@ -31211,60 +31211,60 @@ ES-CL-SA-379	es	Zamayón
 ES-CL-SA-380	es	Zarapicos
 ES-CL-SA-381	es	La Zarza de Pumareda
 ES-CL-SA-382	es	Zorita de la Frontera
-ES-CN-TF-001	es	Adeje
-ES-CN-TF-002	es	Agulo
-ES-CN-TF-003	es	Alajeró
-ES-CN-TF-004	es	Arafo
-ES-CN-TF-005	es	Arico
-ES-CN-TF-006	es	Arona
-ES-CN-TF-007	es	Barlovento
-ES-CN-TF-008	es	Breña Alta
-ES-CN-TF-009	es	Breña Baja
-ES-CN-TF-010	es	Buenavista del Norte
-ES-CN-TF-011	es	Candelaria
-ES-CN-TF-012	es	Fasnia
-ES-CN-TF-013	es	Frontera
-ES-CN-TF-014	es	Fuencaliente de la Palma
-ES-CN-TF-015	es	Garachico
-ES-CN-TF-016	es	Garafía
-ES-CN-TF-017	es	Granadilla de Abona
-ES-CN-TF-018	es	La Guancha
-ES-CN-TF-019	es	Guía de Isora
-ES-CN-TF-020	es	Güímar
-ES-CN-TF-021	es	Hermigua
-ES-CN-TF-022	es	Icod de los Vinos
-ES-CN-TF-024	es	Los Llanos de Aridane
-ES-CN-TF-025	es	La Matanza de Acentejo
-ES-CN-TF-026	es	La Orotava
-ES-CN-TF-027	es	El Paso
-ES-CN-TF-901	es	El Pinar de El Hierro
-ES-CN-TF-028	es	Puerto de la Cruz
-ES-CN-TF-029	es	Puntagorda
-ES-CN-TF-030	es	Puntallana
-ES-CN-TF-031	es	Los Realejos
-ES-CN-TF-032	es	El Rosario
-ES-CN-TF-033	es	San Andrés y Sauces
-ES-CN-TF-023	es	San Cristóbal de La Laguna
-ES-CN-TF-034	es	San Juan de la Rambla
-ES-CN-TF-035	es	San Miguel de Abona
-ES-CN-TF-036	es	San Sebastián de la Gomera
-ES-CN-TF-037	es	Santa Cruz de la Palma
-ES-CN-TF-038	es	Santa Cruz de Tenerife
-ES-CN-TF-039	es	Santa Úrsula
-ES-CN-TF-040	es	Santiago del Teide
-ES-CN-TF-041	es	El Sauzal
-ES-CN-TF-042	es	Los Silos
-ES-CN-TF-043	es	Tacoronte
-ES-CN-TF-044	es	El Tanque
-ES-CN-TF-045	es	Tazacorte
-ES-CN-TF-046	es	Tegueste
-ES-CN-TF-047	es	Tijarafe
-ES-CN-TF-049	es	Valle Gran Rey
-ES-CN-TF-050	es	Vallehermoso
-ES-CN-TF-048	es	Valverde
-ES-CN-TF-051	es	La Victoria de Acentejo
-ES-CN-TF-052	es	Vilaflor de Chasna
-ES-CN-TF-053	es	Villa de Mazo
+ES-CN-TF-TF-001	es	Adeje
+ES-CN-TF-LG-002	es	Agulo
+ES-CN-TF-LG-003	es	Alajeró
+ES-CN-TF-TF-004	es	Arafo
+ES-CN-TF-TF-005	es	Arico
+ES-CN-TF-TF-006	es	Arona
+ES-CN-TF-LP-007	es	Barlovento
+ES-CN-TF-LP-008	es	Breña Alta
+ES-CN-TF-LP-009	es	Breña Baja
+ES-CN-TF-TF-010	es	Buenavista del Norte
+ES-CN-TF-TF-011	es	Candelaria
+ES-CN-TF-TF-012	es	Fasnia
+ES-CN-TF-EH-013	es	Frontera
+ES-CN-TF-LP-014	es	Fuencaliente de la Palma
+ES-CN-TF-TF-015	es	Garachico
+ES-CN-TF-LP-016	es	Garafía
+ES-CN-TF-TF-017	es	Granadilla de Abona
+ES-CN-TF-TF-018	es	La Guancha
+ES-CN-TF-TF-019	es	Guía de Isora
+ES-CN-TF-TF-020	es	Güímar
+ES-CN-TF-LG-021	es	Hermigua
+ES-CN-TF-TF-022	es	Icod de los Vinos
+ES-CN-TF-LP-024	es	Los Llanos de Aridane
+ES-CN-TF-TF-025	es	La Matanza de Acentejo
+ES-CN-TF-TF-026	es	La Orotava
+ES-CN-TF-LP-027	es	El Paso
+ES-CN-TF-EH-901	es	El Pinar de El Hierro
+ES-CN-TF-TF-028	es	Puerto de la Cruz
+ES-CN-TF-LP-029	es	Puntagorda
+ES-CN-TF-LP-030	es	Puntallana
+ES-CN-TF-TF-031	es	Los Realejos
+ES-CN-TF-TF-032	es	El Rosario
+ES-CN-TF-LP-033	es	San Andrés y Sauces
+ES-CN-TF-TF-023	es	San Cristóbal de La Laguna
+ES-CN-TF-TF-034	es	San Juan de la Rambla
+ES-CN-TF-TF-035	es	San Miguel de Abona
+ES-CN-TF-LG-036	es	San Sebastián de la Gomera
+ES-CN-TF-LP-037	es	Santa Cruz de la Palma
+ES-CN-TF-TF-038	es	Santa Cruz de Tenerife
+ES-CN-TF-TF-039	es	Santa Úrsula
+ES-CN-TF-TF-040	es	Santiago del Teide
+ES-CN-TF-TF-041	es	El Sauzal
+ES-CN-TF-TF-042	es	Los Silos
+ES-CN-TF-TF-043	es	Tacoronte
+ES-CN-TF-TF-044	es	El Tanque
+ES-CN-TF-LP-045	es	Tazacorte
+ES-CN-TF-TF-046	es	Tegueste
+ES-CN-TF-LP-047	es	Tijarafe
+ES-CN-TF-LG-049	es	Valle Gran Rey
+ES-CN-TF-LG-050	es	Vallehermoso
+ES-CN-TF-EH-048	es	Valverde
+ES-CN-TF-TF-051	es	La Victoria de Acentejo
+ES-CN-TF-TF-052	es	Vilaflor de Chasna
+ES-CN-TF-LP-053	es	Villa de Mazo
 ES-CB-S-001	es	Alfoz de Lloredo
 ES-CB-S-002	es	Ampuero
 ES-CB-S-003	es	Anievas

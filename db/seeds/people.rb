@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+puts "Seeding people"
+
 require "census/faker/document_id"
 
 def create_person

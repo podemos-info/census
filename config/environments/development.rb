@@ -1,5 +1,14 @@
 # frozen_string_literal: true
 
+def config_preload_paths(config)
+  preload_paths = %w(app/services/payments/processors/*.rb).freeze
+
+  config.eager_load_paths += Dir[*preload_paths]
+  ActiveSupport::Reloader.to_prepare do
+    Dir[*preload_paths].each { |file| require_dependency file }
+  end
+end
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -50,16 +59,9 @@ Rails.application.configure do
   config.force_ssl = false
 
   # Preload services and order forms
-  PRELOAD_PATHS = %w(app/services/payments/processors/*.rb).freeze
+  config_preload_paths(config)
 
-  config.eager_load_paths += Dir[*PRELOAD_PATHS]
-  ActiveSupport::Reloader.to_prepare do
-    Dir[*PRELOAD_PATHS].each { |file| require_dependency file }
-  end
-
-  Settings.security.allowed_ips.development&.each do |ip|
-    BetterErrors::Middleware.allow_ip! ip
-  end
+  Settings.security.allowed_ips.development&.each { |ip| BetterErrors::Middleware.allow_ip! ip }
 
   I18n::Debug.logger = Logger.new(File.join(Rails.root, "log", "i18n-debug.log"))
 end

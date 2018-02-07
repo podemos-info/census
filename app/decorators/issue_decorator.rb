@@ -31,8 +31,8 @@ class IssueDecorator < ApplicationDecorator
 
   def objects_links
     object.issue_objects.map do |issue_object|
-      object = issue_object.object.decorate
-      h.link_to object.name, h.url_for(object)
+      obj = issue_object.object.decorate
+      h.link_to obj.name, h.url_for(obj)
     end.to_sentence.html_safe
   end
 end

@@ -14,6 +14,9 @@ module Api
         on(:invalid) do
           render json: form.errors, status: :unprocessable_entity
         end
+        on(:error) do
+          render json: {}, status: :internal_server_error
+        end
         on(:ok) do
           render json: {}, status: :accepted
         end

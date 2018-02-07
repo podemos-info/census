@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Rails.application.routes.draw do
+Rails.application.routes.draw do # rubocop: disable Metrics/BlockLength
   namespace :api do
     namespace :v1 do
       resources :people do

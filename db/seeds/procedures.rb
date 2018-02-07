@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+puts "Seeding procedures"
+
 admins = Admin.where role: [:lopd, :lopd_help]
 
 attachments_path = File.join(__dir__, "attachments")

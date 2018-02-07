@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# The issue model.
 class Issue < ApplicationRecord
   include HasRole
 

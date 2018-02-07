@@ -14,7 +14,7 @@ module Issues
 
     private
 
-    attr_reader :person, :admin
+    attr_reader :person
 
     def has_issue?
       people.size > 1

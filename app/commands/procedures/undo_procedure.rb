@@ -21,28 +21,32 @@ module Procedures
     def call
       return broadcast(:invalid) unless @procedure && @processed_by && @procedure.full_undoable_by?(@processed_by)
 
-      result = Procedure.transaction do
-        undo_procedure @procedure
-        :ok
-      end
+      undo_procedure
 
-      broadcast result || :invalid
+      broadcast result, procedure: @procedure
     end
 
     private
 
-    def undo_procedure(current_procedure)
+    attr_accessor :result
+
+    def undo_procedure
+      @result = :error
+      Procedure.transaction do
+        undo @procedure
+        @result = :ok
+      end
+    end
+
+    def undo(current_procedure)
       current_procedure.dependent_procedures.each do |child_procedure|
-        undo_procedure child_procedure
+        undo child_procedure
       end
 
       current_procedure.undo
       current_procedure.processed_by = current_procedure.undo_version.processed_by
       current_procedure.processed_at = current_procedure.undo_version.processed_at
       current_procedure.comment = current_procedure.undo_version.comment
-
-      raise ActiveRecord::Rollback unless current_procedure.valid?
-
       current_procedure.save!
     end
   end

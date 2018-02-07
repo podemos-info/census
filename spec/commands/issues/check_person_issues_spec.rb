@@ -56,4 +56,29 @@ describe Issues::CheckPersonIssues do
       expect(Issue.last.people).to contain_exactly(person, same_person, more_people)
     end
   end
+
+  describe "when an unfixed issue for this document existed, but is fixed now" do
+    let!(:same_person) { create(:person, :copy, from: person) }
+    let(:other_person) { build(:person) }
+    before do
+      described_class.call(person: person, admin: admin)
+      same_person.update_attributes(document_id: other_person.document_id)
+    end
+
+    it "broadcast :fixed_issue" do
+      expect { subject } .to broadcast(:fixed_issue)
+    end
+
+    it "doesn't create new issues" do
+      expect { subject } .not_to change { Issue.count }
+    end
+
+    it "fixes the existing issue" do
+      expect { subject } .to change { Issue.last.fixed_at } .from(nil)
+    end
+
+    it "keeps the issue related objects before fixing it" do
+      expect { subject } .not_to change { Issue.last.people }
+    end
+  end
 end

@@ -88,6 +88,16 @@ describe OrdersController, type: :controller do
         expect(subject.location).to eq(order_url(Order.last))
       end
     end
+
+    context "when saving fails" do
+      before { stub_command("Payments::CreateOrder", :error) }
+      it { is_expected.to be_success }
+      it { is_expected.to render_template("new") }
+      it "shows an error message" do
+        subject
+        expect(flash[:error]).to be_present
+      end
+    end
   end
 
   context "charge credit card order" do
@@ -139,6 +149,19 @@ describe OrdersController, type: :controller do
       end
       it "shows the index page" do
         expect(subject.location).to eq(orders_url)
+      end
+    end
+
+    context "when fails" do
+      before { stub_command("Payments::ProcessOrder", :error) }
+      let(:cassete) { "process_order_fails" }
+
+      it "success" do
+        is_expected.to have_http_status(:found)
+      end
+      it "shows an error message" do
+        subject
+        expect(flash[:error]).to be_present
       end
     end
   end

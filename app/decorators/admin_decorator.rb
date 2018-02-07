@@ -6,7 +6,7 @@ class AdminDecorator < ApplicationDecorator
   decorates_association :person
 
   def name
-    person.full_name
+    username
   end
 
   def role_name

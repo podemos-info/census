@@ -6,26 +6,25 @@ module Payments
     # Public: Initializes the command.
     #
     # payment_method - A payment_method to be saved.
-    def initialize(payment_method:, admin:)
+    def initialize(payment_method:, admin: nil)
       @payment_method = payment_method
       @admin = admin
     end
 
     # Executes the command. Broadcasts these events:
     #
-    # - :ok when everything is valid.
-    # - :invalid if the order couldn't be created.
+    # - :ok when everything was ok. Includes the saved payment method.
+    # - :invalid when the payment method data is invalid.
+    # - :error if the payment method couldn't be saved.
     #
     # Returns nothing.
     def call
-      return broadcast(:invalid) unless payment_method.valid?
+      return broadcast(:invalid) unless payment_method&.valid?
+      return broadcast(:error) unless payment_method.save
 
-      result = PaymentMethod.transaction do
-        payment_method.save!
-        Issues::CheckPaymentMethodIssues.call(payment_method: payment_method, admin: admin)
-        :ok
-      end
-      broadcast(result || :invalid)
+      broadcast(:ok, payment_method: payment_method)
+
+      CheckPaymentMethodIssuesJob.perform_later(payment_method: payment_method, admin: admin)
     end
 
     private

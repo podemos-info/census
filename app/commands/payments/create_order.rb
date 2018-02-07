@@ -14,28 +14,35 @@ module Payments
 
     # Executes the command. Broadcasts these events:
     #
-    # - :ok when everything is valid.
-    # - :invalid if the order couldn't be created.
+    # - :ok when everything was ok. Includes the created order.
+    # - :external when everything was ok and the payment method should be authorized.
+    # - :invalid when the order data is invalid or the payment method not active.
+    # - :error if the order couldn't be created.
     #
     # Returns nothing.
     def call
-      return broadcast(:invalid) unless form&.valid?
-      result = Order.transaction do
-        Payments::SavePaymentMethod.call(payment_method: order.payment_method, admin: admin)
-        order.save!
-        :ok
-      end
+      return broadcast(:invalid) unless valid?
 
-      if order.external_authorization?
-        broadcast(:external, order: order, form: payment_processor.external_authorization_params(order))
+      result = create_order
+
+      if external_authorization_form?(result)
+        broadcast :external, order: order, form: payment_processor.external_authorization_params(order)
       else
-        broadcast(result || :invalid, order: order)
+        broadcast result || :error, order: order
       end
     end
 
     private
 
     attr_reader :form, :admin
+
+    def valid?
+      form&.valid? && order.payment_method&.active?
+    end
+
+    def external_authorization_form?(result)
+      result == :ok && order.external_authorization?
+    end
 
     def order
       @order ||= Order.new(
@@ -50,6 +57,23 @@ module Payments
 
     def payment_processor
       @payment_processor ||= Payments::Processor.for(form.payment_method.payment_processor)
+    end
+
+    def create_order
+      Order.transaction do
+        partial_result = save_payment_method
+        order.save! if partial_result == :ok
+        partial_result
+      end
+    end
+
+    def save_payment_method
+      ret = :invalid
+      Payments::SavePaymentMethod.call(payment_method: order.payment_method, admin: admin) do
+        on(:error) { ret = :error }
+        on(:ok) { ret = :ok }
+      end
+      ret
     end
   end
 end

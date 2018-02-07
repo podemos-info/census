@@ -29,6 +29,7 @@ es:
     sidebars:
       downloads: Descargas
       events: Actividad
+      jobs: Tareas
       orders: Órdenes
       procedures: Procedimientos
       versions: Versiones
@@ -38,6 +39,10 @@ es:
     system: Sistema
   activerecord:
     attributes:
+      active_job_reporter/job_message:
+        created_at: Fecha
+        message: Mensaje
+        message_type: Tipo de mensaje
       admin:
         created_at: Fecha de creación
         current_sign_in_at: Fecha de acceso
@@ -87,6 +92,15 @@ es:
         objects_links: Registros afectados
         role_name: Rol
         updated_at: Fecha de expiración
+      job:
+        created_at: Fecha de creación
+        job_type_link: Tarea
+        job_type_name: Tipo de tarea
+        objects_links: Elementos relacionados
+        result_name: Resultado
+        status_name: Estado
+        updated_at: Última actualización
+        user: Usuario
       order:
         amount: Total
         campaign: Campaña
@@ -128,7 +142,6 @@ es:
         iban: IBAN
         name: Nombre
         person: Persona
-        status_message: Estado actual
         type_name: Tipo
         updated_at: Última actualización
       person:
@@ -216,6 +229,9 @@ es:
       issue:
         one: Incidencia
         other: Incidencias
+      job:
+        one: Tarea
+        other: Cola de tareas
       order:
         one: Orden
         other: Órdenes
@@ -301,10 +317,46 @@ es:
         duplicated_document: Documento duplicado
         missing_bic: BIC desconocido
         processed_response_code: Problemas al cobrar orden
+    jobs:
+      job_messages:
+        issues_job:
+          error: Ha ocurrido un error durante el análisis de incidencias para el registro
+          existing_issue: El registro ya tenía una incidencia asociada
+          fixed_issue: Se ha cerrado una incidencia asociada al registro
+          new_issue: Se ha encontrado una nueva incidencia asociada al registro
+          ok: No hay incidencias asociadas al registro
+        process_orders_batch_job:
+          order_error: Ha ocurrido un error durante el procesamiento de la orden, verifique el registro para comprobar su estado real
+          order_issues: Orden con incidencias
+          order_ok: Orden procesada correctamente
+          processor_aborted: Procesamiento interrumpido por exceso de órdenes con errores
+          processor_completed: Órdenes para el sistema de cobro procesadas por completo
+          processor_error: Ha ocurrido un error durante el procesamiento de las órdenes para el sistema de cobro
+          unprocessable_order: Orden no procesada
+      messages: Registro de actividad
+      result:
+        error: Con errores de procesamiento
+        invalid: Información incorrecta, no puede ser procesado
+        ok: Correcto
+        review: Debe ser revisado antes de procesarlo
+      status:
+        finished: Finalizada
+        pending: Pendiente
+        running: Procesando
+      types:
+        check_bic_issues_job: Comprobar incidencias para BIC actualizado
+        check_payment_method_issues_job: Comprobar incidencias asociadas al método de pago actualizado
+        check_person_issues_job: Comprobar incidencias para los datos de la persona
+        check_processed_order_issues_job: Comprobar incidencias para la orden procesada
+        process_orders_batch_job: Procesar lote de órdenes
+    messages:
+      error_occurred: Ha ocurrido un error al guardar el registro.
+      sure_question: "¿Estás segura?"
     orders:
       action_message:
         not_processed: No se pudo procesar la orden.
         processed: La orden ha sido procesado.
+        processing_error: Ha ocurrido un error durante el procesamiento de la orden. Consulte con el administrador para comprobar que la información del sistema es correcta.
       add_orders_from_payment_methods: Puedes crear órdenes desde la página de una persona o un método de pago.
       create_credit_card_external: Configurar una nueva tarjeta de crédito
       created: La orden ha sido creada
@@ -314,10 +366,7 @@ es:
       view_versions: Ver versiones (%{count})
     orders_batches:
       action_message:
-        issues: El lote de órdenes ha sido procesado, pero han ocurrido incidencias durante el proceso. Por favor, contacta con el administrador del sistema.
-        needs_review: Algunas órdenes deben ser revisadas antes de ser procesadas.
-        not_processed: No se pudo procesar el lote de órdenes.
-        processed: El lote de órdenes ha sido procesado.
+        will_be_processed: El lote de órdenes está siendo procesado.
       by_payment_method: Por método de pago
       by_state: Por estado
       manage_bics: Gestionar BICs
@@ -372,7 +421,9 @@ es:
       action_message:
         accepted: El procedimiento %{link} ha sido aceptado.
         cant_process: No se puede procesar un procedimiento ya procesado.
-        cant_undo: No se ha podido devolved al procedimiento %{link} a su estado anterior.
+        cant_undo: No se puede devolver al procedimiento %{link} a su estado anterior.
+        error: Ha ocurrido un error al procesar el procedimiento.
+        error_undo: Ha ocurrido un error al intentar devolver procedimiento %{link} a su estado anterior.
         issues: El procedimiento %{link} ha sido marcado como incidencia.
         rejected: El procedimiento %{link} ha sido rechazado.
         undone: El procedimiento %{link} ha vuelto a su estado anterior.
@@ -390,7 +441,6 @@ es:
         choose: Elegir
         title: Elige %{field}
         world: Mundo
-    sure_question: "¿Estás segura?"
     versions:
       after:
         tab: Después
@@ -407,6 +457,9 @@ es:
       location: Ubicación
       view_events: Ver toda la actividad
   errors:
+    attributes:
+      bic:
+        invalid_format: Formato de BIC inválido (debe ser similar a ABCDESMM o ABCDESMM123)
     messages:
       cycle_detected: el padre de un ámbito no puede ser descendiente de este
       depends_on_different_person: el procedimiento debe corresponder a la misma persona que el procedimiento del que dependende

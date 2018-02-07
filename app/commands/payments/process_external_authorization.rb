@@ -15,18 +15,16 @@ module Payments
     # Executes the command. Broadcasts these events:
     #
     # - :ok when data request is valid. Include the response to be sent to the caller
+    # - :invalid when the received data is invalid.
     #
     # Returns nothing.
     def call
-      return unless order
+      return broadcast(:invalid) unless params && order
 
-      Order.transaction do
-        Payments::SavePaymentMethod.call(payment_method: order.payment_method, admin: nil)
-        order.save!
-        Issues::CheckProcessedOrderIssues.call(order: order, admin: nil)
-      end
+      result = process_authorization
+      broadcast(:ok, response: payment_processor.format_external_authorization_response(result))
 
-      broadcast(:ok, payment_processor.format_external_authorization_response(order.processed?))
+      CheckProcessedOrderIssuesJob.perform_later(order: order, admin: nil) if result
     end
 
     private
@@ -37,6 +35,17 @@ module Payments
 
     def payment_processor
       @payment_processor ||= Payments::Processor.for(@payment_processor_name)
+    end
+
+    def process_authorization
+      Order.transaction do
+        Payments::SavePaymentMethod.call(payment_method: order.payment_method, admin: nil) do
+          on(:invalid) { raise ActiveRecord::Rollback, "Invalid payment method information" }
+          on(:error) { raise ActiveRecord::Rollback, "Error saving payment method" }
+        end
+        order.save!
+        order.processed?
+      end
     end
   end
 end

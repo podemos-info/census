@@ -42,11 +42,31 @@ describe BicsController, type: :controller do
   end
 
   describe "create page" do
-    let(:bic) { build(:bic) }
     subject { put :create, params: { bic: bic.attributes } }
+    let(:bic) { build(:bic) }
+
     it { expect { subject } .to change { Bic.count }.by(1) }
     it { is_expected.to have_http_status(:found) }
-    it { expect(subject.location).to eq(bic_url(Bic.last)) }
+    it { expect(subject.location).to eq(bic_url(Bic.last.id)) }
+
+    context "with invalid params" do
+      let(:bic) { build(:bic, :invalid) }
+
+      it { expect { subject } .not_to change { Bic.count } }
+      it { is_expected.to be_success }
+      it { is_expected.to render_template("new") }
+    end
+
+    context "when saving fails" do
+      before { stub_command("Payments::SaveBic", :error) }
+
+      it { is_expected.to be_success }
+      it { is_expected.to render_template("new") }
+      it "shows an error message" do
+        subject
+        expect(flash[:error]).to be_present
+      end
+    end
   end
 
   describe "edit page" do
@@ -56,13 +76,32 @@ describe BicsController, type: :controller do
   end
 
   describe "update page" do
-    subject do
-      bic.assign_attributes bank_code: "KKKKKK"
-      patch :update, params: { id: bic.id, bic: bic.attributes }
-    end
+    subject { patch :update, params: { id: bic.id, bic: bic.attributes } }
+    before { bic.assign_attributes bic: new_bic }
+    let(:new_bic) { "ABCD#{bic.country}XX" }
+
     it { expect(subject).to have_http_status(:found) }
     it { expect(subject.location).to eq(bic_url(bic.id)) }
-    it { expect { subject } .to change { bic.bank_code }.to("KKKKKK") }
+    it { expect { subject } .to change { Bic.find(bic.id).bic }.to(new_bic) }
+
+    context "with invalid params" do
+      before { bic.assign_attributes bic: "1a22" }
+
+      it { expect { subject } .not_to change { Bic.count } }
+      it { is_expected.to be_success }
+      it { is_expected.to render_template("edit") }
+    end
+
+    context "when saving fails" do
+      before { stub_command("Payments::SaveBic", :error) }
+
+      it { is_expected.to be_success }
+      it { is_expected.to render_template("edit") }
+      it "shows an error message" do
+        subject
+        expect(flash[:error]).to be_present
+      end
+    end
   end
 
   describe "destroy page" do

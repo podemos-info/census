@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+puts "Seeding payments"
+
 require "iban_bic/random"
 
 admins = Admin.where role: [:finances]
@@ -14,7 +16,7 @@ def create_order(person, credit_card, campaign)
                      else
                        PaymentMethods::DirectDebit.new person: person, payment_processor: :sepa, iban: IbanBic.random_iban(tags: [:sepa], not_tags: [:fixed_iban_check])
                      end
-  payment_method.decorate.save!
+  Payments::SavePaymentMethod.call(payment_method: payment_method, admin: nil)
 
   Order.create! person: person, payment_method: payment_method,
                 description: Faker::Lorem.sentence(1, true, 4),

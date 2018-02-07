@@ -7,31 +7,23 @@ module Payments
     #
     # form - A form object with the params.
     # admin - The admin user creating the orders_batch.
-    def initialize(form:, admin:)
+    def initialize(form:, admin: nil)
       @form = form
       @admin = admin
     end
 
     # Executes the command. Broadcasts these events:
     #
-    # - :ok when everything is valid.
-    # - :invalid if the batch couldn't be created.
+    # - :ok when everything was ok. Includes the created orders batch.
+    # - :invalid when the orders batch data is invalid.
+    # - :error if the orders batch couldn't be created.
     #
     # Returns nothing.
+
     def call
-      return broadcast(:invalid) unless form.valid?
+      return broadcast(:invalid) unless form&.valid?
 
-      result = OrdersBatch.transaction do
-        orders_batch.save!
-        form.orders.each do |order|
-          order.orders_batch = orders_batch
-          order.save!
-        end
-
-        :ok
-      end
-
-      broadcast(result || :invalid, orders_batch)
+      broadcast(create_orders_batch || :error, orders_batch: orders_batch)
     end
 
     private
@@ -40,6 +32,18 @@ module Payments
 
     def orders_batch
       @orders_batch ||= OrdersBatch.new description: form.description
+    end
+
+    def create_orders_batch
+      OrdersBatch.transaction do
+        orders_batch.save!
+        form.orders.each do |order|
+          order.orders_batch = orders_batch
+          order.save!
+        end
+
+        :ok
+      end
     end
   end
 end

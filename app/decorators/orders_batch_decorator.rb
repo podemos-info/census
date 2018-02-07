@@ -32,4 +32,8 @@ class OrdersBatchDecorator < ApplicationDecorator
   def count_orders
     @count_orders ||= orders_totals.sum { |order_total| order_total[:count] }
   end
+
+  def last_jobs
+    @last_jobs ||= OrdersBatchLastJobs.for(object).decorate
+  end
 end

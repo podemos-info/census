@@ -12,7 +12,7 @@ module Payments
       end
 
       def get_response_code(response)
-        response.params["ds_response"]
+        response.params["ds_response"] || response.message.split.first
       end
 
       def external_authorization_params(order)

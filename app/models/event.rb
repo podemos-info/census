@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Event < ActiveRecord::Base
+class Event < ApplicationRecord
   include Ahoy::Properties
 
   belongs_to :visit, optional: true

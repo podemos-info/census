@@ -7,27 +7,22 @@ module Issues
     #
     # issue - The issue to assign
     # admin - The admin that has fixed the issue
-    def initialize(issue:, admin:)
+    def initialize(issue:, admin: nil)
       @issue = issue
       @admin = admin
     end
 
     # Executes the command. Broadcasts these events:
     #
-    # - :ok when everything is valid.
-    # - :invalid if anything fails
+    # - :ok when everything was ok.
+    # - :invalid when given data is invalid.
+    # - :error if the issue couldn't be set as fixed and read.
     #
     # Returns nothing.
     def call
-      result = Issue.transaction do
-        issue.assigned_to ||= admin.person if admin
-        issue.fixed_at = Time.now
-        issue.save!
+      return broadcast(:invalid) unless issue
 
-        issue_unreads.destroy_all
-        :ok
-      end
-      broadcast(result || :invalid)
+      broadcast fix || :error
     end
 
     private
@@ -36,6 +31,16 @@ module Issues
 
     def issue_unreads
       @issue_unreads ||= issue.issue_unreads
+    end
+
+    def fix
+      Issue.transaction do
+        issue.assigned_to ||= admin.person if admin
+        issue.fixed_at = Time.now
+        issue.save!
+        issue_unreads.destroy_all
+        :ok
+      end
     end
   end
 end
