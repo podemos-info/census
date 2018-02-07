@@ -13,10 +13,6 @@ describe Person, :db do
     it "is not memberable" do
       is_expected.not_to be_memberable
     end
-
-    it "is not young memberable" do
-      is_expected.not_to be_young_memberable
-    end
   end
 
   context "a verified person" do
@@ -28,10 +24,6 @@ describe Person, :db do
       is_expected.to be_memberable
     end
 
-    it "is not young memberable" do
-      is_expected.not_to be_young_memberable
-    end
-
     context "is young" do
       subject(:person) { build(:person, :verified, :young) }
 
@@ -39,10 +31,6 @@ describe Person, :db do
 
       it "is not memberable" do
         is_expected.not_to be_memberable
-      end
-
-      it "is young memberable" do
-        is_expected.to be_young_memberable
       end
     end
   end

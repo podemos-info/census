@@ -16,7 +16,7 @@ es:
       follower: Simpatizantes
       inactive: Inactivos
       issues: Incidencias
-      member: Inscritas
+      member: Afiliados/as
       non_fixed: Sin resolver
       pending: Pendientes
       person: Personas
@@ -25,7 +25,6 @@ es:
       returned: Devueltas
       unread: Nuevas
       verified: Verificados
-      young_member: Inscritas jóvenes
     sidebars:
       downloads: Descargas
       events: Actividad
@@ -163,9 +162,8 @@ es:
         membership_level: Nivel
         membership_level/activist: militante
         membership_level/follower: simpatizante
-        membership_level/member: inscrita
+        membership_level/member: afiliado/a
         membership_level/person: persona
-        membership_level/young_member: inscrita joven
         phone: Teléfono
         postal_code: Código postal
         scope: Lugar de participación
