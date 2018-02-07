@@ -10,6 +10,7 @@ FactoryBot.define do
 
     after :build do |job|
       job.job_objects << build(:job_object, job: job)
+      job.job_objects << build(:job_object, :nonexistent_object, job: job)
       job.messages << build(:job_message, job: job)
       job.messages << build(:job_message, :raw, job: job)
       job.messages << build(:job_message, :raw_related, job: job)
@@ -18,11 +19,22 @@ FactoryBot.define do
     trait :running do
       status "running"
     end
+
+    trait :finished do
+      status "finished"
+      result "ok"
+    end
   end
 
   factory :job_object, class: :"active_job_reporter/job_object" do
     job { create(:job) }
     object { create(:orders_batch) }
+
+    trait :nonexistent_object do
+      after :build do |job_object|
+        job_object.object.delete
+      end
+    end
   end
 
   factory :job_message, class: :"active_job_reporter/job_message" do

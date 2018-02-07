@@ -9,7 +9,7 @@ describe JobsController, type: :controller do
   subject(:resource) { all_resources[resource_class] }
   let(:resource_class) { Job }
   let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
-  let!(:job) { create(:job) }
+  let!(:job) { create(:job, :finished) }
 
   it "defines actions" do
     expect(subject.defined_actions).to contain_exactly(:index, :show)
@@ -25,6 +25,7 @@ describe JobsController, type: :controller do
 
   context "index page" do
     subject { get :index }
+
     it { is_expected.to be_success }
     it { is_expected.to render_template("index") }
   end
