@@ -19,7 +19,6 @@ en:
         membership_level: Membership level
         membership_level/person: Person
         membership_level/follower: Follower
-        membership_level/young_member: Young member
         membership_level/member: Member
         membership_level/activist: Activist
         scope: Scope
