@@ -20,8 +20,8 @@ context.instance_eval do
         resource.address_scope&.show_path
       end
       row :postal_code, class: classes[:postal_code]
-      row :email do
-        link_to resource.email, "mailto:#{resource.email}"
+      row :email, class: classes[:email] do
+        link_to(resource.email, "mailto:#{resource.email}") if resource.email
       end
       row :phone, class: classes[:phone]
       row :scope, class: classes[:scope_id] do
