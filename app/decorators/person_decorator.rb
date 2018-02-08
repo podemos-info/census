@@ -10,8 +10,10 @@ class PersonDecorator < ApplicationDecorator
     full_name
   end
 
+  alias to_s name
+
   def full_name
-    "#{last_names}, #{object.first_name}"
+    [last_names, object.first_name].reject(&:blank?).join(", ")
   end
 
   def last_names
@@ -31,11 +33,11 @@ class PersonDecorator < ApplicationDecorator
   end
 
   def gender_name
-    I18n.t("census.people.genders.#{gender}")
+    I18n.t("census.people.genders.#{gender}") if gender
   end
 
   def document_type_name
-    I18n.t("census.people.document_types.#{document_type}")
+    I18n.t("census.people.document_types.#{document_type}") if document_type
   end
 
   def flags
