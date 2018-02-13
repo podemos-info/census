@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Procedures
-  class VerificationDocument < Procedure
+  class DocumentVerification < Procedure
     def acceptable?
       true
     end

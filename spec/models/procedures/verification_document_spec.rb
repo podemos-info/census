@@ -2,8 +2,8 @@
 
 require "rails_helper"
 
-describe Procedures::VerificationDocument, :db do
-  subject(:procedure) { create(:verification_document, :ready_to_process, person: person) }
+describe Procedures::DocumentVerification, :db do
+  subject(:procedure) { create(:document_verification, :ready_to_process, person: person) }
   let!(:person) { create(:person) }
 
   it { is_expected.to be_valid }

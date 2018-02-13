@@ -2,7 +2,7 @@
 
 module People
   # A command to create a change of membership for a person.
-  class CreateVerification < Rectify::Command
+  class CreateDocumentVerification < Rectify::Command
     # Public: Initializes the command.
     # form - A form object with the params.
     def initialize(form:, admin: nil)
@@ -37,7 +37,7 @@ module People
 
     def verification
       @verification ||= begin
-        ret = ::Procedures::VerificationDocument.new(
+        ret = ::Procedures::DocumentVerification.new(
           person: form.person
         )
         form.files.each do |file|

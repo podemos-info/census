@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe "Procedures", type: :request do
   include_context "devise login"
-  let!(:procedure) { create(:verification_document, :with_attachments) }
+  let!(:procedure) { create(:document_verification, :with_attachments) }
 
   context "index page" do
     subject(:page) { get procedures_path(params) }
@@ -33,7 +33,7 @@ describe "Procedures", type: :request do
     end
 
     context "show processed procedure" do
-      let!(:procedure) { create(:verification_document, :processed) }
+      let!(:procedure) { create(:document_verification, :processed) }
       subject(:page) { get procedure_path(id: procedure.id) }
       it { expect(subject).to eq(200) }
     end

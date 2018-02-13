@@ -6,7 +6,7 @@ describe ProcedureDecorator do
   subject(:decorator) { procedure.decorate }
   let(:processed_by) { build(:admin) }
   let(:person) { build(:person) }
-  let(:procedure) { build(:verification_document, :with_attachments, person: person) }
+  let(:procedure) { build(:document_verification, :with_attachments, person: person) }
 
   it "returns the decorated person" do
     expect(subject.person.decorated?).to be_truthy
@@ -25,7 +25,7 @@ describe ProcedureDecorator do
   end
 
   context "#view_link" do
-    let(:procedure) { create(:verification_document) }
+    let(:procedure) { create(:document_verification) }
 
     it "returns the process link" do
       expect(subject.view_link).to eq("<a class=\"member_link\" href=\"/procedures/#{procedure.id}/edit\">Procesar</a>")
@@ -36,9 +36,9 @@ describe ProcedureDecorator do
     end
   end
 
-  context "verification document" do
+  context "document verification" do
     let(:person) { build(:person, first_name: "María", last_name1: "Pérez", last_name2: "García") }
-    let(:procedure) { create(:verification_document, person: person) }
+    let(:procedure) { create(:document_verification, person: person) }
 
     it "returns the type name" do
       expect(subject.type_name).to eq("Verificación de documento")
@@ -50,14 +50,14 @@ describe ProcedureDecorator do
   end
 
   context "processed procedure" do
-    let(:procedure) { build(:verification_document, :processed) }
+    let(:procedure) { build(:document_verification, :processed) }
 
     it "returns the processed_by person" do
       expect(subject.processed_by.decorated?).to be_truthy
     end
 
     context "#view_link" do
-      let(:procedure) { create(:verification_document, :processed) }
+      let(:procedure) { create(:document_verification, :processed) }
 
       it "returns the process link" do
         expect(subject.view_link).to eq("<a class=\"member_link\" href=\"/procedures/#{procedure.id}\">Ver</a>")

@@ -2,10 +2,10 @@
 
 # The form object that handles the data for a person
 module People
-  class VerificationForm < Form
+  class DocumentVerificationForm < Form
     include ::HasPerson
 
-    mimic :verification_document
+    mimic :document_verification
 
     attribute :files, Array
 

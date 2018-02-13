@@ -11,7 +11,7 @@ describe Procedure, :db do
 
   context "with dependent procedure (acceptable only after the parent)" do
     let(:processed_by) { nil }
-    let(:parent_procedure) { create(:verification_document) }
+    let(:parent_procedure) { create(:document_verification) }
     let(:person) { parent_procedure.person }
     let(:child_procedure) { build(:membership_level_change, depends_on: parent_procedure, person: person, processed_by: processed_by) }
 
@@ -62,7 +62,7 @@ describe Procedure, :db do
       end
 
       context "with dependent procedure" do
-        subject(:procedure) { create(:verification_document, :undoable, person: create(:person, :verified)) }
+        subject(:procedure) { create(:document_verification, :undoable, person: create(:person, :verified)) }
         let!(:child_procedure) { create(:membership_level_change, depends_on: procedure, person: procedure.person) }
 
         it "is fully undoable by the same person that processed it" do

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe Api::V1::People::VerificationsController, type: :controller do
+describe Api::V1::People::DocumentVerificationsController, type: :controller do
   let(:person) { create(:person) }
 
   with_versioning do
@@ -17,7 +17,7 @@ describe Api::V1::People::VerificationsController, type: :controller do
         expect(subject.content_type).to eq("application/json")
       end
 
-      it "creates a new verification procedure" do
+      it "creates a new document verification procedure" do
         expect { subject } .to change { Procedure.count }.by(1)
       end
 
@@ -49,7 +49,7 @@ describe Api::V1::People::VerificationsController, type: :controller do
       end
 
       context "when saving fails" do
-        before { stub_command("People::CreateVerification", :error) }
+        before { stub_command("People::CreateDocumentVerification", :error) }
 
         it "is returns an error" do
           expect(subject).to have_http_status(:internal_server_error)

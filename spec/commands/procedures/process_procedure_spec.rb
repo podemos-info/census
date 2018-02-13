@@ -5,7 +5,7 @@ require "rails_helper"
 describe Procedures::ProcessProcedure do
   subject(:process_procedure) { described_class.call(procedure, processed_by, params) }
 
-  let!(:procedure) { create(:verification_document) }
+  let!(:procedure) { create(:document_verification) }
   let(:event) { :accept }
   let(:params) { { event: event, comment: "This is a comment" } }
   let!(:processed_by) { create(:admin) }
@@ -32,7 +32,7 @@ describe Procedures::ProcessProcedure do
     end
 
     context "on dependent procedures" do
-      let!(:procedure) { create(:verification_document, :with_dependent_procedure) }
+      let!(:procedure) { create(:document_verification, :with_dependent_procedure) }
       let(:dependent_procedure) { procedure.dependent_procedures.first }
 
       it "updates procedure state" do
@@ -79,7 +79,7 @@ describe Procedures::ProcessProcedure do
 
       context "on dependent procedures" do
         let(:processed_by) { nil }
-        let(:procedure) { create(:verification_document, :with_dependent_procedure) }
+        let(:procedure) { create(:document_verification, :with_dependent_procedure) }
         let(:dependent_procedure) { procedure.dependent_procedures.first }
 
         it "does not update procedure state" do

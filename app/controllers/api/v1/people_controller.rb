@@ -4,7 +4,7 @@ module Api
   class V1::PeopleController < ApiController
     def create
       call_procedure(::People::CreateRegistration, ::People::RegistrationForm.from_params(params)) do |info|
-        { person: { id: info[:person].id } }
+        { person_id: info[:person].id }
       end
     end
 

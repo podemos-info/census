@@ -26,7 +26,7 @@ describe Api::V1::PeopleController, type: :controller do
       it "is valid" do
         is_expected.to have_http_status(:accepted)
         expect(subject.content_type).to eq("application/json")
-        expect(subject.body).to eq({ person: { id: Person.last.id } }.to_json)
+        expect(subject.body).to eq({ person_id: Person.last.id } .to_json)
       end
 
       it "creates a new person" do
@@ -198,7 +198,7 @@ describe Api::V1::PeopleController, type: :controller do
       end
 
       it "does not include hidden fields" do
-        expect(subject.keys).not_to include(%w(created_at updated_at deleted_at flags verifications scope_id address_scope_id document_scope_id))
+        expect(subject.keys).not_to include(%w(created_at updated_at deleted_at verifications scope_id address_scope_id document_scope_id))
       end
     end
   end

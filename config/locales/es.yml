@@ -259,15 +259,15 @@ es:
       procedures/cancellation:
         one: Baja
         other: Bajas
+      procedures/document_verification:
+        one: Verificación de documento
+        other: Verificaciones de documento
       procedures/membership_level_change:
         one: Cambio de nivel de membresía
         other: Cambios de nivel de membresía
       procedures/registration:
         one: Registro
         other: Registros
-      procedures/verification_document:
-        one: Verificación de documento
-        other: Verificaciones de documento
       version:
         one: Versión
         other: Versiones

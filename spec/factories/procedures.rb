@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :attachment do
     file { test_file("attachment-image.png", "image/png") }
-    association :procedure, factory: :verification_document, strategy: :build
+    association :procedure, factory: :document_verification, strategy: :build
 
     trait :non_image do
       file { test_file("attachment-non-image.pdf", "application/pdf") }
@@ -68,7 +68,7 @@ FactoryBot.define do
     end
   end
 
-  factory :verification_document, parent: :procedure, class: :"procedures/verification_document" do
+  factory :document_verification, parent: :procedure, class: :"procedures/document_verification" do
     trait :with_dependent_procedure do
       after :create do |procedure|
         create(:membership_level_change, depends_on: procedure, person: procedure.person)

@@ -5,7 +5,7 @@ require "rails_helper"
 describe ProcedurePolicy do
   subject(:policy) { described_class.new(user, procedure) }
 
-  let(:procedure) { create(:verification_document) }
+  let(:procedure) { create(:document_verification) }
 
   context "being a system admin" do
     let(:user) { create(:admin) }
