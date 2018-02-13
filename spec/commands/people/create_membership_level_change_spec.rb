@@ -16,7 +16,8 @@ describe People::CreateMembershipLevelChange do
       invalid?: !valid,
       valid?: valid,
       person: person,
-      membership_level: membership_level
+      membership_level: membership_level,
+      change?: true
     )
   end
 

@@ -3,48 +3,17 @@
 module Api
   class V1::PeopleController < ApiController
     def create
-      form = ::People::RegistrationForm.from_params(params)
-      ::People::CreateRegistration.call(form: form) do
-        on(:invalid) do
-          render json: form.errors, status: :unprocessable_entity
-        end
-        on(:error) do
-          render json: {}, status: :internal_server_error
-        end
-        on(:ok) do |info|
-          render json: { person: { id: info[:person].id } }, status: :created
-        end
+      call_procedure(::People::CreateRegistration, ::People::RegistrationForm.from_params(params)) do |info|
+        { person: { id: info[:person].id } }
       end
     end
 
     def update
-      form = ::People::PersonDataChangeForm.from_params(params_with_person_id)
-      ::People::CreatePersonDataChange.call(form: form) do
-        on(:invalid) do
-          render json: form.errors, status: :unprocessable_entity
-        end
-        on(:error) do
-          render json: {}, status: :internal_server_error
-        end
-        on(:ok) do
-          render json: {}, status: :accepted
-        end
-      end
+      call_procedure ::People::CreatePersonDataChange, ::People::PersonDataChangeForm.from_params(params_with_person_id)
     end
 
     def destroy
-      form = ::People::CancellationForm.from_params(params_with_person_id)
-      ::People::CreateCancellation.call(form: form) do
-        on(:invalid) do
-          render json: form.errors, status: :unprocessable_entity
-        end
-        on(:error) do
-          render json: {}, status: :internal_server_error
-        end
-        on(:ok) do
-          render json: {}, status: :accepted
-        end
-      end
+      call_procedure ::People::CreateCancellation, ::People::CancellationForm.from_params(params_with_person_id)
     end
 
     def show

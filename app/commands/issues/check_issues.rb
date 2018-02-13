@@ -30,21 +30,15 @@ module Issues
 
     private
 
+    attr_reader :issuable, :admin
+
     def check_issue(issue_type)
       issue = issue_type.for(issuable)
       return broadcast(:no_issue, issue_type: issue_type) if issue.absent?
 
       issue.fill
       result = Issue.transaction do
-        ret = if issue.new_record?
-                Issues::CreateIssueUnreads.call(issue: issue, admin: admin)
-                :new_issue
-              elsif issue.fixed?
-                Issues::FixedIssue.call(issue: issue, admin: admin)
-                :fixed_issue
-              else
-                :existing_issue
-              end
+        ret = check_issue_state(issue)
         issue.save!
         ret
       end
@@ -52,6 +46,16 @@ module Issues
       broadcast(result || :error, issue_type: issue_type, issue: issue)
     end
 
-    attr_reader :issuable, :admin
+    def check_issue_state(issue)
+      if issue.new_record?
+        Issues::CreateIssueUnreads.call(issue: issue, admin: admin)
+        :new_issue
+      elsif issue.fixed?
+        Issues::FixedIssue.call(issue: issue, admin: admin)
+        :fixed_issue
+      else
+        :existing_issue
+      end
+    end
   end
 end

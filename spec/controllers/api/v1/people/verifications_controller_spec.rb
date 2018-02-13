@@ -13,7 +13,7 @@ describe Api::V1::People::VerificationsController, type: :controller do
       let(:attachment) { build(:attachment) }
 
       it "is valid" do
-        is_expected.to have_http_status(:created)
+        is_expected.to have_http_status(:accepted)
         expect(subject.content_type).to eq("application/json")
       end
 

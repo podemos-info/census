@@ -3,19 +3,7 @@
 module Api
   class V1::People::VerificationsController < ApiController
     def create
-      form = ::People::VerificationForm.from_params(params)
-
-      ::People::CreateVerification.call(form: form) do
-        on(:invalid) do
-          render json: form.errors, status: :unprocessable_entity
-        end
-        on(:error) do
-          render json: {}, status: :internal_server_error
-        end
-        on(:ok) do
-          render json: {}, status: :created
-        end
-      end
+      call_procedure ::People::CreateVerification, ::People::VerificationForm.from_params(params)
     end
   end
 end
