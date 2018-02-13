@@ -3,19 +3,17 @@
 require "rails_helper"
 
 describe Procedures::MembershipLevelChange, :db do
+  subject(:procedure) { create(:membership_level_change, :ready_to_process, person: person, to_membership_level: "member") }
   let!(:person) { create(:person, :verified) }
-  let(:procedure) { create(:membership_level_change, :ready_to_process, person: person, to_membership_level: "member") }
-
-  subject { procedure }
 
   it { is_expected.to be_valid }
 
   it "#acceptable? returns true" do
-    expect(procedure.acceptable?).to be_truthy
+    is_expected.to be_acceptable
   end
 
   it "acceptance changes person membership level" do
-    expect { procedure.accept! } .to change { Person.find(person.id).membership_level } .from("person").to("member")
+    expect { procedure.accept! } .to change { Person.find(person.id).membership_level } .from("follower").to("member")
   end
 
   it "rejection does not changes person membership level" do
@@ -26,7 +24,7 @@ describe Procedures::MembershipLevelChange, :db do
     let!(:person) { create(:person) }
 
     it "#acceptable? returns false" do
-      expect(procedure.acceptable?).to be_falsey
+      is_expected.not_to be_acceptable
     end
   end
 
@@ -37,7 +35,7 @@ describe Procedures::MembershipLevelChange, :db do
       end
 
       it "undo revert person membership evel to previous value" do
-        expect { procedure.undo! } .to change { Person.find(person.id).membership_level } .from("member").to("person")
+        expect { procedure.undo! } .to change { Person.find(person.id).membership_level } .from("member").to("follower")
       end
     end
 

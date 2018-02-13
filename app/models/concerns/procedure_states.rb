@@ -10,7 +10,9 @@ module ProcedureStates
       state :pending, initial: true
       state :accepted, before_enter: :process_accept, after_enter: :persist_accept_changes!,
                        before_exit: :undo_accept, after_exit: :persist_accept_changes!
-      state :issues, :rejected
+      state :rejected, before_enter: :process_reject, after_enter: :persist_reject_changes!,
+                       before_exit: :undo_reject, after_exit: :persist_reject_changes!
+      state :issues
 
       event :accept do
         transitions from: [:pending, :issues], to: :accepted, if: :acceptable?
@@ -38,7 +40,7 @@ module ProcedureStates
     end
 
     def undoable?
-      processed_at && processed_at > Settings.misc.undo_minutes.minutes.ago && undo_version.present?
+      processed_at && processed_at > Settings.procedures.undo_minutes.minutes.ago && undo_version.present?
     end
 
     def undoable_by?(processor)

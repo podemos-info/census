@@ -79,6 +79,15 @@ describe ProcessOrdersBatchJob, type: :job do
     end
   end
 
+  context "when check issues fails" do
+    before { stub_command("Issues::CheckIssues", :error) }
+    let(:cassete) { "orders_batch_job_check_issues_fails" }
+
+    it "completes the job" do
+      expect(subject.result).to eq(:ok)
+    end
+  end
+
   context "when errors on generating downloadable file" do
     let(:cassete) { "orders_batch_job_errors_on_charge" }
     before { stub_command("Downloads::CreateDownload", :invalid) }

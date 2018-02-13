@@ -7,6 +7,8 @@ class OrdersBatchDecorator < ApplicationDecorator
     object.description
   end
 
+  alias to_s name
+
   def orders_totals_text
     orders_totals.map { |totals| "#{totals[:full_amount]} (#{totals[:count]})" } .to_sentence
   end

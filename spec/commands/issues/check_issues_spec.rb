@@ -2,15 +2,16 @@
 
 require "rails_helper"
 
-describe Issues::CheckPersonIssues do
-  subject(:command) { described_class.call(person: person, admin: admin) }
+describe Issues::CheckIssues do
+  subject(:command) { described_class.call(issuable: procedure, admin: admin) }
 
-  let(:person) { create(:person) }
+  let(:procedure) { create(:registration, person_copy_data: person) }
+  let(:person) { build(:person) }
   let(:admin) { create(:admin) }
 
   describe "when valid" do
-    it "broadcasts :ok" do
-      expect { subject } .to broadcast(:ok)
+    it "broadcasts :no_issues" do
+      expect { subject } .to broadcast(:no_issue)
     end
 
     it "doesn't create new issues" do
@@ -25,13 +26,18 @@ describe Issues::CheckPersonIssues do
       expect { subject } .to broadcast(:new_issue)
     end
 
-    it "creates a new issue" do
-      expect { subject } .to change { Issue.count } .by(1)
+    it "creates a duplicated document issue" do
+      expect { subject } .to change { Issues::People::DuplicatedDocument.count } .by(1)
     end
 
-    it "relate the person to the new issue" do
+    it "relate the procedure to the new issue" do
       subject
-      expect(Issue.last.people).to contain_exactly(person, same_person)
+      expect(Issues::People::DuplicatedDocument.last.procedures).to contain_exactly(procedure)
+    end
+
+    it "relate the existing person to the new issue" do
+      subject
+      expect(Issues::People::DuplicatedDocument.last.people).to contain_exactly(procedure.person, same_person)
     end
   end
 
@@ -39,7 +45,7 @@ describe Issues::CheckPersonIssues do
     let!(:same_person) { create(:person, :copy, from: person) }
     let(:more_people) { create(:person, :copy, from: person) }
     before do
-      described_class.call(person: person, admin: admin)
+      described_class.call(issuable: procedure, admin: admin)
       more_people
     end
 
@@ -53,7 +59,12 @@ describe Issues::CheckPersonIssues do
 
     it "relate the person to the existing issue" do
       subject
-      expect(Issue.last.people).to contain_exactly(person, same_person, more_people)
+      expect(Issues::People::DuplicatedDocument.last.people).to contain_exactly(procedure.person, same_person, more_people)
+    end
+
+    it "relate the person to the existing issue" do
+      subject
+      expect(Issues::People::DuplicatedDocument.last.people).to contain_exactly(procedure.person, same_person, more_people)
     end
   end
 
@@ -61,7 +72,7 @@ describe Issues::CheckPersonIssues do
     let!(:same_person) { create(:person, :copy, from: person) }
     let(:other_person) { build(:person) }
     before do
-      described_class.call(person: person, admin: admin)
+      described_class.call(issuable: procedure, admin: admin)
       same_person.update_attributes(document_id: other_person.document_id)
     end
 

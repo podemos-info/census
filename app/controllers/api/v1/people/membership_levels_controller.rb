@@ -10,7 +10,7 @@ module Api
         return
       end
 
-      ::Procedures::CreateMembershipLevelChange.call(form) do
+      ::People::CreateMembershipLevelChange.call(form: form) do
         on(:invalid) do
           render json: form.errors, status: :unprocessable_entity
         end

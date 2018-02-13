@@ -49,10 +49,10 @@ FactoryBot.define do
     email { Faker::Internet.unique.email }
     phone { "0034" + Faker::Number.number(9) }
     created_at { Faker::Time.between(3.years.ago, 3.day.ago, :all) }
-    extra { { participa_id: generate(:participa_id) } }
-
-    association :address_scope, factory: :scope, strategy: :build
-    association :document_scope, factory: :scope, strategy: :build
+    membership_level :follower
+    scope nil
+    document_scope nil
+    address_scope nil
 
     after :build do |person, evaluator|
       foreign = evaluator.foreign
@@ -64,10 +64,29 @@ FactoryBot.define do
       end
       person.document_id = Census::Faker::DocumentId.generate(person.document_type) unless person.document_id.present?
 
-      local_scope = build(:local_scope)
-      person.scope = build(:scope, parent: local_scope)
-      person.address_scope = person.scope unless evaluator.non_local
-      person.document_scope = local_scope unless foreign
+      local_scope = create(:local_scope)
+      person.scope ||= create(:scope, parent: local_scope)
+      person.address_scope ||= evaluator.non_local ? create(:scope) : person.scope
+      person.document_scope ||= foreign ? create(:scope) : local_scope
+    end
+
+    trait :pending do
+      born_at nil
+      gender nil
+      address nil
+      postal_code nil
+      email nil
+      phone nil
+      created_at nil
+      membership_level { :pending }
+
+      after :build do |person|
+        person.document_id = nil
+        person.document_type = nil
+        person.scope_id = nil
+        person.address_scope_id = nil
+        person.document_scope_id = nil
+      end
     end
 
     trait :young do

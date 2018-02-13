@@ -18,6 +18,10 @@ class Order < ApplicationRecord
 
   validate :same_person_than_payment_method
 
+  def possible_issues
+    [Issues::Payments::ProcessingIssue] if response_code.present?
+  end
+
   def payment_method=(value)
     super value
     self.person = value.person if value&.person

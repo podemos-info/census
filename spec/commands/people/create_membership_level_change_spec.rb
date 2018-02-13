@@ -2,8 +2,8 @@
 
 require "rails_helper"
 
-describe Procedures::CreateMembershipLevelChange do
-  subject(:create_membership_level_change) { described_class.call(form) }
+describe People::CreateMembershipLevelChange do
+  subject(:create_membership_level_change) { described_class.call(form: form) }
 
   let!(:person) { create(:person) }
   let(:membership_level) { "member" }

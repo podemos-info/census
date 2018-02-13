@@ -5,7 +5,7 @@ require "rails_helper"
 describe Issues::AssignIssue do
   subject(:command) { described_class.call(issue: issue, admin: admin) }
 
-  let!(:issue) { create(:issue) }
+  let!(:issue) { create(:duplicated_document) }
   let!(:admin) { create(:admin) }
 
   describe "when is ok" do

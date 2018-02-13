@@ -24,7 +24,7 @@ module Payments
       result = process_authorization
       broadcast(:ok, response: payment_processor.format_external_authorization_response(result))
 
-      CheckProcessedOrderIssuesJob.perform_later(order: order, admin: nil) if result
+      CheckPaymentIssuesJob.perform_later(issuable: order, admin: nil) if result
     end
 
     private

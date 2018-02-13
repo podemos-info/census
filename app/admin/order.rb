@@ -80,6 +80,12 @@ ActiveAdmin.register Order do
       on(:error) do
         flash[:error] = t("census.orders.action_message.processing_error")
       end
+      on(:order_issues) do
+        flash[:notice] = t("census.orders.action_message.order_issues")
+      end
+      on(:order_issues_error) do
+        flash[:notice] = t("census.orders.action_message.order_issues_error")
+      end
       on(:ok) do
         flash[:notice] = t("census.orders.action_message.processed")
       end
@@ -132,8 +138,8 @@ ActiveAdmin.register Order do
       end
     end
 
-    def issue_for_resource
-      super || IssuesNonFixed.for.merge(AdminIssues.for(current_admin)).merge(resource.payment_method.issues).first
+    def issues_for_resource
+      @issues_for_resource ||= super + IssuesNonFixed.for.merge(AdminIssues.for(current_admin)).merge(resource.payment_method.issues).decorate
     end
   end
 end

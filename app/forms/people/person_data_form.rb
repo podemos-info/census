@@ -2,11 +2,7 @@
 
 # The form object that handles the data for a person
 module People
-  class PersonForm < Form
-    mimic :person
-
-    attribute :id, Integer
-
+  class PersonDataForm < Form
     attribute :first_name, String
     attribute :last_name1, String
     attribute :last_name2, String
@@ -21,25 +17,13 @@ module People
     attribute :email, String
     attribute :scope_code, String
     attribute :phone, String
-    attribute :extra, Hash
 
     normalize :first_name, :last_name1, :last_name2, with: [:whitespace, :blank]
-    validates :first_name, :last_name1, presence: true
-
-    validates :document_type, inclusion: { in: Person.document_types.keys }, presence: true
-    validates :document_id, document_id: { type: :document_type, scope: :document_scope_code }, presence: true
-    validates :document_scope_code, presence: true
-
-    validates :born_at, presence: true
-
-    validates :gender, inclusion: { in: Person.genders.keys }, presence: true
-
     normalize :address, :postal_code, with: :whitespace
-    validates :address, :address_scope_code, :postal_code, presence: true
 
-    validates :email, :scope_code, presence: true
-
-    validates :scope, :address_scope, :document_scope, presence: true
+    validates :scope, presence: true, if: :scope_code
+    validates :address_scope, presence: true, if: :address_scope_code
+    validates :document_scope, presence: true, if: :document_scope_code
 
     def document_id=(value)
       super value && document_type ? Normalizr.normalize(value, :"document_#{document_type}") : value
@@ -51,15 +35,15 @@ module People
     end
 
     def document_scope
-      Scope.find_by_code(document_scope_code)
+      @document_scope ||= Scope.find_by_code(document_scope_code)
     end
 
     def scope
-      Scope.find_by_code(scope_code)
+      @scope ||= Scope.find_by_code(scope_code)
     end
 
     def address_scope
-      Scope.find_by_code(address_scope_code)
+      @address_scope ||= Scope.find_by_code(address_scope_code)
     end
   end
 end

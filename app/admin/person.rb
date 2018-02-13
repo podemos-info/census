@@ -38,7 +38,8 @@ ActiveAdmin.register Person do
     actions
   end
 
-  scope :all, default: true
+  scope :all
+  scope :enabled, default: true
   Person.membership_levels.each do |membership_level|
     scope membership_level.to_sym
   end

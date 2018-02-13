@@ -5,7 +5,7 @@ module Api
     def create
       form = ::People::VerificationForm.from_params(params)
 
-      ::Procedures::CreateVerification.call(form) do
+      ::People::CreateVerification.call(form: form) do
         on(:invalid) do
           render json: form.errors, status: :unprocessable_entity
         end

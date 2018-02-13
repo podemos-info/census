@@ -164,6 +164,19 @@ describe OrdersController, type: :controller do
         expect(flash[:error]).to be_present
       end
     end
+
+    context "when check issues fails" do
+      before { stub_command("Issues::CheckIssues", :error) }
+      let(:cassete) { "process_order_check_issues_fails" }
+
+      it "success" do
+        is_expected.to have_http_status(:found)
+      end
+      it "shows a notice message" do
+        subject
+        expect(flash[:notice]).to be_present
+      end
+    end
   end
 
   context "external payment result page" do

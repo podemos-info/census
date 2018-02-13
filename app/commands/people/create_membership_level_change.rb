@@ -1,29 +1,40 @@
 # frozen_string_literal: true
 
-module Procedures
+module People
   # A command to create a change of membership for a person.
   class CreateMembershipLevelChange < Rectify::Command
     # Public: Initializes the command.
     # form - A form object with the params.
-    def initialize(form)
+    # admin - The admin user creating the person.
+    def initialize(form:, admin: nil)
       @form = form
+      @admin = admin
     end
 
     # Executes the command. Broadcasts these events:
     #
     # - :ok when everything is valid.
     # - :invalid if the procedure wasn't valid and we couldn't proceed.
+    # - :error if there is any problem saving the new record.
     #
     # Returns nothing.
     def call
       return broadcast(:invalid) if form.invalid?
 
-      broadcast create_procedure || :error, procedure: membership_level_change
+      result = save_membership_level_change || :error
+
+      broadcast result, membership_level_change: membership_level_change
+
+      ::UpdateProcedureJob.perform_later(procedure: membership_level_change, admin: admin) if result == :ok
     end
 
     private
 
-    attr_reader :form
+    def save_membership_level_change
+      :ok if membership_level_change.save
+    end
+
+    attr_reader :form, :admin
 
     def membership_level_change
       @membership_level_change ||= ::Procedures::MembershipLevelChange.new(
@@ -31,10 +42,6 @@ module Procedures
         from_membership_level: form.person.membership_level,
         to_membership_level: form.membership_level
       )
-    end
-
-    def create_procedure
-      :ok if membership_level_change.save
     end
   end
 end

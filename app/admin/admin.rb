@@ -11,7 +11,7 @@ ActiveAdmin.register Admin do
     column :username, class: :left do |admin|
       link_to admin.username, admin_path(id: admin.id)
     end
-    column :name
+    column :username
     column :role_name
     column :created_at
     actions
@@ -31,7 +31,7 @@ ActiveAdmin.register Admin do
     f.inputs do
       f.input :username, as: :string, input_html: { disabled: true }
       f.input :name, label: t("activerecord.attributes.admin.person"), as: :string, input_html: { disabled: true }
-      f.input :role, as: :radio, collection: AdminDecorator.role_options
+      f.input :role, as: :radio, collection: ::AdminDecorator.role_options
     end
 
     f.actions

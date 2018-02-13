@@ -3,16 +3,11 @@
 require "rails_helper"
 
 describe Procedure, :db do
+  subject(:procedure) { build(:membership_level_change) }
   let(:other_person) { create(:person) }
-  let(:procedure) { build(:membership_level_change) }
-
-  subject { procedure }
 
   it { is_expected.to be_valid }
-
-  it "is not undoable" do
-    expect(subject.undoable?).to be_falsey
-  end
+  it { is_expected.not_to be_undoable }
 
   context "with dependent procedure (acceptable only after the parent)" do
     let(:processed_by) { nil }
@@ -23,25 +18,25 @@ describe Procedure, :db do
     it { is_expected.to be_valid }
 
     context "#full_acceptable_by? returns true" do
-      let(:procedure) { parent_procedure }
-      it { expect(procedure.full_acceptable_by?(other_person)).to be_truthy }
+      subject(:procedure) { parent_procedure }
+      it { expect(subject.full_acceptable_by?(other_person)).to be_truthy }
     end
 
     context "#acceptable? in the child procedure returns false" do
-      let(:procedure) { child_procedure }
-      it { expect(procedure.acceptable?).to be_falsey }
+      subject(:procedure) { child_procedure }
+      it { is_expected.not_to be_acceptable }
     end
 
     context "must affect to the same people" do
+      subject(:procedure) { child_procedure }
       let(:person) { create(:person) }
-      let(:procedure) { child_procedure }
 
       it { is_expected.to be_invalid }
     end
 
     context "can't be processed by the affected person" do
+      subject(:procedure) { child_procedure }
       let(:processed_by) { create(:admin, person: person) }
-      let(:procedure) { child_procedure }
 
       it { is_expected.to be_invalid }
       it { expect(procedure.full_acceptable_by?(processed_by)).to be_falsey }
@@ -50,11 +45,9 @@ describe Procedure, :db do
 
   with_versioning do
     context "undoable" do
-      let(:procedure) { create(:membership_level_change, :undoable, person: create(:person, :verified)) }
+      subject(:procedure) { create(:membership_level_change, :undoable, person: create(:person, :verified)) }
 
-      it "is undoable" do
-        expect(subject.undoable?).to be_truthy
-      end
+      it { is_expected.to be_undoable }
 
       it "is undoable by the same person that processed it" do
         expect(subject.undoable_by?(subject.processed_by)).to be_truthy
@@ -69,7 +62,7 @@ describe Procedure, :db do
       end
 
       context "with dependent procedure" do
-        let(:procedure) { create(:verification_document, :undoable, person: create(:person, :verified)) }
+        subject(:procedure) { create(:verification_document, :undoable, person: create(:person, :verified)) }
         let!(:child_procedure) { create(:membership_level_change, depends_on: procedure, person: procedure.person) }
 
         it "is fully undoable by the same person that processed it" do
@@ -84,18 +77,27 @@ describe Procedure, :db do
   end
 
   context "all descendants implement abstract methods" do
-    Dir["app/models/procedures/*.rb"].each do |file|
-      require_dependency File.expand_path(file)
-    end
-
     Procedure.descendants.each do |procedure_class|
+      next if procedure_class == Procedures::PersonDataProcedure
+
       describe "#{procedure_class} implements abstract methods" do
-        let(:procedure) { procedure_class.new }
+        subject(:procedure) { procedure_class.new }
         it { is_expected.to respond_to(:process_accept) }
         it { is_expected.to respond_to(:undo_accept) }
         it { is_expected.to respond_to(:persist_accept_changes!) }
         it { is_expected.to respond_to(:acceptable?) }
       end
+    end
+  end
+
+  describe "#has_issues?" do
+    it { is_expected.not_to have_issues }
+
+    context "when has issues" do
+      subject(:procedure) { issue.procedures.first }
+      let(:issue) { create(:duplicated_document) }
+
+      it { is_expected.to have_issues }
     end
   end
 end

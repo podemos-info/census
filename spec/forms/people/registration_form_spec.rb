@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe People::PersonForm do
+describe People::RegistrationForm do
   let(:person) { build(:person) }
 
   subject do
@@ -20,8 +20,7 @@ describe People::PersonForm do
       postal_code: postal_code,
       scope_code: scope_code,
       email: email,
-      phone: phone,
-      extra: extra
+      phone: phone
     )
   end
 
@@ -43,7 +42,6 @@ describe People::PersonForm do
   let(:scope_code) { scope.code }
   let(:email) { person.email }
   let(:phone) { person.phone }
-  let(:extra) { person.extra }
 
   context "with correct data" do
     it "is valid" do

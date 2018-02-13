@@ -20,7 +20,7 @@ ActiveAdmin.register OrdersBatch do
 
   action_item :process, only: :show do
     if policy(resource).charge?
-      if issue_for_resource
+      if issues_for_resource.any?
         link_to t("census.orders_batches.review_orders"), review_orders_orders_batch_path
       else
         process_text = resource.processed_at ? t("census.orders_batches.process_orders_again") : t("census.orders_batches.process_orders")
@@ -122,8 +122,8 @@ ActiveAdmin.register OrdersBatch do
       end
     end
 
-    def issue_for_resource
-      @issue_for_resource ||= super || OrdersBatchIssues.for(resource).merge(IssuesNonFixed.for).merge(AdminIssues.for(current_admin)).first
+    def issues_for_resource
+      @issues_for_resource ||= super + OrdersBatchIssues.for(resource).merge(IssuesNonFixed.for).merge(AdminIssues.for(current_admin)).decorate
     end
   end
 end

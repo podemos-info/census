@@ -3,7 +3,7 @@
 Rails.application.routes.draw do # rubocop: disable Metrics/BlockLength
   namespace :api do
     namespace :v1 do
-      resources :people do
+      resources :people, only: [:create, :update, :destroy, :show] do
         resources :verifications, only: [:create], controller: "people/verifications"
         resources :membership_levels, only: [:create], controller: "people/membership_levels"
       end

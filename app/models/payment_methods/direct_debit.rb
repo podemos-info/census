@@ -9,6 +9,10 @@ module PaymentMethods
 
     normalize :iban, with: [:clean, :upcase]
 
+    def possible_issues
+      [Issues::Payments::MissingBic]
+    end
+
     def processable?(args = {})
       args[:inside_batch?]
     end
@@ -26,7 +30,16 @@ module PaymentMethods
     end
 
     def bic
-      IbanBic.calculate_bic(iban)
+      @bic ||= IbanBic.calculate_bic(iban)
+    end
+
+    def iban_parts
+      @iban_parts ||= IbanBic.parse(iban)
+    end
+
+    def iban=(value)
+      super value
+      @bic = @iban_parts = nil
     end
 
     private

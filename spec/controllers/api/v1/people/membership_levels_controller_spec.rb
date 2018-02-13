@@ -48,7 +48,7 @@ describe Api::V1::People::MembershipLevelsController, type: :controller do
       end
 
       context "when saving fails" do
-        before { stub_command("Procedures::CreateMembershipLevelChange", :error) }
+        before { stub_command("People::CreateMembershipLevelChange", :error) }
 
         it "is returns an error" do
           expect(subject).to have_http_status(:internal_server_error)

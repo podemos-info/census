@@ -6,7 +6,7 @@ class IssuePolicy < ApplicationPolicy
   end
 
   def scope
-    Pundit.policy_scope!(user, record)
+    Pundit.policy_scope!(user, Issue)
   end
 
   def show?

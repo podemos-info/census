@@ -7,12 +7,10 @@ describe Api::V1::People::VerificationsController, type: :controller do
 
   with_versioning do
     describe "create method" do
-      let(:attachment) { build(:attachment) }
-      let(:params) { { person_id: person.id, files: [api_attachment_format(attachment), api_attachment_format(attachment)] } }
+      subject(:page) { post :create, params: params }
 
-      subject(:page) do
-        post :create, params: params
-      end
+      let(:params) { { person_id: person.id, files: [api_attachment_format(attachment), api_attachment_format(attachment)] } }
+      let(:attachment) { build(:attachment) }
 
       it "is valid" do
         is_expected.to have_http_status(:created)
@@ -51,7 +49,7 @@ describe Api::V1::People::VerificationsController, type: :controller do
       end
 
       context "when saving fails" do
-        before { stub_command("Procedures::CreateVerification", :error) }
+        before { stub_command("People::CreateVerification", :error) }
 
         it "is returns an error" do
           expect(subject).to have_http_status(:internal_server_error)

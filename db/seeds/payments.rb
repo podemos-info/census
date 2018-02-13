@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-puts "Seeding payments"
+Rails.logger.debug "Seeding payments"
 
 require "iban_bic/random"
 
@@ -18,24 +18,29 @@ def create_order(person, credit_card, campaign)
                      end
   Payments::SavePaymentMethod.call(payment_method: payment_method, admin: nil)
 
-  Order.create! person: person, payment_method: payment_method,
-                description: Faker::Lorem.sentence(1, true, 4),
-                currency: "EUR", amount: Faker::Number.between(1, 10_000), campaign: campaign
+  order = Order.create! person: person, payment_method: payment_method,
+                        description: Faker::Lorem.sentence(1, true, 4),
+                        currency: "EUR", amount: Faker::Number.between(1, 10_000), campaign: campaign
+  Rails.logger.debug { "Orders created: #{order.decorate}" }
+  order
 end
 
 # Once upon a time...
-Timecop.travel 3.years.ago
+Timecop.travel 2.years.ago
 
 # create payees
 Scope.local.children.each do |scope|
-  Payee.create! scope: scope, name: "#{scope.name[:es]} payee", iban: IbanBic.random_iban(tags: [:sepa], not_tags: [:fixed_iban_check])
+  payee = Payee.create! scope: scope, name: "#{scope.name["es"]} payee", iban: IbanBic.random_iban(tags: [:sepa], not_tags: [:fixed_iban_check])
+  Rails.logger.debug { "Payee create: #{payee.decorate}" }
 end
 
 campaigns = (1..10).map do |i|
-  Campaign.create! campaign_code: "DECIDIM-#{i}"
+  campaign = Campaign.create! campaign_code: "DECIDIM-#{i}"
+  Rails.logger.debug { "Campaign created: #{campaign.decorate}" }
+  campaign
 end
 
-35.times do
+23.times do
   # create 10 direct debit payment methods and orders
   orders = Person.where("created_at < ?", Time.now).order("RANDOM()").limit(10).map do |person|
     create_order person, false, campaigns.sample
@@ -48,10 +53,11 @@ end
 
   PaperTrail.whodunnit = admins.sample
   # add orders to an order batch
-  OrdersBatch.create!(
+  orders_batch = OrdersBatch.create!(
     description: I18n.l(Date.today, format: "%B %Y"),
     orders: orders + orders2
   )
+  Rails.logger.debug { "Orders batch created: #{orders_batch.decorate}" }
   Timecop.travel 1.month.from_now
 end
 

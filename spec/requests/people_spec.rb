@@ -23,10 +23,6 @@ describe "People", type: :request do
       let(:params) { { order: "scope_desc" } }
       it { expect(subject).to eq(200) }
     end
-    context "ordered by flags" do
-      let(:params) { { order: "flags_asc" } }
-      it { expect(subject).to eq(200) }
-    end
   end
 
   context "new page" do

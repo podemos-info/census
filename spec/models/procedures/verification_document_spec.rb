@@ -3,15 +3,13 @@
 require "rails_helper"
 
 describe Procedures::VerificationDocument, :db do
+  subject(:procedure) { create(:verification_document, :ready_to_process, person: person) }
   let!(:person) { create(:person) }
-  let(:procedure) { create(:verification_document, :ready_to_process, person: person) }
-
-  subject { procedure }
 
   it { is_expected.to be_valid }
 
   it "#acceptable? returns true" do
-    expect(procedure.acceptable?).to be_truthy
+    is_expected.to be_acceptable
   end
 
   it "acceptance changes person verification status" do
