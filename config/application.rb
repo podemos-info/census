@@ -32,6 +32,7 @@ module Census
       config.action_controller.asset_host = Settings.security.host_url
     end
 
-    config.autoload_paths << "#{Rails.root}/app/jobs/concerns"
+    preload_paths = %w(app/commands/* app/models/* app/forms/* app/jobs/concerns app/models/* app/models/issues/* app/services/payments/*).freeze
+    config.eager_load_paths += Dir[*preload_paths]
   end
 end
