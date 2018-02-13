@@ -13,8 +13,6 @@ module PersonMembershipLevels
               2 => :verified_in_person,
               column: "verifications",
               check_for_column: false
-    has_flags 1 => :has_issues,
-              check_for_column: false
 
     aasm column: :membership_level do
       state :person, initial: true

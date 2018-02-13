@@ -52,10 +52,10 @@ describe PersonDecorator do
   end
 
   context "flags" do
-    let(:person) { build(:person, verified_by_document: true, has_issues: true) }
+    let(:person) { build(:person, verified_by_document: true) }
 
     it "returns the person flags" do
-      expect(subject.flags).to contain_exactly(:verified_by_document, :has_issues)
+      expect(subject.flags).to contain_exactly(:verified_by_document)
     end
   end
 
