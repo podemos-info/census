@@ -3,22 +3,19 @@
 # The form object that handles the data for an order
 module Orders
   class OrderForm < Form
+    include ::HasPerson
+
     mimic :order
 
-    attribute :person_id, Integer
     attribute :description, String
     attribute :amount, Integer
     attribute :campaign_code, String
 
-    validates :person_id, :description, :amount, :campaign_code, presence: true
+    validates :description, :amount, :campaign_code, presence: true
     validates :amount, numericality: { greater_than_or_equal_to: 0 }
 
     def currency
       @currency ||= Settings.payments.currency
-    end
-
-    def person
-      @person ||= Person.find(person_id)
     end
 
     def campaign

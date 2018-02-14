@@ -11,6 +11,7 @@ es:
       all: Todo
       assigned: Asignadas
       deleted: Bajas
+      enabled: Habilitados/as
       error: Con errores
       fixed: Resueltas
       follower: Simpatizantes
@@ -21,7 +22,7 @@ es:
       pending: Pendientes
       person: Personas
       processed: Procesadas
-      rejected: Rechazados
+      rejected: Rechazados/as
       returned: Devueltas
       unread: Nuevas
       verified: Verificados
@@ -163,7 +164,8 @@ es:
         membership_level/activist: militante
         membership_level/follower: simpatizante
         membership_level/member: afiliado/a
-        membership_level/person: persona
+        membership_level/pending: pendiente
+        membership_level/rejected: rechazado/a
         phone: Teléfono
         postal_code: Código postal
         scope: Lugar de participación
@@ -242,28 +244,30 @@ es:
       payment_method:
         one: Método de pago
         other: Métodos de pago
-      payment_methods:
-        credit_card:
-          one: Tarjeta de crédito
-          other: Tarjetas de crédito
-        direct_debit:
-          one: Débito directo
-          others: Débitos directos
-      payment_methods/credit_card: Tarjeta de crédito
-      payment_methods/direct_debit: Débito directo
+      payment_methods/credit_card:
+        one: Tarjeta de crédito
+        other: Tarjetas de crédito
+      payment_methods/direct_debit:
+        one: Débito directo
+        others: Débitos directos
       person:
         one: Persona
         other: Personas
       procedure:
         one: Procedimiento
         other: Procedimientos
-      procedures:
-        membership_level_change:
-          one: Cambio de nivel de membresía
-          other: Cambios de nivel de membresía
-        verification_document:
-          one: Verificación de documento
-          other: Verificaciones de documento
+      procedures/cancellation:
+        one: Baja
+        other: Bajas
+      procedures/document_verification:
+        one: Verificación de documento
+        other: Verificaciones de documento
+      procedures/membership_level_change:
+        one: Cambio de nivel de membresía
+        other: Cambios de nivel de membresía
+      procedures/registration:
+        one: Registro
+        other: Registros
       version:
         one: Versión
         other: Versiones
@@ -303,7 +307,7 @@ es:
     issues:
       assign_me: Asignármela
       information: Información adicional
-      issues_for_resource: "¡Atención! Existen <a href='%{resource_path}'>incidencias asociadas a este registro</a>."
+      issues_for_resource: "¡Atención! Existen incidencias asociadas a este registro: %{issues_links}."
       levels:
         high: Alta
         low: Baja
@@ -312,9 +316,12 @@ es:
         very_low: Muy Baja
       mark_as_fixed: Marcar como resuelta
       types:
-        duplicated_document: Documento duplicado
-        missing_bic: BIC desconocido
-        processed_response_code: Problemas al cobrar orden
+        issues/payments/missing_bic: BIC desconocido
+        issues/payments/processing_issue: Problemas al cobrar orden
+        issues/people/duplicated_document: Documento duplicado
+        issues/people/duplicated_person: Datos personales duplicados
+        issues/people/untrusted_email: Email sospechoso
+        issues/people/untrusted_phone: Teléfono sospechoso
     jobs:
       job_messages:
         issues_job:
@@ -326,6 +333,7 @@ es:
         process_orders_batch_job:
           order_error: Ha ocurrido un error durante el procesamiento de la orden, verifique el registro para comprobar su estado real
           order_issues: Orden con incidencias
+          order_issues_error: Orden procesada correctamente, pero con errores al comprobar incidencias
           order_ok: Orden procesada correctamente
           processor_aborted: Procesamiento interrumpido por exceso de órdenes con errores
           processor_completed: Órdenes para el sistema de cobro procesadas por completo
@@ -353,6 +361,8 @@ es:
     orders:
       action_message:
         not_processed: No se pudo procesar la orden.
+        order_issues: Se han detectado incidencias durante el procesamiento de la orden.
+        order_issues_error: Orden procesada correctamente, pero con errores al comprobar sus incidencias.
         processed: La orden ha sido procesado.
         processing_error: Ha ocurrido un error durante el procesamiento de la orden. Consulte con el administrador para comprobar que la información del sistema es correcta.
       add_orders_from_payment_methods: Puedes crear órdenes desde la página de una persona o un método de pago.

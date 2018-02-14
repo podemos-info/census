@@ -47,4 +47,7 @@ Rails.application.configure do
 
   # Used for rack attack request tests
   Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new
+
+  # Log file max size
+  config.logger = ActiveSupport::Logger.new(config.paths["log"].first, 1, 100 * 1024 * 1024)
 end

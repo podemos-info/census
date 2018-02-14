@@ -29,7 +29,7 @@ append :linked_files, ".env"
 after "deploy:symlink:linked_files", "encryption:symlink"
 
 # Default value for linked_dirs is []
-append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "non-public", "config/keys"
+append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "non-public", "config/keys", "config/lists"
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }

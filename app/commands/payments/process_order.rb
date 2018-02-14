@@ -68,14 +68,18 @@ module Payments
     end
 
     def check_issues
-      ret = :order_issues
-      Issues::CheckProcessedOrderIssues.call(order: order, admin: admin) do
-        on(:new_issue) {}
-        on(:existing_issue) {}
-        on(:fixed_issue) { ret = :ok }
-        on(:ok) { ret = :ok }
+      ret = nil
+      Issues::CheckIssues.call(issuable: order, admin: admin) do
+        on(:new_issue) { ret ||= :order_issues }
+        on(:existing_issue) { ret ||= :order_issues }
+        on(:fixed_issue) {}
+        on(:ok) {}
+        on(:error) do
+          CheckPaymentIssuesJob.perform_later(issuable: order, admin: admin)
+          ret = :order_issues_error
+        end
       end
-      ret
+      ret || :ok
     end
   end
 end

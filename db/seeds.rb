@@ -11,6 +11,8 @@ Census::Seeds::Scopes.seed base_path: base_path unless Scope.any?
 
 return if Rails.env.production?
 
+Rails.logger = Logger.new(STDOUT)
+
 require "people"
 require "procedures"
 require "payments"

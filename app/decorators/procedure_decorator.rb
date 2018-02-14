@@ -44,4 +44,8 @@ class ProcedureDecorator < ApplicationDecorator
   def singular_route_key
     "procedure"
   end
+
+  def self.procedures_options
+    @procedures_options ||= Procedure.descendants.map { |procedure| [procedure.model_name.human, procedure.model_name.to_s] }
+  end
 end

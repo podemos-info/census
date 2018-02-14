@@ -14,6 +14,24 @@ module Api
 
     protected
 
+    def call_procedure(procedure_class, form)
+      procedure_class.call(form: form) do
+        on(:invalid) do
+          render json: form.errors, status: :unprocessable_entity
+        end
+        on(:error) do
+          render json: {}, status: :internal_server_error
+        end
+        on(:noop) do
+          render json: {}, status: :no_content
+        end
+        on(:ok) do |info|
+          result = yield(info) if block_given?
+          render json: result || {}, status: :accepted
+        end
+      end
+    end
+
     def person_id_param
       :person_id
     end

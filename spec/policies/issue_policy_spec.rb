@@ -34,7 +34,7 @@ describe IssuePolicy do
   end
 
   context "for a lopd issue" do
-    let(:issue) { create(:issue) }
+    let(:issue) { create(:duplicated_document) }
 
     context "being a system admin" do
       let(:user) { create(:admin) }
@@ -74,7 +74,7 @@ describe IssuePolicy do
   end
 
   context "for a finances issue" do
-    let(:issue) { create(:issue, :missing_bic, order: order) }
+    let(:issue) { create(:missing_bic, issuable: order) }
     let(:order) { create(:order) }
 
     context "being a system admin" do
@@ -115,7 +115,7 @@ describe IssuePolicy do
   end
 
   context "for a system issue" do
-    let(:issue) { create(:issue, :unknown_error, order: order) }
+    let(:issue) { create(:processing_issue, :system, issuable: order) }
     let(:order) { create(:order) }
 
     context "being a system admin" do

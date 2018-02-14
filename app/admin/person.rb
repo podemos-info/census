@@ -24,10 +24,6 @@ ActiveAdmin.register Person do
     "scopes.name #{order_clause.order}"
   end
 
-  order_by(:flags) do |order_clause|
-    "verifications #{order_clause.order}, flags #{order_clause.order}"
-  end
-
   index do
     id_column
     state_column :membership_level
@@ -36,13 +32,14 @@ ActiveAdmin.register Person do
     column :scope, sortable: :scope, class: :left do |person|
       person.scope&.show_path(Scope.local)
     end
-    column :flags, sortable: :flags do |person|
+    column :verifications do |person|
       model_flags person
     end
     actions
   end
 
-  scope :all, default: true
+  scope :all
+  scope :enabled, default: true
   Person.membership_levels.each do |membership_level|
     scope membership_level.to_sym
   end

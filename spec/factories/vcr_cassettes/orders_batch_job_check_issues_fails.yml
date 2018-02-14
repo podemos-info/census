@@ -1,0 +1,153 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sis-t.redsys.es:25443/sis/operaciones
+    body:
+      encoding: UTF-8
+      string: entrada=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CREQUEST%3E%3CDATOSENTRADA%3E%3CDS_Version%3E0.1%3C%2FDS_Version%3E%3CDS_MERCHANT_CURRENCY%3E978%3C%2FDS_MERCHANT_CURRENCY%3E%3CDS_MERCHANT_AMOUNT%3E7672%3C%2FDS_MERCHANT_AMOUNT%3E%3CDS_MERCHANT_ORDER%3E180213030501%3C%2FDS_MERCHANT_ORDER%3E%3CDS_MERCHANT_TRANSACTIONTYPE%3EA%3C%2FDS_MERCHANT_TRANSACTIONTYPE%3E%3CDS_MERCHANT_PRODUCTDESCRIPTION%2F%3E%3CDS_MERCHANT_TERMINAL%3E001%3C%2FDS_MERCHANT_TERMINAL%3E%3CDS_MERCHANT_MERCHANTCODE%3E306003724%3C%2FDS_MERCHANT_MERCHANTCODE%3E%3CDS_MERCHANT_IDENTIFIER%3Ef9b36152f049a8fbe6a800bcb49837cfb4808d37%3C%2FDS_MERCHANT_IDENTIFIER%3E%3CDS_MERCHANT_DIRECTPAYMENT%3Etrue%3C%2FDS_MERCHANT_DIRECTPAYMENT%3E%3C%2FDATOSENTRADA%3E%3CDS_SIGNATUREVERSION%3EHMAC_SHA256_V1%3C%2FDS_SIGNATUREVERSION%3E%3CDS_SIGNATURE%3EKDGyF3yAjFn%2BVZSPDqRd%2Byq0mAnh9IuPPtZksK3AVAM%3D%3C%2FDS_SIGNATURE%3E%3C%2FREQUEST%3E
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 13 Feb 2018 16:04:30 GMT
+      X-Powered-By:
+      - Servlet/3.0
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - text/plain
+      Content-Language:
+      - en-US
+    body:
+      encoding: UTF-8
+      string: '<?xml version=''1.0'' encoding="UTF-8" ?><RETORNOXML><CODIGO>0</CODIGO><Ds_Version>0.1</Ds_Version><OPERACION><Ds_Amount>7672</Ds_Amount><Ds_Currency>978</Ds_Currency><Ds_Order>180213030501</Ds_Order><Ds_Signature>XoiCpXT4CMkIasVqhaF5G5oaI3iNZEgn01EnbDa1UY0=</Ds_Signature><Ds_MerchantCode>306003724</Ds_MerchantCode><Ds_Terminal>1</Ds_Terminal><Ds_Response>0000</Ds_Response><Ds_AuthorisationCode>128237</Ds_AuthorisationCode><Ds_TransactionType>A</Ds_TransactionType><Ds_SecurePayment>0</Ds_SecurePayment><Ds_Language>1</Ds_Language><Ds_Merchant_Identifier>f9b36152f049a8fbe6a800bcb49837cfb4808d37</Ds_Merchant_Identifier><Ds_MerchantData></Ds_MerchantData><Ds_Card_Country>724</Ds_Card_Country><Ds_Card_Brand>1</Ds_Card_Brand></OPERACION></RETORNOXML>
+
+'
+    http_version:
+  recorded_at: Tue, 13 Feb 2018 16:04:30 GMT
+- request:
+    method: post
+    uri: https://sis-t.redsys.es:25443/sis/operaciones
+    body:
+      encoding: UTF-8
+      string: entrada=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CREQUEST%3E%3CDATOSENTRADA%3E%3CDS_Version%3E0.1%3C%2FDS_Version%3E%3CDS_MERCHANT_CURRENCY%3E978%3C%2FDS_MERCHANT_CURRENCY%3E%3CDS_MERCHANT_AMOUNT%3E6163%3C%2FDS_MERCHANT_AMOUNT%3E%3CDS_MERCHANT_ORDER%3E180213030502%3C%2FDS_MERCHANT_ORDER%3E%3CDS_MERCHANT_TRANSACTIONTYPE%3EA%3C%2FDS_MERCHANT_TRANSACTIONTYPE%3E%3CDS_MERCHANT_PRODUCTDESCRIPTION%2F%3E%3CDS_MERCHANT_TERMINAL%3E001%3C%2FDS_MERCHANT_TERMINAL%3E%3CDS_MERCHANT_MERCHANTCODE%3E306003724%3C%2FDS_MERCHANT_MERCHANTCODE%3E%3CDS_MERCHANT_IDENTIFIER%3Ef9b36152f049a8fbe6a800bcb49837cfb4808d37%3C%2FDS_MERCHANT_IDENTIFIER%3E%3CDS_MERCHANT_DIRECTPAYMENT%3Etrue%3C%2FDS_MERCHANT_DIRECTPAYMENT%3E%3C%2FDATOSENTRADA%3E%3CDS_SIGNATUREVERSION%3EHMAC_SHA256_V1%3C%2FDS_SIGNATUREVERSION%3E%3CDS_SIGNATURE%3EKIppSPGTv1%2B6NBLXDvIoF8GkBCOSWipCDWUaWBRORO4%3D%3C%2FDS_SIGNATURE%3E%3C%2FREQUEST%3E
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 13 Feb 2018 16:04:31 GMT
+      X-Powered-By:
+      - Servlet/3.0
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - text/plain
+      Content-Language:
+      - en-US
+    body:
+      encoding: UTF-8
+      string: '<?xml version=''1.0'' encoding="UTF-8" ?><RETORNOXML><CODIGO>0</CODIGO><Ds_Version>0.1</Ds_Version><OPERACION><Ds_Amount>6163</Ds_Amount><Ds_Currency>978</Ds_Currency><Ds_Order>180213030502</Ds_Order><Ds_Signature>HoPmBj9kd0ydJK8+rbhp4YJahQejrgT0i0BB/I3jXIo=</Ds_Signature><Ds_MerchantCode>306003724</Ds_MerchantCode><Ds_Terminal>1</Ds_Terminal><Ds_Response>0000</Ds_Response><Ds_AuthorisationCode>533698</Ds_AuthorisationCode><Ds_TransactionType>A</Ds_TransactionType><Ds_SecurePayment>0</Ds_SecurePayment><Ds_Language>1</Ds_Language><Ds_Merchant_Identifier>f9b36152f049a8fbe6a800bcb49837cfb4808d37</Ds_Merchant_Identifier><Ds_MerchantData></Ds_MerchantData><Ds_Card_Country>724</Ds_Card_Country><Ds_Card_Brand>1</Ds_Card_Brand></OPERACION></RETORNOXML>
+
+'
+    http_version:
+  recorded_at: Tue, 13 Feb 2018 16:04:30 GMT
+- request:
+    method: post
+    uri: https://sis-t.redsys.es:25443/sis/operaciones
+    body:
+      encoding: UTF-8
+      string: entrada=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CREQUEST%3E%3CDATOSENTRADA%3E%3CDS_Version%3E0.1%3C%2FDS_Version%3E%3CDS_MERCHANT_CURRENCY%3E978%3C%2FDS_MERCHANT_CURRENCY%3E%3CDS_MERCHANT_AMOUNT%3E7630%3C%2FDS_MERCHANT_AMOUNT%3E%3CDS_MERCHANT_ORDER%3E180213030503%3C%2FDS_MERCHANT_ORDER%3E%3CDS_MERCHANT_TRANSACTIONTYPE%3EA%3C%2FDS_MERCHANT_TRANSACTIONTYPE%3E%3CDS_MERCHANT_PRODUCTDESCRIPTION%2F%3E%3CDS_MERCHANT_TERMINAL%3E001%3C%2FDS_MERCHANT_TERMINAL%3E%3CDS_MERCHANT_MERCHANTCODE%3E306003724%3C%2FDS_MERCHANT_MERCHANTCODE%3E%3CDS_MERCHANT_IDENTIFIER%3Einvalid%3C%2FDS_MERCHANT_IDENTIFIER%3E%3CDS_MERCHANT_DIRECTPAYMENT%3Etrue%3C%2FDS_MERCHANT_DIRECTPAYMENT%3E%3C%2FDATOSENTRADA%3E%3CDS_SIGNATUREVERSION%3EHMAC_SHA256_V1%3C%2FDS_SIGNATUREVERSION%3E%3CDS_SIGNATURE%3EVhDPf62i%2FClIEe%2FMw4HvfcwNxNRB4rG2B%2FkVaTAv0d0%3D%3C%2FDS_SIGNATURE%3E%3C%2FREQUEST%3E
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 13 Feb 2018 16:04:31 GMT
+      X-Powered-By:
+      - Servlet/3.0
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - text/plain
+      Content-Language:
+      - en-US
+    body:
+      encoding: UTF-8
+      string: '<?xml version=''1.0'' encoding="UTF-8" ?><RETORNOXML><CODIGO>SIS0321</CODIGO><RECIBIDO><?xml
+        version="1.0" encoding="UTF-8"?><REQUEST><DATOSENTRADA><DS_Version>0.1</DS_Version><DS_MERCHANT_CURRENCY>978</DS_MERCHANT_CURRENCY><DS_MERCHANT_AMOUNT>7630</DS_MERCHANT_AMOUNT><DS_MERCHANT_ORDER>180213030503</DS_MERCHANT_ORDER><DS_MERCHANT_TRANSACTIONTYPE>A</DS_MERCHANT_TRANSACTIONTYPE><DS_MERCHANT_PRODUCTDESCRIPTION/><DS_MERCHANT_TERMINAL>001</DS_MERCHANT_TERMINAL><DS_MERCHANT_MERCHANTCODE>306003724</DS_MERCHANT_MERCHANTCODE><DS_MERCHANT_IDENTIFIER>invalid</DS_MERCHANT_IDENTIFIER><DS_MERCHANT_DIRECTPAYMENT>true</DS_MERCHANT_DIRECTPAYMENT></DATOSENTRADA><DS_SIGNATUREVERSION>HMAC_SHA256_V1</DS_SIGNATUREVERSION><DS_SIGNATURE>VhDPf62i/ClIEe/Mw4HvfcwNxNRB4rG2B/kVaTAv0d0=</DS_SIGNATURE></REQUEST></RECIBIDO></RETORNOXML>
+
+'
+    http_version:
+  recorded_at: Tue, 13 Feb 2018 16:04:30 GMT
+- request:
+    method: post
+    uri: https://sis-t.redsys.es:25443/sis/operaciones
+    body:
+      encoding: UTF-8
+      string: entrada=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CREQUEST%3E%3CDATOSENTRADA%3E%3CDS_Version%3E0.1%3C%2FDS_Version%3E%3CDS_MERCHANT_CURRENCY%3E978%3C%2FDS_MERCHANT_CURRENCY%3E%3CDS_MERCHANT_AMOUNT%3E6103%3C%2FDS_MERCHANT_AMOUNT%3E%3CDS_MERCHANT_ORDER%3E180213030504%3C%2FDS_MERCHANT_ORDER%3E%3CDS_MERCHANT_TRANSACTIONTYPE%3EA%3C%2FDS_MERCHANT_TRANSACTIONTYPE%3E%3CDS_MERCHANT_PRODUCTDESCRIPTION%2F%3E%3CDS_MERCHANT_TERMINAL%3E001%3C%2FDS_MERCHANT_TERMINAL%3E%3CDS_MERCHANT_MERCHANTCODE%3E306003724%3C%2FDS_MERCHANT_MERCHANTCODE%3E%3CDS_MERCHANT_IDENTIFIER%3Einvalid%3C%2FDS_MERCHANT_IDENTIFIER%3E%3CDS_MERCHANT_DIRECTPAYMENT%3Etrue%3C%2FDS_MERCHANT_DIRECTPAYMENT%3E%3C%2FDATOSENTRADA%3E%3CDS_SIGNATUREVERSION%3EHMAC_SHA256_V1%3C%2FDS_SIGNATUREVERSION%3E%3CDS_SIGNATURE%3E4%2F9CGCfL%2Bew5ZAkpnlxskhBsh6WPLnCsC6FNPj%2BHRSQ%3D%3C%2FDS_SIGNATURE%3E%3C%2FREQUEST%3E
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 13 Feb 2018 16:04:31 GMT
+      X-Powered-By:
+      - Servlet/3.0
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - text/plain
+      Content-Language:
+      - en-US
+    body:
+      encoding: UTF-8
+      string: '<?xml version=''1.0'' encoding="UTF-8" ?><RETORNOXML><CODIGO>SIS0321</CODIGO><RECIBIDO><?xml
+        version="1.0" encoding="UTF-8"?><REQUEST><DATOSENTRADA><DS_Version>0.1</DS_Version><DS_MERCHANT_CURRENCY>978</DS_MERCHANT_CURRENCY><DS_MERCHANT_AMOUNT>6103</DS_MERCHANT_AMOUNT><DS_MERCHANT_ORDER>180213030504</DS_MERCHANT_ORDER><DS_MERCHANT_TRANSACTIONTYPE>A</DS_MERCHANT_TRANSACTIONTYPE><DS_MERCHANT_PRODUCTDESCRIPTION/><DS_MERCHANT_TERMINAL>001</DS_MERCHANT_TERMINAL><DS_MERCHANT_MERCHANTCODE>306003724</DS_MERCHANT_MERCHANTCODE><DS_MERCHANT_IDENTIFIER>invalid</DS_MERCHANT_IDENTIFIER><DS_MERCHANT_DIRECTPAYMENT>true</DS_MERCHANT_DIRECTPAYMENT></DATOSENTRADA><DS_SIGNATUREVERSION>HMAC_SHA256_V1</DS_SIGNATUREVERSION><DS_SIGNATURE>4/9CGCfL+ew5ZAkpnlxskhBsh6WPLnCsC6FNPj+HRSQ=</DS_SIGNATURE></REQUEST></RECIBIDO></RETORNOXML>
+
+'
+    http_version:
+  recorded_at: Tue, 13 Feb 2018 16:04:31 GMT
+recorded_with: VCR 3.0.3

@@ -24,29 +24,33 @@ describe Api::V1::PeopleController, type: :controller do
       end
 
       it "is valid" do
-        is_expected.to have_http_status(:created)
+        is_expected.to have_http_status(:accepted)
         expect(subject.content_type).to eq("application/json")
-        expect(subject.body).to eq({ person: { id: Person.last.id } }.to_json)
+        expect(subject.body).to eq({ person_id: Person.last.id } .to_json)
       end
 
       it "creates a new person" do
         expect { subject } .to change { Person.count }.by(1)
       end
 
-      describe "person created" do
-        subject(:created_person) { Person.last }
+      it "creates a new registration procedure" do
+        expect { subject } .to change { Procedures::Registration.count }.by(1)
+      end
+
+      describe "procedure created" do
+        subject(:created_procedure) { Procedures::Registration.last }
         before { endpoint }
 
         it "correctly sets the user scope" do
-          expect(created_person.scope).to eq(scope)
+          expect(created_procedure.scope_id).to eq(scope.id)
         end
 
         it "correctly sets the user address_scope" do
-          expect(created_person.address_scope).to eq(address_scope)
+          expect(created_procedure.address_scope_id).to eq(address_scope.id)
         end
 
         it "correctly sets the user document_scope" do
-          expect(created_person.document_scope).to eq(document_scope)
+          expect(created_procedure.document_scope_id).to eq(document_scope.id)
         end
       end
 
@@ -60,7 +64,7 @@ describe Api::V1::PeopleController, type: :controller do
       end
 
       context "when saving fails" do
-        before { stub_command("People::CreatePerson", :error) }
+        before { stub_command("People::CreateRegistration", :error) }
 
         it "is returns an error" do
           expect(subject).to have_http_status(:internal_server_error)
@@ -70,32 +74,32 @@ describe Api::V1::PeopleController, type: :controller do
     end
 
     describe "update method" do
-      subject(:endpoint) { patch :update, params: { id: person.id, **params } }
+      subject(:endpoint) { patch :update, params: { id: person.id, **changes } }
 
       let(:person) { create(:person) }
-      let(:params) do
-        params = { person: person.attributes.deep_symbolize_keys }
-        params[:person][:first_name] = "CHANGED"
-        params[:person][:scope_code] = scope_code
-        params[:person][:address_scope_code] = address_scope_code
-        params[:person][:document_scope_code] = document_scope_code
-        params
-      end
+      let(:changes) { { person: { first_name: "CHANGED", scope_code: scope_code } } }
+      let(:scope_code) { scope.code }
 
       it "is valid" do
         is_expected.to have_http_status(:accepted)
         expect(subject.content_type).to eq("application/json")
       end
 
-      it "updates the person" do
-        expect { subject } .to change { Person.last.first_name }.from(person.first_name).to("CHANGED")
+      it "creates a new person data change procedure" do
+        expect { subject } .to change { Procedures::PersonDataChange.count }.by(1)
       end
 
-      describe "person scope changed" do
-        let(:scope) { create(:scope) }
+      describe "procedure created" do
+        subject(:created_procedure) { Procedures::PersonDataChange.last }
+        before { endpoint }
 
-        it "correctly sets the user scope" do
-          expect { subject } .to change { Person.last.scope } .from(person.scope).to(scope)
+        it "correctly saves the affected person" do
+          expect(subject.person_id).to eq(person.id)
+        end
+
+        it "correctly saves the changed attributes" do
+          expect(subject.first_name).to eq("CHANGED")
+          expect(subject.scope_id).to eq(scope.id)
         end
       end
 
@@ -109,7 +113,55 @@ describe Api::V1::PeopleController, type: :controller do
       end
 
       context "when saving fails" do
-        before { stub_command("People::UpdatePerson", :error) }
+        before { stub_command("People::CreatePersonDataChange", :error) }
+
+        it "is returns an error" do
+          expect(subject).to have_http_status(:internal_server_error)
+          expect(subject.content_type).to eq("application/json")
+        end
+      end
+    end
+
+    describe "destroy method" do
+      subject(:endpoint) { patch :destroy, params: { id: person_id, **params } }
+
+      let(:person) { create(:person) }
+      let(:person_id) { person.id }
+      let(:params) { { reason: "I don't wanna" } }
+
+      it "is valid" do
+        is_expected.to have_http_status(:accepted)
+        expect(subject.content_type).to eq("application/json")
+      end
+
+      it "creates a new cancellation procedure" do
+        expect { subject } .to change { Procedures::Cancellation.count }.by(1)
+      end
+
+      describe "procedure created" do
+        subject(:created_procedure) { Procedures::Cancellation.last }
+        before { endpoint }
+
+        it "correctly saves the affected person" do
+          expect(subject.person_id).to eq(person.id)
+        end
+
+        it "correctly save the gibven attribute" do
+          expect(subject.reason).to eq("I don't wanna")
+        end
+      end
+
+      context "with an invalid person id" do
+        let(:person_id) { 0 }
+
+        it "is not valid" do
+          expect(subject).to have_http_status(:unprocessable_entity)
+          expect(subject.content_type).to eq("application/json")
+        end
+      end
+
+      context "when saving fails" do
+        before { stub_command("People::CreateCancellation", :error) }
 
         it "is returns an error" do
           expect(subject).to have_http_status(:internal_server_error)
@@ -146,7 +198,7 @@ describe Api::V1::PeopleController, type: :controller do
       end
 
       it "does not include hidden fields" do
-        expect(subject.keys).not_to include(%w(created_at updated_at deleted_at flags verifications scope_id address_scope_id document_scope_id))
+        expect(subject.keys).not_to include(%w(created_at updated_at deleted_at verifications scope_id address_scope_id document_scope_id))
       end
     end
   end

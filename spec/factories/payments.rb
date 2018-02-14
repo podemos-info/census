@@ -140,7 +140,7 @@ FactoryBot.define do
 
     trait :with_issues do
       after :create do |orders_batch|
-        create(:issue, :missing_bic, order: orders_batch.orders.first)
+        create(:missing_bic, issuable: orders_batch.orders.first)
       end
     end
   end

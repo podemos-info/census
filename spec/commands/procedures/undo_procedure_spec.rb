@@ -6,7 +6,7 @@ describe Procedures::UndoProcedure do
   with_versioning do
     subject(:undo_procedure) { described_class.call(procedure, processed_by) }
 
-    let(:procedure) { create(:verification_document, :undoable) }
+    let(:procedure) { create(:document_verification, :undoable) }
     let(:processed_by) { procedure.processed_by }
 
     describe "when undoing an accepted procedure" do
@@ -31,7 +31,7 @@ describe Procedures::UndoProcedure do
       end
 
       context "on dependent procedures" do
-        let(:procedure) { create(:verification_document, :with_dependent_procedure, :undoable) }
+        let(:procedure) { create(:document_verification, :with_dependent_procedure, :undoable) }
         let(:dependent_procedure) { procedure.dependent_procedures.first }
 
         it "reverts procedure state" do
@@ -53,7 +53,7 @@ describe Procedures::UndoProcedure do
     end
 
     describe "when undoing a rejected procedure" do
-      let(:procedure) { create(:verification_document, :undoable_rejected) }
+      let(:procedure) { create(:document_verification, :undoable_rejected) }
       it "broadcasts :ok" do
         expect { subject } .to broadcast(:ok)
       end
@@ -75,7 +75,7 @@ describe Procedures::UndoProcedure do
       end
 
       context "on dependent procedures" do
-        let(:procedure) { create(:verification_document, :with_dependent_procedure, :undoable_rejected) }
+        let(:procedure) { create(:document_verification, :with_dependent_procedure, :undoable_rejected) }
         let(:dependent_procedure) { procedure.dependent_procedures.first }
 
         it "reverts procedure state" do
@@ -121,7 +121,7 @@ describe Procedures::UndoProcedure do
         end
 
         context "on dependent procedures" do
-          let(:procedure) { create(:verification_document, :with_dependent_procedure, :undoable) }
+          let(:procedure) { create(:document_verification, :with_dependent_procedure, :undoable) }
           let(:dependent_procedure) { procedure.dependent_procedures.first }
 
           it "does not revert procedure state" do

@@ -3,8 +3,8 @@
 Rails.application.routes.draw do # rubocop: disable Metrics/BlockLength
   namespace :api do
     namespace :v1 do
-      resources :people do
-        resources :verifications, only: [:create], controller: "people/verifications"
+      resources :people, only: [:create, :update, :destroy, :show] do
+        resources :document_verifications, only: [:create], controller: "people/document_verifications"
         resources :membership_levels, only: [:create], controller: "people/membership_levels"
       end
 
@@ -35,7 +35,7 @@ Rails.application.routes.draw do # rubocop: disable Metrics/BlockLength
   [
     :admins, :people,
     :orders, :orders_batches,
-    :procedures, :procedures_verification_document, :procedures_membership_level_change,
+    :procedures, :procedures_document_verification, :procedures_membership_level_change,
     :payment_methods, :payment_methods_direct_debit, :payment_methods_credit_card
   ].each do |resource|
     resources resource do

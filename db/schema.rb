@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171120095545) do
+ActiveRecord::Schema.define(version: 20180208095715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -223,7 +223,6 @@ ActiveRecord::Schema.define(version: 20171120095545) do
     t.bigint "scope_id"
     t.string "membership_level"
     t.integer "verifications", default: 0, null: false
-    t.integer "flags", default: 0, null: false
     t.jsonb "extra", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

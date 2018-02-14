@@ -10,7 +10,7 @@ describe ProceduresController, type: :controller do
   let(:resource_class) { Procedure }
   let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
   let(:resource) { all_resources[resource_class] }
-  let!(:procedure) { create(:verification_document, :with_attachments, :with_dependent_procedure) }
+  let!(:procedure) { create(:document_verification, :with_attachments, :with_dependent_procedure) }
 
   it "defines actions" do
     expect(resource.defined_actions).to contain_exactly(:index, :show, :edit, :update)
@@ -33,7 +33,7 @@ describe ProceduresController, type: :controller do
       context "accepted tab" do
         subject { get :index, params: { scope: :accepted } }
         let(:current_admin) { procedure.processed_by }
-        let!(:procedure) { create(:verification_document, :undoable) }
+        let!(:procedure) { create(:document_verification, :undoable) }
         it { expect(subject).to be_success }
         it { expect(subject).to render_template("index") }
       end
@@ -46,7 +46,7 @@ describe ProceduresController, type: :controller do
     end
 
     context "show processed procedure" do
-      let!(:procedure) { create(:verification_document, :processed) }
+      let!(:procedure) { create(:document_verification, :processed) }
       subject { get :show, params: { id: procedure.id } }
       it { expect(subject).to be_success }
       it { expect(subject).to render_template("show") }
@@ -62,7 +62,7 @@ describe ProceduresController, type: :controller do
     end
 
     context "undoable procedure" do
-      let!(:procedure) { create(:verification_document, :undoable) }
+      let!(:procedure) { create(:document_verification, :undoable) }
 
       describe "show" do
         subject { get :show, params: { id: procedure.id } }
@@ -103,7 +103,7 @@ describe ProceduresController, type: :controller do
   end
 
   context "edit processed procedure" do
-    let(:procedure) { create(:verification_document, :processed) }
+    let(:procedure) { create(:document_verification, :processed) }
     subject { get :edit, params: { id: procedure.id } }
     it { expect(subject).to redirect_to(procedures_path) }
   end

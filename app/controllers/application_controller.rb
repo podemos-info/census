@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   helper TranslationsHelper
 
   before_action :set_paper_trail_whodunnit
-  before_action :check_resource_issues, only: :show
+  before_action :check_resource_issues, only: [:show, :edit]
 
   after_action :track_action
 
@@ -21,15 +21,15 @@ class ApplicationController < ActionController::Base
   end
 
   def check_resource_issues
-    issue = issue_for_resource
-    flash.now[:alert] = I18n.t("census.issues.issues_for_resource", resource_path: url_for(issue)).html_safe if issue
+    issues = issues_for_resource
+    flash.now[:alert] = I18n.t("census.issues.issues_for_resource", issues_links: issues.map(&:link).to_sentence).html_safe if issues.any?
   end
 
   protected
 
-  def issue_for_resource
-    return unless resource.respond_to?(:issues)
-    AdminIssues.for(current_admin).merge(IssuesNonFixed.for).merge(resource.issues).first
+  def issues_for_resource
+    return [] unless resource.respond_to?(:issues)
+    @issues_for_resource ||= ::AdminIssues.for(current_admin).merge(::IssuesNonFixed.for).merge(resource.issues).decorate
   end
 
   def track_action

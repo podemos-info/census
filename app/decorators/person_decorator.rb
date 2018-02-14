@@ -21,7 +21,7 @@ class PersonDecorator < ApplicationDecorator
   end
 
   def full_document
-    "#{I18n.t("census.people.document_types.#{object.document_type}")} - #{object.document_id}"
+    "#{document_type_name} - #{object.document_id}" if object.document_id
   end
 
   def full_scope

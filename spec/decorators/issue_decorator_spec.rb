@@ -14,7 +14,7 @@ describe IssueDecorator do
     end
 
     context "when has a description for a response code" do
-      let(:issue) { build(:issue, :processed_response_code, description: "wrong_data", order: order) }
+      let(:issue) { build(:processing_issue, description: "wrong_data", issuable: order) }
       let(:order) { build(:order, :external, :processed) }
 
       it { is_expected.to eq("Datos del método de pago incorrectos") }

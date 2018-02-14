@@ -1,6 +1,14 @@
 misc:
   document_id_minimum_length: 4
+
+procedures:
   undo_minutes: 30
+  untrusted_email:
+    domains_blacklist:
+      - mailinator.com
+  untrusted_phone:
+    prefixes_blacklist:
+      - 0034602
 
 payments:
   currency: EUR
@@ -53,6 +61,7 @@ payments:
             - verified
           codes:
             - OK
+
 regional:
   local_code: ES
   locales:

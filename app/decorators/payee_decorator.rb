@@ -5,6 +5,10 @@ class PayeeDecorator < ApplicationDecorator
 
   decorates_association :scope
 
+  delegate :name, to: :object
+
+  alias to_s name
+
   def full_scope
     scope&.show_path
   end

@@ -10,7 +10,7 @@ class IssueDecorator < ApplicationDecorator
   end
 
   def issue_type_name
-    I18n.t("census.issues.types.#{object.issue_type}")
+    I18n.t("census.issues.types.#{object.issue_type.underscore}")
   end
 
   def role_name
@@ -22,11 +22,9 @@ class IssueDecorator < ApplicationDecorator
   end
 
   def description
-    if object.issue_type.to_sym == :processed_response_code
-      I18n.t("census.payment_methods.issues_messages.#{object.description}")
-    else
-      object.description
-    end
+    return I18n.t("#{object.class.i18n_messages_scope}.#{object.description}") if object.class.i18n_messages_scope
+
+    object.description
   end
 
   def objects_links
@@ -34,5 +32,9 @@ class IssueDecorator < ApplicationDecorator
       obj = issue_object.object.decorate
       h.link_to obj.name, h.url_for(obj)
     end.to_sentence.html_safe
+  end
+
+  def link
+    h.link_to name, h.url_for(self)
   end
 end

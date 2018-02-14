@@ -24,7 +24,7 @@ module Payments
 
       broadcast(:ok, payment_method: payment_method)
 
-      CheckPaymentMethodIssuesJob.perform_later(payment_method: payment_method, admin: admin)
+      CheckPaymentIssuesJob.perform_later(issuable: payment_method, admin: admin)
     end
 
     private

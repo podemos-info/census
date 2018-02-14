@@ -6,4 +6,6 @@ class CampaignDecorator < ApplicationDecorator
   def name
     object.description || "[#{object.campaign_code}]"
   end
+
+  alias to_s name
 end

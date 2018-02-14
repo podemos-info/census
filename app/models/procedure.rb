@@ -6,7 +6,7 @@ class Procedure < ApplicationRecord
 
   self.inheritance_column = :type
 
-  belongs_to :person
+  belongs_to :person, -> { with_deleted }
   belongs_to :processed_by, class_name: "Admin", optional: true
   belongs_to :depends_on, class_name: "Procedure", optional: true
 
@@ -26,6 +26,12 @@ class Procedure < ApplicationRecord
   validates :processed_by, :processed_at, presence: true, if: :processed?
   validate :processed_by, :processed_by_different_from_person
   validate :depends_on, :depends_on_person
+
+  def process_reject; end
+
+  def undo_reject; end
+
+  def persist_reject_changes!; end
 
   private
 

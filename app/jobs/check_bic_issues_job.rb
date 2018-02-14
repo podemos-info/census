@@ -3,20 +3,18 @@
 class CheckBicIssuesJob < ApplicationJob
   include ::IssuesChecker
 
-  queue_as :finances
+  queue_as :payments
 
   def related_objects
-    @country = arguments.first&.fetch(:country, nil)
-    @bank_code = arguments.first&.fetch(:bank_code, nil)
-    [
-      payment_method
-    ]
+    []
   end
 
   def perform(country:, bank_code:, admin:)
     @country = country
     @bank_code = bank_code
-    Issues::CheckPaymentMethodIssues.call(payment_method: payment_method, admin: admin, &log_issues_message)
+    return unless payment_method
+
+    Issues::CheckIssues.call(issuable: payment_method, admin: admin, &log_issues_message)
   end
 
   private

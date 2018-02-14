@@ -10,6 +10,6 @@ class VersionableLastVersions < Rectify::Query
   end
 
   def query
-    @versionable.versions.reorder(created_at: :desc).limit(3)
+    @versionable.versions.reorder(id: :desc).limit(3)
   end
 end

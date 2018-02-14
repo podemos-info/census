@@ -23,10 +23,6 @@ describe "People", type: :request do
       let(:params) { { order: "scope_desc" } }
       it { expect(subject).to eq(200) }
     end
-    context "ordered by flags" do
-      let(:params) { { order: "flags_asc" } }
-      it { expect(subject).to eq(200) }
-    end
   end
 
   context "new page" do
@@ -53,7 +49,7 @@ describe "People", type: :request do
 
   with_versioning do
     context "show page" do
-      let(:person) { create(:verification_document).person }
+      let(:person) { create(:document_verification).person }
       subject { get person_path(id: person.id) }
       it { expect(subject).to eq(200) }
     end
@@ -69,7 +65,7 @@ describe "People", type: :request do
   end
 
   context "person procedures page" do
-    let!(:procedure) { create(:verification_document, person: person) }
+    let!(:procedure) { create(:document_verification, person: person) }
     subject { get person_procedures_path(person_id: person.id) }
     it { expect(subject).to eq(200) }
   end
