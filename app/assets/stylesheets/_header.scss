@@ -1,38 +1,7 @@
-
-#utility_nav {
+.header #utility_nav {
   #issues_read, #issues_unread {
-    a {
-      visibility: hidden;
-      position: relative;
-      width: 50px;
-      height: 49px;
-      display: inline-block;
-
-      &:before {
-        @include icon("\f0f3");
-
-        display: inline;
-        visibility: visible;
-        cursor: pointer;
-        position: absolute;
-        top: 0;
-        right: 0;
-        color: $text-color;
-        padding: 15px 0;
-        text-align: center;
-        width: 50px;
-        font-size: 20px;
-      }
-
-      @media screen and (min-width: $sm-width) {
-        width: 60px;
-        height: 59px;
-
-        &:before {
-          padding: 20px 0;
-          width: 60px;
-        }
-      }
+    a:before {
+      @include icon("\f0f3");
     }
   }
   #issues_unread a:before {
@@ -40,16 +9,28 @@
   }
 
   #user_jobs {
+    a:before {
+      @include icon("\f013");
+    }
+  }
+  #user_jobs.running a:before {
+    -webkit-animation: fa-spin 2s infinite linear;
+    animation: fa-spin 2s infinite linear;
+  }
+
+  #logout {
+    min-width: 35px;
+  }
+
+  #issues_read, #issues_unread, #user_jobs, #current_user, #logout {
     a {
       visibility: hidden;
       position: relative;
-      width: 50px;
+      width: 35px;
       height: 49px;
       display: inline-block;
 
       &:before {
-        @include icon("\f013");
-
         display: inline;
         visibility: visible;
         cursor: pointer;
@@ -59,8 +40,9 @@
         color: $text-color;
         padding: 15px 0;
         text-align: center;
-        width: 50px;
-        font-size: 20px;
+        width: 35px;
+        font-size: 16px;
+        line-heigth: 20px;
       }
 
       @media screen and (min-width: $sm-width) {
@@ -70,13 +52,9 @@
         &:before {
           padding: 20px 0;
           width: 60px;
+          font-size: 20px !important;
         }
       }
     }
-  }
-
-  #user_jobs.running a:before {
-    -webkit-animation: fa-spin 2s infinite linear;
-    animation: fa-spin 2s infinite linear;
   }
 }
