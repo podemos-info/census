@@ -29,7 +29,7 @@ git clone https://github.com/podemos-info/census.git
 cd census
 bundle
 ```
-* Create a `census_development` database, a database user with permissions and store its credentials in a new `.env` file, in the current directory.
+* Create a database user with permissions and store its credentials in a new `.env` file, in the current directory.
 ```
 DATABASE_USERNAME=census
 DATABASE_PASSWORD=census
