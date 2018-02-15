@@ -299,6 +299,11 @@ ActiveAdmin.setup do |config|
   #
   # config.order_clause = MyOrderClause
   config_menu(config)
+
+  # META tags for responsive view
+  meta_tags_options = { viewport: "width=device-width, initial-scale=1" }
+  config.meta_tags = meta_tags_options
+  config.meta_tags_for_logged_out_pages = meta_tags_options
 end
 
 ActiveAdmin::Views::Pages::Base.class_eval do
