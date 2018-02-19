@@ -4,10 +4,10 @@ require "rails_helper"
 
 describe Procedures::UndoProcedure do
   with_versioning do
-    subject(:undo_procedure) { described_class.call(procedure, processed_by) }
+    subject(:undo_procedure) { described_class.call(procedure: procedure, admin: admin) }
 
     let(:procedure) { create(:document_verification, :undoable) }
-    let(:processed_by) { procedure.processed_by }
+    let(:admin) { procedure.processed_by }
 
     describe "when undoing an accepted procedure" do
       it "broadcasts :ok" do
@@ -98,7 +98,7 @@ describe Procedures::UndoProcedure do
 
     context "when processed_by" do
       context "is other" do
-        let!(:processed_by) { create(:admin) }
+        let!(:admin) { create(:admin) }
 
         it "broadcasts :invalid" do
           expect { subject } .to broadcast(:invalid)
@@ -143,7 +143,7 @@ describe Procedures::UndoProcedure do
       end
 
       context "is the affected person" do
-        let(:processed_by) { build(:admin, person: procedure.person) }
+        let(:admin) { build(:admin, person: procedure.person) }
         it "broadcasts :invalid" do
           expect { subject }.to broadcast(:invalid)
         end

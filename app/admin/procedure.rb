@@ -124,7 +124,7 @@ ActiveAdmin.register Procedure do
 
   member_action :undo, method: :patch do
     procedure = resource
-    Procedures::UndoProcedure.call(procedure, current_admin) do
+    Procedures::UndoProcedure.call(procedure: procedure, admin: current_admin) do
       on(:invalid) do
         flash[:error] = t("census.procedures.action_message.cant_undo", link: view_context.link_to(procedure.id, procedure)).html_safe
       end
@@ -157,7 +157,8 @@ ActiveAdmin.register Procedure do
     def update
       procedure = resource
 
-      Procedures::ProcessProcedure.call(procedure, current_admin, params[:procedure]) do
+      form = Procedures::ProcessForm.from_params(process_procedure_params, procedure: procedure, admin: current_admin)
+      Procedures::ProcessProcedure.call(form) do
         on(:invalid) { render :edit }
         on(:error) do
           flash[:error] = t("census.procedures.action_message.error")
@@ -173,6 +174,10 @@ ActiveAdmin.register Procedure do
     def next_pending_path
       pending = Procedure.pending.first
       pending ? edit_procedure_path(pending) : procedures_path
+    end
+
+    def process_procedure_params
+      params.require(:procedure).permit(:event, :comment)
     end
   end
 end
