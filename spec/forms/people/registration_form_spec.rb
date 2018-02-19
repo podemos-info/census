@@ -3,9 +3,7 @@
 require "rails_helper"
 
 describe People::RegistrationForm do
-  let(:person) { build(:person) }
-
-  subject do
+  subject(:form) do
     described_class.new(
       first_name: first_name,
       last_name1: last_name1,
@@ -24,9 +22,11 @@ describe People::RegistrationForm do
     )
   end
 
+  let(:person) { build(:person) }
+
   let(:scope) { create(:scope) }
   let(:address_scope) { create(:scope) }
-  let(:document_scope) { create(:scope) }
+  let(:document_scope) { person.document_scope }
 
   let(:first_name) { person.first_name }
   let(:last_name1) { person.last_name1 }
@@ -43,11 +43,7 @@ describe People::RegistrationForm do
   let(:email) { person.email }
   let(:phone) { person.phone }
 
-  context "with correct data" do
-    it "is valid" do
-      expect(subject).to be_valid
-    end
-  end
+  it { is_expected.to be_valid }
 
   context "with an empty first name" do
     let(:first_name) { "" }
@@ -64,6 +60,34 @@ describe People::RegistrationForm do
       it "is invalid" do
         expect(subject).not_to be_valid
       end
+    end
+  end
+
+  context "when setting document type to dni" do
+    let(:person) { create(:person, document_type: :passport, document_scope: create(:scope), document_id: "ABC1234") }
+
+    context "without setting the local scope" do
+      let(:document_type) { :dni }
+      let(:document_id) { "1R" }
+      let(:document_scope_code) { "US" }
+
+      it { is_expected.to be_invalid }
+    end
+
+    context "without setting a valid document id" do
+      let(:document_type) { :dni }
+      let(:document_id) { "1234" }
+      let(:document_scope_code) { "ES" }
+
+      it { is_expected.to be_invalid }
+    end
+
+    context "when setting a valid document id and the local scope" do
+      let(:document_type) { :dni }
+      let(:document_id) { "1R" }
+      let(:document_scope_code) { "ES" }
+
+      it { is_expected.to be_valid }
     end
   end
 end

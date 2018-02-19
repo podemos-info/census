@@ -56,18 +56,19 @@ FactoryBot.define do
 
     after :build do |person, evaluator|
       foreign = evaluator.foreign
+
       if person.document_type
-        foreign = person.document_type.to_sym != :dni
+        foreign = true if person.document_type.to_sym == :nie
+        foreign = false if person.document_type.to_sym == :dni
       else
-        person.document_type = evaluator.foreign ? :dni : [:nie, :passport].sample
-        person.document_id = nil
+        person.document_type = [foreign ? :dni : :nie, :passport].sample
       end
       person.document_id = Census::Faker::DocumentId.generate(person.document_type) unless person.document_id.present?
 
       local_scope = create(:local_scope)
       person.scope ||= create(:scope, parent: local_scope)
       person.address_scope ||= evaluator.non_local ? create(:scope) : person.scope
-      person.document_scope ||= foreign ? create(:scope) : local_scope
+      person.document_scope ||= foreign && person.document_type == :passport ? create(:scope) : local_scope
     end
 
     trait :pending do

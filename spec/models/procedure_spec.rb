@@ -3,23 +3,28 @@
 require "rails_helper"
 
 describe Procedure, :db do
-  subject(:procedure) { build(:membership_level_change) }
-  let(:other_person) { create(:person) }
+  subject(:procedure) { create(:registration) }
+  let(:other_admin) { create(:admin) }
 
   it { is_expected.to be_valid }
   it { is_expected.not_to be_undoable }
+
+  it "permitted events returns accept, set_issues and reject" do
+    expect(subject.permitted_events(other_admin)).to contain_exactly(:accept, :reject, :set_issues)
+  end
 
   context "with dependent procedure (acceptable only after the parent)" do
     let(:processed_by) { nil }
     let(:parent_procedure) { create(:document_verification) }
     let(:person) { parent_procedure.person }
-    let(:child_procedure) { build(:membership_level_change, depends_on: parent_procedure, person: person, processed_by: processed_by) }
+    let!(:child_procedure) { build(:membership_level_change, depends_on: parent_procedure, person: person, processed_by: processed_by) }
 
     it { is_expected.to be_valid }
 
     context "#full_acceptable_by? returns true" do
+      before { child_procedure.save }
       subject(:procedure) { parent_procedure }
-      it { expect(subject.full_acceptable_by?(other_person)).to be_truthy }
+      it { expect(subject.full_acceptable_by?(other_admin)).to be_truthy }
     end
 
     context "#acceptable? in the child procedure returns false" do
@@ -49,12 +54,16 @@ describe Procedure, :db do
 
       it { is_expected.to be_undoable }
 
+      it "permitted events returns undo" do
+        expect(subject.permitted_events(subject.processed_by)).to contain_exactly(:undo)
+      end
+
       it "is undoable by the same person that processed it" do
         expect(subject.undoable_by?(subject.processed_by)).to be_truthy
       end
 
       it "is not undoable by other person that the one processed it" do
-        expect(subject.undoable_by?(other_person)).to be_falsey
+        expect(subject.undoable_by?(other_admin)).to be_falsey
       end
 
       it "has an undo version" do
@@ -65,12 +74,16 @@ describe Procedure, :db do
         subject(:procedure) { create(:document_verification, :undoable, person: create(:person, :verified)) }
         let!(:child_procedure) { create(:membership_level_change, depends_on: procedure, person: procedure.person) }
 
+        it "permitted events returns undo" do
+          expect(subject.permitted_events(subject.processed_by)).to contain_exactly(:undo)
+        end
+
         it "is fully undoable by the same person that processed it" do
           expect(subject.full_undoable_by?(procedure.processed_by)).to be_truthy
         end
 
         it "is not fully undoable by other person that the one processed it" do
-          expect(subject.full_undoable_by?(other_person)).to be_falsey
+          expect(subject.full_undoable_by?(other_admin)).to be_falsey
         end
       end
     end
