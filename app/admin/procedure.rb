@@ -114,6 +114,14 @@ ActiveAdmin.register Procedure do
     end
   end
 
+  action_item :undo_procedure, only: :show do
+    if procedure.full_undoable_by? controller.current_admin
+      link_to t("census.procedures.events.undo"), undo_procedure_path(procedure), method: :patch,
+                                                                                  data: { confirm: t("census.messages.sure_question") },
+                                                                                  class: "member_link"
+    end
+  end
+
   member_action :undo, method: :patch do
     procedure = resource
     Procedures::UndoProcedure.call(procedure, current_admin) do
