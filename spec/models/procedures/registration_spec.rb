@@ -8,8 +8,12 @@ describe Procedures::Registration, :db do
 
   it { is_expected.to be_valid }
 
-  it "#acceptable? returns true" do
+  it "is acceptable" do
     is_expected.to be_acceptable
+  end
+
+  it "is auto_acceptable" do
+    is_expected.to be_auto_acceptable
   end
 
   context "when accepted" do

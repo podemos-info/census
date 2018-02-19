@@ -8,11 +8,20 @@ describe Procedures::PersonDataChange, :db do
   subject(:procedure) { create(:person_data_change, :ready_to_process, person_copy_data: person, changing_columns: changing_columns) }
   let(:changing_columns) { CHANGING_COLUMNS }
   let(:person) { build(:person, document_scope: create(:scope)) }
+  let(:admin) { create(:admin) }
 
   it { is_expected.to be_valid }
 
-  it "#acceptable? returns true" do
+  it "is acceptable" do
     is_expected.to be_acceptable
+  end
+
+  it "is fully acceptable" do
+    expect(subject.full_acceptable_by?(admin)).to be_truthy
+  end
+
+  it "is auto_acceptable" do
+    is_expected.to be_auto_acceptable
   end
 
   context "when accepted" do

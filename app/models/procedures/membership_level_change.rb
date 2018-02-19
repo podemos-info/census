@@ -14,7 +14,7 @@ module Procedures
       person.send("to_#{to_membership_level}")
     end
 
-    def undo_accept
+    def undo_accept(**_args)
       person.membership_level = from_membership_level
     end
 

@@ -11,9 +11,13 @@ module Procedures
       person.register
     end
 
-    def undo_accept
+    def undo_accept(saved: true)
       person.undo
-      self.person = person.paper_trail.previous_version
+      if saved
+        self.person = person.paper_trail.previous_version
+      else
+        person.restore_attributes
+      end
     end
 
     def process_reject
