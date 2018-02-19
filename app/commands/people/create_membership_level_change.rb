@@ -19,7 +19,7 @@ module People
     #
     # Returns nothing.
     def call
-      return broadcast(:invalid) if form.invalid?
+      return broadcast(:invalid) unless form&.valid?
       return broadcast(:noop) unless form.change?
 
       result = save_membership_level_change || :error

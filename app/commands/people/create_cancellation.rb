@@ -14,12 +14,12 @@ module People
     # Executes the command. Broadcasts these events:
     #
     # - :ok when everything is valid.
-    # - :invalid if the procedure wasn't valid and we couldn't proceed.
-    # - :error if there is any problem saving the new record.
+    # - :invalid if the given information wasn't valid.
+    # - :error if there is any problem updating the record.
     #
     # Returns nothing.
     def call
-      return broadcast(:invalid) if form.invalid?
+      return broadcast(:invalid) unless form&.valid?
 
       result = save_cancellation || :error
 

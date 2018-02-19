@@ -19,7 +19,7 @@ module People
     #
     # Returns nothing.
     def call
-      return broadcast(:invalid) if form.invalid?
+      return broadcast(:invalid) unless form&.valid?
 
       result = save_person_data_change || :error
 
