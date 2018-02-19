@@ -21,7 +21,7 @@ module People
     def call
       return broadcast(:invalid) unless form&.valid?
 
-      result = save_registration || :error
+      result = save_registration
 
       broadcast result, registration: registration, person: person
 
@@ -38,7 +38,7 @@ module People
 
         registration.save!
         :ok
-      end
+      end || :error
     end
 
     attr_reader :form, :admin

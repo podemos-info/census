@@ -21,7 +21,7 @@ module People
     def call
       return broadcast(:invalid) unless form&.valid?
 
-      result = save_cancellation || :error
+      result = save_cancellation
 
       broadcast result, cancellation: cancellation
 
@@ -31,7 +31,7 @@ module People
     private
 
     def save_cancellation
-      :ok if cancellation.save
+      cancellation.save ? :ok : :error
     end
 
     attr_reader :form, :admin
