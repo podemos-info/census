@@ -54,7 +54,8 @@ module People
       @person ||= Person.new(
         first_name: form.first_name,
         last_name1: form.last_name1,
-        last_name2: form.last_name2
+        last_name2: form.last_name2,
+        document_type: form.document_type
       )
     end
 
