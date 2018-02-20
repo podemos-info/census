@@ -63,6 +63,13 @@ describe ProceduresController, type: :controller do
 
     context "undoable procedure" do
       let!(:procedure) { create(:document_verification, :undoable) }
+      let(:current_admin) { procedure.processed_by }
+
+      context "index page" do
+        subject { get :index }
+        it { expect(subject).to be_success }
+        it { expect(subject).to render_template("index") }
+      end
 
       describe "show" do
         subject { get :show, params: { id: procedure.id } }
@@ -72,7 +79,6 @@ describe ProceduresController, type: :controller do
 
       describe "undo" do
         subject { patch :undo, params: { id: procedure.id } }
-        let(:current_admin) { procedure.processed_by }
 
         it "returns ok" do
           expect(subject).to redirect_to(procedures_path)

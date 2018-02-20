@@ -10,8 +10,12 @@ module Procedures
       person.assign_attributes(person_data)
     end
 
-    def undo_accept
-      self.person = person.paper_trail.previous_version
+    def undo_accept(saved: true)
+      if saved
+        self.person = person.paper_trail.previous_version
+      else
+        person.restore_attributes
+      end
     end
 
     def persist_accept_changes!

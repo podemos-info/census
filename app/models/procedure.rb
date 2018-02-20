@@ -33,6 +33,14 @@ class Procedure < ApplicationRecord
 
   def persist_reject_changes!; end
 
+  def auto_acceptable?
+    self.class.auto_acceptable?
+  end
+
+  def self.auto_acceptable?
+    @auto_acceptable ||= Settings.procedures.auto_acceptables.include?(name.demodulize.underscore)
+  end
+
   private
 
   def processed_by_different_from_person

@@ -12,7 +12,7 @@ module Procedures
       person.deleted_at = Time.now
     end
 
-    def undo_accept
+    def undo_accept(**_args)
       person.deleted_at = nil
     end
 

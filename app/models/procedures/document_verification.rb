@@ -6,11 +6,15 @@ module Procedures
       true
     end
 
+    def self.auto_acceptable?
+      false
+    end
+
     def process_accept
       person.verified_by_document = true
     end
 
-    def undo_accept
+    def undo_accept(**_args)
       person.verified_by_document = false
     end
 

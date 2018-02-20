@@ -6,34 +6,35 @@ module Procedures
     # Public: Initializes the command.
     #
     # procedure - A Procedure object.
-    # processed_by - The person that is undoing the procedure
-    def initialize(procedure, processed_by)
+    # admin - The person that is undoing the procedure
+    def initialize(procedure:, admin:)
       @procedure = procedure
-      @processed_by = processed_by
+      @admin = admin
     end
 
     # Executes the command. Broadcasts these events:
     #
     # - :ok when everything is valid.
-    # - :invalid if the procedure wasn't valid and we couldn't proceed.
+    # - :invalid if the given information wasn't valid.
+    # - :error if there is any problem updating the procedure.
     #
     # Returns nothing.
     def call
-      return broadcast(:invalid) unless @procedure && @processed_by && @procedure.full_undoable_by?(@processed_by)
+      return broadcast(:invalid) unless admin && procedure&.full_undoable_by?(admin)
 
       undo_procedure
 
-      broadcast result, procedure: @procedure
+      broadcast result, procedure: procedure
     end
 
     private
 
-    attr_accessor :result
+    attr_accessor :procedure, :admin, :result
 
     def undo_procedure
       @result = :error
       Procedure.transaction do
-        undo @procedure
+        undo procedure
         @result = :ok
       end
     end

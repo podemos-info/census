@@ -19,10 +19,10 @@ module People
     #
     # Returns nothing.
     def call
-      return broadcast(:invalid) if form.invalid?
+      return broadcast(:invalid) unless form&.valid?
       return broadcast(:noop) unless form.change?
 
-      result = save_membership_level_change || :error
+      result = save_membership_level_change
 
       broadcast result, membership_level_change: membership_level_change
 
@@ -32,7 +32,7 @@ module People
     private
 
     def save_membership_level_change
-      :ok if membership_level_change.save
+      membership_level_change.save ? :ok : :error
     end
 
     attr_reader :form, :admin
