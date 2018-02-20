@@ -3,8 +3,6 @@
 require "rails_helper"
 
 describe UpdateProcedureJob, type: :job do
-  include ActiveJob::TestHelper
-
   subject(:job) { described_class.perform_now(procedure: procedure, admin: current_admin) }
 
   let(:procedure) { create(:registration) }

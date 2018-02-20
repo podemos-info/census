@@ -5,16 +5,17 @@ require "rails_helper"
 describe Api::V1::PeopleController, type: :controller do
   let(:scope) { create(:scope) }
   let(:address_scope) { create(:scope) }
-  let(:document_scope) { create(:scope) }
   let(:scope_code) { scope.code }
   let(:address_scope_code) { address_scope.code }
-  let(:document_scope_code) { document_scope.code }
 
   with_versioning do
     describe "create method" do
       subject(:endpoint) { post :create, params: params }
 
       let(:person) { build(:person) }
+      let(:document_scope) { person.document_scope }
+      let(:document_scope_code) { document_scope.code }
+
       let(:params) do
         params = { person: person.attributes.deep_symbolize_keys }
         params[:person][:scope_code] = scope_code

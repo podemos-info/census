@@ -8,8 +8,12 @@ describe Procedures::DocumentVerification, :db do
 
   it { is_expected.to be_valid }
 
-  it "#acceptable? returns true" do
+  it "is acceptable" do
     is_expected.to be_acceptable
+  end
+
+  it "is not auto_acceptable" do
+    is_expected.not_to be_auto_acceptable
   end
 
   it "acceptance changes person verification status" do

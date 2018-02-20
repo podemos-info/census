@@ -3,12 +3,26 @@
 require "rails_helper"
 
 describe Procedures::ProcessProcedure do
-  subject(:process_procedure) { described_class.call(procedure, processed_by, params) }
+  subject(:process_procedure) { described_class.call(form) }
 
   let!(:procedure) { create(:document_verification) }
   let(:event) { :accept }
-  let(:params) { { event: event, comment: "This is a comment" } }
-  let!(:processed_by) { create(:admin) }
+  let(:comment) { "This is a comment" }
+  let!(:admin) { create(:admin) }
+  let(:form_class) { Procedures::ProcessForm }
+  let(:valid) { true }
+
+  let(:form) do
+    instance_double(
+      form_class,
+      invalid?: !valid,
+      valid?: valid,
+      procedure: procedure,
+      admin: admin,
+      event: event,
+      comment: comment
+    )
+  end
 
   describe "when valid" do
     it "broadcasts :ok" do
@@ -20,7 +34,7 @@ describe Procedures::ProcessProcedure do
     end
 
     it "sets processed_by" do
-      expect { subject } .to change { Procedure.find(procedure.id).processed_by } .to(processed_by)
+      expect { subject } .to change { Procedure.find(procedure.id).processed_by } .to(admin)
     end
 
     it "sets processing date" do
@@ -40,7 +54,7 @@ describe Procedures::ProcessProcedure do
       end
 
       it "sets processed_by" do
-        expect { subject } .to change { Procedure.find(dependent_procedure.id).processed_by } .to(processed_by)
+        expect { subject } .to change { Procedure.find(dependent_procedure.id).processed_by } .to(admin)
       end
 
       it "sets processing date" do
@@ -53,81 +67,72 @@ describe Procedures::ProcessProcedure do
     end
   end
 
-  context "when processed_by" do
-    context "is null" do
-      let(:processed_by) { nil }
+  context "when form is invalid" do
+    let(:valid) { false }
 
-      it "broadcasts :invalid" do
-        expect { subject } .to broadcast(:invalid)
-      end
+    it "broadcasts :invalid" do
+      expect { subject } .to broadcast(:invalid)
+    end
+
+    it "does not update procedure state" do
+      expect { subject } .to_not change { Procedure.find(procedure.id).state }
+    end
+
+    it "does not set processed_by" do
+      expect { subject } .to_not change { Procedure.find(procedure.id).processed_by }
+    end
+
+    it "does not set processing date" do
+      expect { subject } .to_not change { Procedure.find(procedure.id).processed_at }
+    end
+
+    it "does not update comment" do
+      expect { subject } .to_not change { Procedure.find(procedure.id).comment }
+    end
+
+    context "on dependent procedures" do
+      let(:procedure) { create(:document_verification, :with_dependent_procedure) }
+      let(:dependent_procedure) { procedure.dependent_procedures.first }
 
       it "does not update procedure state" do
-        expect { subject } .to_not change { Procedure.find(procedure.id).state }
+        expect { subject } .to_not change { Procedure.find(dependent_procedure.id).state }
       end
 
       it "does not set processed_by" do
-        expect { subject } .to_not change { Procedure.find(procedure.id).processed_by }
+        expect { subject } .to_not change { Procedure.find(dependent_procedure.id).processed_by }
       end
 
       it "does not set processing date" do
-        expect { subject } .to_not change { Procedure.find(procedure.id).processed_at }
+        expect { subject } .to_not change { Procedure.find(dependent_procedure.id).processed_at }
       end
 
       it "does not update comment" do
-        expect { subject } .to_not change { Procedure.find(procedure.id).comment }
-      end
-
-      context "on dependent procedures" do
-        let(:processed_by) { nil }
-        let(:procedure) { create(:document_verification, :with_dependent_procedure) }
-        let(:dependent_procedure) { procedure.dependent_procedures.first }
-
-        it "does not update procedure state" do
-          expect { subject } .to_not change { Procedure.find(dependent_procedure.id).state }
-        end
-
-        it "does not set processed_by" do
-          expect { subject } .to_not change { Procedure.find(dependent_procedure.id).processed_by }
-        end
-
-        it "does not set processing date" do
-          expect { subject } .to_not change { Procedure.find(dependent_procedure.id).processed_at }
-        end
-
-        it "does not update comment" do
-          expect { subject } .to_not change { Procedure.find(dependent_procedure.id).comment }
-        end
-      end
-    end
-
-    context "is the affected person" do
-      let(:processed_by) { build(:admin, person: procedure.person) }
-      it "broadcasts :invalid" do
-        expect { subject }.to broadcast(:invalid)
+        expect { subject } .to_not change { Procedure.find(dependent_procedure.id).comment }
       end
     end
   end
 
-  context "when event" do
-    context "doesn't exists" do
-      let(:event) { :potato }
-      it "broadcasts :invalid" do
-        expect { subject }.to broadcast(:invalid)
-      end
+  context "when procedure can't be saved because is invalid" do
+    before { allow(procedure).to receive(:invalid?).and_return(true) }
+
+    it "broadcasts :invalid" do
+      expect { subject } .to broadcast(:invalid)
     end
 
-    context "is undo" do
-      let(:event) { :undo }
-      it "broadcasts :invalid" do
-        expect { subject }.to broadcast(:invalid)
-      end
+    it "does not update procedure state" do
+      expect { subject } .to_not change { Procedure.find(procedure.id).state }
     end
 
-    context "is not applicable" do
-      let(:event) { :pending }
-      it "broadcasts :invalid" do
-        expect { subject }.to broadcast(:invalid)
-      end
+    it "does not set processed_by" do
+      expect { subject } .to_not change { Procedure.find(procedure.id).processed_by }
+    end
+
+    it "does not set processing date" do
+      expect { subject } .to_not change { Procedure.find(procedure.id).processed_at }
+    end
+
+    it "does not update comment" do
+      expect { subject } .to_not change { Procedure.find(procedure.id).comment }
     end
   end
 end

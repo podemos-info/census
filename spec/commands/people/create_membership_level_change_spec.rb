@@ -27,7 +27,7 @@ describe People::CreateMembershipLevelChange do
     end
 
     it "create a new procedure to change the person membership level" do
-      expect { subject } .to change { Procedure.count } .by(1)
+      expect { subject } .to change { Procedures::MembershipLevelChange.count } .by(1)
     end
   end
 
@@ -39,7 +39,7 @@ describe People::CreateMembershipLevelChange do
     end
 
     it "doesn't create the new procedure" do
-      expect { subject } .to_not change { Procedure.count }
+      expect { subject } .to_not change { Procedures::MembershipLevelChange.count }
     end
   end
 end
