@@ -15,6 +15,8 @@ module Issues
 
       def blacklisted?
         phone = procedure.phone
+        return false unless phone
+
         self.class.phones_blacklist.include?(phone) || (1..phone.size - 1).any? { |i| self.class.prefixes_blacklist.include?(phone[0, i]) }
       end
 
