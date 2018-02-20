@@ -55,6 +55,7 @@ module People
         first_name: form.first_name,
         last_name1: form.last_name1,
         last_name2: form.last_name2,
+        born_at: form.born_at,
         document_type: form.document_type
       )
     end
