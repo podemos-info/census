@@ -44,9 +44,13 @@ module People
     attr_reader :form, :admin
 
     def registration
-      @registration ||= procedure_for(person, ::Procedures::Registration) do |procedure|
-        procedure.person_data = person_data
-      end
+      @registration ||= if form.person
+                          procedure_for(person, ::Procedures::Registration) do |procedure|
+                            procedure.person_data = person_data
+                          end
+                        else
+                          ::Procedures::Registration.new(person: person, person_data: person_data)
+                        end
     end
 
     def person

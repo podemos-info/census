@@ -53,4 +53,26 @@ describe People::PersonDataChangeForm do
       it { is_expected.to be_valid }
     end
   end
+
+  describe "#has_changes?" do
+    it { is_expected.to have_changes }
+
+    context "when there are no changed attributes" do
+      let(:person_data) { {} }
+
+      it { is_expected.not_to have_changes }
+    end
+
+    context "when the changed attributes have the same value" do
+      let(:person_data) { { first_name: person.first_name } }
+
+      it { is_expected.not_to have_changes }
+    end
+
+    context "when the changed attributes is a scope" do
+      let(:person_data) { { scope_code: create(:scope).code } }
+
+      it { is_expected.to have_changes }
+    end
+  end
 end
