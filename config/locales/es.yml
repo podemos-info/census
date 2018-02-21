@@ -473,6 +473,7 @@ es:
         invalid_format: Formato de BIC inválido (debe ser similar a ABCDESMM o ABCDESMM123)
     messages:
       cant_process_undo_event: no se puede procesar la accion de deshacer
+      cant_register_again: no se puede registrar nuevamente
       cycle_detected: el padre de un ámbito no puede ser descendiente de este
       depends_on_different_person: el procedimiento debe corresponder a la misma persona que el procedimiento del que dependende
       different_person_than_payment_method: la orden no puede cobrarse con un método de pago correspondiente a una persona diferente

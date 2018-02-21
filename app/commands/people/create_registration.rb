@@ -2,7 +2,7 @@
 
 module People
   # A command to register a person.
-  class CreateRegistration < Rectify::Command
+  class CreateRegistration < PersonCommand
     # Public: Initializes the command.
     # form - A form object with the params.
     # admin - The admin user creating the person.
@@ -44,14 +44,13 @@ module People
     attr_reader :form, :admin
 
     def registration
-      @registration ||= ::Procedures::Registration.new(
-        person: person,
-        person_data: person_data
-      )
+      @registration ||= procedure_for(person, ::Procedures::Registration) do |procedure|
+        procedure.person_data = person_data
+      end
     end
 
     def person
-      @person ||= Person.new(
+      @person ||= form.person || Person.new(
         first_name: form.first_name,
         last_name1: form.last_name1,
         last_name2: form.last_name2,

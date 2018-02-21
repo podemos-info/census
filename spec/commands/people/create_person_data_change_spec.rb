@@ -3,11 +3,12 @@
 require "rails_helper"
 
 describe People::CreatePersonDataChange do
-  subject(:procedure) { described_class.call(form: form) }
+  subject(:command) { described_class.call(form: form) }
 
   let!(:person) { create(:person) }
   let(:form_class) { People::PersonDataChangeForm }
   let(:valid) { true }
+  let(:has_changes?) { true }
 
   let(:form) do
     instance_double(
@@ -28,12 +29,13 @@ describe People::CreatePersonDataChange do
       phone: phone,
       scope: scope,
       address_scope: address_scope,
-      document_scope: document_scope
+      document_scope: document_scope,
+      has_changes?: has_changes?
     )
   end
 
   let(:first_name) { "changed" }
-  let(:last_name1) { nil }
+  let(:last_name1) { "changed too" }
   let(:last_name2) { nil }
   let(:document_type) { nil }
   let(:document_id) { nil }
@@ -55,6 +57,19 @@ describe People::CreatePersonDataChange do
     it "create a new procedure to change the person data" do
       expect { subject } .to change { Procedures::PersonDataChange.count } .by(1)
     end
+
+    describe "the created procedure" do
+      before { command }
+      subject(:created_procedure) { Procedures::PersonDataChange.last }
+
+      it "saves the first_name column" do
+        expect(created_procedure.first_name).to eq("changed")
+      end
+
+      it "saves the last_name1 column" do
+        expect(created_procedure.last_name1).to eq("changed too")
+      end
+    end
   end
 
   describe "when invalid" do
@@ -66,6 +81,42 @@ describe People::CreatePersonDataChange do
 
     it "doesn't create the new procedure" do
       expect { subject } .to_not change { Procedures::PersonDataChange.count }
+    end
+  end
+
+  describe "when has no changes" do
+    let(:has_changes?) { false }
+
+    it "broadcasts :noop" do
+      expect { subject } .to broadcast(:noop)
+    end
+
+    it "doesn't create the new procedure" do
+      expect { subject } .to_not change { Procedures::PersonDataChange.count }
+    end
+  end
+
+  describe "when a procedure already exists for the person" do
+    let!(:procedure) { create(:person_data_change, person: person, changing_columns: [:last_name1, :email]) }
+
+    it "does not create a new procedure" do
+      expect { subject } .not_to change { Procedures::PersonDataChange.count }
+    end
+
+    describe "the updated procedure" do
+      before { command }
+
+      it "updates added columns in the existing procedure with the new value" do
+        expect(procedure.reload.first_name).to eq("changed")
+      end
+
+      it "updates changed columns in the existing procedure with the new value" do
+        expect(procedure.reload.last_name1).to eq("changed too")
+      end
+
+      it "updates the existing procedure removing the old changed columns" do
+        expect(procedure.reload.email).to be_nil
+      end
     end
   end
 end
