@@ -14,8 +14,8 @@ module Api
 
     protected
 
-    def call_procedure(procedure_class, form)
-      procedure_class.call(form: form) do
+    def call_command(command_class, form)
+      command_class.call(form: form) do
         on(:invalid) do
           render json: form.errors, status: :unprocessable_entity
         end
