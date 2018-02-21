@@ -4,12 +4,8 @@ module HasPerson
   extend ActiveSupport::Concern
 
   included do
-    attribute :person_id, Integer
-    validates :person_id, :person, presence: true
+    include CanHavePerson
 
-    def person
-      return @person if defined? @person
-      @person = Person.find_by(id: person_id)
-    end
+    validates :person_id, :person, presence: true
   end
 end
