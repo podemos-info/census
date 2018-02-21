@@ -8,9 +8,13 @@ module Procedures
     delegate :document_type, :document_id, :document_scope_id, to: :person_data_object
     delegate :phone, :email, to: :person_data_object
     delegate :address, :address_scope_id, :postal_code, to: :person_data_object
-    delegate :scope_id, :membership_level, :gender, :born_at, to: :person_data_object
+    delegate :scope_id, :membership_level, :gender, to: :person_data_object
 
     validates :person_data, presence: true
+
+    def born_at
+      @born_at ||= person_data_object.born_at&.to_date
+    end
 
     private
 
