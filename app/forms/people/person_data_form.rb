@@ -26,7 +26,7 @@ module People
     validates :document_scope, presence: true
 
     validates :document_id, document_id: { type: :document_type, scope: :document_scope_code }
-    validate :valid_document_scope?
+    validate :validate_document_scope
 
     def document_id=(value)
       super value && document_type ? Normalizr.normalize(value, :"document_#{document_type}") : value
@@ -49,7 +49,9 @@ module People
       @address_scope ||= Scope.find_by_code(address_scope_code)
     end
 
-    def valid_document_scope?
+    private
+
+    def validate_document_scope
       if document_type != "passport" && !Scope.local_code?(document_scope_code)
         errors.add :document_scope_code, :should_be_local
       end
