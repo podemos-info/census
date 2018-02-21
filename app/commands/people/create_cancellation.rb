@@ -2,7 +2,7 @@
 
 module People
   # A command to cancel a person account.
-  class CreateCancellation < Rectify::Command
+  class CreateCancellation < PersonCommand
     # Public: Initializes the command.
     # form - A form object with the params.
     # admin - The admin user creating the person.
@@ -37,10 +37,9 @@ module People
     attr_reader :form, :admin
 
     def cancellation
-      @cancellation ||= ::Procedures::Cancellation.new(
-        person: form.person,
-        reason: form.reason
-      )
+      @cancellation ||= procedure_for(form.person, ::Procedures::Cancellation) do |procedure|
+        procedure.reason = form.reason
+      end
     end
   end
 end

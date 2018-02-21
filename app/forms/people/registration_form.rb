@@ -3,6 +3,8 @@
 # The form object that handles the data for a person
 module People
   class RegistrationForm < PersonDataForm
+    include ::CanHavePerson
+
     mimic :person
 
     validates :first_name, :last_name1, presence: true
@@ -20,5 +22,15 @@ module People
     validates :email, :scope_code, presence: true
 
     validates :scope, :address_scope, :document_scope, presence: true
+
+    validate :validate_not_registered
+
+    private
+
+    def validate_not_registered
+      if person.present? && !person.can_register?
+        errors.add :person, :cant_register_again
+      end
+    end
   end
 end

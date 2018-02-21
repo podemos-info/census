@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 module People
-  # A command to create a change of membership for a person.
-  class CreateDocumentVerification < Rectify::Command
+  # A command to create a document verification procedure for a person.
+  class CreateDocumentVerification < PersonCommand
     # Public: Initializes the command.
     # form - A form object with the params.
+    # admin - The admin user creating the document verification for the person.
     def initialize(form:, admin: nil)
       @form = form
       @admin = admin
@@ -20,30 +21,29 @@ module People
     def call
       return broadcast(:invalid) unless form&.valid?
 
-      result = save_verification || :error
+      result = save_document_verification
 
-      broadcast result, verification: verification
+      broadcast result, document_verification: document_verification
 
-      ::UpdateProcedureJob.perform_later(procedure: verification, admin: admin) if result == :ok
+      ::UpdateProcedureJob.perform_later(procedure: document_verification, admin: admin) if result == :ok
     end
 
     private
 
-    def save_verification
-      :ok if verification.save
+    def save_document_verification
+      document_verification.save ? :ok : :error
     end
 
     attr_reader :form, :admin
 
-    def verification
-      @verification ||= begin
-        ret = ::Procedures::DocumentVerification.new(
-          person: form.person
-        )
-        form.files.each do |file|
-          ret.attachments.build(file: file)
+    def document_verification
+      @document_verification ||= begin
+        procedure_for(form.person, ::Procedures::DocumentVerification) do |procedure|
+          procedure.attachments.clear
+          form.files.each do |file|
+            procedure.attachments.build(file: file)
+          end
         end
-        ret
       end
     end
   end

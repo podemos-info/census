@@ -11,7 +11,7 @@ module People
 
     validates :membership_level, presence: true, inclusion: { in: Person.membership_levels }
 
-    def change?
+    def has_changes?
       person&.membership_level != membership_level
     end
   end

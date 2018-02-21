@@ -2,7 +2,7 @@
 
 module People
   # A command to create a person data change procedure.
-  class CreatePersonDataChange < Rectify::Command
+  class CreatePersonDataChange < PersonCommand
     # Public: Initializes the command.
     # form - A form object with the params.
     # admin - The admin user creating the person.
@@ -20,8 +20,9 @@ module People
     # Returns nothing.
     def call
       return broadcast(:invalid) unless form&.valid?
+      return broadcast(:noop) unless form.has_changes?
 
-      result = save_person_data_change || :error
+      result = save_person_data_change
 
       broadcast result, person_data_change: person_data_change
 
@@ -33,14 +34,13 @@ module People
     attr_reader :form, :admin
 
     def save_person_data_change
-      :ok if person_data_change.save
+      person_data_change.save ? :ok : :error
     end
 
     def person_data_change
-      @person_data_change ||= ::Procedures::PersonDataChange.new(
-        person: form.person,
-        person_data: person_data
-      )
+      @person_data_change ||= procedure_for(form.person, ::Procedures::PersonDataChange) do |procedure|
+        procedure.person_data = person_data
+      end
     end
 
     def person_data

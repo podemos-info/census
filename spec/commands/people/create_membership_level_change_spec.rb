@@ -3,12 +3,12 @@
 require "rails_helper"
 
 describe People::CreateMembershipLevelChange do
-  subject(:create_membership_level_change) { described_class.call(form: form) }
+  subject(:command) { described_class.call(form: form) }
 
   let!(:person) { create(:person) }
-  let(:membership_level) { "member" }
   let(:form_class) { People::MembershipLevelForm }
   let(:valid) { true }
+  let(:has_changes?) { true }
 
   let(:form) do
     instance_double(
@@ -17,9 +17,11 @@ describe People::CreateMembershipLevelChange do
       valid?: valid,
       person: person,
       membership_level: membership_level,
-      change?: true
+      has_changes?: has_changes?
     )
   end
+
+  let(:membership_level) { "member" }
 
   describe "when valid" do
     it "broadcasts :ok" do
@@ -40,6 +42,26 @@ describe People::CreateMembershipLevelChange do
 
     it "doesn't create the new procedure" do
       expect { subject } .to_not change { Procedures::MembershipLevelChange.count }
+    end
+  end
+
+  describe "when has no changes" do
+    let(:has_changes?) { false }
+
+    it "broadcasts :noop" do
+      expect { subject } .to broadcast(:noop)
+    end
+
+    it "doesn't create the new procedure" do
+      expect { subject } .to_not change { Procedures::MembershipLevelChange.count }
+    end
+  end
+
+  describe "when a procedure already exists for the person" do
+    let!(:procedure) { create(:membership_level_change, person: person) }
+
+    it "does not create a new procedure" do
+      expect { subject } .not_to change { Procedures::MembershipLevelChange.count }
     end
   end
 end

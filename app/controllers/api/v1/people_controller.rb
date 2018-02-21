@@ -3,17 +3,17 @@
 module Api
   class V1::PeopleController < ApiController
     def create
-      call_procedure(::People::CreateRegistration, ::People::RegistrationForm.from_params(params)) do |info|
+      call_command(::People::CreateRegistration, ::People::RegistrationForm.from_params(params)) do |info|
         { person_id: info[:person].id }
       end
     end
 
     def update
-      call_procedure ::People::CreatePersonDataChange, ::People::PersonDataChangeForm.from_params(params_with_person_id)
+      call_command ::People::CreatePersonDataChange, ::People::PersonDataChangeForm.from_params(params_with_person_id)
     end
 
     def destroy
-      call_procedure ::People::CreateCancellation, ::People::CancellationForm.from_params(params_with_person_id)
+      call_command ::People::CreateCancellation, ::People::CancellationForm.from_params(params_with_person_id)
     end
 
     def show

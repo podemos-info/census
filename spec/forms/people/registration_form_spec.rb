@@ -5,6 +5,7 @@ require "rails_helper"
 describe People::RegistrationForm do
   subject(:form) do
     described_class.new(
+      person_id: person_id,
       first_name: first_name,
       last_name1: last_name1,
       last_name2: last_name2,
@@ -28,6 +29,7 @@ describe People::RegistrationForm do
   let(:address_scope) { create(:scope) }
   let(:document_scope) { person.document_scope }
 
+  let(:person_id) { nil }
   let(:first_name) { person.first_name }
   let(:last_name1) { person.last_name1 }
   let(:last_name2) { person.last_name2 }
@@ -60,6 +62,14 @@ describe People::RegistrationForm do
       it "is invalid" do
         expect(subject).not_to be_valid
       end
+    end
+  end
+
+  context "when user is already registered" do
+    let(:person_id) { create(:person).id }
+
+    it "is invalid" do
+      expect(subject).not_to be_valid
     end
   end
 
