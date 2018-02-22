@@ -17,7 +17,7 @@ FactoryBot.define do
 
     trait :ready_to_process do
       processed_by { build(:admin) }
-      processed_at { Time.now }
+      processed_at { Time.zone.now }
       comment { Faker::Lorem.paragraph(1, true, 2) }
     end
 
@@ -31,7 +31,7 @@ FactoryBot.define do
     trait :undoable do
       after :create do |procedure|
         procedure.processed_by = build(:admin)
-        procedure.processed_at = Time.now
+        procedure.processed_at = Time.zone.now
         procedure.comment = Faker::Lorem.paragraph(1, true, 2)
         procedure.accept!
 
@@ -47,7 +47,7 @@ FactoryBot.define do
     trait :undoable_rejected do
       after :create do |procedure|
         procedure.processed_by = build(:admin)
-        procedure.processed_at = Time.now
+        procedure.processed_at = Time.zone.now
         procedure.comment = Faker::Lorem.paragraph(1, true, 2)
         procedure.reject!
 

@@ -67,7 +67,7 @@ describe OrdersBatchesController, type: :controller do
   end
 
   describe "create page" do
-    subject { put :create, params: { orders_batch: { description: orders_batch.description, orders_from: 1.year.ago, orders_to: Date.today } } }
+    subject { put :create, params: { orders_batch: { description: orders_batch.description, orders_from: 1.year.ago, orders_to: Time.zone.today } } }
     let(:orders_batch) { build(:orders_batch) }
     it { expect { subject } .to change { OrdersBatch.count }.by(1) }
     it { is_expected.to have_http_status(:found) }

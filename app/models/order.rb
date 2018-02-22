@@ -32,7 +32,7 @@ class Order < ApplicationRecord
   end
 
   def date
-    created_at&.to_date || Date.today
+    created_at&.to_date || Time.zone.today
   end
 
   def processable?(args = {})

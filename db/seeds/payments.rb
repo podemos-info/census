@@ -42,19 +42,19 @@ end
 
 23.times do
   # create 10 direct debit payment methods and orders
-  orders = Person.where("created_at < ?", Time.now).order("RANDOM()").limit(10).map do |person|
+  orders = Person.where("created_at < ?", Time.zone.now).order("RANDOM()").limit(10).map do |person|
     create_order person, false, campaigns.sample
   end
 
   # create 10 direct credit card methods and orders
-  orders2 = Person.where("created_at < ?", Time.now).order("RANDOM()").limit(10).map do |person|
+  orders2 = Person.where("created_at < ?", Time.zone.now).order("RANDOM()").limit(10).map do |person|
     create_order person, true, campaigns.sample
   end
 
   PaperTrail.whodunnit = admins.sample
   # add orders to an order batch
   orders_batch = OrdersBatch.create!(
-    description: I18n.l(Date.today, format: "%B %Y"),
+    description: I18n.l(Time.zone.today, format: "%B %Y"),
     orders: orders + orders2
   )
   Rails.logger.debug { "Orders batch created: #{orders_batch.decorate}" }
@@ -62,12 +62,12 @@ end
 end
 
 # create 10 direct debit payment methods and orders
-Person.where("created_at < ?", Time.now).order("RANDOM()").limit(10).map do |person|
+Person.where("created_at < ?", Time.zone.now).order("RANDOM()").limit(10).map do |person|
   create_order person, false, campaigns.sample
 end
 
 # create 10 direct credit card methods and orders
-Person.where("created_at < ?", Time.now).order("RANDOM()").limit(10).map do |person|
+Person.where("created_at < ?", Time.zone.now).order("RANDOM()").limit(10).map do |person|
   create_order person, true, campaigns.sample
 end
 

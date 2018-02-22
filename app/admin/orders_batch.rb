@@ -98,7 +98,7 @@ ActiveAdmin.register OrdersBatch do
 
       if first_pending_order
         build_params[:orders_from] = first_pending_order.created_at.to_date unless build_params[:orders_from]
-        build_params[:orders_to] = Date.today unless build_params[:orders_to]
+        build_params[:orders_to] = Time.zone.today unless build_params[:orders_to]
 
         resource = decorator_class.new(OrdersBatchForm.from_params(build_params))
       else

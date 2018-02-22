@@ -28,7 +28,7 @@ module PaymentMethods
     end
 
     def expired?
-      expires_at && Date.today > expires_at
+      expires_at && Time.zone.today > expires_at
     end
 
     def expires_at

@@ -74,7 +74,7 @@ describe CallbacksController, type: :controller do
   context "redsys payment callbacks" do
     subject(:page) { post :payments, params: { payment_processor: :redsys }, body: redsys_response.to_s }
     let!(:person) { create(:person, id: 1) }
-    let(:now) { Time.local(2017, 11, 22, 14, 5) }
+    let(:now) { Time.zone.local(2017, 11, 22, 14, 5) }
     let!(:order) { create(:order, :external, id: order_id) }
     let(:order_id) { 671 }
     before(:each) { Timecop.freeze(now) }
@@ -112,7 +112,7 @@ describe CallbacksController, type: :controller do
     end
 
     context "when redsys response is out of date" do
-      let(:now) { Time.local(2017, 11, 20, 14, 5) }
+      let(:now) { Time.zone.local(2017, 11, 20, 14, 5) }
       let(:redsys_response) { OK_REQUEST }
 
       it "returns ok" do
@@ -127,7 +127,7 @@ describe CallbacksController, type: :controller do
     end
 
     context "when redsys response is correct in literal style" do
-      let(:now) { Time.local(2017, 11, 22, 18, 15) }
+      let(:now) { Time.zone.local(2017, 11, 22, 18, 15) }
       let(:redsys_response) { OK_REQUEST_LITERAL }
       let(:order_id) { 675 }
 

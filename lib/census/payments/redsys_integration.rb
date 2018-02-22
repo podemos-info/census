@@ -196,7 +196,7 @@ module Census
       end
 
       def valid_datetime?(response, date_span)
-        Time.parse("#{response["Fecha"]} #{response["Hora"]} #{Time.now.zone}").between? date_span.ago, date_span.from_now
+        Time.zone.parse("#{response["Fecha"]} #{response["Hora"]} #{Time.zone.now.zone}").between? date_span.ago, date_span.from_now
       end
 
       def valid_signature?(signature, response_data)
