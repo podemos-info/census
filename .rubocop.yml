@@ -1256,10 +1256,4 @@ Rails/HasManyOrHasOneDependent:
   Enabled: false
 
 Metrics/BlockLength:
-  Exclude:
-    - '**/*.arb'
-    - 'app/admin/*.rb'
-    - 'db/migrate/*'
-    - 'spec/**/*'
-  ExcludedMethods:
-    - included
+  Enabled: false
