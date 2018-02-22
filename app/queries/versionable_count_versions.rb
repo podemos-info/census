@@ -10,10 +10,10 @@ class VersionableCountVersions < Rectify::Query
   end
 
   def query
-    @versionable.versions.where(event: "update")
+    @versionable.versions
   end
 
   def value
-    query.count + 1
+    query.count
   end
 end
