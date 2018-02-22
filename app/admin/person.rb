@@ -26,7 +26,8 @@ ActiveAdmin.register Person do
 
   index do
     id_column
-    state_column :membership_level
+    state_column :state
+    state_column :membership_level, machine: :membership_levels
     column :full_name_link, sortable: :full_name, class: :left
     column :full_document, sortable: :full_document, class: :left
     column :scope, sortable: :scope, class: :left do |person|
@@ -40,8 +41,11 @@ ActiveAdmin.register Person do
 
   scope :all
   scope :enabled, default: true
-  Person.membership_levels.each do |membership_level|
+  Person.membership_level_names.each do |membership_level|
     scope membership_level.to_sym
+  end
+  Person.state_names.each do |state|
+    scope state.to_sym
   end
   scope :deleted
 
