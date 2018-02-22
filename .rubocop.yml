@@ -1212,11 +1212,8 @@ Rails/NotNullColumn:
     - db/migrate/*.rb
 
 Rails/Output:
-  Include:
-    - app/**/*.rb
-    - config/**/*.rb
-    - db/**/*.rb
-    - lib/**/*.rb
+  Exclude:
+    - "**/seeds/**/*.rb"
 
 Rails/ReadWriteAttribute:
   Include:
