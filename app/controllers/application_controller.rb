@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
 
   after_action :track_action
 
+  def edit; end
+
+  def show; end
+
   def user_for_paper_trail
     current_admin
   end
