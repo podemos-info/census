@@ -7,8 +7,10 @@ CHANGING_COLUMNS = [:first_name, :last_name1, :last_name2, :scope_id, :address_s
 describe Procedures::PersonDataChange, :db do
   subject(:procedure) { create(:person_data_change, :ready_to_process, person_copy_data: person, changing_columns: changing_columns) }
   let(:changing_columns) { CHANGING_COLUMNS }
-  let(:person) { build(:person, document_scope: create(:scope)) }
   let(:admin) { create(:admin) }
+  let(:person) do
+    build(:person, first_name: "changed", last_name1: "changed", document_id: "1R", email: "changed@changed.org", phone: "00000000000", document_scope: create(:scope))
+  end
 
   it { is_expected.to be_valid }
 
