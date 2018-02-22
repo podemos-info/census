@@ -22,7 +22,6 @@ SecureHeaders::Configuration.default do |config|
   config.csp = {
     # "meta" values. these will shape the header, but the values are not included in the header.
     preserve_schemes: true, # default: false. Schemes are removed from host sources to save bytes and discourage mixed content.
-
     # directive values: these values will directly translate into source directives
     default_src: ["https:", "'self'"],
     # base_uri: %w('self'),

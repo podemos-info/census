@@ -5,6 +5,7 @@ namespace :encryption do # rubocop: disable Metrics/BlockLength
 
   task :remove do # rubocop: disable Metrics/BlockLength
     set :confirmed, proc {
+      # rubocop:disable Layout/EmptyLinesAroundArguments
       puts <<-WARN
 
       ========================================================================
@@ -13,6 +14,7 @@ namespace :encryption do # rubocop: disable Metrics/BlockLength
       ========================================================================
 
       WARN
+      # rubocop:enable Layout/EmptyLinesAroundArguments
       ask :answer, "Are you sure you want to continue? Type 'remove'"
       fetch(:answer) == "remove"
     }.call

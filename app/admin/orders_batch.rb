@@ -62,7 +62,6 @@ ActiveAdmin.register OrdersBatch do
       country = issue.information["country"]
       bank_code = issue.information["bank_code"]
       key = "#{country}_#{bank_code}"
-
       info = { country: country, bank_code: bank_code, iban: issue.information["iban"] }
       if params.dig(:pending_bics, key)
         info[:value] = params[:pending_bics][key]
