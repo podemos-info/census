@@ -25,7 +25,7 @@ describe Procedures::Registration, :db do
     end
 
     it "changes the person membership level to follower" do
-      expect { procedure.accept! } .to change { procedure.person.membership_level } .from("pending").to("follower")
+      expect { procedure.accept! } .to change { procedure.person.state } .from("pending").to("enabled")
     end
   end
 
@@ -38,7 +38,7 @@ describe Procedures::Registration, :db do
     end
 
     it "changes the person membership level to rejected" do
-      expect { procedure.reject! } .to change { procedure.person.membership_level } .from("pending").to("rejected")
+      expect { procedure.reject! } .to change { procedure.person.state } .from("pending").to("rejected")
     end
   end
 
@@ -55,7 +55,7 @@ describe Procedures::Registration, :db do
       end
 
       it "undoes change of person membership level" do
-        expect { subject } .to change { procedure.person.membership_level } .from("follower").to("pending")
+        expect { subject } .to change { procedure.person.state } .from("enabled").to("pending")
       end
     end
 
@@ -64,7 +64,7 @@ describe Procedures::Registration, :db do
       before { procedure.reject! }
 
       it "undoes change of person membership level" do
-        expect { subject } .to change { procedure.person.membership_level } .from("rejected").to("pending")
+        expect { subject } .to change { procedure.person.state } .from("rejected").to("pending")
       end
     end
   end

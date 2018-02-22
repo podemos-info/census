@@ -161,15 +161,16 @@ es:
         last_name1: Primer Apellido
         last_name2: Segundo Apellido
         membership_level: Nivel
-        membership_level/activist: militante
         membership_level/follower: simpatizante
         membership_level/member: afiliado/a
-        membership_level/pending: pendiente
-        membership_level/rejected: rechazado/a
         phone: Teléfono
         postal_code: Código postal
         scope: Lugar de participación
         scope_id: Lugar de participación
+        state: Estado
+        state/pending: pendiente
+        state/enabled: habilitado
+        state/rejected: rechazado/a
         updated_at: Última actualización
         verifications: Verificaciones
       procedure:

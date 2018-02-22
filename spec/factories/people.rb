@@ -49,7 +49,6 @@ FactoryBot.define do
     email { Faker::Internet.unique.email }
     phone { "0034" + Faker::Number.number(9) }
     created_at { Faker::Time.between(3.years.ago, 3.days.ago, :all) }
-    membership_level :follower
     scope nil
     document_scope nil
     address_scope nil
@@ -79,7 +78,7 @@ FactoryBot.define do
       email nil
       phone nil
       created_at nil
-      membership_level { :pending }
+      state { :pending }
 
       after :build do |person|
         person.document_id = nil

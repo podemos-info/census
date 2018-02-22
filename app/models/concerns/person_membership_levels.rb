@@ -5,33 +5,15 @@ module PersonMembershipLevels
 
   included do
     include FlagShihTzu
-    include AASM
 
     has_flags 1 => :verified_by_document,
               2 => :verified_in_person,
               column: "verifications",
               check_for_column: false
 
-    aasm column: :membership_level do
-      state :pending, initial: true
-      state :rejected
-      state :follower, :member
-
-      event :prepare do
-        transitions from: [:pending, :rejected], to: :pending
-      end
-
-      event :register do
-        transitions from: :pending, to: :follower
-      end
-
-      event :reject do
-        transitions from: :pending, to: :rejected
-      end
-
-      event :undo do
-        transitions from: [:follower, :rejected], to: :pending
-      end
+    aasm :membership_levels, column: "membership_level" do
+      state :follower, initial: true
+      state :member
 
       event :to_follower do
         transitions from: [:pending, :member], to: :follower
@@ -44,18 +26,13 @@ module PersonMembershipLevels
 
     scope :verified, -> { where.not verifications: 0 }
     scope :not_verified, -> { where verifications: 0 }
-    scope :enabled, -> { where membership_level: [:follower, :member] }
 
-    def self.membership_levels
-      @membership_levels ||= Person.aasm.states.map(&:name).map(&:to_s)
+    def self.membership_level_names
+      @membership_level_names ||= aasm(:membership_levels).states.map(&:name).map(&:to_s)
     end
 
     def self.flags
       flag_mapping.values.flat_map(&:keys)
-    end
-
-    def enabled?
-      follower? || member?
     end
 
     def memberable?
@@ -70,12 +47,8 @@ module PersonMembershipLevels
       verifications.positive?
     end
 
-    def can_register?
-      aasm.events(permitted: true).map(&:name).include? :register
-    end
-
     def can_change_membership_level?(target)
-      aasm.events(permitted: true).map(&:name).include? :"to_#{target}"
+      aasm(:membership_levels).events(permitted: true).map(&:name).include? :"to_#{target}"
     end
   end
 end
