@@ -19,7 +19,7 @@ FactoryBot.define do
     expiration_month { expires_at.month }
 
     trait :expired do
-      expires_at { 2.month.ago }
+      expires_at { 2.months.ago }
     end
 
     trait :external do

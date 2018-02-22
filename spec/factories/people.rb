@@ -42,13 +42,13 @@ FactoryBot.define do
     first_name { Faker::Name.first_name }
     last_name1 { Faker::Name.last_name }
     last_name2 { Faker::Name.last_name }
-    born_at { Faker::Date.between(99.year.ago, 18.year.ago) }
+    born_at { Faker::Date.between(99.years.ago, 18.years.ago) }
     gender { Person.genders.keys.sample }
     address { Faker::Address.street_address }
     postal_code { Faker::Address.zip_code }
     email { Faker::Internet.unique.email }
     phone { "0034" + Faker::Number.number(9) }
-    created_at { Faker::Time.between(3.years.ago, 3.day.ago, :all) }
+    created_at { Faker::Time.between(3.years.ago, 3.days.ago, :all) }
     membership_level :follower
     scope nil
     document_scope nil
@@ -63,7 +63,7 @@ FactoryBot.define do
       else
         person.document_type = [foreign ? :dni : :nie, :passport].sample
       end
-      person.document_id = Census::Faker::DocumentId.generate(person.document_type) unless person.document_id.present?
+      person.document_id = Census::Faker::DocumentId.generate(person.document_type) if person.document_id.blank?
 
       local_scope = create(:local_scope)
       person.scope ||= create(:scope, parent: local_scope)
@@ -91,7 +91,7 @@ FactoryBot.define do
     end
 
     trait :young do
-      born_at { Faker::Date.between(18.year.ago, 14.year.ago) }
+      born_at { Faker::Date.between(18.years.ago, 14.years.ago) }
     end
 
     trait :verified do

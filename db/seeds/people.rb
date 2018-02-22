@@ -25,7 +25,7 @@ def register_person(use_procedure: true, copy_from_procedure: nil)
       document_type: doc,
       document_id: Census::Faker::DocumentId.generate(doc),
       document_scope: doc == "passport" ? Scope.top_level.sample : Scope.local,
-      born_at: young ? Faker::Date.between(18.year.ago, 14.year.ago) : Faker::Date.between(99.year.ago, 18.year.ago),
+      born_at: young ? Faker::Date.between(18.years.ago, 14.years.ago) : Faker::Date.between(99.years.ago, 18.years.ago),
       gender: Person.genders.keys.sample,
       address: Faker::Address.street_address,
       address_scope: emigrant ? emigrant_scopes.sample : scope,

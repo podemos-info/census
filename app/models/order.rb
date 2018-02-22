@@ -44,11 +44,7 @@ class Order < ApplicationRecord
     processed? && payment_method.reprocessable? && processed_at > Settings.payments.allow_reprocess_hours.hours.ago
   end
 
-  def external_authorization?
-    payment_method.external_authorization?
-  end
+  delegate :external_authorization?, to: :payment_method
 
-  def payment_processor
-    payment_method.payment_processor
-  end
+  delegate :payment_processor, to: :payment_method
 end

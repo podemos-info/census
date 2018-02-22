@@ -13,7 +13,7 @@ FactoryBot.define do
   factory :procedure, class: :procedure do
     association :person, factory: :person, strategy: :build
     information { {} }
-    created_at { Faker::Time.between(person.created_at, 3.day.ago, :all) }
+    created_at { Faker::Time.between(person.created_at, 3.days.ago, :all) }
 
     trait :ready_to_process do
       processed_by { build(:admin) }
@@ -105,7 +105,7 @@ FactoryBot.define do
         document_scope_id: person_copy_data.document_scope.id
       }
     end
-    created_at { Faker::Time.between(3.years.ago, 3.day.ago, :all) }
+    created_at { Faker::Time.between(3.years.ago, 3.days.ago, :all) }
   end
 
   factory :person_data_change, parent: :procedure, class: :"procedures/person_data_change" do
@@ -134,7 +134,7 @@ FactoryBot.define do
       ret
     end
 
-    created_at { Faker::Time.between(3.years.ago, 3.day.ago, :all) }
+    created_at { Faker::Time.between(3.years.ago, 3.days.ago, :all) }
   end
 
   factory :cancellation, parent: :procedure, class: :"procedures/cancellation" do

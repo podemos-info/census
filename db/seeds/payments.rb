@@ -10,7 +10,7 @@ def create_order(person, credit_card, campaign)
   PaperTrail.whodunnit = person
   payment_method = person.payment_methods.where(type: "PaymentMethods::#{credit_card ? "CreditCard" : "DirectDebit"}").sample
   payment_method ||= if credit_card
-                       expires_at = Faker::Date.between(6.month.ago, 4.year.from_now)
+                       expires_at = Faker::Date.between(6.months.ago, 4.years.from_now)
                        PaymentMethods::CreditCard.new person: person, payment_processor: :redsys,
                                                       authorization_token: "invalid code", expiration_year: expires_at.year, expiration_month: expires_at.month
                      else

@@ -65,7 +65,7 @@ end
 
 # create 5 document verifications with issues
 Person.enabled.not_verified.order("RANDOM()").limit(5).each do |person|
-  Timecop.freeze Faker::Time.between(3.days.ago(real_now), 1.days.ago(real_now), :all)
+  Timecop.freeze Faker::Time.between(3.days.ago(real_now), 1.day.ago(real_now), :all)
   PaperTrail.whodunnit = person
   document_verification = Procedures::DocumentVerification.create!(person: person,
                                                                    information: {},
@@ -88,7 +88,7 @@ end
 
 # create 10 unprocessed document verifications
 Person.enabled.not_verified.order("RANDOM()").limit(10).each do |person|
-  Timecop.freeze Faker::Time.between(3.days.ago(real_now), 1.days.ago(real_now), :all)
+  Timecop.freeze Faker::Time.between(3.days.ago(real_now), 1.day.ago(real_now), :all)
   PaperTrail.whodunnit = person
   document_verification = Procedures::DocumentVerification.create!(person: person,
                                                                    information: {})
