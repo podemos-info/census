@@ -17,7 +17,7 @@ ActiveAdmin.register Order do
   config.clear_action_items!
 
   scope :all, default: true
-  Order.states.each do |state|
+  Order.state_names.each do |state|
     scope state.to_sym
   end
 

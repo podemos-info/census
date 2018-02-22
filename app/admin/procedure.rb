@@ -26,8 +26,8 @@ ActiveAdmin.register Procedure do
   end
 
   scope :all
-  Procedure.aasm.states.each do |state|
-    scope state.name, default: state == :pending
+  Procedure.state_names.each do |state|
+    scope state, default: state == "pending"
   end
 
   index do
