@@ -1216,6 +1216,9 @@ Rails/Output:
   Exclude:
     - "**/seeds/**/*.rb"
 
+Rails/OutputSafety:
+  Enabled: false
+
 Rails/ReadWriteAttribute:
   Include:
     - app/models/**/*.rb
