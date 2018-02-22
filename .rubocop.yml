@@ -1173,6 +1173,9 @@ Rails/ActionFilter:
   Include:
     - app/controllers/**/*.rb
 
+Rails/CreateTableWithTimestamps:
+  Enabled: false
+
 Rails/Date:
   # The value `strict` disallows usage of `Date.today`, `Date.current`,
   # `Date#to_time` etc.
@@ -1201,6 +1204,9 @@ Rails/FindEach:
 Rails/HasAndBelongsToMany:
   Include:
     - app/models/**/*.rb
+
+Rails/InverseOf:
+  Enabled: false
 
 Rails/NotNullColumn:
   Include:
@@ -1245,6 +1251,9 @@ Rails/TimeZone:
 Rails/UniqBeforePluck:
   EnforcedStyle: conservative
   AutoCorrect: false
+
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
 
 Metrics/BlockLength:
   Exclude:
