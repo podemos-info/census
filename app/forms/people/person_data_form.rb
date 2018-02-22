@@ -52,9 +52,7 @@ module People
     private
 
     def validate_document_scope
-      if document_type != "passport" && !Scope.local_code?(document_scope_code)
-        errors.add :document_scope_code, :should_be_local
-      end
+      errors.add :document_scope_code, :should_be_local if document_type != "passport" && !Scope.local_code?(document_scope_code)
     end
   end
 end

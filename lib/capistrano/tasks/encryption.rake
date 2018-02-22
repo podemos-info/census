@@ -43,9 +43,7 @@ namespace :encryption do # rubocop: disable Metrics/BlockLength
       within current_path do
         source_path = shared_path.join(CONFIG_FILE)
         target_path = release_path.join("config", CONFIG_FILE)
-        if test("[ -f #{source_path} ] && [ ! -f #{target_path} ]")
-          execute :ln, "-s", source_path, target_path
-        end
+        execute :ln, "-s", source_path, target_path if test("[ -f #{source_path} ] && [ ! -f #{target_path} ]")
       end
     end
   end
