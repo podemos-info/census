@@ -62,7 +62,6 @@ ActiveAdmin.register OrdersBatch do
       country = issue.information["country"]
       bank_code = issue.information["bank_code"]
       key = "#{country}_#{bank_code}"
-
       info = { country: country, bank_code: bank_code, iban: issue.information["iban"] }
       if params.dig(:pending_bics, key)
         info[:value] = params[:pending_bics][key]
@@ -98,7 +97,7 @@ ActiveAdmin.register OrdersBatch do
 
       if first_pending_order
         build_params[:orders_from] = first_pending_order.created_at.to_date unless build_params[:orders_from]
-        build_params[:orders_to] = Date.today unless build_params[:orders_to]
+        build_params[:orders_to] = Time.zone.today unless build_params[:orders_to]
 
         resource = decorator_class.new(OrdersBatchForm.from_params(build_params))
       else

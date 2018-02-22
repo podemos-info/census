@@ -35,7 +35,7 @@ module Payments
 
     def process_order
       payment_processor.process_order order
-      order.assign_attributes processed_at: Time.now, processed_by: admin
+      order.assign_attributes processed_at: Time.zone.now, processed_by: admin
 
       return :error unless save_all
 

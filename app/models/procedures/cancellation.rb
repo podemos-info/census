@@ -9,7 +9,7 @@ module Procedures
     end
 
     def process_accept
-      person.deleted_at = Time.now
+      person.deleted_at = Time.zone.now
     end
 
     def undo_accept(**_args)

@@ -13,11 +13,11 @@ FactoryBot.define do
   factory :procedure, class: :procedure do
     association :person, factory: :person, strategy: :build
     information { {} }
-    created_at { Faker::Time.between(person.created_at, 3.day.ago, :all) }
+    created_at { Faker::Time.between(person.created_at, 3.days.ago, :all) }
 
     trait :ready_to_process do
       processed_by { build(:admin) }
-      processed_at { Time.now }
+      processed_at { Time.zone.now }
       comment { Faker::Lorem.paragraph(1, true, 2) }
     end
 
@@ -31,7 +31,7 @@ FactoryBot.define do
     trait :undoable do
       after :create do |procedure|
         procedure.processed_by = build(:admin)
-        procedure.processed_at = Time.now
+        procedure.processed_at = Time.zone.now
         procedure.comment = Faker::Lorem.paragraph(1, true, 2)
         procedure.accept!
 
@@ -47,7 +47,7 @@ FactoryBot.define do
     trait :undoable_rejected do
       after :create do |procedure|
         procedure.processed_by = build(:admin)
-        procedure.processed_at = Time.now
+        procedure.processed_at = Time.zone.now
         procedure.comment = Faker::Lorem.paragraph(1, true, 2)
         procedure.reject!
 
@@ -105,7 +105,7 @@ FactoryBot.define do
         document_scope_id: person_copy_data.document_scope.id
       }
     end
-    created_at { Faker::Time.between(3.years.ago, 3.day.ago, :all) }
+    created_at { Faker::Time.between(3.years.ago, 3.days.ago, :all) }
   end
 
   factory :person_data_change, parent: :procedure, class: :"procedures/person_data_change" do
@@ -134,7 +134,7 @@ FactoryBot.define do
       ret
     end
 
-    created_at { Faker::Time.between(3.years.ago, 3.day.ago, :all) }
+    created_at { Faker::Time.between(3.years.ago, 3.days.ago, :all) }
   end
 
   factory :cancellation, parent: :procedure, class: :"procedures/cancellation" do

@@ -7,13 +7,14 @@ AllCops:
   Exclude:
     - 'db/schema.rb'
     - 'vendor/**/*'
-    
+    - 'bin/*'
+
   # Default formatter will be used if no -f/--format option is given.
   DefaultFormatter: progress
   # Cop names are not displayed in offense messages by default. Change behavior
   # by overriding DisplayCopNames, or by giving the -D/--display-cop-names
   # option.
-  DisplayCopNames: false
+  DisplayCopNames: true
   # Style guide URLs are not displayed in offense messages by default. Change
   # behavior by overriding DisplayStyleGuide, or by giving the
   # -S/--display-style-guide option.
@@ -57,7 +58,7 @@ AllCops:
   # If a value is specified for TargetRubyVersion then it is used.
   # Else if .ruby-version exists and it contains an MRI version it is used.
   # Otherwise we fallback to the oldest officially supported Ruby version (2.0).
-  TargetRubyVersion: 2.4.1
+  TargetRubyVersion: 2.3
 
 # Indent private/protected/public as deep as method definitions
 Layout/AccessModifierIndentation:
@@ -525,9 +526,6 @@ Style/HashSyntax:
   UseHashRocketsWithSymbolValues: false
   # Do not suggest { a?: 1 } over { :a? => 1 } in ruby19 style
   PreferHashRocketsForNonAlnumEndingSymbols: false
-
-Style/IfUnlessModifier:
-  MaxLineLength: 80
 
 Layout/IndentationConsistency:
   # The difference between `rails` and `normal` is that the `rails` style
@@ -1029,9 +1027,6 @@ Naming/VariableNumber:
     - normalcase
     - non_integer
 
-Style/WhileUntilModifier:
-  MaxLineLength: 80
-
 # WordArray enforces how array literals of word-like strings should be expressed.
 Style/WordArray:
   EnforcedStyle: percent
@@ -1167,6 +1162,9 @@ Performance/RedundantMerge:
 
 ##################### Rails ##################################
 
+Rails:
+  Enabled: true
+
 Rails/ActionFilter:
   EnforcedStyle: action
   SupportedStyles:
@@ -1174,6 +1172,9 @@ Rails/ActionFilter:
     - filter
   Include:
     - app/controllers/**/*.rb
+
+Rails/CreateTableWithTimestamps:
+  Enabled: false
 
 Rails/Date:
   # The value `strict` disallows usage of `Date.today`, `Date.current`,
@@ -1204,16 +1205,19 @@ Rails/HasAndBelongsToMany:
   Include:
     - app/models/**/*.rb
 
+Rails/InverseOf:
+  Enabled: false
+
 Rails/NotNullColumn:
   Include:
     - db/migrate/*.rb
 
 Rails/Output:
-  Include:
-    - app/**/*.rb
-    - config/**/*.rb
-    - db/**/*.rb
-    - lib/**/*.rb
+  Exclude:
+    - "**/seeds/**/*.rb"
+
+Rails/OutputSafety:
+  Enabled: false
 
 Rails/ReadWriteAttribute:
   Include:
@@ -1248,11 +1252,8 @@ Rails/UniqBeforePluck:
   EnforcedStyle: conservative
   AutoCorrect: false
 
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
+
 Metrics/BlockLength:
-  Exclude:
-    - '**/*.arb'
-    - 'app/admin/*.rb'
-    - 'db/migrate/*'
-    - 'spec/**/*'
-  ExcludedMethods:
-    - included
+  Enabled: false

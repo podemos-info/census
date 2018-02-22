@@ -76,7 +76,7 @@ module Census
       end
 
       def format_response(force_error)
-        return nil unless response_code.present? # only can be used to respond parsed responses
+        return nil if response_code.blank? # only can be used to respond parsed responses
         @success = false if force_error
 
         envelope(response_message)
@@ -196,7 +196,7 @@ module Census
       end
 
       def valid_datetime?(response, date_span)
-        Time.parse("#{response["Fecha"]} #{response["Hora"]} #{Time.now.zone}").between? date_span.ago, date_span.from_now
+        Time.zone.parse("#{response["Fecha"]} #{response["Hora"]} #{Time.zone.now.zone}").between? date_span.ago, date_span.from_now
       end
 
       def valid_signature?(signature, response_data)

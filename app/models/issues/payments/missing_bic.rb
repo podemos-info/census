@@ -23,7 +23,9 @@ module Issues
 
       class << self
         def find_for(direct_debit)
+          # rubocop:disable Rails/FindBy
           MissingBic.where("information ->> 'country' = ?", direct_debit.iban_parts[:country]).where("information ->> 'bank_code' = ?", direct_debit.iban_parts[:bank]).first
+          # rubocop:enable Rails/FindBy
         end
 
         def build_for(direct_debit)

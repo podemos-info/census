@@ -15,7 +15,7 @@ Rails.application.configure do
   config.consider_all_requests_local = true
 
   # Enable/disable caching. By default caching is disabled.
-  if Rails.root.join("tmp/caching-dev.txt").exist?
+  if Rails.root.join("tmp", "caching-dev.txt").exist?
     config.action_controller.perform_caching = true
 
     config.cache_store = :memory_store
@@ -51,7 +51,7 @@ Rails.application.configure do
 
   Settings.security.allowed_ips.development&.each { |ip| BetterErrors::Middleware.allow_ip! ip }
 
-  I18n::Debug.logger = Logger.new(File.join(Rails.root, "log", "i18n-debug.log"))
+  I18n::Debug.logger = Logger.new(Rails.root.join("log", "i18n-debug.log"))
 
   # Log file max size
   config.logger = ActiveSupport::Logger.new(config.paths["log"].first, 1, 100 * 1024 * 1024)

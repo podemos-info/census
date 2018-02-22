@@ -3,7 +3,9 @@
 module Payments
   class Processor
     def format_order_id(order)
+      # rubocop:disable Style/FormatStringToken due to a bug, reenable in 0.52.2
       order.date.strftime("%y%m%d") + (order.id % 1_000_000).to_s.rjust(6, "0")
+      # rubocop:enable Style/FormatStringToken
     end
 
     def name

@@ -38,23 +38,21 @@ module People
     end
 
     def document_scope
-      @document_scope ||= Scope.find_by_code(document_scope_code)
+      @document_scope ||= Scope.find_by(code: document_scope_code)
     end
 
     def scope
-      @scope ||= Scope.find_by_code(scope_code)
+      @scope ||= Scope.find_by(code: scope_code)
     end
 
     def address_scope
-      @address_scope ||= Scope.find_by_code(address_scope_code)
+      @address_scope ||= Scope.find_by(code: address_scope_code)
     end
 
     private
 
     def validate_document_scope
-      if document_type != "passport" && !Scope.local_code?(document_scope_code)
-        errors.add :document_scope_code, :should_be_local
-      end
+      errors.add :document_scope_code, :should_be_local if document_type != "passport" && !Scope.local_code?(document_scope_code)
     end
   end
 end

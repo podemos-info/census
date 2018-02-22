@@ -15,7 +15,6 @@ describe Downloads::CreateDownload do
       DownloadForm,
       invalid?: !valid,
       valid?: valid,
-
       person: download.person,
       file: file,
       expires_at: download.expires_at

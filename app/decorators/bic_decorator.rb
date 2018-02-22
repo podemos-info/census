@@ -11,7 +11,5 @@ class BicDecorator < ApplicationDecorator
     h.link_to name, object
   end
 
-  def bic
-    object.bic
-  end
+  delegate :bic, to: :object
 end

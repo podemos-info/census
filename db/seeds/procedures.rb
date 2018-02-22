@@ -6,7 +6,7 @@ admins = Admin.where role: [:lopd, :lopd_help]
 
 attachments_path = File.join(__dir__, "attachments")
 
-real_now = Time.now
+real_now = Time.zone.now
 
 # process all registrations
 Procedure.all.each do |registration|
@@ -24,7 +24,7 @@ Procedure.all.each do |registration|
 
   registration.assign_attributes(
     processed_by: current_admin,
-    processed_at: Time.now
+    processed_at: Time.zone.now
   )
   registration.accept
   registration.save!
@@ -44,14 +44,14 @@ Person.enabled.not_verified.order("RANDOM()").limit(10).each do |person|
   document_verification.attachments.create!(file: File.new(File.join(attachments_path, "#{person.document_type}-sample2.png")))
   Rails.logger.debug { "Person document verification created for: #{document_verification.person.decorate}" }
 
-  Timecop.freeze Faker::Time.between(Time.now, real_now, :all)
+  Timecop.freeze Faker::Time.between(Time.zone.now, real_now, :all)
   current_admin = admins.sample
 
   PaperTrail.whodunnit = current_admin
 
   document_verification.update_attributes!(
     processed_by: current_admin,
-    processed_at: Time.now,
+    processed_at: Time.zone.now,
     state: Faker::Boolean.boolean(0.7) ? :accepted : :rejected,
     comment: Faker::Lorem.paragraph(1, true, 2)
   )
@@ -65,7 +65,7 @@ end
 
 # create 5 document verifications with issues
 Person.enabled.not_verified.order("RANDOM()").limit(5).each do |person|
-  Timecop.freeze Faker::Time.between(3.days.ago(real_now), 1.days.ago(real_now), :all)
+  Timecop.freeze Faker::Time.between(3.days.ago(real_now), 1.day.ago(real_now), :all)
   PaperTrail.whodunnit = person
   document_verification = Procedures::DocumentVerification.create!(person: person,
                                                                    information: {},
@@ -74,12 +74,12 @@ Person.enabled.not_verified.order("RANDOM()").limit(5).each do |person|
   document_verification.attachments.create!(file: File.new(File.join(attachments_path, "#{person.document_type}-sample2.png")))
   Rails.logger.debug { "Person document verification created for: #{document_verification.person.decorate}" }
 
-  Timecop.freeze Faker::Time.between(Time.now, real_now, :all)
+  Timecop.freeze Faker::Time.between(Time.zone.now, real_now, :all)
   PaperTrail.whodunnit = admins.sample
 
   document_verification.update_attributes!(
     processed_by: PaperTrail.actor,
-    processed_at: Time.now,
+    processed_at: Time.zone.now,
     state: :issues,
     comment: Faker::Lorem.paragraph(1, true, 2)
   )
@@ -88,7 +88,7 @@ end
 
 # create 10 unprocessed document verifications
 Person.enabled.not_verified.order("RANDOM()").limit(10).each do |person|
-  Timecop.freeze Faker::Time.between(3.days.ago(real_now), 1.days.ago(real_now), :all)
+  Timecop.freeze Faker::Time.between(3.days.ago(real_now), 1.day.ago(real_now), :all)
   PaperTrail.whodunnit = person
   document_verification = Procedures::DocumentVerification.create!(person: person,
                                                                    information: {})

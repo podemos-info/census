@@ -36,7 +36,7 @@ module Issues
     def fix
       Issue.transaction do
         issue.assigned_to ||= admin.person if admin
-        issue.fixed_at = Time.now
+        issue.fixed_at = Time.zone.now
         issue.save!
         issue_unreads.destroy_all
         :ok

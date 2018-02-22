@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
-namespace :encryption do # rubocop: disable Metrics/BlockLength
+namespace :encryption do
   CONFIG_FILE = "symmetric-encryption.yml"
 
-  task :remove do # rubocop: disable Metrics/BlockLength
+  task :remove do
     set :confirmed, proc {
+      # rubocop:disable Layout/EmptyLinesAroundArguments
       puts <<-WARN
 
       ========================================================================
@@ -13,6 +14,7 @@ namespace :encryption do # rubocop: disable Metrics/BlockLength
       ========================================================================
 
       WARN
+      # rubocop:enable Layout/EmptyLinesAroundArguments
       ask :answer, "Are you sure you want to continue? Type 'remove'"
       fetch(:answer) == "remove"
     }.call
@@ -43,14 +45,12 @@ namespace :encryption do # rubocop: disable Metrics/BlockLength
       within current_path do
         source_path = shared_path.join(CONFIG_FILE)
         target_path = release_path.join("config", CONFIG_FILE)
-        if test("[ -f #{source_path} ] && [ ! -f #{target_path} ]")
-          execute :ln, "-s", source_path, target_path
-        end
+        execute :ln, "-s", source_path, target_path if test("[ -f #{source_path} ] && [ ! -f #{target_path} ]")
       end
     end
   end
 
-  task :setup do # rubocop: disable Metrics/BlockLength
+  task :setup do
     on roles(:master) do
       within current_path do
         config_path = shared_path.join(CONFIG_FILE)
