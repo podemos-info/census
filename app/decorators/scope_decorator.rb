@@ -12,4 +12,7 @@ class ScopeDecorator < ApplicationDecorator
   def name
     helpers.translated_attribute(object.name)
   end
+
+  alias to_s name
+  alias listable_name name
 end

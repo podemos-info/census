@@ -9,6 +9,9 @@ class DownloadDecorator < ApplicationDecorator
     filename
   end
 
+  alias to_s name
+  alias listable_name name
+
   def filename
     object.file.file.filename
   end

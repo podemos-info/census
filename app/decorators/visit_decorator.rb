@@ -9,6 +9,9 @@ class VisitDecorator < ApplicationDecorator
     "#{admin&.name || ip} - #{h.pretty_format(object.started_at)}"
   end
 
+  alias to_s name
+  alias listable_name name
+
   def location
     [object.country, object.region, object.city].compact.join ", "
   end

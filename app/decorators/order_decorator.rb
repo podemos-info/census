@@ -13,6 +13,7 @@ class OrderDecorator < ApplicationDecorator
   end
 
   alias to_s name
+  alias listable_name name
 
   def full_amount
     Money.new(object.amount, object.currency).format

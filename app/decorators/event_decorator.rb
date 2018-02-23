@@ -20,6 +20,9 @@ class EventDecorator < ApplicationDecorator
     I18n.t("census.events.type.#{object.name}", params).capitalize
   end
 
+  alias to_s name
+  alias listable_name name
+
   def description
     if properties["id"]
       event_object = controller_model.find_by(id: properties["id"])

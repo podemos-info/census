@@ -9,6 +9,9 @@ class IssueDecorator < ApplicationDecorator
     issue_type_name
   end
 
+  alias to_s name
+  alias listable_name name
+
   def issue_type_name
     I18n.t("census.issues.types.#{object.issue_type.underscore}")
   end
@@ -30,7 +33,7 @@ class IssueDecorator < ApplicationDecorator
   def objects_links
     object.issue_objects.map do |issue_object|
       obj = issue_object.object.decorate
-      h.link_to obj.name, h.url_for(obj)
+      h.link_to obj.listable_name, h.url_for(obj)
     end.to_sentence.html_safe
   end
 

@@ -16,6 +16,10 @@ class PersonDecorator < ApplicationDecorator
     [last_names, object.first_name].reject(&:blank?).join(", ")
   end
 
+  def listable_name
+    "#{[object.first_name, last_names].reject(&:blank?).join(" ")} (##{object.id})"
+  end
+
   def last_names
     [object.last_name1, object.last_name2].reject(&:blank?).join(" ")
   end

@@ -5,6 +5,10 @@ class PaymentMethodDecorator < ApplicationDecorator
 
   decorates_association :person
 
+  delegate :name, to: :object
+  alias to_s name
+  alias listable_name name
+
   def flags
     @flags ||= PaymentMethod.flags.select { |flag| object.send(flag) }
   end

@@ -12,6 +12,9 @@ class ProcedureDecorator < ApplicationDecorator
     "#{type_name} ##{id}"
   end
 
+  alias to_s name
+  alias listable_name name
+
   def permitted_events_options(processed_by)
     @permitted_events_options ||= object.permitted_events(processed_by).map do |event|
       [I18n.t("census.procedures.events.#{event}"), event]

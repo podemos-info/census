@@ -9,6 +9,9 @@ class AdminDecorator < ApplicationDecorator
     username
   end
 
+  alias to_s name
+  alias listable_name name
+
   def role_name
     I18n.t("census.admins.roles.#{object.role}")
   end

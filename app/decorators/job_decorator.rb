@@ -8,6 +8,9 @@ class JobDecorator < ApplicationDecorator
     "#{job_type_name} ##{id}"
   end
 
+  alias to_s name
+  alias listable_name name
+
   def job_type_name
     I18n.t("census.jobs.types.#{object.job_type.underscore}")
   end

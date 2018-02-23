@@ -12,6 +12,9 @@ class VersionDecorator < ApplicationDecorator
     description
   end
 
+  alias to_s name
+  alias listable_name name
+
   def description
     item_class = object.item_type.constantize
     item_class_name = item_class.model_name.human
