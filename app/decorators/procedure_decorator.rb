@@ -70,7 +70,7 @@ class ProcedureDecorator < ApplicationDecorator
       changed_attributes = person.attributes.keys.zip(person.attributes.values.zip(processed_person.attributes.values))
                                  .reject { |_attribute, values| values.first == values.last }
                                  .map(&:first)
-      classed_changeset(changed_attributes, "version_change new_value")
+      classed_changeset(changed_attributes, "version_change")
     end
   end
 end

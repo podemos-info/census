@@ -3,7 +3,7 @@
 context.instance_eval do
   columns class: "attachments" do
     column do
-      render partial: "procedures/document_verification/personal_data"
+      render partial: "procedures/document_verification/verificable_data"
 
       if procedure.dependent_procedures.any?
         panel I18n.t("census.procedures.dependent_procedures") do

@@ -55,7 +55,7 @@ ActiveAdmin.register Procedure do
   end
 
   form title: I18n.t("census.procedures.process"), decorate: true do |f|
-    render "procedures/#{resource.procedure_type}/form", context: self, f: f
+    render "procedures/#{resource.procedure_type}/form", context: self, f: f, person_classes: resource.last_version_classed_changeset
   end
 
   action_item :undo_procedure, only: :show do
