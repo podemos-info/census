@@ -51,4 +51,12 @@ class VersionDecorator < ApplicationDecorator
   def item_route_key
     item.respond_to?(:route_key) ? item.route_key : object.item.class.name.underscore.pluralize
   end
+
+  def before_classed_changeset
+    classed_changeset(resource.object_changes.keys, "version_change old_value")
+  end
+
+  def after_classed_changeset
+    classed_changeset(resource.object_changes.keys, "version_change new_value")
+  end
 end
