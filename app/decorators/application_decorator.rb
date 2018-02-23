@@ -18,6 +18,8 @@ class ApplicationDecorator < Draper::Decorator
       version = object.versions.last
       if version&.event == "update"
         classed_changeset(version.object_changes.keys, "version_change")
+      else
+        {}
       end
     end
   end
