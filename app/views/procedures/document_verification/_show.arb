@@ -4,17 +4,7 @@ context.instance_eval do
   render partial: "show", locals: { context: context, classes: classes }
   columns class: "attachments" do
     column do
-      tabs do
-        if procedure.processed?
-          tab t("census.procedures.person.when_processed") do
-            render partial: "people/show", locals: { context: context, title: "", classes: {}, resource: procedure.processed_person }
-          end
-        end
-
-        tab t("census.procedures.person.now") do
-          render partial: "people/show", locals: { context: context, title: "", classes: person_classes, resource: procedure.person }
-        end
-      end
+      render partial: "person_compare", locals: { context: context, classes: person_classes }
     end
     if procedure.attachments.any?
       column do
