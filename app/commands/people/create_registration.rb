@@ -57,6 +57,7 @@ module People
       @person ||= begin
         ret = form.person || Person.new
         ret.assign_attributes(person_data)
+        ret
       end
     end
 
