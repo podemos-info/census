@@ -4,24 +4,11 @@
       @include icon("\f0f3");
     }
   }
-  #issues_unread a:before {
-    color: $error-color;
-  }
-
   #user_jobs {
     a:before {
       @include icon("\f013");
     }
   }
-  #user_jobs.running a:before {
-    -webkit-animation: fa-spin 2s infinite linear;
-    animation: fa-spin 2s infinite linear;
-  }
-
-  #logout {
-    min-width: 35px;
-  }
-
   #issues_read, #issues_unread, #user_jobs, #current_user, #logout {
     a {
       visibility: hidden;
@@ -56,5 +43,16 @@
         }
       }
     }
+  }
+  #issues_unread a:before {
+    color: $error-color;
+  }
+
+  #user_jobs.running a:before {
+    -webkit-animation: fa-spin 2s infinite linear;
+    animation: fa-spin 2s infinite linear;
+  }
+  #logout {
+    min-width: 35px;
   }
 }
