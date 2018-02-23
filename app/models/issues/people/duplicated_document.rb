@@ -19,7 +19,7 @@ module Issues
       private
 
       def affected_people
-        @affected_people ||= ::PeopleWithDuplicatedDocument.for(self.class.document_information(procedure))
+        @affected_people ||= ::PeopleEnabled.for.merge(::PeopleWithDuplicatedDocument.for(self.class.document_information(procedure)))
       end
 
       class << self

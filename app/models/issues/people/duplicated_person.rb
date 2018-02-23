@@ -19,7 +19,7 @@ module Issues
       private
 
       def affected_people
-        @affected_people ||= Person.where(born_at: born_at).select do |person|
+        @affected_people ||= ::PeopleEnabled.for.merge(::PeopleByBornDate.for(born_at)).select do |person|
           normalize(person.first_name, person.last_name1, person.last_name2) == normalize(first_name, last_name1, last_name2)
         end
       end
