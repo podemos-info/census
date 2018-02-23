@@ -445,7 +445,10 @@ es:
         reject: Rechazar
         set_issues: Incidencia
         undo: Deshacer
-      personal_data: Datos personales
+      person:
+        data: Datos personales
+        now: Ahora
+        when_processed: Al procesarlo
       process: Procesar
     scopes:
       picker:

@@ -7,7 +7,6 @@ class ProcedureDecorator < ApplicationDecorator
   decorates_association :person
   decorates_association :processed_by
   decorates_association :dependent_procedures
-  decorates_association :attachments
 
   def name
     "#{type_name} ##{id}"
@@ -45,7 +44,30 @@ class ProcedureDecorator < ApplicationDecorator
     "procedure"
   end
 
+  def procedure_type
+    object.class.name.demodulize.underscore
+  end
+
   def self.procedures_options
     @procedures_options ||= Procedure.descendants.map { |procedure| [procedure.model_name.human, procedure.model_name.to_s] }
+  end
+
+  def attachments
+    object.attachments.order(id: :asc).decorate
+  end
+
+  def processed_person
+    return nil unless processed?
+    @processed_person ||= person.paper_trail.version_at(processed_at).decorate
+  end
+
+  def processed_person_classed_changeset
+    return {} unless processed_person
+    @processed_person_classed_changeset ||= begin
+      changed_attributes = person.attributes.keys.zip(person.attributes.values.zip(processed_person.attributes.values))
+                                 .reject { |_attribute, values| values.first == values.last }
+                                 .map(&:first)
+      classed_changeset(changed_attributes, "version_change new_value")
+    end
   end
 end

@@ -1,0 +1,11 @@
+# frozen_string_literal: true
+
+context.instance_eval do
+  panel t("census.procedures.process") do
+    f.inputs do
+      f.input :event, as: :radio, label: false, collection: procedure.permitted_events_options(controller.current_admin)
+      f.input :comment, as: :text
+    end
+    f.actions
+  end
+end
