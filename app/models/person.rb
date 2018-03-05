@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class Person < ApplicationRecord
+  include AASM
   include PersonMembershipLevels
+  include PersonStates
   include Issuable
 
   acts_as_paranoid

@@ -9,7 +9,7 @@ module People
 
     attribute :membership_level, String
 
-    validates :membership_level, presence: true, inclusion: { in: Person.membership_levels }
+    validates :membership_level, presence: true, inclusion: { in: Person.membership_level_names }
 
     def has_changes?
       person&.membership_level != membership_level

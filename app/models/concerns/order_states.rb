@@ -23,8 +23,8 @@ module OrderStates
       end
     end
 
-    def self.states
-      @states ||= Order.aasm.states.map(&:name).map(&:to_s)
+    def self.state_names
+      @states ||= aasm.states.map(&:name).map(&:to_s)
     end
   end
 end

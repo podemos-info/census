@@ -17,11 +17,13 @@ en:
         postal_code: Postal code
         flags: Flags
         membership_level: Membership level
-        membership_level/person: Person
         membership_level/follower: Follower
         membership_level/member: Member
-        membership_level/activist: Activist
         scope: Scope
+        state: Status
+        state/pending: Pending
+        state/enabled: Enabled
+        state/rejected: Rejected
         created_at: Created at
         updated_at: Updated at
   census:

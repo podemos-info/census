@@ -33,7 +33,8 @@ def register_person(use_procedure: true, copy_from_procedure: nil)
       email: Faker::Internet.unique.email,
       phone: "0034" + Faker::Number.number(9),
       scope: scope,
-      membership_level: :follower
+      membership_level: :follower,
+      state: :enabled
     }
   end
 
