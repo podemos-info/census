@@ -52,6 +52,7 @@ FactoryBot.define do
     scope nil
     document_scope nil
     address_scope nil
+    state :enabled
 
     after :build do |person, evaluator|
       foreign = evaluator.foreign
@@ -78,7 +79,7 @@ FactoryBot.define do
       email nil
       phone nil
       created_at nil
-      state { :pending }
+      state :pending
 
       after :build do |person|
         person.document_id = nil

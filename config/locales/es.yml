@@ -168,8 +168,8 @@ es:
         scope: Lugar de participación
         scope_id: Lugar de participación
         state: Estado
-        state/pending: pendiente
         state/enabled: habilitado
+        state/pending: pendiente
         state/rejected: rechazado/a
         updated_at: Última actualización
         verifications: Verificaciones
