@@ -31,9 +31,7 @@ ActiveAdmin.register Procedure do
   end
 
   index do
-    column :type, sortable: :type do |procedure|
-      procedure.view_link procedure.name
-    end
+    column :type, sortable: :type, &:view_link_with_name
     column :person, class: :left, sortable: :full_name
     column :created_at, class: :left
     state_column :state

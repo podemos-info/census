@@ -111,7 +111,7 @@ module Payments
       Issues::CheckIssues.call(issuable: order, admin: admin) do
         on(:new_issue) { ret ||= :order_issues }
         on(:existing_issue) { ret ||= :order_issues }
-        on(:fixed_issue) {}
+        on(:gone_issue) {}
         on(:ok) {}
         on(:error) do
           CheckPaymentIssuesJob.perform_later(issuable: order, admin: admin)

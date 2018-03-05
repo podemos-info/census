@@ -56,10 +56,10 @@ class VersionDecorator < ApplicationDecorator
   end
 
   def before_classed_changeset
-    classed_changeset(resource.object_changes.keys, "version_change old_value")
+    classed_changeset(object.object_changes.keys, "version_change old_value")
   end
 
   def after_classed_changeset
-    classed_changeset(resource.object_changes.keys, "version_change new_value")
+    classed_changeset(object.object_changes.keys, "version_change new_value")
   end
 end

@@ -39,10 +39,6 @@ module ProcedureStates
       accepted? || rejected?
     end
 
-    def processable?
-      !processed?
-    end
-
     def undoable?
       processed_at && processed_at > Settings.procedures.undo_minutes.minutes.ago && undo_version.present?
     end

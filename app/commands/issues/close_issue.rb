@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 module Issues
-  # A command to mark an issue as fixed
-  class FixedIssue < Rectify::Command
+  # A command to close an issue
+  class CloseIssue < Rectify::Command
     # Public: Initializes the command.
     #
-    # issue - The issue to assign
+    # issue - The issue to close
     # admin - The admin that has fixed the issue
     def initialize(issue:, admin: nil)
       @issue = issue
@@ -16,30 +16,38 @@ module Issues
     #
     # - :ok when everything was ok.
     # - :invalid when given data is invalid.
-    # - :error if the issue couldn't be set as fixed and read.
+    # - :error if the issue couldn't be saved as closed.
     #
     # Returns nothing.
     def call
       return broadcast(:invalid) unless issue
 
-      broadcast fix || :error
+      result = close
+      broadcast result
+
+      post_close if result == :ok
     end
 
-    private
+    protected
 
-    attr_reader :issue, :admin
+    attr_reader :issue, :action, :admin
 
     def issue_unreads
       @issue_unreads ||= issue.issue_unreads
     end
 
-    def fix
+    def close
       Issue.transaction do
-        issue.assigned_to ||= admin.person if admin
-        issue.fixed_at = Time.zone.now
-        issue.save!
+        issue.assigned_to ||= admin&.person
+        close_action
         issue_unreads.destroy_all
         :ok
+      end || :error
+    end
+
+    def post_close
+      issue.procedures.each do |procedure|
+        ::UpdateProcedureJob.perform_later(procedure: procedure, admin: admin)
       end
     end
   end

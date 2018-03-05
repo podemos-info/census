@@ -14,7 +14,7 @@ describe IssuesController, type: :controller do
   let(:current_admin) { issue_unread.admin }
 
   it "defines actions" do
-    expect(subject.defined_actions).to contain_exactly(:index, :show)
+    expect(subject.defined_actions).to contain_exactly(:index, :show, :edit, :update)
   end
 
   it "handles events" do
@@ -46,12 +46,24 @@ describe IssuesController, type: :controller do
     end
   end
 
-  describe "mark issue as fixed" do
-    subject { patch :mark_as_fixed, params: { id: issue.id } }
-    it { is_expected.to have_http_status(:found) }
-    it { expect(subject.location).to eq(issues_url) }
-    it "sets the issues fixed_at moment" do
-      expect { subject } .to change { Issue.find(issue.id).fixed_at } .from(nil)
+  context "edit page" do
+    subject { get :edit, params: { id: issue.id } }
+    it { expect(subject).to be_success }
+    it { expect(subject).to render_template("edit") }
+  end
+
+  with_versioning do
+    describe "fix an issue" do
+      subject { patch :update, params: { id: issue.id, issue: { chosen_person_id: issue.procedure.person_id, comment: "Is real" } } }
+
+      let!(:issue) { create(:duplicated_document) }
+
+      it { is_expected.to have_http_status(:found) }
+      it { expect(subject.location).to eq(issue_url(issue)) }
+      it "closes the issue" do
+        subject
+        expect(issue.reload).to be_closed
+      end
     end
   end
 end

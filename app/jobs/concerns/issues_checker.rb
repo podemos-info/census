@@ -9,7 +9,7 @@ module IssuesChecker
         on(:no_issue) { |info| log :user, key: "issues_job.ok", related: [info[:issue_type]] }
         on(:new_issue) { |info| log :user, key: "issues_job.new_issue", related: [info[:issue_type], info[:issue].to_gid_param] }
         on(:existing_issue) { |info| log :user, key: "issues_job.existing_issue", related: [info[:issue_type], info[:issue].to_gid_param] }
-        on(:fixed_issue) { |info| log :user, key: "issues_job.fixed_issue", related: [info[:issue_type], info[:issue].to_gid_param] }
+        on(:gone_issue) { |info| log :user, key: "issues_job.gone_issue", related: [info[:issue_type], info[:issue].to_gid_param] }
         on(:error) { |info| log :user, key: "issues_job.error", related: [info[:issue_type], info[:issue]&.to_gid_param] }
       end
     end

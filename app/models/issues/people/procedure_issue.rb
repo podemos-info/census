@@ -4,7 +4,6 @@ module Issues
   module People
     class ProcedureIssue < Issue
       def fill
-        people << procedure.person
         self.procedures = [procedure]
       end
 

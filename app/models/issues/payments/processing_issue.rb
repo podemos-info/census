@@ -4,6 +4,7 @@ module Issues
   module Payments
     class ProcessingIssue < Issue
       store_accessor :information, :response_code
+      store_accessor :fix_information, :comment
 
       def detected?
         payment_method.user_visible? && payment_method.response_code.present? && response_code_info[:role].present?

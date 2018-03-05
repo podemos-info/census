@@ -1,0 +1,35 @@
+.relevant {
+  th, td {
+    font-weight: bold;
+  }
+}
+
+.choose_person {
+  text-align: center;
+  margin: 12px;
+
+  label {
+    display: inline-block;
+    padding: 12px;
+    color: $error-color;
+
+    &:before {
+      @include icon("\f057");
+      margin: 6px;
+    }
+    @include secondary-button($error-color);
+  }
+
+  input {
+    display: none;
+
+    &:checked + label {
+      &:before {
+        @include icon("\f058");
+        color: white;
+        margin: 6px;
+      }
+      @include primary-button($primary-color, white);
+    }
+  }
+}

@@ -103,14 +103,28 @@ describe Procedure, :db do
     end
   end
 
-  describe "#has_issues?" do
-    it { is_expected.not_to have_issues }
+  describe "#issues_summary" do
+    subject(:method) { procedure.issues_summary }
 
-    context "when has issues" do
-      subject(:procedure) { issue.procedures.first }
-      let(:issue) { create(:duplicated_document) }
+    it { is_expected.to eq(:ok) }
 
-      it { is_expected.to have_issues }
+    context "when has pending issues" do
+      let!(:issue) { create(:duplicated_document, issuable: procedure) }
+
+      it { is_expected.to eq(:pending) }
+    end
+
+    context "when has unrecoverable issues" do
+      let!(:issue) { create(:duplicated_document, issuable: procedure) }
+      let!(:issue2) { create(:duplicated_document, :fixed, issuable: procedure, chosen_person_id: create(:person).id) }
+
+      it { is_expected.to eq(:unrecoverable) }
+    end
+
+    context "when has fixed issues" do
+      let!(:issue) { create(:duplicated_document, :fixed, issuable: procedure, chosen_person_id: procedure.person.id) }
+
+      it { is_expected.to eq(:ok) }
     end
   end
 end

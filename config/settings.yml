@@ -3,7 +3,7 @@ misc:
 
 procedures:
   undo_minutes: 30
-  auto_acceptables:
+  auto_processables:
     - cancellation
     - membership_level_change
     - person_data_change
@@ -12,8 +12,10 @@ procedures:
     domains_blacklist:
       - mailinator.com
   untrusted_phone:
+    phones_blacklist:
+      - "0012026601367"
     prefixes_blacklist:
-      - 0034602
+      - "0034602"
 
 payments:
   currency: EUR

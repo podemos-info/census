@@ -15,7 +15,7 @@ Procedure.all.each do |registration|
   current_admin = admins.sample
 
   Issues::CheckIssues.call(issuable: registration, admin: current_admin)
-  if registration.has_issues?
+  if registration.issues_summary != :ok
     Rails.logger.debug { "Person registration pending: #{registration.person.decorate}" }
     next
   end

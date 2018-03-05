@@ -76,16 +76,16 @@ describe Issues::CheckIssues do
       same_person.update_attributes(document_id: other_person.document_id)
     end
 
-    it "broadcast :fixed_issue" do
-      expect { subject } .to broadcast(:fixed_issue)
+    it "broadcast :gone_issue" do
+      expect { subject } .to broadcast(:gone_issue)
     end
 
     it "doesn't create new issues" do
       expect { subject } .not_to change { Issue.count }
     end
 
-    it "fixes the existing issue" do
-      expect { subject } .to change { Issue.last.fixed_at } .from(nil)
+    it "closes the existing issue" do
+      expect { subject } .to change { Issue.last.closed_at } .from(nil)
     end
 
     it "keeps the issue related objects before fixing it" do

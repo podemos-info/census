@@ -6,7 +6,7 @@ def config_menu(config)
       menu.add id: "user_jobs", priority: 5, label: "-", url: -> { jobs_path }
       menu.add id: "issues_unread", priority: 5, label: "-", url: -> { issues_path(scope: :unread) },
                if: -> { current_active_admin_user&.decorate&.has_unread_issues? }
-      menu.add id: "issues_read", priority: 5, label: "-", url: -> { issues_path },
+      menu.add id: "issues_read", priority: 5, label: "-", url: -> { issues_path(scope: :open) },
                if: -> { current_active_admin_user? && !current_active_admin_user.decorate.has_unread_issues? }
       admin.add_current_user_to_menu menu
       admin.add_logout_button_to_menu menu

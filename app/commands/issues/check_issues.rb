@@ -19,7 +19,7 @@ module Issues
     # - :error if the issue information couldn't be saved.
     # - :new_issue if there is a new issue with the object.
     # - :existing_issue if there already was a non fixed issue with the object.
-    # - :fixed_issue if the existing for the object issue was solved.
+    # - :gone_issue if the issue exists but the problem is not detected anymore.
     #
     # Returns nothing.
     def call
@@ -50,9 +50,9 @@ module Issues
       if issue.new_record?
         Issues::CreateIssueUnreads.call(issue: issue, admin: admin)
         :new_issue
-      elsif issue.fixed?
-        Issues::FixedIssue.call(issue: issue, admin: admin)
-        :fixed_issue
+      elsif !issue.detected?
+        Issues::GoneIssue.call(issue: issue, admin: admin)
+        :gone_issue
       else
         :existing_issue
       end

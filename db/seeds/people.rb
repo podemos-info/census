@@ -39,9 +39,9 @@ def register_person(use_procedure: true, copy_from_procedure: nil, untrusted: ni
   end
 
   case untrusted
-    when :phone then person_data[:phone] = Issues::People::UntrustedPhone.phones_blacklist.first
-    when :phone_prefix then person_data[:phone] = Issues::People::UntrustedPhone.prefixes_blacklist.first + "012345"
-    when :email then person_data[:email] = "#{Faker::Internet.user_name(person_data[:first_name])}@#{Issues::People::UntrustedEmail.domains_blacklist.first}"
+  when :phone then person_data[:phone] = Issues::People::UntrustedPhone.phones_blacklist.first
+  when :phone_prefix then person_data[:phone] = Issues::People::UntrustedPhone.prefixes_blacklist.first + "012345"
+  when :email then person_data[:email] = "#{Faker::Internet.user_name(person_data[:first_name])}@#{Issues::People::UntrustedEmail.domains_blacklist.first}"
   end
 
   person = nil

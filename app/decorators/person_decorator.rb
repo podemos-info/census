@@ -5,6 +5,7 @@ class PersonDecorator < ApplicationDecorator
 
   decorates_association :scope
   decorates_association :address_scope
+  decorates_association :document_scope
 
   def name
     full_name

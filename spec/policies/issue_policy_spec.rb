@@ -50,7 +50,7 @@ describe IssuePolicy do
 
       it { is_expected.to permit_action :show }
       it { is_expected.to forbid_new_and_create_actions }
-      it { is_expected.to forbid_edit_and_update_actions }
+      it { is_expected.to permit_edit_and_update_actions }
       it { is_expected.to forbid_action :destroy }
     end
 
@@ -109,7 +109,7 @@ describe IssuePolicy do
 
       it { is_expected.to permit_action :show }
       it { is_expected.to forbid_new_and_create_actions }
-      it { is_expected.to forbid_edit_and_update_actions }
+      it { is_expected.to permit_edit_and_update_actions }
       it { is_expected.to forbid_action :destroy }
     end
   end
@@ -123,7 +123,7 @@ describe IssuePolicy do
 
       it { is_expected.to permit_action :show }
       it { is_expected.to forbid_new_and_create_actions }
-      it { is_expected.to forbid_edit_and_update_actions }
+      it { is_expected.to permit_edit_and_update_actions }
       it { is_expected.to forbid_action :destroy }
     end
 

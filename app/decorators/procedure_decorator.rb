@@ -4,9 +4,10 @@ class ProcedureDecorator < ApplicationDecorator
   delegate_all
 
   attr_accessor :event
+  decorates_association :dependent_procedures
+  decorates_association :issues
   decorates_association :person
   decorates_association :processed_by
-  decorates_association :dependent_procedures
 
   def name
     "#{type_name} ##{id}"
@@ -32,11 +33,15 @@ class ProcedureDecorator < ApplicationDecorator
   end
 
   def view_link(text = nil)
-    if procedure.processable?
-      h.link_to text || I18n.t("census.procedures.process"), h.edit_procedure_path(object), class: "member_link"
-    else
+    if object.processed?
       h.link_to text || I18n.t("active_admin.view"), h.procedure_path(object), class: "member_link"
+    else
+      h.link_to text || I18n.t("census.procedures.process"), h.edit_procedure_path(object), class: "member_link"
     end
+  end
+
+  def view_link_with_name
+    view_link(name)
   end
 
   def route_key
@@ -61,7 +66,7 @@ class ProcedureDecorator < ApplicationDecorator
 
   def processed_person
     return nil unless processed?
-    @processed_person ||= person.paper_trail.version_at(processed_at).decorate
+    @processed_person ||= person.paper_trail.version_at(processed_at)&.decorate
   end
 
   def processed_person_classed_changeset

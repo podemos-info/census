@@ -26,8 +26,32 @@ class Issue < ApplicationRecord
     new_record? && !detected?
   end
 
-  def fixed?
-    !detected?
+  def closed?
+    closed_at.present?
+  end
+
+  def open?
+    !closed?
+  end
+
+  def fix!
+    return if closed?
+
+    self.close_result ||= :fixed
+    self.closed_at = Time.zone.now
+    save!
+  end
+
+  def gone!
+    return if closed?
+
+    self.close_result = :gone
+    self.closed_at = Time.zone.now
+    save!
+  end
+
+  def fixed_for?(_issuable)
+    closed?
   end
 
   class << self

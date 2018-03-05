@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Ahoy::Store < Ahoy::DatabaseStore
   def event_model
     Event
@@ -8,4 +9,5 @@ class Ahoy::Store < Ahoy::DatabaseStore
     Visit
   end
 end
+
 Ahoy.user_method = ->(controller) { controller.current_admin }

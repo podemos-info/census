@@ -4,9 +4,21 @@ module Issues
   module People
     class UntrustedEmail < ProcedureIssue
       store_accessor :information, :email
+      store_accessor :fix_information, :trusted?, :comment
 
       def detected?
         blacklisted?
+      end
+
+      def fill
+        super
+        self.people = [procedure.person]
+      end
+
+      def fix!
+        people.each(&:ban!) unless trusted?
+
+        super
       end
 
       alias procedure issuable

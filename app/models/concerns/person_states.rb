@@ -8,7 +8,7 @@ module PersonStates
 
     aasm column: "state", enum: true do
       state :pending, initial: true
-      state :rejected, :enabled
+      state :rejected, :enabled, :banned
 
       event :register do
         transitions from: :pending, to: :enabled
@@ -16,6 +16,10 @@ module PersonStates
 
       event :reject do
         transitions from: :pending, to: :rejected
+      end
+
+      event :ban do
+        transitions from: :enabled, to: :banned
       end
 
       event :undo do

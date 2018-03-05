@@ -1,0 +1,23 @@
+# frozen_string_literal: true
+
+context.instance_eval do
+  panel t("census.issues.close.title", issue_type_name: issue.issue_type_name.downcase) do
+    para issue.issue_type_tip
+
+    columns do
+      issue.payment_methods.each do |payment_method|
+        column do
+          render partial: "payment_methods/show", locals: { context: context, classes: issue.classed_relevant_attributes, resource: payment_method.decorate }
+        end
+      end
+    end
+
+    f.inputs do
+      f.input :bic
+    end
+    f.actions do
+      f.action :submit, label: t("census.issues.close.action")
+      f.action :cancel
+    end
+  end
+end

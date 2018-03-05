@@ -6,7 +6,7 @@ module Procedures
       true
     end
 
-    def self.auto_acceptable?
+    def self.auto_processable?
       false
     end
 

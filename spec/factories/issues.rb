@@ -19,20 +19,31 @@ FactoryBot.define do
     trait :not_evaluated do
       evaluated false
     end
+
+    trait :fixed do
+      close_result { :fixed }
+      closed_at { Time.zone.now }
+    end
+
+    trait :gone do
+      close_result { :gone }
+      closed_at { Time.zone.now }
+    end
   end
 
   factory :duplicated_document, parent: :issue, class: :"issues/people/duplicated_document" do
     transient do
-      issuable { create(:registration) }
+      issuable { create(:registration, person_copy_data: other_person) }
+      other_person { create(:person) }
     end
     role { "lopd" }
-    document_type { issuable.person.document_type }
-    document_id { issuable.person.document_id }
-    document_scope_id { issuable.person.document_scope_id }
+    document_type { other_person.document_type }
+    document_id { other_person.document_id }
+    document_scope_id { other_person.document_scope_id }
 
     after :build do |issue, evaluator|
       if evaluator.evaluated
-        issue.people << evaluator.issuable.person
+        issue.people = [evaluator.other_person, evaluator.issuable.person]
         issue.procedures << evaluator.issuable
       end
     end
@@ -40,17 +51,18 @@ FactoryBot.define do
 
   factory :duplicated_person, parent: :issue, class: :"issues/people/duplicated_person" do
     transient do
-      issuable { create(:registration) }
+      issuable { create(:registration, person_copy_data: other_person) }
+      other_person { create(:person) }
     end
     role { "lopd" }
-    first_name { issuable.person.first_name }
-    last_name1 { issuable.person.last_name1 }
-    last_name2 { issuable.person.last_name2 }
-    born_at { issuable.person.born_at }
+    first_name { other_person.first_name }
+    last_name1 { other_person.last_name1 }
+    last_name2 { other_person.last_name2 }
+    born_at { other_person.born_at }
 
     after :build do |issue, evaluator|
       if evaluator.evaluated
-        issue.people << evaluator.issuable.person
+        issue.people = [evaluator.other_person, evaluator.issuable.person]
         issue.procedures << evaluator.issuable
       end
     end

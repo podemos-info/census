@@ -12,8 +12,8 @@ describe Procedures::DocumentVerification, :db do
     is_expected.to be_acceptable
   end
 
-  it "is not auto_acceptable" do
-    is_expected.not_to be_auto_acceptable
+  it "is not auto_processable" do
+    is_expected.not_to be_auto_processable
   end
 
   it "acceptance changes person verification status" do
