@@ -5,6 +5,7 @@ class Issue < ApplicationRecord
 
   self.inheritance_column = :issue_type
   enum level: [:very_low, :low, :medium, :high, :very_high], _suffix: true
+  enum close_result: [:fixed, :gone]
 
   has_many :issue_objects
 

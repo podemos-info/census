@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180222123833) do
+ActiveRecord::Schema.define(version: 20180227151759) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,11 +116,13 @@ ActiveRecord::Schema.define(version: 20180222123833) do
     t.jsonb "information", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "fixed_at"
-    t.index ["assigned_to_id", "fixed_at"], name: "index_issues_on_assigned_to_id_and_fixed_at"
+    t.datetime "closed_at"
+    t.jsonb "fix_information", default: {}, null: false
+    t.integer "close_result"
+    t.index ["assigned_to_id", "closed_at"], name: "index_issues_on_assigned_to_id_and_closed_at"
     t.index ["assigned_to_id"], name: "index_issues_on_assigned_to_id"
     t.index ["information"], name: "index_issues_on_information", using: :gin
-    t.index ["issue_type", "fixed_at"], name: "index_issues_on_issue_type_and_fixed_at"
+    t.index ["issue_type", "closed_at"], name: "index_issues_on_issue_type_and_closed_at"
   end
 
   create_table "job_messages", force: :cascade do |t|
