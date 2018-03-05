@@ -1,13 +1,11 @@
 # frozen_string_literal: true
-
-class Ahoy::Store < Ahoy::Stores::ActiveRecordTokenStore
-  def user
-    controller.current_admin
-  end
-
+class Ahoy::Store < Ahoy::DatabaseStore
   def event_model
     Event
   end
+
+  def visit_model
+    Visit
+  end
 end
-Ahoy.track_visits_immediately = true
-Ahoy.quiet = false
+Ahoy.user_method = ->(controller) { controller.current_admin }
