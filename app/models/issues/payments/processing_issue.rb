@@ -45,7 +45,7 @@ module Issues
 
       class << self
         def find_for(order)
-          ::PaymentMethodProcessingIssues.for(order.payment_method).merge(::IssuesNonFixed.for).first
+          ::PaymentMethodProcessingIssues.for(order.payment_method).merge(::IssuesOpen.for).first
         end
 
         def build_for(order)

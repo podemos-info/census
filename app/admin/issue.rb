@@ -8,9 +8,9 @@ ActiveAdmin.register Issue do
   actions :index, :show
 
   scope(:unread, default: true) { |scope| AdminUnreadIssues.for(current_admin).merge(scope) }
+  scope(:open) { |scope| AdminIssues.for(current_admin).merge(IssuesOpen.for).merge(scope) }
   scope(:assigned) { |scope| AdminAssignedIssues.for(current_admin).merge(scope) }
-  scope(:non_fixed) { |scope| AdminIssues.for(current_admin).merge(IssuesNonFixed.for).merge(scope) }
-  scope(:fixed) { |scope| AdminIssues.for(current_admin).merge(IssuesFixed.for).merge(scope) }
+  scope(:closed) { |scope| AdminIssues.for(current_admin).merge(IssuesClosed.for).merge(scope) }
 
   index do
     column :issue_type_name, class: :left do |issue|
@@ -39,22 +39,13 @@ ActiveAdmin.register Issue do
   end
 
   action_item :assign_me, only: :show do
-    unless resource.fixed_at || resource.assigned_to_id == current_admin.person_id
+    unless resource.closed? || resource.assigned_to_id == current_admin.person_id
       link_to t("census.issues.assign_me"), assign_me_issue_path, method: :patch, data: { confirm: t("census.messages.sure_question") }
     end
   end
 
-  action_item :mark_as_fixed, only: :show do
-    link_to t("census.issues.mark_as_fixed"), mark_as_fixed_issue_path, method: :patch, data: { confirm: t("census.messages.sure_question") } unless resource.fixed_at
-  end
-
   member_action :assign_me, method: :patch do
     Issues::AssignIssue.call(issue: resource, admin: current_admin)
-    redirect_back(fallback_location: issues_path)
-  end
-
-  member_action :mark_as_fixed, method: :patch do
-    Issues::FixedIssue.call(issue: resource, admin: current_admin)
     redirect_back(fallback_location: issues_path)
   end
 

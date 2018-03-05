@@ -25,10 +25,6 @@ class IssuePolicy < ApplicationPolicy
     show?
   end
 
-  def mark_as_fixed?
-    show?
-  end
-
   class Scope
     def initialize(user, scope)
       @user = user

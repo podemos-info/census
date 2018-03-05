@@ -139,7 +139,7 @@ ActiveAdmin.register Order do
     end
 
     def issues_for_resource
-      @issues_for_resource ||= super + IssuesNonFixed.for.merge(AdminIssues.for(current_admin)).merge(resource.payment_method.issues).decorate
+      @issues_for_resource ||= super + IssuesOpen.for.merge(AdminIssues.for(current_admin)).merge(resource.payment_method.issues).decorate
     end
   end
 end

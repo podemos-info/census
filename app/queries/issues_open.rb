@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-class IssuesNonFixed < Rectify::Query
+class IssuesOpen < Rectify::Query
   def self.for
     new.query
   end
 
   def query
-    Issue.where(fixed_at: nil)
+    Issue.where(closed_at: nil)
   end
 end

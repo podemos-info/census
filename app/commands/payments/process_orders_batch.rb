@@ -53,7 +53,7 @@ module Payments
     end
 
     def review?
-      OrdersBatchIssues.for(orders_batch).merge(IssuesNonFixed.for).any?
+      OrdersBatchIssues.for(orders_batch).merge(IssuesOpen.for).any?
     end
 
     def process_orders(processor, orders_batch)

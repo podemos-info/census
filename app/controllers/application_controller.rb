@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
 
   def issues_for_resource
     return [] unless resource.respond_to?(:issues)
-    @issues_for_resource ||= ::AdminIssues.for(current_admin).merge(::IssuesNonFixed.for).merge(resource.issues).decorate
+    @issues_for_resource ||= ::AdminIssues.for(current_admin).merge(::IssuesOpen.for).merge(Draper.undecorate(resource.issues)).decorate
   end
 
   def track_action
