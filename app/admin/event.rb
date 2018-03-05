@@ -40,7 +40,7 @@ ActiveAdmin.register Event do
       row :time
     end
 
-    panel "properties" do
+    panel I18n.t("census.events.properties") do
       attributes_table_for resource.properties do
         resource.properties.each do |key, value|
           row(key) { value }

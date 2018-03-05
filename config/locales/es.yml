@@ -302,6 +302,7 @@ es:
         dashboard: Portada
         system: Sistema
         version: Version
+      properties: Propiedades
       type:
         page_view: "%{action} %{controller}"
         security_report: Informe de seguridad
