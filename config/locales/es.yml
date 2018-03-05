@@ -79,14 +79,14 @@ es:
       issue:
         assigned_to: Asignada a
         bank_code: Código de banco
-        country: País
+        closed_at: Fecha de cierre
         comment: Comentario
+        country: País
         created_at: Fecha de creación
         description: Descripción
         document_id: Número de documento
         document_scope: País del documento
         document_type: Tipo de documento
-        closed_at: Fecha de cierre
         iban: IBAN
         issue_type_name: Tipo
         level_name: Importancia
@@ -310,8 +310,8 @@ es:
     issues:
       action_message:
         already_closed: La incidencia ya está resuelta
-        error: Ha ocurrido un error al intentar resolver la incidencia
         closed: La incidencia ha sido resuelta
+        error: Ha ocurrido un error al intentar resolver la incidencia
       assign_me: Asignármela
       choose_this_person: Escoger esta persona
       close:
@@ -327,33 +327,28 @@ es:
         very_high: Crítica
         very_low: Muy Baja
       status:
-        open: Abierta
         fixed: Resuelta
         gone: Extinta
+        open: Abierta
       title: Detalles
       types:
         payments/missing_bic:
           name: BIC desconocido
-          tip: El método de pago utiliza un número de cuenta para el que no se dispone del código BIC.
-               Para resolver la incidencia debes indicar el código BIC.
+          tip: El método de pago utiliza un número de cuenta para el que no se dispone del código BIC. Para resolver la incidencia debes indicar el código BIC.
         payments/processing_issue:
           name: Problemas al cobrar orden
         people/duplicated_document:
           name: Documento duplicado
-          tip: Los siguientes registros tienen el mismo documento. Para resolver la incidencia debes utilizar los datos de las siguientes personas
-               para indicar cuál de ellas debe permanecer en el censo.
+          tip: Los siguientes registros tienen el mismo documento. Para resolver la incidencia debes utilizar los datos de las siguientes personas para indicar cuál de ellas debe permanecer en el censo.
         people/duplicated_person:
           name: Datos personales duplicados
-          tip: Los siguientes registros tienen datos personales similares, por lo que es posible que correspondan a la misma persona.
-               Para resolver la incidencia debes utilizar los datos de las siguientes personas para indicar cuales de ellas debe permanecer en el censo.
+          tip: Los siguientes registros tienen datos personales similares, por lo que es posible que correspondan a la misma persona. Para resolver la incidencia debes utilizar los datos de las siguientes personas para indicar cuales de ellas debe permanecer en el censo.
         people/untrusted_email:
           name: Email sospechoso
-          tip: Este registro tiene asociado un número de teléfono sospechoso, por lo que puede ser una inscripción fraudulenta.
-               Para resolver la incidencia debes comprobar la dirección de correo e indicar si es correcta.
+          tip: Este registro tiene asociado un número de teléfono sospechoso, por lo que puede ser una inscripción fraudulenta. Para resolver la incidencia debes comprobar la dirección de correo e indicar si es correcta.
         people/untrusted_phone:
           name: Teléfono sospechoso
-          tip: Este registro tiene asociado un número de teléfono sospechoso, por lo que puede ser una inscripción fraudulenta.
-               Para resolver la incidencia debes comprobar el número e indicar si es correcto.
+          tip: Este registro tiene asociado un número de teléfono sospechoso, por lo que puede ser una inscripción fraudulenta. Para resolver la incidencia debes comprobar el número e indicar si es correcto.
     jobs:
       job_messages:
         auto_process:

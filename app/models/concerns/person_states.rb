@@ -4,7 +4,7 @@ module PersonStates
   extend ActiveSupport::Concern
 
   included do
-    enum state: [:pending, :rejected, :enabled]
+    enum state: [:pending, :rejected, :enabled, :banned]
 
     aasm column: "state", enum: true do
       state :pending, initial: true

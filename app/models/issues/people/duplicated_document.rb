@@ -12,16 +12,15 @@ module Issues
 
       def fill
         super
-        people = affected_people
+        self.people = affected_people
         people << procedure.person
       end
 
       def fix!
-        raise "Chosen person is not in the list of affected people" unless person_ids.include? chosen_person_id
+        check_chosen_person_id
 
         people.each do |person|
-          next if chosen_person_id == person.id
-          person.ban! if person.enabled?
+          person.ban! if person.enabled? && chosen_person_id != person.id
         end
 
         super
@@ -44,6 +43,10 @@ module Issues
 
       def chosen_person_id
         @chosen_person_id ||= fix_information["chosen_person_id"]&.to_i
+      end
+
+      def check_chosen_person_id
+        raise "Chosen person is not in the list of affected people" unless person_ids.include?(chosen_person_id)
       end
 
       class << self
