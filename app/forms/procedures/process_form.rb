@@ -13,13 +13,13 @@ module Procedures
     validates :procedure, presence: true
     validates :event, presence: true
     validates :comment, presence: true, unless: :accepting?
-    validate :processable?
+    validate :validate_event
 
     def accepting?
       event == "accept"
     end
 
-    def processable?
+    def validate_event
       if event == "undo"
         errors.add(:event, :cant_process_undo_event)
       elsif !procedure.permited_event?(event, admin)
