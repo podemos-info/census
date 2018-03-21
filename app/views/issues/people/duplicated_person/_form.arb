@@ -9,7 +9,7 @@ context.instance_eval do
         column do
           render partial: "people/show", locals: { context: context, classes: issue.classed_relevant_attributes, resource: person }
           div class: "choose_person" do
-            current_arbre_element.input "chosen_person_ids", id: "issue_chosen_person_ids_#{person.id}", value: person.id, name: "issue[chosen_person_ids]",
+            current_arbre_element.input "chosen_person_ids", id: "issue_chosen_person_ids_#{person.id}", value: person.id, name: "issue[chosen_person_ids][]",
                                                              type: :checkbox, checked: true
             label t("census.issues.choose_this_person"), for: "issue_chosen_person_ids_#{person.id}"
           end
