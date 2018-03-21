@@ -4,7 +4,7 @@ Rails.logger.debug "Seeding people"
 
 require "census/faker/document_id"
 
-def register_person(use_procedure: true, copy_from_procedure: nil)
+def register_person(use_procedure: true, copy_from_procedure: nil, untrusted: nil)
   if copy_from_procedure
     person_data = copy_from_procedure.person_data.with_indifferent_access
     person_data[:document_scope] = Scope.find(person_data[:document_scope_id])
@@ -38,6 +38,12 @@ def register_person(use_procedure: true, copy_from_procedure: nil)
     }
   end
 
+  case untrusted
+  when :phone then person_data[:phone] = Issues::People::UntrustedPhone.phones_blacklist.first
+  when :phone_prefix then person_data[:phone] = Issues::People::UntrustedPhone.prefixes_blacklist.first + "012345"
+  when :email then person_data[:email] = "#{Faker::Internet.user_name(person_data[:first_name])}@#{Issues::People::UntrustedEmail.domains_blacklist.first}"
+  end
+
   person = nil
   if use_procedure
     person_data[:document_scope_code] = person_data[:document_scope].code
@@ -65,7 +71,7 @@ Admin.roles.each_key do |role|
   2.times do |i|
     person = register_person(use_procedure: false)
     PaperTrail.whodunnit = person
-    person.update_attributes verified_in_person: true
+    person.update! verified_in_person: true
     admin = Admin.create! username: "#{role}#{i}", password: role, password_confirmation: role, person: person, role: role
     Rails.logger.debug { "Admin '#{admin.username}' created for person: #{person.decorate}" }
   end
@@ -73,7 +79,7 @@ Admin.roles.each_key do |role|
 end
 
 # create persons
-34.times do
+33.times do
   register_person
   Timecop.travel 1.month.from_now
 end
@@ -82,6 +88,11 @@ end
 Procedure.order("RANDOM()").limit(3).each do |procedure|
   register_person(copy_from_procedure: procedure)
 end
+
+# create people with untrusted data
+register_person untrusted: :phone
+register_person untrusted: :phone_prefix
+register_person untrusted: :email
 
 # Back to reality
 Timecop.return

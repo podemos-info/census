@@ -22,8 +22,8 @@ describe Procedures::PersonDataChange, :db do
     expect(subject.full_acceptable_by?(admin)).to be_truthy
   end
 
-  it "is auto_acceptable" do
-    is_expected.to be_auto_acceptable
+  it "is auto_processable" do
+    is_expected.to be_auto_processable
   end
 
   context "when accepted" do

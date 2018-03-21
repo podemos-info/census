@@ -38,4 +38,11 @@
   &.failing {
     background: $error-color;
   }
+
+  &.open {
+    background: $error-color;
+  }
+  &.fixed {
+    background: $success-color;
+  }
 }

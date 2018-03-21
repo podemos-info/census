@@ -5,6 +5,7 @@ class PersonDecorator < ApplicationDecorator
 
   decorates_association :scope
   decorates_association :address_scope
+  decorates_association :document_scope
 
   def name
     full_name
@@ -14,6 +15,10 @@ class PersonDecorator < ApplicationDecorator
 
   def full_name
     [last_names, object.first_name].reject(&:blank?).join(", ")
+  end
+
+  def listable_name
+    "#{[object.first_name, last_names].reject(&:blank?).join(" ")} (##{object.id})"
   end
 
   def last_names
@@ -55,7 +60,7 @@ class PersonDecorator < ApplicationDecorator
   end
 
   def self.document_type_options
-    @document_types ||= Person.document_types.keys.map do |document_type|
+    @document_type_options ||= Person.document_types.keys.map do |document_type|
       [I18n.t("census.people.document_types.#{document_type}"), document_type]
     end.freeze
   end

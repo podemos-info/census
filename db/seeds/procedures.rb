@@ -15,7 +15,7 @@ Procedure.all.each do |registration|
   current_admin = admins.sample
 
   Issues::CheckIssues.call(issuable: registration, admin: current_admin)
-  if registration.has_issues?
+  if registration.issues_summary != :ok
     Rails.logger.debug { "Person registration pending: #{registration.person.decorate}" }
     next
   end
@@ -49,7 +49,7 @@ Person.enabled.not_verified.order("RANDOM()").limit(10).each do |person|
 
   PaperTrail.whodunnit = current_admin
 
-  document_verification.update_attributes!(
+  document_verification.update!(
     processed_by: current_admin,
     processed_at: Time.zone.now,
     state: Faker::Boolean.boolean(0.7) ? :accepted : :rejected,
@@ -77,7 +77,7 @@ Person.enabled.not_verified.order("RANDOM()").limit(5).each do |person|
   Timecop.freeze Faker::Time.between(Time.zone.now, real_now, :all)
   PaperTrail.whodunnit = admins.sample
 
-  document_verification.update_attributes!(
+  document_verification.update!(
     processed_by: PaperTrail.actor,
     processed_at: Time.zone.now,
     state: :issues,

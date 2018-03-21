@@ -9,8 +9,19 @@ class IssueDecorator < ApplicationDecorator
     issue_type_name
   end
 
+  alias to_s name
+  alias listable_name name
+
+  def issue_type
+    @issue_type ||= object.issue_type.underscore.sub("issues/", "")
+  end
+
   def issue_type_name
-    I18n.t("census.issues.types.#{object.issue_type.underscore}")
+    "#{I18n.t("census.issues.types.#{issue_type}.name")} ##{object.id}"
+  end
+
+  def issue_type_tip
+    I18n.t("census.issues.types.#{issue_type}.tip")
   end
 
   def role_name
@@ -30,11 +41,43 @@ class IssueDecorator < ApplicationDecorator
   def objects_links
     object.issue_objects.map do |issue_object|
       obj = issue_object.object.decorate
-      h.link_to obj.name, h.url_for(obj)
+      h.link_to obj.listable_name, h.url_for(obj)
     end.to_sentence.html_safe
   end
 
-  def link
-    h.link_to name, h.url_for(self)
+  def people_by_creation_date
+    @people_by_creation_date ||= object.people.decorate.sort_by(&:created_at)
+  end
+
+  def classed_relevant_attributes
+    @classed_relevant_attributes ||= object.class.stored_attributes[:information].zip(["relevant"].cycle).to_h
+  end
+
+  def fix_attributes
+    @fix_attributes ||= object.class.try(:fix_attributes) || object.class.stored_attributes[:fix_information]
+  end
+
+  def view_link(text = nil)
+    if object.closed?
+      h.link_to text || I18n.t("active_admin.view"), h.issue_path(object), class: "member_link"
+    else
+      h.link_to text || I18n.t("census.issues.close.action"), h.edit_issue_path(object), class: "member_link"
+    end
+  end
+
+  def view_link_with_name
+    view_link(name)
+  end
+
+  def status
+    if object.closed?
+      object.close_result
+    else
+      "open"
+    end
+  end
+
+  def status_name
+    I18n.t("census.issues.status.#{status}")
   end
 end

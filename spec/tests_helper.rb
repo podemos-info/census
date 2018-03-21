@@ -19,8 +19,8 @@ VCR.configure do |config|
 end
 
 # Only useful for request tests
-def override_ip(ip)
-  allow_any_instance_of(Rack::Attack::Request).to receive(:ip).and_return(ip)
+def override_ip(the_ip)
+  allow_any_instance_of(Rack::Attack::Request).to receive(:ip).and_return(the_ip)
 end
 
 def override_current_admin(admin)

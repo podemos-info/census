@@ -16,11 +16,11 @@ module PersonMembershipLevels
       state :member
 
       event :to_follower do
-        transitions from: [:pending, :member], to: :follower
+        transitions from: :member, to: :follower
       end
 
       event :to_member do
-        transitions from: [:pending, :follower], to: :member, guard: :memberable?
+        transitions from: :follower, to: :member, guard: :memberable?
       end
     end
 

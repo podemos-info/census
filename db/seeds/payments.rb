@@ -72,7 +72,7 @@ Person.where("created_at < ?", Time.zone.now).order("RANDOM()").limit(10).map do
 end
 
 campaigns.sample(5) do |campaign|
-  campaign.update_attributes description: Faker::Lorem.sentence(1, true, 4), payee: Payee.order("RANDOM()").first
+  campaign.update! description: Faker::Lorem.sentence(1, true, 4), payee: Payee.order("RANDOM()").first
 end
 
 # Back to reality

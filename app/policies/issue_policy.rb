@@ -18,14 +18,10 @@ class IssuePolicy < ApplicationPolicy
   end
 
   def update?
-    false
+    show? && record&.open?
   end
 
   def assign_me?
-    show?
-  end
-
-  def mark_as_fixed?
     show?
   end
 

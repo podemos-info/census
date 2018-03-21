@@ -50,7 +50,7 @@ ActiveAdmin.register Person do
   scope :deleted
 
   show do
-    render "show", context: self, classes: classed_changeset(resource.versions.last, "version_change")
+    render "show", context: self, classes: resource.last_version_classed_changeset
     active_admin_comments
   end
 

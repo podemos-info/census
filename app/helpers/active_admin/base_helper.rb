@@ -10,15 +10,12 @@ module ActiveAdmin::BaseHelper
   end
 
   def show_table(context:, title:, table:)
-    context.attributes_table title: title do
-      table.to_a.each do |key, value|
-        context.row(key) { value }
+    context.panel(title) do
+      context.attributes_table_for resource do
+        table.to_a.each do |key, value|
+          context.row(key) { value }
+        end
       end
     end
-  end
-
-  def classed_changeset(version, classes)
-    return {} unless version&.event == "update"
-    Hash[version.object_changes.keys.map { |field| [field.to_sym, classes] }]
   end
 end

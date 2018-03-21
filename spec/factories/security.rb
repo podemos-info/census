@@ -81,7 +81,7 @@ FactoryBot.define do
     initialize_with do
       PaperTrail.whodunnit = create(:admin)
       person = create(:person)
-      person.update_attributes! changes
+      person.update! changes
       person.versions.last
     end
 

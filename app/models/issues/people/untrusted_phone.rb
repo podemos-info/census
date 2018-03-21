@@ -4,12 +4,31 @@ module Issues
   module People
     class UntrustedPhone < ProcedureIssue
       store_accessor :information, :phone
+      store_accessor :fix_information, :trusted, :comment
 
       def detected?
         blacklisted?
       end
 
+      def fill
+        super
+        self.people = [procedure.person]
+      end
+
+      def fix!
+        people.each do |person|
+          person.ban! if person.enabled? && !trusted?
+        end
+
+        super
+      end
+
+      def fixed_for?(issuable)
+        super && trusted?
+      end
+
       alias procedure issuable
+      alias trusted? trusted
 
       private
 

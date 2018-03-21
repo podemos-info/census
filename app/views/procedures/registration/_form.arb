@@ -1,0 +1,4 @@
+# frozen_string_literal: true
+
+render partial: "person_compare", locals: { context: context, classes: person_classes }
+render partial: "form", locals: { f: f, context: context }

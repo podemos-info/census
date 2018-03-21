@@ -31,9 +31,7 @@ ActiveAdmin.register Procedure do
   end
 
   index do
-    column :type, sortable: :type do |procedure|
-      procedure.view_link procedure.name
-    end
+    column :type, sortable: :type, &:view_link_with_name
     column :person, class: :left, sortable: :full_name
     column :created_at, class: :left
     state_column :state
@@ -48,70 +46,14 @@ ActiveAdmin.register Procedure do
   end
 
   show do
-    columns class: "attachments" do
-      column do
-        render "show", context: self, classes: classed_changeset(resource.versions.last, "version_change")
-        render "personal_data"
-      end
-      if procedure.attachments.any?
-        column do
-          procedure.attachments.each do |attachment|
-            a href: attachment.view_path do
-              if attachment.image?
-                img src: attachment.view_path(version: :thumbnail)
-              else
-                attachment.file.file.original_filename
-              end
-            end
-          end
-        end
-      end
-    end
-    if procedure.dependent_procedures.any?
-      panel I18n.t("census.procedures.dependent_procedures") do
-        table_for procedure.dependent_procedures, i18n: Procedure do
-          column :type, &:type_name
-          column :information
-        end
-      end
-    end
+    render "procedures/#{resource.procedure_type}/show", context: self,
+                                                         classes: resource.last_version_classed_changeset,
+                                                         person_classes: resource.processed_person_classed_changeset
     active_admin_comments
   end
 
   form title: I18n.t("census.procedures.process"), decorate: true do |f|
-    columns class: "attachments" do
-      column do
-        render partial: "personal_data"
-
-        if procedure.dependent_procedures.any?
-          panel I18n.t("census.procedures.dependent_procedures") do
-            table_for procedure.dependent_procedures, i18n: Procedure do
-              column :type, &:type_name
-              column :information
-            end
-          end
-        end
-
-        panel t("census.procedures.process") do
-          f.inputs do
-            f.input :event, as: :radio, label: false, collection: procedure.permitted_events_options(controller.current_admin)
-            f.input :comment, as: :text
-          end
-          f.actions
-        end
-      end
-      column do
-        procedure.attachments.each do |attachment|
-          a href: attachment.view_path do
-            if attachment.image?
-              img src: attachment.view_path(version: :thumbnail)
-            else
-              attachment.file.file.original_filename
-            end
-          end
-        end
-      end
-    end
+    render "procedures/#{resource.procedure_type}/form", context: self, f: f, person_classes: resource.last_version_classed_changeset
   end
 
   action_item :undo_procedure, only: :show do

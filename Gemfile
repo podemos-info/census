@@ -83,7 +83,8 @@ group :development do
   gem "i18n-tasks"
   gem "listen"
   gem "pry-rails"
-  gem "rubocop", "~> 0.52.1", require: false
+  gem "rubocop", "~> 0.53", require: false
+  gem "rubocop-rspec"
   gem "spring"
   gem "spring-watcher-listen"
 end

@@ -39,7 +39,7 @@ ActiveAdmin.register Order do
   end
 
   show do
-    render "show", context: self, classes: classed_changeset(resource.versions.last, "version_change")
+    render "show", context: self, classes: resource.last_version_classed_changeset
     active_admin_comments
   end
 
@@ -112,7 +112,7 @@ ActiveAdmin.register Order do
         form_class = Orders::CreditCardExternalOrderForm
         build_params[:return_url] = external_payment_result_orders_url(result: "__RESULT__")
       else
-        flash[:alert] = t("census.orders.add_orders_from_payment_methods")
+        flash.now[:alert] = t("census.orders.add_orders_from_payment_methods")
       end
 
       resource = form_class ? decorator_class.new(form_class.from_params(build_params)) : Order.new
@@ -126,7 +126,7 @@ ActiveAdmin.register Order do
       Payments::CreateOrder.call(form: form, admin: current_admin) do
         on(:invalid) { render :new }
         on(:error) do
-          flash[:error] = t("census.messages.error_occurred")
+          flash.now[:error] = t("census.messages.error_occurred")
           render :new
         end
         on(:external) do |info|
@@ -139,7 +139,7 @@ ActiveAdmin.register Order do
     end
 
     def issues_for_resource
-      @issues_for_resource ||= super + IssuesNonFixed.for.merge(AdminIssues.for(current_admin)).merge(resource.payment_method.issues).decorate
+      @issues_for_resource ||= super + IssuesOpen.for.merge(AdminIssues.for(current_admin)).merge(resource.payment_method.issues).decorate
     end
   end
 end

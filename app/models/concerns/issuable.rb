@@ -10,7 +10,18 @@ module Issuable
     def possible_issues; end
   end
 
-  def has_issues?
-    issues.any?
+  def issues_summary
+    @issues_summary ||= begin
+      ret = :ok
+      issues.each do |issue|
+        if issue.open?
+          ret = :pending
+        elsif !issue.fixed_for?(self)
+          ret = :unrecoverable
+          break
+        end
+      end
+      ret
+    end
   end
 end

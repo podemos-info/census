@@ -34,7 +34,7 @@ module People
       Person.transaction do
         person.prepare
         person.save!
-        person.versions.first.update_attributes(whodunnit: person) unless PaperTrail.whodunnit
+        person.versions.first.update!(whodunnit: person) unless PaperTrail.whodunnit
 
         registration.save!
         :ok
@@ -54,13 +54,11 @@ module People
     end
 
     def person
-      @person ||= form.person || Person.new(
-        first_name: form.first_name,
-        last_name1: form.last_name1,
-        last_name2: form.last_name2,
-        born_at: form.born_at,
-        document_type: form.document_type
-      )
+      @person ||= begin
+        ret = form.person || Person.new
+        ret.assign_attributes(person_data)
+        ret
+      end
     end
 
     def person_data

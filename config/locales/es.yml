@@ -10,15 +10,15 @@ es:
       activist: Militantes
       all: Todo
       assigned: Asignadas
+      closed: Cerradas
       deleted: Bajas
       enabled: Habilitados/as
       error: Con errores
-      fixed: Resueltas
       follower: Simpatizantes
       inactive: Inactivos
       issues: Incidencias
       member: Afiliados/as
-      non_fixed: Sin resolver
+      open: Abiertas
       pending: Pendientes
       person: Personas
       processed: Procesadas
@@ -79,13 +79,14 @@ es:
       issue:
         assigned_to: Asignada a
         bank_code: Código de banco
+        closed_at: Fecha de cierre
+        comment: Comentario
         country: País
         created_at: Fecha de creación
         description: Descripción
         document_id: Número de documento
         document_scope: País del documento
         document_type: Tipo de documento
-        fixed_at: Fecha de resolución
         iban: IBAN
         issue_type_name: Tipo
         level_name: Importancia
@@ -302,11 +303,21 @@ es:
         dashboard: Portada
         system: Sistema
         version: Version
+      properties: Propiedades
       type:
         page_view: "%{action} %{controller}"
         security_report: Informe de seguridad
     issues:
+      action_message:
+        already_closed: La incidencia ya está resuelta
+        closed: La incidencia ha sido resuelta
+        error: Ha ocurrido un error al intentar resolver la incidencia
       assign_me: Asignármela
+      choose_this_person: Escoger esta persona
+      close:
+        action: Resolver incidencia
+        title: Resolver incidencia de %{issue_type_name}
+      fix_information: Información de la corrección
       information: Información adicional
       issues_for_resource: "¡Atención! Existen incidencias asociadas a este registro: %{issues_links}."
       levels:
@@ -315,23 +326,38 @@ es:
         medium: Media
         very_high: Crítica
         very_low: Muy Baja
-      mark_as_fixed: Marcar como resuelta
+      status:
+        fixed: Resuelta
+        gone: Extinta
+        open: Abierta
+      title: Detalles
       types:
-        issues/payments/missing_bic: BIC desconocido
-        issues/payments/processing_issue: Problemas al cobrar orden
-        issues/people/duplicated_document: Documento duplicado
-        issues/people/duplicated_person: Datos personales duplicados
-        issues/people/untrusted_email: Email sospechoso
-        issues/people/untrusted_phone: Teléfono sospechoso
+        payments/missing_bic:
+          name: BIC desconocido
+          tip: El método de pago utiliza un número de cuenta para el que no se dispone del código BIC. Para resolver la incidencia debes indicar el código BIC.
+        payments/processing_issue:
+          name: Problemas al cobrar orden
+        people/duplicated_document:
+          name: Documento duplicado
+          tip: Los siguientes registros tienen el mismo documento. Para resolver la incidencia debes utilizar los datos de las siguientes personas para indicar cuál de ellas debe permanecer en el censo.
+        people/duplicated_person:
+          name: Datos personales duplicados
+          tip: Los siguientes registros tienen datos personales similares, por lo que es posible que correspondan a la misma persona. Para resolver la incidencia debes utilizar los datos de las siguientes personas para indicar cuales de ellas debe permanecer en el censo.
+        people/untrusted_email:
+          name: Email sospechoso
+          tip: Este registro tiene asociado un número de teléfono sospechoso, por lo que puede ser una inscripción fraudulenta. Para resolver la incidencia debes comprobar la dirección de correo e indicar si es correcta.
+        people/untrusted_phone:
+          name: Teléfono sospechoso
+          tip: Este registro tiene asociado un número de teléfono sospechoso, por lo que puede ser una inscripción fraudulenta. Para resolver la incidencia debes comprobar el número e indicar si es correcto.
     jobs:
       job_messages:
-        auto_accept:
-          error: Ha ocurrido un error durante la aceptación automática del procedimiento
-          invalid: El procedimiento debería poder ser aceptado automáticamente, pero la información disponible es incorrecta
+        auto_process:
+          error: Ha ocurrido un error durante el procesamiento automático del procedimiento
+          invalid: El procedimiento debería poder ser procesado automáticamente, pero la información disponible es incorrecta
         issues_job:
           error: Ha ocurrido un error durante el análisis de incidencias para el registro
           existing_issue: El registro ya tenía una incidencia asociada
-          fixed_issue: Se ha cerrado una incidencia asociada al registro
+          gone_issue: Se ha extinguido una incidencia asociada al registro
           new_issue: Se ha encontrado una nueva incidencia asociada al registro
           ok: No hay incidencias asociadas al registro
         process_orders_batch_job:
@@ -445,7 +471,11 @@ es:
         reject: Rechazar
         set_issues: Incidencia
         undo: Deshacer
-      personal_data: Datos personales
+      issues: Incidencias asociadas
+      person:
+        data: Datos personales
+        now: Ahora
+        when_processed: Al procesarlo
       process: Procesar
     scopes:
       picker:

@@ -38,7 +38,7 @@ ActiveAdmin.register OrdersBatch do
   sidebar :versions, partial: "orders_batches/versions", only: :show
 
   show do
-    render "show", context: self, classes: classed_changeset(resource.versions.last, "version_change")
+    render "show", context: self, classes: resource.last_version_classed_changeset
     active_admin_comments
   end
 
@@ -58,7 +58,7 @@ ActiveAdmin.register OrdersBatch do
   end
 
   member_action :review_orders, method: [:get, :post] do
-    @pending_bics = Hash[OrdersBatchIssues.for(resource).merge(IssuesNonFixed.for).map do |issue|
+    @pending_bics = Hash[OrdersBatchIssues.for(resource).merge(IssuesOpen.for).map do |issue|
       country = issue.information["country"]
       bank_code = issue.information["bank_code"]
       key = "#{country}_#{bank_code}"
@@ -122,7 +122,7 @@ ActiveAdmin.register OrdersBatch do
     end
 
     def issues_for_resource
-      @issues_for_resource ||= super + OrdersBatchIssues.for(resource).merge(IssuesNonFixed.for).merge(AdminIssues.for(current_admin)).decorate
+      @issues_for_resource ||= super + OrdersBatchIssues.for(resource).merge(IssuesOpen.for).merge(AdminIssues.for(current_admin)).decorate
     end
   end
 end

@@ -1,0 +1,13 @@
+# frozen_string_literal: true
+
+attributes_table_for resource do
+  row :issue_type_name
+  row :description
+  row :objects_links
+  row :role_name
+  row :level_name
+  row :assigned_to
+  row :created_at
+  row :updated_at
+  row :closed_at
+end

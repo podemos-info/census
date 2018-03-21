@@ -12,8 +12,8 @@ describe Procedures::Registration, :db do
     is_expected.to be_acceptable
   end
 
-  it "is auto_acceptable" do
-    is_expected.to be_auto_acceptable
+  it "is auto_processable" do
+    is_expected.to be_auto_processable
   end
 
   context "when accepted" do

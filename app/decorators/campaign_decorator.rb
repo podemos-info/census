@@ -8,4 +8,5 @@ class CampaignDecorator < ApplicationDecorator
   end
 
   alias to_s name
+  alias listable_name name
 end

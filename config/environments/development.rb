@@ -55,4 +55,7 @@ Rails.application.configure do
 
   # Log file max size
   config.logger = ActiveSupport::Logger.new(config.paths["log"].first, 1, 100 * 1024 * 1024)
+
+  # Don't shut Ahoy requests in console
+  Ahoy.quiet = false
 end

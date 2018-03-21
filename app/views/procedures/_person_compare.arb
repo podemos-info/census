@@ -1,0 +1,19 @@
+# frozen_string_literal: true
+
+context.instance_eval do
+  panel t("census.procedures.person.data") do
+    if procedure.processed? && classes.any?
+      tabs do
+        tab t("census.procedures.person.when_processed") do
+          render partial: "people/show", locals: { context: context, title: "", classes: classes, resource: procedure.processed_person }
+        end
+
+        tab t("census.procedures.person.now") do
+          render partial: "people/show", locals: { context: context, title: "", classes: classes, resource: procedure.person }
+        end
+      end
+    else
+      render partial: "people/show", locals: { context: context, title: "", classes: classes, resource: procedure.person }
+    end
+  end
+end

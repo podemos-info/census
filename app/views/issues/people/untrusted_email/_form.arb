@@ -1,0 +1,18 @@
+# frozen_string_literal: true
+
+context.instance_eval do
+  panel t("census.issues.close.title", issue_type_name: issue.issue_type_name.downcase) do
+    para issue.issue_type_tip
+
+    render partial: "people/show_small", locals: { context: context, title: "", classes: issue.classed_relevant_attributes, resource: issue.procedures.first.person.decorate }
+
+    f.inputs do
+      f.input :trusted, as: :boolean
+      f.input :comment, as: :text
+    end
+    f.actions do
+      f.action :submit, label: t("census.issues.close.action")
+      f.action :cancel
+    end
+  end
+end

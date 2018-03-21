@@ -1,0 +1,31 @@
+# frozen_string_literal: true
+
+context.instance_eval do
+  render partial: "show", locals: { context: context, classes: classes }
+  columns class: "attachments" do
+    column do
+      render partial: "person_compare", locals: { context: context, classes: person_classes }
+    end
+    if procedure.attachments.any?
+      column do
+        procedure.attachments.each do |attachment|
+          a href: attachment.view_path do
+            if attachment.image?
+              img src: attachment.view_path(version: :thumbnail)
+            else
+              attachment.file.file.original_filename
+            end
+          end
+        end
+      end
+    end
+  end
+  if procedure.dependent_procedures.any?
+    panel I18n.t("census.procedures.dependent_procedures") do
+      table_for procedure.dependent_procedures, i18n: Procedure do
+        column :type, &:type_name
+        column :information
+      end
+    end
+  end
+end

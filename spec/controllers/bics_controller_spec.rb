@@ -63,8 +63,7 @@ describe BicsController, type: :controller do
       it { is_expected.to be_success }
       it { is_expected.to render_template("new") }
       it "shows an error message" do
-        subject
-        expect(flash[:error]).to be_present
+        expect { subject } .to change { flash[:error] } .from(nil).to("Ha ocurrido un error al guardar el registro.")
       end
     end
   end
@@ -98,8 +97,7 @@ describe BicsController, type: :controller do
       it { is_expected.to be_success }
       it { is_expected.to render_template("edit") }
       it "shows an error message" do
-        subject
-        expect(flash[:error]).to be_present
+        expect { subject } .to change { flash[:error] } .from(nil).to("Ha ocurrido un error al guardar el registro.")
       end
     end
   end

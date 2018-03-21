@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe Issues::FixedIssue do
+describe Issues::GoneIssue do
   subject(:command) { described_class.call(issue: issue, admin: admin) }
 
   let!(:issue) { create(:duplicated_document) }
@@ -17,8 +17,12 @@ describe Issues::FixedIssue do
       expect { subject } .to change { issue.assigned_to } .to(admin.person)
     end
 
-    it "saves the fixed_at field" do
-      expect { subject } .to change { issue.fixed_at } .from(nil)
+    it "saves the closed_at field" do
+      expect { subject } .to change { issue.closed_at } .from(nil)
+    end
+
+    it "saves the close result as gone" do
+      expect { subject } .to change { issue.close_result } .from(nil).to("gone")
     end
   end
 
@@ -36,8 +40,12 @@ describe Issues::FixedIssue do
       expect { subject } .not_to change { issue.assigned_to }
     end
 
-    it "saves the fixed_at field" do
-      expect { subject } .to change { issue.fixed_at } .from(nil)
+    it "saves the closed_at field" do
+      expect { subject } .to change { issue.closed_at } .from(nil)
+    end
+
+    it "saves the close result as gone" do
+      expect { subject } .to change { issue.close_result } .from(nil).to("gone")
     end
   end
 end

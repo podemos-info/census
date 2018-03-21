@@ -1,0 +1,31 @@
+# frozen_string_literal: true
+
+context.instance_eval do
+  panel t("census.issues.close.title", issue_type_name: issue.issue_type_name.downcase) do
+    para issue.issue_type_tip
+
+    columns do
+      checked = true
+      issue.people_by_creation_date.each do |person|
+        column do
+          render partial: "people/show", locals: { context: context, classes: issue.classed_relevant_attributes, resource: person }
+          div class: "choose_person" do
+            current_arbre_element.input "chosen_person_id", id: "issue_chosen_person_id_#{person.id}", value: person.id, name: "issue[chosen_person_id]",
+                                                            type: :radio, checked: checked
+            label t("census.issues.choose_this_person"), for: "issue_chosen_person_id_#{person.id}"
+          end
+
+          checked = false
+        end
+      end
+    end
+
+    f.inputs do
+      f.input :comment, as: :text
+    end
+    f.actions do
+      f.action :submit, label: t("census.issues.close.action")
+      f.action :cancel
+    end
+  end
+end

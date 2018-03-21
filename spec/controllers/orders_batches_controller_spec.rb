@@ -57,8 +57,7 @@ describe OrdersBatchesController, type: :controller do
       let!(:pending_order) { nil }
 
       it "alert the user that a new orders batch can't be created" do
-        subject
-        expect(flash[:alert]).to be_present
+        expect { subject } .to change { flash[:alert] } .from(nil).to("No hay órdenes pendientes para incluir en el lote de órdenes")
       end
 
       it { is_expected.to have_http_status(:found) }
@@ -79,8 +78,7 @@ describe OrdersBatchesController, type: :controller do
       it { is_expected.to be_success }
       it { expect(subject).to render_template("new") }
       it "shows an error message" do
-        subject
-        expect(flash[:error]).to be_present
+        expect { subject } .to change { flash[:error] } .from(nil).to("Ha ocurrido un error al guardar el registro.")
       end
     end
   end
@@ -98,8 +96,7 @@ describe OrdersBatchesController, type: :controller do
     it { expect(subject.location).to eq(orders_batches_url) }
 
     it "inform that the orders batch will be processed" do
-      subject
-      expect(flash[:notice]).to be_present
+      expect { subject } .to change { flash[:notice] } .from(nil).to("El lote de órdenes está siendo procesado.")
     end
 
     context "created job" do

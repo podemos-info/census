@@ -12,6 +12,9 @@ class VersionDecorator < ApplicationDecorator
     description
   end
 
+  alias to_s name
+  alias listable_name name
+
   def description
     item_class = object.item_type.constantize
     item_class_name = item_class.model_name.human
@@ -50,5 +53,13 @@ class VersionDecorator < ApplicationDecorator
 
   def item_route_key
     item.respond_to?(:route_key) ? item.route_key : object.item.class.name.underscore.pluralize
+  end
+
+  def before_classed_changeset
+    classed_changeset(object.object_changes.keys, "version_change old_value")
+  end
+
+  def after_classed_changeset
+    classed_changeset(object.object_changes.keys, "version_change new_value")
   end
 end

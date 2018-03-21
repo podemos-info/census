@@ -5,6 +5,7 @@ class Issue < ApplicationRecord
 
   self.inheritance_column = :issue_type
   enum level: [:very_low, :low, :medium, :high, :very_high], _suffix: true
+  enum close_result: [:fixed, :gone]
 
   has_many :issue_objects
 
@@ -25,9 +26,36 @@ class Issue < ApplicationRecord
     new_record? && !detected?
   end
 
-  def fixed?
-    !detected?
+  def closed?
+    closed_at.present?
   end
+
+  def open?
+    !closed?
+  end
+
+  def fix!
+    return if closed?
+
+    self.close_result = :fixed
+    self.closed_at = Time.zone.now
+    save!
+    true
+  end
+
+  def gone!
+    return if closed?
+
+    self.close_result = :gone
+    self.closed_at = Time.zone.now
+    save!
+  end
+
+  def fixed_for?(_issuable)
+    closed?
+  end
+
+  def post_close(_admin); end
 
   class << self
     def for(issuable)

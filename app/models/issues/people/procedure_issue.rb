@@ -4,8 +4,13 @@ module Issues
   module People
     class ProcedureIssue < Issue
       def fill
-        people << procedure.person
         self.procedures = [procedure]
+      end
+
+      def post_close(admin)
+        procedures.each do |procedure|
+          ::UpdateProcedureJob.perform_later(procedure: procedure, admin: admin)
+        end
       end
 
       class << self

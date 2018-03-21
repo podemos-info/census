@@ -29,7 +29,7 @@ module Payments
       return broadcast(:invalid) unless valid?
       return broadcast(:review) if review?
 
-      orders_batch.update_attributes! processed_at: Time.zone.now, processed_by: admin
+      orders_batch.update! processed_at: Time.zone.now, processed_by: admin
 
       result = :ok
       OrdersBatchPaymentProcessors.for(orders_batch).each do |payment_processor|
@@ -53,7 +53,7 @@ module Payments
     end
 
     def review?
-      OrdersBatchIssues.for(orders_batch).merge(IssuesNonFixed.for).any?
+      OrdersBatchIssues.for(orders_batch).merge(IssuesOpen.for).any?
     end
 
     def process_orders(processor, orders_batch)
@@ -111,7 +111,7 @@ module Payments
       Issues::CheckIssues.call(issuable: order, admin: admin) do
         on(:new_issue) { ret ||= :order_issues }
         on(:existing_issue) { ret ||= :order_issues }
-        on(:fixed_issue) {}
+        on(:gone_issue) {}
         on(:ok) {}
         on(:error) do
           CheckPaymentIssuesJob.perform_later(issuable: order, admin: admin)

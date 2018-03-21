@@ -5,7 +5,6 @@ namespace :encryption do
 
   task :remove do
     set :confirmed, proc {
-      # rubocop:disable Layout/EmptyLinesAroundArguments
       puts <<-WARN
 
       ========================================================================
@@ -14,7 +13,7 @@ namespace :encryption do
       ========================================================================
 
       WARN
-      # rubocop:enable Layout/EmptyLinesAroundArguments
+
       ask :answer, "Are you sure you want to continue? Type 'remove'"
       fetch(:answer) == "remove"
     }.call

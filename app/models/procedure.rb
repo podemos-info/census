@@ -33,12 +33,16 @@ class Procedure < ApplicationRecord
 
   def persist_reject_changes!; end
 
-  def auto_acceptable?
-    self.class.auto_acceptable?
+  def processable?
+    !processed? && issues_summary != :pending
   end
 
-  def self.auto_acceptable?
-    @auto_acceptable ||= Settings.procedures.auto_acceptables.include?(name.demodulize.underscore)
+  def auto_processable?
+    self.class.auto_processable? && processable?
+  end
+
+  def self.auto_processable?
+    @auto_processable ||= Settings.procedures.auto_processables.include?(name.demodulize.underscore)
   end
 
   private
