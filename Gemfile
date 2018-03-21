@@ -58,19 +58,20 @@ group :development, :test do
   gem "brakeman", require: false
   gem "byebug", platform: :mri
   gem "codecov", require: false
-  gem "database_cleaner"
-  gem "factory_bot_rails"
   gem "faker"
-  gem "rails-controller-testing"
-  gem "rspec-rails"
   gem "timecop"
-  gem "vcr"
-  gem "webmock"
-  gem "wisper-rspec"
 end
 
 group :test do
+  gem "capybara"
+  gem "database_cleaner"
+  gem "factory_bot_rails"
   gem "pundit-matchers", "~> 1.4.1"
+  gem "rails-controller-testing"
+  gem "rspec-rails"
+  gem "vcr"
+  gem "webmock"
+  gem "wisper-rspec"
 end
 
 group :development do
