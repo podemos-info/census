@@ -4,7 +4,7 @@ module Issues
   module People
     class UntrustedEmail < ProcedureIssue
       store_accessor :information, :email
-      store_accessor :fix_information, :trusted?, :comment
+      store_accessor :fix_information, :trusted, :comment
 
       def detected?
         blacklisted?
@@ -22,6 +22,7 @@ module Issues
       end
 
       alias procedure issuable
+      alias trusted? trusted
 
       private
 
