@@ -40,14 +40,16 @@ ActiveAdmin.register Person do
   end
 
   scope :all
-  scope :enabled, default: true
+
   Person.membership_level_names.each do |membership_level|
-    scope membership_level.to_sym
+    scope membership_level.to_sym, group: :membership_level
   end
+
   Person.state_names.each do |state|
-    scope state.to_sym
+    scope state.to_sym, group: :state, default: state == "enabled"
   end
-  scope :deleted
+
+  scope :deleted, group: :deleted
 
   show do
     render "show", context: self, classes: resource.last_version_classed_changeset

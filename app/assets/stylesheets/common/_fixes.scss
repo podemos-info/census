@@ -35,3 +35,19 @@ table.index {
     text-align: left;
   }
 }
+
+.scopes {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -10px;
+  .table_tools_segmented_control {
+    display: flex;
+    flex-wrap: wrap;
+    li a {
+      margin-top: 10px;
+    }
+    li:first-child a {
+      margin-left: 10px;
+    }
+  }
+}
