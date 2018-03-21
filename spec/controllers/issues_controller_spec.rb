@@ -26,9 +26,16 @@ describe IssuesController, type: :controller do
   end
 
   describe "index page" do
-    subject { get :index }
+    subject { get :index, params: params }
+    let(:params) { {} }
+
     it { is_expected.to be_success }
     it { is_expected.to render_template("index") }
+
+    context "ordered by issue type" do
+      let(:params) { { order: "issue_type_desc" } }
+      it { is_expected.to be_success }
+    end
   end
 
   describe "show page" do
@@ -46,20 +53,55 @@ describe IssuesController, type: :controller do
     end
   end
 
-  context "edit page" do
+  describe "edit page" do
     subject { get :edit, params: { id: issue.id } }
     it { expect(subject).to be_success }
     it { expect(subject).to render_template("edit") }
   end
 
   with_versioning do
-    describe "fix an issue" do
+    {
+      duplicated_document: {
+        role: :lopd,
+        request_params: ->(issue) { { chosen_person_id: issue.procedure.person_id, comment: "Is real" } }
+      },
+      duplicated_person: {
+        role: :lopd,
+        request_params: ->(issue) { { chosen_person_ids: [issue.procedure.person_id], comment: "Is real" } }
+      },
+      untrusted_email: {
+        role: :lopd,
+        request_params: ->(_issue) { { trusted: true, comment: "Is real" } }
+      },
+      untrusted_phone: {
+        role: :lopd,
+        request_params: ->(_issue) { { trusted: false, comment: "Is not real" } }
+      },
+      missing_bic: {
+        role: :finances,
+        request_params: ->(issue) { { bic: "ABCD#{issue.payment_methods.first.iban_parts[:country]}XX" } }
+      }
+    }.each do |issue_type, params|
+      describe "fix a #{issue_type.to_s.humanize} issue" do
+        subject { patch :update, params: { id: issue.id, issue: params[:request_params].call(issue) } }
+        let(:issue) { create(issue_type) }
+        let(:current_admin) { create(:admin, params[:role]) }
+
+        it { is_expected.to have_http_status(:found) }
+        it { expect(subject.location).to eq(issue_url(issue)) }
+        it "closes the issue" do
+          expect { subject } .to change { issue.reload.closed? } .from(false).to(true)
+        end
+      end
+    end
+
+    context "when fixing an issue returns an error" do
+      before { stub_command("Issues::FixIssue", :error) }
       subject { patch :update, params: { id: issue.id, issue: { chosen_person_id: issue.procedure.person_id, comment: "Is real" } } }
+      let(:issue) { create(:duplicated_document) }
 
-      let!(:issue) { create(:duplicated_document) }
-
-      it { is_expected.to have_http_status(:found) }
-      it { expect(subject.location).to eq(issue_url(issue)) }
+      it { is_expected.to have_http_status(:ok) }
+      it { expect { subject } .to change { flash[:error] } .from(nil).to("Ha ocurrido un error al intentar resolver la incidencia") }
       it "closes the issue" do
         expect { subject } .not_to change { issue.reload.closed? } .from(false)
       end

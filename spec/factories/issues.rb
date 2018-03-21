@@ -60,6 +60,10 @@ FactoryBot.define do
     last_name2 { other_person.last_name2 }
     born_at { other_person.born_at }
 
+    trait :chosen_procedure_person do
+      chosen_person_ids { [issuable.person.id] }
+    end
+
     after :build do |issue, evaluator|
       if evaluator.evaluated
         issue.people = [evaluator.other_person, evaluator.issuable.person]
@@ -68,14 +72,48 @@ FactoryBot.define do
     end
   end
 
+  factory :untrusted_email, parent: :issue, class: :"issues/people/untrusted_email" do
+    transient do
+      issuable { create(:registration, person_copy_data: temp_person) }
+      temp_person { build(:person, email: "#{Faker::Internet.user_name}@#{Issues::People::UntrustedEmail.domains_blacklist.first}") }
+    end
+    role { "lopd" }
+    email { temp_person.email }
+
+    after :build do |issue, evaluator|
+      issue.people = [evaluator.issuable.person] if evaluator.evaluated
+    end
+
+    trait :enabled_person do
+      issuable { create(:person_data_change, changing_columns: [:email], person_copy_data: temp_person) }
+    end
+  end
+
+  factory :untrusted_phone, parent: :issue, class: :"issues/people/untrusted_phone" do
+    transient do
+      issuable { create(:registration, person_copy_data: temp_person) }
+      temp_person { build(:person, phone: Issues::People::UntrustedPhone.phones_blacklist.first) }
+    end
+    role { "lopd" }
+    phone { temp_person.phone }
+
+    after :build do |issue, evaluator|
+      issue.people = [evaluator.issuable.person] if evaluator.evaluated
+    end
+
+    trait :enabled_person do
+      issuable { create(:person_data_change, changing_columns: [:phone], person_copy_data: temp_person) }
+    end
+  end
+
   factory :missing_bic, parent: :issue, class: :"issues/payments/missing_bic" do
     transient do
-      issuable { create(:order) }
+      issuable { create(:direct_debit) }
     end
     role { "finances" }
 
     after :build do |issue, evaluator|
-      iban = evaluator.issuable.payment_method.iban
+      iban = evaluator.issuable.iban
       parts = IbanBic.parse(iban)
       issue.information = {
         country: parts[:country],
@@ -85,8 +123,8 @@ FactoryBot.define do
     end
     after :create do |issue, evaluator|
       if evaluator.evaluated
-        issue.orders << evaluator.issuable
-        issue.payment_methods << evaluator.issuable.payment_method
+        issue.orders << evaluator.issuable.orders
+        issue.payment_methods << evaluator.issuable
       end
     end
   end

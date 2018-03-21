@@ -108,6 +108,21 @@ describe ProceduresController, type: :controller do
     subject { get :edit, params: { id: procedure.id } }
     it { expect(subject).to be_success }
     it { expect(subject).to render_template("edit") }
+
+    context "when procedure has issues" do
+      let(:current_admin) { create(:admin, :lopd) }
+      let!(:open_issue) { create(:duplicated_document, issuable: procedure) }
+      let!(:closed_issue) { create(:duplicated_person, :fixed, :chosen_procedure_person, issuable: procedure) }
+
+      it { is_expected.to be_success }
+      it { is_expected.to render_template("edit") }
+      it "shows an error message" do
+        expect { subject }
+          .to change { flash[:alert] }
+          .from(nil)
+          .to "¡Atención! Existen incidencias asociadas a este registro: <a class=\"member_link\" href=\"/issues/#{open_issue.id}/edit\">Documento duplicado ##{open_issue.id}</a>."
+      end
+    end
   end
 
   context "edit processed procedure" do

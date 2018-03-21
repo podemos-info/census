@@ -74,8 +74,7 @@ describe IssuePolicy do
   end
 
   context "for a finances issue" do
-    let(:issue) { create(:missing_bic, issuable: order) }
-    let(:order) { create(:order) }
+    let(:issue) { create(:missing_bic) }
 
     context "being a system admin" do
       let(:user) { create(:admin) }

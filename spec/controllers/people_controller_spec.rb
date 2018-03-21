@@ -24,9 +24,24 @@ describe PeopleController, type: :controller do
   end
 
   context "index page" do
-    subject { get :index }
-    it { expect(subject).to be_success }
-    it { expect(subject).to render_template("index") }
+    subject { get :index, params: params }
+    let(:params) { {} }
+
+    it { is_expected.to be_success }
+    it { is_expected.to render_template("index") }
+
+    context "ordered by full_name" do
+      let(:params) { { order: "full_name_desc" } }
+      it { is_expected.to be_success }
+    end
+    context "ordered by full_document" do
+      let(:params) { { order: "full_document_asc" } }
+      it { is_expected.to be_success }
+    end
+    context "ordered by scope" do
+      let(:params) { { order: "scope_desc" } }
+      it { is_expected.to be_success }
+    end
   end
 
   context "new page" do
@@ -50,6 +65,10 @@ describe PeopleController, type: :controller do
   end
 
   with_versioning do
+    before "creates a version for the person" do
+      person.update_attributes! first_name: "original"
+    end
+
     context "show page" do
       subject { get :show, params: { id: person.id } }
       it { expect(subject).to be_success }
@@ -58,12 +77,12 @@ describe PeopleController, type: :controller do
 
     context "update page" do
       subject do
-        person.assign_attributes first_name: "KKKKKK"
+        person.assign_attributes first_name: "changed"
         patch :update, params: { id: person.id, person: person.attributes }
       end
       it { expect(subject).to have_http_status(:found) }
       it { expect(subject.location).to eq(person_url(person.id)) }
-      it { expect { subject } .to change { person.first_name }.to("KKKKKK") }
+      it { expect { subject } .to change { person.first_name }.from("original").to("changed") }
     end
   end
 end
