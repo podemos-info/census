@@ -41,7 +41,7 @@ ActiveAdmin.register Bic do
       Payments::SaveBic.call(form: bic, admin: current_admin) do
         on(:invalid) { render action }
         on(:error) do
-          flash[:error] = t("census.messages.error_occurred")
+          flash.now[:error] = t("census.messages.error_occurred")
           render action
         end
         on(:ok) { |info| redirect_to url_for(info[:bic]) }

@@ -44,10 +44,7 @@ describe OrdersController, type: :controller do
       is_expected.to redirect_to(orders_path)
     end
 
-    it "shows an error message" do
-      subject
-      expect(flash[:alert]).to be_present
-    end
+    it { expect { subject } .to change { flash[:alert] } .from(nil).to("Puedes crear órdenes desde la página de una persona o un método de pago.") }
   end
 
   context "new order for a person page" do
@@ -93,10 +90,7 @@ describe OrdersController, type: :controller do
       before { stub_command("Payments::CreateOrder", :error) }
       it { is_expected.to be_success }
       it { is_expected.to render_template("new") }
-      it "shows an error message" do
-        subject
-        expect(flash[:error]).to be_present
-      end
+      it { expect { subject } .to change { flash[:error] } .from(nil).to("Ha ocurrido un error al guardar el registro.") }
     end
   end
 
@@ -143,10 +137,7 @@ describe OrdersController, type: :controller do
       it "success" do
         is_expected.to have_http_status(:found)
       end
-      it "shows an error message" do
-        subject
-        expect(flash[:error]).to be_present
-      end
+      it { expect { subject } .to change { flash[:error] } .from(nil).to("No se pudo procesar la orden.") }
       it "shows the index page" do
         expect(subject.location).to eq(orders_url)
       end
@@ -172,10 +163,7 @@ describe OrdersController, type: :controller do
       it "success" do
         is_expected.to have_http_status(:found)
       end
-      it "shows a notice message" do
-        subject
-        expect(flash[:notice]).to be_present
-      end
+      it { expect { subject } .to change { flash[:notice] } .from(nil).to("Orden procesada correctamente, pero con errores al comprobar sus incidencias.") }
     end
   end
 
@@ -187,10 +175,7 @@ describe OrdersController, type: :controller do
       it "success" do
         is_expected.to have_http_status(:found)
       end
-      it "shows an ok message" do
-        subject
-        expect(flash[:notice]).to be_present
-      end
+      it { expect { subject } .to change { flash[:notice] } .from(nil).to("La orden ha sido creada") }
       it "shows the index page" do
         expect(subject.location).to eq(orders_url)
       end
@@ -201,10 +186,7 @@ describe OrdersController, type: :controller do
       it "success" do
         is_expected.to have_http_status(:found)
       end
-      it "shows an error message" do
-        subject
-        expect(flash[:error]).to be_present
-      end
+      it { expect { subject } .to change { flash[:error] } .from(nil).to("La orden no ha sido creada") }
       it "shows the index page" do
         expect(subject.location).to eq(orders_url)
       end

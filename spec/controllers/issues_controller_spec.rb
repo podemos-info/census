@@ -61,8 +61,7 @@ describe IssuesController, type: :controller do
       it { is_expected.to have_http_status(:found) }
       it { expect(subject.location).to eq(issue_url(issue)) }
       it "closes the issue" do
-        subject
-        expect(issue.reload).to be_closed
+        expect { subject } .not_to change { issue.reload.closed? } .from(false)
       end
     end
   end

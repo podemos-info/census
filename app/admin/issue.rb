@@ -73,7 +73,7 @@ ActiveAdmin.register Issue do
       Issues::FixIssue.call(issue: issue, admin: current_admin) do
         on(:invalid) { render :edit }
         on(:error) do
-          flash[:error] = t("census.issues.action_message.error")
+          flash.now[:error] = t("census.issues.action_message.error")
           render :edit
         end
         on(:ok) do

@@ -112,7 +112,7 @@ ActiveAdmin.register Order do
         form_class = Orders::CreditCardExternalOrderForm
         build_params[:return_url] = external_payment_result_orders_url(result: "__RESULT__")
       else
-        flash[:alert] = t("census.orders.add_orders_from_payment_methods")
+        flash.now[:alert] = t("census.orders.add_orders_from_payment_methods")
       end
 
       resource = form_class ? decorator_class.new(form_class.from_params(build_params)) : Order.new
@@ -126,7 +126,7 @@ ActiveAdmin.register Order do
       Payments::CreateOrder.call(form: form, admin: current_admin) do
         on(:invalid) { render :new }
         on(:error) do
-          flash[:error] = t("census.messages.error_occurred")
+          flash.now[:error] = t("census.messages.error_occurred")
           render :new
         end
         on(:external) do |info|

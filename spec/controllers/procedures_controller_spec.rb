@@ -94,8 +94,10 @@ describe ProceduresController, type: :controller do
 
           it { is_expected.to redirect_to(procedures_path) }
           it "shows an error message" do
-            subject
-            expect(flash[:error]).to be_present
+            expect { subject }
+              .to change { flash[:error] }
+              .from(nil)
+              .to("Ha ocurrido un error al intentar devolver procedimiento <a href=\"/procedures/#{procedure.id}\">#{procedure.id}</a> a su estado anterior.")
           end
         end
       end
@@ -140,11 +142,7 @@ describe ProceduresController, type: :controller do
 
       it { is_expected.to be_success }
       it { is_expected.to render_template("edit") }
-
-      it "shows an error message" do
-        subject
-        expect(flash[:error]).to be_present
-      end
+      it { expect { subject } .to change { flash[:error] } .from(nil).to("Ha ocurrido un error al procesar el procedimiento.") }
     end
   end
 

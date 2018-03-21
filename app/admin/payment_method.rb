@@ -80,7 +80,7 @@ ActiveAdmin.register PaymentMethod do
       Payments::SavePaymentMethod.call(payment_method: payment_method, admin: current_admin) do
         on(:invalid) { render :new }
         on(:error) do
-          flash[:error] = t("census.messages.error_occurred")
+          flash.now[:error] = t("census.messages.error_occurred")
           render :new
         end
         on(:ok) { |info| redirect_to person_payment_method_path(info[:payment_method].person, info[:payment_method]) }
@@ -94,7 +94,7 @@ ActiveAdmin.register PaymentMethod do
       Payments::SavePaymentMethod.call(payment_method: payment_method, admin: current_admin) do
         on(:invalid) { render :edit }
         on(:error) do
-          flash[:error] = t("census.messages.error_occurred")
+          flash.now[:error] = t("census.messages.error_occurred")
           render :edit
         end
         on(:ok) { |info| redirect_back(fallback_location: payment_method_path(info[:payment_method])) }
