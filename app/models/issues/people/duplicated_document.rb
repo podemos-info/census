@@ -17,7 +17,7 @@ module Issues
       end
 
       def fix!
-        check_chosen_person_id
+        return false unless valid_fix_information?
 
         people.each do |person|
           person.ban! if person.enabled? && chosen_person_id != person.id
@@ -45,8 +45,13 @@ module Issues
         @chosen_person_id ||= fix_information["chosen_person_id"]&.to_i
       end
 
-      def check_chosen_person_id
-        raise "Chosen person is not in the list of affected people" unless person_ids.include?(chosen_person_id)
+      def valid_fix_information?
+        if person_ids.include?(chosen_person_id)
+          true
+        else
+          errors.add(:chosen_person_id, :not_affected_person)
+          false
+        end
       end
 
       class << self

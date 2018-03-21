@@ -16,9 +16,15 @@ module Issues
       end
 
       def fix!
-        people.each(&:ban!) unless trusted?
+        people.each do |person|
+          person.ban! if person.enabled? && !trusted?
+        end
 
         super
+      end
+
+      def fixed_for?(issuable)
+        super && trusted?
       end
 
       alias procedure issuable

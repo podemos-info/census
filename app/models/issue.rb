@@ -37,9 +37,10 @@ class Issue < ApplicationRecord
   def fix!
     return if closed?
 
-    self.close_result ||= :fixed
+    self.close_result = :fixed
     self.closed_at = Time.zone.now
     save!
+    true
   end
 
   def gone!
@@ -53,6 +54,8 @@ class Issue < ApplicationRecord
   def fixed_for?(_issuable)
     closed?
   end
+
+  def post_close(_admin); end
 
   class << self
     def for(issuable)

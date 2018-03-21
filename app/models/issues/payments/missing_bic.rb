@@ -12,25 +12,53 @@ module Issues
 
       def fill
         self.payment_methods = affected_payment_methods
+        self.orders = affected_orders
       end
 
       def fix!
+        return false unless valid_fix_information?
+
         new_bic.save!
+        super
+      end
+
+      def post_close(admin)
+        CheckBicIssuesJob.perform_later(country: country, bank_code: bank_code, admin: admin)
       end
 
       alias direct_debit issuable
 
       private
 
+      def valid_fix_information?
+        if bic_form.invalid?
+          bic_form.errors.each do |attribute, error|
+            errors.add attribute, error
+          end
+          false
+        else
+          true
+        end
+      end
+
+      def bic_form
+        @bic_form ||= BicForm.new(country: country, bank_code: bank_code, bic: bic)
+      end
+
       def new_bic
         @new_bic ||= begin
-          record = Bic.find_or_initialize_by(country: country, bank_code: bank_code)
-          record.bic = bic
+          record = Bic.find_or_initialize_by(country: bic_form.country, bank_code: bic_form.bank_code)
+          record.bic = bic_form.bic
+          record
         end
       end
 
       def affected_payment_methods
         @affected_payment_methods ||= ::PaymentMethodsForBank.for(iban: direct_debit.iban)
+      end
+
+      def affected_orders
+        @affected_orders ||= ::PaymentMethodsOrders.for(payment_methods: affected_payment_methods)
       end
 
       class << self

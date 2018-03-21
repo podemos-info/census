@@ -45,10 +45,6 @@ class IssueDecorator < ApplicationDecorator
     end.to_sentence.html_safe
   end
 
-  def link
-    h.link_to name, h.url_for(self)
-  end
-
   def people_by_creation_date
     @people_by_creation_date ||= object.people.decorate.sort_by(&:created_at)
   end
@@ -58,7 +54,7 @@ class IssueDecorator < ApplicationDecorator
   end
 
   def fix_attributes
-    @fix_attributes ||= object.class.stored_attributes[:fix_information]
+    @fix_attributes ||= object.class.try(:fix_attributes) || object.class.stored_attributes[:fix_information]
   end
 
   def view_link(text = nil)
@@ -74,7 +70,11 @@ class IssueDecorator < ApplicationDecorator
   end
 
   def status
-    object.closed? ? object.result : "open"
+    if object.closed?
+      object.close_result
+    else
+      "open"
+    end
   end
 
   def status_name

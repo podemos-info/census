@@ -17,7 +17,7 @@ module Issues
       end
 
       def fix!
-        check_chosen_person_ids
+        return false unless valid_fix_information?
 
         people.each do |person|
           person.ban! if person.enabled? && !chosen_person_ids.include?(person.id)
@@ -48,11 +48,16 @@ module Issues
       end
 
       def chosen_person_ids
-        @chosen_person_ids ||= fix_information[:chosen_person_ids]&.map(&:to_i)
+        @chosen_person_ids ||= fix_information["chosen_person_ids"]&.map(&:to_i)
       end
 
-      def check_chosen_person_ids
-        raise "Chosen persons are not all in the list of affected people" unless chosen_person_ids.all? { |chosen_person_id| person_ids.include?(chosen_person_id) }
+      def valid_fix_information?
+        if chosen_person_ids.all? { |chosen_person_id| person_ids.include?(chosen_person_id) }
+          true
+        else
+          errors.add(:chosen_person_ids, :not_affected_person)
+          false
+        end
       end
 
       class << self
@@ -65,6 +70,10 @@ module Issues
             last_name1: procedure.last_name1,
             last_name2: procedure.last_name2
           )
+        end
+
+        def fix_attributes
+          [:comment, chosen_person_ids: []]
         end
       end
     end

@@ -37,18 +37,22 @@ module Issues
     end
 
     def close
+      ret = :error
       Issue.transaction do
-        issue.assigned_to ||= admin&.person
-        close_action
-        issue_unreads.destroy_all
-        :ok
-      end || :error
+        if close_action
+          issue.assigned_to ||= admin&.person
+          issue_unreads.destroy_all
+          ret = :ok
+        else
+          ret = :invalid
+          raise ActiveRecord::Rollback
+        end
+      end
+      ret
     end
 
     def post_close
-      issue.procedures.each do |procedure|
-        ::UpdateProcedureJob.perform_later(procedure: procedure, admin: admin)
-      end
+      issue.post_close(admin)
     end
   end
 end
