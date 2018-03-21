@@ -16,12 +16,8 @@ ActiveAdmin.register Issue do
   scope(:assigned) { |scope| AdminAssignedIssues.for(current_admin).merge(scope) }
   scope(:closed) { |scope| AdminIssues.for(current_admin).merge(IssuesClosed.for).merge(scope) }
 
-  order_by(:type) do |order_clause|
-    "#{order_clause.to_sql}, id #{order_clause.order}"
-  end
-
   index do
-    column :issue_type_name, class: :left, sortable: :type, &:view_link_with_name
+    column :issue_type_name, class: :left, sortable: :issue_type, &:view_link_with_name
     column :level_name
     column :objects_links
     column :assigned_to
