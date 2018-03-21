@@ -17,7 +17,7 @@ class AdminDecorator < ApplicationDecorator
   end
 
   def self.role_options
-    @roles ||= Admin.roles.keys.map do |role|
+    @role_options ||= Admin.roles.keys.map do |role|
       [I18n.t("census.admins.roles.#{role}"), role]
     end.freeze
   end

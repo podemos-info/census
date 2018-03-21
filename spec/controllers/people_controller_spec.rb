@@ -66,7 +66,7 @@ describe PeopleController, type: :controller do
 
   with_versioning do
     before "creates a version for the person" do
-      person.update_attributes! first_name: "original"
+      person.update! first_name: "original" # creates an update person version
     end
 
     context "show page" do

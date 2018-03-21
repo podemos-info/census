@@ -10,7 +10,6 @@ describe Issues::FixIssue do
   let(:admin) { create(:admin) }
   let(:chosen_person_id) { issue.procedure.person_id }
 
-
   describe "when is ok" do
     it "broadcasts :ok" do
       expect { subject } .to broadcast(:ok)

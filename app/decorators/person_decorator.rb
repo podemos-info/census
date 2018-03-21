@@ -60,7 +60,7 @@ class PersonDecorator < ApplicationDecorator
   end
 
   def self.document_type_options
-    @document_types ||= Person.document_types.keys.map do |document_type|
+    @document_type_options ||= Person.document_types.keys.map do |document_type|
       [I18n.t("census.people.document_types.#{document_type}"), document_type]
     end.freeze
   end

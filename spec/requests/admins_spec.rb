@@ -26,7 +26,7 @@ describe "Admins", type: :request do
 
     context "admin versions page" do
       before do
-        admin.update_attributes! username: "#{admin.username}A" # create an admin version
+        admin.update! username: "#{admin.username}A" # create an admin version
       end
       subject { get admin_versions_path(admin_id: admin.id) }
       it { expect(subject).to eq(200) }

@@ -73,7 +73,7 @@ describe Issues::CheckIssues do
     let(:other_person) { build(:person) }
     before do
       described_class.call(issuable: procedure, admin: admin)
-      same_person.update_attributes(document_id: other_person.document_id)
+      same_person.update!(document_id: other_person.document_id)
     end
 
     it "broadcast :gone_issue" do

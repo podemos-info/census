@@ -34,7 +34,7 @@ module People
       Person.transaction do
         person.prepare
         person.save!
-        person.versions.first.update_attributes(whodunnit: person) unless PaperTrail.whodunnit
+        person.versions.first.update!(whodunnit: person) unless PaperTrail.whodunnit
 
         registration.save!
         :ok

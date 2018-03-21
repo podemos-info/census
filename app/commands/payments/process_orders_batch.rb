@@ -29,7 +29,7 @@ module Payments
       return broadcast(:invalid) unless valid?
       return broadcast(:review) if review?
 
-      orders_batch.update_attributes! processed_at: Time.zone.now, processed_by: admin
+      orders_batch.update! processed_at: Time.zone.now, processed_by: admin
 
       result = :ok
       OrdersBatchPaymentProcessors.for(orders_batch).each do |payment_processor|
