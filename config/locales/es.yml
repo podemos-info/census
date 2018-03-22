@@ -79,6 +79,8 @@ es:
       issue:
         assigned_to: Asignada a
         bank_code: Código de banco
+        born_at: Fecha de nacimiento
+        chosen_person_id: Persona escogida
         closed_at: Fecha de cierre
         comment: Comentario
         country: País
@@ -86,13 +88,17 @@ es:
         date: Fecha
         description: Descripción
         document_id: Número de documento
-        document_scope: País del documento
+        document_scope_id: País del documento
         document_type: Tipo de documento
+        first_name: Nombre
         iban: IBAN
         issue_type_name: Tipo
+        last_name1: Primer Apellido
+        last_name2: Segundo Apellido
         level_name: Importancia
         objects_links: Registros afectados
         role_name: Rol
+        trusted: Comprobado?
         updated_at: Última actualización
       job:
         created_at: Fecha de creación
