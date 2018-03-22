@@ -7,13 +7,12 @@ module Issues
       store_accessor :fix_information, :chosen_person_id, :comment
 
       def detected?
-        affected_people.any?
+        affected_people.count { |person| person.enabled? || person.pending? } > 1
       end
 
       def fill
         super
-        self.people = affected_people
-        people << procedure.person
+        self.people = (affected_people + people).uniq
       end
 
       def fix!
@@ -38,7 +37,7 @@ module Issues
       private
 
       def affected_people
-        @affected_people ||= ::PeopleEnabled.for.merge(::PeopleWithDuplicatedDocument.for(self.class.document_information(procedure)))
+        @affected_people ||= (::PeopleEnabled.for.merge(::PeopleWithDuplicatedDocument.for(self.class.document_information(procedure))) + [procedure.person]).uniq
       end
 
       def chosen_person_id

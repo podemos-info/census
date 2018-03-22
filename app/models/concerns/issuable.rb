@@ -16,7 +16,7 @@ module Issuable
       issues.each do |issue|
         if issue.open?
           ret = :pending
-        elsif !issue.fixed_for?(self)
+        elsif !issue.gone? && !issue.fixed_for?(self)
           ret = :unrecoverable
           break
         end

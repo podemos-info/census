@@ -67,6 +67,7 @@ RSpec.configure do |config|
 
   config.include Rectify::RSpec::Helpers
   config.include Warden::Test::Helpers
+  config.include ActiveJob::TestHelper
 
   config.before(:each, type: :system) do
     driven_by :rack_test

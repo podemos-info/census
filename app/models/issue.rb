@@ -35,7 +35,7 @@ class Issue < ApplicationRecord
   end
 
   def fix!
-    return if closed?
+    return false if closed?
 
     self.close_result = :fixed
     self.closed_at = Time.zone.now

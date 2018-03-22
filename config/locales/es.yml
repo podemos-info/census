@@ -83,6 +83,7 @@ es:
         comment: Comentario
         country: País
         created_at: Fecha de creación
+        date: Fecha
         description: Descripción
         document_id: Número de documento
         document_scope: País del documento
@@ -92,7 +93,7 @@ es:
         level_name: Importancia
         objects_links: Registros afectados
         role_name: Rol
-        updated_at: Fecha de expiración
+        updated_at: Última actualización
       job:
         created_at: Fecha de creación
         job_type_link: Tarea

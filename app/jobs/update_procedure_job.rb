@@ -12,6 +12,7 @@ class UpdateProcedureJob < ApplicationJob
   end
 
   def perform(procedure:, admin:)
+    # Update issues before auto processing
     Issues::CheckIssues.call(issuable: procedure, admin: admin, &log_issues_message)
 
     return unless procedure.auto_processable?
@@ -22,5 +23,8 @@ class UpdateProcedureJob < ApplicationJob
       on(:invalid) { log :user, key: "auto_process.invalid" }
       on(:error) { log :user, key: "auto_process.error" }
     end
+
+    # Update issues after auto processing
+    Issues::CheckIssues.call(issuable: procedure, admin: admin, &log_issues_message)
   end
 end

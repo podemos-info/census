@@ -3,8 +3,8 @@
 require "rails_helper"
 
 describe Issues::FixIssue do
-  before { issue.chosen_person_id = chosen_person_id }
   subject(:command) { described_class.call(issue: issue, admin: admin) }
+  before(:each) { issue.chosen_person_id = chosen_person_id }
 
   let(:issue) { create(:duplicated_document) }
   let(:admin) { create(:admin) }
@@ -16,15 +16,15 @@ describe Issues::FixIssue do
     end
 
     it "changes the issue assigned_to field" do
-      expect { subject } .to change { issue.assigned_to } .to(admin.person)
+      expect { subject } .to change { Issue.find(issue.id).assigned_to } .to(admin.person)
     end
 
     it "saves the closed_at field" do
-      expect { subject } .to change { issue.closed_at } .from(nil)
+      expect { subject } .to change { Issue.find(issue.id).closed_at } .from(nil)
     end
 
     it "saves the close result as fixed" do
-      expect { subject } .to change { issue.close_result } .from(nil).to("fixed")
+      expect { subject } .to change { Issue.find(issue.id).close_result } .from(nil).to("fixed")
     end
   end
 
@@ -39,15 +39,15 @@ describe Issues::FixIssue do
     end
 
     it "doesn't changes the issue assigned_to field" do
-      expect { subject } .not_to change { issue.assigned_to }
+      expect { subject } .not_to change { Issue.find(issue.id).assigned_to }
     end
 
     it "saves the closed_at field" do
-      expect { subject } .to change { issue.closed_at } .from(nil)
+      expect { subject } .to change { Issue.find(issue.id).closed_at } .from(nil)
     end
 
     it "saves the close result as fixed" do
-      expect { subject } .to change { issue.close_result } .from(nil).to("fixed")
+      expect { subject } .to change { Issue.find(issue.id).close_result } .from(nil).to("fixed")
     end
   end
 
@@ -59,15 +59,15 @@ describe Issues::FixIssue do
     end
 
     it "doesn't changes the issue assigned_to field" do
-      expect { subject } .not_to change { issue.assigned_to }
+      expect { subject } .not_to change { Issue.find(issue.id).assigned_to }
     end
 
     it "doesn't save the closed_at field" do
-      expect { subject } .not_to change { issue.closed_at } .from(nil)
+      expect { subject } .not_to change { Issue.find(issue.id).closed_at } .from(nil)
     end
 
     it "doesn't save  the close result as fixed" do
-      expect { subject } .not_to change { issue.close_result } .from(nil)
+      expect { subject } .not_to change { Issue.find(issue.id).close_result } .from(nil)
     end
   end
 end

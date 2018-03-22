@@ -21,7 +21,7 @@ module Procedures
     end
 
     def process_reject
-      person.reject
+      person.reject if person.may_reject?
     end
 
     alias undo_reject undo_accept
