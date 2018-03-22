@@ -10,7 +10,39 @@ describe "Fix Issues", type: :system do
     visit edit_issue_path(issue)
   end
 
-  describe "fixing an issue with related issues" do
+  context "when fixing a single person issue" do
+    let(:issue) { create(:untrusted_email) }
+    let(:procedure) { issue.procedures.first }
+    let(:procedure_person) { procedure.person }
+
+    it "fixes the issue marking the email as untrusted" do
+      perform_enqueued_jobs do
+        find("*[type=submit]").click
+      end
+
+      [issue, procedure, procedure_person].each(&:reload)
+
+      expect(issue).to be_fixed
+      expect(procedure).to be_rejected
+      expect(procedure_person).to be_rejected
+    end
+
+    it "fixes the issue marking the email as trusted" do
+      find("label[for=issue_trusted]").click
+
+      perform_enqueued_jobs do
+        find("*[type=submit]").click
+      end
+
+      [issue, procedure, procedure_person].each(&:reload)
+
+      expect(issue).to be_fixed
+      expect(procedure).to be_accepted
+      expect(procedure_person).to be_enabled
+    end
+  end
+
+  context "when fixing an issue with related issues" do
     let(:issue) { create(:duplicated_document, issuable: procedure, other_person: existing_person) }
     let!(:other_issue) { create(:duplicated_person, issuable: procedure, other_person: existing_person) }
     let(:procedure) { create(:registration, person_copy_data: existing_person) }

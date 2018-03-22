@@ -82,6 +82,7 @@ FactoryBot.define do
 
     after :build do |issue, evaluator|
       issue.people = [evaluator.issuable.person] if evaluator.evaluated
+      issue.procedures << evaluator.issuable
     end
 
     trait :enabled_person do
@@ -99,6 +100,7 @@ FactoryBot.define do
 
     after :build do |issue, evaluator|
       issue.people = [evaluator.issuable.person] if evaluator.evaluated
+      issue.procedures << evaluator.issuable
     end
 
     trait :enabled_person do
