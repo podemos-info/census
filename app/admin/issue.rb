@@ -11,9 +11,9 @@ ActiveAdmin.register Issue do
     resource.fix_attributes
   end
 
-  scope(:unread, default: true) { |scope| AdminUnreadIssues.for(current_admin).merge(scope) }
+  scope(:unread, default: true) { |scope| AdminUnreadIssues.for(current_admin).merge(IssuesOpen.for).merge(scope) }
   scope(:open) { |scope| AdminIssues.for(current_admin).merge(IssuesOpen.for).merge(scope) }
-  scope(:assigned) { |scope| AdminAssignedIssues.for(current_admin).merge(scope) }
+  scope(:assigned) { |scope| AdminAssignedIssues.for(current_admin).merge(IssuesOpen.for).merge(scope) }
   scope(:closed) { |scope| AdminIssues.for(current_admin).merge(IssuesClosed.for).merge(scope) }
 
   index do
@@ -23,6 +23,9 @@ ActiveAdmin.register Issue do
     column :assigned_to
     column :status do |issue|
       status_tag(issue.status_name, class: issue.status)
+    end
+    column :date do |issue|
+      issue.closed_at || issue.created_at
     end
     actions defaults: false, &:view_link
   end

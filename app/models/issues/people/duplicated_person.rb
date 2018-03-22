@@ -7,13 +7,12 @@ module Issues
       store_accessor :fix_information, :chosen_person_ids, :comment
 
       def detected?
-        affected_people.any?
+        affected_people.count { |person| person.enabled? || person.pending? } > 1
       end
 
       def fill
         super
-        self.people = affected_people
-        people << procedure.person
+        self.people = (affected_people + people).uniq
       end
 
       def fix!
@@ -38,9 +37,11 @@ module Issues
       private
 
       def affected_people
-        @affected_people ||= ::PeopleEnabled.for.merge(::PeopleByBornDate.for(born_at)).select do |person|
-          normalize(person.first_name, person.last_name1, person.last_name2) == normalize(first_name, last_name1, last_name2)
-        end
+        @affected_people ||= (
+          ::PeopleEnabled.for.merge(::PeopleByBornDate.for(born_at)).select do |person|
+            normalize(person.first_name, person.last_name1, person.last_name2) == normalize(first_name, last_name1, last_name2)
+          end + [procedure.person]
+        ).uniq
       end
 
       def normalize(*args)
@@ -48,7 +49,7 @@ module Issues
       end
 
       def chosen_person_ids
-        @chosen_person_ids ||= fix_information["chosen_person_ids"]&.map(&:to_i)
+        @chosen_person_ids ||= fix_information["chosen_person_ids"]&.map(&:to_i) || []
       end
 
       def valid_fix_information?

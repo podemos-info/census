@@ -39,8 +39,8 @@ module Issues
     def close
       ret = :error
       Issue.transaction do
+        issue.assigned_to ||= admin&.person
         if close_action
-          issue.assigned_to ||= admin&.person
           issue_unreads.destroy_all
           ret = :ok
         else

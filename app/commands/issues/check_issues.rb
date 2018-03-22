@@ -50,7 +50,7 @@ module Issues
       if issue.new_record?
         Issues::CreateIssueUnreads.call(issue: issue, admin: admin)
         :new_issue
-      elsif !issue.detected?
+      elsif !issue.closed? && !issue.detected?
         Issues::GoneIssue.call(issue: issue, admin: admin)
         :gone_issue
       else

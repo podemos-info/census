@@ -12,10 +12,10 @@ gem "dotenv-rails", require: "dotenv/rails-now"
 gem "aasm"
 gem "active_job_reporter"
 gem "active_model_serializers"
-gem "activeadmin"
+gem "activeadmin", github: "activeadmin/activeadmin"
 gem "activeadmin_addons", github: "platanus/activeadmin_addons"
 gem "activemerchant", github: "leio10/active_merchant"
-gem "arctic_admin", github: "cle61/arctic_admin", branch: "master"
+gem "arctic_admin"
 gem "carrierwave"
 gem "config"
 gem "devise"
@@ -58,19 +58,20 @@ group :development, :test do
   gem "brakeman", require: false
   gem "byebug", platform: :mri
   gem "codecov", require: false
-  gem "database_cleaner"
-  gem "factory_bot_rails"
   gem "faker"
-  gem "rails-controller-testing"
-  gem "rspec-rails"
   gem "timecop"
-  gem "vcr"
-  gem "webmock"
-  gem "wisper-rspec"
 end
 
 group :test do
+  gem "capybara"
+  gem "database_cleaner"
+  gem "factory_bot_rails"
   gem "pundit-matchers", "~> 1.4.1"
+  gem "rails-controller-testing"
+  gem "rspec-rails"
+  gem "vcr"
+  gem "webmock"
+  gem "wisper-rspec"
 end
 
 group :development do

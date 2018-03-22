@@ -27,7 +27,7 @@ ActiveAdmin.register Procedure do
 
   scope :all
   Procedure.state_names.each do |state|
-    scope state, default: state == "pending"
+    scope state.to_sym, default: state == "pending"
   end
 
   index do

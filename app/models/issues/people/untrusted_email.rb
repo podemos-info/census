@@ -28,9 +28,12 @@ module Issues
       end
 
       alias procedure issuable
-      alias trusted? trusted
 
       private
+
+      def trusted?
+        ActiveModel::Type::Boolean.new.cast(trusted)
+      end
 
       def blacklisted?
         domain = procedure.email.split("@").last
