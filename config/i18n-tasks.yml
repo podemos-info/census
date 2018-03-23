@@ -96,7 +96,7 @@ ignore_unused:
 - 'activerecord.attributes.*'
 - 'active_admin.powered_by'
 - 'active_admin.sidebars.*'
-- 'active_admin.scopes.*'
+- 'active_admin.resources.*.scopes.*'
 - 'active_admin.status_tag.*'
 - 'errors.messages.*'
 - 'errors.attributes.*'
