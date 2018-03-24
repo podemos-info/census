@@ -17,13 +17,13 @@ describe Procedures::Cancellation, :db do
 
   context "when accepted" do
     it "destroys the person" do
-      expect { procedure.accept! } .to change { procedure.person.deleted_at } .from(nil)
+      expect { procedure.accept! } .to change { procedure.person.discarded_at } .from(nil)
     end
   end
 
   context "when rejected" do
     it "doesn't destroy the person" do
-      expect { procedure.reject! } .not_to change { procedure.person.deleted_at }
+      expect { procedure.reject! } .not_to change { procedure.person.discarded_at }
     end
   end
 
@@ -33,7 +33,7 @@ describe Procedures::Cancellation, :db do
       before { procedure.accept! }
 
       it "recovers the person" do
-        expect { subject } .to change { procedure.person.deleted_at } .to(nil)
+        expect { subject } .to change { procedure.person.discarded_at } .to(nil)
       end
     end
   end

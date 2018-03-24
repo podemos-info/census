@@ -6,7 +6,7 @@ class Procedure < ApplicationRecord
 
   self.inheritance_column = :type
 
-  belongs_to :person, -> { with_deleted }
+  belongs_to :person
   belongs_to :processed_by, class_name: "Admin", optional: true
   belongs_to :depends_on, class_name: "Procedure", optional: true
 

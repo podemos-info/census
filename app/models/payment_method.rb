@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class PaymentMethod < ApplicationRecord
+  include Discard::Model
   include FlagShihTzu
   include HasAdditionalInformation
   include Issuable
@@ -11,7 +12,6 @@ class PaymentMethod < ApplicationRecord
             2 => :inactive,
             check_for_column: false
 
-  acts_as_paranoid
   has_paper_trail class_name: "Version"
   has_many :versions, as: :item
   has_many :orders
@@ -20,7 +20,7 @@ class PaymentMethod < ApplicationRecord
   before_save :default_name, unless: :name?
 
   def active?
-    !deleted? && !inactive?
+    !discarded? && !inactive?
   end
 
   def reprocessable?

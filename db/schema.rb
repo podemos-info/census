@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180227151759) do
+ActiveRecord::Schema.define(version: 20180323175411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20180227151759) do
     t.datetime "locked_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "deleted_at"
+    t.datetime "discarded_at"
     t.index ["person_id"], name: "index_admins_on_person_id"
     t.index ["scope_id"], name: "index_admins_on_scope_id"
     t.index ["username"], name: "index_admins_on_username", unique: true
@@ -168,7 +168,7 @@ ActiveRecord::Schema.define(version: 20180227151759) do
     t.jsonb "information", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "deleted_at"
+    t.datetime "discarded_at"
     t.bigint "campaign_id"
     t.index ["campaign_id"], name: "index_orders_on_campaign_id"
     t.index ["orders_batch_id"], name: "index_orders_on_orders_batch_id"
@@ -203,7 +203,7 @@ ActiveRecord::Schema.define(version: 20180227151759) do
     t.jsonb "information", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "deleted_at"
+    t.datetime "discarded_at"
     t.index ["information"], name: "index_payment_methods_on_information", using: :gin
     t.index ["person_id"], name: "index_payment_methods_on_person_id"
   end
@@ -228,7 +228,7 @@ ActiveRecord::Schema.define(version: 20180227151759) do
     t.jsonb "extra", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "deleted_at"
+    t.datetime "discarded_at"
     t.integer "state"
     t.index ["address_scope_id"], name: "index_people_on_address_scope_id"
     t.index ["document_scope_id"], name: "index_people_on_document_scope_id"

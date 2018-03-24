@@ -5,23 +5,19 @@ module Procedures
     store_accessor :information, :reason
 
     def acceptable?
-      !person.deleted?
+      !person.discarded?
     end
 
     def process_accept
-      person.deleted_at = Time.zone.now
+      person.discarded_at = Time.zone.now
     end
 
     def undo_accept(**_args)
-      person.deleted_at = nil
+      person.discarded_at = nil
     end
 
     def persist_accept_changes!
-      if person.deleted_at.nil?
-        person.restore
-      else
-        person.destroy
-      end
+      person.save!
     end
   end
 end
