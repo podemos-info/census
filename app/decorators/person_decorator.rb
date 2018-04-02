@@ -66,11 +66,11 @@ class PersonDecorator < ApplicationDecorator
   end
 
   def independent_procedures
-    @independent_procedures ||= PersonIndependentProcedures.for(object).decorate
+    @independent_procedures ||= PersonIndependentProcedures.for(object).decorate(context: context)
   end
 
   def last_procedures
-    @last_procedures ||= PersonLastIndependentProcedures.for(object).decorate
+    @last_procedures ||= PersonLastIndependentProcedures.for(object).decorate(context: context)
   end
 
   def count_procedures
@@ -78,7 +78,7 @@ class PersonDecorator < ApplicationDecorator
   end
 
   def last_orders
-    @last_orders ||= PersonLastOrders.for(object).decorate
+    @last_orders ||= PersonLastOrders.for(object).decorate(context: context)
   end
 
   def count_orders
@@ -90,6 +90,6 @@ class PersonDecorator < ApplicationDecorator
   end
 
   def last_downloads
-    @last_downloads ||= PersonLastActiveDownloads.for(object).decorate
+    @last_downloads ||= PersonLastActiveDownloads.for(object).decorate(context: context)
   end
 end

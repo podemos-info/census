@@ -6,8 +6,9 @@ module Downloads
     # Public: Initializes the command.
     #
     # form - A form object with the params.
-    def initialize(form:)
+    def initialize(form:, admin:)
       @form = form
+      @admin = admin
     end
 
     # Executes the command. Broadcasts these events:
@@ -26,7 +27,7 @@ module Downloads
 
     private
 
-    attr_reader :form
+    attr_reader :form, :admin
 
     def download
       @download ||= Download.new(

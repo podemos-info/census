@@ -23,7 +23,7 @@ class AdminDecorator < ApplicationDecorator
   end
 
   def last_visits
-    @last_visits ||= AdminLastVisits.for(object).decorate
+    @last_visits ||= AdminLastVisits.for(object).decorate(context: context)
   end
 
   def count_visits

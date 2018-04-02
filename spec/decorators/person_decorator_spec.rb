@@ -3,8 +3,9 @@
 require "rails_helper"
 
 describe PersonDecorator do
+  subject { person.decorate(context: { current_admin: admin }) }
   let(:person) { build(:person) }
-  subject { person.decorate }
+  let(:admin) { build(:admin) }
 
   it "returns the decorated scope" do
     expect(subject.scope.decorated?).to be_truthy
@@ -14,7 +15,7 @@ describe PersonDecorator do
     expect(subject.address_scope.decorated?).to be_truthy
   end
 
-  context "name composition" do
+  describe "name composition" do
     let(:person) { build(:person, first_name: "María", last_name1: "Pérez", last_name2: "García") }
 
     it "returns the last names" do

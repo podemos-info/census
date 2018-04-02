@@ -34,7 +34,7 @@ module Payments
       result = :ok
       OrdersBatchPaymentProcessors.for(orders_batch).each do |payment_processor|
         processor = Payments::Processor.for(payment_processor)
-        processor_result = processor.process_batch(orders_batch) do
+        processor_result = processor.process_batch(orders_batch: orders_batch, admin: admin) do
           process_orders(processor, orders_batch)
         end
         broadcast("processor_#{processor_result}", processor: payment_processor)
@@ -73,8 +73,7 @@ module Payments
     def process_order(processor, order)
       return :unprocessable_order unless order.processable?(inside_batch?: true)
 
-      processor.process_order order
-      order.assign_attributes processed_at: Time.zone.now, processed_by: admin
+      processor.process_order order: order, admin: admin
 
       return :order_error unless save_all(order)
 

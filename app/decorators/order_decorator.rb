@@ -20,7 +20,7 @@ class OrderDecorator < ApplicationDecorator
   end
 
   def person_full_name
-    person.decorate.full_name
+    person.decorate(context: context).full_name
   end
 
   def payment_method_name

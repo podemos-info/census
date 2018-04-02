@@ -6,7 +6,7 @@ class ApplicationDecorator < Draper::Decorator
   end
 
   def last_versions
-    @last_versions ||= VersionableLastVersions.for(object).decorate
+    @last_versions ||= VersionableLastVersions.for(object).decorate(context: context)
   end
 
   def count_versions
@@ -22,6 +22,10 @@ class ApplicationDecorator < Draper::Decorator
         {}
       end
     end
+  end
+
+  def can?(action)
+    Pundit.policy(context[:current_admin] || h.current_admin, object).send("#{action}?")
   end
 
   protected

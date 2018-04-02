@@ -40,13 +40,13 @@ class IssueDecorator < ApplicationDecorator
 
   def objects_links
     object.issue_objects.map do |issue_object|
-      obj = issue_object.object.decorate
+      obj = issue_object.object.decorate(context: context)
       h.link_to obj.listable_name, h.url_for(obj)
     end.to_sentence.html_safe
   end
 
   def people_by_creation_date
-    @people_by_creation_date ||= object.people.decorate.sort_by(&:created_at)
+    @people_by_creation_date ||= object.people.decorate(context: context).sort_by(&:created_at)
   end
 
   def classed_relevant_attributes

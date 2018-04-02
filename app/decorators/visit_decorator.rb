@@ -21,7 +21,7 @@ class VisitDecorator < ApplicationDecorator
   end
 
   def last_events
-    @last_events ||= VisitLastEvents.for(object).decorate
+    @last_events ||= VisitLastEvents.for(object).decorate(context: context)
   end
 
   def count_events

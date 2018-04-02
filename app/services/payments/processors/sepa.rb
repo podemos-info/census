@@ -3,7 +3,7 @@
 module Payments
   module Processors
     class Sepa < Payments::Processor
-      def process_batch(orders_batch)
+      def process_batch(orders_batch:, admin:)
         @direct_debit = SEPA::DirectDebit.new(Settings.payments.processors.sepa.main)
 
         return :aborted unless yield
@@ -15,7 +15,7 @@ module Payments
         )
 
         ret = :ok
-        ::Downloads::CreateDownload.call(form: form) do
+        ::Downloads::CreateDownload.call(form: form, admin: admin) do
           on(:invalid) { ret = :error }
           on(:error) { ret = :error }
           on(:ok) { ret = :ok }
@@ -23,8 +23,8 @@ module Payments
         ret
       end
 
-      def process_order(order)
-        decorated_order = order.decorate
+      def process_order(order:, admin:)
+        decorated_order = order.decorate(context: { current_admin: admin })
         @direct_debit.add_transaction(
           name: debtor(decorated_order), # Name of the debtor (<= 70 chars)
           iban: decorated_order.payment_method.iban, # International Bank Account Number of the debtor's account (<= 34 chars)
@@ -39,7 +39,7 @@ module Payments
           local_instrument: "CORE", # Local instrument ("CORE", "COR1" or "B2B")
           sequence_type: sequence_type(decorated_order.payment_method), # Sequence type ("FRST", "RCUR", "OOFF" or "FNAL")
         )
-        processed_order order: order, response_code: "OK"
+        processed_order order: order, admin: admin, response_code: "OK"
       end
 
       private

@@ -61,12 +61,12 @@ class ProcedureDecorator < ApplicationDecorator
   end
 
   def attachments
-    object.attachments.order(id: :asc).decorate
+    object.attachments.order(id: :asc).decorate(context: context)
   end
 
   def processed_person
     return nil unless processed?
-    @processed_person ||= person.paper_trail.version_at(processed_at)&.decorate
+    @processed_person ||= person.paper_trail.version_at(processed_at)&.decorate(context: context)
   end
 
   def processed_person_classed_changeset
