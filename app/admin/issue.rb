@@ -17,7 +17,7 @@ ActiveAdmin.register Issue do
   scope(:closed) { |scope| AdminIssues.for(current_admin).merge(IssuesClosed.for).merge(scope) }
 
   index do
-    column :issue_type_name, class: :left, sortable: :issue_type, &:view_link_with_name
+    column :issue_type_name, class: :left, sortable: :issue_type, &:link_with_name
     column :level_name
     column :objects_links
     column :assigned_to
@@ -27,7 +27,7 @@ ActiveAdmin.register Issue do
     column :date do |issue|
       issue.closed_at || issue.created_at
     end
-    actions defaults: false, &:view_link
+    actions defaults: false, &:link
   end
 
   show do

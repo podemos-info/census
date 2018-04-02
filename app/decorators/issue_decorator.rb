@@ -57,16 +57,24 @@ class IssueDecorator < ApplicationDecorator
     @fix_attributes ||= object.class.try(:fix_attributes) || object.class.stored_attributes[:fix_information]
   end
 
-  def view_link(text = nil)
+  def link(text = nil)
     if object.closed?
-      h.link_to text || I18n.t("active_admin.view"), h.issue_path(object), class: "member_link"
+      view_link(text)
     else
-      h.link_to text || I18n.t("census.issues.close.action"), h.edit_issue_path(object), class: "member_link"
+      edit_link(text)
     end
   end
 
-  def view_link_with_name
-    view_link(name)
+  def link_with_name
+    link(name)
+  end
+
+  def view_link(text = nil)
+    h.link_to text || I18n.t("active_admin.view"), h.issue_path(object), class: "member_link"
+  end
+
+  def edit_link(text = nil)
+    h.link_to text || I18n.t("census.issues.close.action"), h.edit_issue_path(object), class: "member_link"
   end
 
   def status
