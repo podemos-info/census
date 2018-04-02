@@ -11,7 +11,7 @@ def random_people
 end
 
 def create_order(person, credit_card, campaign)
-  PaperTrail.whodunnit = person
+  PaperTrail.request.whodunnit = person
   payment_method = person.payment_methods.where(type: "PaymentMethods::#{credit_card ? "CreditCard" : "DirectDebit"}").sample
   payment_method ||= if credit_card
                        expires_at = Faker::Date.between(6.months.ago, 4.years.from_now)
@@ -55,7 +55,7 @@ end
     create_order person, true, campaigns.sample
   end
 
-  PaperTrail.whodunnit = admins.sample
+  PaperTrail.request.whodunnit = admins.sample
   # add orders to an order batch
   orders_batch = OrdersBatch.create!(
     description: I18n.l(Time.zone.today, format: "%B %Y"),

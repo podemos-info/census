@@ -40,7 +40,7 @@ describe "Procedures", type: :request do
 
     context "procedure versions page" do
       before do
-        PaperTrail.whodunnit = create(:admin)
+        PaperTrail.request.whodunnit = create(:admin)
         procedure.update! information: procedure.information.merge(test: 1) # create a procedure version
       end
       subject { get procedure_versions_path(procedure_id: procedure.id) }
