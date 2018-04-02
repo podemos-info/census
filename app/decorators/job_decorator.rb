@@ -30,7 +30,7 @@ class JobDecorator < ApplicationDecorator
 
   def objects_links
     object.job_objects.map do |job_object|
-      obj = job_object.object&.decorate
+      obj = job_object.object&.decorate(context: context)
       if obj
         h.link_to obj.name, h.url_for(obj)
       else

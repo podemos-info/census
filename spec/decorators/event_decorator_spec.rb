@@ -3,8 +3,12 @@
 require "rails_helper"
 
 describe EventDecorator do
-  subject(:decorator) { event.decorate }
+  subject(:decorator) { event.decorate(context: { current_admin: admin }) }
+
   let(:event) { create(:event) }
+  let(:decorated_person) { person.decorate(context: { current_admin: admin }) }
+  let(:person) { create(:person) }
+  let(:admin) { build(:admin) }
 
   describe "#description" do
     subject(:method) { decorator.description }
@@ -15,17 +19,13 @@ describe EventDecorator do
 
     context "person view" do
       let(:event) { create(:event, :person_view, person: person) }
-      let(:person) { create(:person).decorate }
-      it { is_expected.to eq("<a href=\"/people/#{person.id}\">#{person.full_name}</a>") }
+      it { is_expected.to eq("<a href=\"/people/#{person.id}\">#{decorated_person.full_name}</a>") }
     end
 
-    context "deleted person view" do
+    context "cancelled person view" do
       let(:event) { create(:event, :person_view, person: person) }
-      let(:person) { create(:person).decorate }
-      it do
-        person.destroy
-        is_expected.to eq(person.id.to_s)
-      end
+      let(:person) { create(:person, :cancelled) }
+      it { is_expected.to eq(decorated_person.full_name) }
     end
   end
 end

@@ -3,8 +3,8 @@
 require "rails_helper"
 
 describe ProcedureDecorator do
-  subject(:decorator) { procedure.decorate }
-  let(:processed_by) { build(:admin) }
+  subject(:decorator) { procedure.decorate(context: { current_admin: admin }) }
+  let(:admin) { build(:admin) }
   let(:person) { build(:person) }
   let(:procedure) { build(:document_verification, :with_attachments, person: person) }
 
@@ -17,22 +17,34 @@ describe ProcedureDecorator do
   end
 
   it "returns the right number of event options" do
-    expect(subject.permitted_events_options(processed_by).count).to eq(3)
+    expect(subject.permitted_events_options(admin).count).to eq(3)
   end
 
   it "returns event options well formatted" do
-    expect(subject.permitted_events_options(processed_by).map(&:count).uniq).to eq([2])
+    expect(subject.permitted_events_options(admin).map(&:count).uniq).to eq([2])
   end
 
-  context "#view_link" do
+  describe "#link" do
     let(:procedure) { create(:document_verification) }
 
     it "returns the process link" do
-      expect(subject.view_link).to eq("<a class=\"member_link\" href=\"/procedures/#{procedure.id}/edit\">Procesar</a>")
+      expect(subject.link).to eq("<a class=\"member_link\" href=\"/procedures/#{procedure.id}/edit\">Procesar</a>")
     end
 
     it "returns the process link with the given text" do
-      expect(subject.view_link("test")).to eq("<a class=\"member_link\" href=\"/procedures/#{procedure.id}/edit\">test</a>")
+      expect(subject.link("test")).to eq("<a class=\"member_link\" href=\"/procedures/#{procedure.id}/edit\">test</a>")
+    end
+
+    context "when person procedure is cancelled" do
+      let(:procedure) { create(:document_verification, :cancelled_person) }
+
+      it "doesn't return the process link" do
+        expect(subject.link).to be_nil
+      end
+
+      it "return the given text instead of the process link" do
+        expect(subject.link("test")).to eq("test")
+      end
     end
   end
 
@@ -56,15 +68,27 @@ describe ProcedureDecorator do
       expect(subject.processed_by.decorated?).to be_truthy
     end
 
-    context "#view_link" do
+    describe "#link" do
       let(:procedure) { create(:document_verification, :processed) }
 
       it "returns the process link" do
-        expect(subject.view_link).to eq("<a class=\"member_link\" href=\"/procedures/#{procedure.id}\">Ver</a>")
+        expect(subject.link).to eq("<a class=\"member_link\" href=\"/procedures/#{procedure.id}\">Ver</a>")
       end
 
       it "returns the process link with the given text" do
-        expect(subject.view_link("test")).to eq("<a class=\"member_link\" href=\"/procedures/#{procedure.id}\">test</a>")
+        expect(subject.link("test")).to eq("<a class=\"member_link\" href=\"/procedures/#{procedure.id}\">test</a>")
+      end
+
+      context "when person procedure is cancelled" do
+        let(:procedure) { create(:document_verification, :processed, :cancelled_person) }
+
+        it "doesn't return the process link" do
+          expect(subject.link).to be_nil
+        end
+
+        it "return the given text instead of the process link" do
+          expect(subject.link("test")).to eq("test")
+        end
       end
     end
   end

@@ -40,7 +40,7 @@ class VersionDecorator < ApplicationDecorator
   end
 
   def before
-    object.item_type.constantize.new(object.object).decorate
+    object.item_type.constantize.new(object.object).decorate(context: context)
   end
 
   def after
@@ -48,7 +48,7 @@ class VersionDecorator < ApplicationDecorator
     object.object_changes.each do |key, values|
       @after[key] = values.last
     end
-    @after.decorate
+    @after.decorate(context: context)
   end
 
   def item_route_key

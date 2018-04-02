@@ -3,9 +3,8 @@
 ActiveAdmin.register Order do
   decorate_with OrderDecorator
 
-  controller do
-    belongs_to :orders_batch, :person, optional: true
-  end
+  belongs_to :orders_batch, optional: true
+  belongs_to :person, optional: true
 
   menu parent: I18n.t("active_admin.payments")
 

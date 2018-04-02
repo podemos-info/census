@@ -2,26 +2,25 @@
 
 module Procedures
   class Cancellation < Procedure
-    store_accessor :information, :reason
+    store_accessor :information, :reason, :from_state
 
     def acceptable?
-      !person.deleted?
+      !person.discarded?
     end
 
     def process_accept
-      person.deleted_at = Time.zone.now
+      self.from_state = person.state
+      person.discarded_at = Time.zone.now
+      person.cancel
     end
 
-    def undo_accept(**_args)
-      person.deleted_at = nil
+    def undo_accept
+      person.discarded_at = nil
+      person.state = from_state
     end
 
     def persist_accept_changes!
-      if person.deleted_at.nil?
-        person.restore
-      else
-        person.destroy
-      end
+      person.save!
     end
   end
 end

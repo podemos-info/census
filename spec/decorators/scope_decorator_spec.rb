@@ -3,8 +3,9 @@
 require "rails_helper"
 
 describe ScopeDecorator do
+  subject { scope.decorate(context: { current_admin: admin }) }
   let(:scope) { build(:scope) }
-  subject { scope.decorate }
+  let(:admin) { build(:admin) }
 
   context "paths" do
     let!(:grandparent) { create(:scope, name: Census::Faker::Localized.literal("grandparent")) }

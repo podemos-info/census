@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class Person < ApplicationRecord
+  include Discard::Model
   include AASM
   include PersonMembershipLevels
   include PersonStates
   include Issuable
 
-  acts_as_paranoid
   has_paper_trail class_name: "Version"
 
   store_accessor :extra, :participa_id

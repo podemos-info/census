@@ -10,8 +10,8 @@ module Payments
       self.class.to_s.demodulize.underscore
     end
 
-    def processed_order(order:, response_code:)
-      order.response_code = response_code
+    def processed_order(order:, admin:, response_code:)
+      order.assign_attributes processed_at: Time.zone.now, processed_by: admin, response_code: response_code
       order.payment_method.response_code = response_code
       flags(response_code).each do |flag|
         order.payment_method.enable_flag flag.to_sym

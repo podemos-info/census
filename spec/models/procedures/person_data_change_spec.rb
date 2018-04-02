@@ -45,11 +45,14 @@ describe Procedures::PersonDataChange, :db do
   with_versioning do
     context "after accepting the procedure" do
       subject(:undo) { procedure.undo! }
-      before { procedure.accept! }
+      before do
+        @previous_person = procedure.person.attributes.with_indifferent_access
+        procedure.accept!
+      end
 
       CHANGING_COLUMNS.each do |attribute|
         it "undoes unsets #{attribute}" do
-          expect { subject } .to change { procedure.person.send(attribute) } .from(person.send(attribute))
+          expect { subject } .to change { procedure.person.send(attribute) } .from(person.send(attribute)).to(@previous_person[attribute])
         end
       end
     end

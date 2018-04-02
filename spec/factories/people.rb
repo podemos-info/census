@@ -108,6 +108,11 @@ FactoryBot.define do
         person.id = nil
       end
     end
+
+    trait :cancelled do
+      state :cancelled
+      discarded_at { Faker::Date.between(created_at, Time.zone.now) }
+    end
   end
 
   factory :download do

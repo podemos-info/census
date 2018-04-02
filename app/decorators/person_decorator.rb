@@ -22,7 +22,11 @@ class PersonDecorator < ApplicationDecorator
   end
 
   def last_names
-    [object.last_name1, object.last_name2].reject(&:blank?).join(" ")
+    @last_names ||= begin
+      ret = [object.last_name1, object.last_name2].reject(&:blank?)
+      ret = ret.map { |last_name| last_name.first + "." } unless can? :show
+      ret.join(" ")
+    end
   end
 
   def full_document
@@ -49,10 +53,6 @@ class PersonDecorator < ApplicationDecorator
     @flags ||= Person.flags.select { |flag| person.send(flag) }
   end
 
-  def full_name_link
-    h.link_to full_name, object
-  end
-
   def self.gender_options
     @gender_options ||= Person.genders.keys.map do |gender|
       [I18n.t("census.people.genders.#{gender}"), gender]
@@ -66,11 +66,11 @@ class PersonDecorator < ApplicationDecorator
   end
 
   def independent_procedures
-    @independent_procedures ||= PersonIndependentProcedures.for(object).decorate
+    @independent_procedures ||= PersonIndependentProcedures.for(object).decorate(context: context)
   end
 
   def last_procedures
-    @last_procedures ||= PersonLastIndependentProcedures.for(object).decorate
+    @last_procedures ||= PersonLastIndependentProcedures.for(object).decorate(context: context)
   end
 
   def count_procedures
@@ -78,7 +78,7 @@ class PersonDecorator < ApplicationDecorator
   end
 
   def last_orders
-    @last_orders ||= PersonLastOrders.for(object).decorate
+    @last_orders ||= PersonLastOrders.for(object).decorate(context: context)
   end
 
   def count_orders
@@ -90,6 +90,6 @@ class PersonDecorator < ApplicationDecorator
   end
 
   def last_downloads
-    @last_downloads ||= PersonLastActiveDownloads.for(object).decorate
+    @last_downloads ||= PersonLastActiveDownloads.for(object).decorate(context: context)
   end
 end

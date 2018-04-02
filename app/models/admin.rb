@@ -2,8 +2,8 @@
 
 class Admin < ApplicationRecord
   include HasRole
+  include Discard::Model
 
-  acts_as_paranoid
   has_paper_trail class_name: "Version"
   has_many :versions, as: :item
 

@@ -32,16 +32,26 @@ class ProcedureDecorator < ApplicationDecorator
     end
   end
 
-  def view_link(text = nil)
+  def link(text = nil)
+    return text unless can? :show
+
     if object.processed?
-      h.link_to text || I18n.t("active_admin.view"), h.procedure_path(object), class: "member_link"
+      view_link(text)
     else
-      h.link_to text || I18n.t("census.procedures.process"), h.edit_procedure_path(object), class: "member_link"
+      edit_link(text)
     end
   end
 
-  def view_link_with_name
-    view_link(name)
+  def link_with_name
+    link(name)
+  end
+
+  def view_link(text = nil)
+    h.link_to text || I18n.t("active_admin.view"), h.procedure_path(object), class: "member_link"
+  end
+
+  def edit_link(text = nil)
+    h.link_to text || I18n.t("census.procedures.process"), h.edit_procedure_path(object), class: "member_link"
   end
 
   def route_key
@@ -61,12 +71,12 @@ class ProcedureDecorator < ApplicationDecorator
   end
 
   def attachments
-    object.attachments.order(id: :asc).decorate
+    object.attachments.order(id: :asc).decorate(context: context)
   end
 
   def processed_person
     return nil unless processed?
-    @processed_person ||= person.paper_trail.version_at(processed_at)&.decorate
+    @processed_person ||= person.paper_trail.version_at(processed_at)&.decorate(context: context)
   end
 
   def processed_person_classed_changeset

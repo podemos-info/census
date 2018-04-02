@@ -39,7 +39,6 @@ module People
 
     def membership_level_change
       @membership_level_change ||= procedure_for(form.person, ::Procedures::MembershipLevelChange) do |procedure|
-        procedure.from_membership_level = form.person.membership_level
         procedure.to_membership_level = form.membership_level
       end
     end

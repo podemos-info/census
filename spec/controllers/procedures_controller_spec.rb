@@ -120,7 +120,8 @@ describe ProceduresController, type: :controller do
         expect { subject }
           .to change { flash[:alert] }
           .from(nil)
-          .to "¡Atención! Existen incidencias asociadas a este registro: <a class=\"member_link\" href=\"/issues/#{open_issue.id}/edit\">Documento duplicado ##{open_issue.id}</a>."
+          .to "¡Atención! Hay incidencias abiertas asociadas a este registro: "\
+              "<a class=\"member_link\" href=\"/issues/#{open_issue.id}/edit\">Documento duplicado ##{open_issue.id}</a>."
       end
     end
   end

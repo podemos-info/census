@@ -3,19 +3,19 @@
 module Payments
   module Processors
     class CreditCard < Payments::Processor
-      def process_batch(_orders_batch)
+      def process_batch(*)
         return :aborted unless yield
         :ok
       end
 
-      def process_order(order)
+      def process_order(order:, admin:)
         payment_method = order.payment_method
 
         options = { currency: order.currency, order_id: format_order_id(order) }
 
         response = gateway.purchase(order.amount, payment_method.authorization_token, options)
         order.raw_response = response
-        processed_order order: order, response_code: get_response_code(response)
+        processed_order order: order, admin: admin, response_code: get_response_code(response)
         response.success? ? order.charge : order.fail
       end
 
@@ -31,7 +31,7 @@ module Payments
         order.payment_method.assign_attributes params.slice(:authorization_token, :expiration_year, :expiration_month)
         order.payment_method.default_name # force payment method to update its name with its expiration date
 
-        processed_order order: order, response_code: params[:response_code]
+        processed_order order: order, admin: nil, response_code: params[:response_code]
         params[:success?] ? order.charge : order.fail
 
         order

@@ -31,12 +31,12 @@ ActiveAdmin.register Procedure do
   end
 
   index do
-    column :type, sortable: :type, &:view_link_with_name
+    column :type, sortable: :type, &:link_with_name
     column :person, class: :left, sortable: :full_name
     column :created_at, class: :left
     state_column :state
     actions defaults: false do |procedure|
-      span procedure.view_link
+      span procedure.link
       if procedure.full_undoable_by? controller.current_admin
         span link_to t("census.procedures.events.undo"), undo_procedure_path(procedure), method: :patch,
                                                                                          data: { confirm: t("census.messages.sure_question") },

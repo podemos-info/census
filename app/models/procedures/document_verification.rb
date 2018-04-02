@@ -3,7 +3,7 @@
 module Procedures
   class DocumentVerification < Procedure
     def acceptable?
-      true
+      person.enabled?
     end
 
     def self.auto_processable?
@@ -14,7 +14,7 @@ module Procedures
       person.verified_by_document = true
     end
 
-    def undo_accept(**_args)
+    def undo_accept
       person.verified_by_document = false
     end
 

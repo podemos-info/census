@@ -5,8 +5,16 @@ class ApplicationDecorator < Draper::Decorator
     I18n.t("activerecord.models.#{object.class.to_s.underscore}.one")
   end
 
+  def name_link
+    if can? :show
+      h.link_to name, object
+    else
+      name
+    end
+  end
+
   def last_versions
-    @last_versions ||= VersionableLastVersions.for(object).decorate
+    @last_versions ||= VersionableLastVersions.for(object).decorate(context: context)
   end
 
   def count_versions
@@ -22,6 +30,10 @@ class ApplicationDecorator < Draper::Decorator
         {}
       end
     end
+  end
+
+  def can?(action)
+    Pundit.policy(context[:current_admin] || h.current_admin, object).send("#{action}?")
   end
 
   protected

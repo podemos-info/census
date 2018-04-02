@@ -83,7 +83,7 @@ Person.enabled.not_verified.order("RANDOM()").limit(5).each do |person|
     state: :issues,
     comment: Faker::Lorem.paragraph(1, true, 2)
   )
-  Rails.logger.debug { "Person document verification with issues for: #{document_verification.person.decorate}" }
+  Rails.logger.debug { "Person document verification with issues accepted for: #{document_verification.person.decorate}" }
 end
 
 # create 10 unprocessed document verifications

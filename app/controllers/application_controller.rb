@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   def check_resource_issues
     return unless current_admin
     issues = issues_for_resource
-    flash.now[:alert] = I18n.t("census.issues.issues_for_resource", issues_links: issues.map(&:view_link_with_name).to_sentence).html_safe if issues.any?
+    flash.now[:alert] = I18n.t("census.issues.issues_for_resource", issues_links: issues.map(&:link_with_name).to_sentence).html_safe if issues.any?
   end
 
   protected

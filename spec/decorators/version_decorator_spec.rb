@@ -3,8 +3,9 @@
 require "rails_helper"
 
 describe VersionDecorator do
-  subject(:decorator) { version.decorate }
+  subject(:decorator) { version.decorate(context: { current_admin: admin }) }
   let(:version) { create(:version) }
+  let(:admin) { build(:admin) }
 
   with_versioning do
     describe "#description" do

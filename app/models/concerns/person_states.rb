@@ -4,11 +4,11 @@ module PersonStates
   extend ActiveSupport::Concern
 
   included do
-    enum state: [:pending, :rejected, :enabled, :banned]
+    enum state: [:pending, :rejected, :enabled, :banned, :cancelled]
 
     aasm column: "state", enum: true do
       state :pending, initial: true
-      state :rejected, :enabled, :banned
+      state :rejected, :enabled, :banned, :cancelled
 
       event :register do
         transitions from: :pending, to: :enabled
@@ -28,6 +28,10 @@ module PersonStates
 
       event :prepare do
         transitions from: [:pending, :rejected], to: :pending
+      end
+
+      event :cancel do
+        transitions to: :cancelled
       end
     end
 

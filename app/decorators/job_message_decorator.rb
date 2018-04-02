@@ -19,7 +19,7 @@ class JobMessageDecorator < ApplicationDecorator
 
   def related
     object.message[:related]&.map do |gid|
-      obj = GlobalID.find(gid)&.decorate
+      obj = GlobalID.find(gid)&.decorate(context: context)
       if obj
         h.link_to obj.name, h.url_for(obj)
       else

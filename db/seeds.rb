@@ -16,3 +16,4 @@ Rails.logger = Logger.new(STDOUT)
 require "people"
 require "procedures"
 require "payments"
+require "cancellations"

@@ -14,11 +14,11 @@ class PaymentMethodDecorator < ApplicationDecorator
   end
 
   def person_full_name
-    person.decorate.full_name
+    person.decorate(context: context).full_name
   end
 
   def last_orders
-    @last_orders ||= PaymentMethodLastOrders.for(object).decorate
+    @last_orders ||= PaymentMethodLastOrders.for(object).decorate(context: context)
   end
 
   def route_key

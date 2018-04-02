@@ -3,8 +3,9 @@
 require "rails_helper"
 
 describe Downloads::CreateDownload do
-  subject(:command) { described_class.call(form: form) }
+  subject(:command) { described_class.call(form: form, admin: admin) }
   let(:download) { build(:download) }
+  let(:admin) { create(:admin) }
   let(:valid) { true }
   let(:file) do
     ActionDispatch::Http::UploadedFile.new(filename: download.file.filename, type: download.content_type, tempfile: download.file.file)

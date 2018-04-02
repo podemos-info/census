@@ -5,30 +5,47 @@ es:
     dashboard: Inicio
     payments: Pagos
     powered_by: ''
-    scopes:
-      accepted: Aceptados
-      activist: Militantes
-      all: Todo
-      assigned: Asignadas
-      closed: Cerradas
-      deleted: Bajas
-      enabled: Habilitados/as
-      error: Con errores
-      follower: Simpatizantes
-      inactive: Inactivos
-      issues: Incidencias
-      member: Afiliados/as
-      open: Abiertas
-      pending: Pendientes
-      person: Personas
-      processed: Procesadas
-      rejected: Rechazados/as
-      returned: Devueltas
-      unread: Nuevas
-      verified: Verificados
+    resources:
+      issue:
+        scopes:
+          assigned: Asignadas
+          closed: Cerradas
+          open: Abiertas
+          unread: Nuevas
+      order:
+        scopes:
+          all: Todas
+          error: Con errores
+          pending: Pendientes
+          processed: Procesadas
+          returned: Devueltas
+      payment_method:
+        scopes:
+          all: Todos
+          inactive: Inactivos
+          verified: Verificados
+      person:
+        scopes:
+          all: Todas
+          banned: Bloqueadas
+          cancelled: Bajas
+          enabled: Habilitadas
+          follower: Simpatizantes
+          member: Afiliadas
+          pending: Pendientes
+          rejected: Rechazadas
+      procedure:
+        scopes:
+          accepted: Aceptados
+          all: Todos
+          issues: Con incidencias
+          pending: Pendientes
+          processed: Procesados
+          rejected: Rechazados
     sidebars:
       downloads: Descargas
       events: Actividad
+      issues: Incidencias
       jobs: Tareas
       orders: Órdenes
       procedures: Procedimientos
@@ -164,13 +181,13 @@ es:
         flags: Verificaciones / Marcas
         full_document: Documento
         full_name: Nombre
-        full_name_link: Nombre
         gender: Género
         last_name1: Primer Apellido
         last_name2: Segundo Apellido
         membership_level: Nivel
         membership_level/follower: simpatizante
         membership_level/member: afiliado/a
+        name_link: Nombre
         phone: Teléfono
         postal_code: Código postal
         scope: Lugar de participación
@@ -326,7 +343,7 @@ es:
         title: Resolver incidencia de %{issue_type_name}
       fix_information: Información de la corrección
       information: Información adicional
-      issues_for_resource: "¡Atención! Existen incidencias asociadas a este registro: %{issues_links}."
+      issues_for_resource: "¡Atención! Hay incidencias abiertas asociadas a este registro: %{issues_links}."
       levels:
         high: Alta
         low: Baja
