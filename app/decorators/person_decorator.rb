@@ -22,7 +22,11 @@ class PersonDecorator < ApplicationDecorator
   end
 
   def last_names
-    [object.last_name1, object.last_name2].reject(&:blank?).join(" ")
+    @last_names ||= begin
+      ret = [object.last_name1, object.last_name2].reject(&:blank?)
+      ret = ret.map { |last_name| last_name.first + "." } unless can? :show
+      ret.join(" ")
+    end
   end
 
   def full_document
@@ -47,10 +51,6 @@ class PersonDecorator < ApplicationDecorator
 
   def flags
     @flags ||= Person.flags.select { |flag| person.send(flag) }
-  end
-
-  def full_name_link
-    h.link_to full_name, object
   end
 
   def self.gender_options

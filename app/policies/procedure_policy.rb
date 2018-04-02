@@ -2,7 +2,11 @@
 
 class ProcedurePolicy < ApplicationPolicy
   def base_role?
-    user.lopd_help_role? || super
+    if person&.cancelled?
+      user.lopd_role?
+    else
+      user.lopd_help_role? || super
+    end
   end
 
   def scope
@@ -13,11 +17,19 @@ class ProcedurePolicy < ApplicationPolicy
     false
   end
 
+  def update?
+    !person.discarded? && base_role?
+  end
+
   def undo?
-    base_role?
+    update?
   end
 
   def view_attachment?
     base_role?
+  end
+
+  def person
+    record&.try(:person)
   end
 end

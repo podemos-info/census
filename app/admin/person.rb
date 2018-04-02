@@ -28,7 +28,7 @@ ActiveAdmin.register Person do
     id_column
     state_column :state
     state_column :membership_level, machine: :membership_levels
-    column :full_name_link, sortable: :full_name, class: :left
+    column :name_link, sortable: :full_name, class: :left
     column :full_document, sortable: :full_document, class: :left
     column :scope, sortable: :scope, class: :left do |person|
       person.scope&.show_path(Scope.local)
@@ -46,7 +46,11 @@ ActiveAdmin.register Person do
   end
 
   Person.state_names.each do |state|
-    scope state.to_sym, group: :state, default: state == "enabled"
+    if state == "cancelled"
+      scope state.to_sym, group: :state, if: proc { current_admin.lopd_role? }
+    else
+      scope state.to_sym, group: :state, default: state == "enabled"
+    end
   end
 
   show do

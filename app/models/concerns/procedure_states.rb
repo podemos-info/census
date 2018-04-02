@@ -81,7 +81,7 @@ module ProcedureStates
         dependent_procedure.person = person # synchronize child person status with parent person
         dependent_procedure.full_acceptable_by? processor
       end
-      undo_accept(saved: false)
+      undo_accept
       ret
     end
 

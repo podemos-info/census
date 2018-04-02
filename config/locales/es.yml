@@ -181,13 +181,13 @@ es:
         flags: Verificaciones / Marcas
         full_document: Documento
         full_name: Nombre
-        full_name_link: Nombre
         gender: Género
         last_name1: Primer Apellido
         last_name2: Segundo Apellido
         membership_level: Nivel
         membership_level/follower: simpatizante
         membership_level/member: afiliado/a
+        name_link: Nombre
         phone: Teléfono
         postal_code: Código postal
         scope: Lugar de participación

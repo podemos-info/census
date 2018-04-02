@@ -29,9 +29,25 @@ describe PersonDecorator do
     it "returns the full name when retrieving name" do
       expect(subject.name).to eq("Pérez García, María")
     end
+
+    context "when person is cancelled" do
+      let(:person) { build(:person, :cancelled, first_name: "María", last_name1: "Pérez", last_name2: "García") }
+
+      it "returns the anonymized last names always" do
+        expect(subject.last_names).to eq("P. G.")
+      end
+
+      it "returns the anonymized last names always" do
+        expect(subject.full_name).to eq("P. G., María")
+      end
+
+      it "returns the anonymized last names always" do
+        expect(subject.name).to eq("P. G., María")
+      end
+    end
   end
 
-  context "document composition" do
+  describe "document composition" do
     let(:person) { build(:person, document_type: "dni", document_id: "00000001R") }
 
     it "returns the document type name" do
@@ -43,7 +59,7 @@ describe PersonDecorator do
     end
   end
 
-  context "gender" do
+  describe "gender" do
     let(:person) { build(:person, gender: "female") }
 
     it "returns the gender name" do
@@ -52,7 +68,7 @@ describe PersonDecorator do
     end
   end
 
-  context "flags" do
+  describe "flags" do
     let(:person) { build(:person, verified_by_document: true) }
 
     it "returns the person flags" do
@@ -60,7 +76,7 @@ describe PersonDecorator do
     end
   end
 
-  context "options" do
+  describe "options" do
     it "returns the right number of gender options" do
       expect(PersonDecorator.gender_options.count).to eq(Person.genders.count)
     end

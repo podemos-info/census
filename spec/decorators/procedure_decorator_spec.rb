@@ -34,6 +34,18 @@ describe ProcedureDecorator do
     it "returns the process link with the given text" do
       expect(subject.view_link("test")).to eq("<a class=\"member_link\" href=\"/procedures/#{procedure.id}/edit\">test</a>")
     end
+
+    context "when person procedure is cancelled" do
+      let(:procedure) { create(:document_verification, :cancelled_person) }
+
+      it "doesn't return the process link" do
+        expect(subject.view_link).to be_nil
+      end
+
+      it "return the given text instead of the process link" do
+        expect(subject.view_link("test")).to eq("test")
+      end
+    end
   end
 
   context "document verification" do
@@ -65,6 +77,18 @@ describe ProcedureDecorator do
 
       it "returns the process link with the given text" do
         expect(subject.view_link("test")).to eq("<a class=\"member_link\" href=\"/procedures/#{procedure.id}\">test</a>")
+      end
+
+      context "when person procedure is cancelled" do
+        let(:procedure) { create(:document_verification, :processed, :cancelled_person) }
+
+        it "doesn't return the process link" do
+          expect(subject.view_link).to be_nil
+        end
+
+        it "return the given text instead of the process link" do
+          expect(subject.view_link("test")).to eq("test")
+        end
       end
     end
   end

@@ -15,9 +15,13 @@ FactoryBot.define do
     information { {} }
     created_at { Faker::Time.between(person.created_at, 3.days.ago, :all) }
 
+    trait :cancelled_person do
+      person { build(:person, :cancelled) }
+    end
+
     trait :ready_to_process do
       processed_by { build(:admin) }
-      processed_at { Time.zone.now }
+      processed_at { Time.zone.now + 1.second }
       comment { Faker::Lorem.paragraph(1, true, 2) }
     end
 

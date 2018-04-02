@@ -45,6 +45,10 @@ class Procedure < ApplicationRecord
     @auto_processable ||= Settings.procedures.auto_processables.include?(name.demodulize.underscore)
   end
 
+  def self.policy_class
+    ProcedurePolicy
+  end
+
   private
 
   def processed_by_different_from_person

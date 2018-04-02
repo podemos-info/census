@@ -33,10 +33,14 @@ class ProcedureDecorator < ApplicationDecorator
   end
 
   def view_link(text = nil)
-    if object.processed?
-      h.link_to text || I18n.t("active_admin.view"), h.procedure_path(object), class: "member_link"
+    if can? :show
+      if object.processed?
+        h.link_to text || I18n.t("active_admin.view"), h.procedure_path(object), class: "member_link"
+      else
+        h.link_to text || I18n.t("census.procedures.process"), h.edit_procedure_path(object), class: "member_link"
+      end
     else
-      h.link_to text || I18n.t("census.procedures.process"), h.edit_procedure_path(object), class: "member_link"
+      text
     end
   end
 

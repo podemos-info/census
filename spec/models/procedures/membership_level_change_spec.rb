@@ -34,22 +34,20 @@ describe Procedures::MembershipLevelChange, :db do
 
   with_versioning do
     context "after accepting the procedure" do
-      before do
-        procedure.accept!
-      end
+      subject(:undo) { procedure.undo! }
+      before { procedure.accept! }
 
       it "undo revert person membership evel to previous value" do
-        expect { procedure.undo! } .to change { Person.find(person.id).membership_level } .from("member").to("follower")
+        expect { subject } .to change { Person.find(person.id).membership_level } .from("member").to("follower")
       end
     end
 
     context "after rejecting the procedure" do
-      before do
-        procedure.reject!
-      end
+      subject(:undo) { procedure.undo! }
+      before { procedure.reject! }
 
       it "undo does not change person membership level" do
-        expect { procedure.undo! } .to_not change { Person.find(person.id).membership_level }
+        expect { subject } .to_not change { Person.find(person.id).membership_level }
       end
     end
   end
