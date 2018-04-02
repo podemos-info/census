@@ -6,9 +6,11 @@ ActiveAdmin.register Version do
 
   menu parent: I18n.t("active_admin.system")
 
-  controller do
-    belongs_to :admin, :order, :orders_batch, :person, :procedure, :payment_method, polymorphic: true, optional: true
-  end
+  belongs_to :person, polymorphic: true, optional: true
+  belongs_to :admin, polymorphic: true, optional: true
+  belongs_to :order, polymorphic: true, optional: true
+  belongs_to :orders_batch, polymorphic: true, optional: true
+  belongs_to :payment_method, polymorphic: true, optional: true
 
   actions :index, :show
 
