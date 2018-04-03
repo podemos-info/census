@@ -67,6 +67,12 @@ describe Person, :db do
       it { is_expected.to be_nil }
     end
 
+    context "when given qualified_id has an invalid identifier" do
+      let(:qualified_id) { "potato@decidim" }
+
+      it { is_expected.to be_nil }
+    end
+
     context "when given qualified_id has an invalid external system identifier" do
       let(:qualified_id) { "1@potato" }
 
