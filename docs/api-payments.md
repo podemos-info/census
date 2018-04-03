@@ -8,7 +8,7 @@ POST api/v1/payments/orders
 
 Parameter             | Data type | Description            | Only when `payment_method_type` is ...
 ----------------------|-----------|------------------------|------------------
-`person_id`           |  integer  | Person identifier at Census
+`person_id`           |  string   | Person's qualified identifier
 `description`         |  string   | Order description
 `amount`              |  integer  | Order amount (in cents, `1000` will be 10.00€)
 `campaign_code`       |  string   | Unique identifier for the campaign related to the order
@@ -34,7 +34,7 @@ GET api/v1/payments/orders/total
 Parameter             | Data type | Description
 ----------------------|-----------|------------------------
 `campaign_code`       |  string   | Optional. Unique identifier for the campaign
-`person_id`           |  integer  | Optional. Person identifier at Census
+`person_id`           |  string   | Optional. Person's qualified identifier
 `from_date`           |  datetime | Optional. Include orders created after this date (use ISO datetime format)
 `until_date`          |  datetime | Optional. Include orders created before this date (use ISO datetime format)
 
@@ -50,7 +50,7 @@ GET api/v1/payments/payment_methods
 
 Parameter             | Data type | Description
 ----------------------|-----------|------------------------
-`person_id`           |  integer  | Person identifier at Census
+`person_id`           |  string   | Person's qualified identifier
 
 ### Return value
 * When the person exists in the database, server response will be `:ok` (HTTP 200) with a JSON with all the payment methods related to that person:

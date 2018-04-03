@@ -76,7 +76,7 @@ describe Issues::People::DuplicatedPerson, :db do
       end
     end
 
-    context "when choosing both persons" do
+    context "when choosing both people" do
       let(:chosen_person_ids) { [existing_person.id, procedure_person.id] }
 
       it "closes the issue" do
