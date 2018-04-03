@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe Api::V1::Payments::PaymentMethodsController, type: :controller do
   describe "retrieve person payment methods" do
-    subject(:endpoint) { get :index, params: { person_id: person.id } }
+    subject(:endpoint) { get :index, params: { person_id: person.qualified_id_at(:decidim) } }
     let(:person) { create(:person) }
     let!(:payment_method1) { create(:credit_card, person: person) }
     let!(:payment_method2) { create(:direct_debit, person: person) }

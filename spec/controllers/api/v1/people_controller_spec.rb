@@ -75,7 +75,7 @@ describe Api::V1::PeopleController, type: :controller do
     end
 
     describe "update method" do
-      subject(:endpoint) { patch :update, params: { id: person.id, **changes } }
+      subject(:endpoint) { patch :update, params: { id: person.qualified_id_at(:decidim), **changes } }
 
       let(:person) { create(:person) }
       let(:changes) { { person: { first_name: "CHANGED", scope_code: scope_code } } }
@@ -127,7 +127,7 @@ describe Api::V1::PeopleController, type: :controller do
       subject(:endpoint) { patch :destroy, params: { id: person_id, **params } }
 
       let(:person) { create(:person) }
-      let(:person_id) { person.id }
+      let(:person_id) { person.qualified_id_at(:decidim) }
       let(:params) { { reason: "I don't wanna" } }
 
       it "is valid" do
@@ -173,7 +173,7 @@ describe Api::V1::PeopleController, type: :controller do
   end
 
   describe "retrieve person information" do
-    subject(:endpoint) { get :show, params: { id: person.id } }
+    subject(:endpoint) { get :show, params: { id: person.qualified_id_at(:decidim) } }
 
     let(:person) { create(:person) }
 

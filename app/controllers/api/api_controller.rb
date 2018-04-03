@@ -5,11 +5,15 @@ module Api
     before_action :set_paper_trail_whodunnit
 
     def person
-      @person ||= Person.find_by(id: params[person_id_param]) if params[person_id_param]
+      @person ||= Person.qualified_find(params[qualified_id_param]) if params[qualified_id_param]
     end
 
     def user_for_paper_trail
       person
+    end
+
+    def params_with_person
+      params.merge(qualified_id: params[qualified_id_param])
     end
 
     protected
@@ -32,7 +36,7 @@ module Api
       end
     end
 
-    def person_id_param
+    def qualified_id_param
       :person_id
     end
   end

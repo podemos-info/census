@@ -464,7 +464,7 @@ es:
         dni: DNI
         nie: NIE
         passport: Pasaporte
-      extra: Información adicional
+      external_ids: Sistemas externos
       flags:
         has_issues: Alerta
         verified_by_document: Documento

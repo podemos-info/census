@@ -18,7 +18,7 @@ describe "People", type: :request do
 
     context "update method" do
       let(:person) { create(:person) }
-      subject { post api_v1_person_membership_levels_path(person_id: person.id), params: { membership_level: "member" } }
+      subject { post api_v1_person_membership_levels_path(person_id: person.qualified_id_at(:decidim)), params: { membership_level: "member" } }
 
       it { expect(subject).to eq(202) }
 

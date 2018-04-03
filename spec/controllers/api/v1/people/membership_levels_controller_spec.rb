@@ -9,7 +9,7 @@ describe Api::V1::People::MembershipLevelsController, type: :controller do
   with_versioning do
     describe "create method" do
       let(:attachment) { build(:attachment) }
-      let(:params) { { person_id: person.id, membership_level: membership_level } }
+      let(:params) { { person_id: person.qualified_id_at(:decidim), membership_level: membership_level } }
 
       subject(:page) do
         post :create, params: params

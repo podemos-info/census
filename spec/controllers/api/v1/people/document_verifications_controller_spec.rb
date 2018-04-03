@@ -9,7 +9,7 @@ describe Api::V1::People::DocumentVerificationsController, type: :controller do
     describe "create method" do
       subject(:page) { post :create, params: params }
 
-      let(:params) { { person_id: person.id, files: [api_attachment_format(attachment), api_attachment_format(attachment)] } }
+      let(:params) { { person_id: person.qualified_id_at(:decidim), files: [api_attachment_format(attachment), api_attachment_format(attachment)] } }
       let(:attachment) { build(:attachment) }
 
       it "is valid" do

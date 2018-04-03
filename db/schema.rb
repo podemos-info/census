@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180323175411) do
+ActiveRecord::Schema.define(version: 20180402141642) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -225,14 +225,14 @@ ActiveRecord::Schema.define(version: 20180323175411) do
     t.bigint "scope_id"
     t.string "membership_level"
     t.integer "verifications", default: 0, null: false
-    t.jsonb "extra", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
     t.integer "state"
+    t.jsonb "external_ids", default: {}
+    t.index "external_ids jsonb_path_ops", name: "index_people_on_external_ids", using: :gin
     t.index ["address_scope_id"], name: "index_people_on_address_scope_id"
     t.index ["document_scope_id"], name: "index_people_on_document_scope_id"
-    t.index ["extra"], name: "index_people_on_extra", using: :gin
     t.index ["scope_id"], name: "index_people_on_scope_id"
     t.index ["verifications"], name: "index_people_on_verifications"
   end
