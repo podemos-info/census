@@ -79,7 +79,7 @@ FactoryBot.define do
     to_create { |instance| instance } # initialized version is already saved
 
     initialize_with do
-      PaperTrail.whodunnit = create(:admin)
+      PaperTrail.request.whodunnit = create(:admin)
       person = create(:person)
       person.update! changes
       person.versions.last
@@ -96,7 +96,7 @@ FactoryBot.define do
 
     trait :creation do
       initialize_with do
-        PaperTrail.whodunnit = create(:admin)
+        PaperTrail.request.whodunnit = create(:admin)
         person = create(:person)
         person.versions.last
       end
@@ -104,7 +104,7 @@ FactoryBot.define do
 
     trait :deletion do
       initialize_with do
-        PaperTrail.whodunnit = create(:admin)
+        PaperTrail.request.whodunnit = create(:admin)
         person = create(:person)
         person.destroy
         person.versions.last

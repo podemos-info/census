@@ -25,7 +25,7 @@ describe "PaymentMethods", type: :request do
 
     context "payment method versions page" do
       before do
-        PaperTrail.whodunnit = create(:admin)
+        PaperTrail.request.whodunnit = create(:admin)
         payment_method.update! name: "#{payment_method.name} A" # create a payment method version
       end
       subject(:page) { get payment_method_versions_path(payment_method_id: payment_method.id) }

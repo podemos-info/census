@@ -1,22 +1,3 @@
-misc:
-  document_id_minimum_length: 4
-
-procedures:
-  undo_minutes: 30
-  auto_processables:
-    - cancellation
-    - membership_level_change
-    - person_data_change
-    - registration
-  untrusted_email:
-    domains_blacklist:
-      - mailinator.com
-  untrusted_phone:
-    phones_blacklist:
-      - "0012026601367"
-    prefixes_blacklist:
-      - "0034602"
-
 payments:
   currency: EUR
   fractions_per_unit: 100
@@ -68,6 +49,27 @@ payments:
             - verified
           codes:
             - OK
+
+people:
+  document_id_minimum_length: 4
+  external_systems:
+    - decidim
+
+procedures:
+  auto_processables:
+    - cancellation
+    - membership_level_change
+    - person_data_change
+    - registration
+  undo_minutes: 30
+  untrusted_email:
+    domains_blacklist:
+      - mailinator.com
+  untrusted_phone:
+    phones_blacklist:
+      - "0012026601367"
+    prefixes_blacklist:
+      - "0034602"
 
 regional:
   local_code: ES

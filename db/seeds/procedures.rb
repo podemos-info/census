@@ -20,7 +20,7 @@ Procedure.all.each do |registration|
     next
   end
 
-  PaperTrail.whodunnit = current_admin
+  PaperTrail.request.whodunnit = current_admin
 
   registration.assign_attributes(
     processed_by: current_admin,
@@ -34,7 +34,7 @@ end
 # create 10 processed document verifications
 Person.enabled.not_verified.order("RANDOM()").limit(10).each do |person|
   Timecop.freeze Faker::Time.between(person.created_at, 3.days.ago(real_now), :all)
-  PaperTrail.whodunnit = person
+  PaperTrail.request.whodunnit = person
 
   document_verification = Procedures::DocumentVerification.create!(person: person,
                                                                    information: {},
@@ -47,7 +47,7 @@ Person.enabled.not_verified.order("RANDOM()").limit(10).each do |person|
   Timecop.freeze Faker::Time.between(Time.zone.now, real_now, :all)
   current_admin = admins.sample
 
-  PaperTrail.whodunnit = current_admin
+  PaperTrail.request.whodunnit = current_admin
 
   document_verification.update!(
     processed_by: current_admin,
@@ -66,7 +66,7 @@ end
 # create 5 document verifications with issues
 Person.enabled.not_verified.order("RANDOM()").limit(5).each do |person|
   Timecop.freeze Faker::Time.between(3.days.ago(real_now), 1.day.ago(real_now), :all)
-  PaperTrail.whodunnit = person
+  PaperTrail.request.whodunnit = person
   document_verification = Procedures::DocumentVerification.create!(person: person,
                                                                    information: {},
                                                                    state: :pending)
@@ -75,7 +75,7 @@ Person.enabled.not_verified.order("RANDOM()").limit(5).each do |person|
   Rails.logger.debug { "Person document verification created for: #{document_verification.person.decorate}" }
 
   Timecop.freeze Faker::Time.between(Time.zone.now, real_now, :all)
-  PaperTrail.whodunnit = admins.sample
+  PaperTrail.request.whodunnit = admins.sample
 
   document_verification.update!(
     processed_by: PaperTrail.actor,
@@ -89,7 +89,7 @@ end
 # create 10 unprocessed document verifications
 Person.enabled.not_verified.order("RANDOM()").limit(10).each do |person|
   Timecop.freeze Faker::Time.between(3.days.ago(real_now), 1.day.ago(real_now), :all)
-  PaperTrail.whodunnit = person
+  PaperTrail.request.whodunnit = person
   document_verification = Procedures::DocumentVerification.create!(person: person,
                                                                    information: {})
   document_verification.attachments.create!(file: File.new(File.join(attachments_path, "#{person.document_type}-sample1.png")))

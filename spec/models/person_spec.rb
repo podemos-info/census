@@ -34,4 +34,49 @@ describe Person, :db do
       end
     end
   end
+
+  describe "qualified_id" do
+    subject(:qualified_id) { person.qualified_id }
+    let(:person) { create(:person) }
+
+    it { is_expected.to eq("#{person.id}@census") }
+  end
+
+  describe "qualified_find" do
+    subject(:qualified_find) { Person.qualified_find(qualified_id) }
+    let(:person) { create(:person) }
+    let(:qualified_id) { person.qualified_id }
+
+    it { is_expected.to eq(person) }
+
+    context "when given qualified_id is from an external system" do
+      let(:qualified_id) { person.qualified_id_at(:decidim) }
+
+      it { is_expected.to eq(person) }
+    end
+
+    context "when given qualified_id is empty" do
+      let(:qualified_id) { "" }
+
+      it { is_expected.to be_nil }
+    end
+
+    context "when given qualified_id has an invalid format" do
+      let(:qualified_id) { "0" }
+
+      it { is_expected.to be_nil }
+    end
+
+    context "when given qualified_id has an invalid identifier" do
+      let(:qualified_id) { "potato@decidim" }
+
+      it { is_expected.to be_nil }
+    end
+
+    context "when given qualified_id has an invalid external system identifier" do
+      let(:qualified_id) { "1@potato" }
+
+      it { is_expected.to be_nil }
+    end
+  end
 end

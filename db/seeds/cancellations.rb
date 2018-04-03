@@ -9,7 +9,7 @@ real_now = Time.zone.now
 # create 10 cancellation procedures
 Person.where.not(id: admins.pluck(:person_id)).order("RANDOM()").limit(10).each do |person|
   Timecop.freeze Faker::Time.between(3.days.ago(real_now), 1.day.ago(real_now), :all)
-  PaperTrail.whodunnit = person
+  PaperTrail.request.whodunnit = person
   cancellation = Procedures::Cancellation.create!(person: person,
                                                   information: { reason: Faker::Lorem.sentence },
                                                   state: :pending)
@@ -23,7 +23,7 @@ Person.where.not(id: admins.pluck(:person_id)).order("RANDOM()").limit(10).each 
   end
 
   Timecop.freeze Faker::Time.between(Time.zone.now, real_now, :all)
-  PaperTrail.whodunnit = current_admin
+  PaperTrail.request.whodunnit = current_admin
 
   cancellation.assign_attributes(
     processed_by: current_admin,

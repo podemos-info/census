@@ -42,7 +42,7 @@ describe "People", type: :request do
 
     context "person versions page" do
       before do
-        PaperTrail.whodunnit = create(:admin)
+        PaperTrail.request.whodunnit = create(:admin)
         person.update! first_name: "#{person.first_name} A" # create a person version
       end
       subject { get person_versions_path(person_id: person.id) }

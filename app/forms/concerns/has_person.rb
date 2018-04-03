@@ -6,6 +6,6 @@ module HasPerson
   included do
     include CanHavePerson
 
-    validates :person_id, :person, presence: true
+    validates :person, presence: true
   end
 end

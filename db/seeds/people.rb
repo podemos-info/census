@@ -70,7 +70,7 @@ Timecop.travel 3.years.ago
 Admin.roles.each_key do |role|
   2.times do |i|
     person = register_person(use_procedure: false)
-    PaperTrail.whodunnit = person
+    PaperTrail.request.whodunnit = person
     person.update! verified_in_person: true
     admin = Admin.create! username: "#{role}#{i}", password: role, password_confirmation: role, person: person, role: role
     Rails.logger.debug { "Admin '#{admin.username}' created for person: #{person.decorate}" }

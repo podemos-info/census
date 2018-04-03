@@ -7,7 +7,7 @@ describe Api::V1::Payments::OrdersController, type: :controller do
     subject(:endpoint) { post :create, params: params }
     let(:params) do
       {
-        person_id: person.id,
+        person_id: person.qualified_id_at(:decidim),
         description: order.description,
         amount: order.amount,
         campaign_code: order.campaign.campaign_code,
@@ -96,7 +96,7 @@ describe Api::V1::Payments::OrdersController, type: :controller do
   describe "Orders processed total amount for a campaign" do
     subject(:endpoint) { get :total, params: params }
     let(:campaign_code) { order.campaign.campaign_code }
-    let(:person_id) { order.person_id }
+    let(:person_id) { order.person.qualified_id_at(:decidim) }
     let(:order) { create(:order, :processed, amount: 1_000_000) }
     let!(:person_order) { create(:order, :processed, person: order.person, campaign: order.campaign, amount: 100_000) }
     let!(:no_person_order) { create(:order, :processed, campaign: order.campaign, amount: 10_000) }

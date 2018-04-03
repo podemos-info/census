@@ -3,17 +3,17 @@
 module Api
   class V1::PeopleController < ApiController
     def create
-      call_command(::People::CreateRegistration, ::People::RegistrationForm.from_params(params)) do |info|
+      call_command(::People::CreateRegistration, ::People::RegistrationForm.from_params(params_with_person)) do |info|
         { person_id: info[:person].id }
       end
     end
 
     def update
-      call_command ::People::CreatePersonDataChange, ::People::PersonDataChangeForm.from_params(params_with_person_id)
+      call_command ::People::CreatePersonDataChange, ::People::PersonDataChangeForm.from_params(params_with_person)
     end
 
     def destroy
-      call_command ::People::CreateCancellation, ::People::CancellationForm.from_params(params_with_person_id)
+      call_command ::People::CreateCancellation, ::People::CancellationForm.from_params(params_with_person)
     end
 
     def show
@@ -23,12 +23,8 @@ module Api
 
     private
 
-    def person_id_param
+    def qualified_id_param
       :id
-    end
-
-    def params_with_person_id
-      params.merge(person_id: params[:id])
     end
   end
 end

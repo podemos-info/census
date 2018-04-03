@@ -6,10 +6,9 @@ class Person < ApplicationRecord
   include PersonMembershipLevels
   include PersonStates
   include Issuable
+  include ExternalSystems
 
   has_paper_trail class_name: "Version"
-
-  store_accessor :extra, :participa_id
 
   belongs_to :document_scope,
              class_name: "Scope",

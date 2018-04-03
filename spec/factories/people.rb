@@ -4,7 +4,7 @@ require "census/faker/localized"
 require "census/faker/document_id"
 
 FactoryBot.define do
-  sequence(:participa_id)
+  sequence(:decidim_id)
 
   sequence(:scope_name) do |n|
     "#{Faker::Lorem.sentence(1, true, 3)} #{n}"
@@ -53,6 +53,7 @@ FactoryBot.define do
     document_scope nil
     address_scope nil
     state :enabled
+    external_ids { { id_at_decidim: generate(:decidim_id) } }
 
     after :build do |person, evaluator|
       foreign = evaluator.foreign

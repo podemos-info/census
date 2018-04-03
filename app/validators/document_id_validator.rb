@@ -18,7 +18,7 @@ class DocumentIdValidator < ActiveModel::EachValidator
 
   def validate_document_id(type, scope, value)
     # Basic check for minimum length
-    return false if value.length < Settings.misc.document_id_minimum_length
+    return false if value.length < Settings.people.document_id_minimum_length
 
     # This validations apply only for spanish documents.
     return true if scope != "ES"

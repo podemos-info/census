@@ -30,7 +30,7 @@ describe "Orders", type: :request do
 
     context "order versions page" do
       before do
-        PaperTrail.whodunnit = create(:admin)
+        PaperTrail.request.whodunnit = create(:admin)
         order.update! description: "#{order.description} A" # create an order version
       end
       subject(:page) { get order_versions_path(order_id: order.id) }
