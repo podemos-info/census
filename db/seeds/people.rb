@@ -78,7 +78,7 @@ Admin.roles.each_key do |role|
   Timecop.travel 1.month.from_now
 end
 
-# create persons
+# create people
 33.times do
   register_person
   Timecop.travel 1.month.from_now
