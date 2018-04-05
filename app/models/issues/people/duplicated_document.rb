@@ -3,8 +3,33 @@
 module Issues
   module People
     class DuplicatedDocument < ProcedureIssue
+      class << self
+        def build_for(procedure)
+          DuplicatedDocument.new(
+            role: Admin.roles[:lopd],
+            level: :medium,
+            **document_information(procedure)
+          )
+        end
+
+        def document_information(procedure)
+          {
+            document_type: procedure.document_type,
+            document_scope_id: procedure.document_scope_id,
+            document_id: procedure.document_id
+          }
+        end
+
+        def causes
+          [:mistake, :fraud]
+        end
+      end
+
       store_accessor :information, :document_type, :document_scope_id, :document_id
-      store_accessor :fix_information, :chosen_person_id, :comment
+      store_accessor :fix_information, :chosen_person_id, :cause, :comment
+
+      validates :cause, inclusion: { in: causes.flat_map { |s| [s, s.to_s] } }, if: :fixing
+      validate :validate_chosen_person_id, if: :fixing
 
       def detected?
         affected_people.count { |person| person.enabled? || person.pending? } > 1
@@ -15,14 +40,13 @@ module Issues
         self.people = (affected_people + people).uniq
       end
 
-      def fix!
-        return false unless valid_fix_information?
-
+      def do_the_fix
         people.each do |person|
-          person.ban! if person.enabled? && chosen_person_id != person.id
+          next if chosen_person_id == person.id
+          person.send("#{cause}_detected")
+          person.trash if person.enabled?
+          person.save!
         end
-
-        super
       end
 
       def fixed_for?(issuable)
@@ -44,31 +68,8 @@ module Issues
         @chosen_person_id ||= fix_information["chosen_person_id"]&.to_i
       end
 
-      def valid_fix_information?
-        if person_ids.include?(chosen_person_id)
-          true
-        else
-          errors.add(:chosen_person_id, :not_affected_person)
-          false
-        end
-      end
-
-      class << self
-        def build_for(procedure)
-          DuplicatedDocument.new(
-            role: Admin.roles[:lopd],
-            level: :medium,
-            **document_information(procedure)
-          )
-        end
-
-        def document_information(procedure)
-          {
-            document_type: procedure.document_type,
-            document_scope_id: procedure.document_scope_id,
-            document_id: procedure.document_id
-          }
-        end
+      def validate_chosen_person_id
+        errors.add(:chosen_person_id, :not_affected_person) unless person_ids.include?(chosen_person_id)
       end
     end
   end

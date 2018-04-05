@@ -4,43 +4,31 @@ module PersonStates
   extend ActiveSupport::Concern
 
   included do
-    enum state: [:pending, :rejected, :enabled, :banned, :cancelled]
+    enum state: [:pending, :enabled, :cancelled, :trashed]
 
-    aasm column: "state", enum: true do
+    aasm :state, column: "state", enum: true do
       state :pending, initial: true
-      state :rejected, :enabled, :banned, :cancelled
+      state :enabled, :cancelled, :trashed
 
-      event :register do
+      event :accept do
         transitions from: :pending, to: :enabled
       end
 
-      event :reject do
-        transitions from: :pending, to: :rejected
-      end
-
-      event :ban do
-        transitions from: :enabled, to: :banned
-      end
-
       event :undo do
-        transitions from: [:enabled, :rejected], to: :pending
-      end
-
-      event :prepare do
-        transitions from: [:pending, :rejected], to: :pending
+        transitions from: [:enabled, :trashed], to: :pending
       end
 
       event :cancel do
-        transitions to: :cancelled
+        transitions from: [:pending, :enabled], to: :cancelled
+      end
+
+      event :trash do
+        transitions from: [:pending, :enabled], to: :trashed
       end
     end
 
     def self.state_names
-      @state_names ||= aasm.states.map(&:name).map(&:to_s)
-    end
-
-    def can_register?
-      aasm.events(permitted: true).map(&:name).include? :register
+      @state_names ||= aasm(:state).states.map(&:name).map(&:to_s)
     end
   end
 end

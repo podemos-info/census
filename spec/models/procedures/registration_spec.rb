@@ -38,7 +38,7 @@ describe Procedures::Registration, :db do
     end
 
     it "changes the person membership level to rejected" do
-      expect { procedure.reject! } .to change { procedure.person.state } .from("pending").to("rejected")
+      expect { procedure.reject! } .to change { procedure.person.state } .from("pending").to("trashed")
     end
   end
 
@@ -64,7 +64,7 @@ describe Procedures::Registration, :db do
       before { procedure.reject! }
 
       it "undoes change of person membership level" do
-        expect { subject } .to change { procedure.person.state } .from("rejected").to("pending")
+        expect { subject } .to change { procedure.person.state } .from("trashed").to("pending")
       end
     end
   end

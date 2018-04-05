@@ -26,15 +26,13 @@ ActiveAdmin.register Person do
 
   index do
     id_column
-    state_column :state
-    state_column :membership_level, machine: :membership_levels
+    state_column :state, machine: :state
+    state_column :membership_level, machine: :membership_level
+    state_column :verification, machine: :verification
     column :name_link, sortable: :full_name, class: :left
     column :full_document, sortable: :full_document, class: :left
     column :scope, sortable: :scope, class: :left do |person|
       person.scope&.show_path(Scope.local)
-    end
-    column :verifications do |person|
-      model_flags person
     end
     actions
   end

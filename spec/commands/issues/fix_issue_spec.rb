@@ -4,7 +4,10 @@ require "rails_helper"
 
 describe Issues::FixIssue do
   subject(:command) { described_class.call(issue: issue, admin: admin) }
-  before(:each) { issue.chosen_person_id = chosen_person_id }
+  before(:each) do
+    issue.cause = :mistake
+    issue.chosen_person_id = chosen_person_id
+  end
 
   let(:issue) { create(:duplicated_document) }
   let(:admin) { create(:admin) }

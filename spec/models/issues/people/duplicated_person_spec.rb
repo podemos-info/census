@@ -24,6 +24,7 @@ describe Issues::People::DuplicatedPerson, :db do
 
   describe "#fix!" do
     subject(:fix) do
+      issue.cause = :mistake
       issue.chosen_person_ids = chosen_person_ids
       issue.fix!
     end
@@ -39,8 +40,8 @@ describe Issues::People::DuplicatedPerson, :db do
         expect { subject }.to change { issue.reload.close_result } .from(nil).to("fixed")
       end
 
-      it "bans the existing person" do
-        expect { subject }.to change { existing_person.reload.banned? }.from(false).to(true)
+      it "trashes the existing person" do
+        expect { subject }.to change { existing_person.reload.trashed? }.from(false).to(true)
       end
 
       it "is fixed for the procedure person" do
@@ -63,8 +64,8 @@ describe Issues::People::DuplicatedPerson, :db do
         expect { subject }.to change { issue.reload.close_result } .from(nil).to("fixed")
       end
 
-      it "doesn't ban the existing person" do
-        expect { subject }.not_to change { existing_person.reload.banned? }.from(false)
+      it "doesn't trash the existing person" do
+        expect { subject }.not_to change { existing_person.reload.trashed? }.from(false)
       end
 
       it "is not fixed for the procedure person" do
@@ -87,8 +88,8 @@ describe Issues::People::DuplicatedPerson, :db do
         expect { subject }.to change { issue.reload.close_result } .from(nil).to("fixed")
       end
 
-      it "doesn't ban the existing person" do
-        expect { subject }.not_to change { existing_person.reload.banned? }.from(false)
+      it "doesn't trash the existing person" do
+        expect { subject }.not_to change { existing_person.reload.trashed? }.from(false)
       end
 
       it "is fixed for the procedure person" do
@@ -111,8 +112,8 @@ describe Issues::People::DuplicatedPerson, :db do
         expect { subject }.not_to change { issue.reload.close_result } .from(nil)
       end
 
-      it "doesn't ban the existing person" do
-        expect { subject }.not_to change { existing_person.reload.banned? }.from(false)
+      it "doesn't trash the existing person" do
+        expect { subject }.not_to change { existing_person.reload.trashed? }.from(false)
       end
     end
   end

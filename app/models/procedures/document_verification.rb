@@ -11,11 +11,11 @@ module Procedures
     end
 
     def process_accept
-      person.verified_by_document = true
+      person.verify
     end
 
     def undo_accept
-      person.verified_by_document = false
+      person.undo_verification
     end
 
     def persist_accept_changes!

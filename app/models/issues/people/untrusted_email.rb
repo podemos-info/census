@@ -15,12 +15,13 @@ module Issues
         self.people = [procedure.person]
       end
 
-      def fix!
+      def do_the_fix
         people.each do |person|
-          person.ban! if person.enabled? && !trusted?
+          next if trusted?
+          person.send("fraud_detected")
+          person.trash if person.enabled?
+          person.save!
         end
-
-        super
       end
 
       def fixed_for?(issuable)

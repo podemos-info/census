@@ -20,7 +20,7 @@ class Issue < ApplicationRecord
 
   belongs_to :assigned_to, class_name: "Person", optional: true
 
-  attr_accessor :issuable
+  attr_accessor :fixing, :issuable
 
   def absent?
     new_record? && !detected?
@@ -35,7 +35,10 @@ class Issue < ApplicationRecord
   end
 
   def fix!
-    return false if closed?
+    self.fixing = true
+    return false if closed? || invalid?
+
+    do_the_fix
 
     self.close_result = :fixed
     self.closed_at = Time.zone.now

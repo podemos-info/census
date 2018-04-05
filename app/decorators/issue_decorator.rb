@@ -88,4 +88,10 @@ class IssueDecorator < ApplicationDecorator
   def status_name
     I18n.t("census.issues.status.#{status}")
   end
+
+  def cause_options
+    @cause_options ||= object.class.causes.map do |cause|
+      [I18n.t("census.issues.causes.#{cause}"), cause]
+    end.freeze
+  end
 end

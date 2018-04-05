@@ -2,13 +2,6 @@
   &.has_issues {
     background: $error-color;
   }
-  &.verified_by_document {
-    background: $almost-success-color;
-  }
-  &.verified_in_person {
-    background: $success-color;
-  }
-
   &.member {
     background: $almost-success-color;
   }

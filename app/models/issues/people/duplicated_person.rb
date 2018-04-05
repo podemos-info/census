@@ -3,8 +3,32 @@
 module Issues
   module People
     class DuplicatedPerson < ProcedureIssue
+      class << self
+        def build_for(procedure)
+          DuplicatedPerson.new(
+            role: Admin.roles[:lopd],
+            level: :low,
+            born_at: procedure.born_at,
+            first_name: procedure.first_name,
+            last_name1: procedure.last_name1,
+            last_name2: procedure.last_name2
+          )
+        end
+
+        def fix_attributes
+          [:comment, :cause, chosen_person_ids: []]
+        end
+
+        def causes
+          [:mistake, :fraud]
+        end
+      end
+
       store_accessor :information, :born_at, :first_name, :last_name1, :last_name2
-      store_accessor :fix_information, :chosen_person_ids, :comment
+      store_accessor :fix_information, :chosen_person_ids, :cause, :comment
+
+      validates :cause, inclusion: { in: causes.flat_map { |s| [s, s.to_s] } }, if: :fixing
+      validate :validate_chosen_person_ids, if: :fixing
 
       def detected?
         affected_people.count { |person| person.enabled? || person.pending? } > 1
@@ -15,14 +39,13 @@ module Issues
         self.people = (affected_people + people).uniq
       end
 
-      def fix!
-        return false unless valid_fix_information?
-
+      def do_the_fix
         people.each do |person|
-          person.ban! if person.enabled? && !chosen_person_ids.include?(person.id)
+          next if chosen_person_ids.include?(person.id)
+          person.send("#{cause}_detected")
+          person.trash if person.enabled?
+          person.save!
         end
-
-        super
       end
 
       def fixed_for?(issuable)
@@ -52,30 +75,8 @@ module Issues
         @chosen_person_ids ||= fix_information["chosen_person_ids"]&.map(&:to_i) || []
       end
 
-      def valid_fix_information?
-        if chosen_person_ids.all? { |chosen_person_id| person_ids.include?(chosen_person_id) }
-          true
-        else
-          errors.add(:chosen_person_ids, :not_affected_person)
-          false
-        end
-      end
-
-      class << self
-        def build_for(procedure)
-          DuplicatedPerson.new(
-            role: Admin.roles[:lopd],
-            level: :low,
-            born_at: procedure.born_at,
-            first_name: procedure.first_name,
-            last_name1: procedure.last_name1,
-            last_name2: procedure.last_name2
-          )
-        end
-
-        def fix_attributes
-          [:comment, chosen_person_ids: []]
-        end
+      def validate_chosen_person_ids
+        errors.add(:chosen_person_ids, :not_affected_person) unless chosen_person_ids.all? { |chosen_person_id| person_ids.include?(chosen_person_id) }
       end
     end
   end
