@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/activeadmin/activeadmin.git
-  revision: df5925bf8647d94138ef474307b237599f8a4218
+  revision: dabd8b30874fe177dcc14e5ebda3fd7b892f3c72
   specs:
     activeadmin (2.0.0.alpha)
       arbre (>= 1.1.1)
@@ -53,6 +53,9 @@ GEM
   specs:
     aasm (4.12.3)
       concurrent-ruby (~> 1.0)
+    aasm-diagram (0.1.0)
+      aasm (~> 4.12)
+      ruby-graphviz (~> 1.2)
     actioncable (5.1.6)
       actionpack (= 5.1.6)
       nio4r (~> 2.0)
@@ -447,6 +450,7 @@ GEM
       unicode-display_width (~> 1.0, >= 1.0.1)
     rubocop-rspec (1.24.0)
       rubocop (>= 0.53.0)
+    ruby-graphviz (1.2.3)
     ruby-progressbar (1.9.0)
     ruby_dep (1.5.0)
     safe_yaml (1.0.4)
@@ -551,6 +555,7 @@ PLATFORMS
 
 DEPENDENCIES
   aasm
+  aasm-diagram
   active_job_reporter
   active_model_serializers
   activeadmin!
