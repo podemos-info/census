@@ -465,6 +465,10 @@ es:
         wrong_data: Datos del método de pago incorrectos
       view_versions: Ver versiones (%{count})
     people:
+      action_message:
+        cant_request_verification: No se puede solicitar a %{link} que se verifique.
+        error_requesting_verification: Ha ocurrido un error al intentar solicitar a %{link} que se verifique.
+        verification_requested: Se ha enviado la solicitud de verificación a %{link}.
       create_order: Crear orden
       create_payment_method: Crear método de pago
       document_types:
@@ -477,6 +481,7 @@ es:
         male: Masculino
         other: Otro
         undisclosed: No quiero decirlo
+      request_verification: Solicitar verificación
       view_downloads: Ver descargas
       view_orders: Ver órdenes (%{count})
       view_payment_methods: Ver métodos de pago (%{count})

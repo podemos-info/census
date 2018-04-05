@@ -10,7 +10,7 @@ ActiveAdmin.register Person do
   permit_params :first_name, :last_name1, :last_name2, :document_type, :document_id,
                 :born_at, :gender, :address, :postal_code, :email, :phone, :scope_id, :address_scope_id
 
-  actions :index, :show, :new, :create, :edit, :update
+  actions :index, :show, :edit, :update
 
   order_by(:full_name) do |order_clause|
     "last_name1 #{order_clause.order}, last_name2 #{order_clause.order}, first_name #{order_clause.order}"
@@ -54,6 +54,30 @@ ActiveAdmin.register Person do
   show do
     render "show", context: self, classes: resource.last_version_classed_changeset
     active_admin_comments
+  end
+
+  action_item :request_verification, only: :show do
+    if person.may_request_verification?
+      link_to t("census.people.request_verification"), request_verification_person_path(person), method: :patch,
+                                                                                                 data: { confirm: t("census.messages.sure_question") },
+                                                                                                 class: "member_link"
+    end
+  end
+
+  member_action :request_verification, method: :patch do
+    person = resource
+    People::RequestVerification.call(person: person, admin: current_admin) do
+      on(:invalid) do
+        flash[:error] = t("census.people.action_message.cant_request_verification", link: view_context.link_to(person.id, person)).html_safe
+      end
+      on(:error) do
+        flash[:error] = t("census.people.action_message.error_requesting_verification", link: view_context.link_to(person.id, person)).html_safe
+      end
+      on(:ok) do
+        flash[:notice] = t("census.people.action_message.verification_requested", link: view_context.link_to(person.id, person)).html_safe
+      end
+    end
+    redirect_back(fallback_location: person_path)
   end
 
   form decorate: true do |f|

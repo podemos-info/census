@@ -2,15 +2,23 @@
 
 class PersonPolicy < ApplicationPolicy
   def base_role?
-    user.lopd_role? || !record&.cancelled?
+    user.lopd_role? || !record&.discarded?
   end
 
   def show?
     base_role?
   end
 
+  def create?
+    false
+  end
+
   def update?
-    !record.discarded?
+    user.lopd_help_role? && !record.discarded?
+  end
+
+  def request_verification?
+    update?
   end
 
   class Scope
