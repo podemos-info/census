@@ -16,7 +16,7 @@ Procedure.all.each do |registration|
 
   Issues::CheckIssues.call(issuable: registration, admin: current_admin)
   if registration.issues_summary != :ok
-    Rails.logger.debug { "Person registration pending: #{registration.person.decorate}" }
+    Rails.logger.debug { "Person registration pending: #{registration.person.decorate(lopd_context)}" }
     next
   end
 
@@ -28,7 +28,7 @@ Procedure.all.each do |registration|
   )
   registration.accept
   registration.save!
-  Rails.logger.debug { "Person registration accepted: #{registration.person.decorate}" }
+  Rails.logger.debug { "Person registration accepted: #{registration.person.decorate(lopd_context)}" }
 end
 
 # create 10 processed document verifications
@@ -42,7 +42,7 @@ Person.enabled.not_verified.order("RANDOM()").limit(10).each do |person|
 
   document_verification.attachments.create!(file: File.new(File.join(attachments_path, "#{person.document_type}-sample1.png")))
   document_verification.attachments.create!(file: File.new(File.join(attachments_path, "#{person.document_type}-sample2.png")))
-  Rails.logger.debug { "Person document verification created for: #{document_verification.person.decorate}" }
+  Rails.logger.debug { "Person document verification created for: #{document_verification.person.decorate(lopd_context)}" }
 
   Timecop.freeze Faker::Time.between(Time.zone.now, real_now, :all)
   current_admin = admins.sample
@@ -60,7 +60,7 @@ Person.enabled.not_verified.order("RANDOM()").limit(10).each do |person|
   person.verify
   person.to_member if Faker::Boolean.boolean(0.5) && person.adult?
   person.save!
-  Rails.logger.debug { "Person document verification accepted for: #{document_verification.person.decorate}" }
+  Rails.logger.debug { "Person document verification accepted for: #{document_verification.person.decorate(lopd_context)}" }
 end
 
 # create 5 document verifications with issues
@@ -72,7 +72,7 @@ Person.enabled.not_verified.order("RANDOM()").limit(5).each do |person|
                                                                    state: :pending)
   document_verification.attachments.create!(file: File.new(File.join(attachments_path, "#{person.document_type}-sample1.png")))
   document_verification.attachments.create!(file: File.new(File.join(attachments_path, "#{person.document_type}-sample2.png")))
-  Rails.logger.debug { "Person document verification created for: #{document_verification.person.decorate}" }
+  Rails.logger.debug { "Person document verification created for: #{document_verification.person.decorate(lopd_context)}" }
 
   Timecop.freeze Faker::Time.between(Time.zone.now, real_now, :all)
   PaperTrail.request.whodunnit = admins.sample
@@ -83,7 +83,7 @@ Person.enabled.not_verified.order("RANDOM()").limit(5).each do |person|
     state: :issues,
     comment: Faker::Lorem.paragraph(1, true, 2)
   )
-  Rails.logger.debug { "Person document verification with issues accepted for: #{document_verification.person.decorate}" }
+  Rails.logger.debug { "Person document verification with issues accepted for: #{document_verification.person.decorate(lopd_context)}" }
 end
 
 # create 10 unprocessed document verifications
@@ -94,5 +94,5 @@ Person.enabled.not_verified.order("RANDOM()").limit(10).each do |person|
                                                                    information: {})
   document_verification.attachments.create!(file: File.new(File.join(attachments_path, "#{person.document_type}-sample1.png")))
   document_verification.attachments.create!(file: File.new(File.join(attachments_path, "#{person.document_type}-sample2.png")))
-  Rails.logger.debug { "Person document verification created for: #{document_verification.person.decorate}" }
+  Rails.logger.debug { "Person document verification created for: #{document_verification.person.decorate(lopd_context)}" }
 end

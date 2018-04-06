@@ -4,6 +4,10 @@ Rails.logger.debug "Seeding people"
 
 require "census/faker/document_id"
 
+def lopd_context
+  @lopd_context ||= { context: { current_admin: Admin.new(role: :lopd) } }
+end
+
 def register_person(use_procedure: true, copy_from_procedure: nil, untrusted: nil)
   if copy_from_procedure
     person_data = copy_from_procedure.person_data.with_indifferent_access
@@ -52,14 +56,14 @@ def register_person(use_procedure: true, copy_from_procedure: nil, untrusted: ni
     People::CreateRegistration.call(form: People::RegistrationForm.from_params(person_data)) do
       on(:ok) do |info|
         person = info[:person]
-        Rails.logger.debug { "Person registered: #{person.decorate}" }
+        Rails.logger.debug { "Person registered: #{person.decorate(lopd_context)}" }
       end
       on(:invalid) { Rails.logger.warn { "Invalid data for person registration: #{person_data.as_json}" } }
       on(:error) { Rails.logger.warn { "Error registering person: #{person_data.as_json}" } }
     end
   else
     person = Person.create!(person_data)
-    Rails.logger.debug { "Person created: #{person.decorate}" }
+    Rails.logger.debug { "Person created: #{person.decorate(lopd_context)}" }
   end
   person
 end
@@ -73,7 +77,7 @@ Admin.roles.each_key do |role|
     PaperTrail.request.whodunnit = person
     person.verify!
     admin = Admin.create! username: "#{role}#{i}", password: role, password_confirmation: role, person: person, role: role
-    Rails.logger.debug { "Admin '#{admin.username}' created for person: #{person.decorate}" }
+    Rails.logger.debug { "Admin '#{admin.username}' created for person: #{person.decorate(lopd_context)}" }
   end
   Timecop.travel 1.month.from_now
 end

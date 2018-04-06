@@ -13,12 +13,12 @@ Person.where.not(id: admins.pluck(:person_id)).order("RANDOM()").limit(10).each 
   cancellation = Procedures::Cancellation.create!(person: person,
                                                   information: { reason: Faker::Lorem.sentence },
                                                   state: :pending)
-  Rails.logger.debug { "Person cancellation created for: #{cancellation.person.decorate}" }
+  Rails.logger.debug { "Person cancellation created for: #{cancellation.person.decorate(lopd_context)}" }
 
   current_admin = admins.sample
   Issues::CheckIssues.call(issuable: cancellation, admin: current_admin)
   if cancellation.issues_summary != :ok
-    Rails.logger.debug { "Person cancellation pending: #{cancellation.person.decorate}" }
+    Rails.logger.debug { "Person cancellation pending: #{cancellation.person.decorate(lopd_context)}" }
     next
   end
 
@@ -32,5 +32,5 @@ Person.where.not(id: admins.pluck(:person_id)).order("RANDOM()").limit(10).each 
   cancellation.accept
   cancellation.save!
 
-  Rails.logger.debug { "Person cancellation accepted for: #{cancellation.person.decorate}" }
+  Rails.logger.debug { "Person cancellation accepted for: #{cancellation.person.decorate(lopd_context)}" }
 end
