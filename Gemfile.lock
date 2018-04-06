@@ -26,15 +26,13 @@ GIT
       nokogiri (~> 1.4)
 
 GIT
-  remote: https://github.com/platanus/activeadmin_addons.git
-  revision: cd4c1688bd76acdfd14080643b57cbb55cdaad30
+  remote: https://github.com/leio10/paper_trail-globalid.git
+  revision: 1db033ec7a61ec8d223c9aa3faff49249100c577
+  branch: adapt-to-pt-v9
   specs:
-    activeadmin_addons (1.4.0)
-      railties
-      require_all (~> 1.5)
-      sass-rails
-      select2-rails (~> 4.0)
-      xdan-datetimepicker-rails (~> 2.5.1)
+    paper_trail-globalid (0.2.0)
+      globalid
+      paper_trail (>= 4.0.0)
 
 GIT
   remote: https://github.com/podemos-info/rectify.git
@@ -86,6 +84,12 @@ GEM
       activemodel (>= 4.1, < 6)
       case_transform (>= 0.2)
       jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
+    activeadmin_addons (1.4.0)
+      railties
+      require_all (~> 1.5)
+      sass-rails
+      select2-rails (~> 4.0)
+      xdan-datetimepicker-rails (~> 2.5.1)
     activejob (5.1.6)
       activesupport (= 5.1.6)
       globalid (>= 0.3.6)
@@ -348,9 +352,6 @@ GEM
     paper_trail (9.0.0)
       activerecord (>= 4.2, < 5.3)
       request_store (~> 1.1)
-    paper_trail-globalid (0.2.0)
-      globalid
-      paper_trail (>= 3.0.0)
     parallel (1.12.1)
     parser (2.5.0.5)
       ast (~> 2.4.0)
@@ -559,7 +560,7 @@ DEPENDENCIES
   active_job_reporter
   active_model_serializers
   activeadmin!
-  activeadmin_addons!
+  activeadmin_addons
   activemerchant!
   ahoy_matey
   arctic_admin
@@ -594,7 +595,7 @@ DEPENDENCIES
   money
   normalizr
   paper_trail
-  paper_trail-globalid
+  paper_trail-globalid!
   pg (~> 0.18)
   pry-rails
   puma
