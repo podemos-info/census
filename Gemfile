@@ -63,7 +63,7 @@ group :development, :test do
 end
 
 group :test do
-  gem "capybara"
+  gem "capybara", "~> 2.13"
   gem "database_cleaner"
   gem "factory_bot_rails"
   gem "pundit-matchers", "~> 1.4.1"
