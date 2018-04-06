@@ -28,13 +28,14 @@ es:
         scopes:
           all: Todas
           cancelled: Bajas
-          deleted: Borradas
           enabled: Habilitadas
           follower: Simpatizantes
           fraudulent: Fraudulentas
           member: Afiliadas
+          mistake: Por error
           not_verified: No verificadas
           pending: Pendientes
+          trashed: Borradas
           verification_requested: Verificación solicitada
           verified: Verificadas
       procedure:
@@ -188,20 +189,26 @@ es:
         gender: Género
         last_name1: Primer Apellido
         last_name2: Segundo Apellido
-        membership_level: Nivel
+        membership_level: Compromiso
         membership_level/follower: simpatizante
-        membership_level/member: afiliado/a
+        membership_level/member: afiliada
         name_link: Nombre
         phone: Teléfono
         postal_code: Código postal
         scope: Lugar de participación
         scope_id: Lugar de participación
         state: Estado
-        state/enabled: habilitado
+        state/cancelled: baja
+        state/enabled: habilitada
         state/pending: pendiente
-        state/rejected: rechazado/a
+        state/trashed: borrada
         updated_at: Última actualización
-        verifications: Verificaciones
+        verification: Verificación
+        verification/fraud: fraudulenta
+        verification/mistake: error
+        verification/not_verified: no verificada
+        verification/verification_requested: verificación solicitada
+        verification/verified: verificada
       procedure:
         comment: Comentario
         created_at: Fecha de creación
