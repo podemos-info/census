@@ -57,7 +57,7 @@ Person.enabled.not_verified.order("RANDOM()").limit(10).each do |person|
   )
 
   next unless document_verification.accepted?
-  person.verified_by_document = true
+  person.verify
   person.to_member if Faker::Boolean.boolean(0.5) && person.adult?
   person.save!
   Rails.logger.debug { "Person document verification accepted for: #{document_verification.person.decorate}" }

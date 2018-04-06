@@ -41,6 +41,11 @@ FactoryBot.define do
     document_id { other_person.document_id }
     document_scope_id { other_person.document_scope_id }
 
+    trait :ready_to_fix do
+      cause :mistake
+      chosen_person_id { issuable.person.id }
+    end
+
     after :build do |issue, evaluator|
       if evaluator.evaluated
         issue.people = [evaluator.other_person, evaluator.issuable.person]
@@ -60,7 +65,8 @@ FactoryBot.define do
     last_name2 { other_person.last_name2 }
     born_at { other_person.born_at }
 
-    trait :chosen_procedure_person do
+    trait :ready_to_fix do
+      cause :mistake
       chosen_person_ids { [issuable.person.id] }
     end
 

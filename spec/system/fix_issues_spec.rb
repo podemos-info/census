@@ -24,7 +24,7 @@ describe "Fix Issues", type: :system do
 
       expect(issue).to be_fixed
       expect(procedure).to be_rejected
-      expect(procedure_person).to be_rejected
+      expect(procedure_person).to be_trashed
     end
 
     it "fixes the issue marking the email as trusted" do
@@ -50,6 +50,7 @@ describe "Fix Issues", type: :system do
     let(:existing_person) { create(:person) }
 
     it "fixes the issue choosing the existing person" do
+      find("label[for=issue_cause_mistake]").click
       perform_enqueued_jobs do
         find("*[type=submit]").click
       end
@@ -60,10 +61,11 @@ describe "Fix Issues", type: :system do
       expect(other_issue).to be_gone
       expect(procedure).to be_rejected
       expect(existing_person).to be_enabled
-      expect(procedure_person).to be_rejected
+      expect(procedure_person).to be_trashed
     end
 
     it "fixes the issue choosing the procedure person" do
+      find("label[for=issue_cause_mistake]").click
       find("label[for=issue_chosen_person_id_#{procedure_person.id}]").click
 
       perform_enqueued_jobs do
@@ -75,7 +77,7 @@ describe "Fix Issues", type: :system do
       expect(issue).to be_fixed
       expect(other_issue).to be_gone
       expect(procedure).to be_accepted
-      expect(existing_person).to be_banned
+      expect(existing_person).to be_trashed
       expect(procedure_person).to be_enabled
     end
   end

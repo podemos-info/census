@@ -21,6 +21,7 @@ context.instance_eval do
     end
 
     f.inputs do
+      f.input :cause, as: :radio, collection: issue.cause_options
       f.input :comment, as: :text
     end
     f.actions do

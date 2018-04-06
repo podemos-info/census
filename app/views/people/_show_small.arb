@@ -3,11 +3,9 @@
 context.instance_eval do
   panel title do
     attributes_table_for resource do
-      state_row :membership_level, class: classes[:membership_level], machine: :membership_levels
+      state_row :membership_level, class: classes[:membership_level], machine: :membership_level
+      state_row :verification, class: classes[:verification], machine: :verification
       row :id, class: classes[:id]
-      row :verifications, class: classes[:verifications] do |resource|
-        model_flags(resource)
-      end
       row :first_name, class: classes[:first_name]
       row :last_name1, class: classes[:last_name1]
       row :last_name2, class: classes[:last_name2]

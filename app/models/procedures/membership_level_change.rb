@@ -7,7 +7,7 @@ module Procedures
     validates :to_membership_level, presence: true
 
     def acceptable?
-      person.enabled? && person.can_change_membership_level?(to_membership_level)
+      person.enabled? && person.may_change_membership_level?(to_membership_level)
     end
 
     def process_accept

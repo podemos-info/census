@@ -68,14 +68,6 @@ describe PersonDecorator do
     end
   end
 
-  describe "flags" do
-    let(:person) { build(:person, verified_by_document: true) }
-
-    it "returns the person flags" do
-      expect(subject.flags).to contain_exactly(:verified_by_document)
-    end
-  end
-
   describe "options" do
     it "returns the right number of gender options" do
       expect(PersonDecorator.gender_options.count).to eq(Person.genders.count)

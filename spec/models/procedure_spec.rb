@@ -71,7 +71,7 @@ describe Procedure, :db do
       end
 
       context "with dependent procedure" do
-        subject(:procedure) { create(:document_verification, :undoable, person: create(:person, :verified)) }
+        subject(:procedure) { create(:document_verification, :undoable, person: create(:person)) }
         let!(:child_procedure) { create(:membership_level_change, depends_on: procedure, person: procedure.person) }
 
         it "permitted events returns undo" do
@@ -116,13 +116,13 @@ describe Procedure, :db do
 
     context "when has unrecoverable issues" do
       let!(:issue) { create(:duplicated_document, issuable: procedure) }
-      let!(:issue2) { create(:duplicated_document, :fixed, issuable: procedure, chosen_person_id: create(:person).id) }
+      let!(:issue2) { create(:duplicated_document, :ready_to_fix, :fixed, issuable: procedure, chosen_person_id: create(:person).id) }
 
       it { is_expected.to eq(:unrecoverable) }
     end
 
     context "when has fixed issues" do
-      let!(:issue) { create(:duplicated_document, :fixed, issuable: procedure, chosen_person_id: procedure.person.id) }
+      let!(:issue) { create(:duplicated_document, :ready_to_fix, :fixed, issuable: procedure, chosen_person_id: procedure.person.id) }
 
       it { is_expected.to eq(:ok) }
     end

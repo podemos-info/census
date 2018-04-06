@@ -75,6 +75,7 @@ group :test do
 end
 
 group :development do
+  gem "aasm-diagram", require: false
   gem "better_errors"
   gem "capistrano", "~> 3.6", require: false
   gem "capistrano-rails", "~> 1.3", require: false

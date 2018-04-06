@@ -3,8 +3,9 @@
 class Person < ApplicationRecord
   include Discard::Model
   include AASM
-  include PersonMembershipLevels
   include PersonStates
+  include PersonVerifications
+  include PersonMembershipLevels
   include Issuable
   include ExternalSystems
 

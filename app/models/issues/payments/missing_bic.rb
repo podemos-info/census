@@ -6,6 +6,8 @@ module Issues
       store_accessor :information, :country, :bank_code, :iban
       store_accessor :fix_information, :bic
 
+      validate :validate_bic_form, if: :fixing
+
       def detected?
         direct_debit.bic.nil?
       end
@@ -15,11 +17,8 @@ module Issues
         self.orders = affected_orders
       end
 
-      def fix!
-        return false unless valid_fix_information?
-
+      def do_the_fix
         new_bic.save!
-        super
       end
 
       def post_close(admin)
@@ -30,14 +29,11 @@ module Issues
 
       private
 
-      def valid_fix_information?
+      def validate_bic_form
         if bic_form.invalid?
           bic_form.errors.each do |attribute, error|
             errors.add attribute, error
           end
-          false
-        else
-          true
         end
       end
 

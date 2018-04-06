@@ -60,7 +60,7 @@ describe Issues::People::UntrustedPhone, :db do
       let(:trusted) { false }
 
       it "bans the existing person" do
-        expect { subject }.to change { procedure_person.reload.banned? }.from(false).to(true)
+        expect { subject }.to change { procedure_person.reload.trashed? }.from(false).to(true)
       end
     end
   end

@@ -3,13 +3,13 @@
 module Procedures
   class Registration < PersonDataProcedure
     def acceptable?
-      person.can_register?
+      person.may_accept?
     end
 
     def process_accept
       set_from_person_data
       person.assign_attributes(person_data)
-      person.register
+      person.accept
     end
 
     def undo_accept
@@ -22,7 +22,7 @@ module Procedures
     end
 
     def process_reject
-      person.reject if person.may_reject?
+      person.trash
     end
 
     def persist_accept_changes!

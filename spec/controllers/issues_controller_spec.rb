@@ -63,11 +63,11 @@ describe IssuesController, type: :controller do
     {
       duplicated_document: {
         role: :lopd,
-        request_params: ->(issue) { { chosen_person_id: issue.procedure.person_id, comment: "Is real" } }
+        request_params: ->(issue) { { chosen_person_id: issue.procedure.person_id, cause: :mistake, comment: "Is real" } }
       },
       duplicated_person: {
         role: :lopd,
-        request_params: ->(issue) { { chosen_person_ids: [issue.procedure.person_id], comment: "Is real" } }
+        request_params: ->(issue) { { chosen_person_ids: [issue.procedure.person_id], cause: :mistake, comment: "Is real" } }
       },
       untrusted_email: {
         role: :lopd,
@@ -97,7 +97,7 @@ describe IssuesController, type: :controller do
 
     context "when fixing an issue returns an error" do
       before { stub_command("Issues::FixIssue", :error) }
-      subject { patch :update, params: { id: issue.id, issue: { chosen_person_id: issue.procedure.person_id, comment: "Is real" } } }
+      subject { patch :update, params: { id: issue.id, issue: { chosen_person_id: issue.procedure.person_id, cause: :mistake, comment: "Is real" } } }
       let(:issue) { create(:duplicated_document) }
 
       it { is_expected.to have_http_status(:ok) }

@@ -28,7 +28,7 @@ module People
     private
 
     def validate_not_registered
-      errors.add :person, :cant_register_again if person.present? && !person.can_register?
+      errors.add :person, :cant_register_again if person.present? && !person.may_accept?
     end
   end
 end

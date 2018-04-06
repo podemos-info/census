@@ -96,7 +96,7 @@ FactoryBot.define do
     end
 
     trait :verified do
-      verified_by_document { true }
+      verification :verified
     end
 
     trait :copy do

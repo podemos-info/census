@@ -10,9 +10,10 @@ describe PeopleController, type: :controller do
   let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
   let(:resource) { all_resources[resource_class] }
   let!(:person) { create(:person) }
+  let(:current_admin) { create(:admin, :lopd) }
 
   it "defines actions" do
-    expect(resource.defined_actions).to contain_exactly(:index, :show, :new, :create, :edit, :update)
+    expect(resource.defined_actions).to contain_exactly(:index, :show, :edit, :update)
   end
 
   it "handles people" do
@@ -44,24 +45,10 @@ describe PeopleController, type: :controller do
     end
   end
 
-  context "new page" do
-    subject { get :new }
-    it { expect(subject).to be_success }
-    it { expect(subject).to render_template("new") }
-  end
-
-  context "create page" do
-    let(:person) { build(:person) }
-    subject { put :create, params: { person: person.attributes } }
-    it { expect { subject } .to change { Person.count }.by(1) }
-    it { expect(subject).to have_http_status(:found) }
-    it { expect(subject.location).to eq(person_url(Person.last)) }
-  end
-
   context "edit page" do
     subject { get :edit, params: { id: person.id } }
-    it { expect(subject).to be_success }
-    it { expect(subject).to render_template("edit") }
+    it { is_expected.to be_success }
+    it { is_expected.to render_template("edit") }
   end
 
   with_versioning do
@@ -71,8 +58,8 @@ describe PeopleController, type: :controller do
 
     context "show page" do
       subject { get :show, params: { id: person.id } }
-      it { expect(subject).to be_success }
-      it { expect(subject).to render_template("show") }
+      it { is_expected.to be_success }
+      it { is_expected.to render_template("show") }
     end
 
     context "update page" do
@@ -80,9 +67,52 @@ describe PeopleController, type: :controller do
         person.assign_attributes first_name: "changed"
         patch :update, params: { id: person.id, person: person.attributes }
       end
-      it { expect(subject).to have_http_status(:found) }
+      it { is_expected.to have_http_status(:found) }
       it { expect(subject.location).to eq(person_url(person.id)) }
       it { expect { subject } .to change { person.first_name }.from("original").to("changed") }
+    end
+
+    describe "request verification" do
+      subject { patch :request_verification, params: { id: person.id } }
+
+      it { is_expected.to redirect_to(person_path(person)) }
+
+      it "shows a notice message" do
+        expect { subject }
+          .to change { flash[:notice] }
+          .from(nil)
+          .to("Se ha enviado la solicitud de verificación a <a href=\"/people/#{person.id}\">#{person.id}</a>.")
+      end
+
+      it "should change the person verification state" do
+        expect { subject } .to change { person.reload.verification } .from("not_verified").to("verification_requested")
+      end
+
+      context "trying to request verification to a verified person" do
+        let(:person) { create(:person, :verified) }
+
+        it { is_expected.to redirect_to(person_path(person)) }
+
+        it "shows an error message" do
+          expect { subject }
+            .to change { flash[:error] }
+            .from(nil)
+            .to("No se puede solicitar a <a href=\"/people/#{person.id}\">#{person.id}</a> que se verifique.")
+        end
+      end
+
+      context "when saving fails" do
+        before { stub_command("People::RequestVerification", :error) }
+
+        it { is_expected.to redirect_to(person_path(person)) }
+
+        it "shows an error message" do
+          expect { subject }
+            .to change { flash[:error] }
+            .from(nil)
+            .to("Ha ocurrido un error al intentar solicitar a <a href=\"/people/#{person.id}\">#{person.id}</a> que se verifique.")
+        end
+      end
     end
   end
 end

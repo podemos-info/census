@@ -27,13 +27,16 @@ es:
       person:
         scopes:
           all: Todas
-          banned: Bloqueadas
           cancelled: Bajas
+          deleted: Borradas
           enabled: Habilitadas
           follower: Simpatizantes
+          fraudulent: Fraudulentas
           member: Afiliadas
+          not_verified: No verificadas
           pending: Pendientes
-          rejected: Rechazadas
+          verification_requested: Verificación solicitada
+          verified: Verificadas
       procedure:
         scopes:
           accepted: Aceptados
@@ -97,6 +100,7 @@ es:
         assigned_to: Asignada a
         bank_code: Código de banco
         born_at: Fecha de nacimiento
+        cause: Causa
         chosen_person_id: Persona escogida
         closed_at: Fecha de cierre
         comment: Comentario
@@ -337,6 +341,9 @@ es:
         closed: La incidencia ha sido resuelta
         error: Ha ocurrido un error al intentar resolver la incidencia
       assign_me: Asignármela
+      causes:
+        fraud: Fraude
+        mistake: Error
       choose_this_person: Escoger esta persona
       close:
         action: Resolver incidencia
@@ -458,6 +465,10 @@ es:
         wrong_data: Datos del método de pago incorrectos
       view_versions: Ver versiones (%{count})
     people:
+      action_message:
+        cant_request_verification: No se puede solicitar a %{link} que se verifique.
+        error_requesting_verification: Ha ocurrido un error al intentar solicitar a %{link} que se verifique.
+        verification_requested: Se ha enviado la solicitud de verificación a %{link}.
       create_order: Crear orden
       create_payment_method: Crear método de pago
       document_types:
@@ -465,15 +476,12 @@ es:
         nie: NIE
         passport: Pasaporte
       external_ids: Sistemas externos
-      flags:
-        has_issues: Alerta
-        verified_by_document: Documento
-        verified_in_person: En persona
       genders:
         female: Femenino
         male: Masculino
         other: Otro
         undisclosed: No quiero decirlo
+      request_verification: Solicitar verificación
       view_downloads: Ver descargas
       view_orders: Ver órdenes (%{count})
       view_payment_methods: Ver métodos de pago (%{count})

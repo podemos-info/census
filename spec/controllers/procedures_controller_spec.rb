@@ -112,7 +112,7 @@ describe ProceduresController, type: :controller do
     context "when procedure has issues" do
       let(:current_admin) { create(:admin, :lopd) }
       let!(:open_issue) { create(:duplicated_document, issuable: procedure) }
-      let!(:closed_issue) { create(:duplicated_person, :fixed, :chosen_procedure_person, issuable: procedure) }
+      let!(:closed_issue) { create(:duplicated_person, :ready_to_fix, :fixed, issuable: procedure) }
 
       it { is_expected.to be_success }
       it { is_expected.to render_template("edit") }

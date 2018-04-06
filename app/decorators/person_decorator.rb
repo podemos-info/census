@@ -49,10 +49,6 @@ class PersonDecorator < ApplicationDecorator
     I18n.t("census.people.document_types.#{document_type}") if document_type
   end
 
-  def flags
-    @flags ||= Person.flags.select { |flag| person.send(flag) }
-  end
-
   def self.gender_options
     @gender_options ||= Person.genders.keys.map do |gender|
       [I18n.t("census.people.genders.#{gender}"), gender]
