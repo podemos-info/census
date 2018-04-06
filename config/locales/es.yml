@@ -198,17 +198,17 @@ es:
         scope: Lugar de participación
         scope_id: Lugar de participación
         state: Estado
+        state/cancelled: baja
         state/enabled: habilitada
         state/pending: pendiente
-        state/cancelled: baja
         state/trashed: borrada
+        updated_at: Última actualización
         verification: Verificación
         verification/fraud: fraudulenta
         verification/mistake: error
         verification/not_verified: no verificada
         verification/verification_requested: verificación solicitada
         verification/verified: verificada
-        updated_at: Última actualización
       procedure:
         comment: Comentario
         created_at: Fecha de creación
