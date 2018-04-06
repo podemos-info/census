@@ -26,29 +26,33 @@ ActiveAdmin.register Person do
 
   index do
     id_column
-    state_column :state, machine: :state
-    state_column :membership_level, machine: :membership_level
-    state_column :verification, machine: :verification
     column :name_link, sortable: :full_name, class: :left
     column :full_document, sortable: :full_document, class: :left
     column :scope, sortable: :scope, class: :left do |person|
       person.scope&.show_path(Scope.local)
     end
+    state_column :state, machine: :state
+    state_column :membership_level, machine: :membership_level
+    state_column :verification, machine: :verification
     actions
   end
 
   scope :all
 
-  Person.membership_level_names.each do |membership_level|
-    scope membership_level.to_sym, group: :membership_level
-  end
-
   Person.state_names.each do |state|
-    if state == "cancelled"
+    if %w(cancelled trashed).include? state
       scope state.to_sym, group: :state, if: proc { current_admin.lopd_role? }
     else
       scope state.to_sym, group: :state, default: state == "enabled"
     end
+  end
+
+  Person.membership_level_names.each do |membership_level|
+    scope membership_level.to_sym, group: :membership_level
+  end
+
+  Person.verification_names.each do |verification|
+    scope verification.to_sym, group: :verification
   end
 
   show do

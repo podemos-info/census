@@ -1,14 +1,20 @@
 .status_tag {
-  &.has_issues {
+  &.enabled {
+    background: $success-color;
+  }
+  &.cancelled {
+    background: $warning-color;
+  }
+  &.trashed {
     background: $error-color;
   }
   &.member {
     background: $almost-success-color;
   }
-  &.activist {
-    background: $success-color;
+  &.fraudulent {
+    background: $error-color;
   }
-  &.leave {
+  &.mistake {
     background: $error-color;
   }
 
