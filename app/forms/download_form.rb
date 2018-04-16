@@ -2,17 +2,14 @@
 
 # The form object that handles the data for a download
 class DownloadForm < Form
+  include ::HasPerson
+
   mimic :download
 
-  attribute :person_id, Integer
   attribute :file, Hash
   attribute :expires_at, Date
 
-  validates :person_id, :file, :expires_at, presence: true
-
-  def person
-    Person.find(person_id)
-  end
+  validates :file, :expires_at, presence: true
 
   def file=(value)
     super parse_uploaded_file value

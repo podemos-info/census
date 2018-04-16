@@ -2,11 +2,11 @@
 
 class PersonPolicy < ApplicationPolicy
   def base_role?
-    user.lopd_role? || !record&.discarded?
+    true
   end
 
   def show?
-    base_role?
+    user.lopd_role? || !record&.discarded?
   end
 
   def create?
@@ -19,16 +19,5 @@ class PersonPolicy < ApplicationPolicy
 
   def request_verification?
     update?
-  end
-
-  class Scope
-    def initialize(user, scope)
-      @user = user
-      @scope = scope
-    end
-
-    def resolve
-      @user.lopd_role? ? Person.all : Person.kept
-    end
   end
 end

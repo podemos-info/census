@@ -129,26 +129,44 @@ describe ProceduresController, type: :controller do
   context "edit processed procedure" do
     let(:procedure) { create(:document_verification, :processed) }
     subject { get :edit, params: { id: procedure.id } }
-    it { expect(subject).to redirect_to(procedures_path) }
+    it { is_expected.to redirect_to(procedures_path) }
   end
 
   describe "update page" do
     subject { patch :update, params: { id: procedure.id, procedure: params } }
-    let(:params) { { event: "reject", comment: Faker::Lorem.paragraph(1, true, 2) } }
+    let(:params) { { action: "reject", comment: Faker::Lorem.paragraph(1, true, 2) } }
 
-    it { expect(subject).to redirect_to(procedures_path) }
+    it { is_expected.to redirect_to(procedures_path) }
 
-    it "should have accepted the procedure" do
+    it "rejects the procedure" do
       expect { subject } .to change { Procedure.find(procedure.id).state }.from("pending").to("rejected")
     end
 
+    context "when creating an issue" do
+      let(:params) { { action: "issue", comment: Faker::Lorem.paragraph(1, true, 2) } }
+
+      it { expect(subject).to redirect_to(procedures_path) }
+
+      it "creates the issue for the procedure" do
+        expect { subject } .to change { Procedure.find(procedure.id).issues.count } .by(1)
+      end
+
+      context "when saving fails" do
+        before { stub_command("Procedures::ProcessProcedure", :issue_error) }
+
+        it { is_expected.to be_success }
+        it { is_expected.to render_template("edit") }
+        it { expect { subject } .to change { flash[:error] } .from(nil).to("Ha ocurrido un error al abrir la incidencia.") }
+      end
+    end
+
     context "when there are missing params" do
-      let(:params) { { event: "reject" } }
+      let(:params) { { action: "reject" } }
 
       it { is_expected.to be_success }
       it { is_expected.to render_template("edit") }
 
-      it "should have not rejected the procedure" do
+      it "does not reject the procedure" do
         expect { subject } .to_not change { Procedure.find(procedure.id).state }.from("pending")
       end
     end

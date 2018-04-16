@@ -29,22 +29,6 @@ describe PersonDecorator do
     it "returns the full name when retrieving name" do
       expect(subject.name).to eq("Pérez García, María")
     end
-
-    context "when person is cancelled" do
-      let(:person) { build(:person, :cancelled, first_name: "María", last_name1: "Pérez", last_name2: "García") }
-
-      it "returns the anonymized last names always" do
-        expect(subject.last_names).to eq("P. G.")
-      end
-
-      it "returns the anonymized last names always" do
-        expect(subject.full_name).to eq("P. G., María")
-      end
-
-      it "returns the anonymized last names always" do
-        expect(subject.name).to eq("P. G., María")
-      end
-    end
   end
 
   describe "document composition" do
@@ -83,6 +67,34 @@ describe PersonDecorator do
 
     it "returns document type options well formatted" do
       expect(PersonDecorator.document_type_options.map(&:count).uniq).to eq([2])
+    end
+  end
+
+  context "when person is cancelled" do
+    let(:person) { build(:person, :cancelled, first_name: "María", last_name1: "Pérez", last_name2: "García") }
+
+    describe "name" do
+      it "returns the anonymized last names always" do
+        expect(subject.last_name1).to eq("P.")
+        expect(subject.last_name2).to eq("G.")
+        expect(subject.last_names).to eq("P. G.")
+      end
+
+      it "returns the anonymized last names always" do
+        expect(subject.full_name).to eq("P. G., María")
+      end
+
+      it "returns the anonymized last names always" do
+        expect(subject.name).to eq("P. G., María")
+      end
+    end
+
+    describe "sensible fields" do
+      [:document_type, :document_id, :full_document_scope, :born_at, :address, :postal_code, :email, :phone].each do |field|
+        it "#{field} returns restricted access message" do
+          expect(subject.send(field)).to eq("[Datos no accesibles]")
+        end
+      end
     end
   end
 end

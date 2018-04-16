@@ -5,7 +5,7 @@ module Issues
     class DuplicatedPerson < ProcedureIssue
       class << self
         def build_for(procedure)
-          DuplicatedPerson.new(
+          new(
             role: Admin.roles[:lopd],
             level: :low,
             born_at: procedure.born_at,
@@ -30,7 +30,7 @@ module Issues
       validates :cause, inclusion: { in: causes.flat_map { |s| [s, s.to_s] } }, if: :fixing
       validate :validate_chosen_person_ids, if: :fixing
 
-      def detected?
+      def detect
         affected_people.count { |person| person.enabled? || person.pending? } > 1
       end
 
@@ -43,7 +43,6 @@ module Issues
         people.each do |person|
           next if chosen_person_ids.include?(person.id)
           person.send("#{cause}_detected")
-          person.trash if person.enabled?
           person.save!
         end
       end
@@ -54,8 +53,6 @@ module Issues
           (issuable.is_a?(Person) && chosen_person_ids.include?(issuable.id))
         )
       end
-
-      alias procedure issuable
 
       private
 

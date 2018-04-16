@@ -26,15 +26,17 @@ class ApplicationController < ActionController::Base
 
   def check_resource_issues
     return unless current_admin
-    issues = issues_for_resource
-    flash.now[:alert] = I18n.t("census.issues.issues_for_resource", issues_links: issues.map(&:link_with_name).to_sentence).html_safe if issues.any?
+    flash.now[:alert] = I18n.t("census.issues.issues_for_resource", issues_links: issues_for_resource.map(&:link_with_name).to_sentence).html_safe if issues_for_resource.any?
   end
 
   protected
 
   def issues_for_resource
-    return [] unless resource.respond_to?(:issues)
-    @issues_for_resource ||= ::AdminIssues.for(current_admin).merge(::IssuesOpen.for).merge(Draper.undecorate(resource.issues)).decorate
+    @issues_for_resource ||= if resource.respond_to?(:issues)
+                               ::AdminIssues.for(current_admin).merge(::IssuesOpen.for).merge(Draper.undecorate(resource.issues)).decorate
+                             else
+                               []
+                             end
   end
 
   def track_action

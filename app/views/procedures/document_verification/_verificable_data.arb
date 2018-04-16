@@ -19,7 +19,7 @@ panel t("census.procedures.person.data") do
 
     row :address
     row :address_scope do
-      procedure.person.address_scope&.show_path
+      procedure.person.full_address_scope
     end
   end
 end

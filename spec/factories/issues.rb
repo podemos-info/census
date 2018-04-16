@@ -31,6 +31,21 @@ FactoryBot.define do
     end
   end
 
+  factory :admin_remark, parent: :issue, class: :"issues/people/admin_remark" do
+    transient do
+      issuable { create(:document_verification) }
+    end
+    role { "lopd" }
+    explanation { Faker::Lorem.paragraph(1, true, 2) }
+
+    after :build do |issue, evaluator|
+      if evaluator.evaluated
+        issue.people = [evaluator.issuable.person]
+        issue.procedures << evaluator.issuable
+      end
+    end
+  end
+
   factory :duplicated_document, parent: :issue, class: :"issues/people/duplicated_document" do
     transient do
       issuable { create(:registration, person_copy_data: other_person) }
@@ -87,8 +102,10 @@ FactoryBot.define do
     email { temp_person.email }
 
     after :build do |issue, evaluator|
-      issue.people = [evaluator.issuable.person] if evaluator.evaluated
-      issue.procedures << evaluator.issuable
+      if evaluator.evaluated
+        issue.people = [evaluator.issuable.person]
+        issue.procedures << evaluator.issuable
+      end
     end
 
     trait :enabled_person do
@@ -105,8 +122,10 @@ FactoryBot.define do
     phone { temp_person.phone }
 
     after :build do |issue, evaluator|
-      issue.people = [evaluator.issuable.person] if evaluator.evaluated
-      issue.procedures << evaluator.issuable
+      if evaluator.evaluated
+        issue.people = [evaluator.issuable.person]
+        issue.procedures << evaluator.issuable
+      end
     end
 
     trait :enabled_person do

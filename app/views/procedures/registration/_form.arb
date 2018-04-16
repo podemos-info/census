@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 
-render partial: "person_compare", locals: { context: context, classes: person_classes }
-render partial: "form", locals: { f: f, context: context }
+render partial: "procedures/person_compare", locals: { context: context, procedure: resource, classes: resource.last_version_classed_changeset }
+render partial: "procedures/common_form", locals: { context: context, procedure: resource }

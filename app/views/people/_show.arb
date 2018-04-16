@@ -13,17 +13,17 @@ context.instance_eval do
       row :document_type, class: classes[:document_type], &:document_type_name
       row :document_id, class: classes[:document_id]
       row :document_scope, class: classes[:document_scope] do
-        resource.document_scope&.show_path
+        resource.full_document_scope
       end
       row :born_at, class: classes[:born_at]
       row :gender, class: classes[:gender], &:gender_name
       row :address, class: classes[:address]
       row :address_scope, class: classes[:address_scope_id] do
-        resource.address_scope&.show_path
+        resource.full_address_scope
       end
       row :postal_code, class: classes[:postal_code]
       row :email, class: classes[:email] do
-        link_to(resource.email, "mailto:#{resource.email}") if resource.email
+        resource.email_link
       end
       row :phone, class: classes[:phone]
       row :scope, class: classes[:scope_id] do

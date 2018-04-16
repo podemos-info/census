@@ -41,4 +41,24 @@ class ApplicationDecorator < Draper::Decorator
   def classed_changeset(changed_attributes, classes)
     Hash[changed_attributes.map { |attribute| [attribute.to_sym, classes] }]
   end
+
+  def sensible_data
+    if can? :show
+      yield
+    else
+      I18n.t("census.messages.protected_data")
+    end
+  end
+
+  class << self
+    def sensible_fields(*fields)
+      fields.each do |field|
+        define_method field do
+          sensible_data do
+            object.send(field)
+          end
+        end
+      end
+    end
+  end
 end

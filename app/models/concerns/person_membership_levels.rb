@@ -6,7 +6,7 @@ module PersonMembershipLevels
   included do
     enum membership_level: [:follower, :member]
 
-    aasm :membership_level, column: "membership_level", enum: true do
+    aasm :membership_level, column: "membership_level", enum: true, create_scopes: false do
       state :follower, initial: true
       state :member
 
@@ -18,6 +18,9 @@ module PersonMembershipLevels
         transitions from: :follower, to: :member, guard: :memberable?
       end
     end
+
+    scope :follower, -> { enabled.where(membership_level: :follower) }
+    scope :member, -> { enabled.where(membership_level: :member) }
 
     def self.membership_level_names
       @membership_level_names ||= aasm(:membership_level).states.map(&:name).map(&:to_s)

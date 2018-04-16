@@ -8,5 +8,9 @@ module HasRole
     def lopd_help_role?
       super || lopd_role?
     end
+
+    def role_includes?(has_role)
+      (role == has_role.role) || (lopd_role? && has_role.lopd_help_role?)
+    end
   end
 end

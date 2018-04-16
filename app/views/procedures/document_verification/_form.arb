@@ -3,7 +3,7 @@
 context.instance_eval do
   columns class: "attachments" do
     column do
-      render partial: "procedures/document_verification/verificable_data"
+      render partial: "procedures/document_verification/verificable_data", locals: { procedure: procedure }
 
       if procedure.dependent_procedures.any?
         panel I18n.t("census.procedures.dependent_procedures") do
@@ -14,7 +14,7 @@ context.instance_eval do
         end
       end
 
-      render partial: "form", locals: { f: f, context: context }
+      render partial: "procedures/common_form", locals: { context: context, procedure: procedure }
     end
     column do
       procedure.attachments.each do |attachment|

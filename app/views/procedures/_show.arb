@@ -2,14 +2,14 @@
 
 context.instance_eval do
   panel title do
-    attributes_table_for resource do
+    attributes_table_for procedure do
       row :person, class: classes[:person_id]
       row :type, class: classes[:type], &:type_name
       row :created_at, class: classes[:created_at]
       state_row :state, class: classes[:state]
       row :processed_by, class: classes[:processed_by]
       row :processed_at, class: classes[:processed_at]
-      row(:comment, class: classes[:comment]) if resource.comment.present?
+      row(:comment, class: classes[:comment]) if procedure.comment.present?
     end
   end
 end

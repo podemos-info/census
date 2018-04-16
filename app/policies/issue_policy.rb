@@ -5,16 +5,12 @@ class IssuePolicy < ApplicationPolicy
     !real_issue? || show?
   end
 
-  def scope
-    Pundit.policy_scope!(user, Issue)
-  end
-
   def show?
-    scope.where(id: record.id).exists?
+    user.role_includes?(record)
   end
 
   def create?
-    false
+    user.lopd_help_role?
   end
 
   def update?

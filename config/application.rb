@@ -32,7 +32,7 @@ module Census
       config.action_controller.asset_host = Settings.security.host_url
     end
 
-    preload_paths = %w(app/forms/**/ app/jobs/concerns app/models/**/ app/services/**/).freeze
+    preload_paths = %w(app/decorators/concerns app/forms/**/ app/jobs/concerns app/models/**/ app/services/**/).freeze
     config.eager_load_paths += Dir[*preload_paths]
   end
 end

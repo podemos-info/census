@@ -10,6 +10,7 @@ describe PeopleController, type: :controller do
   let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
   let(:resource) { all_resources[resource_class] }
   let!(:person) { create(:person) }
+  let!(:issue) { create(:duplicated_document) } # creates a pending person with a procedure and an issue
   let(:current_admin) { create(:admin, :lopd) }
 
   it "defines actions" do
@@ -24,13 +25,17 @@ describe PeopleController, type: :controller do
     expect(resource).to be_include_in_menu
   end
 
-  context "index page" do
+  describe "index page" do
     subject { get :index, params: params }
     let(:params) { {} }
 
     it { is_expected.to be_success }
     it { is_expected.to render_template("index") }
 
+    context "pending people" do
+      let(:params) { { scope: "pending" } }
+      it { is_expected.to be_success }
+    end
     context "ordered by full_name" do
       let(:params) { { order: "full_name_desc" } }
       it { is_expected.to be_success }
@@ -45,7 +50,7 @@ describe PeopleController, type: :controller do
     end
   end
 
-  context "edit page" do
+  describe "edit page" do
     subject { get :edit, params: { id: person.id } }
     it { is_expected.to be_success }
     it { is_expected.to render_template("edit") }
@@ -56,13 +61,23 @@ describe PeopleController, type: :controller do
       person.update! first_name: "original" # creates an update person version
     end
 
-    context "show page" do
+    describe "show page" do
       subject { get :show, params: { id: person.id } }
+      let!(:download) { create(:download, person: person) }
+
       it { is_expected.to be_success }
       it { is_expected.to render_template("show") }
+
+      context "when accessing as finances admin" do
+        let(:current_admin) { create(:admin, :finances) }
+        let!(:order) { create(:order, person: person) }
+
+        it { is_expected.to be_success }
+        it { is_expected.to render_template("show") }
+      end
     end
 
-    context "update page" do
+    describe "update page" do
       subject do
         person.assign_attributes first_name: "changed"
         patch :update, params: { id: person.id, person: person.attributes }

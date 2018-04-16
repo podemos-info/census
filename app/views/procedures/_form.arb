@@ -1,25 +1,3 @@
 # frozen_string_literal: true
 
-context.instance_eval do
-  if procedure.issues.any?
-    panel I18n.t("census.procedures.issues") do
-      table_for procedure.issues do
-        column :issue_type_name, class: :left, &:link_with_name
-        column :objects_links
-        column :status do |issue|
-          status_tag(issue.status)
-        end
-      end
-    end
-  end
-
-  if procedure.processable?
-    panel t("census.procedures.process") do
-      f.inputs do
-        f.input :event, as: :radio, label: false, collection: procedure.permitted_events_options(controller.current_admin)
-        f.input :comment, as: :text
-      end
-      f.actions
-    end
-  end
-end
+render partial: "procedures/#{procedure.procedure_type}/form", locals: { context: self, procedure: procedure }

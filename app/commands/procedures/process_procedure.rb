@@ -6,8 +6,10 @@ module Procedures
     # Public: Initializes the command.
     #
     # form - A form object with the params.
-    def initialize(form)
+    # admin - The person that is undoing the procedure.
+    def initialize(form:, admin:)
       @form = form
+      @admin = admin
     end
 
     # Executes the command. Broadcasts these events:
@@ -20,14 +22,34 @@ module Procedures
     def call
       return broadcast(:invalid) unless form&.valid?
 
-      process_procedure
+      if form.adding_issue?
+        add_issue
+      else
+        process_procedure
+      end
 
       broadcast result, procedure: form.procedure
     end
 
     private
 
-    attr_accessor :form, :result
+    attr_accessor :form, :admin, :result
+
+    def add_issue
+      issue = Issues::People::AdminRemark.for(form.procedure, find: false)
+      issue.explanation = form.comment
+      issue.fill
+      ret = :issue_error
+      Procedure.transaction do
+        issue.save!
+        Issues::CreateIssueUnreads.call(issue: issue, admin: admin) do
+          on(:invalid) { ret = :invalid }
+          on(:error) {}
+          on(:ok) { ret = :issue_ok }
+        end
+      end
+      @result = ret
+    end
 
     def process_procedure
       @result = :error
@@ -38,10 +60,10 @@ module Procedures
     end
 
     def process(current_procedure)
-      current_procedure.processed_by = form.admin
+      current_procedure.processed_by = admin
       current_procedure.processed_at = Time.current
       current_procedure.comment = form.comment
-      current_procedure.send(form.event)
+      current_procedure.send(form.action)
 
       current_procedure.dependent_procedures.each do |child_procedure|
         process child_procedure

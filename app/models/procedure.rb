@@ -21,8 +21,7 @@ class Procedure < ApplicationRecord
 
   scope :independent, -> { where depends_on: nil }
 
-  validates :comment, presence: { message: I18n.t("errors.messages.procedure_denial_comment_required") },
-                      if: proc { |procedure| procedure.issues? || procedure.rejected? }
+  validates :comment, presence: { message: I18n.t("errors.messages.procedure_denial_comment_required") }, if: :rejected?
   validates :processed_by, :processed_at, presence: true, if: :processed?
   validate :processed_by, :processed_by_different_from_person
   validate :depends_on, :depends_on_person
@@ -34,11 +33,26 @@ class Procedure < ApplicationRecord
   def persist_reject_changes!; end
 
   def processable?
-    !processed? && issues_summary != :pending
+    pending? && !processed? && issues_summary != :pending
   end
 
   def auto_processable?
     self.class.auto_processable? && processable?
+  end
+
+  def issues_summary
+    @issues_summary ||= begin
+      ret = :ok
+      issues.each do |issue|
+        if issue.open?
+          ret = :pending
+        elsif !issue.gone? && !issue.fixed_for?(self)
+          ret = :unrecoverable
+          break
+        end
+      end
+      ret
+    end
   end
 
   def self.auto_processable?

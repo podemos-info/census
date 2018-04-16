@@ -23,7 +23,7 @@ describe "Fix Issues", type: :system do
       [issue, procedure, procedure_person].each(&:reload)
 
       expect(issue).to be_fixed
-      expect(procedure).to be_rejected
+      expect(procedure).to be_dismissed
       expect(procedure_person).to be_trashed
     end
 
@@ -59,7 +59,7 @@ describe "Fix Issues", type: :system do
 
       expect(issue).to be_fixed
       expect(other_issue).to be_gone
-      expect(procedure).to be_rejected
+      expect(procedure).to be_dismissed
       expect(existing_person).to be_enabled
       expect(procedure_person).to be_trashed
     end
