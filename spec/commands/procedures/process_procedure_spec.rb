@@ -3,23 +3,25 @@
 require "rails_helper"
 
 describe Procedures::ProcessProcedure do
-  subject(:process_procedure) { described_class.call(form) }
+  subject(:process_procedure) { described_class.call(form: form, admin: admin) }
 
   let!(:procedure) { create(:document_verification) }
-  let(:event) { :accept }
+  let(:action) { :accept }
   let(:comment) { "This is a comment" }
   let!(:admin) { create(:admin) }
-  let(:form_class) { Procedures::ProcessForm }
+  let(:form_class) { Procedures::ProcessProcedureForm }
   let(:valid) { true }
 
   let(:form) do
     instance_double(
       form_class,
+      adding_issue?: action == :issue,
+      accepting?: action == :accept,
       invalid?: !valid,
       valid?: valid,
       procedure: procedure,
-      admin: admin,
-      event: event,
+      processed_by: admin,
+      action: action,
       comment: comment
     )
   end
@@ -64,6 +66,50 @@ describe Procedures::ProcessProcedure do
       it "updates comment" do
         expect { subject } .to change { Procedure.find(dependent_procedure.id).comment } .to("This is a comment")
       end
+    end
+  end
+
+  describe "when adding an issue" do
+    let(:action) { :issue }
+    it "broadcasts :issue_ok" do
+      expect { subject } .to broadcast(:issue_ok)
+    end
+
+    it "adds a new issue" do
+      expect { subject } .to change { Issues::People::AdminRemark.count } .from(0).to(1)
+    end
+
+    describe "the created issue" do
+      subject(:created_issue) do
+        process_procedure
+        Issues::People::AdminRemark.last
+      end
+
+      it { is_expected.to be_open }
+
+      it "is related to the procedure" do
+        expect(subject.procedures.first).to eq(procedure)
+      end
+
+      it "has the given comment as explanation" do
+        expect(subject.explanation).to eq(comment)
+      end
+    end
+
+    it "doesn't updates procedure state" do
+      expect { subject } .not_to change { Procedure.find(procedure.id).state } .from("pending")
+    end
+
+    it "doesn't sets processed_by" do
+      expect { subject } .not_to change { Procedure.find(procedure.id).processed_by }
+    end
+
+    it "doesn't sets processing date" do
+      expect { subject } .not_to change { Procedure.find(procedure.id).processed_at }
+    end
+
+    it "doesn't updates comment" do
+      expect { subject } .not_to change { Procedure.find(procedure.id).comment }
     end
   end
 

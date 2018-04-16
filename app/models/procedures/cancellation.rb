@@ -10,7 +10,6 @@ module Procedures
 
     def process_accept
       self.from_state = person.state
-      person.discarded_at = Time.zone.now
       person.cancel
     end
 

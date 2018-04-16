@@ -7,7 +7,14 @@ require "shared/only_authorized_api_clients"
 require "shared/only_authorized_payment_callbacks"
 
 require "simplecov"
-SimpleCov.start "rails"
+SimpleCov.start "rails" do
+  add_group "Admin", "app/admin"
+  add_group "Commands", "app/commands"
+  add_group "Decorators", "app/decorators"
+  add_group "Forms", "app/forms"
+  add_group "Policies", "app/policies"
+  add_group "Queries", "app/queries"
+end
 
 if ENV["CI"]
   require "codecov"

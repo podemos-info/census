@@ -1,0 +1,19 @@
+# frozen_string_literal: true
+
+context.instance_eval do
+  panel t("census.issues.close.title", issue_type_name: issue.issue_type_name.downcase) do
+    para issue.issue_type_tip
+    para issue.explanation
+
+    render partial: "procedures/form", locals: { context: context, procedure: issue.procedures.first.decorate }
+
+    f.inputs do
+      f.input :fixed, as: :boolean
+      f.input :comment, as: :text
+    end
+    f.actions do
+      f.action :submit, label: t("census.issues.close.action")
+      f.action :cancel
+    end
+  end
+end

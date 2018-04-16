@@ -12,27 +12,23 @@ module ProcedureStates
                        before_exit: :undo_accept, after_exit: :persist_accept_changes!
       state :rejected, before_enter: :process_reject, after_enter: :persist_reject_changes!,
                        before_exit: :undo_reject, after_exit: :persist_reject_changes!
-      state :issues
+      state :dismissed
 
       event :accept do
-        transitions from: [:pending, :issues], to: :accepted, if: :acceptable?
-      end
-
-      event :set_issues do
-        transitions from: :pending, to: :issues
+        transitions from: :pending, to: :accepted, if: :acceptable?
       end
 
       event :reject do
-        transitions from: [:pending, :issues], to: :rejected
+        transitions from: :pending, to: :rejected
+      end
+
+      event :dismiss do
+        transitions from: :pending, to: :dismissed
       end
 
       event :undo do
         transitions from: [:accepted, :rejected], to: :pending, if: :undoable?
       end
-    end
-
-    def self.state_names
-      @state_names ||= aasm.states.map(&:name).map(&:to_s)
     end
 
     def processed?
@@ -61,11 +57,11 @@ module ProcedureStates
 
     def permitted_events(processor)
       @permitted_events ||= aasm.events(permitted: true).map do |event|
-        event.name if permited_event?(event.name, processor)
+        event.name if permitted_event?(event.name, processor)
       end .compact
     end
 
-    def permited_event?(event, processor)
+    def permitted_event?(event, processor)
       case event.to_s
       when "accept" then full_acceptable_by?(processor)
       when "undo" then full_undoable_by?(processor)

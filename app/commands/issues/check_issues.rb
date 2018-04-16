@@ -39,7 +39,7 @@ module Issues
       issue.fill
       result = Issue.transaction do
         ret = check_issue_state(issue)
-        issue.save!
+        issue.save! unless [:invalid, :error].include?(ret)
         ret
       end
 
@@ -48,14 +48,32 @@ module Issues
 
     def check_issue_state(issue)
       if issue.new_record?
-        Issues::CreateIssueUnreads.call(issue: issue, admin: admin)
-        :new_issue
+        create issue
       elsif !issue.closed? && !issue.detected?
-        Issues::GoneIssue.call(issue: issue, admin: admin)
-        :gone_issue
+        gone issue
       else
         :existing_issue
       end
+    end
+
+    def create(issue)
+      ret = :error
+      Issues::CreateIssueUnreads.call(issue: issue, admin: admin) do
+        on(:invalid) { ret = :invalid }
+        on(:error) {}
+        on(:ok) { ret = :new_issue }
+      end
+      ret
+    end
+
+    def gone(issue)
+      ret = :error
+      Issues::GoneIssue.call(issue: issue, admin: admin) do
+        on(:invalid) { ret = :invalid }
+        on(:error) {}
+        on(:ok) { ret = :gone_issue }
+      end
+      ret
     end
   end
 end

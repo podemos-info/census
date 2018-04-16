@@ -22,17 +22,19 @@ module PersonVerifications
         transitions from: :verified, to: :not_verified
       end
 
-      event :fraud_detected do
+      event :fraud_detected, before: :ensure_trashed do
         transitions from: [:not_verified, :verification_requested, :verified], to: :fraudulent
       end
 
-      event :mistake_detected do
+      event :mistake_detected, before: :ensure_trashed do
         transitions from: [:not_verified, :verification_requested, :verified], to: :mistake
       end
     end
 
-    def self.verification_names
-      @verification_names ||= aasm(:verification).states.map(&:name).map(&:to_s)
+    private
+
+    def ensure_trashed
+      trash if may_trash?
     end
   end
 end

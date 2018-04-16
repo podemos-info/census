@@ -3,10 +3,13 @@ input[type=radio] {
   margin-right: 0.5rem;
 }
 
-body.logged_in.new .input li.choice,
-body.logged_in.edit .input li.choice {
-  display: inline-block;
-  margin: 0 1rem 0 0;
+body.logged_in {
+  &.new, &.create, &.edit, &.update {
+    .input li.choice {
+      display: inline-block;
+      margin: 0 1rem 0 0;
+    }
+  }
 }
 
 body.logged_in.edit.review_orders .input .label {
@@ -24,6 +27,9 @@ body.logged_in.edit.review_orders .input .label {
 }
 
 table.index {
+  tr.odd {
+    background-color: rgba(0, 0, 0, 0.02);
+  }
   th, td {
     text-align: center;
   }
@@ -33,6 +39,12 @@ table.index {
   }
   td.left {
     text-align: left;
+  }
+}
+
+.sidebar {
+  .panel_contents th {
+    padding: 0px 8px;
   }
 }
 
