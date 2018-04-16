@@ -31,10 +31,6 @@ module ProcedureStates
       end
     end
 
-    def self.state_names
-      @state_names ||= aasm.states.map(&:name).map(&:to_s)
-    end
-
     def processed?
       accepted? || rejected?
     end

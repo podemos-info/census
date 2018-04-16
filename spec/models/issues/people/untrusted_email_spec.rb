@@ -59,7 +59,7 @@ describe Issues::People::UntrustedEmail, :db do
       let(:issue) { create(:untrusted_email, :enabled_person) }
       let(:trusted) { false }
 
-      it "bans the existing person" do
+      it "trashes the existing person" do
         expect { subject }.to change { procedure_person.reload.trashed? }.from(false).to(true)
       end
     end

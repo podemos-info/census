@@ -102,8 +102,10 @@ FactoryBot.define do
     email { temp_person.email }
 
     after :build do |issue, evaluator|
-      issue.people = [evaluator.issuable.person] if evaluator.evaluated
-      issue.procedures << evaluator.issuable
+      if evaluator.evaluated
+        issue.people = [evaluator.issuable.person]
+        issue.procedures << evaluator.issuable
+      end
     end
 
     trait :enabled_person do
@@ -120,8 +122,10 @@ FactoryBot.define do
     phone { temp_person.phone }
 
     after :build do |issue, evaluator|
-      issue.people = [evaluator.issuable.person] if evaluator.evaluated
-      issue.procedures << evaluator.issuable
+      if evaluator.evaluated
+        issue.people = [evaluator.issuable.person]
+        issue.procedures << evaluator.issuable
+      end
     end
 
     trait :enabled_person do
