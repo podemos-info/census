@@ -61,11 +61,11 @@ module ProcedureStates
 
     def permitted_events(processor)
       @permitted_events ||= aasm.events(permitted: true).map do |event|
-        event.name if permited_event?(event.name, processor)
+        event.name if permitted_event?(event.name, processor)
       end .compact
     end
 
-    def permited_event?(event, processor)
+    def permitted_event?(event, processor)
       case event.to_s
       when "accept" then full_acceptable_by?(processor)
       when "undo" then full_undoable_by?(processor)
