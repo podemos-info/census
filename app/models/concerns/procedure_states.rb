@@ -44,14 +44,7 @@ module ProcedureStates
     end
 
     def undo_version
-      defined?(@undo_version) ||
-        versions.reverse.each do |version|
-          previous_version = version.reify
-          if previous_version&.state && previous_version&.state != state
-            @undo_version = previous_version
-            break
-          end
-        end
+      @undo_version = versions.last.reify(dup: true) unless defined?(@undo_version) && versions.last&.object&.fetch("state") == state
       @undo_version
     end
 
