@@ -33,3 +33,22 @@
     }
   }
 }
+
+span.issue_icon {
+  &:before {
+    @include icon("\f071");
+    color: $warning-color;
+  }
+  &.gone:before {
+    @include icon("\f12a");
+    color: $disable-color;
+  }
+  &.fixed:before {
+    @include icon("\f12a");
+    color: $success-color;
+  }
+  &.closed:before {
+    @include icon("\f12a");
+    color: $error-color;
+  }
+}

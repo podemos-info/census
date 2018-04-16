@@ -38,25 +38,25 @@ es:
           trashed: Borradas
           verification_requested: Verificación solicitada
           verified: Verificadas
+          with_open_issues: Con incidencias abiertas
+          without_open_issues: Sin incidencias abiertas
       procedure:
         scopes:
           accepted: Aceptados
-          all: Todos
-          issues: Con incidencias
-          pending: Pendientes
-          processed: Procesados
           rejected: Rechazados
+          dismissed: Descartados
+          with_open_issues: Con incidencias
+          without_open_issues: Sin incidencias
     sidebars:
       downloads: Descargas
       events: Actividad
+      issue: Detalles de la incidencia
       issues: Incidencias
       jobs: Tareas
       orders: Órdenes
       procedures: Procedimientos
       versions: Versiones
       visits: Visitas
-    status_tag:
-      pending: Pendiente
     system: Sistema
   activerecord:
     attributes:
@@ -113,6 +113,7 @@ es:
         document_scope_id: País del documento
         document_type: Tipo de documento
         first_name: Nombre
+        fixed: Arreglada
         iban: IBAN
         issue_type_name: Tipo
         last_name1: Primer Apellido
@@ -120,7 +121,8 @@ es:
         level_name: Importancia
         objects_links: Registros afectados
         role_name: Rol
-        trusted: Comprobado?
+        status: Estado
+        trusted: Comprobado
         updated_at: Última actualización
       job:
         created_at: Fecha de creación
@@ -187,6 +189,7 @@ es:
         full_document: Documento
         full_name: Nombre
         gender: Género
+        issues: Incidencias
         last_name1: Primer Apellido
         last_name2: Segundo Apellido
         membership_level: Compromiso
@@ -203,9 +206,9 @@ es:
         state/pending: pendiente
         state/trashed: borrada
         updated_at: Última actualización
-        verification: Verificación
-        verification/fraud: fraudulenta
-        verification/mistake: error
+        verification: Comprobación
+        verification/fraudulent: fraudulenta
+        verification/mistake: por error
         verification/not_verified: no verificada
         verification/verification_requested: verificación solicitada
         verification/verified: verificada
@@ -213,12 +216,13 @@ es:
         comment: Comentario
         created_at: Fecha de creación
         information: Información
+        issues: Incidencias
         person: Persona
         processed_at: Fecha de procesado
         processed_by: Procesado por
         state: Estado
         state/accepted: Aceptado
-        state/issues: Incidencia
+        state/dismissed: Descartado
         state/pending: Pendiente
         state/rejected: Rechazado
         type: Tipo
@@ -436,7 +440,7 @@ es:
         order_issues: Se han detectado incidencias durante el procesamiento de la orden.
         order_issues_error: Orden procesada correctamente, pero con errores al comprobar sus incidencias.
         processed: La orden ha sido procesado.
-        processing_error: Ha ocurrido un error durante el procesamiento de la orden. Consulte con el administrador para comprobar que la información del sistema es correcta.
+        processing_error: Ha ocurrido un error durante el procesamiento de la orden. Consulte con el equipo informático para comprobar que la información del sistema es correcta.
       add_orders_from_payment_methods: Puedes crear órdenes desde la página de una persona o un método de pago.
       create_credit_card_external: Configurar una nueva tarjeta de crédito
       created: La orden ha sido creada
@@ -509,12 +513,12 @@ es:
         cant_process: No se puede procesar un procedimiento ya procesado.
         cant_undo: No se puede devolver al procedimiento %{link} a su estado anterior.
         error: Ha ocurrido un error al procesar el procedimiento.
+        error_issue: Ha ocurrido un error al abrir la incidencia.
         error_undo: Ha ocurrido un error al intentar devolver procedimiento %{link} a su estado anterior.
-        issues: El procedimiento %{link} ha sido marcado como incidencia.
+        issue: Se ha abierto la incidencia para el procedimiento %{link}.
         rejected: El procedimiento %{link} ha sido rechazado.
         undone: El procedimiento %{link} ha vuelto a su estado anterior.
       dependent_procedures: Procedimientos dependientes
-      issues: Incidencias asociadas
       person:
         data: Datos personales
         now: Ahora

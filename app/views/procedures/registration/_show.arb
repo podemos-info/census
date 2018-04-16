@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 
-render partial: "show", locals: { context: context, classes: classes }
-render partial: "person_compare", locals: { context: context, classes: classes, person_classes: person_classes }
+render partial: "procedures/show", locals: { context: context, procedure: procedure, classes: classes }
+render partial: "procedures/person_compare", locals: { context: context, procedure: procedure, classes: classes, person_classes: person_classes }

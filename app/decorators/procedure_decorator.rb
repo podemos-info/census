@@ -39,10 +39,10 @@ class ProcedureDecorator < ApplicationDecorator
   def link(text = nil)
     return text unless can? :show
 
-    if object.processed?
-      view_link(text)
-    else
+    if object.processable?
       edit_link(text)
+    else
+      view_link(text)
     end
   end
 

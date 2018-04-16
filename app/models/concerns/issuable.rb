@@ -7,21 +7,11 @@ module Issuable
     has_many :issue_objects, as: :object
     has_many :issues, -> { distinct }, through: :issue_objects
 
-    def possible_issues; end
-  end
+    has_many :open_issues, -> { merge(IssuesOpen.for).distinct }, through: :issue_objects, source: :issue, class_name: "Issue"
 
-  def issues_summary
-    @issues_summary ||= begin
-      ret = :ok
-      issues.each do |issue|
-        if issue.open?
-          ret = :pending
-        elsif !issue.gone? && !issue.fixed_for?(self)
-          ret = :unrecoverable
-          break
-        end
-      end
-      ret
-    end
+    scope :with_open_issues, -> { joins(:open_issues).distinct }
+    scope :without_open_issues, -> { where.not(id: with_open_issues.reorder(nil)) }
+
+    def possible_issues; end
   end
 end

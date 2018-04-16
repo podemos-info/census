@@ -49,7 +49,7 @@ describe IssuePolicy do
       let(:user) { create(:admin, :lopd) }
 
       it { is_expected.to permit_action :show }
-      it { is_expected.to forbid_new_and_create_actions }
+      it { is_expected.to permit_new_and_create_actions }
       it { is_expected.to permit_edit_and_update_actions }
       it { is_expected.to forbid_action :destroy }
     end
@@ -58,7 +58,7 @@ describe IssuePolicy do
       let(:user) { create(:admin, :lopd_help) }
 
       it { is_expected.to forbid_action :show }
-      it { is_expected.to forbid_new_and_create_actions }
+      it { is_expected.to permit_new_and_create_actions }
       it { is_expected.to forbid_edit_and_update_actions }
       it { is_expected.to forbid_action :destroy }
     end
@@ -89,7 +89,7 @@ describe IssuePolicy do
       let(:user) { create(:admin, :lopd) }
 
       it { is_expected.to forbid_action :show }
-      it { is_expected.to forbid_new_and_create_actions }
+      it { is_expected.to permit_new_and_create_actions }
       it { is_expected.to forbid_edit_and_update_actions }
       it { is_expected.to forbid_action :destroy }
     end
@@ -98,7 +98,7 @@ describe IssuePolicy do
       let(:user) { create(:admin, :lopd_help) }
 
       it { is_expected.to forbid_action :show }
-      it { is_expected.to forbid_new_and_create_actions }
+      it { is_expected.to permit_new_and_create_actions }
       it { is_expected.to forbid_edit_and_update_actions }
       it { is_expected.to forbid_action :destroy }
     end
@@ -130,7 +130,7 @@ describe IssuePolicy do
       let(:user) { create(:admin, :lopd) }
 
       it { is_expected.to forbid_action :show }
-      it { is_expected.to forbid_new_and_create_actions }
+      it { is_expected.to permit_new_and_create_actions }
       it { is_expected.to forbid_edit_and_update_actions }
       it { is_expected.to forbid_action :destroy }
     end
@@ -139,7 +139,7 @@ describe IssuePolicy do
       let(:user) { create(:admin, :lopd_help) }
 
       it { is_expected.to forbid_action :show }
-      it { is_expected.to forbid_new_and_create_actions }
+      it { is_expected.to permit_new_and_create_actions }
       it { is_expected.to forbid_edit_and_update_actions }
       it { is_expected.to forbid_action :destroy }
     end

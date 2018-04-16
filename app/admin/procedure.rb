@@ -25,15 +25,20 @@ ActiveAdmin.register Procedure do
     "#{order_clause.to_sql}, id #{order_clause.order}"
   end
 
-  scope :all
-  Procedure.state_names.each do |state|
-    scope state.to_sym, default: state == "pending"
-  end
+  scope(:without_open_issues, group: :pending, default: true) { |scope| scope.pending.without_open_issues }
+  scope(:with_open_issues, group: :pending) { |scope| scope.pending.with_open_issues }
+
+  scope :accepted, group: :archive
+  scope :rejected, group: :archive
+  scope :dismissed, group: :archive
 
   index do
-    column :type, sortable: :type, &:link_with_name
+    column :created_at
+    column :type, class: :left, sortable: :type do |procedure|
+      issues_icons(procedure, context: self)
+      procedure.link_with_name
+    end
     column :person, class: :left, sortable: :full_name
-    column :created_at, class: :left
     state_column :state
     actions defaults: false do |procedure|
       span procedure.link
@@ -53,6 +58,8 @@ ActiveAdmin.register Procedure do
   end
 
   form partial: "procedures/form", title: I18n.t("census.procedures.process"), decorate: true
+
+  sidebar :issues, partial: "procedures/issues", only: [:show, :edit], if: -> { procedure.issues.any? }
 
   action_item :undo_procedure, only: :show do
     if procedure.full_undoable_by? controller.current_admin

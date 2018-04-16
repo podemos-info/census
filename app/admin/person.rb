@@ -5,7 +5,7 @@ ActiveAdmin.register Person do
 
   menu parent: I18n.t("active_admin.census")
 
-  includes :scope
+  includes :scope, :issues
 
   permit_params :first_name, :last_name1, :last_name2, :document_type, :document_id,
                 :born_at, :gender, :address, :postal_code, :email, :phone, :scope_id, :address_scope_id
@@ -26,34 +26,31 @@ ActiveAdmin.register Person do
 
   index do
     id_column
-    column :name_link, sortable: :full_name, class: :left
+    column :name, sortable: :full_name, class: :left do |person|
+      issues_icons(person, context: self)
+      person.name_link
+    end
     column :full_document, sortable: :full_document, class: :left
     column :scope, sortable: :scope, class: :left do |person|
       person.scope&.show_path(Scope.local)
     end
     state_column :state, machine: :state
     state_column :membership_level, machine: :membership_level
-    state_column :verification, machine: :verification
+    state_column :verification, class: :left, machine: :verification
     actions
   end
 
-  scope :all
-
-  Person.state_names.each do |state|
-    if %w(cancelled trashed).include? state
-      scope state.to_sym, group: :state, if: proc { current_admin.lopd_role? }
-    else
-      scope state.to_sym, group: :state, default: state == "enabled"
-    end
-  end
-
+  scope :enabled, group: :enabled, default: true
   Person.membership_level_names.each do |membership_level|
-    scope membership_level.to_sym, group: :membership_level
+    scope membership_level.to_sym, group: :enabled
   end
 
-  Person.verification_names.each do |verification|
-    scope verification.to_sym, group: :verification
-  end
+  scope :pending, group: :pending
+
+  scope :cancelled, group: :discarded
+  scope :trashed, group: :discarded
+
+  scope(:with_open_issues, group: :issues) { |scope| scope.kept.with_open_issues }
 
   show do
     render "show", context: self, classes: resource.last_version_classed_changeset
@@ -106,8 +103,9 @@ ActiveAdmin.register Person do
     f.actions
   end
 
-  sidebar :procedures, partial: "people/procedures", only: :show, if: -> { policy(Procedure).index? }
-  sidebar :orders, partial: "people/orders", only: :show, if: -> { policy(Order).index? }
-  sidebar :downloads, partial: "people/downloads", only: :show, if: -> { policy(Download).index? }
-  sidebar :versions, partial: "people/versions", only: :show, if: -> { policy(Version).index? }
+  sidebar :issues, partial: "people/issues", only: :show, if: -> { person.issues.any? }
+  sidebar :procedures, partial: "people/procedures", only: :show, if: -> { policy(Procedure).index? && person.procedures.any? }
+  sidebar :orders, partial: "people/orders", only: :show, if: -> { policy(Order).index? && person.orders.any? }
+  sidebar :downloads, partial: "people/downloads", only: :show, if: -> { policy(Download).index? && person.downloads.any? }
+  sidebar :versions, partial: "people/versions", only: :show, if: -> { policy(Version).index? && person.versions.any? }
 end

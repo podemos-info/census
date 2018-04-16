@@ -1,0 +1,8 @@
+# frozen_string_literal: true
+
+table_for procedure.issues do
+  column(&:link_with_name)
+  column do |issue|
+    status_tag(issue.status_name, class: issue.status)
+  end
+end

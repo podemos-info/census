@@ -1,26 +1,54 @@
+@mixin gutter-status_tag($color) {
+  text-align: left;
+  background: none;
+  color: $text-color;
+  font-size: inherit;
+  letter-spacing: 0;
+  text-transform: none;
+  &:before {
+    content: '';
+    width: 0.5rem;
+    height: 0.5rem;
+    display: inline-block;
+    background: currentColor;
+    border-radius: 50%;
+    -webkit-transform: translateY(-1px);
+    transform: translateY(-1px);
+    margin-right: .375rem;
+    vertical-align: middle;
+    color: $color;
+  }
+}
+
 .status_tag {
+  // Person state
+  &.pending {
+    background: $disable-color;
+  }
   &.enabled {
     background: $success-color;
   }
   &.cancelled {
-    background: $warning-color;
+    background: $error-color;
   }
   &.trashed {
     background: $error-color;
   }
+
+  // Person membership level
   &.member {
-    background: $almost-success-color;
+    background: $success-color;
   }
-  &.fraudulent {
-    background: $error-color;
-  }
-  &.mistake {
+
+  // Procedure state
+  &.dismissed {
     background: $error-color;
   }
 
   &.ok {
     background: $success-color;
   }
+
   &.issues {
     background: $warning-color;
   }
@@ -28,12 +56,6 @@
     background: $error-color;
   }
 
-  &.verified {
-    background: $success-color;
-  }
-  &.admin_issues {
-    background: $warning-color;
-  }
   &.failing {
     background: $error-color;
   }
@@ -43,5 +65,24 @@
   }
   &.fixed {
     background: $success-color;
+  }
+}
+
+
+.status_tag {
+  &.not_verified {
+    @include gutter-status_tag($grey);
+  }
+  &.verification_requested {
+    @include gutter-status_tag($warning-color);
+  }
+  &.verified {
+    @include gutter-status_tag($success-color);
+  }
+  &.fraudulent {
+    @include gutter-status_tag($error-color);
+  }
+  &.mistake {
+    @include gutter-status_tag($error-color);
   }
 }
