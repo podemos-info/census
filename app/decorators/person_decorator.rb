@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class PersonDecorator < ApplicationDecorator
+  include PersonAssociationsDecorations
+
   delegate_all
 
   decorates_association :scope
@@ -93,34 +95,6 @@ class PersonDecorator < ApplicationDecorator
     @document_type_options ||= Person.document_types.keys.map do |document_type|
       [I18n.t("census.people.document_types.#{document_type}"), document_type]
     end.freeze
-  end
-
-  def independent_procedures
-    @independent_procedures ||= PersonIndependentProcedures.for(object).decorate(context: context)
-  end
-
-  def last_procedures
-    @last_procedures ||= PersonLastIndependentProcedures.for(object).decorate(context: context)
-  end
-
-  def count_procedures
-    @count_procedures ||= independent_procedures.count
-  end
-
-  def last_orders
-    @last_orders ||= PersonLastOrders.for(object).decorate(context: context)
-  end
-
-  def count_orders
-    @count_orders ||= object.orders.count
-  end
-
-  def count_payment_methods
-    @count_payment_methods ||= object.payment_methods.count
-  end
-
-  def last_downloads
-    @last_downloads ||= PersonLastActiveDownloads.for(object).decorate(context: context)
   end
 
   def convert_to_initials(string)

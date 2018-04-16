@@ -43,8 +43,8 @@ es:
       procedure:
         scopes:
           accepted: Aceptados
-          rejected: Rechazados
           dismissed: Descartados
+          rejected: Rechazados
           with_open_issues: Con incidencias
           without_open_issues: Sin incidencias
     sidebars:
@@ -381,7 +381,7 @@ es:
           name: Problemas al cobrar orden
         people/admin_remark:
           name: Advertencia manual
-          tip: "Esta incidencia ha sido abierta por un administrador. Ha continuación se indican los motivos esgrimidos para realizar dicha acción:"
+          tip: 'Esta incidencia ha sido abierta por un administrador. Ha continuación se indican los motivos esgrimidos para realizar dicha acción:'
         people/duplicated_document:
           name: Documento duplicado
           tip: Los siguientes registros tienen el mismo documento. Para resolver la incidencia debes utilizar los datos de las siguientes personas para indicar cuál de ellas debe permanecer en el censo.
@@ -503,11 +503,6 @@ es:
       view_procedures: Ver procedimientos (%{count})
       view_versions: Ver versiones (%{count})
     procedures:
-      actions:
-        accept: Aceptar
-        issue: Abrir incidencia
-        reject: Rechazar
-        undo: Deshacer
       action_message:
         accepted: El procedimiento %{link} ha sido aceptado.
         cant_process: No se puede procesar un procedimiento ya procesado.
@@ -518,6 +513,11 @@ es:
         issue: Se ha abierto la incidencia para el procedimiento %{link}.
         rejected: El procedimiento %{link} ha sido rechazado.
         undone: El procedimiento %{link} ha vuelto a su estado anterior.
+      actions:
+        accept: Aceptar
+        issue: Abrir incidencia
+        reject: Rechazar
+        undo: Deshacer
       dependent_procedures: Procedimientos dependientes
       person:
         data: Datos personales
