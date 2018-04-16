@@ -10,7 +10,9 @@ describe VersionsController, type: :controller do
     subject(:resource) { all_resources[resource_class] }
     let(:resource_class) { Version }
     let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
-    let!(:version) { create(:version) }
+    let!(:order_version) { create(:version, :order) }
+    let!(:person_version) { create(:version) }
+    let!(:procedure_version) { create(:version, :procedure) }
 
     it "defines actions" do
       expect(subject.defined_actions).to contain_exactly(:index, :show)
@@ -24,17 +26,31 @@ describe VersionsController, type: :controller do
       is_expected.to be_include_in_menu
     end
 
-    context "index page" do
+    describe "index page" do
       subject { get :index }
       it { is_expected.to be_successful }
       it { is_expected.to render_template("index") }
     end
 
-    context "show page" do
+    describe "show page" do
       subject { get :show, params: { id: version.id } }
-      it { is_expected.to be_success }
+      let(:version) { person_version }
       it { is_expected.to be_successful }
       it { is_expected.to render_template("show") }
+
+      context "when showing an order version" do
+        let(:version) { order_version }
+
+        it { is_expected.to be_successful }
+        it { is_expected.to render_template("show") }
+      end
+
+      context "when showing a procedure version" do
+        let(:version) { procedure_version }
+
+        it { is_expected.to be_successful }
+        it { is_expected.to render_template("show") }
+      end
     end
   end
 end

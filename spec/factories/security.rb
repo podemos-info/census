@@ -73,16 +73,17 @@ FactoryBot.define do
 
   factory :version do
     transient do
+      object { create(:person) }
       changes { { first_name: "Changed first_name" } }
+      admin { create(:admin) }
     end
 
     to_create { |instance| instance } # initialized version is already saved
 
     initialize_with do
-      PaperTrail.request.whodunnit = create(:admin)
-      person = create(:person)
-      person.update! changes
-      person.versions.last
+      PaperTrail.request.whodunnit = admin
+      object.update! changes
+      object.versions.last
     end
 
     trait :many_changes do
@@ -96,18 +97,30 @@ FactoryBot.define do
 
     trait :creation do
       initialize_with do
-        PaperTrail.request.whodunnit = create(:admin)
-        person = create(:person)
-        person.versions.last
+        PaperTrail.request.whodunnit = admin
+        object.versions.last
       end
     end
 
     trait :deletion do
       initialize_with do
-        PaperTrail.request.whodunnit = create(:admin)
-        person = create(:person)
-        person.destroy
-        person.versions.last
+        PaperTrail.request.whodunnit = admin
+        object.destroy
+        object.versions.last
+      end
+    end
+
+    trait :order do
+      transient do
+        object { create(:order) }
+        changes { { description: "What a description!" } }
+      end
+    end
+
+    trait :procedure do
+      transient do
+        object { create(:document_verification) }
+        changes { { comment: "What a procedure!" } }
       end
     end
   end
