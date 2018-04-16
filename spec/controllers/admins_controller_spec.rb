@@ -25,20 +25,20 @@ describe AdminsController, type: :controller do
 
   context "index page" do
     subject { get :index }
-    it { is_expected.to be_success }
+    it { is_expected.to be_successful }
     it { is_expected.to render_template("index") }
   end
 
   context "edit page" do
     subject { get :edit, params: { id: admin.id } }
-    it { expect(subject).to be_success }
+    it { expect(subject).to be_successful }
     it { expect(subject).to render_template("edit") }
   end
 
   with_versioning do
     context "show page" do
       subject { get :show, params: { id: admin.id } }
-      it { is_expected.to be_success }
+      it { is_expected.to be_successful }
       it { is_expected.to render_template("show") }
     end
 

@@ -29,18 +29,18 @@ describe IssuesController, type: :controller do
     subject { get :index, params: params }
     let(:params) { {} }
 
-    it { is_expected.to be_success }
+    it { is_expected.to be_successful }
     it { is_expected.to render_template("index") }
 
     context "ordered by issue type" do
       let(:params) { { order: "issue_type_desc" } }
-      it { is_expected.to be_success }
+      it { is_expected.to be_successful }
     end
   end
 
   describe "show page" do
     subject { get :show, params: { id: issue.id } }
-    it { is_expected.to be_success }
+    it { is_expected.to be_successful }
     it { is_expected.to render_template("show") }
   end
 
@@ -55,7 +55,7 @@ describe IssuesController, type: :controller do
 
   describe "edit page" do
     subject { get :edit, params: { id: issue.id } }
-    it { expect(subject).to be_success }
+    it { expect(subject).to be_successful }
     it { expect(subject).to render_template("edit") }
   end
 

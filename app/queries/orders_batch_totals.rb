@@ -14,6 +14,6 @@ class OrdersBatchTotals < Rectify::Query
   end
 
   def values
-    query.pluck("currency, count(id) as count, sum(amount) as amount")
+    query.pluck(Arel.sql("currency, count(id) as count, sum(amount) as amount"))
   end
 end

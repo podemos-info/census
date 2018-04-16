@@ -25,19 +25,19 @@ describe CampaignsController, type: :controller do
 
   describe "index page" do
     subject { get :index }
-    it { is_expected.to be_success }
+    it { is_expected.to be_successful }
     it { is_expected.to render_template("index") }
   end
 
   context "show page" do
     subject { get :show, params: { id: campaign.id } }
-    it { is_expected.to be_success }
+    it { is_expected.to be_successful }
     it { is_expected.to render_template("show") }
   end
 
   describe "edit page" do
     subject { get :edit, params: { id: campaign.id } }
-    it { is_expected.to be_success }
+    it { is_expected.to be_successful }
     it { is_expected.to render_template("edit") }
   end
 

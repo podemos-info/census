@@ -22,7 +22,7 @@ module ActiveAdmin::BaseHelper
   def issues_icons(issuable, context:)
     statuses = %w(fixed gone closed)
     issuable.issues.each do |issue|
-      class_name = statuses.map { |status| status if issue.send(status + "?") }.detect(&:present?)
+      class_name = statuses.lazy.map { |status| status if issue.send(status + "?") }.detect(&:present?)
       context.span class: "issue_icon #{class_name}"
     end
     nil

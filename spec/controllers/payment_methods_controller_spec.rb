@@ -25,14 +25,14 @@ describe PaymentMethodsController, type: :controller do
 
   describe "index page" do
     subject { get :index }
-    it { is_expected.to be_success }
+    it { is_expected.to be_successful }
     it { is_expected.to render_template("index") }
   end
 
   with_versioning do
     describe "show page" do
       subject { get :show, params: { id: payment_method.id } }
-      it { is_expected.to be_success }
+      it { is_expected.to be_successful }
       it { is_expected.to render_template("show") }
     end
   end
@@ -40,7 +40,7 @@ describe PaymentMethodsController, type: :controller do
   describe "new page" do
     let(:person) { create(:person) }
     subject { get :new, params: { payment_method: { person_id: person.id } } }
-    it { expect(subject).to be_success }
+    it { expect(subject).to be_successful }
     it { expect(subject).to render_template("new") }
   end
 
@@ -55,14 +55,14 @@ describe PaymentMethodsController, type: :controller do
     context "when saving fails" do
       before { stub_command("Payments::SavePaymentMethod", :error) }
 
-      it { is_expected.to be_success }
+      it { is_expected.to be_successful }
       it { is_expected.to render_template("new") }
     end
   end
 
   describe "edit page" do
     subject { get :edit, params: { id: payment_method.id } }
-    it { expect(subject).to be_success }
+    it { expect(subject).to be_successful }
     it { expect(subject).to render_template("edit") }
   end
 
@@ -78,7 +78,7 @@ describe PaymentMethodsController, type: :controller do
     context "when saving fails" do
       before { stub_command("Payments::SavePaymentMethod", :error) }
 
-      it { is_expected.to be_success }
+      it { is_expected.to be_successful }
       it { is_expected.to render_template("edit") }
     end
   end

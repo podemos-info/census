@@ -84,7 +84,7 @@ describe CallbacksController, type: :controller do
       let(:redsys_response) { OK_REQUEST }
 
       it "returns ok" do
-        is_expected.to be_success
+        is_expected.to be_successful
       end
       it "updates the order state" do
         expect { subject } .to change { order.reload.state } .to("processed")
@@ -101,7 +101,7 @@ describe CallbacksController, type: :controller do
       let(:redsys_response) { "<WRONG DATA<!" }
 
       it "returns ok" do
-        is_expected.to be_success
+        is_expected.to be_successful
       end
       it "does not updates the order state" do
         expect { subject } .not_to change { order.reload.state }
@@ -116,7 +116,7 @@ describe CallbacksController, type: :controller do
       let(:redsys_response) { OK_REQUEST }
 
       it "returns ok" do
-        is_expected.to be_success
+        is_expected.to be_successful
       end
       it "does not updates the order state" do
         expect { subject } .not_to change { order.reload.state }
@@ -132,7 +132,7 @@ describe CallbacksController, type: :controller do
       let(:order_id) { 675 }
 
       it "returns ok" do
-        is_expected.to be_success
+        is_expected.to be_successful
       end
       it "updates the order state" do
         expect { subject } .to change { order.reload.state } .to("processed")
@@ -151,7 +151,7 @@ describe CallbacksController, type: :controller do
       let(:created_issue) { Issue.last }
 
       it "returns ok" do
-        is_expected.to be_success
+        is_expected.to be_successful
       end
       it "updates the order state" do
         expect { subject } .to change { order.reload.state } .to("error")

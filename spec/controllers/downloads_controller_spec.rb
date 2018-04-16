@@ -26,19 +26,19 @@ describe DownloadsController, type: :controller do
 
   context "index page" do
     subject { get :index, params: { person_id: person.id } }
-    it { is_expected.to be_success }
+    it { is_expected.to be_successful }
     it { is_expected.to render_template("index") }
   end
 
   context "show page" do
     subject { get :show, params: { person_id: person.id, id: download.id } }
-    it { is_expected.to be_success }
+    it { is_expected.to be_successful }
     it { is_expected.to render_template("show") }
   end
 
   context "download file" do
     subject { get :download, params: { person_id: person.id, id: download.id } }
-    it { expect(subject).to be_success }
+    it { expect(subject).to be_successful }
     it { expect(subject.content_type).to eq("application/pdf") }
     it { expect(subject.body).to eq(download.file.read) }
   end

@@ -177,7 +177,7 @@ describe Api::V1::PeopleController, type: :controller do
 
     let(:person) { create(:person) }
 
-    it { is_expected.to be_success }
+    it { is_expected.to be_successful }
 
     context "returned data" do
       subject(:response) { JSON.parse(endpoint.body) }

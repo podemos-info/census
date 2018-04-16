@@ -26,14 +26,14 @@ describe ScopesController, type: :controller do
   describe "browse page" do
     subject(:page) { get :browse, params: params }
     let(:params) { { title: "field" } }
-    it { is_expected.to be_success }
+    it { is_expected.to be_successful }
     it { is_expected.to render_template("browse") }
 
     context "with a current scope" do
       let(:params) { { title: "field", current: scope.id } }
       let(:scope) { create(:scope) }
 
-      it { is_expected.to be_success }
+      it { is_expected.to be_successful }
       it { is_expected.to render_template("browse") }
     end
 
@@ -41,7 +41,7 @@ describe ScopesController, type: :controller do
       let(:params) { { title: "field", root: scope.id } }
       let(:scope) { create(:scope) }
 
-      it { is_expected.to be_success }
+      it { is_expected.to be_successful }
       it { is_expected.to render_template("browse") }
     end
 
@@ -50,7 +50,7 @@ describe ScopesController, type: :controller do
       let(:root_scope) { create(:scope) }
       let(:scope) { create(:scope) }
 
-      it { is_expected.to be_success }
+      it { is_expected.to be_successful }
       it { is_expected.to render_template("browse") }
     end
   end
