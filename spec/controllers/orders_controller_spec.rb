@@ -26,14 +26,14 @@ describe OrdersController, type: :controller do
 
   context "index page" do
     subject(:page) { get :index }
-    it { is_expected.to be_success }
+    it { is_expected.to be_successful }
     it { is_expected.to render_template("index") }
   end
 
   with_versioning do
     context "show page" do
       subject(:page) { get :show, params: { id: order.id } }
-      it { is_expected.to be_success }
+      it { is_expected.to be_successful }
       it { is_expected.to render_template("show") }
     end
   end
@@ -49,13 +49,13 @@ describe OrdersController, type: :controller do
 
   context "new order for a person page" do
     subject(:page) { get :new, params: { order: { person_id: order.person_id } } }
-    it { is_expected.to be_success }
+    it { is_expected.to be_successful }
     it { is_expected.to render_template("new") }
   end
 
   context "new order for a payment method page" do
     subject(:page) { get :new, params: { order: { payment_method_id: order.payment_method_id } } }
-    it { is_expected.to be_success }
+    it { is_expected.to be_successful }
     it { is_expected.to render_template("new") }
   end
 
@@ -88,7 +88,7 @@ describe OrdersController, type: :controller do
 
     context "when saving fails" do
       before { stub_command("Payments::CreateOrder", :error) }
-      it { is_expected.to be_success }
+      it { is_expected.to be_successful }
       it { is_expected.to render_template("new") }
       it { expect { subject } .to change { flash[:error] } .from(nil).to("Ha ocurrido un error al guardar el registro.") }
     end

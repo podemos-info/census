@@ -29,30 +29,30 @@ describe PeopleController, type: :controller do
     subject { get :index, params: params }
     let(:params) { {} }
 
-    it { is_expected.to be_success }
+    it { is_expected.to be_successful }
     it { is_expected.to render_template("index") }
 
     context "pending people" do
       let(:params) { { scope: "pending" } }
-      it { is_expected.to be_success }
+      it { is_expected.to be_successful }
     end
     context "ordered by full_name" do
       let(:params) { { order: "full_name_desc" } }
-      it { is_expected.to be_success }
+      it { is_expected.to be_successful }
     end
     context "ordered by full_document" do
       let(:params) { { order: "full_document_asc" } }
-      it { is_expected.to be_success }
+      it { is_expected.to be_successful }
     end
     context "ordered by scope" do
       let(:params) { { order: "scope_desc" } }
-      it { is_expected.to be_success }
+      it { is_expected.to be_successful }
     end
   end
 
   describe "edit page" do
     subject { get :edit, params: { id: person.id } }
-    it { is_expected.to be_success }
+    it { is_expected.to be_successful }
     it { is_expected.to render_template("edit") }
   end
 
@@ -65,14 +65,14 @@ describe PeopleController, type: :controller do
       subject { get :show, params: { id: person.id } }
       let!(:download) { create(:download, person: person) }
 
-      it { is_expected.to be_success }
+      it { is_expected.to be_successful }
       it { is_expected.to render_template("show") }
 
       context "when accessing as finances admin" do
         let(:current_admin) { create(:admin, :finances) }
         let!(:order) { create(:order, person: person) }
 
-        it { is_expected.to be_success }
+        it { is_expected.to be_successful }
         it { is_expected.to render_template("show") }
       end
     end

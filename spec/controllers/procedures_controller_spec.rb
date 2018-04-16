@@ -27,28 +27,28 @@ describe ProceduresController, type: :controller do
   with_versioning do
     context "index page" do
       subject { get :index }
-      it { expect(subject).to be_success }
+      it { expect(subject).to be_successful }
       it { expect(subject).to render_template("index") }
 
       context "accepted tab" do
         subject { get :index, params: { scope: :accepted } }
         let(:current_admin) { procedure.processed_by }
         let!(:procedure) { create(:document_verification, :undoable) }
-        it { expect(subject).to be_success }
+        it { expect(subject).to be_successful }
         it { expect(subject).to render_template("index") }
       end
     end
 
     context "show procedure" do
       subject { get :show, params: { id: procedure.id } }
-      it { expect(subject).to be_success }
+      it { expect(subject).to be_successful }
       it { expect(subject).to render_template("show") }
     end
 
     context "show processed procedure" do
       let!(:procedure) { create(:document_verification, :processed) }
       subject { get :show, params: { id: procedure.id } }
-      it { expect(subject).to be_success }
+      it { expect(subject).to be_successful }
       it { expect(subject).to render_template("show") }
     end
 
@@ -67,13 +67,13 @@ describe ProceduresController, type: :controller do
 
       context "index page" do
         subject { get :index }
-        it { expect(subject).to be_success }
+        it { expect(subject).to be_successful }
         it { expect(subject).to render_template("index") }
       end
 
       describe "show" do
         subject { get :show, params: { id: procedure.id } }
-        it { expect(subject).to be_success }
+        it { expect(subject).to be_successful }
         it { expect(subject).to render_template("show") }
       end
 
@@ -106,7 +106,7 @@ describe ProceduresController, type: :controller do
 
   context "edit procedure" do
     subject { get :edit, params: { id: procedure.id } }
-    it { expect(subject).to be_success }
+    it { expect(subject).to be_successful }
     it { expect(subject).to render_template("edit") }
 
     context "when procedure has issues" do
@@ -114,7 +114,7 @@ describe ProceduresController, type: :controller do
       let!(:open_issue) { create(:duplicated_document, issuable: procedure) }
       let!(:closed_issue) { create(:duplicated_person, :ready_to_fix, :fixed, issuable: procedure) }
 
-      it { is_expected.to be_success }
+      it { is_expected.to be_successful }
       it { is_expected.to render_template("edit") }
       it "shows an error message" do
         expect { subject }
@@ -154,7 +154,7 @@ describe ProceduresController, type: :controller do
       context "when saving fails" do
         before { stub_command("Procedures::ProcessProcedure", :issue_error) }
 
-        it { is_expected.to be_success }
+        it { is_expected.to be_successful }
         it { is_expected.to render_template("edit") }
         it { expect { subject } .to change { flash[:error] } .from(nil).to("Ha ocurrido un error al abrir la incidencia.") }
       end
@@ -163,7 +163,7 @@ describe ProceduresController, type: :controller do
     context "when there are missing params" do
       let(:params) { { action: "reject" } }
 
-      it { is_expected.to be_success }
+      it { is_expected.to be_successful }
       it { is_expected.to render_template("edit") }
 
       it "does not reject the procedure" do
@@ -174,7 +174,7 @@ describe ProceduresController, type: :controller do
     context "when saving fails" do
       before { stub_command("Procedures::ProcessProcedure", :error) }
 
-      it { is_expected.to be_success }
+      it { is_expected.to be_successful }
       it { is_expected.to render_template("edit") }
       it { expect { subject } .to change { flash[:error] } .from(nil).to("Ha ocurrido un error al procesar el procedimiento.") }
     end
@@ -182,7 +182,7 @@ describe ProceduresController, type: :controller do
 
   context "download attachment" do
     subject { get :view_attachment, params: { id: procedure.id, attachment_id: procedure.attachments.first.id } }
-    it { expect(subject).to be_success }
+    it { expect(subject).to be_successful }
     it { expect(subject.content_type).to eq("image/png") }
     it { expect(subject.body).to eq(procedure.attachments.first.file.read) }
   end

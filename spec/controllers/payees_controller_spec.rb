@@ -25,19 +25,19 @@ describe PayeesController, type: :controller do
 
   describe "index page" do
     subject { get :index }
-    it { is_expected.to be_success }
+    it { is_expected.to be_successful }
     it { is_expected.to render_template("index") }
   end
 
   context "show page" do
     subject { get :show, params: { id: payee.id } }
-    it { is_expected.to be_success }
+    it { is_expected.to be_successful }
     it { is_expected.to render_template("show") }
   end
 
   describe "new page" do
     subject { get :new }
-    it { is_expected.to be_success }
+    it { is_expected.to be_successful }
     it { is_expected.to render_template("new") }
   end
 
@@ -51,7 +51,7 @@ describe PayeesController, type: :controller do
 
   describe "edit page" do
     subject { get :edit, params: { id: payee.id } }
-    it { is_expected.to be_success }
+    it { is_expected.to be_successful }
     it { is_expected.to render_template("edit") }
   end
 

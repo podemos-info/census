@@ -9,7 +9,7 @@ describe Api::V1::Payments::PaymentMethodsController, type: :controller do
     let!(:payment_method1) { create(:credit_card, person: person) }
     let!(:payment_method2) { create(:direct_debit, person: person) }
 
-    it { is_expected.to be_success }
+    it { is_expected.to be_successful }
 
     context "returned data" do
       subject(:response) { JSON.parse(endpoint.body) }

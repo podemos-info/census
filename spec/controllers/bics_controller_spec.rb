@@ -25,19 +25,19 @@ describe BicsController, type: :controller do
 
   describe "index page" do
     subject { get :index }
-    it { is_expected.to be_success }
+    it { is_expected.to be_successful }
     it { is_expected.to render_template("index") }
   end
 
   context "show page" do
     subject { get :show, params: { id: bic.id } }
-    it { is_expected.to be_success }
+    it { is_expected.to be_successful }
     it { is_expected.to render_template("show") }
   end
 
   describe "new page" do
     subject { get :new }
-    it { is_expected.to be_success }
+    it { is_expected.to be_successful }
     it { is_expected.to render_template("new") }
   end
 
@@ -53,14 +53,14 @@ describe BicsController, type: :controller do
       let(:bic) { build(:bic, :invalid) }
 
       it { expect { subject } .not_to change { Bic.count } }
-      it { is_expected.to be_success }
+      it { is_expected.to be_successful }
       it { is_expected.to render_template("new") }
     end
 
     context "when saving fails" do
       before { stub_command("Payments::SaveBic", :error) }
 
-      it { is_expected.to be_success }
+      it { is_expected.to be_successful }
       it { is_expected.to render_template("new") }
       it "shows an error message" do
         expect { subject } .to change { flash[:error] } .from(nil).to("Ha ocurrido un error al guardar el registro.")
@@ -70,7 +70,7 @@ describe BicsController, type: :controller do
 
   describe "edit page" do
     subject { get :edit, params: { id: bic.id } }
-    it { is_expected.to be_success }
+    it { is_expected.to be_successful }
     it { is_expected.to render_template("edit") }
   end
 
@@ -87,14 +87,14 @@ describe BicsController, type: :controller do
       before { bic.assign_attributes bic: "1a22" }
 
       it { expect { subject } .not_to change { Bic.count } }
-      it { is_expected.to be_success }
+      it { is_expected.to be_successful }
       it { is_expected.to render_template("edit") }
     end
 
     context "when saving fails" do
       before { stub_command("Payments::SaveBic", :error) }
 
-      it { is_expected.to be_success }
+      it { is_expected.to be_successful }
       it { is_expected.to render_template("edit") }
       it "shows an error message" do
         expect { subject } .to change { flash[:error] } .from(nil).to("Ha ocurrido un error al guardar el registro.")

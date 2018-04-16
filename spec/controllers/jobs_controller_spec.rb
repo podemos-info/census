@@ -26,26 +26,26 @@ describe JobsController, type: :controller do
   context "index page" do
     subject { get :index }
 
-    it { is_expected.to be_success }
+    it { is_expected.to be_successful }
     it { is_expected.to render_template("index") }
   end
 
   context "show page" do
     subject { get :show, params: { id: job.id } }
-    it { is_expected.to be_success }
+    it { is_expected.to be_successful }
     it { is_expected.to render_template("show") }
   end
 
   context "running processes count" do
     subject { post :running }
-    it { is_expected.to be_success }
+    it { is_expected.to be_successful }
     it { expect(subject.content_type).to eq("application/json") }
     it { expect(subject.body).to eq("0") }
 
     context "when there are running jobs" do
       let!(:job) { create(:job, :running, user: current_admin) }
 
-      it { is_expected.to be_success }
+      it { is_expected.to be_successful }
       it { expect(subject.content_type).to eq("application/json") }
       it { expect(subject.body).to eq("1") }
     end

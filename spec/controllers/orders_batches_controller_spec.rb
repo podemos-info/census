@@ -29,19 +29,19 @@ describe OrdersBatchesController, type: :controller do
 
   describe "index page" do
     subject(:page) { get :index }
-    it { is_expected.to be_success }
+    it { is_expected.to be_successful }
     it { is_expected.to render_template("index") }
   end
 
   with_versioning do
     describe "show page" do
       subject(:page) { get :show, params: { id: orders_batch.id } }
-      it { is_expected.to be_success }
+      it { is_expected.to be_successful }
       it { is_expected.to render_template("show") }
 
       context "with orders with issues" do
         let(:orders_batch) { create(:orders_batch, :with_issues) }
-        it { is_expected.to be_success }
+        it { is_expected.to be_successful }
         it { is_expected.to render_template("show") }
       end
     end
@@ -50,7 +50,7 @@ describe OrdersBatchesController, type: :controller do
   describe "new page" do
     subject { get :new }
 
-    it { is_expected.to be_success }
+    it { is_expected.to be_successful }
     it { is_expected.to render_template("new") }
 
     context "without pending orders" do
@@ -75,7 +75,7 @@ describe OrdersBatchesController, type: :controller do
     context "when saving fails" do
       before { stub_command("Payments::CreateOrdersBatch", :error) }
 
-      it { is_expected.to be_success }
+      it { is_expected.to be_successful }
       it { expect(subject).to render_template("new") }
       it "shows an error message" do
         expect { subject } .to change { flash[:error] } .from(nil).to("Ha ocurrido un error al guardar el registro.")
@@ -85,7 +85,7 @@ describe OrdersBatchesController, type: :controller do
 
   describe "edit page" do
     subject { get :edit, params: { id: orders_batch.id } }
-    it { is_expected.to be_success }
+    it { is_expected.to be_successful }
     it { expect(subject).to render_template("edit") }
   end
 
@@ -120,7 +120,7 @@ describe OrdersBatchesController, type: :controller do
     context "with orders with issues" do
       let(:orders_batch) { create(:orders_batch, :with_issues) }
 
-      it { is_expected.to be_success }
+      it { is_expected.to be_successful }
 
       describe "when submit pending bics" do
         subject(:page) { post :review_orders, params: { id: orders_batch.id, pending_bics: pending_bics } }
