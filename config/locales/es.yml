@@ -428,6 +428,7 @@ es:
         process_orders_batch_job: Procesar lote de órdenes
     messages:
       error_occurred: Ha ocurrido un error al guardar el registro.
+      protected_data: "[Datos no accesibles]"
       sure_question: "¿Estás segura?"
     orders:
       action_message:

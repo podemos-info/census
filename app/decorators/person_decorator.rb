@@ -6,6 +6,9 @@ class PersonDecorator < ApplicationDecorator
   decorates_association :scope
   decorates_association :address_scope
   decorates_association :document_scope
+  decorates_association :issues
+
+  sensible_fields :document_type, :document_id, :full_document_scope, :born_at, :address, :postal_code, :email, :phone
 
   def name
     full_name
@@ -23,14 +26,37 @@ class PersonDecorator < ApplicationDecorator
 
   def last_names
     @last_names ||= begin
-      ret = [object.last_name1, object.last_name2].reject(&:blank?)
-      ret = ret.map { |last_name| last_name.first + "." } unless can? :show
+      ret = [last_name1, last_name2].reject(&:blank?)
       ret.join(" ")
     end
   end
 
+  def last_name1
+    @last_name1 ||= if can?(:show)
+                      object.last_name1
+                    else
+                      convert_to_initials(object.last_name1)
+                    end
+  end
+
+  def last_name2
+    @last_name2 ||= if can?(:show)
+                      object.last_name2
+                    else
+                      convert_to_initials(object.last_name2)
+                    end
+  end
+
   def full_document
-    "#{document_type_name} - #{object.document_id}" if object.document_id
+    @full_document ||= sensible_data do
+      "#{document_type_name} - #{object.document_id}" if object.document_id
+    end
+  end
+
+  def full_document_scope
+    sensible_data do
+      document_scope&.show_path
+    end
   end
 
   def full_scope
@@ -38,7 +64,15 @@ class PersonDecorator < ApplicationDecorator
   end
 
   def full_address_scope
-    address_scope&.show_path
+    sensible_data do
+      address_scope&.show_path
+    end
+  end
+
+  def email_link
+    sensible_data do
+      h.link_to(object.email, "mailto:#{object.email}") if object.email
+    end
   end
 
   def gender_name
@@ -87,5 +121,10 @@ class PersonDecorator < ApplicationDecorator
 
   def last_downloads
     @last_downloads ||= PersonLastActiveDownloads.for(object).decorate(context: context)
+  end
+
+  def convert_to_initials(string)
+    return "" if string.strip.blank?
+    "#{string.strip.first.upcase}."
   end
 end
