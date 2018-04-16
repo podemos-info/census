@@ -15,16 +15,26 @@ class UpdateProcedureJob < ApplicationJob
     # Update issues before auto processing
     Issues::CheckIssues.call(issuable: procedure, admin: admin, &log_issues_message)
 
-    return unless procedure.auto_processable?
+    action = procedure_action(procedure)
+    return unless action
 
-    event = procedure.issues_summary == :ok ? "accept" : "reject"
-    form = Procedures::ProcessForm.from_params(procedure: procedure, admin: admin, event: event, comment: "AUTO")
-    Procedures::ProcessProcedure.call(form) do
+    form = Procedures::ProcessProcedureForm.from_params(procedure: procedure, processed_by: admin, action: action, comment: "AUTO")
+    Procedures::ProcessProcedure.call(form: form, admin: admin) do
       on(:invalid) { log :user, key: "auto_process.invalid" }
       on(:error) { log :user, key: "auto_process.error" }
     end
 
     # Update issues after auto processing
     Issues::CheckIssues.call(issuable: procedure, admin: admin, &log_issues_message)
+  end
+
+  private
+
+  def procedure_action(procedure)
+    if procedure.person.discarded?
+      "dismiss"
+    elsif procedure.auto_processable? && procedure.issues_summary == :ok
+      "accept"
+    end
   end
 end

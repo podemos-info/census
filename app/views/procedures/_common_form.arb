@@ -1,0 +1,15 @@
+# frozen_string_literal: true
+
+context.instance_eval do
+  if procedure.processable?
+    panel t("census.procedures.process") do
+      active_admin_form_for controller.form_resource do |f|
+        f.inputs do
+          f.input :action, as: :radio, label: false, collection: procedure.actions_options(admin: controller.current_admin, allow_add_issue: true)
+          f.input :comment, as: :text
+        end
+        f.actions
+      end
+    end
+  end
+end

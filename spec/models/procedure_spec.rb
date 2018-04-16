@@ -10,7 +10,7 @@ describe Procedure, :db do
   it { is_expected.not_to be_undoable }
 
   it "permitted events returns accept, set_issues and reject" do
-    expect(subject.permitted_events(other_admin)).to contain_exactly(:accept, :reject, :set_issues)
+    expect(subject.permitted_events(other_admin)).to contain_exactly(:accept, :reject, :dismiss)
   end
 
   context "with dependent procedure (acceptable only after the parent)" do

@@ -16,9 +16,13 @@ class ProcedureDecorator < ApplicationDecorator
   alias to_s name
   alias listable_name name
 
-  def permitted_events_options(processed_by)
-    @permitted_events_options ||= object.permitted_events(processed_by).map do |event|
-      [I18n.t("census.procedures.events.#{event}"), event]
+  def actions_options(admin:, allow_add_issue: false)
+    @actions_options ||= begin
+      actions = object.permitted_events(admin)
+      actions.append(:issue) if allow_add_issue
+      actions.map do |event|
+        [I18n.t("census.procedures.actions.#{event}"), event]
+      end
     end
   end
 

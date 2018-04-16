@@ -12,18 +12,18 @@ module ProcedureStates
                        before_exit: :undo_accept, after_exit: :persist_accept_changes!
       state :rejected, before_enter: :process_reject, after_enter: :persist_reject_changes!,
                        before_exit: :undo_reject, after_exit: :persist_reject_changes!
-      state :issues
+      state :dismissed
 
       event :accept do
-        transitions from: [:pending, :issues], to: :accepted, if: :acceptable?
-      end
-
-      event :set_issues do
-        transitions from: :pending, to: :issues
+        transitions from: :pending, to: :accepted, if: :acceptable?
       end
 
       event :reject do
-        transitions from: [:pending, :issues], to: :rejected
+        transitions from: :pending, to: :rejected
+      end
+
+      event :dismiss do
+        transitions from: :pending, to: :dismissed
       end
 
       event :undo do

@@ -17,11 +17,11 @@ describe ProcedureDecorator do
   end
 
   it "returns the right number of event options" do
-    expect(subject.permitted_events_options(admin).count).to eq(3)
+    expect(subject.actions_options(admin: admin).count).to eq(3)
   end
 
   it "returns event options well formatted" do
-    expect(subject.permitted_events_options(admin).map(&:count).uniq).to eq([2])
+    expect(subject.actions_options(admin: admin).map(&:count).uniq).to eq([2])
   end
 
   describe "#link" do

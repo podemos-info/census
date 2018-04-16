@@ -61,6 +61,10 @@ describe IssuesController, type: :controller do
 
   with_versioning do
     {
+      admin_remark: {
+        role: :lopd,
+        request_params: ->(_issue) { { fixed: true, comment: "Person data fixed" } }
+      },
       duplicated_document: {
         role: :lopd,
         request_params: ->(issue) { { chosen_person_id: issue.procedure.person_id, cause: :mistake, comment: "Is real" } }

@@ -18,17 +18,19 @@ module PersonStates
         transitions from: [:enabled, :trashed], to: :pending
       end
 
-      event :cancel do
+      event :cancel, before: :ensure_discarded do
         transitions from: [:pending, :enabled], to: :cancelled
       end
 
-      event :trash do
+      event :trash, before: :ensure_discarded do
         transitions from: [:pending, :enabled], to: :trashed
       end
     end
 
-    def self.state_names
-      @state_names ||= aasm(:state).states.map(&:name).map(&:to_s)
+    private
+
+    def ensure_discarded
+      self.discarded_at ||= Time.zone.now
     end
   end
 end

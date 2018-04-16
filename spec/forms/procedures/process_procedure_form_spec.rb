@@ -2,18 +2,18 @@
 
 require "rails_helper"
 
-describe Procedures::ProcessForm do
+describe Procedures::ProcessProcedureForm do
   subject(:form) do
     described_class.new(
       procedure: procedure,
-      admin: admin,
-      event: event,
+      processed_by: admin,
+      action: action,
       comment: comment
     )
   end
 
   let!(:procedure) { create(:registration) }
-  let(:event) { :accept }
+  let(:action) { :accept }
   let(:comment) { "This is a comment" }
   let!(:admin) { create(:admin) }
 
@@ -26,7 +26,7 @@ describe Procedures::ProcessForm do
   end
 
   context "when event is undo" do
-    let(:event) { :undo }
+    let(:action) { :undo }
     it "is not accepting" do
       is_expected.not_to be_accepting
     end
@@ -37,7 +37,7 @@ describe Procedures::ProcessForm do
   end
 
   context "when has no comment and is not accepting" do
-    let(:event) { :reject }
+    let(:action) { :reject }
     let(:comment) { "" }
 
     it "is not accepting" do

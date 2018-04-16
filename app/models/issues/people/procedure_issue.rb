@@ -3,6 +3,12 @@
 module Issues
   module People
     class ProcedureIssue < Issue
+      alias procedure issuable
+
+      def detected?
+        !procedure.person.discarded? && detect
+      end
+
       def fill
         self.procedures = [procedure]
       end
