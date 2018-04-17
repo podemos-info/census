@@ -11,13 +11,14 @@ class Procedure < ApplicationRecord
   belongs_to :depends_on, class_name: "Procedure", optional: true
 
   has_paper_trail class_name: "Version"
-  has_many :versions, as: :item
+  has_many :versions, as: :item, dependent: :destroy, inverse_of: :item
 
   has_many :dependent_procedures,
            foreign_key: "depends_on_id",
            class_name: "Procedure",
+           dependent: :restrict_with_exception,
            inverse_of: :depends_on
-  has_many :attachments
+  has_many :attachments, dependent: :destroy
 
   scope :independent, -> { where depends_on: nil }
 

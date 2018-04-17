@@ -14,7 +14,7 @@ class CreateJobs < ActiveRecord::Migration[5.1]
 
     add_index :jobs, [:job_id], unique: true
 
-    create_table :job_objects do |t|
+    create_table :job_objects do |t| # rubocop:disable Rails/CreateTableWithTimestamps
       t.belongs_to :job, foreign_key: { to_table: :jobs }, index: true
       t.belongs_to :object, polymorphic: true, index: true
     end

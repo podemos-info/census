@@ -19,12 +19,12 @@ class CreateIssues < ActiveRecord::Migration[5.1]
     add_index :issues, [:assigned_to_id, :fixed_at]
     add_index :issues, :information, using: :gin
 
-    create_table :issue_objects do |t|
+    create_table :issue_objects do |t| # rubocop:disable Rails/CreateTableWithTimestamps
       t.belongs_to :issue, index: true
       t.belongs_to :object, polymorphic: true, index: true
     end
 
-    create_table :issue_unreads do |t|
+    create_table :issue_unreads do |t| # rubocop:disable Rails/CreateTableWithTimestamps
       t.belongs_to :admin, index: false
       t.belongs_to :issue, index: true
     end

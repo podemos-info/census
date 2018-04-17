@@ -2,13 +2,13 @@
 
 class AddPayees < ActiveRecord::Migration[5.1]
   def change
-    create_table :payees do |t|
+    create_table :payees do |t| # rubocop:disable Rails/CreateTableWithTimestamps
       t.string :name, null: false
       t.references :scope
       t.string :iban
     end
 
-    create_table :campaigns do |t|
+    create_table :campaigns do |t| # rubocop:disable Rails/CreateTableWithTimestamps
       t.string :campaign_code, null: false
       t.references :payee
       t.string :description

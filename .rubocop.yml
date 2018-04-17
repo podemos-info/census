@@ -1181,7 +1181,7 @@ Rails/ActionFilter:
     - app/controllers/**/*.rb
 
 Rails/CreateTableWithTimestamps:
-  Enabled: false
+  Enabled: true
 
 Rails/Date:
   # The value `strict` disallows usage of `Date.today`, `Date.current`,
@@ -1260,7 +1260,7 @@ Rails/UniqBeforePluck:
   AutoCorrect: false
 
 Rails/HasManyOrHasOneDependent:
-  Enabled: false
+  Enabled: true
 
 Metrics/BlockLength:
   Enabled: false

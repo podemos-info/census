@@ -13,7 +13,8 @@ class Scope < ApplicationRecord
            foreign_key: "parent_id",
            class_name: "Scope",
            inverse_of: :parent,
-           autosave: true
+           autosave: true,
+           dependent: :restrict_with_exception
 
   before_validation :update_part_of, on: :update
 
