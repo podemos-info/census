@@ -42,7 +42,7 @@ describe ProcessOrdersBatchJob, type: :job do
       expect(subject.result).to eq(:ok)
     end
     it "sets the orders batch processed date" do
-      expect { subject } .to change { OrdersBatch.find(orders_batch.id).processed_at } .from(orders_batch.processed_at)
+      expect { subject } .to change { OrdersBatch.find(orders_batch.id).processed_at.to_s } .from(orders_batch.processed_at.to_s)
     end
     it "sets the orders batch processed user" do
       expect { subject } .to change { OrdersBatch.find(orders_batch.id).processed_by } .from(orders_batch.processed_by)

@@ -14,6 +14,6 @@ class OrdersBatchTotalsPerState < Rectify::Query
   end
 
   def values
-    query.pluck("state, currency, count(id) as count, sum(amount) as amount")
+    query.pluck(Arel.sql("state, currency, count(id) as count, sum(amount) as amount"))
   end
 end

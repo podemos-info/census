@@ -13,7 +13,7 @@ FactoryBot.define do
   factory :procedure, class: :procedure do
     association :person, factory: :person, strategy: :build
     information { {} }
-    created_at { Faker::Time.between(person.created_at, 3.days.ago, :all) }
+    created_at { Faker::Time.between(person.created_at, 3.days.ago, :between) }
 
     trait :cancelled_person do
       person { build(:person, :cancelled) }
@@ -27,7 +27,7 @@ FactoryBot.define do
 
     trait :processed do
       processed_by { build(:admin) }
-      processed_at { Faker::Time.between(created_at, Settings.procedures.undo_minutes.minutes.ago, :all) }
+      processed_at { Faker::Time.between(created_at, Settings.procedures.undo_minutes.minutes.ago, :between) }
       state { Faker::Boolean.boolean(0.7) ? :accepted : :rejected }
       comment { Faker::Lorem.paragraph(1, true, 2) }
     end

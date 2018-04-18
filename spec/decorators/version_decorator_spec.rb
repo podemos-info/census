@@ -30,7 +30,7 @@ describe VersionDecorator do
       context "when is a deletion" do
         let(:version) { build(:version, :deletion) }
 
-        it { is_expected.to eq("Borrado de persona") }
+        it { is_expected.to eq("Actualización de fecha de borrado en persona") }
       end
     end
   end

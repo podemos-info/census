@@ -7,7 +7,7 @@ class Issue < ApplicationRecord
   enum level: [:very_low, :low, :medium, :high, :very_high], _suffix: true
   enum close_result: [:fixed, :gone, :not_fixed]
 
-  has_many :issue_objects
+  has_many :issue_objects, dependent: :destroy
 
   has_many :downloads, -> { distinct }, through: :issue_objects, source: :object, source_type: "Download"
   has_many :orders, -> { distinct }, through: :issue_objects, source: :object, source_type: "Order"
@@ -15,10 +15,10 @@ class Issue < ApplicationRecord
   has_many :people, -> { distinct }, through: :issue_objects, source: :object, source_type: "Person"
   has_many :procedures, -> { distinct }, through: :issue_objects, source: :object, source_type: "Procedure"
 
-  has_many :issue_unreads
+  has_many :issue_unreads, dependent: :destroy
   has_many :unread_admins, through: :issue_unreads, foreign_key: "admin_id", class_name: "Admin"
 
-  belongs_to :assigned_to, class_name: "Person", optional: true
+  belongs_to :assigned_to, class_name: "Person", inverse_of: :assigned_issues, optional: true
 
   attr_accessor :fixing, :issuable
 

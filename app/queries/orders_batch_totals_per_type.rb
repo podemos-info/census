@@ -10,10 +10,10 @@ class OrdersBatchTotalsPerType < Rectify::Query
   end
 
   def query
-    @orders_batch.orders.reorder(nil).joins(:payment_method).group("payment_methods.type, currency")
+    @orders_batch.orders.reorder(nil).joins(:payment_method).group(Arel.sql("payment_methods.type, currency"))
   end
 
   def values
-    query.pluck("type, currency, count(orders.id) as count, sum(amount) as amount")
+    query.pluck(Arel.sql("type, currency, count(orders.id) as count, sum(amount) as amount"))
   end
 end

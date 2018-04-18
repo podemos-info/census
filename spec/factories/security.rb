@@ -105,7 +105,7 @@ FactoryBot.define do
     trait :deletion do
       initialize_with do
         PaperTrail.request.whodunnit = admin
-        object.destroy
+        object.discard
         object.versions.last
       end
     end

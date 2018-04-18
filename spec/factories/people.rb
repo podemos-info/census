@@ -48,7 +48,7 @@ FactoryBot.define do
     postal_code { Faker::Address.zip_code }
     email { Faker::Internet.unique.email }
     phone { "0034" + Faker::Number.number(9) }
-    created_at { Faker::Time.between(3.years.ago, 3.days.ago, :all) }
+    created_at { Faker::Time.between(3.years.ago, 3.days.ago, :between) }
     scope nil
     document_scope nil
     address_scope nil

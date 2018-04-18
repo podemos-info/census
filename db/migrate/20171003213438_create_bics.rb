@@ -3,7 +3,7 @@
 # This migration creates the `bics` table.
 class CreateBics < ActiveRecord::Migration[5.1]
   def change
-    create_table :bics do |t|
+    create_table :bics do |t| # rubocop:disable Rails/CreateTableWithTimestamps
       t.string :country, null: false
       t.string :bank_code, null: false
       t.string :bic, null: false

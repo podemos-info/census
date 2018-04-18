@@ -82,7 +82,7 @@ FactoryBot.define do
 
     trait :processed do
       state { :processed }
-      processed_at { Faker::Time.between(3.days.ago, 1.day.ago, :all) }
+      processed_at { Faker::Time.between(3.days.ago, 1.day.ago, :between) }
       processed_by { build(:admin) }
       response_code "0000"
       after :build do |order|
@@ -134,7 +134,7 @@ FactoryBot.define do
     trait :processed do
       credit_card_orders_processed { 2 }
       debit_orders_processed { 2 }
-      processed_at { Faker::Time.between(3.days.ago, 1.day.ago, :all) }
+      processed_at { Faker::Time.between(3.days.ago, 1.day.ago, :between) }
       processed_by { build(:admin) }
     end
 

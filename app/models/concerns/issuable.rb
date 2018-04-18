@@ -4,7 +4,7 @@ module Issuable
   extend ActiveSupport::Concern
 
   included do
-    has_many :issue_objects, as: :object
+    has_many :issue_objects, as: :object, dependent: :destroy, inverse_of: :object
     has_many :issues, -> { distinct }, through: :issue_objects
 
     has_many :open_issues, -> { merge(IssuesOpen.for).distinct }, through: :issue_objects, source: :issue, class_name: "Issue"

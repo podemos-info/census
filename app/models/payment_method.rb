@@ -13,8 +13,8 @@ class PaymentMethod < ApplicationRecord
             check_for_column: false
 
   has_paper_trail class_name: "Version"
-  has_many :versions, as: :item
-  has_many :orders
+  has_many :versions, as: :item, dependent: :destroy, inverse_of: :item
+  has_many :orders, dependent: :restrict_with_exception
   belongs_to :person
 
   before_save :default_name, unless: :name?
