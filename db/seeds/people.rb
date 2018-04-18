@@ -79,11 +79,11 @@ Admin.roles.each_key do |role|
     admin = Admin.create! username: "#{role}#{i}", password: role, password_confirmation: role, person: person, role: role
     Rails.logger.debug { "Admin '#{admin.username}' created for person: #{person.decorate(lopd_context)}" }
   end
-  Timecop.travel 1.month.from_now
 end
+Timecop.travel 1.month.from_now
 
 # create people
-33.times do
+34.times do
   register_person
   Timecop.travel 1.month.from_now
 end
