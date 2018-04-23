@@ -1,4 +1,5 @@
 # frozen_string_literal: true
 
 render partial: "procedures/show", locals: { context: context, procedure: procedure, classes: classes }
+show_table(context: context, title: t("census.procedures.parameters"), table: procedure.person_data)
 render partial: "procedures/person_compare", locals: { context: context, procedure: procedure, classes: classes, person_classes: procedure.processed_person_classed_changeset }

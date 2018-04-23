@@ -80,7 +80,7 @@ class ProcedureDecorator < ApplicationDecorator
 
   def processed_person
     return nil unless processed?
-    @processed_person ||= person.paper_trail.version_at(processed_at, dup: true)&.decorate(context: context)
+    @processed_person ||= person.paper_trail.version_at(processed_at - (1 / 1000.0).second, dup: true)&.decorate(context: context)
   end
 
   def processed_person_classed_changeset
