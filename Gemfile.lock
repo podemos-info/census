@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/activeadmin/activeadmin.git
-  revision: 879ca85e94f3d06a28b5c29755c92c2bbaab0dfc
+  revision: fdef5571fafb88465bc0f72c74179e4370477ffb
   specs:
     activeadmin (2.0.0.alpha)
       arbre (>= 1.1.1)
@@ -127,7 +127,7 @@ GEM
       sshkit (>= 1.6.1, != 1.7.0)
     arbre (1.1.1)
       activesupport (>= 3.0.0)
-    arctic_admin (1.4.4)
+    arctic_admin (1.5.0)
       activeadmin (>= 1.1.0, < 2.0)
       font-awesome-rails
       jquery-rails
@@ -196,7 +196,7 @@ GEM
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.4)
-    database_cleaner (1.6.2)
+    database_cleaner (1.7.0)
     deep_merge (1.2.1)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
@@ -212,9 +212,9 @@ GEM
     discard (1.0.0)
       activerecord (>= 4.2, < 6)
     docile (1.3.0)
-    dotenv (2.2.2)
-    dotenv-rails (2.2.2)
-      dotenv (= 2.2.2)
+    dotenv (2.3.0)
+    dotenv-rails (2.3.0)
+      dotenv (= 2.3.0)
       railties (>= 3.2, < 6.0)
     draper (3.0.1)
       actionpack (~> 5.0)
@@ -278,7 +278,7 @@ GEM
       activesupport (>= 4.1)
     hashdiff (0.3.7)
     highline (1.7.10)
-    i18n (1.0.0)
+    i18n (1.0.1)
       concurrent-ruby (~> 1.0)
     i18n-debug (1.1.1)
       i18n (< 2)
@@ -303,7 +303,7 @@ GEM
       has_scope (~> 0.6)
       railties (>= 4.2, <= 5.2)
       responders
-    jquery-rails (4.3.1)
+    jquery-rails (4.3.3)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
@@ -356,7 +356,7 @@ GEM
       mini_portile2 (~> 2.3.0)
     normalizr (0.3.1)
     orm_adapter (0.5.0)
-    paper_trail (9.0.0)
+    paper_trail (9.0.1)
       activerecord (>= 4.2, < 5.3)
       request_store (~> 1.1)
     parallel (1.12.1)
@@ -532,7 +532,7 @@ GEM
     timecop (0.9.1)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    unicode-display_width (1.3.0)
+    unicode-display_width (1.3.2)
     url (0.3.2)
     user_agent_parser (2.4.1)
     useragent (0.16.10)
