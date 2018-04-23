@@ -89,7 +89,7 @@ Timecop.travel 1.month.from_now
 end
 
 # create some duplicated person procedures
-Procedure.order("RANDOM()").limit(3).each do |procedure|
+random_procedures.limit(3).each do |procedure|
   register_person(copy_from_procedure: procedure)
 end
 

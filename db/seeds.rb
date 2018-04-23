@@ -13,6 +13,7 @@ return if Rails.env.production?
 
 Rails.logger = Logger.new(STDOUT)
 
+require "random"
 require "people"
 require "procedures"
 require "payments"

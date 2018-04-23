@@ -6,10 +6,6 @@ require "iban_bic/random"
 
 admins = Admin.where role: [:finances]
 
-def random_people
-  Person.where("created_at < ?", Time.zone.now).order("RANDOM()")
-end
-
 def create_order(person, credit_card, campaign)
   PaperTrail.request.whodunnit = person
   payment_method = person.payment_methods.where(type: "PaymentMethods::#{credit_card ? "CreditCard" : "DirectDebit"}").sample
@@ -45,13 +41,13 @@ campaigns = (1..10).map do |i|
 end
 
 23.times do
-  # create 10 direct debit payment methods and orders
-  orders = random_people.limit(10).map do |person|
+  # create 5 direct debit payment methods and orders
+  orders = random_people.limit(5).map do |person|
     create_order person, false, campaigns.sample
   end
 
-  # create 10 direct credit card methods and orders
-  orders2 = random_people.limit(10).map do |person|
+  # create 5 direct credit card methods and orders
+  orders2 = random_people.limit(5).map do |person|
     create_order person, true, campaigns.sample
   end
 
@@ -65,13 +61,13 @@ end
   Timecop.travel 1.month.from_now
 end
 
-# create 10 direct debit payment methods and orders
-random_people.limit(10).map do |person|
+# create 5 direct debit payment methods and orders
+random_people.limit(5).map do |person|
   create_order person, false, campaigns.sample
 end
 
-# create 10 direct credit card methods and orders
-random_people.limit(10).map do |person|
+# create 5 direct credit card methods and orders
+random_people.limit(5).map do |person|
   create_order person, true, campaigns.sample
 end
 

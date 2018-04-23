@@ -529,6 +529,7 @@ es:
         reject: Rechazar
         undo: Deshacer
       dependent_procedures: Procedimientos dependientes
+      parameters: Parámetros del procedimiento
       person:
         data: Datos personales
         now: Ahora

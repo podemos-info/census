@@ -32,7 +32,7 @@ Procedure.all.each do |registration|
 end
 
 # create 10 processed document verifications
-Person.enabled.not_verified.order("RANDOM()").limit(10).each do |person|
+random_people.enabled.not_verified.limit(10).each do |person|
   Timecop.freeze Faker::Time.between(person.created_at, 3.days.ago(real_now), :between)
   PaperTrail.request.whodunnit = person
 
@@ -64,7 +64,7 @@ Person.enabled.not_verified.order("RANDOM()").limit(10).each do |person|
 end
 
 # create 15 unprocessed document verifications
-Person.enabled.not_verified.order("RANDOM()").limit(10).each do |person|
+random_people.enabled.not_verified.limit(10).each do |person|
   Timecop.freeze Faker::Time.between(3.days.ago(real_now), 1.day.ago(real_now), :between)
   PaperTrail.request.whodunnit = person
   document_verification = Procedures::DocumentVerification.create!(person: person,
@@ -75,7 +75,7 @@ Person.enabled.not_verified.order("RANDOM()").limit(10).each do |person|
 end
 
 # create 5 issues for document verifications
-Procedures::DocumentVerification.pending.order("RANDOM()").limit(5).each do |document_verification|
+random_procedures(Procedures::DocumentVerification).pending.limit(5).each do |document_verification|
   Timecop.freeze Faker::Time.between(document_verification.created_at, real_now, :between)
   admin = admins.sample
   PaperTrail.request.whodunnit = admin
