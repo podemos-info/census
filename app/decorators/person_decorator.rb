@@ -51,23 +51,23 @@ class PersonDecorator < ApplicationDecorator
 
   def full_document
     @full_document ||= sensible_data do
-      "#{document_type_name} - #{object.document_id}" if object.document_id
+      "#{document_type_name}#{" - #{document_scope.name}" if object.passport_document_type?} - #{object.document_id}" if object.document_id
     end
   end
 
   def full_document_scope
     sensible_data do
-      document_scope&.show_path
+      document_scope&.full_path
     end
   end
 
   def full_scope
-    scope&.show_path
+    scope&.local_path
   end
 
   def full_address_scope
     sensible_data do
-      address_scope&.show_path
+      address_scope&.full_path
     end
   end
 
@@ -94,6 +94,12 @@ class PersonDecorator < ApplicationDecorator
   def self.document_type_options
     @document_type_options ||= Person.document_types.keys.map do |document_type|
       [I18n.t("census.people.document_types.#{document_type}"), document_type]
+    end.freeze
+  end
+
+  def self.country_options
+    @country_options ||= Scope.top_level.decorate.map do |scope|
+      [scope.name, scope.id]
     end.freeze
   end
 

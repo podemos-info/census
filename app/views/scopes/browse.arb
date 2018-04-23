@@ -39,7 +39,7 @@ end
 div class: "picker-footer" do
   div class: "buttons" do
     if current
-      a class: "btn btn-ok", href: browse_scopes_path(current: current.id, **context), "data-picker-choose-value" => current.id, "data-picker-choose-text" => current.show_path do
+      a class: "btn btn-ok", href: browse_scopes_path(current: current.id, **context), "data-picker-choose-value" => current.id, "data-picker-choose-text" => current.full_path do
         t("census.scopes.picker.choose")
       end
     else

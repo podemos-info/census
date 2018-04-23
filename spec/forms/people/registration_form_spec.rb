@@ -23,8 +23,7 @@ describe People::RegistrationForm do
     )
   end
 
-  let(:person) { build(:person) }
-
+  let(:person) { create(:person) }
   let(:scope) { create(:scope) }
   let(:address_scope) { create(:scope) }
   let(:document_scope) { person.document_scope }

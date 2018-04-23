@@ -7,8 +7,8 @@ module Procedures
     end
 
     def process_accept
-      set_from_person_data
       person.assign_attributes(person_data)
+      self.from_person_data = person.changed_attributes
     end
 
     def undo_accept
@@ -32,9 +32,12 @@ module Procedures
 
     def modifies?(*attributes)
       attributes.any? do |attribute|
-        value = person_data[attribute.to_s]
-        value && value != person[attribute]
+        changed_attributes.include? attribute
       end
+    end
+
+    def changed_attributes
+      @changed_attributes ||= person_data.keys.map(&:to_sym).to_set.freeze
     end
   end
 end

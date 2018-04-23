@@ -91,8 +91,6 @@ describe Procedure, :db do
 
   context "all descendants implement abstract methods" do
     Procedure.descendants.each do |procedure_class|
-      next if procedure_class == Procedures::PersonDataProcedure
-
       describe "#{procedure_class} implements abstract methods" do
         subject(:procedure) { procedure_class.new }
         it { is_expected.to respond_to(:process_accept) }

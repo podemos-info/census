@@ -11,6 +11,6 @@ class PayeeDecorator < ApplicationDecorator
   alias listable_name name
 
   def full_scope
-    scope&.show_path
+    scope&.full_path
   end
 end

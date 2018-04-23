@@ -79,12 +79,42 @@ describe PeopleController, type: :controller do
 
     describe "update page" do
       subject do
-        person.assign_attributes first_name: "changed"
+        person.assign_attributes first_name: first_name
         patch :update, params: { id: person.id, person: person.attributes }
       end
+      let(:first_name) { "changed" }
+
       it { is_expected.to have_http_status(:found) }
       it { expect(subject.location).to eq(person_url(person.id)) }
       it { expect { subject } .to change { person.first_name }.from("original").to("changed") }
+
+      context "when nothing changes" do
+        let(:first_name) { person.first_name }
+
+        it { is_expected.to have_http_status(:found) }
+        it { expect(subject.location).to eq(person_url(person.id)) }
+        it "shows an error message" do
+          expect { subject } .to change { flash[:notice] } .from(nil).to("No se han realizado cambios.")
+        end
+      end
+
+      context "with invalid params" do
+        let(:first_name) { "" }
+
+        it { expect { subject } .not_to change { person.reload.first_name } }
+        it { is_expected.to be_successful }
+        it { is_expected.to render_template("edit") }
+      end
+
+      context "when saving fails" do
+        before { stub_command("People::CreatePersonDataChange", :error) }
+
+        it { is_expected.to be_successful }
+        it { is_expected.to render_template("edit") }
+        it "shows an error message" do
+          expect { subject } .to change { flash.now[:error] } .from(nil).to("Ha ocurrido un error al guardar el registro.")
+        end
+      end
     end
 
     describe "request verification" do

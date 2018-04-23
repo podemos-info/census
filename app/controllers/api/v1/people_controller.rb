@@ -21,6 +21,12 @@ module Api
       render json: person
     end
 
+    def permitted_params
+      ret = params
+      ret[:person] = ret.require(:person).except(:scope_id, :address_scope_id, :document_scope_id) if ret[:person]
+      ret
+    end
+
     private
 
     def qualified_id_param

@@ -26,7 +26,7 @@ class ProcedureDecorator < ApplicationDecorator
     end
   end
 
-  def information
+  def summary
     case object
     when ::Procedures::MembershipLevelChange
       h.raw "#{I18n.t("activerecord.attributes.person.membership_level/#{object.from_membership_level}")}
@@ -80,7 +80,7 @@ class ProcedureDecorator < ApplicationDecorator
 
   def processed_person
     return nil unless processed?
-    @processed_person ||= person.paper_trail.version_at(processed_at)&.decorate(context: context)
+    @processed_person ||= person.paper_trail.version_at(processed_at, dup: true)&.decorate(context: context)
   end
 
   def processed_person_classed_changeset

@@ -27,7 +27,7 @@ context.instance_eval do
       end
       row :phone, class: classes[:phone]
       row :scope, class: classes[:scope_id] do
-        resource.scope&.show_path(Scope.local)
+        resource.full_scope
       end
     end
   end

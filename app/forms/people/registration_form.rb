@@ -7,23 +7,30 @@ module People
 
     mimic :person
 
-    validates :first_name, :last_name1, presence: true
-
-    validates :document_type, inclusion: { in: Person.document_types.keys }, presence: true
-    validates :document_id, document_id: { type: :document_type, scope: :document_scope_code }, presence: true
-    validates :document_scope_code, presence: true
-
-    validates :born_at, presence: true
-
-    validates :gender, inclusion: { in: Person.genders.keys }, presence: true
-
-    validates :address, :address_scope_code, :postal_code, presence: true
-
-    validates :email, :scope_code, presence: true
-
-    validates :scope, :address_scope, :document_scope, presence: true
-
     validate :validate_not_registered
+
+    def complete_required?
+      true
+    end
+
+    def person_data
+      {
+        first_name: first_name,
+        last_name1: last_name1,
+        last_name2: last_name2,
+        document_type: document_type,
+        document_id: document_id,
+        document_scope_id: document_scope&.id,
+        born_at: born_at,
+        gender: gender,
+        address: address,
+        address_scope_id: address_scope&.id,
+        postal_code: postal_code,
+        scope_id: scope&.id,
+        email: email,
+        phone: phone
+      }
+    end
 
     private
 

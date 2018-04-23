@@ -61,22 +61,7 @@ module People
     end
 
     def person_data
-      @person_data ||= {
-        first_name: form.first_name,
-        last_name1: form.last_name1,
-        last_name2: form.last_name2,
-        document_type: form.document_type,
-        document_id: form.document_id,
-        document_scope_id: form.document_scope.id,
-        born_at: form.born_at,
-        gender: form.gender,
-        address: form.address,
-        address_scope_id: form.address_scope.id,
-        postal_code: form.postal_code,
-        scope_id: form.scope.id,
-        email: form.email,
-        phone: form.phone
-      }
+      @person_data ||= form.person_data
     end
   end
 end

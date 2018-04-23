@@ -1,0 +1,24 @@
+# frozen_string_literal: true
+
+active_admin_form_for controller.form_resource do |f|
+  f.inputs do
+    f.input :first_name
+    f.input :last_name1
+    f.input :last_name2
+    f.input :document_type, as: :radio, collection: PersonDecorator.document_type_options
+    f.input :document_id
+    f.input :document_scope_id, as: :select, collection: PersonDecorator.country_options
+    f.input :born_at, as: :datepicker
+    f.input :gender, as: :radio, collection: PersonDecorator.gender_options
+    f.input :address
+    f.input :address_scope_id, as: :data_picker, text: :address_scope_full_path,
+                               url: browse_scopes_path(current: person.address_scope_id, title: Person.human_attribute_name(:address_scope).downcase)
+    f.input :postal_code
+    f.input :email
+    f.input :phone
+    f.input :scope_id, as: :data_picker, text: :scope_local_path,
+                       url: browse_scopes_path(root: Scope.local, current: person.scope_id, title: Person.human_attribute_name(:scope).downcase)
+  end
+
+  f.actions
+end

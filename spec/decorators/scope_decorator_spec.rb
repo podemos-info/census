@@ -13,11 +13,11 @@ describe ScopeDecorator do
     let!(:scope) { create(:scope, name: Census::Faker::Localized.literal("scope"), parent: parent) }
 
     it "returns the scope path" do
-      expect(subject.show_path).to eq("scope, parent, grandparent")
+      expect(subject.full_path).to eq("scope, parent, grandparent")
     end
 
     it "returns the scope path with root" do
-      expect(subject.show_path(grandparent)).to eq("scope, parent")
+      expect(subject.full_path(grandparent)).to eq("scope, parent")
     end
   end
 end

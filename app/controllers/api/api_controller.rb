@@ -13,10 +13,14 @@ module Api
     end
 
     def params_with_person
-      params.merge(qualified_id: params[qualified_id_param])
+      permitted_params.merge(qualified_id: params[qualified_id_param])
     end
 
     protected
+
+    def permitted_params
+      params
+    end
 
     def call_command(command_class, form)
       command_class.call(form: form) do

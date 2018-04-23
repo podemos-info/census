@@ -7,8 +7,8 @@ module Procedures
     end
 
     def process_accept
-      set_from_person_data
       person.assign_attributes(person_data)
+      self.from_person_data = person.changed_attributes
       person.accept
     end
 
