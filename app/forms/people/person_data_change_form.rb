@@ -20,11 +20,7 @@ module People
     end
 
     def changed_data
-      add_extra_changes(updatable_attributes.map do |attribute|
-        next unless person.respond_to?(attribute)
-        value = send(attribute)
-        [attribute, value] if value && value != person.send(attribute)
-      end.compact.to_h)
+      add_implicit_changes(changed_attributes)
     end
 
     def updatable_attributes
@@ -33,7 +29,15 @@ module People
 
     private
 
-    def add_extra_changes(changes)
+    def changed_attributes
+      updatable_attributes
+        .select { |attribute| person.respond_to?(attribute) }
+        .map { |attribute| [attribute, send(attribute)] }
+        .select { |attribute, value| value && value != person.send(attribute) }
+        .compact.to_h
+    end
+
+    def add_implicit_changes(changes)
       SCOPE_ATTRIBUTES.each do |attribute|
         value = send(attribute)
         changes[:"#{attribute}_id"] = value.id if value && value != person.send(attribute)
