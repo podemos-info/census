@@ -11,12 +11,12 @@ class DocumentIdValidator < ActiveModel::EachValidator
   end
 
   def validate_each(record, attribute, value)
-    return if value.nil?
-
     record.errors.add(attribute, :invalid) unless validate_document_id(record.send(@type_method), record.send(@scope_method), value)
   end
 
   def validate_document_id(type, scope, value)
+    return false if value.nil?
+
     # Basic check for minimum length
     return false if value.length < Settings.people.document_id_minimum_length
 

@@ -5,12 +5,16 @@ class ScopeDecorator < ApplicationDecorator
 
   decorates_association :parent
 
-  def show_path(parent = nil)
+  def full_path(parent = nil)
     object.part_of_scopes(parent).map { |scope| helpers.translated_attribute(scope.name) }.reverse.join ", "
   end
 
   def name
-    helpers.translated_attribute(object.name)
+    @name ||= helpers.translated_attribute(object.name)
+  end
+
+  def local_path
+    @local_path ||= full_path(Scope.local)
   end
 
   alias to_s name

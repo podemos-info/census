@@ -39,24 +39,7 @@ module People
 
     def person_data_change
       @person_data_change ||= procedure_for(form.person, ::Procedures::PersonDataChange) do |procedure|
-        procedure.person_data = person_data
-      end
-    end
-
-    def person_data
-      @person_data ||= begin
-        ret = {}
-        [:first_name, :last_name1, :last_name2, :document_type, :document_id, :born_at, :gender, :address, :postal_code, :email, :phone].each do |attribute|
-          value = form.send(attribute)
-          ret[attribute] = value if value
-        end
-
-        [:scope, :address_scope, :document_scope].each do |scope|
-          value = form.send(scope)
-          ret[:"#{scope}_id"] = value.id if value
-        end
-
-        ret
+        procedure.person_data = form.changed_data
       end
     end
   end

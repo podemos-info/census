@@ -6,7 +6,7 @@ table_for person.last_procedures do
   end
   column do |procedure|
     span procedure.type_name
-    span procedure.information
+    span procedure.summary
   end
 end
 ul do

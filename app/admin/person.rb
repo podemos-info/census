@@ -7,7 +7,7 @@ ActiveAdmin.register Person do
 
   includes :scope, :issues
 
-  permit_params :first_name, :last_name1, :last_name2, :document_type, :document_id,
+  permit_params :first_name, :last_name1, :last_name2, :document_type, :document_id, :document_scope_id,
                 :born_at, :gender, :address, :postal_code, :email, :phone, :scope_id, :address_scope_id
 
   actions :index, :show, :edit, :update
@@ -32,7 +32,7 @@ ActiveAdmin.register Person do
     end
     column :full_document, sortable: :full_document, class: :left
     column :scope, sortable: :scope, class: :left do |person|
-      person.scope&.show_path(Scope.local)
+      person.scope&.local_path
     end
     state_column :state, machine: :state
     state_column :membership_level, machine: :membership_level
@@ -81,31 +81,39 @@ ActiveAdmin.register Person do
     redirect_back(fallback_location: person_path)
   end
 
-  form decorate: true do |f|
-    f.inputs do
-      f.input :first_name
-      f.input :last_name1
-      f.input :last_name2
-      f.input :document_type, as: :radio, collection: PersonDecorator.document_type_options
-      f.input :document_id
-      f.input :born_at, as: :datepicker
-      f.input :gender, as: :radio, collection: PersonDecorator.gender_options
-      f.input :address
-      f.input :postal_code
-      f.input :email
-      f.input :phone
-      f.input :scope_id, as: :data_picker, text: :full_scope,
-                         url: browse_scopes_path(root: Scope.local, current: person.scope_id, title: Person.human_attribute_name(:scope).downcase)
-      f.input :address_scope_id, as: :data_picker, text: :full_address_scope,
-                                 url: browse_scopes_path(current: person.address_scope_id, title: Person.human_attribute_name(:address_scope).downcase)
-    end
-
-    f.actions
-  end
+  form partial: "people/form", decorate: true
 
   sidebar :issues, partial: "people/issues", only: :show, if: -> { person.issues.any? }
   sidebar :procedures, partial: "people/procedures", only: :show, if: -> { policy(Procedure).index? && person.procedures.any? }
   sidebar :orders, partial: "people/orders", only: :show, if: -> { policy(Order).index? && person.orders.any? }
   sidebar :downloads, partial: "people/downloads", only: :show, if: -> { policy(Download).index? && person.downloads.any? }
   sidebar :versions, partial: "people/versions", only: :show, if: -> { policy(Version).index? && person.versions.any? }
+
+  controller do
+    def form_resource
+      @form_resource ||= People::PersonDataChangeForm.from_model(resource)
+    end
+
+    def update
+      @form_resource = People::PersonDataChangeForm.from_params(params, person_id: resource.id)
+      People::CreatePersonDataChange.call(form: form_resource, admin: current_admin) do
+        on(:invalid) do
+          resource.errors.merge!(form_resource.errors)
+          render :edit
+        end
+        on(:error) do
+          flash.now[:error] = t("census.messages.error_occurred")
+          render :edit
+        end
+        on(:noop) do
+          flash[:notice] = t("census.people.action_message.no_changes_done")
+          redirect_back(fallback_location: person_path)
+        end
+        on(:ok) do
+          flash[:notice] = t("census.people.action_message.person_data_change_created")
+          redirect_back(fallback_location: person_path)
+        end
+      end
+    end
+  end
 end

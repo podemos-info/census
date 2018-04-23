@@ -5,31 +5,50 @@ module People
   class PersonDataChangeForm < PersonDataForm
     include ::HasPerson
 
+    ID_ATTRIBUTES = [:id, :person_id, :qualified_id].freeze
+    DOCUMENT_ATTRIBUTES = [:document_type, :document_id, :document_scope_id].freeze
+    SCOPE_ATTRIBUTES = [:scope, :document_scope, :address_scope].freeze
+
     mimic :person
 
-    validates :document_type, inclusion: { in: Person.document_types.keys }, allow_blank: true
-    validates :gender, inclusion: { in: Person.genders.keys }, allow_blank: true
-
-    def document_type
-      @document_type || person.document_type
-    end
-
-    def document_scope_code
-      @document_scope_code || person.document_scope&.code
-    end
-
-    def document_id
-      @document_id || person.document_id
+    def complete_required?
+      false
     end
 
     def has_changes?
-      [:first_name, :last_name1, :last_name2, :document_type, :document_id, :born_at, :gender, :address, :postal_code, :email, :phone].any? do |attribute|
-        attributes[attribute].present? && attributes[attribute] != person.send(attribute)
-      end ||
-        [:document_scope, :address_scope, :scope].any? do |attribute|
-          code_attribute = :"#{attribute}_code"
-          attributes[code_attribute].present? && attributes[code_attribute] != person.send(attribute)&.code
+      changed_data.any?
+    end
+
+    def changed_data
+      add_implicit_changes(changed_attributes)
+    end
+
+    def updatable_attributes
+      self.class.attribute_set.map(&:name) - ID_ATTRIBUTES
+    end
+
+    private
+
+    def changed_attributes
+      updatable_attributes
+        .select { |attribute| person.respond_to?(attribute) }
+        .map { |attribute| [attribute, send(attribute)] }
+        .select { |attribute, value| value && value != person.send(attribute) }
+        .compact.to_h
+    end
+
+    def add_implicit_changes(changes)
+      SCOPE_ATTRIBUTES.each do |attribute|
+        value = send(attribute)
+        changes[:"#{attribute}_id"] = value.id if value && value != person.send(attribute)
+      end
+
+      if (DOCUMENT_ATTRIBUTES & changes.keys).any?
+        DOCUMENT_ATTRIBUTES.each do |attribute|
+          changes[attribute] ||= person.send(attribute)
         end
+      end
+      changes
     end
   end
 end

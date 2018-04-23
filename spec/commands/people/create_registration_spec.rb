@@ -16,6 +16,16 @@ describe People::CreateRegistration do
       invalid?: !valid,
       valid?: valid,
       person: existing_person,
+      person_data: person_data,
+      scope: scope,
+      address_scope: address_scope,
+      document_scope: document_scope,
+      **person_data
+    )
+  end
+
+  let(:person_data) do
+    {
       first_name: first_name,
       last_name1: last_name1,
       last_name2: last_name2,
@@ -27,10 +37,10 @@ describe People::CreateRegistration do
       postal_code: postal_code,
       email: email,
       phone: phone,
-      scope: scope,
-      address_scope: address_scope,
-      document_scope: document_scope
-    )
+      scope_id: scope.id,
+      address_scope_id: address_scope.id,
+      document_scope_id: document_scope.id
+    }
   end
 
   let(:first_name) { person.first_name }

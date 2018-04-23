@@ -310,6 +310,9 @@ es:
       procedures/membership_level_change:
         one: Cambio de nivel de membresía
         other: Cambios de nivel de membresía
+      procedures/person_data_change:
+        one: Cambio de datos personales
+        other: Cambios de datos personales
       procedures/registration:
         one: Registro
         other: Registros
@@ -487,6 +490,8 @@ es:
       action_message:
         cant_request_verification: No se puede solicitar a %{link} que se verifique.
         error_requesting_verification: Ha ocurrido un error al intentar solicitar a %{link} que se verifique.
+        no_changes_done: No se han realizado cambios.
+        person_data_change_created: Se ha creado el procedimiento de cambio de datos.
         verification_requested: Se ha enviado la solicitud de verificación a %{link}.
       create_order: Crear orden
       create_payment_method: Crear método de pago

@@ -16,6 +16,17 @@ describe People::CreatePersonDataChange do
       invalid?: !valid,
       valid?: valid,
       person: person,
+      changed_data: changed_data,
+      has_changes?: has_changes?,
+      scope: scope,
+      address_scope: address_scope,
+      document_scope: document_scope,
+      **changed_data
+    )
+  end
+
+  let(:changed_data) do
+    {
       first_name: first_name,
       last_name1: last_name1,
       last_name2: last_name2,
@@ -27,13 +38,11 @@ describe People::CreatePersonDataChange do
       postal_code: postal_code,
       email: email,
       phone: phone,
-      scope: scope,
-      address_scope: address_scope,
-      document_scope: document_scope,
-      has_changes?: has_changes?
-    )
+      scope_id: scope&.id,
+      address_scope_id: address_scope&.id,
+      document_scope_id: document_scope&.id
+    } .reject { |_key, value| value.nil? }
   end
-
   let(:first_name) { "changed" }
   let(:last_name1) { "changed too" }
   let(:last_name2) { nil }

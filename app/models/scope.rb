@@ -37,10 +37,6 @@ class Scope < ApplicationRecord
     find_by(code: local_code)
   end
 
-  def self.local_code?(scope_code)
-    scope_code == local_code
-  end
-
   def self.local_code
     @local_code ||= Settings.regional.local_code
   end
@@ -51,6 +47,10 @@ class Scope < ApplicationRecord
 
   def not_descendants
     Scope.where.not("? = ANY (part_of)", id)
+  end
+
+  def local?
+    self.class.local_code == code
   end
 
   # Gets the scopes from the part_of list in descending order (first the top level scope, last itself)
