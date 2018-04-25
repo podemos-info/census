@@ -45,8 +45,8 @@ bundle exec rails server
 ```
 * Access to the [administration tool](http://localhost:3000). Different users are created for the different admin roles:
  * System user: `system0` (password `system`)
- * Data admin user: `lopd0` (password `lopd`)
- * Data user: `lopd_help0` (password `lopd_help`)
+ * Data admin user: `data0` (password `data`)
+ * Data user: `data_help0` (password `data_help`)
  * Payments user: `finances0` (password `finances`)
 
 ## Project management

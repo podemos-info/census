@@ -325,9 +325,9 @@ es:
   census:
     admins:
       roles:
+        data: Protección de datos
+        data_help: Apoyo a Protección de datos
         finances: Finanzas
-        lopd: LOPD
-        lopd_help: Apoyo LOPD
         system: Sistema
       view_versions: Ver versiones (%{count})
       view_visits: Ver actividad

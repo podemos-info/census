@@ -2,7 +2,7 @@
 
 class DownloadPolicy < ApplicationPolicy
   def base_role?
-    user.lopd_role? || super
+    user.data_role? || super
   end
 
   def create?

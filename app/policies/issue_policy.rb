@@ -10,7 +10,7 @@ class IssuePolicy < ApplicationPolicy
   end
 
   def create?
-    user.lopd_help_role?
+    user.data_help_role?
   end
 
   def update?

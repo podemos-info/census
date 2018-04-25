@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe "Fix Issues", type: :system do
-  let(:current_admin) { create(:admin, :lopd) }
+  let(:current_admin) { create(:admin, :data) }
 
   before do
     login_as current_admin

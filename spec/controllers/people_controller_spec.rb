@@ -11,7 +11,7 @@ describe PeopleController, type: :controller do
   let(:resource) { all_resources[resource_class] }
   let!(:person) { create(:person) }
   let!(:issue) { create(:duplicated_document) } # creates a pending person with a procedure and an issue
-  let(:current_admin) { create(:admin, :lopd) }
+  let(:current_admin) { create(:admin, :data) }
 
   it "defines actions" do
     expect(resource.defined_actions).to contain_exactly(:index, :show, :edit, :update)

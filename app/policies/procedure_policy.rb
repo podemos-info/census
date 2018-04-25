@@ -3,9 +3,9 @@
 class ProcedurePolicy < ApplicationPolicy
   def base_role?
     if person&.cancelled?
-      user.lopd_role?
+      user.data_role?
     else
-      user.lopd_help_role? || super
+      user.data_help_role? || super
     end
   end
 
