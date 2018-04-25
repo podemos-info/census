@@ -57,8 +57,8 @@ gem "ahoy_matey" # must appear after devise gem
 group :development, :test do
   gem "brakeman", require: false
   gem "byebug", platform: :mri
-  gem "codecov", require: false
   gem "faker"
+  gem "simplecov", require: false
   gem "timecop"
 end
 
