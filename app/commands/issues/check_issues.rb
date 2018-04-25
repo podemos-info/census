@@ -37,11 +37,7 @@ module Issues
       return broadcast(:no_issue, issue_type: issue_type) if issue.absent?
 
       issue.fill
-      result = Issue.transaction do
-        ret = check_issue_state(issue)
-        issue.save! unless [:invalid, :error].include?(ret)
-        ret
-      end
+      result = check_issue_state(issue)
 
       broadcast(result || :error, issue_type: issue_type, issue: issue)
     end
@@ -58,7 +54,7 @@ module Issues
 
     def create(issue)
       ret = :error
-      Issues::CreateIssueUnreads.call(issue: issue, admin: admin) do
+      Issues::CreateIssue.call(issue: issue, admin: admin) do
         on(:invalid) { ret = :invalid }
         on(:error) {}
         on(:ok) { ret = :new_issue }

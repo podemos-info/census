@@ -83,7 +83,6 @@ random_procedures(Procedures::DocumentVerification).pending.limit(5).each do |do
   issue = Issues::People::AdminRemark.for(document_verification, find: false)
   issue.explanation = Faker::Lorem.paragraph(1, true, 2)
   issue.fill
-  Issues::CreateIssueUnreads.call(issue: issue, admin: admin)
-  issue.save!
+  Issues::CreateIssue.call(issue: issue, admin: admin)
   Rails.logger.debug { "Issue created for document verification procedure for: #{document_verification.person.decorate(lopd_context)}" }
 end
