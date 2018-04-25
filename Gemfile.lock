@@ -181,10 +181,6 @@ GEM
       mime-types (>= 1.16)
     case_transform (0.2)
       activesupport
-    codecov (0.1.10)
-      json
-      simplecov
-      url
     coderay (1.1.2)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
@@ -533,7 +529,6 @@ GEM
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     unicode-display_width (1.3.2)
-    url (0.3.2)
     user_agent_parser (2.4.1)
     useragent (0.16.10)
     vcr (4.0.0)
@@ -581,7 +576,6 @@ DEPENDENCIES
   capistrano3-puma
   capybara (~> 2.13)
   carrierwave
-  codecov
   config
   database_cleaner
   devise
@@ -620,6 +614,7 @@ DEPENDENCIES
   sassc-rails
   secure_headers
   sepa_king
+  simplecov
   spanish_vat_validators
   spring
   spring-watcher-listen

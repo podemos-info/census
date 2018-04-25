@@ -16,11 +16,6 @@ SimpleCov.start "rails" do
   add_group "Queries", "app/queries"
 end
 
-if ENV["CI"]
-  require "codecov"
-  SimpleCov.formatter = SimpleCov::Formatter::Codecov
-end
-
 require "vcr"
 VCR.configure do |config|
   config.cassette_library_dir = "spec/factories/vcr_cassettes"

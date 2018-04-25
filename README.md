@@ -14,8 +14,7 @@ Census is an open source census management application. It is aimed to store peo
 Census is written in [Ruby on Rails](https://github.com/rails), and its admin interface is based on [Active Admin](https://github.com/activeadmin/activeadmin/).
 
 [![Travis](https://img.shields.io/travis/podemos-info/census/master.svg)](https://travis-ci.org/podemos-info/census)
-[![Codecov](https://img.shields.io/codecov/c/github/podemos-info/census.svg)](https://codecov.io/gh/podemos-info/census)
-[![Scrutinizer](https://img.shields.io/scrutinizer/g/podemos-info/census.svg)](https://scrutinizer-ci.com/g/podemos-info/census/)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/073f81918e3636dbc15a/test_coverage)](https://codeclimate.com/github/podemos-info/census/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/073f81918e3636dbc15a/maintainability)](https://codeclimate.com/github/podemos-info/census/maintainability)
 
 ### Setting up
@@ -48,10 +47,6 @@ bundle exec rails server
  * Data admin user: `data0` (password `data`)
  * Data user: `data_help0` (password `data_help`)
  * Payments user: `finances0` (password `finances`)
-
-## Project management
-[![Enhancements](https://img.shields.io/github/issues-raw/podemos-info/census/enhancement.svg?label=enhancement)](https://github.com/podemos-info/census/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement)
-[![Bugs](https://img.shields.io/github/issues-raw/podemos-info/census/bug.svg?label=bug)](https://github.com/podemos-info/census/issues?q=is%3Aissue+is%3Aopen+label%3Abug)
 
 ## Documentation
 * [People API](docs/api-person.md)
