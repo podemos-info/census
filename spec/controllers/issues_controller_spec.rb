@@ -62,23 +62,23 @@ describe IssuesController, type: :controller do
   with_versioning do
     {
       admin_remark: {
-        role: :lopd,
+        role: :data,
         request_params: ->(_issue) { { fixed: true, comment: "Person data fixed" } }
       },
       duplicated_document: {
-        role: :lopd,
+        role: :data,
         request_params: ->(issue) { { chosen_person_id: issue.procedure.person_id, cause: :mistake, comment: "Is real" } }
       },
       duplicated_person: {
-        role: :lopd,
+        role: :data,
         request_params: ->(issue) { { chosen_person_ids: [issue.procedure.person_id], cause: :mistake, comment: "Is real" } }
       },
       untrusted_email: {
-        role: :lopd,
+        role: :data,
         request_params: ->(_issue) { { trusted: true, comment: "Is real" } }
       },
       untrusted_phone: {
-        role: :lopd,
+        role: :data,
         request_params: ->(_issue) { { trusted: false, comment: "Is not real" } }
       },
       missing_bic: {

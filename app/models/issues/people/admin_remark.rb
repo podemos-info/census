@@ -6,7 +6,7 @@ module Issues
       class << self
         def build_for(_procedure)
           new(
-            role: Admin.roles[:lopd],
+            role: Admin.roles[:data],
             level: :medium
           )
         end

@@ -6,7 +6,7 @@ describe UpdateProcedureJob, type: :job do
   subject(:job) { described_class.perform_now(procedure: procedure, admin: current_admin) }
 
   let(:procedure) { create(:registration) }
-  let(:current_admin) { create(:admin, :lopd) }
+  let(:current_admin) { create(:admin, :data) }
 
   context "when everything works ok" do
     it "completes the job" do

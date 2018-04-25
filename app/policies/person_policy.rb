@@ -6,7 +6,7 @@ class PersonPolicy < ApplicationPolicy
   end
 
   def show?
-    user.lopd_role? || !record&.discarded?
+    user.data_role? || !record&.discarded?
   end
 
   def create?
@@ -14,7 +14,7 @@ class PersonPolicy < ApplicationPolicy
   end
 
   def update?
-    user.lopd_help_role? && !record.discarded?
+    user.data_help_role? && !record.discarded?
   end
 
   def request_verification?

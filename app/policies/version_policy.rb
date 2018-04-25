@@ -2,11 +2,11 @@
 
 class VersionPolicy < ApplicationPolicy
   def index?
-    user.lopd_role? || super
+    user.data_role? || super
   end
 
   def show?
-    user.lopd_role? || super
+    user.data_role? || super
   end
 
   def create?

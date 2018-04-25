@@ -11,16 +11,16 @@ FactoryBot.define do
     password { Faker::Internet.password }
     role { "system" }
 
-    trait :lopd do
-      role { "lopd" }
+    trait :data do
+      role { "data" }
     end
 
     trait :finances do
       role { "finances" }
     end
 
-    trait :lopd_help do
-      role { "lopd_help" }
+    trait :data_help do
+      role { "data_help" }
     end
   end
 

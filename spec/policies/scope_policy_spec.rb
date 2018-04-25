@@ -13,14 +13,14 @@ describe ScopePolicy do
     it { is_expected.to permit_action :browse }
   end
 
-  context "being a lopd admin" do
-    let(:user) { create(:admin, :lopd) }
+  context "being a data admin" do
+    let(:user) { create(:admin, :data) }
 
     it { is_expected.to permit_action :browse }
   end
 
-  context "being a lopd_help admin" do
-    let(:user) { create(:admin, :lopd_help) }
+  context "being a data_help admin" do
+    let(:user) { create(:admin, :data_help) }
 
     it { is_expected.to permit_action :browse }
   end

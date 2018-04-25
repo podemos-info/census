@@ -44,12 +44,12 @@ describe AdminsController, type: :controller do
 
     context "update page" do
       subject do
-        admin.assign_attributes role: "lopd"
+        admin.assign_attributes role: "data"
         patch :update, params: { id: admin.id, admin: admin.attributes }
       end
       it { expect(subject).to have_http_status(:found) }
       it { expect(subject.location).to eq(admin_url(admin.id)) }
-      it { expect { subject } .to change { admin.role }.to("lopd") }
+      it { expect { subject } .to change { admin.role }.to("data") }
     end
   end
 end

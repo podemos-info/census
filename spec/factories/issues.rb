@@ -35,7 +35,7 @@ FactoryBot.define do
     transient do
       issuable { create(:document_verification) }
     end
-    role { "lopd" }
+    role { "data" }
     explanation { Faker::Lorem.paragraph(1, true, 2) }
 
     after :build do |issue, evaluator|
@@ -51,7 +51,7 @@ FactoryBot.define do
       issuable { create(:registration, person_copy_data: other_person) }
       other_person { create(:person) }
     end
-    role { "lopd" }
+    role { "data" }
     document_type { other_person.document_type }
     document_id { other_person.document_id }
     document_scope_id { other_person.document_scope_id }
@@ -74,7 +74,7 @@ FactoryBot.define do
       issuable { create(:registration, person_copy_data: other_person) }
       other_person { create(:person) }
     end
-    role { "lopd" }
+    role { "data" }
     first_name { other_person.first_name }
     last_name1 { other_person.last_name1 }
     last_name2 { other_person.last_name2 }
@@ -98,7 +98,7 @@ FactoryBot.define do
       issuable { create(:registration, person_copy_data: temp_person) }
       temp_person { build(:person, email: "#{Faker::Internet.user_name}@#{Issues::People::UntrustedEmail.domains_blacklist.first}") }
     end
-    role { "lopd" }
+    role { "data" }
     email { temp_person.email }
 
     after :build do |issue, evaluator|
@@ -118,7 +118,7 @@ FactoryBot.define do
       issuable { create(:registration, person_copy_data: temp_person) }
       temp_person { build(:person, phone: Issues::People::UntrustedPhone.phones_blacklist.first) }
     end
-    role { "lopd" }
+    role { "data" }
     phone { temp_person.phone }
 
     after :build do |issue, evaluator|
@@ -177,6 +177,6 @@ FactoryBot.define do
 
   factory :issue_unread do
     issue { create(:duplicated_document) }
-    admin { create(:admin, role: "lopd") }
+    admin { create(:admin, role: "data") }
   end
 end

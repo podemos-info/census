@@ -14,14 +14,14 @@ describe IssuePolicy do
       it { is_expected.to permit_action :index }
     end
 
-    context "being a lopd admin" do
-      let(:user) { create(:admin, :lopd) }
+    context "being a data admin" do
+      let(:user) { create(:admin, :data) }
 
       it { is_expected.to permit_action :index }
     end
 
-    context "being a lopd_help admin" do
-      let(:user) { create(:admin, :lopd_help) }
+    context "being a data_help admin" do
+      let(:user) { create(:admin, :data_help) }
 
       it { is_expected.to permit_action :index }
     end
@@ -33,7 +33,7 @@ describe IssuePolicy do
     end
   end
 
-  context "for a lopd issue" do
+  context "for a data issue" do
     let(:issue) { create(:duplicated_document) }
 
     context "being a system admin" do
@@ -45,8 +45,8 @@ describe IssuePolicy do
       it { is_expected.to forbid_action :destroy }
     end
 
-    context "being a lopd admin" do
-      let(:user) { create(:admin, :lopd) }
+    context "being a data admin" do
+      let(:user) { create(:admin, :data) }
 
       it { is_expected.to permit_action :show }
       it { is_expected.to permit_new_and_create_actions }
@@ -54,8 +54,8 @@ describe IssuePolicy do
       it { is_expected.to forbid_action :destroy }
     end
 
-    context "being a lopd_help admin" do
-      let(:user) { create(:admin, :lopd_help) }
+    context "being a data_help admin" do
+      let(:user) { create(:admin, :data_help) }
 
       it { is_expected.to forbid_action :show }
       it { is_expected.to permit_new_and_create_actions }
@@ -85,8 +85,8 @@ describe IssuePolicy do
       it { is_expected.to forbid_action :destroy }
     end
 
-    context "being a lopd admin" do
-      let(:user) { create(:admin, :lopd) }
+    context "being a data admin" do
+      let(:user) { create(:admin, :data) }
 
       it { is_expected.to forbid_action :show }
       it { is_expected.to permit_new_and_create_actions }
@@ -94,8 +94,8 @@ describe IssuePolicy do
       it { is_expected.to forbid_action :destroy }
     end
 
-    context "being a lopd_help admin" do
-      let(:user) { create(:admin, :lopd_help) }
+    context "being a data_help admin" do
+      let(:user) { create(:admin, :data_help) }
 
       it { is_expected.to forbid_action :show }
       it { is_expected.to permit_new_and_create_actions }
@@ -126,8 +126,8 @@ describe IssuePolicy do
       it { is_expected.to forbid_action :destroy }
     end
 
-    context "being a lopd admin" do
-      let(:user) { create(:admin, :lopd) }
+    context "being a data admin" do
+      let(:user) { create(:admin, :data) }
 
       it { is_expected.to forbid_action :show }
       it { is_expected.to permit_new_and_create_actions }
@@ -135,8 +135,8 @@ describe IssuePolicy do
       it { is_expected.to forbid_action :destroy }
     end
 
-    context "being a lopd_help admin" do
-      let(:user) { create(:admin, :lopd_help) }
+    context "being a data_help admin" do
+      let(:user) { create(:admin, :data_help) }
 
       it { is_expected.to forbid_action :show }
       it { is_expected.to permit_new_and_create_actions }

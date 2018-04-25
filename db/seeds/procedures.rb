@@ -2,7 +2,7 @@
 
 Rails.logger.debug "Seeding procedures"
 
-admins = Admin.where role: [:lopd, :lopd_help]
+admins = Admin.where role: [:data, :data_help]
 
 attachments_path = File.join(__dir__, "attachments")
 
@@ -16,7 +16,7 @@ Procedure.all.each do |registration|
 
   Issues::CheckIssues.call(issuable: registration, admin: current_admin)
   if registration.issues_summary != :ok
-    Rails.logger.debug { "Person registration pending: #{registration.person.decorate(lopd_context)}" }
+    Rails.logger.debug { "Person registration pending: #{registration.person.decorate(data_context)}" }
     next
   end
 
@@ -28,7 +28,7 @@ Procedure.all.each do |registration|
   )
   registration.accept
   registration.save!
-  Rails.logger.debug { "Person registration accepted: #{registration.person.decorate(lopd_context)}" }
+  Rails.logger.debug { "Person registration accepted: #{registration.person.decorate(data_context)}" }
 end
 
 # create 5 processed document verifications
@@ -42,7 +42,7 @@ random_people.enabled.not_verified.limit(5).each do |person|
 
   document_verification.attachments.create!(file: File.new(File.join(attachments_path, "#{person.document_type}-sample1.png")))
   document_verification.attachments.create!(file: File.new(File.join(attachments_path, "#{person.document_type}-sample2.png")))
-  Rails.logger.debug { "Person document verification created for: #{document_verification.person.decorate(lopd_context)}" }
+  Rails.logger.debug { "Person document verification created for: #{document_verification.person.decorate(data_context)}" }
 
   Timecop.freeze Faker::Time.between(Time.zone.now, real_now, :between)
   current_admin = admins.sample
@@ -60,7 +60,7 @@ random_people.enabled.not_verified.limit(5).each do |person|
   person.verify
   person.to_member if Faker::Boolean.boolean(0.5) && person.adult?
   person.save!
-  Rails.logger.debug { "Person document verification accepted for: #{document_verification.person.decorate(lopd_context)}" }
+  Rails.logger.debug { "Person document verification accepted for: #{document_verification.person.decorate(data_context)}" }
 end
 
 # create 5 unprocessed document verifications
@@ -71,7 +71,7 @@ random_people.enabled.not_verified.limit(5).each do |person|
                                                                    information: {})
   document_verification.attachments.create!(file: File.new(File.join(attachments_path, "#{person.document_type}-sample1.png")))
   document_verification.attachments.create!(file: File.new(File.join(attachments_path, "#{person.document_type}-sample2.png")))
-  Rails.logger.debug { "Person document verification created for: #{document_verification.person.decorate(lopd_context)}" }
+  Rails.logger.debug { "Person document verification created for: #{document_verification.person.decorate(data_context)}" }
 end
 
 # create 5 issues for document verifications
@@ -84,5 +84,5 @@ random_procedures(Procedures::DocumentVerification).pending.limit(5).each do |do
   issue.explanation = Faker::Lorem.paragraph(1, true, 2)
   issue.fill
   Issues::CreateIssue.call(issue: issue, admin: admin)
-  Rails.logger.debug { "Issue created for document verification procedure for: #{document_verification.person.decorate(lopd_context)}" }
+  Rails.logger.debug { "Issue created for document verification procedure for: #{document_verification.person.decorate(data_context)}" }
 end

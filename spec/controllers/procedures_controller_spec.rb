@@ -110,7 +110,7 @@ describe ProceduresController, type: :controller do
     it { expect(subject).to render_template("edit") }
 
     context "when procedure has issues" do
-      let(:current_admin) { create(:admin, :lopd) }
+      let(:current_admin) { create(:admin, :data) }
       let!(:open_issue) { create(:duplicated_document, issuable: procedure) }
       let!(:closed_issue) { create(:duplicated_person, :ready_to_fix, :fixed, issuable: procedure) }
 

@@ -3,14 +3,14 @@
 module HasRole
   extend ActiveSupport::Concern
   included do
-    enum role: [:system, :lopd, :lopd_help, :finances], _suffix: true
+    enum role: [:system, :data, :data_help, :finances], _suffix: true
 
-    def lopd_help_role?
-      super || lopd_role?
+    def data_help_role?
+      super || data_role?
     end
 
     def role_includes?(has_role)
-      (role == has_role.role) || (lopd_role? && has_role.lopd_help_role?)
+      (role == has_role.role) || (data_role? && has_role.data_help_role?)
     end
   end
 end

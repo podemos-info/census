@@ -2,7 +2,7 @@
 
 Rails.logger.debug "Seeding cancellations"
 
-admins = Admin.where role: [:lopd, :lopd_help]
+admins = Admin.where role: [:data, :data_help]
 
 real_now = Time.zone.now
 
@@ -13,12 +13,12 @@ random_people.where.not(id: admins.pluck(:person_id)).limit(10).each do |person|
   cancellation = Procedures::Cancellation.create!(person: person,
                                                   information: { reason: Faker::Lorem.sentence },
                                                   state: :pending)
-  Rails.logger.debug { "Person cancellation created for: #{cancellation.person.decorate(lopd_context)}" }
+  Rails.logger.debug { "Person cancellation created for: #{cancellation.person.decorate(data_context)}" }
 
   current_admin = admins.sample
   Issues::CheckIssues.call(issuable: cancellation, admin: current_admin)
   if cancellation.issues_summary != :ok
-    Rails.logger.debug { "Person cancellation pending: #{cancellation.person.decorate(lopd_context)}" }
+    Rails.logger.debug { "Person cancellation pending: #{cancellation.person.decorate(data_context)}" }
     next
   end
 
@@ -26,5 +26,5 @@ random_people.where.not(id: admins.pluck(:person_id)).limit(10).each do |person|
   PaperTrail.request.whodunnit = current_admin
   UpdateProcedureJob.perform_later(procedure: cancellation, admin: current_admin)
 
-  Rails.logger.debug { "Person cancellation accepted for: #{cancellation.person.decorate(lopd_context)}" }
+  Rails.logger.debug { "Person cancellation accepted for: #{cancellation.person.decorate(data_context)}" }
 end
