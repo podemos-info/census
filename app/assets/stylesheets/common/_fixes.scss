@@ -4,7 +4,10 @@ input[type=radio] {
 }
 
 body.logged_in {
-  &.new, &.create, &.edit, &.update {
+  .inputs {
+    .field_with_errors {
+      display: inline;
+    }
     .input li.choice {
       display: inline-block;
       margin: 0 1rem 0 0;
