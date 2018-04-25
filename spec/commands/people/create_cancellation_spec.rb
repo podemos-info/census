@@ -15,10 +15,12 @@ describe People::CreateCancellation do
       invalid?: !valid,
       valid?: valid,
       person: person,
+      channel: channel,
       reason: reason
     )
   end
 
+  let(:channel) { "email" }
   let(:reason) { "Because yes!" }
 
   describe "when valid" do
@@ -26,8 +28,21 @@ describe People::CreateCancellation do
       expect { subject } .to broadcast(:ok)
     end
 
-    it "create a new procedure to change the person membership level" do
+    it "create a new procedure to cancel the person account" do
       expect { subject } .to change { Procedures::Cancellation.count } .by(1)
+    end
+
+    describe "the created procedure" do
+      before { command }
+      subject(:created_procedure) { Procedures::Cancellation.last }
+
+      it "saves the reason" do
+        expect(created_procedure.reload.reason).to eq("Because yes!")
+      end
+
+      it "saves the channel" do
+        expect(created_procedure.reload.channel).to eq("email")
+      end
     end
   end
 

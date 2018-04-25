@@ -74,6 +74,7 @@ POST api/v1/people
 Parameter             | Data type | Description
 ----------------------|-----------|-------------------------------
 `person_id`           |  string   | Person's qualified identifier
+`channel`             |  string   | Application name used to perform the cancellation request
 `reason`              |  string   | Reason for the cancellation (optional)
 
 ### Return value

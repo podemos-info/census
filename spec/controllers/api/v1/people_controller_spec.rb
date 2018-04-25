@@ -128,7 +128,7 @@ describe Api::V1::PeopleController, type: :controller do
 
       let(:person) { create(:person) }
       let(:person_id) { person.qualified_id_at(:decidim) }
-      let(:params) { { reason: "I don't wanna" } }
+      let(:params) { { reason: "I don't wanna", channel: "decidim" } }
 
       it "is valid" do
         is_expected.to have_http_status(:accepted)
@@ -147,8 +147,12 @@ describe Api::V1::PeopleController, type: :controller do
           expect(subject.person_id).to eq(person.id)
         end
 
-        it "correctly save the gibven attribute" do
+        it "correctly save the given reason" do
           expect(subject.reason).to eq("I don't wanna")
+        end
+
+        it "correctly save the given channel" do
+          expect(subject.channel).to eq("decidim")
         end
       end
 

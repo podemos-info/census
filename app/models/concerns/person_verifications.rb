@@ -11,11 +11,11 @@ module PersonVerifications
       state :verification_requested, :verified, :mistake, :fraudulent
 
       event :request_verification do
-        transitions from: :not_verified, to: :verification_requested
+        transitions from: :not_verified, to: :verification_requested, guard: :kept?
       end
 
       event :verify do
-        transitions from: [:not_verified, :verification_requested], to: :verified
+        transitions from: [:not_verified, :verification_requested], to: :verified, guard: :kept?
       end
 
       event :undo_verification do

@@ -1,6 +1,7 @@
 ---
 es:
   active_admin:
+    cancellation: Cancelación
     census: Censo
     dashboard: Inicio
     payments: Pagos
@@ -58,6 +59,14 @@ es:
       versions: Versiones
       visits: Visitas
     system: Sistema
+  activemodel:
+    attributes:
+      cancellation:
+        channel: Canal
+        reason: Razones
+    models:
+      cancellation: cancelación
+      person: persona
   activerecord:
     attributes:
       active_job_reporter/job_message:
@@ -488,11 +497,19 @@ es:
       view_versions: Ver versiones (%{count})
     people:
       action_message:
+        cancellation_created: Se ha creado el procedimiento de baja.
         cant_request_verification: No se puede solicitar a %{link} que se verifique.
         error_requesting_verification: Ha ocurrido un error al intentar solicitar a %{link} que se verifique.
         no_changes_done: No se han realizado cambios.
         person_data_change_created: Se ha creado el procedimiento de cambio de datos.
         verification_requested: Se ha enviado la solicitud de verificación a %{link}.
+      cancellation:
+        action: Procesar baja
+        channel:
+          email: Correo electrónico
+          phone: Teléfono
+        information: Utiliza este formulario para procesar una solicitud de baja recibida por teléfono o correo electrónico
+        title: Procesar solicitud de baja
       create_order: Crear orden
       create_payment_method: Crear método de pago
       document_types:

@@ -1,0 +1,12 @@
+# frozen_string_literal: true
+
+h3 t("census.people.cancellation.title")
+para t("census.people.cancellation.information")
+active_admin_form_for cancellation_form, url: cancellation_person_path(resource) do |f|
+  f.inputs do
+    f.input :channel, as: :radio, collection: I18n.t("census.people.cancellation.channel").to_a.map(&:reverse)
+    f.input :reason, as: :text, input_html: { rows: 10 }
+  end
+
+  f.actions
+end

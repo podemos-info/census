@@ -37,7 +37,6 @@ ActiveAdmin.register Person do
     state_column :state, machine: :state
     state_column :membership_level, machine: :membership_level
     state_column :verification, class: :left, machine: :verification
-    actions
   end
 
   scope :enabled, group: :enabled, default: true
@@ -79,6 +78,30 @@ ActiveAdmin.register Person do
       end
     end
     redirect_back(fallback_location: person_path)
+  end
+
+  action_item :cancellation, only: :show do
+    link_to t("census.people.cancellation.action"), cancellation_person_path(person), class: "member_link" if person.may_cancel?
+  end
+
+  member_action :cancellation, method: [:get, :patch] do
+    form = People::CancellationForm.from_params(params, person_id: resource.id)
+    if request.patch?
+      created = false
+      People::CreateCancellation.call(form: form, admin: current_admin) do
+        on(:invalid) {}
+        on(:error) do
+          flash.now[:error] = t("census.messages.error_occurred")
+        end
+        on(:ok) do
+          flash[:notice] = t("census.people.action_message.cancellation_created")
+          created = true
+        end
+      end
+      return redirect_to(person_path) if created
+    end
+
+    render "cancellation", locals: { context: self, cancellation_form: form }
   end
 
   form partial: "people/form", decorate: true

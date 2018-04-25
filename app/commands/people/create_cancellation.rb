@@ -38,6 +38,7 @@ module People
 
     def cancellation
       @cancellation ||= procedure_for(form.person, ::Procedures::Cancellation) do |procedure|
+        procedure.channel = form.channel
         procedure.reason = form.reason
       end
     end

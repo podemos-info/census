@@ -33,21 +33,14 @@ ActiveAdmin.register Procedure do
   scope :dismissed, group: :archive
 
   index do
-    column :created_at
+    id_column
     column :type, class: :left, sortable: :type do |procedure|
       issues_icons(procedure, context: self)
       procedure.link_with_name
     end
     column :person, class: :left, sortable: :full_name
     state_column :state
-    actions defaults: false do |procedure|
-      span procedure.link
-      if procedure.full_undoable_by? controller.current_admin
-        span link_to t("census.procedures.actions.undo"), undo_procedure_path(procedure), method: :patch,
-                                                                                          data: { confirm: t("census.messages.sure_question") },
-                                                                                          class: "member_link"
-      end
-    end
+    column :created_at
   end
 
   show do

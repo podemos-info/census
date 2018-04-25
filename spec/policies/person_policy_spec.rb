@@ -14,6 +14,7 @@ describe PersonPolicy do
     it { is_expected.to forbid_new_and_create_actions }
     it { is_expected.to forbid_edit_and_update_actions }
     it { is_expected.to forbid_action :request_verification }
+    it { is_expected.to forbid_action :cancellation }
     it { is_expected.to forbid_action :destroy }
   end
 
@@ -24,6 +25,7 @@ describe PersonPolicy do
     it { is_expected.to forbid_new_and_create_actions }
     it { is_expected.to permit_edit_and_update_actions }
     it { is_expected.to permit_action :request_verification }
+    it { is_expected.to permit_action :cancellation }
     it { is_expected.to forbid_action :destroy }
   end
 
@@ -34,6 +36,7 @@ describe PersonPolicy do
     it { is_expected.to forbid_new_and_create_actions }
     it { is_expected.to permit_edit_and_update_actions }
     it { is_expected.to permit_action :request_verification }
+    it { is_expected.to permit_action :cancellation }
     it { is_expected.to forbid_action :destroy }
   end
 
@@ -44,6 +47,7 @@ describe PersonPolicy do
     it { is_expected.to forbid_new_and_create_actions }
     it { is_expected.to forbid_edit_and_update_actions }
     it { is_expected.to forbid_action :request_verification }
+    it { is_expected.to forbid_action :cancellation }
     it { is_expected.to forbid_action :destroy }
   end
 end

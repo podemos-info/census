@@ -13,7 +13,7 @@ Census is an open source census management application. It is aimed to store peo
 ## Development
 Census is written in [Ruby on Rails](https://github.com/rails), and its admin interface is based on [Active Admin](https://github.com/activeadmin/activeadmin/).
 
-[![Travis](https://img.shields.io/travis/podemos-info/census/master.svg)](https://travis-ci.org/podemos-info/census)
+[![Travis](https://travis-ci.org/podemos-info/census.svg?branch=master)](https://travis-ci.org/podemos-info/census)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/073f81918e3636dbc15a/test_coverage)](https://codeclimate.com/github/podemos-info/census/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/073f81918e3636dbc15a/maintainability)](https://codeclimate.com/github/podemos-info/census/maintainability)
 

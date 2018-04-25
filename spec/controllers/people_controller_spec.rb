@@ -159,5 +159,53 @@ describe PeopleController, type: :controller do
         end
       end
     end
+
+    describe "cancellation" do
+      subject { get :cancellation, params: { id: person.id } }
+
+      it { is_expected.to be_successful }
+      it { is_expected.to render_template("cancellation") }
+
+      context "when submitting data" do
+        subject { patch :cancellation, params: { id: person.id, channel: channel, reason: reason } }
+        let(:channel) { "email" }
+        let(:reason) { "Razones de peso" }
+
+        it { is_expected.to redirect_to(person_path(person)) }
+        it "shows a notice message" do
+          expect { subject }
+            .to change { flash[:notice] }
+            .from(nil)
+            .to("Se ha creado el procedimiento de baja.")
+        end
+
+        it "should change the person state" do
+          perform_enqueued_jobs do
+            expect { subject } .to change { person.reload.state } .from("enabled").to("cancelled")
+          end
+        end
+
+        context "with invalid params" do
+          let(:channel) { "" }
+
+          it { is_expected.to be_successful }
+          it { is_expected.to render_template("cancellation") }
+        end
+
+        context "when saving fails" do
+          before { stub_command("People::CreateCancellation", :error) }
+
+          it { is_expected.to be_successful }
+          it { is_expected.to render_template("cancellation") }
+
+          it "shows an error message" do
+            expect { subject }
+              .to change { flash[:error] }
+              .from(nil)
+              .to("Ha ocurrido un error al guardar el registro.")
+          end
+        end
+      end
+    end
   end
 end
