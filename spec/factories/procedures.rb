@@ -13,7 +13,7 @@ FactoryBot.define do
   factory :procedure, class: :procedure do
     association :person, factory: :person, strategy: :build
     information { {} }
-    created_at { Faker::Time.between(person.created_at, 3.days.ago, :between) }
+    created_at { Faker::Time.between(person.created_at, Time.zone.now, :between) }
 
     trait :cancelled_person do
       person { build(:person, :cancelled) }
@@ -143,5 +143,6 @@ FactoryBot.define do
 
   factory :cancellation, parent: :procedure, class: :"procedures/cancellation" do
     reason { Faker::Lorem.paragraph(1, true, 2) }
+    person
   end
 end
