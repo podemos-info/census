@@ -32,5 +32,9 @@ module PersonStates
     def ensure_discarded
       self.discarded_at ||= Time.zone.now
     end
+
+    def kept?
+      !discarded?
+    end
   end
 end

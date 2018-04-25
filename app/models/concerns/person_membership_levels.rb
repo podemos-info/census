@@ -11,7 +11,7 @@ module PersonMembershipLevels
       state :member
 
       event :to_follower do
-        transitions from: :member, to: :follower
+        transitions from: :member, to: :follower, guard: :kept?
       end
 
       event :to_member do
@@ -27,7 +27,7 @@ module PersonMembershipLevels
     end
 
     def memberable?
-      verified? && adult?
+      kept? && verified? && adult?
     end
 
     def adult?
