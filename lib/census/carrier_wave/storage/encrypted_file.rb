@@ -38,12 +38,12 @@ module Census
         # [CarrierWave::SanitizedFile] a sanitized file
         #
         def retrieve!(identifier)
-          decrypt_dir = File.join(uploader.root.to_s, uploader.cache_path("decrypted/"))
+          decrypt_dir = File.join(uploader.root.to_s, uploader.cache_path("decrypted"))
           ::FileUtils.mkdir_p(decrypt_dir, mode: uploader.directory_permissions) unless ::File.exist?(decrypt_dir)
 
           store_path = uploader.store_path(identifier)
           path = ::File.expand_path(store_path, uploader.root)
-          return_path = File.join(Dir.mktmpdir(decrypt_dir, "/"), File.basename(store_path))
+          return_path = File.join(Dir.mktmpdir(nil, decrypt_dir), File.basename(store_path))
 
           ::File.open(return_path, "wb") do |file|
             file.write SymmetricEncryption::Reader.open(path).read
