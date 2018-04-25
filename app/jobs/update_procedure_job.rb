@@ -24,8 +24,10 @@ class UpdateProcedureJob < ApplicationJob
       on(:error) { log :user, key: "auto_process.error" }
     end
 
-    # Update issues after auto processing
-    Issues::CheckIssues.call(issuable: procedure, admin: admin, &log_issues_message)
+    # Update issues for all the procedures related to the person after auto processing
+    related_procedures(procedure).each do |related_procedure|
+      Issues::CheckIssues.call(issuable: related_procedure, admin: admin, &log_issues_message)
+    end
   end
 
   private
@@ -36,5 +38,9 @@ class UpdateProcedureJob < ApplicationJob
     elsif procedure.auto_processable? && procedure.issues_summary == :ok
       "accept"
     end
+  end
+
+  def related_procedures(procedure)
+    [procedure] + procedure.person.procedures.pending + procedure.person.open_issues.flat_map(&:procedures)
   end
 end
