@@ -24,13 +24,7 @@ random_people.where.not(id: admins.pluck(:person_id)).limit(10).each do |person|
 
   Timecop.freeze Faker::Time.between(Time.zone.now, real_now, :between)
   PaperTrail.request.whodunnit = current_admin
-
-  cancellation.assign_attributes(
-    processed_by: current_admin,
-    processed_at: Time.zone.now
-  )
-  cancellation.accept
-  cancellation.save!
+  UpdateProcedureJob.perform_later(procedure: cancellation, admin: current_admin)
 
   Rails.logger.debug { "Person cancellation accepted for: #{cancellation.person.decorate(lopd_context)}" }
 end

@@ -25,7 +25,7 @@ module Issues
       validates :fixed, exclusion: { in: [nil] }, if: :fixing
 
       def detect
-        true
+        !procedure.person.discarded?
       end
 
       def fill

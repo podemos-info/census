@@ -31,8 +31,8 @@ Procedure.all.each do |registration|
   Rails.logger.debug { "Person registration accepted: #{registration.person.decorate(lopd_context)}" }
 end
 
-# create 10 processed document verifications
-random_people.enabled.not_verified.limit(10).each do |person|
+# create 5 processed document verifications
+random_people.enabled.not_verified.limit(5).each do |person|
   Timecop.freeze Faker::Time.between(person.created_at, 3.days.ago(real_now), :between)
   PaperTrail.request.whodunnit = person
 
@@ -63,8 +63,8 @@ random_people.enabled.not_verified.limit(10).each do |person|
   Rails.logger.debug { "Person document verification accepted for: #{document_verification.person.decorate(lopd_context)}" }
 end
 
-# create 15 unprocessed document verifications
-random_people.enabled.not_verified.limit(10).each do |person|
+# create 5 unprocessed document verifications
+random_people.enabled.not_verified.limit(5).each do |person|
   Timecop.freeze Faker::Time.between(3.days.ago(real_now), 1.day.ago(real_now), :between)
   PaperTrail.request.whodunnit = person
   document_verification = Procedures::DocumentVerification.create!(person: person,
@@ -83,7 +83,6 @@ random_procedures(Procedures::DocumentVerification).pending.limit(5).each do |do
   issue = Issues::People::AdminRemark.for(document_verification, find: false)
   issue.explanation = Faker::Lorem.paragraph(1, true, 2)
   issue.fill
-  Issues::CreateIssueUnreads.call(issue: issue, admin: admin)
-  issue.save!
+  Issues::CreateIssue.call(issue: issue, admin: admin)
   Rails.logger.debug { "Issue created for document verification procedure for: #{document_verification.person.decorate(lopd_context)}" }
 end

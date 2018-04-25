@@ -40,13 +40,10 @@ module Procedures
       issue.explanation = form.comment
       issue.fill
       ret = :issue_error
-      Procedure.transaction do
-        issue.save!
-        Issues::CreateIssueUnreads.call(issue: issue, admin: admin) do
-          on(:invalid) { ret = :invalid }
-          on(:error) {}
-          on(:ok) { ret = :issue_ok }
-        end
+      Issues::CreateIssue.call(issue: issue, admin: admin) do
+        on(:invalid) { ret = :invalid }
+        on(:error) {}
+        on(:ok) { ret = :issue_ok }
       end
       @result = ret
     end

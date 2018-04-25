@@ -44,3 +44,8 @@ def api_attachment_format(attachment)
     base64_content: Base64.encode64(attachment.file.file.read)
   }
 end
+
+# job record related to object
+def job_for(object)
+  ActiveJobReporter::JobObject.find_by(object: object)&.job
+end
