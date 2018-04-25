@@ -17,6 +17,10 @@ class PersonPolicy < ApplicationPolicy
     user.data_help_role? && !record.discarded?
   end
 
+  def cancellation?
+    update?
+  end
+
   def request_verification?
     update?
   end

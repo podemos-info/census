@@ -7,6 +7,9 @@ module People
 
     mimic :cancellation
 
+    attribute :channel, String
     attribute :reason, String
+
+    validates :channel, presence: true
   end
 end

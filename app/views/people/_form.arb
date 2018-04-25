@@ -10,7 +10,7 @@ active_admin_form_for controller.form_resource do |f|
     f.input :document_scope_id, as: :select, collection: PersonDecorator.country_options
     f.input :born_at, as: :datepicker
     f.input :gender, as: :radio, collection: PersonDecorator.gender_options
-    f.input :address
+    f.input :address, as: :text, input_html: { rows: 4 }
     f.input :address_scope_id, as: :data_picker, text: :address_scope_full_path,
                                url: browse_scopes_path(current: person.address_scope_id, title: Person.human_attribute_name(:address_scope).downcase)
     f.input :postal_code

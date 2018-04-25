@@ -2,7 +2,7 @@
 
 module Procedures
   class Cancellation < Procedure
-    store_accessor :information, :reason, :from_state
+    store_accessor :information, :channel, :reason, :from_state
 
     def acceptable?
       !person.discarded?
