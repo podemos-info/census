@@ -57,6 +57,10 @@ gem "ahoy_matey" # must appear after devise gem
 group :development, :test do
   gem "brakeman", require: false
   gem "byebug", platform: :mri
+  gem "capistrano", "~> 3.6", require: false
+  gem "capistrano-rails", "~> 1.3", require: false
+  gem "capistrano-rvm", require: false
+  gem "capistrano3-puma", require: false
   gem "faker"
   gem "simplecov", require: false
   gem "timecop"
@@ -77,10 +81,6 @@ end
 group :development do
   gem "aasm-diagram", require: false
   gem "better_errors"
-  gem "capistrano", "~> 3.6", require: false
-  gem "capistrano-rails", "~> 1.3", require: false
-  gem "capistrano-rvm", require: false
-  gem "capistrano3-puma", require: false
   gem "i18n-debug"
   gem "i18n-tasks"
   gem "listen"
