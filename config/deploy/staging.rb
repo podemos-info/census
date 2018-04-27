@@ -60,3 +60,29 @@ set :rvm_custom_path, "/usr/share/rvm"
 #     auth_methods: %w(publickey password)
 #     # password: "please use keys"
 #   }
+desc "Seed database with random data"
+namespace :deploy do
+  namespace :db do
+    task :seed do
+      on primary :db do
+        within release_path do
+          with rails_env: fetch(:rails_env), disable_database_environment_check: true, seed_random_data: true do
+            execute :rake, "db:schema:load"
+            execute :rake, "db:seed"
+          end
+        end
+      end
+    end
+    task :reseed do
+      on primary :db do
+        within release_path do
+          with rails_env: fetch(:rails_env), seed_random_data: true do
+            execute :rake, "db:reseed"
+          end
+        end
+      end
+    end
+  end
+end
+
+before "deploy:migrate", "deploy:db:reseed"
