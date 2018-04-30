@@ -76,7 +76,7 @@ Admin.roles.each_key do |role|
     person = register_person(use_procedure: false)
     PaperTrail.request.whodunnit = person
     person.verify!
-    admin = Admin.create! username: "#{role}#{i}", password: role, password_confirmation: role, person: person, role: role
+    admin = Admin.create! username: "#{role}#{i}", password: "#{ENV["SEED_PASSWORDS_PREFIX"]}#{role}", password_confirmation: role, person: person, role: role
     Rails.logger.debug { "Admin '#{admin.username}' created for person: #{person.decorate(data_context)}" }
   end
 end

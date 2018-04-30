@@ -1,20 +1,37 @@
 language: ruby
 cache: bundler
-addons:
-  postgresql: "9.4"
-before_script:
- - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
- - chmod +x ./cc-test-reporter
- - ./cc-test-reporter before-build
- - bundle exec rake db:setup
 rvm:
- - 2.4.1
+- 2.4.2
 env:
- - CI=true
+- CI=true
+
+addons:
+  postgresql: "9.5"
+
+before_script:
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- "./cc-test-reporter before-build"
+- bundle exec rake db:setup
 script:
- - bundle exec brakeman
- - bundle exec i18n-tasks health
- - bundle exec rubocop -c .rubocop.yml
- - bundle exec rspec
+- bundle exec brakeman
+- bundle exec i18n-tasks health
+- bundle exec rubocop -c .rubocop.yml
+- bundle exec rspec
 after_script:
- - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+- "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
+
+before_deploy:
+- ssh-keyscan -p $STAGING_SERVER_MASTER_PORT -H $STAGING_SERVER_MASTER_HOST 2>/dev/null | tee -a $HOME/.ssh/known_hosts
+- ssh-keyscan -p $STAGING_SERVER_SLAVE_PORT -H $STAGING_SERVER_SLAVE_HOST 2>/dev/null | tee -a $HOME/.ssh/known_hosts
+- openssl aes-256-cbc -K $encrypted_9ee57c7bedb7_key -iv $encrypted_9ee57c7bedb7_iv -in config/deploy/deploy_rsa.enc -out config/deploy/deploy_rsa -d
+- eval "$(ssh-agent -s)"
+- chmod 600 config/deploy/deploy_rsa
+- ssh-add config/deploy/deploy_rsa
+
+deploy:
+  provider: script
+  script: rvm $TRAVIS_RUBY_VERSION do bin/cap staging deploy
+  skip_cleanup: true
+  on:
+    branch: master
