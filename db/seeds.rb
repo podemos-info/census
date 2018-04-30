@@ -13,6 +13,9 @@ return unless ENV["SEED_RANDOM_DATA"]
 
 Rails.logger = Logger.new(STDOUT)
 
+require "faker"
+require "timecop"
+
 require "random"
 require "people"
 require "procedures"

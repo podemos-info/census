@@ -47,6 +47,10 @@ gem "symmetric-encryption"
 
 gem "ahoy_matey" # must appear after devise gem
 
+# Seeding gems
+gem "faker", require: false
+gem "timecop", require: false
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem "jbuilder", "~> 2.5"
 # Use ActiveModel has_secure_password
@@ -61,9 +65,7 @@ group :development, :test do
   gem "capistrano-rails", "~> 1.3", require: false
   gem "capistrano-rvm", require: false
   gem "capistrano3-puma", require: false
-  gem "faker"
   gem "simplecov", require: false
-  gem "timecop"
 end
 
 group :test do
