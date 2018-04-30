@@ -40,4 +40,4 @@ namespace :deploy do
   end
 end
 
-before "deploy:migrate", "deploy:db:reseed"
+after "deploy:migrate", "deploy:db:reseed"
