@@ -2,6 +2,9 @@
 
 require "capybara/rspec"
 
+require "faker"
+require "timecop"
+
 require "shared/devise_login"
 require "shared/only_authorized_api_clients"
 require "shared/only_authorized_payment_callbacks"
