@@ -12,7 +12,6 @@ set :rails_env, :production
 # Use RVM system installation
 set :rvm_type, :system
 set :rvm_custom_path, "/usr/share/rvm"
-
 set :ssh_options, keys: ["config/deploy/deploy_rsa"] if File.exist?("config/deploy/deploy_rsa")
 
 desc "Seed database with random data"
@@ -40,4 +39,4 @@ namespace :deploy do
   end
 end
 
-before "deploy:migrate", "deploy:db:reseed"
+after "deploy:migrate", "deploy:db:reseed"
