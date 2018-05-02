@@ -344,6 +344,7 @@ es:
       download: Descargar
     events:
       action:
+        cancellation: Dar de baja
         create: Guardar
         destroy: Borrar
         edit: Modificar
@@ -437,15 +438,15 @@ es:
         ok: Correcto
         review: Debe ser revisado antes de procesarlo
       status:
+        enqueued: Encolada
         finished: Finalizada
         pending: Pendiente
         running: Procesando
       types:
         check_bic_issues_job: Comprobar incidencias para BIC actualizado
-        check_payment_method_issues_job: Comprobar incidencias asociadas al método de pago actualizado
-        check_person_issues_job: Comprobar incidencias para los datos de la persona
-        check_processed_order_issues_job: Comprobar incidencias para la orden procesada
+        check_payment_issues_job: Comprobar incidencias asociadas al método de pago actualizado
         process_orders_batch_job: Procesar lote de órdenes
+        update_procedure_job: Comprobar incidencias y autoprocesar el procedimiento si es posible
     messages:
       error_occurred: Ha ocurrido un error al guardar el registro.
       protected_data: "[Datos no accesibles]"
