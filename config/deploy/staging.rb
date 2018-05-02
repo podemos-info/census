@@ -15,13 +15,23 @@ set :rvm_custom_path, "/usr/share/rvm"
 
 set :ssh_options, keys: ["config/deploy/deploy_rsa"] if File.exist?("config/deploy/deploy_rsa")
 
+def db_tasks_environment
+  {
+    rails_env: :production,
+    disable_database_environment_check: true,
+    seed_random_data: true,
+    not_real_database: true,
+    seed_passwords_prefix: ENV["SEED_PASSWORDS_PREFIX"]
+  }
+end
+
 desc "Seed database with random data"
 namespace :deploy do
   namespace :db do
     task :seed do
       on primary :db do
         within release_path do
-          with rails_env: fetch(:rails_env), disable_database_environment_check: true, seed_random_data: true, not_real_database: true do
+          with db_tasks_environment do
             execute :rake, "db:schema:load"
             execute :rake, "db:seed"
           end
@@ -31,7 +41,7 @@ namespace :deploy do
     task :reseed do
       on primary :db do
         within release_path do
-          with rails_env: fetch(:rails_env), disable_database_environment_check: true, seed_random_data: true, not_real_database: true do
+          with db_tasks_environment do
             execute :rake, "db:reseed"
           end
         end
