@@ -7,7 +7,7 @@ class ApplicationDecorator < Draper::Decorator
 
   def name_link
     if can? :show
-      h.link_to name, object
+      h.link_to name, h.url_for(self)
     else
       name
     end
