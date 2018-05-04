@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-# Add your own tasks in files placed in lib/tasks ending in .rake,
-# for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
-
 require_relative "config/application"
+
+require "sneakers/tasks"
 
 desc "Update state machines graphs"
 task update_aasm_graphs: :environment do
