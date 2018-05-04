@@ -33,6 +33,8 @@ class UpdateProcedureJob < ApplicationJob
   private
 
   def procedure_action(procedure)
+    return unless procedure.pending?
+
     if procedure.person.discarded?
       "dismiss"
     elsif procedure.auto_processable? && procedure.issues_summary == :ok
