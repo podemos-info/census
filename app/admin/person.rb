@@ -87,6 +87,7 @@ ActiveAdmin.register Person do
   member_action :cancellation, method: [:get, :patch] do
     form = People::CancellationForm.from_params(params, person_id: resource.id)
     if request.patch?
+      created = false
       People::CreateCancellation.call(form: form, admin: current_admin) do
         on(:invalid) {}
         on(:error) do
@@ -94,11 +95,13 @@ ActiveAdmin.register Person do
         end
         on(:ok) do
           flash[:notice] = t("census.people.action_message.cancellation_created")
-          redirect_to(person_path)
+          created = true
         end
       end
+      return redirect_to(person_path) if created
     end
-    render "cancellation", locals: { context: self, cancellation_form: form } unless response_body
+
+    render "cancellation", locals: { context: self, cancellation_form: form }
   end
 
   form partial: "people/form", decorate: true
@@ -127,11 +130,11 @@ ActiveAdmin.register Person do
         end
         on(:noop) do
           flash[:notice] = t("census.people.action_message.no_changes_done")
-          redirect_to(person_path)
+          redirect_back(fallback_location: person_path)
         end
         on(:ok) do
           flash[:notice] = t("census.people.action_message.person_data_change_created")
-          redirect_to(person_path)
+          redirect_back(fallback_location: person_path)
         end
       end
     end

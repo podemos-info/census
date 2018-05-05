@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-table_for(person.last_procedures, row_class: ->(record) { record.state }) do
+table_for person.last_procedures do
   column do |procedure|
     span link_to procedure.created_at.to_date.to_s(:db), url_for([person, procedure])
   end

@@ -42,7 +42,6 @@ gem "rectify", github: "podemos-info/rectify", branch: "fix/same_name_for_mimic_
 gem "sassc-rails"
 gem "secure_headers"
 gem "sepa_king"
-gem "sneakers"
 gem "spanish_vat_validators"
 gem "symmetric-encryption"
 
@@ -65,7 +64,6 @@ group :development, :test do
   gem "capistrano", "~> 3.6", require: false
   gem "capistrano-rails", "~> 1.3", require: false
   gem "capistrano-rvm", require: false
-  gem "capistrano-sneakers", require: false
   gem "capistrano3-puma", require: false
   gem "simplecov", require: false
 end

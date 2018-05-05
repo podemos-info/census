@@ -5,6 +5,10 @@ class CheckBicIssuesJob < ApplicationJob
 
   queue_as :payments
 
+  def related_objects
+    []
+  end
+
   def perform(country:, bank_code:, admin:)
     @country = country
     @bank_code = bank_code
