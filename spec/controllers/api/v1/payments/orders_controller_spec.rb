@@ -18,7 +18,7 @@ describe Api::V1::Payments::OrdersController, type: :controller do
     let(:order) { build(:order) }
     let(:payment_method) { create(:direct_debit) }
 
-    describe "with an existing payment method" do
+    context "with an existing payment method" do
       let(:payment_method_params) do
         {
           payment_method_type: "existing_payment_method",
