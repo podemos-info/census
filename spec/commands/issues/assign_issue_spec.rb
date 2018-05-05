@@ -8,7 +8,7 @@ describe Issues::AssignIssue do
   let!(:issue) { create(:duplicated_document) }
   let!(:admin) { create(:admin) }
 
-  describe "when is ok" do
+  context "when is ok" do
     it "broadcasts :ok" do
       expect { subject } .to broadcast(:ok)
     end

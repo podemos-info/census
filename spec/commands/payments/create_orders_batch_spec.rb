@@ -18,7 +18,7 @@ describe Payments::CreateOrdersBatch do
     )
   end
 
-  describe "when valid" do
+  context "when valid" do
     it "broadcasts :ok" do
       expect { subject } .to broadcast(:ok)
     end
@@ -28,7 +28,7 @@ describe Payments::CreateOrdersBatch do
     end
   end
 
-  describe "when invalid" do
+  context "when invalid" do
     let(:valid) { false }
 
     it "broadcasts :invalid" do
@@ -44,7 +44,7 @@ describe Payments::CreateOrdersBatch do
     end
   end
 
-  describe "when orders batch save fails" do
+  context "when orders batch save fails" do
     before { allow_any_instance_of(OrdersBatch).to receive(:save!).and_raise(ActiveRecord::Rollback) }
 
     it "broadcasts :error" do
@@ -56,7 +56,7 @@ describe Payments::CreateOrdersBatch do
     end
   end
 
-  describe "when order save fails" do
+  context "when order save fails" do
     before { allow_any_instance_of(Order).to receive(:save!).and_raise(ActiveRecord::Rollback) }
 
     it "broadcasts :error" do

@@ -24,7 +24,7 @@ describe Payments::CreateOrder do
     )
   end
 
-  describe "when valid" do
+  context "when valid" do
     it "broadcasts :ok" do
       expect { subject } .to broadcast(:ok, hash_including(:order))
     end
@@ -34,7 +34,7 @@ describe Payments::CreateOrder do
     end
   end
 
-  describe "when payment method is credit card with external authentication" do
+  context "when payment method is credit card with external authentication" do
     let(:payment_method) { build(:credit_card, :external, person: order.person) }
     let(:form_class) { Orders::CreditCardExternalOrderForm }
 
@@ -47,7 +47,7 @@ describe Payments::CreateOrder do
     end
   end
 
-  describe "when invalid" do
+  context "when invalid" do
     let(:valid) { false }
 
     it "broadcasts :invalid" do
@@ -59,7 +59,7 @@ describe Payments::CreateOrder do
     end
   end
 
-  describe "when payment method is inactive" do
+  context "when payment method is inactive" do
     let(:payment_method) { create(:credit_card, :expired, person: order.person) }
     let(:valid) { false }
 
@@ -72,7 +72,7 @@ describe Payments::CreateOrder do
     end
   end
 
-  describe "when payment method is an authorized credit card" do
+  context "when payment method is an authorized credit card" do
     let(:payment_method) { build(:credit_card, :external_verified, person: order.person) }
     let(:form_class) { Orders::CreditCardAuthorizedOrderForm }
 
@@ -85,7 +85,7 @@ describe Payments::CreateOrder do
     end
   end
 
-  describe "when payment method is a new direct debit" do
+  context "when payment method is a new direct debit" do
     let(:payment_method) { build(:direct_debit, person: order.person) }
     let(:form_class) { Orders::DirectDebitOrderForm }
 
@@ -99,7 +99,7 @@ describe Payments::CreateOrder do
   end
 
   context "unexpected fails scenario" do
-    describe "when payment method is invalid" do
+    context "when payment method is invalid" do
       before { stub_command("Payments::SavePaymentMethod", :invalid) }
 
       it "broadcasts :invalid" do
@@ -111,7 +111,7 @@ describe Payments::CreateOrder do
       end
     end
 
-    describe "when payment method save fails" do
+    context "when payment method save fails" do
       before { stub_command("Payments::SavePaymentMethod", :error) }
 
       it "broadcasts :error" do
@@ -123,7 +123,7 @@ describe Payments::CreateOrder do
       end
     end
 
-    describe "when order save fails" do
+    context "when order save fails" do
       before { allow_any_instance_of(Order).to receive(:save!).and_raise(ActiveRecord::Rollback) }
 
       it "broadcasts :error" do

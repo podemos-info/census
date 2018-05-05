@@ -9,7 +9,7 @@ describe Issues::CheckIssues do
   let(:person) { build(:person) }
   let(:admin) { create(:admin) }
 
-  describe "when valid" do
+  context "when valid" do
     it "broadcasts :no_issues" do
       expect { subject } .to broadcast(:no_issue)
     end
@@ -19,7 +19,7 @@ describe Issues::CheckIssues do
     end
   end
 
-  describe "when another person with same document exists" do
+  context "when another person with same document exists" do
     let!(:same_person) { create(:person, :copy, from: person) }
 
     it "broadcast :new_issue" do
@@ -41,7 +41,7 @@ describe Issues::CheckIssues do
     end
   end
 
-  describe "when an unfixed issue for this document exists" do
+  context "when an unfixed issue for this document exists" do
     let!(:same_person) { create(:person, :copy, from: person) }
     let(:more_people) { create(:person, :copy, from: person) }
     before do
@@ -68,7 +68,7 @@ describe Issues::CheckIssues do
     end
   end
 
-  describe "when an unfixed issue for this document existed, but is fixed now" do
+  context "when an unfixed issue for this document existed, but is fixed now" do
     let!(:same_person) { create(:person, :copy, from: person) }
     let(:other_person) { build(:person) }
     before do

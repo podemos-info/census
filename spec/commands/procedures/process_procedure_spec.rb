@@ -26,7 +26,7 @@ describe Procedures::ProcessProcedure do
     )
   end
 
-  describe "when valid" do
+  context "when valid" do
     it "broadcasts :ok" do
       expect { subject } .to broadcast(:ok)
     end
@@ -69,7 +69,7 @@ describe Procedures::ProcessProcedure do
     end
   end
 
-  describe "when adding an issue" do
+  context "when adding an issue" do
     let(:action) { :issue }
     it "broadcasts :issue_ok" do
       expect { subject } .to broadcast(:issue_ok)

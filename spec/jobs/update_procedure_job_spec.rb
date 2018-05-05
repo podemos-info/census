@@ -14,7 +14,7 @@ describe UpdateProcedureJob, type: :job do
     end
   end
 
-  describe "when a person with an open issue is cancelled" do
+  context "when a person with an open issue is cancelled" do
     let!(:open_issue) { create(:duplicated_document) }
     let(:registration_procedure) { open_issue.procedures.first }
     let(:person) { registration_procedure.person }
@@ -37,7 +37,7 @@ describe UpdateProcedureJob, type: :job do
     end
   end
 
-  describe "when a person related to an open issue is cancelled" do
+  context "when a person related to an open issue is cancelled" do
     let!(:open_issue) { create(:duplicated_document, other_person: other_person) }
     let(:registration_procedure) { open_issue.procedures.first }
     let(:person) { registration_procedure.person }

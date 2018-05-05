@@ -21,7 +21,7 @@ describe People::CreateDocumentVerification do
 
   let(:files) { [build(:attachment).file, build(:attachment).file] }
 
-  describe "when valid" do
+  context "when valid" do
     it "broadcasts :ok" do
       expect { subject } .to broadcast(:ok)
     end
@@ -31,7 +31,7 @@ describe People::CreateDocumentVerification do
     end
   end
 
-  describe "when invalid" do
+  context "when invalid" do
     let(:valid) { false }
 
     it "broadcasts :invalid" do
@@ -43,7 +43,7 @@ describe People::CreateDocumentVerification do
     end
   end
 
-  describe "when a procedure already exists for the person" do
+  context "when a procedure already exists for the person" do
     let!(:procedure) { create(:document_verification, person: person) }
 
     it "does not create a new procedure" do

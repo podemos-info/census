@@ -8,7 +8,7 @@ describe Issues::GoneIssue do
   let!(:issue) { create(:duplicated_document) }
   let!(:admin) { create(:admin) }
 
-  describe "when is ok" do
+  context "when is ok" do
     it "broadcasts :ok" do
       expect { subject } .to broadcast(:ok)
     end
@@ -26,7 +26,7 @@ describe Issues::GoneIssue do
     end
   end
 
-  describe "when the issue was previously assigned" do
+  context "when the issue was previously assigned" do
     before do
       issue.assigned_to = create(:person)
       issue.save!

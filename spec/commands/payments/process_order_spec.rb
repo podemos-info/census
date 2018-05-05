@@ -12,7 +12,7 @@ describe Payments::ProcessOrder do
   let(:order) { create(:order, :credit_card, :external_verified) }
   let(:admin) { create(:admin) }
 
-  describe "when valid" do
+  context "when valid" do
     let(:cassete) { "valid_process_order_command" }
     it "broadcasts :ok" do
       expect { subject } .to broadcast(:ok)
@@ -28,7 +28,7 @@ describe Payments::ProcessOrder do
     end
   end
 
-  describe "when the payment fails" do
+  context "when the payment fails" do
     let(:cassete) { "failed_process_order_command" }
     let(:order) { create(:order, :credit_card) }
 
@@ -41,7 +41,7 @@ describe Payments::ProcessOrder do
     end
   end
 
-  describe "when invalid" do
+  context "when invalid" do
     let(:cassete) { "invalid_process_order_command" }
     let(:order) { nil }
 
@@ -50,7 +50,7 @@ describe Payments::ProcessOrder do
     end
   end
 
-  describe "when there is an error saving the payment method" do
+  context "when there is an error saving the payment method" do
     let(:cassete) { "process_order_command_save_payment_method_error" }
     before { stub_command("Payments::SavePaymentMethod", :error) }
 
@@ -69,7 +69,7 @@ describe Payments::ProcessOrder do
     end
   end
 
-  describe "when there is an error saving the order" do
+  context "when there is an error saving the order" do
     let(:cassete) { "process_order_command_save_order_error" }
     before { allow(order).to receive(:save!).and_raise(ActiveRecord::Rollback) }
 

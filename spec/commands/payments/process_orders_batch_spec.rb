@@ -11,7 +11,7 @@ describe Payments::ProcessOrdersBatch do
   let!(:admin) { create(:admin) }
   let(:orders_batch) { create(:orders_batch) }
 
-  describe "when valid" do
+  context "when valid" do
     let(:cassete) { "valid_process_orders_batch_command" }
     it "broadcasts :ok" do
       expect { subject } .to broadcast(:ok)
@@ -22,7 +22,7 @@ describe Payments::ProcessOrdersBatch do
     end
   end
 
-  describe "when invalid" do
+  context "when invalid" do
     let(:cassete) { "invalid_process_orders_batch_command" }
     let(:admin) { nil }
 
@@ -35,7 +35,7 @@ describe Payments::ProcessOrdersBatch do
     end
   end
 
-  describe "when needs review" do
+  context "when needs review" do
     let(:orders_batch) { create(:orders_batch, :with_issues) }
     let(:cassete) { "needs_review_process_orders_batch_command" }
 
@@ -48,7 +48,7 @@ describe Payments::ProcessOrdersBatch do
     end
   end
 
-  describe "when there are too many errors saving the payment methods" do
+  context "when there are too many errors saving the payment methods" do
     let(:cassete) { "process_orders_batch_command_too_many_save_payment_method_errors" }
     before { stub_command("Payments::SavePaymentMethod", :error) }
 
@@ -57,7 +57,7 @@ describe Payments::ProcessOrdersBatch do
     end
   end
 
-  describe "when there are too many errors saving the orders" do
+  context "when there are too many errors saving the orders" do
     let(:cassete) { "process_orders_batch_command_too_many_save_order_errors" }
     before { allow_any_instance_of(Order).to receive(:save!).and_raise(ActiveRecord::Rollback) }
 
