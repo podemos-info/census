@@ -23,7 +23,6 @@ class Procedure < ApplicationRecord
   scope :independent, -> { where depends_on: nil }
 
   validates :comment, presence: { message: I18n.t("errors.messages.procedure_denial_comment_required") }, if: :rejected?
-  validates :processed_by, presence: true, if: :processed?, unless: :auto_processed?
   validates :processed_at, presence: true, if: :processed?
   validate :processed_by, :processed_by_different_from_person
   validate :depends_on, :depends_on_person

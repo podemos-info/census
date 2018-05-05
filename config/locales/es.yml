@@ -226,6 +226,7 @@ es:
         verification/verification_requested: verificación solicitada
         verification/verified: verificada
       procedure:
+        auto_processed?: Procesado automáticamente
         comment: Comentario
         created_at: Fecha de creación
         information: Información
