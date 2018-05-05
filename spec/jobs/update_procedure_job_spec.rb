@@ -13,6 +13,10 @@ describe UpdateProcedureJob, type: :job do
     it "completes the job" do
       expect { subject } .to change { job_for(procedure)&.result } .from(nil).to("ok")
     end
+
+    it "accepts the new person" do
+      expect { subject }.to change { person.reload.state }.from("pending").to("enabled")
+    end
   end
 
   context "when a person with an open issue is cancelled" do
