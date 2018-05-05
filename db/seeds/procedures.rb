@@ -8,29 +8,6 @@ attachments_path = File.join(__dir__, "attachments")
 
 real_now = Time.zone.now
 
-# process all registrations
-Procedure.all.each do |registration|
-  Timecop.freeze Faker::Time.between(registration.person.created_at, 3.days.after(registration.person.created_at), :between)
-
-  current_admin = admins.sample
-
-  Issues::CheckIssues.call(issuable: registration, admin: current_admin)
-  if registration.issues_summary != :ok
-    Rails.logger.debug { "Person registration pending: #{registration.person.decorate(data_context)}" }
-    next
-  end
-
-  PaperTrail.request.whodunnit = current_admin
-
-  registration.assign_attributes(
-    processed_by: current_admin,
-    processed_at: Time.zone.now
-  )
-  registration.accept
-  registration.save!
-  Rails.logger.debug { "Person registration accepted: #{registration.person.decorate(data_context)}" }
-end
-
 # create 5 processed document verifications
 random_people.enabled.not_verified.limit(5).each do |person|
   Timecop.freeze Faker::Time.between(person.created_at, 3.days.ago(real_now), :between)
