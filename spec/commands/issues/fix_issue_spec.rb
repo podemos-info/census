@@ -13,7 +13,7 @@ describe Issues::FixIssue do
   let(:admin) { create(:admin) }
   let(:chosen_person_id) { issue.procedure.person_id }
 
-  describe "when is ok" do
+  context "when is ok" do
     it "broadcasts :ok" do
       expect { subject } .to broadcast(:ok)
     end
@@ -31,7 +31,7 @@ describe Issues::FixIssue do
     end
   end
 
-  describe "when the issue was previously assigned" do
+  context "when the issue was previously assigned" do
     before do
       issue.assigned_to = create(:person)
       issue.save!
@@ -54,7 +54,7 @@ describe Issues::FixIssue do
     end
   end
 
-  describe "when the fix information is invalid" do
+  context "when the fix information is invalid" do
     let(:chosen_person_id) { create(:person).id }
 
     it "broadcasts :invalid" do

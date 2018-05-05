@@ -58,7 +58,7 @@ describe People::CreatePersonDataChange do
   let(:address_scope) { nil }
   let(:document_scope) { nil }
 
-  describe "when valid" do
+  context "when valid" do
     it "broadcasts :ok" do
       expect { subject } .to broadcast(:ok)
     end
@@ -81,7 +81,7 @@ describe People::CreatePersonDataChange do
     end
   end
 
-  describe "when invalid" do
+  context "when invalid" do
     let(:valid) { false }
 
     it "broadcasts :invalid" do
@@ -93,7 +93,7 @@ describe People::CreatePersonDataChange do
     end
   end
 
-  describe "when has no changes" do
+  context "when has no changes" do
     let(:has_changes?) { false }
 
     it "broadcasts :noop" do
@@ -105,7 +105,7 @@ describe People::CreatePersonDataChange do
     end
   end
 
-  describe "when a procedure already exists for the person" do
+  context "when a procedure already exists for the person" do
     let!(:procedure) { create(:person_data_change, person: person, changing_columns: [:last_name1, :email]) }
 
     it "does not create a new procedure" do

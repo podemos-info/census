@@ -9,7 +9,7 @@ describe Procedures::UndoProcedure do
     let(:procedure) { create(:document_verification, :undoable) }
     let(:admin) { procedure.processed_by }
 
-    describe "when undoing an accepted procedure" do
+    context "when undoing an accepted procedure" do
       it "broadcasts :ok" do
         expect { subject } .to broadcast(:ok)
       end
@@ -52,7 +52,7 @@ describe Procedures::UndoProcedure do
       end
     end
 
-    describe "when undoing a rejected procedure" do
+    context "when undoing a rejected procedure" do
       let(:procedure) { create(:document_verification, :undoable_rejected) }
       it "broadcasts :ok" do
         expect { subject } .to broadcast(:ok)

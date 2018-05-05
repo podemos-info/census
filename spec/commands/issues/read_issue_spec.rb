@@ -7,7 +7,7 @@ describe Issues::ReadIssue do
 
   let!(:issue_unread) { create(:issue_unread) }
 
-  describe "when there is an unread issue" do
+  context "when there is an unread issue" do
     it "broadcasts :ok" do
       expect { subject } .to broadcast(:ok)
     end
@@ -17,7 +17,7 @@ describe Issues::ReadIssue do
     end
   end
 
-  describe "when there is not an unread issue" do
+  context "when there is not an unread issue" do
     before do
       issue_unread.destroy
     end

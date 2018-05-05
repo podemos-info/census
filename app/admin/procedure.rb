@@ -40,6 +40,7 @@ ActiveAdmin.register Procedure do
     end
     column :person, class: :left, sortable: :full_name
     state_column :state
+    bool_column :auto_processed?
     column :created_at
   end
 

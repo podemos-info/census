@@ -122,7 +122,7 @@ describe OrdersBatchesController, type: :controller do
 
       it { is_expected.to be_successful }
 
-      describe "when submit pending bics" do
+      context "when submit pending bics" do
         subject(:page) { post :review_orders, params: { id: orders_batch.id, pending_bics: pending_bics } }
         let(:pending_bics) do
           Hash[orders_batch.orders.map do |order|

@@ -22,7 +22,7 @@ describe Downloads::CreateDownload do
     )
   end
 
-  describe "when valid" do
+  context "when valid" do
     it "broadcasts :ok" do
       expect { subject } .to broadcast(:ok)
     end
@@ -48,7 +48,7 @@ describe Downloads::CreateDownload do
     end
   end
 
-  describe "when invalid" do
+  context "when invalid" do
     let(:valid) { false }
 
     it "broadcasts :invalid" do
