@@ -15,9 +15,6 @@ set :rvm_custom_path, "/usr/share/rvm"
 
 set :ssh_options, keys: ["config/deploy/deploy_rsa"] if File.exist?("config/deploy/deploy_rsa")
 
-set :sneakers_roles, [:master]
-set :sneakers_workers, %w(FinancesWorker PaymentsWorker ProceduresWorker)
-
 def db_tasks_environment
   {
     rails_env: :production,

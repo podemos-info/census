@@ -29,10 +29,6 @@ class ApplicationController < ActionController::Base
     flash.now[:alert] = I18n.t("census.issues.issues_for_resource", issues_links: issues_for_resource.map(&:link_with_name).to_sentence).html_safe if issues_for_resource.any?
   end
 
-  def decorated_current_admin
-    @decorated_current_admin ||= current_admin&.decorate
-  end
-
   protected
 
   def issues_for_resource
