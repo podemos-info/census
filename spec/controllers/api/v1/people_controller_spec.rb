@@ -202,6 +202,18 @@ describe Api::V1::PeopleController, type: :controller do
         expect(subject["document_scope_code"]).to eq(person.document_scope.code)
       end
 
+      it "includes person state" do
+        expect(subject["state"]).to eq(person.state)
+      end
+
+      it "includes person verification" do
+        expect(subject["verification"]).to eq(person.verification)
+      end
+
+      it "includes person membership level" do
+        expect(subject["membership_level"]).to eq(person.membership_level)
+      end
+
       it "does not include hidden fields" do
         expect(subject.keys).not_to include(%w(created_at updated_at discarded_at verifications scope_id address_scope_id document_scope_id))
       end
