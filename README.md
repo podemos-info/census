@@ -1,6 +1,10 @@
 # Census
 Census is an open source census management application. It is aimed to store people and payments data securely. It was created to be used within [Decidim](https://github.com/decidim/decidim), but it could be integrated with any other application. Currently, it can't be used as a standalone application, since it has no UI for end user operations.
 
+[![Travis](https://travis-ci.org/podemos-info/census.svg?branch=master)](https://travis-ci.org/podemos-info/census)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/073f81918e3636dbc15a/test_coverage)](https://codeclimate.com/github/podemos-info/census/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/073f81918e3636dbc15a/maintainability)](https://codeclimate.com/github/podemos-info/census/maintainability)
+
 **WARNING**: Census is still under heavy development, and it's not ready for use in production yet.
 
 ## Features
@@ -12,10 +16,6 @@ Census is an open source census management application. It is aimed to store peo
 
 ## Development
 Census is written in [Ruby on Rails](https://github.com/rails), and its admin interface is based on [Active Admin](https://github.com/activeadmin/activeadmin/).
-
-[![Travis](https://travis-ci.org/podemos-info/census.svg?branch=master)](https://travis-ci.org/podemos-info/census)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/073f81918e3636dbc15a/test_coverage)](https://codeclimate.com/github/podemos-info/census/test_coverage)
-[![Maintainability](https://api.codeclimate.com/v1/badges/073f81918e3636dbc15a/maintainability)](https://codeclimate.com/github/podemos-info/census/maintainability)
 
 ### Setting up
 * Install Ruby (>=2.4) and postgreSQL (>=9.4)

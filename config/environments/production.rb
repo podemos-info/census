@@ -77,5 +77,8 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  # Use sidekiq queue adapter for production
+  Rails.application.config.active_job.queue_adapter = :sneakers
+
   raise "Please set HOST_URL environment variable before running this application on production mode" unless Settings.security.host_url
 end

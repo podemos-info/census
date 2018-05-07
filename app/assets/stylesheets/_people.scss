@@ -1,0 +1,6 @@
+tr.accepted td a {
+  color: $success-color;
+}
+tr.rejected td a {
+  color: $error-color;
+}

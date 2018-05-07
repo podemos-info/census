@@ -3,6 +3,8 @@
 ActiveAdmin.register Job do
   decorate_with JobDecorator
 
+  includes :job_objects
+
   menu parent: :dashboard
   before_action :do_not_track_page_view
 
@@ -13,7 +15,7 @@ ActiveAdmin.register Job do
     column :status_name
     column :result_name
     column :objects_links
-    column :updated_at
+    column :created_at
     actions
   end
 
@@ -40,6 +42,6 @@ ActiveAdmin.register Job do
   end
 
   collection_action :running, method: :post do
-    render json: current_admin.jobs.running.count
+    render json: decorated_current_admin.count_running_jobs
   end
 end
