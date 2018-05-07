@@ -8,6 +8,10 @@ class ApplicationJob < ActiveJob::Base
   # Most jobs are safe to ignore if the underlying records are no longer available
   # discard_on ActiveJob::DeserializationError
 
+  def related_objects
+    []
+  end
+
   def current_user
     arguments.first&.fetch(:admin, nil)
   end
