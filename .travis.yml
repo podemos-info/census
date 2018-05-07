@@ -31,7 +31,7 @@ before_deploy:
 
 deploy:
   provider: script
-  script: rvm $TRAVIS_RUBY_VERSION do bin/cap staging deploy
+  script: BRANCH=$TRAVIS_BRANCH rvm $TRAVIS_RUBY_VERSION do bin/cap staging deploy
   skip_cleanup: true
   on:
     branch: master

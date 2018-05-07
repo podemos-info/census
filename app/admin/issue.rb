@@ -16,6 +16,8 @@ ActiveAdmin.register Issue do
   scope(:assigned) { |scope| AdminAssignedIssues.for(current_admin).merge(IssuesOpen.for).merge(scope) }
   scope(:closed) { |scope| AdminIssues.for(current_admin).merge(IssuesClosed.for).merge(scope) }
 
+  config.sort_order = "created_at_desc"
+
   index do
     column :issue_type_name, class: :left, sortable: :issue_type, &:link_with_name
     column :level_name

@@ -12,10 +12,10 @@ set :rails_env, :production
 # Use RVM system installation
 set :rvm_type, :system
 set :rvm_custom_path, "/usr/share/rvm"
+set :branch, ENV["BRANCH"] || "master"
 
 set :ssh_options, keys: ["config/deploy/deploy_rsa"] if File.exist?("config/deploy/deploy_rsa")
 
-set :sneakers_roles, [:master]
 set :sneakers_workers, %w(FinancesWorker PaymentsWorker ProceduresWorker)
 
 def db_tasks_environment
@@ -53,4 +53,5 @@ namespace :deploy do
   end
 end
 
-after "deploy:migrate", "deploy:db:reseed"
+after "deploy:publishing", "systemd:sneakers:restart"
+after "deploy:publishing", "deploy:db:reseed"

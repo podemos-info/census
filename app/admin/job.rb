@@ -15,7 +15,7 @@ ActiveAdmin.register Job do
     column :status_name
     column :result_name
     column :objects_links
-    column :updated_at
+    column :created_at
     actions
   end
 
