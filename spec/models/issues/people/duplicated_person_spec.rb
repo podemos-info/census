@@ -51,6 +51,14 @@ describe Issues::People::DuplicatedPerson, :db do
       it "is not fixed for the existing person" do
         expect { subject }.not_to change { issue.fixed_for?(existing_person) }.from(false)
       end
+
+      let(:publish_notification) do
+        {
+          routing_key: "census.people.full_status_changed",
+          parameters: { person: existing_person.qualified_id }
+        }
+      end
+      include_context "hutch notifications"
     end
 
     context "when choosing existing person" do
@@ -75,6 +83,15 @@ describe Issues::People::DuplicatedPerson, :db do
       it "is fixed for the existing person" do
         expect { subject }.to change { issue.fixed_for?(existing_person) }.from(false).to(true)
       end
+
+      let(:publish_notification) do
+        {
+          routing_key: "census.people.full_status_changed",
+          parameters: { person: procedure_person.qualified_id }
+        }
+      end
+
+      include_context "hutch notifications"
     end
 
     context "when choosing both people" do
@@ -99,6 +116,7 @@ describe Issues::People::DuplicatedPerson, :db do
       it "is fixed for the existing person" do
         expect { subject }.to change { issue.fixed_for?(existing_person) }.from(false).to(true)
       end
+      include_context "hutch notifications"
     end
 
     context "when choosing an invalid person" do
@@ -115,6 +133,7 @@ describe Issues::People::DuplicatedPerson, :db do
       it "doesn't trash the existing person" do
         expect { subject }.not_to change { existing_person.reload.trashed? }.from(false)
       end
+      include_context "hutch notifications"
     end
   end
 

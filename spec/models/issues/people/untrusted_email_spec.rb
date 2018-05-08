@@ -37,6 +37,7 @@ describe Issues::People::UntrustedEmail, :db do
       it "is fixed for the procedure person" do
         expect { subject }.to change { issue.fixed_for?(procedure_person) }.from(false).to(true)
       end
+      include_context "hutch notifications"
     end
 
     context "when marks email as not trusted" do
@@ -53,6 +54,14 @@ describe Issues::People::UntrustedEmail, :db do
       it "is not fixed for the procedure person" do
         expect { subject }.not_to change { issue.fixed_for?(procedure_person) }.from(false)
       end
+
+      let(:publish_notification) do
+        {
+          routing_key: "census.people.full_status_changed",
+          parameters: { person: procedure_person.qualified_id }
+        }
+      end
+      include_context "hutch notifications"
     end
 
     context "when affected person is enabled and marks email as not trusted" do

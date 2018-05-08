@@ -16,12 +16,28 @@ describe Procedures::DocumentVerification, :db do
     is_expected.not_to be_auto_processable
   end
 
-  it "acceptance changes person verification status" do
-    expect { procedure.accept! } .to change { Person.find(person.id).verified? } .from(false).to(true)
+  context "when accepted" do
+    subject(:accepting) { procedure.accept! }
+    let(:publish_notification) do
+      {
+        routing_key: "census.people.full_status_changed",
+        parameters: { person: person.qualified_id }
+      }
+    end
+
+    it "changes person verification status" do
+      expect { subject } .to change { Person.find(person.id).verified? } .from(false).to(true)
+    end
+    include_context "hutch notifications"
   end
 
-  it "rejection does not change person verification status" do
-    expect { procedure.reject! } .to_not change { Person.find(person.id).verified? }
+  context "when rejected" do
+    subject(:rejecting) { procedure.reject! }
+
+    it "does not change person verification status" do
+      expect { subject } .to_not change { Person.find(person.id).verified? }
+    end
+    include_context "hutch notifications"
   end
 
   with_versioning do

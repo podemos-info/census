@@ -17,29 +17,47 @@ describe Procedures::Registration, :db do
   end
 
   context "when accepted" do
+    subject(:accepting) { procedure.accept! }
+    let(:publish_notification) do
+      {
+        routing_key: "census.people.full_status_changed",
+        parameters: { person: procedure.person.qualified_id }
+      }
+    end
+
     [:document_type, :document_id, :document_scope_id, :phone, :email, :address, :address_scope_id,
      :postal_code, :scope_id, :gender, :born_at].each do |attribute|
       it "sets #{attribute}" do
-        expect { procedure.accept! } .to change { procedure.person.send(attribute) } .from(nil).to(person.send(attribute))
+        expect { subject } .to change { procedure.person.send(attribute) } .from(nil).to(person.send(attribute))
       end
     end
 
     it "changes the person membership level to follower" do
-      expect { procedure.accept! } .to change { procedure.person.state } .from("pending").to("enabled")
+      expect { subject } .to change { procedure.person.state } .from("pending").to("enabled")
     end
+    include_context "hutch notifications"
   end
 
   context "when rejected" do
+    subject(:accepting) { procedure.reject! }
+    let(:publish_notification) do
+      {
+        routing_key: "census.people.full_status_changed",
+        parameters: { person: procedure.person.qualified_id }
+      }
+    end
+
     [:document_type, :document_id, :document_scope_id, :phone, :email, :address, :address_scope_id,
      :postal_code, :scope_id, :gender, :born_at].each do |attribute|
       it "sets #{attribute}" do
-        expect { procedure.reject! } .not_to change { procedure.person.send(attribute) }
+        expect { subject } .not_to change { procedure.person.send(attribute) }
       end
     end
 
     it "changes the person membership level to rejected" do
-      expect { procedure.reject! } .to change { procedure.person.state } .from("pending").to("trashed")
+      expect { subject } .to change { procedure.person.state } .from("pending").to("trashed")
     end
+    include_context "hutch notifications"
   end
 
   with_versioning do
