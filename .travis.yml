@@ -4,6 +4,8 @@ rvm:
 - 2.4.2
 env:
 - CI=true
+services:
+- rabbitmq
 
 addons:
   postgresql: "9.5"
