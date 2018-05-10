@@ -53,7 +53,7 @@ FactoryBot.define do
     document_scope nil
     address_scope nil
     state :enabled
-    external_ids { { id_at_decidim: generate(:decidim_id) } }
+    external_ids { { decidim: generate(:decidim_id) } }
 
     after :build do |person, evaluator|
       foreign = evaluator.foreign

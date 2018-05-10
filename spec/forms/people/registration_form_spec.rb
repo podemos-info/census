@@ -19,7 +19,8 @@ describe People::RegistrationForm do
       postal_code: postal_code,
       scope_code: scope_code,
       email: email,
-      phone: phone
+      phone: phone,
+      origin_qualified_id: origin_qualified_id
     )
   end
 
@@ -43,6 +44,7 @@ describe People::RegistrationForm do
   let(:scope_code) { scope.code }
   let(:email) { person.email }
   let(:phone) { person.phone }
+  let(:origin_qualified_id) { person.qualified_id_at(:decidim) }
 
   it { is_expected.to be_valid }
 

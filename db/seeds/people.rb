@@ -4,6 +4,11 @@ Rails.logger.debug "Seeding people"
 
 require "faker/spanish_document"
 
+def decidim_identifier
+  @decidim_identifier ||= 0
+  @decidim_identifier += 1
+end
+
 def data_context
   @data_context ||= { context: { current_admin: Admin.new(role: :data) } }
 end
@@ -53,6 +58,8 @@ def register_person(use_procedure: true, copy_from_procedure: nil, untrusted: ni
     person_data[:document_scope_code] = person_data[:document_scope].code
     person_data[:address_scope_code] = person_data[:address_scope].code
     person_data[:scope_code] = person_data[:scope].code
+    person_data[:origin_qualified_id] = "#{decidim_identifier}@decidim"
+
     People::CreateRegistration.call(form: People::RegistrationForm.from_params(person_data)) do
       on(:ok) do |info|
         person = info[:person]
@@ -62,6 +69,7 @@ def register_person(use_procedure: true, copy_from_procedure: nil, untrusted: ni
       on(:error) { Rails.logger.warn { "Error registering person: #{person_data.as_json}" } }
     end
   else
+    person_data[:external_ids] = { decidim: decidim_identifier }
     person = Person.create!(person_data)
     Rails.logger.debug { "Person created: #{person.decorate(data_context)}" }
   end

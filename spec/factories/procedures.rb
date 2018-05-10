@@ -106,7 +106,8 @@ FactoryBot.define do
         phone: person_copy_data.phone,
         scope_id: person_copy_data.scope.id,
         address_scope_id: person_copy_data.address_scope.id,
-        document_scope_id: person_copy_data.document_scope.id
+        document_scope_id: person_copy_data.document_scope.id,
+        external_ids: person_copy_data.external_ids
       }
     end
     created_at { Faker::Time.between(3.years.ago, 3.days.ago, :all) }

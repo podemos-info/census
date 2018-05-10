@@ -15,7 +15,7 @@ module Procedures
       @born_at ||= person_data_object.born_at&.to_date
     end
 
-    private
+    protected
 
     def person_data_object
       @person_data_object ||= OpenStruct.new(person_data)

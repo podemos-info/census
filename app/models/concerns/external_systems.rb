@@ -4,14 +4,14 @@ module ExternalSystems
   extend ActiveSupport::Concern
 
   included do
-    store_accessor :external_ids, *external_ids_attributes
+    store_accessor :external_ids, *Settings.people.external_systems.map(&:to_sym)
 
     def qualified_id
       "#{id}@census"
     end
 
     def qualified_id_at(external_system)
-      external_id = external_ids["id_at_#{external_system}"]
+      external_id = external_ids[external_system.to_s]
       "#{external_id}@#{external_system}" if external_id
     end
   end
@@ -30,11 +30,7 @@ module ExternalSystems
     end
 
     def external_system_find(id:, external_system:)
-      find_by "external_ids @> ?", { "id_at_#{external_system}" => id }.to_json
-    end
-
-    def external_ids_attributes
-      @external_ids_attributes ||= Settings.people.external_systems.map { |external_system| :"id_at_#{external_system}" }
+      find_by "external_ids @> ?", { external_system => id }.to_json
     end
 
     def parse_qualified_id(qualified_id)
