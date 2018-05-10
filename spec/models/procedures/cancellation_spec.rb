@@ -18,12 +18,6 @@ describe Procedures::Cancellation, :db do
 
   context "when accepted" do
     subject(:accepting) { procedure.accept! }
-    let(:publish_notification) do
-      {
-        routing_key: "census.people.full_status_changed",
-        parameters: { person: person.qualified_id }
-      }
-    end
 
     it "changes the person state" do
       expect { subject } .to change { person.state } .from("enabled").to("cancelled")
@@ -31,7 +25,10 @@ describe Procedures::Cancellation, :db do
     it "destroys the person" do
       expect { subject } .to change { person.discarded_at } .from(nil)
     end
-    include_context "hutch notifications"
+
+    it_behaves_like "an event notifiable with hutch" do
+      let(:publish_notification) { ["census.people.full_status_changed", { person: person.qualified_id }] }
+    end
   end
 
   context "when rejected" do
@@ -41,7 +38,8 @@ describe Procedures::Cancellation, :db do
     it "doesn't destroy the person" do
       expect { procedure.reject! } .not_to change { person.discarded_at }
     end
-    include_context "hutch notifications"
+
+    it_behaves_like "an event not notifiable with hutch"
   end
 
   with_versioning do

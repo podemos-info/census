@@ -18,17 +18,14 @@ describe Procedures::MembershipLevelChange, :db do
 
   context "when accepted" do
     subject(:accepting) { procedure.accept! }
-    let(:publish_notification) do
-      {
-        routing_key: "census.people.full_status_changed",
-        parameters: { person: person.qualified_id }
-      }
-    end
 
     it "changes person membership level" do
       expect { subject } .to change { Person.find(person.id).membership_level } .from("follower").to("member")
     end
-    include_context "hutch notifications"
+
+    it_behaves_like "an event notifiable with hutch" do
+      let(:publish_notification) { ["census.people.full_status_changed", { person: person.qualified_id }] }
+    end
   end
 
   context "when rejected" do
@@ -37,7 +34,8 @@ describe Procedures::MembershipLevelChange, :db do
     it "rejection does not changes person membership level" do
       expect { subject } .to_not change { Person.find(person.id).membership_level }
     end
-    include_context "hutch notifications"
+
+    it_behaves_like "an event not notifiable with hutch"
   end
 
   context "when the target membership level is not allowed" do

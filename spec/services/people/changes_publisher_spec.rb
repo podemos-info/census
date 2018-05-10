@@ -7,12 +7,8 @@ describe People::ChangesPublisher do
     subject(:method) { described_class.full_status_changed!(person) }
     let(:person) { create(:person) }
 
-    let(:publish_notification) do
-      {
-        routing_key: "census.people.full_status_changed",
-        parameters: { person: person.qualified_id }
-      }
+    it_behaves_like "an event notifiable with hutch" do
+      let(:publish_notification) { ["census.people.full_status_changed", { person: person.qualified_id }] }
     end
-    include_context "hutch notifications"
   end
 end

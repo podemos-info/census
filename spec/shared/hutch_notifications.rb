@@ -1,24 +1,26 @@
 # frozen_string_literal: true
 
-shared_context "hutch notifications", shared_context: :metadata do
+shared_context "hutch" do
   before { Hutch.connect }
   after { Hutch.disconnect }
+end
 
-  it "publish the notification" do
-    notification = try(:publish_notification)
+shared_examples_for "an event notifiable with hutch" do
+  include_context "hutch"
 
-    if notification
-      expect(Hutch.broker.exchange).to receive(:publish).once.with(
-        JSON.dump(notification[:parameters]),
-        hash_including(
-          persistent: true,
-          routing_key: notification[:routing_key],
-          content_type: "application/json"
-        )
-      )
-    else
-      expect(Hutch.broker.exchange).not_to receive(:publish)
-    end
+  it "publishes the notification" do
+    expect(Hutch).to receive(:publish).once.with(*publish_notification)
+
+    subject
+  end
+end
+
+shared_examples_for "an event not notifiable with hutch" do
+  include_context "hutch"
+
+  it "does not publish any notification" do
+    expect(Hutch).not_to receive(:publish)
+
     subject
   end
 end
