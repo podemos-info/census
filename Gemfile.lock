@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/activeadmin/activeadmin.git
-  revision: 1ae7e885de72ae15962a4b738e11d469423541c5
+  revision: fdef5571fafb88465bc0f72c74179e4370477ffb
   specs:
     activeadmin (2.0.0.alpha)
       arbre (>= 1.1.1)
@@ -266,6 +266,8 @@ GEM
       railties (>= 3.0.0)
     faker (1.8.7)
       i18n (>= 0.7)
+    faker-spanish_document (0.1.0)
+      faker (~> 1.8)
     ffi (1.9.23)
     flag_shih_tzu (0.3.19)
     font-awesome-rails (4.7.0.4)
@@ -607,6 +609,7 @@ DEPENDENCIES
   draper
   factory_bot_rails
   faker
+  faker-spanish_document
   flag_shih_tzu
   hutch
   i18n-debug

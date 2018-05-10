@@ -2,7 +2,7 @@
 
 Rails.logger.debug "Seeding people"
 
-require "census/faker/document_id"
+require "faker/spanish_document"
 
 def data_context
   @data_context ||= { context: { current_admin: Admin.new(role: :data) } }
@@ -27,7 +27,7 @@ def register_person(use_procedure: true, copy_from_procedure: nil, untrusted: ni
       last_name1: Faker::Name.last_name,
       last_name2: Faker::Name.last_name,
       document_type: doc,
-      document_id: Census::Faker::DocumentId.generate(doc),
+      document_id: Faker::SpanishDocument.generate(doc),
       document_scope: doc == "passport" ? Scope.top_level.sample : Scope.local,
       born_at: young ? Faker::Date.between(18.years.ago, 14.years.ago) : Faker::Date.between(99.years.ago, 18.years.ago),
       gender: Person.genders.keys.sample,

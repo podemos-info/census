@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
+require "faker/spanish_document"
 require "census/faker/localized"
-require "census/faker/document_id"
 
 FactoryBot.define do
   sequence(:decidim_id)
@@ -64,7 +64,7 @@ FactoryBot.define do
       else
         person.document_type = [foreign ? :dni : :nie, :passport].sample
       end
-      person.document_id = Census::Faker::DocumentId.generate(person.document_type) if person.document_id.blank?
+      person.document_id = Faker::SpanishDocument.generate(person.document_type) if person.document_id.blank?
 
       local_scope = create(:local_scope)
       person.scope ||= create(:scope, parent: local_scope)
