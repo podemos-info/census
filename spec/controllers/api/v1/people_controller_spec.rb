@@ -18,6 +18,7 @@ describe Api::V1::PeopleController, type: :controller do
 
       let(:params) do
         params = { person: person.attributes.deep_symbolize_keys }
+        params[:person][:origin_qualified_id] = person.qualified_id_at(:decidim)
         params[:person][:scope_code] = scope_code
         params[:person][:address_scope_code] = address_scope_code
         params[:person][:document_scope_code] = document_scope_code

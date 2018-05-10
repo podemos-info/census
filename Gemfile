@@ -51,6 +51,7 @@ gem "ahoy_matey" # must appear after devise gem
 
 # Seeding gems
 gem "faker", require: false
+gem "faker-spanish_document", require: false
 gem "timecop", require: false
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

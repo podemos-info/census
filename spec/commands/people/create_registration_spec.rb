@@ -39,7 +39,8 @@ describe People::CreateRegistration do
       phone: phone,
       scope_id: scope.id,
       address_scope_id: address_scope.id,
-      document_scope_id: document_scope.id
+      document_scope_id: document_scope.id,
+      external_ids: external_ids
     }
   end
 
@@ -57,6 +58,7 @@ describe People::CreateRegistration do
   let(:scope) { person.scope }
   let(:address_scope) { person.address_scope }
   let(:document_scope) { person.document_scope }
+  let(:external_ids) { person.external_ids }
 
   with_versioning do
     context "when valid" do
@@ -77,7 +79,7 @@ describe People::CreateRegistration do
         subject(:created_procedure) { Procedures::Registration.last }
 
         [:first_name, :last_name1, :last_name2, :document_type, :document_id, :born_at, :gender, :address,
-         :postal_code, :email, :phone, :scope_id, :address_scope_id, :document_scope_id].each do |column|
+         :postal_code, :email, :phone, :scope_id, :address_scope_id, :document_scope_id, :external_ids].each do |column|
           it "saves the #{column} column" do
             expect(created_procedure.reload.send(column)).to eq(person[column])
           end
@@ -109,7 +111,7 @@ describe People::CreateRegistration do
         before { command }
 
         [:first_name, :last_name1, :last_name2, :document_type, :document_id, :born_at, :gender, :address,
-         :postal_code, :email, :phone, :scope_id, :address_scope_id, :document_scope_id].each do |column|
+         :postal_code, :email, :phone, :scope_id, :address_scope_id, :document_scope_id, :external_ids].each do |column|
           it "saves the #{column} column" do
             expect(procedure.reload.send(column)).to eq(person[column])
           end

@@ -26,6 +26,10 @@ describe Procedures::Registration, :db do
       end
     end
 
+    it "sets the person external system identifier" do
+      expect { subject } .to change { procedure.person.reload.qualified_id_at(:decidim) } .to(person.qualified_id_at(:decidim))
+    end
+
     it "changes the person membership level to follower" do
       expect { subject } .to change { procedure.person.state } .from("pending").to("enabled")
     end

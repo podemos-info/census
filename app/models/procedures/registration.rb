@@ -2,6 +2,8 @@
 
 module Procedures
   class Registration < PersonDataProcedure
+    delegate :external_ids, to: :person_data_object
+
     def acceptable?
       person.may_accept?
     end
