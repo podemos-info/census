@@ -21,6 +21,7 @@ module Procedures
 
     def persist_accept_changes!
       person.save!
+      ::People::ChangesPublisher.full_status_changed!(person)
     end
   end
 end

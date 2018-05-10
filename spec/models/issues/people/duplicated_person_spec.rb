@@ -51,6 +51,10 @@ describe Issues::People::DuplicatedPerson, :db do
       it "is not fixed for the existing person" do
         expect { subject }.not_to change { issue.fixed_for?(existing_person) }.from(false)
       end
+
+      it_behaves_like "an event notifiable with hutch" do
+        let(:publish_notification) { ["census.people.full_status_changed", { person: existing_person.qualified_id }] }
+      end
     end
 
     context "when choosing existing person" do
@@ -74,6 +78,10 @@ describe Issues::People::DuplicatedPerson, :db do
 
       it "is fixed for the existing person" do
         expect { subject }.to change { issue.fixed_for?(existing_person) }.from(false).to(true)
+      end
+
+      it_behaves_like "an event notifiable with hutch" do
+        let(:publish_notification) { ["census.people.full_status_changed", { person: procedure_person.qualified_id }] }
       end
     end
 
@@ -99,6 +107,8 @@ describe Issues::People::DuplicatedPerson, :db do
       it "is fixed for the existing person" do
         expect { subject }.to change { issue.fixed_for?(existing_person) }.from(false).to(true)
       end
+
+      it_behaves_like "an event not notifiable with hutch"
     end
 
     context "when choosing an invalid person" do
@@ -115,6 +125,8 @@ describe Issues::People::DuplicatedPerson, :db do
       it "doesn't trash the existing person" do
         expect { subject }.not_to change { existing_person.reload.trashed? }.from(false)
       end
+
+      it_behaves_like "an event not notifiable with hutch"
     end
   end
 

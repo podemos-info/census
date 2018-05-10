@@ -17,28 +17,40 @@ describe Procedures::Registration, :db do
   end
 
   context "when accepted" do
+    subject(:accepting) { procedure.accept! }
+
     [:document_type, :document_id, :document_scope_id, :phone, :email, :address, :address_scope_id,
      :postal_code, :scope_id, :gender, :born_at].each do |attribute|
       it "sets #{attribute}" do
-        expect { procedure.accept! } .to change { procedure.person.send(attribute) } .from(nil).to(person.send(attribute))
+        expect { subject } .to change { procedure.person.send(attribute) } .from(nil).to(person.send(attribute))
       end
     end
 
     it "changes the person membership level to follower" do
-      expect { procedure.accept! } .to change { procedure.person.state } .from("pending").to("enabled")
+      expect { subject } .to change { procedure.person.state } .from("pending").to("enabled")
+    end
+
+    it_behaves_like "an event notifiable with hutch" do
+      let(:publish_notification) { ["census.people.full_status_changed", { person: procedure.person.qualified_id }] }
     end
   end
 
   context "when rejected" do
+    subject(:accepting) { procedure.reject! }
+
     [:document_type, :document_id, :document_scope_id, :phone, :email, :address, :address_scope_id,
      :postal_code, :scope_id, :gender, :born_at].each do |attribute|
       it "sets #{attribute}" do
-        expect { procedure.reject! } .not_to change { procedure.person.send(attribute) }
+        expect { subject } .not_to change { procedure.person.send(attribute) }
       end
     end
 
     it "changes the person membership level to rejected" do
-      expect { procedure.reject! } .to change { procedure.person.state } .from("pending").to("trashed")
+      expect { subject } .to change { procedure.person.state } .from("pending").to("trashed")
+    end
+
+    it_behaves_like "an event notifiable with hutch" do
+      let(:publish_notification) { ["census.people.full_status_changed", { person: procedure.person.qualified_id }] }
     end
   end
 

@@ -16,12 +16,26 @@ describe Procedures::DocumentVerification, :db do
     is_expected.not_to be_auto_processable
   end
 
-  it "acceptance changes person verification status" do
-    expect { procedure.accept! } .to change { Person.find(person.id).verified? } .from(false).to(true)
+  context "when accepted" do
+    subject(:accepting) { procedure.accept! }
+
+    it "changes person verification status" do
+      expect { subject } .to change { Person.find(person.id).verified? } .from(false).to(true)
+    end
+
+    it_behaves_like "an event notifiable with hutch" do
+      let(:publish_notification) { ["census.people.full_status_changed", { person: person.qualified_id }] }
+    end
   end
 
-  it "rejection does not change person verification status" do
-    expect { procedure.reject! } .to_not change { Person.find(person.id).verified? }
+  context "when rejected" do
+    subject(:rejecting) { procedure.reject! }
+
+    it "does not change person verification status" do
+      expect { subject } .to_not change { Person.find(person.id).verified? }
+    end
+
+    it_behaves_like "an event not notifiable with hutch"
   end
 
   with_versioning do

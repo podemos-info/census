@@ -27,10 +27,12 @@ module Procedures
 
     def persist_accept_changes!
       person.save!
+      ::People::ChangesPublisher.full_status_changed!(person)
     end
 
     def persist_reject_changes!
       person.save!
+      ::People::ChangesPublisher.full_status_changed!(person)
     end
 
     def possible_issues

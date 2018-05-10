@@ -16,12 +16,26 @@ describe Procedures::MembershipLevelChange, :db do
     is_expected.to be_auto_processable
   end
 
-  it "acceptance changes person membership level" do
-    expect { procedure.accept! } .to change { Person.find(person.id).membership_level } .from("follower").to("member")
+  context "when accepted" do
+    subject(:accepting) { procedure.accept! }
+
+    it "changes person membership level" do
+      expect { subject } .to change { Person.find(person.id).membership_level } .from("follower").to("member")
+    end
+
+    it_behaves_like "an event notifiable with hutch" do
+      let(:publish_notification) { ["census.people.full_status_changed", { person: person.qualified_id }] }
+    end
   end
 
-  it "rejection does not changes person membership level" do
-    expect { procedure.reject! } .to_not change { Person.find(person.id).membership_level }
+  context "when rejected" do
+    subject(:rejecting) { procedure.reject! }
+
+    it "rejection does not changes person membership level" do
+      expect { subject } .to_not change { Person.find(person.id).membership_level }
+    end
+
+    it_behaves_like "an event not notifiable with hutch"
   end
 
   context "when the target membership level is not allowed" do

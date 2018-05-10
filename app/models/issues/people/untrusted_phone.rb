@@ -38,6 +38,7 @@ module Issues
           next if trusted?
           person.send("fraud_detected")
           person.save!
+          ::People::ChangesPublisher.full_status_changed!(person)
         end
       end
 
