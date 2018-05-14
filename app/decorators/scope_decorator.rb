@@ -6,7 +6,9 @@ class ScopeDecorator < ApplicationDecorator
   decorates_association :parent
 
   def full_path(parent = nil)
-    object.part_of_scopes(parent).map { |scope| helpers.translated_attribute(scope.name) }.reverse.join ", "
+    scopes = object.part_of_scopes(parent)
+    scopes.prepend(parent) if parent
+    scopes.map { |scope| helpers.translated_attribute(scope.name) }.reverse.join ", "
   end
 
   def name

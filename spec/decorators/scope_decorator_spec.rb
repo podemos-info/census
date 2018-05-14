@@ -3,21 +3,38 @@
 require "rails_helper"
 
 describe ScopeDecorator do
-  subject { scope.decorate(context: { current_admin: admin }) }
+  subject(:decorator) { scope.decorate(context: { current_admin: admin }) }
   let(:scope) { build(:scope) }
   let(:admin) { build(:admin) }
 
-  context "paths" do
+  describe "#full_path" do
+    subject(:full_path) { decorator.full_path(*args) }
     let!(:grandparent) { create(:scope, name: Census::Faker::Localized.literal("grandparent")) }
     let!(:parent) { create(:scope, name: Census::Faker::Localized.literal("parent"), parent: grandparent) }
     let!(:scope) { create(:scope, name: Census::Faker::Localized.literal("scope"), parent: parent) }
 
-    it "returns the scope path" do
-      expect(subject.full_path).to eq("scope, parent, grandparent")
+    context "when has no root path" do
+      let(:args) { [] }
+
+      it "returns the full scope path" do
+        is_expected.to eq("scope, parent, grandparent")
+      end
     end
 
-    it "returns the scope path with root" do
-      expect(subject.full_path(grandparent)).to eq("scope, parent")
+    context "when has a root path" do
+      let(:args) { [parent] }
+
+      it "returns only until the root path" do
+        is_expected.to eq("scope, parent")
+      end
+    end
+
+    context "when it is the root path" do
+      let(:args) { [scope] }
+
+      it "returns only the scope name" do
+        is_expected.to eq("scope")
+      end
     end
   end
 end
