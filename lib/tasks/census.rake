@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "census/seeds/scopes"
+
 namespace :db do
   desc "Reseed database without loading all scopes again"
   task :reseed, [] => :environment do
@@ -7,9 +9,9 @@ namespace :db do
     raise "Not allowed to run on production" if Rails.env.production? && !ENV["SEED"]
 
     # Delete fake data
+    tables = ActiveRecord::Base.connection.tables - %w(schema_migrations ar_internal_metadata)
     ActiveRecord::Base.connection_pool.with_connection do |conn|
-      conn.execute("TRUNCATE admins, attachments, campaigns, events, issues, issue_objects, issue_unreads, jobs, job_messages, job_objects, "\
-                   "orders, orders_batches, payees, payment_methods, people, procedures, versions, visits RESTART IDENTITY")
+      conn.execute("TRUNCATE #{tables.join(", ")} RESTART IDENTITY")
     end
 
     # Delete uploads
@@ -17,5 +19,9 @@ namespace :db do
 
     # Seed fake data again
     Rake::Task["db:seed"].execute
+  end
+
+  task :cache_scopes, [] => :environment do
+    Census::Seeds::Scopes.cache_scopes
   end
 end
