@@ -9,7 +9,7 @@ $LOAD_PATH.push base_path
 require "census/seeds/scopes"
 Census::Seeds::Scopes.seed base_path: base_path unless Scope.any?
 
-return unless ENV["SEED_RANDOM_DATA"]
+return unless ENV["SEED"]
 
 Rails.logger = Logger.new(STDOUT)
 

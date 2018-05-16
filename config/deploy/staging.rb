@@ -22,9 +22,9 @@ def db_tasks_environment
   {
     rails_env: :production,
     disable_database_environment_check: true,
-    seed_random_data: true,
-    not_real_database: true,
     seed_passwords_prefix: ENV["SEED_PASSWORDS_PREFIX"]
+    seed_passwords_prefix: ENV["SEED_PASSWORDS_PREFIX"],
+    seed: true
   }
 end
 

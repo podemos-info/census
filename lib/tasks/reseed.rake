@@ -4,7 +4,7 @@ namespace :db do
   desc "Reseed database without loading all scopes again"
   task :reseed, [] => :environment do
     ActiveRecord::Tasks::DatabaseTasks.check_protected_environments!
-    raise "Not allowed to run on production" if Rails.env.production? && !ENV["NOT_REAL_DATABASE"]
+    raise "Not allowed to run on production" if Rails.env.production? && !ENV["SEED"]
 
     # Delete fake data
     ActiveRecord::Base.connection_pool.with_connection do |conn|

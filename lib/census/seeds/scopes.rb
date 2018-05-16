@@ -3,6 +3,8 @@
 module Census
   module Seeds
     class Scopes
+      EXTERIOR_SCOPE = "XX"
+
       def self.seed(options = {})
         Scopes.new.seed options
       end
@@ -22,6 +24,8 @@ module Census
           @scope_types.each_value do |info|
             ScopeType.find_or_initialize_by(id: info[:id]).update!(info)
           end
+          max_id = ScopeType.maximum(:id)
+          ScopeType.connection.execute("ALTER SEQUENCE scope_types_id_seq RESTART WITH #{max_id + 1}")
         end
 
         @translations = Hash.new { |h, k| h[k] = {} }
@@ -45,8 +49,9 @@ module Census
       private
 
       def parent_code(code)
+        return nil if code == Scope.local_code
         parent_code = code.rindex(/\W/i)
-        parent_code ? code[0..parent_code - 1] : nil
+        parent_code ? code[0..parent_code - 1] : EXTERIOR_SCOPE
       end
 
       def save_scopes(scopes)
