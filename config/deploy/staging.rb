@@ -22,9 +22,8 @@ def db_tasks_environment
   {
     rails_env: :production,
     disable_database_environment_check: true,
-    seed_random_data: true,
-    not_real_database: true,
-    seed_passwords_prefix: ENV["SEED_PASSWORDS_PREFIX"]
+    seed_passwords_prefix: ENV["SEED_PASSWORDS_PREFIX"],
+    seed: true
   }
 end
 
@@ -46,6 +45,15 @@ namespace :deploy do
         within release_path do
           with db_tasks_environment do
             execute :rake, "db:reseed"
+          end
+        end
+      end
+    end
+    task :cache_scopes do
+      on primary :db do
+        within release_path do
+          with db_tasks_environment do
+            execute :rake, "db:cache_scopes"
           end
         end
       end

@@ -33,7 +33,7 @@ module People
     def save_registration
       Person.transaction do
         person.save!
-        person.versions.first.update!(whodunnit: person) unless PaperTrail.request.whodunnit
+        person.versions.first.update!(whodunnit: person) unless form.person || PaperTrail.request.whodunnit
 
         registration.save!
         :ok
