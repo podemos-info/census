@@ -7,7 +7,7 @@ base_path = File.expand_path("seeds", __dir__)
 $LOAD_PATH.push base_path
 
 require "census/seeds/scopes"
-Census::Seeds.seed_scopes base_path: base_path
+Census::Seeds::Scopes.seed base_path: base_path
 
 return unless ENV["SEED"]
 
