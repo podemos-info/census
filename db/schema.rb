@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180404221625) do
+ActiveRecord::Schema.define(version: 2018_05_18_102501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -164,7 +164,7 @@ ActiveRecord::Schema.define(version: 20180404221625) do
     t.bigint "processed_by_id"
     t.datetime "processed_at"
     t.string "response_code"
-    t.string "state"
+    t.string "state", null: false
     t.jsonb "information", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -226,20 +226,20 @@ ActiveRecord::Schema.define(version: 20180404221625) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
-    t.integer "state"
+    t.integer "state", null: false
     t.jsonb "external_ids", default: {}
-    t.integer "verification"
-    t.integer "membership_level"
-    t.index "external_ids jsonb_path_ops", name: "index_people_on_external_ids", using: :gin
+    t.integer "verification", null: false
+    t.integer "membership_level", null: false
     t.index ["address_scope_id"], name: "index_people_on_address_scope_id"
     t.index ["document_scope_id"], name: "index_people_on_document_scope_id"
+    t.index ["external_ids"], name: "index_people_on_external_ids", opclass: :jsonb_path_ops, using: :gin
     t.index ["scope_id"], name: "index_people_on_scope_id"
   end
 
   create_table "procedures", force: :cascade do |t|
     t.bigint "person_id"
     t.string "type", null: false
-    t.string "state"
+    t.string "state", null: false
     t.jsonb "information", default: {}, null: false
     t.bigint "processed_by_id"
     t.datetime "processed_at"
