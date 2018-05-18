@@ -60,18 +60,14 @@ describe People::CreateCancellation do
 
   context "when a procedure already exists for the person" do
     let!(:procedure) { create(:cancellation, person: person) }
+    let(:reason) { "changed" }
 
     it "does not create a new procedure" do
       expect { subject } .not_to change { Procedures::Cancellation.count }
     end
 
-    describe "the updated procedure" do
-      before { command }
-      let(:reason) { "changed" }
-
-      it "updates the reason column in the existing procedure" do
-        expect(procedure.reload.reason).to eq("changed")
-      end
+    it "updates the updated_at column in the existing procedure" do
+      expect { subject } .to change { procedure.reload.reason } .to("changed")
     end
   end
 end

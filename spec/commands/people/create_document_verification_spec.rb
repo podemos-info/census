@@ -45,17 +45,14 @@ describe People::CreateDocumentVerification do
 
   context "when a procedure already exists for the person" do
     let!(:procedure) { create(:document_verification, person: person) }
+    let(:files) { [build(:attachment, :non_image).file, build(:attachment).file] }
 
     it "does not create a new procedure" do
       expect { subject } .not_to change { Procedures::DocumentVerification.count }
     end
 
-    describe "the updated procedure" do
-      let(:reason) { "changed" }
-
-      it "updates the updated_at column in the existing procedure" do
-        expect { subject } .to change { procedure.reload.updated_at }
-      end
+    it "updates the updated_at column in the existing procedure" do
+      expect { subject } .to change { procedure.attachments.pluck(:id) }
     end
   end
 end
