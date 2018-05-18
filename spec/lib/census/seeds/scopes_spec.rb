@@ -9,7 +9,7 @@ describe Census::Seeds::Scopes do
     before { FileUtils.rm_rf(Census::Seeds::Scopes::CACHE_PATH) }
 
     let(:base_path) { File.expand_path("../../../factories/seeds", __dir__) }
-    let(:instance) { described_class.instance_variable_get("@instance") }
+    let(:instance) { described_class.instance }
 
     it "loads scopes data" do
       expect { subject } .to change { Scope.count } .from(0).to(20)

@@ -7,9 +7,12 @@ module Census
       CACHE_PATH = Rails.root.join("tmp", "cache", "#{Rails.env}_scopes.csv").freeze
 
       class << self
-        def seed(options = {})
+        def instance
           @instance ||= Scopes.new
-          @instance.seed options
+        end
+
+        def seed(options = {})
+          instance.seed options
         end
 
         def cache_scopes
