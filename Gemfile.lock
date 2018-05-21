@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/activeadmin/activeadmin.git
-  revision: 1ae7e885de72ae15962a4b738e11d469423541c5
+  revision: a398899bc502131be0c25d152c87bb56f7c6f31d
   specs:
     activeadmin (2.0.0.alpha)
       arbre (>= 1.1.1)
@@ -51,7 +51,7 @@ GEM
   specs:
     aasm (4.12.3)
       concurrent-ruby (~> 1.0)
-    aasm-diagram (0.1.0)
+    aasm-diagram (0.1.1)
       aasm (~> 4.12)
       ruby-graphviz (~> 1.2)
     actioncable (5.2.0)
@@ -114,9 +114,10 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
-    ahoy_matey (2.0.2)
+    ahoy_matey (2.1.0)
       addressable
       browser (~> 2.0)
+      device_detector
       geocoder (>= 1.4.5)
       railties (>= 4.2)
       referer-parser (>= 0.3)
@@ -142,7 +143,7 @@ GEM
     babel-transpiler (0.7.0)
       babel-source (>= 4.0, < 6)
       execjs (~> 2.0)
-    bcrypt (3.1.11)
+    bcrypt (3.1.12)
     better_errors (2.4.0)
       coderay (>= 1.0.0)
       erubi (>= 1.0.0)
@@ -203,6 +204,7 @@ GEM
     deep_merge (1.2.1)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
+    device_detector (1.0.1)
     devise (4.4.3)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -230,7 +232,7 @@ GEM
     dry-container (0.6.0)
       concurrent-ruby (~> 1.0)
       dry-configurable (~> 0.1, >= 0.1.3)
-    dry-core (0.4.5)
+    dry-core (0.4.6)
       concurrent-ruby (~> 1.0)
     dry-equalizer (0.2.1)
     dry-logic (0.4.2)
@@ -367,7 +369,7 @@ GEM
       mini_portile2 (~> 2.3.0)
     normalizr (0.3.1)
     orm_adapter (0.5.0)
-    paper_trail (9.0.1)
+    paper_trail (9.0.2)
       activerecord (>= 4.2, < 5.3)
       request_store (~> 1.1)
     parallel (1.12.1)
@@ -536,7 +538,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sshkit (1.16.0)
+    sshkit (1.16.1)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     symmetric-encryption (4.0.1)
@@ -568,7 +570,7 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)
     wisper (2.0.0)
-    wisper-rspec (1.0.1)
+    wisper-rspec (1.1.0)
     xdan-datetimepicker-rails (2.5.4)
       jquery-rails
       rails (>= 3.2.16)
