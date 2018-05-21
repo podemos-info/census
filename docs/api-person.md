@@ -149,3 +149,25 @@ Parameter             | Data type | Description
 * When the document verification is successfully created, server response will be `:accepted` (HTTP 202).
 * When the given parameters for the procedure are invalid, server response will be `:unprocessable_entity` (HTTP 422) and a JSON with the errors for each parameter.
 * When there is an error creating the cancellation, server response will be `:server_internal_error` (HTTP 500).
+
+## Procedures
+:round_pushpin: Retrieve all the pending procedures for the person.
+```
+GET api/v1/people/:person_id/procedures
+```
+
+Parameter             | Data type | Description
+----------------------|-----------|-------------------------------
+`person_id`           |  string   | Person's qualified identifier
+
+### Return value
+* When the person exists in the database, server response will be `:ok` (HTTP 200) with a JSON with all the pending procedures related to the person:
+ (fields `id`.
+
+Parameter             | Data type | Description
+----------------------|-----------|------------------------
+`id`                  |  integer  | Procedure identifier at Census
+`type`                |  string   | Procedure type: `Procedures::Registration`, `Procedures::PersonDataChange`, `Procedures::MembershipLevelChange`, `Procedures::DocumentVerification` or `Procedures::Cancellation`
+`information`         |  string   | Payment method human name
+
+* When there is no person for the given `person_id`, server response will be `:unprocessable_entity` (HTTP 422) and an empty JSON.
