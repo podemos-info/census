@@ -1259,6 +1259,13 @@ Rails/UniqBeforePluck:
   EnforcedStyle: conservative
   AutoCorrect: false
 
+Rails/UnknownEnv:
+  Environments:
+    - development
+    - production
+    - staging
+    - test
+
 Rails/HasManyOrHasOneDependent:
   Enabled: true
 

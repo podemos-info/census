@@ -16,5 +16,8 @@ test:
   <<: *default
   database: <%= ENV.fetch("DATABASE_NAME") { "census_test" } %>
 
+staging:
+  url: <%= ENV["DATABASE_URL"] %>
+
 production:
   url: <%= ENV["DATABASE_URL"] %>

@@ -14,7 +14,7 @@ payments:
         login: <%= ENV["REDSYS_MERCHANT_ID"] %>
         secret_key: <%= ENV["REDSYS_SECRET_KEY"] %>
         terminal: <%= ENV["REDSYS_TERMINAL"] %>
-        test: <%= !Rails.env.production? %>
+        test: <%= Rails.env.test? || Rails.env.development? %>
       response_codes:
         ok:
           flags:
