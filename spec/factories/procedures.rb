@@ -143,6 +143,7 @@ FactoryBot.define do
   end
 
   factory :cancellation, parent: :procedure, class: :"procedures/cancellation" do
+    channel { %w(decidim email phone).sample }
     reason { Faker::Lorem.paragraph(1, true, 2) }
     person
   end
