@@ -1,16 +1,7 @@
 # frozen_string_literal: true
 
 panel t("census.procedures.person.data") do
-  div class: "panel_link" do
-    a t("active_admin.view"), href: person_path(procedure.person)
-    span "|"
-    a t("active_admin.edit"), href: person_path(procedure.person)
-  end
-  attributes_table_for procedure.person do
-    row :email do
-      link_to procedure.person.email, "mailto:#{procedure.person.email}"
-    end
-    row :phone
+  attributes_table_for procedure.before_person do
     row :first_name
     row :last_name1
     row :last_name2

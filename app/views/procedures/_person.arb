@@ -1,0 +1,14 @@
+# frozen_string_literal: true
+
+render partial: "people/show_state", locals: { resource: resource.person }
+
+attributes_table_for procedure.person do
+  row :full_name
+  row :email_link
+  row :phone
+end
+
+ul do
+  li link_to t("census.procedures.view_person"), person_path(procedure.person)
+  li link_to t("census.procedures.edit_person"), edit_person_path(procedure.person)
+end

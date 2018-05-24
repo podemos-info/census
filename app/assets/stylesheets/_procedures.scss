@@ -1,14 +1,14 @@
 #procedure_action_input {
-  padding-left: 25%;
+  text-align: center;
 }
 
-.attachments {
+body.procedures .panel_contents {
   .column {
     @media screen and (min-width: $md-width) {
       display: inline-block;
       vertical-align: top;
 
-      &:first-child + .column {
+      &:first-child {
         max-width: 500px;
         width: 48% !important;
       }

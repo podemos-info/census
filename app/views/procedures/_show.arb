@@ -1,15 +1,22 @@
 # frozen_string_literal: true
 
-context.instance_eval do
-  panel title do
-    attributes_table_for resource do
-      row :person, class: classes[:person_id]
-      row :type, class: classes[:type], &:type_name
-      row :created_at, class: classes[:created_at]
-      state_row :state, class: classes[:state]
-      row :processed_by, class: classes[:processed_by]
-      row :processed_at, class: classes[:processed_at]
-      row(:comment, class: classes[:comment]) if resource.comment.present?
+panel I18n.t("census.procedures.procedure") do
+  attributes_table_for resource do
+    row :created_at
+    state_row :state
+    if resource.processed?
+      row :processed_by
+      row :processed_at
+      row(:comment) if resource.comment.present?
+    end
+  end
+end
+
+if resource.dependent_procedures.any?
+  panel I18n.t("census.procedures.dependent_procedures") do
+    table_for resource.dependent_procedures, i18n: Procedure do
+      column :type, &:type_name
+      column :summary
     end
   end
 end

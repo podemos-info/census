@@ -1,0 +1,12 @@
+# frozen_string_literal: true
+
+panel title do
+  changes_table_for(resource, changes: local_assigns[:classes], mode: local_assigns[:mode]) do
+    chrow :membership_level, machine: :membership_level
+    chrow :state, machine: :state
+    chrow :verification, machine: :verification
+    chrow :scope, change_field: :scope_id do
+      resource.full_scope
+    end
+  end
+end

@@ -1,0 +1,7 @@
+# frozen_string_literal: true
+
+panel t("census.procedures.parameters") do
+  attributes_table_for procedure.after_person do
+    state_row :membership_level, machine: :membership_level
+  end
+end

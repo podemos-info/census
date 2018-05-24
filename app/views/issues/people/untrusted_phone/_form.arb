@@ -4,7 +4,7 @@ context.instance_eval do
   panel t("census.issues.close.title", issue_type_name: issue.issue_type_name.downcase) do
     para issue.issue_type_tip
 
-    render partial: "people/show_small", locals: { context: context, title: "", classes: issue.classed_relevant_attributes, resource: issue.procedures.first.person.decorate }
+    render partial: "people/show_small", locals: { context: context, changes: issue.classed_relevant_attributes, resource: issue.procedures.first.person.decorate }
 
     f.inputs do
       f.input :trusted, as: :boolean

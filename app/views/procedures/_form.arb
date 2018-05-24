@@ -1,3 +1,0 @@
-# frozen_string_literal: true
-
-render partial: "procedures/#{procedure.procedure_type}/form", locals: { context: self, procedure: procedure }

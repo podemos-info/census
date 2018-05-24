@@ -55,6 +55,8 @@ es:
       issues: Incidencias
       jobs: Tareas
       orders: Órdenes
+      person: Persona
+      procedure: Procedimiento
       procedures: Procedimientos
       versions: Versiones
       visits: Visitas
@@ -197,6 +199,8 @@ es:
         discarded_at: Fecha de borrado
         document_id: Documento
         document_type: Tipo de documento
+        email: Correo electrónico
+        email_link: Correo electrónico
         first_name: Nombre
         flags: Verificaciones / Marcas
         full_document: Documento
@@ -227,6 +231,7 @@ es:
         verification/verified: verificada
       procedure:
         auto_processed?: Procesado automáticamente
+        channel: Recibido a través de
         comment: Comentario
         created_at: Fecha de creación
         information: Información
@@ -234,6 +239,7 @@ es:
         person: Persona
         processed_at: Fecha de procesado
         processed_by: Procesado por
+        reason: Razones
         state: Estado
         state/accepted: Aceptado
         state/dismissed: Descartado
@@ -548,12 +554,17 @@ es:
         reject: Rechazar
         undo: Deshacer
       dependent_procedures: Procedimientos dependientes
+      edit_person: Modificar datos
       parameters: Parámetros del procedimiento
       person:
+        after: Después
+        before: Antes
+        changes: Cambios realizados
         data: Datos personales
         now: Ahora
-        when_processed: Al procesarlo
+      procedure: Procedimiento
       process: Procesar
+      view_person: Ver ficha completa
     scopes:
       picker:
         cancel: Cancelar

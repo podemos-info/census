@@ -10,8 +10,7 @@ ActiveAdmin.register Procedure do
 
   config.sort_order = "created_at_asc"
 
-  actions :index, :show, :edit, :update # edit is used for procedure processing
-  config.clear_action_items! # hide edit button on show view
+  actions :index, :show, :update # update is used for procedure processing
 
   permit_params :action, :comment
 
@@ -33,10 +32,12 @@ ActiveAdmin.register Procedure do
   scope :dismissed, group: :archive
 
   index do
-    id_column
+    column :id do |procedure|
+      procedure.link(procedure.id)
+    end
     column :type, class: :left, sortable: :type do |procedure|
       issues_icons(procedure, context: self)
-      procedure.link_with_name
+      procedure.link(procedure.type_name)
     end
     column :person, class: :left, sortable: :full_name
     state_column :state
@@ -45,15 +46,14 @@ ActiveAdmin.register Procedure do
   end
 
   show do
-    render "procedures/#{procedure.procedure_type}/show", context: self,
-                                                          classes: procedure.last_version_classed_changeset,
-                                                          person_classes: procedure.processed_person_classed_changeset
+    panel procedure.name do
+      render "procedures/#{procedure.procedure_type}/show", context: self
+    end
     active_admin_comments
   end
 
-  form partial: "procedures/form", title: I18n.t("census.procedures.process"), decorate: true
-
-  sidebar :issues, partial: "procedures/issues", only: [:show, :edit], if: -> { procedure.issues.any? }
+  sidebar :issues, partial: "procedures/issues", only: [:show], if: -> { procedure.issues.any? }
+  sidebar :person, partial: "procedures/person", only: [:show]
 
   action_item :undo_procedure, only: :show do
     if procedure.full_undoable_by? controller.current_admin
@@ -90,21 +90,17 @@ ActiveAdmin.register Procedure do
       end_of_association_chain.independent
     end
 
-    def edit
-      redirect_back(fallback_location: procedures_path, error: t("census.procedures.action_message.cant_process")) && return if resource.processed?
-      super
-    end
-
     def update
+      set_resource_ivar resource.decorate
       Procedures::ProcessProcedure.call(form: form_resource, admin: current_admin) do
-        on(:invalid) { render :edit }
+        on(:invalid) { render :show }
         on(:error) do
           flash.now[:error] = t("census.procedures.action_message.error")
-          render :edit
+          render :show
         end
         on(:issue_error) do
           flash.now[:error] = t("census.procedures.action_message.error_issue")
-          render :edit
+          render :show
         end
         on(:ok) do
           flash[:notice] = t("census.procedures.action_message.#{resource.state}", link: view_context.link_to(resource.id, resource)).html_safe
