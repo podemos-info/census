@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       resources :people, only: [:create, :update, :destroy, :show] do
         resources :document_verifications, only: [:create], controller: "people/document_verifications"
         resources :membership_levels, only: [:create], controller: "people/membership_levels"
+        resources :procedures, only: [:index], controller: "people/procedures"
       end
 
       namespace :payments do
