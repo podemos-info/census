@@ -9,15 +9,15 @@ $LOAD_PATH.push base_path
 require "census/seeds/scopes"
 Census::Seeds::Scopes.seed base_path: base_path
 
-return unless ENV["SEED"]
+if !Rails.env.production? || ENV["SEED"]
+  Rails.logger = Logger.new(STDOUT)
 
-Rails.logger = Logger.new(STDOUT)
+  require "faker"
+  require "timecop"
 
-require "faker"
-require "timecop"
-
-require "random"
-require "people"
-require "procedures"
-require "payments"
-require "cancellations"
+  require "random"
+  require "people"
+  require "procedures"
+  require "payments"
+  require "cancellations"
+end
