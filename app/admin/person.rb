@@ -52,7 +52,7 @@ ActiveAdmin.register Person do
   scope(:with_open_issues, group: :issues) { |scope| scope.kept.with_open_issues }
 
   show do
-    render "show", context: self, classes: resource.last_version_classed_changeset
+    render "show", context: self, changes: resource.last_version_classed_changeset
     active_admin_comments
   end
 
