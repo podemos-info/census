@@ -1,0 +1,8 @@
+
+@media screen and (max-width: $sm-width) {
+  body #active_admin_content.with_sidebar {
+    #main_content_wrapper, #sidebar {
+      width: 100% !important;
+    }
+  }
+}
