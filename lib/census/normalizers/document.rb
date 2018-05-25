@@ -3,7 +3,8 @@
 Normalizr.configure do
   add :document_dni do |value|
     dni = value.upcase.gsub(/[\W\_]*/, "")
-    if dni.length > 0
+
+    if !dni.empty?
       dni.rjust(dni[-1].match?(/\d/) ? 8 : 9, "0")
     else
       ""
