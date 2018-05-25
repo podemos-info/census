@@ -64,6 +64,20 @@ describe People::RegistrationForm do
     end
   end
 
+  context "with a missing document type" do
+    let(:document_type) { nil }
+
+    it "is invalid" do
+      expect(subject).not_to be_valid
+    end
+
+    it "adds a single error" do
+      subject.valid?
+
+      expect(subject.errors[:document_type].count).to eq(1)
+    end
+  end
+
   context "with an empty document type" do
     let(:document_type) { "" }
 
@@ -78,6 +92,20 @@ describe People::RegistrationForm do
     end
   end
 
+  context "with a missing document id" do
+    let(:document_id) { nil }
+
+    it "is invalid" do
+      expect(subject).not_to be_valid
+    end
+
+    it "adds a single error" do
+      subject.valid?
+
+      expect(subject.errors[:document_id].count).to eq(1)
+    end
+  end
+
   context "with an empty document id" do
     let(:document_id) { "" }
 
@@ -89,6 +117,20 @@ describe People::RegistrationForm do
       subject.valid?
 
       expect(subject.errors[:document_id].count).to eq(1)
+    end
+  end
+
+  context "with a missing gender" do
+    let(:gender) { nil }
+
+    it "is invalid" do
+      expect(subject).not_to be_valid
+    end
+
+    it "adds a single error" do
+      subject.valid?
+
+      expect(subject.errors[:gender].count).to eq(1)
     end
   end
 
