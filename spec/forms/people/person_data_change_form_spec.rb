@@ -32,7 +32,7 @@ describe People::PersonDataChangeForm do
     end
   end
 
-  context "when changing document type to dni" do
+  context "when changing document type" do
     let(:person) { create(:person, document_type: :passport, document_scope: create(:scope), document_id: "ABC1234") }
 
     context "without setting the local scope" do
@@ -43,6 +43,12 @@ describe People::PersonDataChangeForm do
 
     context "without setting a valid document id" do
       let(:changes) { { document_type: :dni, document_scope_code: "ES" } }
+
+      it { is_expected.to be_invalid }
+    end
+
+    context "without setting a valid document type" do
+      let(:changes) { { document_type: :dani, document_scope_code: "ES", document_id: "1R" } }
 
       it { is_expected.to be_invalid }
     end
