@@ -56,13 +56,11 @@ describe People::RegistrationForm do
     end
   end
 
-  describe "email" do
-    context "with an empty email" do
-      let(:email) { "" }
+  context "with an empty email" do
+    let(:email) { "" }
 
-      it "is invalid" do
-        expect(subject).not_to be_valid
-      end
+    it "is invalid" do
+      expect(subject).not_to be_valid
     end
   end
 
