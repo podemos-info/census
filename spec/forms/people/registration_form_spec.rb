@@ -64,6 +64,48 @@ describe People::RegistrationForm do
     end
   end
 
+  context "with an empty document type" do
+    let(:document_type) { "" }
+
+    it "is invalid" do
+      expect(subject).not_to be_valid
+    end
+
+    it "adds a single error" do
+      subject.valid?
+
+      expect(subject.errors[:document_type].count).to eq(1)
+    end
+  end
+
+  context "with an empty document id" do
+    let(:document_id) { "" }
+
+    it "is invalid" do
+      expect(subject).not_to be_valid
+    end
+
+    it "adds a single error" do
+      subject.valid?
+
+      expect(subject.errors[:document_id].count).to eq(1)
+    end
+  end
+
+  context "with an empty gender" do
+    let(:gender) { "" }
+
+    it "is invalid" do
+      expect(subject).not_to be_valid
+    end
+
+    it "adds a single error" do
+      subject.valid?
+
+      expect(subject.errors[:gender].count).to eq(1)
+    end
+  end
+
   context "when user is already registered" do
     let(:person_id) { create(:person).id }
 
