@@ -10,10 +10,18 @@ describe People::PersonDataChangeForm do
 
   it { is_expected.to be_valid }
 
-  context "when invalid gender" do
-    let(:changes) { { gender: "potato" } }
+  context "when changing gender" do
+    context "with a blank gender" do
+      let(:changes) { { gender: "" } }
 
-    it { is_expected.to be_invalid }
+      it { is_expected.to be_invalid }
+    end
+
+    context "with an invalid gender" do
+      let(:changes) { { gender: "potato" } }
+
+      it { is_expected.to be_invalid }
+    end
   end
 
   context "when changing document id" do
@@ -30,10 +38,22 @@ describe People::PersonDataChangeForm do
 
       it { is_expected.to be_invalid }
     end
+
+    context "with a blank document id" do
+      let(:changes) { { document_id: "" } }
+
+      it { is_expected.to be_invalid }
+    end
   end
 
   context "when changing document type" do
     let(:person) { create(:person, document_type: :passport, document_scope: create(:scope), document_id: "ABC1234") }
+
+    context "with a blank document type" do
+      let(:changes) { { document_type: "" } }
+
+      it { is_expected.to be_invalid }
+    end
 
     context "without setting the local scope" do
       let(:changes) { { document_type: :dni, document_id: "1R" } }
