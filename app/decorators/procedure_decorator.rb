@@ -46,10 +46,6 @@ class ProcedureDecorator < ApplicationDecorator
     end
   end
 
-  def link_with_name
-    link(name)
-  end
-
   def view_link(text = nil)
     h.link_to text || I18n.t("active_admin.view"), h.procedure_path(object), class: "member_link"
   end

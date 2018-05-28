@@ -43,6 +43,24 @@ describe ProceduresController, type: :controller do
       subject { get :show, params: { id: procedure.id } }
       it { expect(subject).to be_successful }
       it { expect(subject).to render_template("show") }
+
+      include_examples "has comments enabled"
+
+      context "when procedure has issues" do
+        let(:current_admin) { create(:admin, :data) }
+        let!(:open_issue) { create(:duplicated_document, issuable: procedure) }
+        let!(:closed_issue) { create(:duplicated_person, :ready_to_fix, :fixed, issuable: procedure) }
+
+        it { is_expected.to be_successful }
+        it { is_expected.to render_template("show") }
+        it "shows an error message" do
+          expect { subject }
+            .to change { flash[:alert] }
+            .from(nil)
+            .to "¡Atención! Hay incidencias abiertas asociadas a este registro: "\
+                "<a class=\"member_link\" href=\"/issues/#{open_issue.id}/edit\">Documento duplicado ##{open_issue.id}</a>."
+        end
+      end
     end
 
     context "show processed procedure" do
