@@ -1,14 +1,22 @@
 # frozen_string_literal: true
 
 context.instance_eval do
-  if procedure.processable? && policy(procedure).update?
-    panel t("census.procedures.process") do
-      active_admin_form_for controller.form_resource do |f|
-        f.inputs do
-          f.input :action, as: :radio, label: false, collection: procedure.actions_options(admin: controller.current_admin, allow_add_issue: true)
-          f.input :comment, as: :text, input_html: { rows: 4 }
+  if policy(procedure).update?
+    if procedure.issues.any?
+      panel t("census.procedures.process") do
+        div class: "flash flash_alert" do
+          para t("census.procedures.fix_issues")
         end
-        f.actions
+      end
+    elsif procedure.processable?
+      panel t("census.procedures.process") do
+        active_admin_form_for controller.form_resource do |f|
+          f.inputs do
+            f.input :action, as: :radio, label: false, collection: procedure.actions_options(admin: controller.current_admin, allow_add_issue: true)
+            f.input :comment, as: :text, input_html: { rows: 4 }
+          end
+          f.actions
+        end
       end
     end
   end
