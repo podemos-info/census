@@ -555,6 +555,7 @@ es:
         undo: Deshacer
       dependent_procedures: Procedimientos dependientes
       edit_person: Modificar datos
+      fix_issues: Debes resolver las incidencias para poder procesar este procedimiento.
       parameters: Parámetros del procedimiento
       person:
         after: Después
