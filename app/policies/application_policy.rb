@@ -13,7 +13,7 @@ class ApplicationPolicy
   end
 
   def show?
-    base_role? && scope.where(id: record.id).exists?
+    base_role?
   end
 
   def new?
@@ -38,10 +38,6 @@ class ApplicationPolicy
 
   def base_role?
     user.system_role?
-  end
-
-  def scope
-    Pundit.policy_scope!(user, record.class)
   end
 
   class Scope

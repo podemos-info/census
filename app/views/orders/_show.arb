@@ -2,17 +2,17 @@
 
 context.instance_eval do
   panel title do
-    attributes_table_for resource do
-      state_row :state, class: classes[:state]
-      row :id, class: classes[:id]
-      row :person, class: classes[:person_id]
-      row :payment_method, class: classes[:payment_method]
-      row :description, class: classes[:description]
-      row :full_amount, class: classes[:full_amount]
-      row :campaign, class: classes[:campaign_id]
-      row :orders_batch, class: classes[:orders_batch_id]
-      row :created_at, class: classes[:created_at]
-      row :updated_at, class: classes[:updated_at]
+    changes_table_for(resource, changes: local_assigns[:changes]) do
+      chrow :state, machine: :default
+      chrow :id
+      chrow :person, change_field: :person_id
+      chrow :payment_method
+      chrow :description
+      chrow :full_amount
+      chrow :campaign, change_field: :campaign_id
+      chrow :orders_batch, change_field: :orders_batch_id
+      chrow :created_at
+      chrow :updated_at
     end
     show_table(context: self, title: t("census.orders.information"), table: resource.information) if resource.information.any?
   end

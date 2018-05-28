@@ -1,5 +1,15 @@
 # frozen_string_literal: true
 
-render partial: "procedures/show", locals: { context: context, procedure: procedure, classes: classes }
-show_table(context: context, title: t("census.procedures.parameters"), table: procedure.person_data)
-render partial: "procedures/person_compare", locals: { context: context, procedure: procedure, classes: procedure.processed_person_classed_changeset }
+context.instance_eval do
+  columns do
+    column do
+      render partial: "procedures/person_compare", locals: { context: context, procedure: procedure }
+    end
+    column do
+      render partial: "procedures/show", locals: { context: context, procedure: procedure }
+      render partial: "people/show", locals: { context: context, title: t("census.procedures.parameters"), changes: procedure.person_changeset,
+                                               resource: procedure.after_person, mode: :changes }
+      render partial: "procedures/common_form", locals: { context: context, procedure: procedure }
+    end
+  end
+end

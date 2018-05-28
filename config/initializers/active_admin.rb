@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "census/active_admin"
+
 def config_menu(config)
   config.namespace false do |admin|
     admin.build_menu :utility_navigation do |menu|
@@ -304,13 +306,4 @@ ActiveAdmin.setup do |config|
   meta_tags_options = { viewport: "width=device-width, initial-scale=1" }
   config.meta_tags = meta_tags_options
   config.meta_tags_for_logged_out_pages = meta_tags_options
-end
-
-ActiveAdmin::Views::Pages::Base.class_eval do
-  alias_method :old_body_classes, :body_classes
-  def body_classes
-    ret = old_body_classes
-    ret << controller.extra_body_class if controller.respond_to?(:extra_body_class) && controller.extra_body_class
-    ret
-  end
 end

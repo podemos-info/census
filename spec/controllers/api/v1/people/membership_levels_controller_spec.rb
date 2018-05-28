@@ -8,12 +8,9 @@ describe Api::V1::People::MembershipLevelsController, type: :controller do
 
   with_versioning do
     describe "create method" do
-      let(:attachment) { build(:attachment) }
-      let(:params) { { person_id: person.qualified_id_at(:decidim), membership_level: membership_level } }
+      subject(:page) { post :create, params: params }
 
-      subject(:page) do
-        post :create, params: params
-      end
+      let(:params) { { person_id: person.qualified_id_at(:decidim), membership_level: membership_level } }
 
       it "is valid" do
         is_expected.to have_http_status(:accepted)
@@ -37,9 +34,7 @@ describe Api::V1::People::MembershipLevelsController, type: :controller do
       end
 
       context "with an invalid person id" do
-        before do
-          person.delete
-        end
+        before { person.delete }
 
         it "is not valid" do
           expect(subject).to have_http_status(:unprocessable_entity)

@@ -41,14 +41,14 @@ ActiveAdmin.register Version do
           render "#{resource.item_route_key}/show", title: t("census.versions.before.title"),
                                                     context: self,
                                                     resource: resource.before,
-                                                    classes: resource.before_classed_changeset
+                                                    changes: resource.before_classed_changeset
         end
 
         tab t("census.versions.after.tab") do
           render "#{resource.item_route_key}/show", title: t("census.versions.after.title"),
                                                     context: self,
                                                     resource: resource.after,
-                                                    classes: resource.after_classed_changeset
+                                                    changes: resource.after_classed_changeset
         end
       end
     end

@@ -1,0 +1,8 @@
+# frozen_string_literal: true
+
+panel t("census.procedures.parameters") do
+  attributes_table_for procedure do
+    row :channel
+    row :reason
+  end
+end

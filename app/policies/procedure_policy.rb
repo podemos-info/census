@@ -9,10 +9,6 @@ class ProcedurePolicy < ApplicationPolicy
     end
   end
 
-  def scope
-    Pundit.policy_scope!(user, Procedure)
-  end
-
   def create?
     false
   end

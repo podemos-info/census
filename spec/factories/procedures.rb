@@ -83,6 +83,8 @@ FactoryBot.define do
   factory :membership_level_change, parent: :procedure, class: :"procedures/membership_level_change" do
     from_membership_level { person.membership_level }
     to_membership_level "member"
+
+    person { create(:person, :verified) }
   end
 
   factory :registration, parent: :procedure, class: :"procedures/registration" do
@@ -116,7 +118,7 @@ FactoryBot.define do
   factory :person_data_change, parent: :procedure, class: :"procedures/person_data_change" do
     transient do
       person_copy_data { build(:person) }
-      changing_columns { [] }
+      changing_columns { [:first_name] }
     end
 
     person
@@ -143,6 +145,7 @@ FactoryBot.define do
   end
 
   factory :cancellation, parent: :procedure, class: :"procedures/cancellation" do
+    channel { %w(decidim email phone).sample }
     reason { Faker::Lorem.paragraph(1, true, 2) }
     person
   end

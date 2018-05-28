@@ -2,7 +2,7 @@
 
 table_for(person.last_procedures, row_class: ->(record) { record.state }) do
   column do |procedure|
-    span link_to procedure.created_at.to_date.to_s(:db), url_for([person, procedure])
+    procedure.link(procedure.created_at.to_date.to_s(:db))
   end
   column do |procedure|
     span procedure.type_name

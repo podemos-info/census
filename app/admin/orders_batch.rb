@@ -38,7 +38,7 @@ ActiveAdmin.register OrdersBatch do
   sidebar :versions, partial: "orders_batches/versions", only: :show
 
   show do
-    render "show", context: self, classes: resource.last_version_classed_changeset
+    render "show", context: self, changes: resource.last_version_classed_changeset
     active_admin_comments
   end
 

@@ -5,10 +5,6 @@ class PaymentMethodPolicy < ApplicationPolicy
     user.finances_role? || super
   end
 
-  def scope
-    Pundit.policy_scope!(user, PaymentMethod)
-  end
-
   def dismiss_issues?
     base_role?
   end

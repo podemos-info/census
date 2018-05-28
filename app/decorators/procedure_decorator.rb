@@ -46,16 +46,12 @@ class ProcedureDecorator < ApplicationDecorator
     end
   end
 
-  def link_with_name
-    link(name)
-  end
-
   def view_link(text = nil)
     h.link_to text || I18n.t("active_admin.view"), h.procedure_path(object), class: "member_link"
   end
 
   def edit_link(text = nil)
-    h.link_to text || I18n.t("census.procedures.process"), h.edit_procedure_path(object), class: "member_link"
+    h.link_to text || I18n.t("census.procedures.process"), h.procedure_path(object), class: "member_link"
   end
 
   def route_key
@@ -78,18 +74,25 @@ class ProcedureDecorator < ApplicationDecorator
     object.attachments.order(id: :asc).decorate(context: context)
   end
 
-  def processed_person
-    return nil unless processed?
-    @processed_person ||= person.paper_trail.version_at(processed_at - (1 / 1000.0).second, dup: true)&.decorate(context: context)
+  def before_person
+    return person unless processed?
+    @before_person ||= person.paper_trail.version_at(processed_at - 0.01.seconds, dup: true)&.decorate(context: context)
   end
 
-  def processed_person_classed_changeset
-    return {} unless processed_person
-    @processed_person_classed_changeset ||= begin
-      changed_attributes = person.attributes.keys.zip(person.attributes.values.zip(processed_person.attributes.values))
-                                 .reject { |_attribute, values| values.first == values.last }
-                                 .map(&:first)
-      classed_changeset(changed_attributes, "version_change")
+  def after_person
+    @after_person ||= if processed?
+                        person.paper_trail.version_at(processed_at + 0.01.seconds, dup: true)&.decorate(context: context)
+                      else
+                        object.deep_dup.tap(&:process_accept).person
+                      end
+  end
+
+  def person_changeset
+    @person_changeset ||= begin
+      changed_attributes = before_person.attributes.keys.zip(before_person.attributes.values.zip(after_person.attributes.values))
+                                        .reject { |_attribute, values| values.first == values.last }
+                                        .map(&:first)
+      classed_changeset(changed_attributes, "")
     end
   end
 end

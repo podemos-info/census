@@ -68,6 +68,8 @@ describe PeopleController, type: :controller do
       it { is_expected.to be_successful }
       it { is_expected.to render_template("show") }
 
+      include_examples "has comments enabled"
+
       context "when accessing as finances admin" do
         let(:current_admin) { create(:admin, :finances) }
         let!(:order) { create(:order, person: person) }

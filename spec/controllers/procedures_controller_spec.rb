@@ -13,7 +13,7 @@ describe ProceduresController, type: :controller do
   let!(:procedure) { create(:document_verification, :with_attachments, :with_dependent_procedure) }
 
   it "defines actions" do
-    expect(resource.defined_actions).to contain_exactly(:index, :show, :edit, :update)
+    expect(resource.defined_actions).to contain_exactly(:index, :show, :update)
   end
 
   it "handles procedures" do
@@ -43,6 +43,24 @@ describe ProceduresController, type: :controller do
       subject { get :show, params: { id: procedure.id } }
       it { expect(subject).to be_successful }
       it { expect(subject).to render_template("show") }
+
+      include_examples "has comments enabled"
+
+      context "when procedure has issues" do
+        let(:current_admin) { create(:admin, :data) }
+        let!(:open_issue) { create(:duplicated_document, issuable: procedure) }
+        let!(:closed_issue) { create(:duplicated_person, :ready_to_fix, :fixed, issuable: procedure) }
+
+        it { is_expected.to be_successful }
+        it { is_expected.to render_template("show") }
+        it "shows an error message" do
+          expect { subject }
+            .to change { flash[:alert] }
+            .from(nil)
+            .to "¡Atención! Hay incidencias abiertas asociadas a este registro: "\
+                "<a class=\"member_link\" href=\"/issues/#{open_issue.id}/edit\">Documento duplicado ##{open_issue.id}</a>."
+        end
+      end
     end
 
     context "show processed procedure" do
@@ -104,34 +122,6 @@ describe ProceduresController, type: :controller do
     end
   end
 
-  context "edit procedure" do
-    subject { get :edit, params: { id: procedure.id } }
-    it { expect(subject).to be_successful }
-    it { expect(subject).to render_template("edit") }
-
-    context "when procedure has issues" do
-      let(:current_admin) { create(:admin, :data) }
-      let!(:open_issue) { create(:duplicated_document, issuable: procedure) }
-      let!(:closed_issue) { create(:duplicated_person, :ready_to_fix, :fixed, issuable: procedure) }
-
-      it { is_expected.to be_successful }
-      it { is_expected.to render_template("edit") }
-      it "shows an error message" do
-        expect { subject }
-          .to change { flash[:alert] }
-          .from(nil)
-          .to "¡Atención! Hay incidencias abiertas asociadas a este registro: "\
-              "<a class=\"member_link\" href=\"/issues/#{open_issue.id}/edit\">Documento duplicado ##{open_issue.id}</a>."
-      end
-    end
-  end
-
-  context "edit processed procedure" do
-    let(:procedure) { create(:document_verification, :processed) }
-    subject { get :edit, params: { id: procedure.id } }
-    it { is_expected.to redirect_to(procedures_path) }
-  end
-
   describe "update page" do
     subject { patch :update, params: { id: procedure.id, procedure: params } }
     let(:params) { { action: "reject", comment: Faker::Lorem.paragraph(1, true, 2) } }
@@ -155,7 +145,7 @@ describe ProceduresController, type: :controller do
         before { stub_command("Procedures::ProcessProcedure", :issue_error) }
 
         it { is_expected.to be_successful }
-        it { is_expected.to render_template("edit") }
+        it { is_expected.to render_template("show") }
         it { expect { subject } .to change { flash[:error] } .from(nil).to("Ha ocurrido un error al abrir la incidencia.") }
       end
     end
@@ -164,7 +154,7 @@ describe ProceduresController, type: :controller do
       let(:params) { { action: "reject" } }
 
       it { is_expected.to be_successful }
-      it { is_expected.to render_template("edit") }
+      it { is_expected.to render_template("show") }
 
       it "does not reject the procedure" do
         expect { subject } .to_not change { Procedure.find(procedure.id).state }.from("pending")
@@ -175,7 +165,7 @@ describe ProceduresController, type: :controller do
       before { stub_command("Procedures::ProcessProcedure", :error) }
 
       it { is_expected.to be_successful }
-      it { is_expected.to render_template("edit") }
+      it { is_expected.to render_template("show") }
       it { expect { subject } .to change { flash[:error] } .from(nil).to("Ha ocurrido un error al procesar el procedimiento.") }
     end
   end

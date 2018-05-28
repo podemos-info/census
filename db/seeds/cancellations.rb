@@ -11,7 +11,7 @@ random_people.where.not(id: admins.pluck(:person_id)).limit(10).each do |person|
   Timecop.freeze Faker::Time.between(3.days.ago(real_now), 1.day.ago(real_now), :between)
   PaperTrail.request.whodunnit = person
   cancellation = Procedures::Cancellation.create!(person: person,
-                                                  information: { reason: Faker::Lorem.sentence },
+                                                  information: { reason: Faker::Lorem.sentence, channel: %w(decidim email phone).sample },
                                                   state: :pending)
   Rails.logger.debug { "Person cancellation created for: #{cancellation.person.decorate(data_context)}" }
 

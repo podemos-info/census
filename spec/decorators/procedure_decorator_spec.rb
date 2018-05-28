@@ -28,11 +28,11 @@ describe ProcedureDecorator do
     let(:procedure) { create(:document_verification) }
 
     it "returns the process link" do
-      expect(subject.link).to eq("<a class=\"member_link\" href=\"/procedures/#{procedure.id}/edit\">Procesar</a>")
+      expect(subject.link).to eq("<a class=\"member_link\" href=\"/procedures/#{procedure.id}\">Procesar</a>")
     end
 
     it "returns the process link with the given text" do
-      expect(subject.link("test")).to eq("<a class=\"member_link\" href=\"/procedures/#{procedure.id}/edit\">test</a>")
+      expect(subject.link("test")).to eq("<a class=\"member_link\" href=\"/procedures/#{procedure.id}\">test</a>")
     end
 
     context "when person procedure is cancelled" do

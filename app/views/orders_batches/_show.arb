@@ -2,13 +2,13 @@
 
 context.instance_eval do
   panel title do
-    attributes_table_for resource do
-      row :id, class: classes[:id]
-      row :description, class: classes[:description]
-      row :processed_by, class: classes[:processed_by]
-      row :processed_at, class: classes[:processed_at]
-      row :created_at, class: classes[:created_at]
-      row :updated_at, class: classes[:updated_at]
+    changes_table_for(resource, changes: local_assigns[:changes]) do
+      chrow :id
+      chrow :description
+      chrow :processed_by
+      chrow :processed_at
+      chrow :created_at
+      chrow :updated_at
     end
   end
 end

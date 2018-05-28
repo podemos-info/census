@@ -21,11 +21,6 @@ describe "Procedures", type: :request do
     end
   end
 
-  context "edit page" do
-    subject(:page) { get edit_procedure_path(id: procedure.id) }
-    it { expect(subject).to eq(200) }
-  end
-
   with_versioning do
     context "show page" do
       subject(:page) { get procedure_path(id: procedure.id) }

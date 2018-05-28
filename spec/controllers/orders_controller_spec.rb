@@ -35,6 +35,8 @@ describe OrdersController, type: :controller do
       subject(:page) { get :show, params: { id: order.id } }
       it { is_expected.to be_successful }
       it { is_expected.to render_template("show") }
+
+      include_examples "has comments enabled"
     end
   end
 

@@ -2,33 +2,26 @@
 
 context.instance_eval do
   panel title do
-    attributes_table_for resource do
-      state_row :membership_level, class: classes[:membership_level], machine: :membership_level
-      state_row :state, class: classes[:state], machine: :state
-      state_row :verification, class: classes[:verification], machine: :verification
-      row :id, class: classes[:id]
-      row :first_name, class: classes[:first_name]
-      row :last_name1, class: classes[:last_name1]
-      row :last_name2, class: classes[:last_name2]
-      row :document_type, class: classes[:document_type], &:document_type_name
-      row :document_id, class: classes[:document_id]
-      row :document_scope, class: classes[:document_scope] do
+    changes_table_for(resource, changes: local_assigns[:changes], mode: local_assigns[:mode]) do
+      chrow :first_name
+      chrow :last_name1
+      chrow :last_name2
+      chrow :document_type, &:document_type_name
+      chrow :document_id
+      chrow :document_scope do
         resource.full_document_scope
       end
-      row :born_at, class: classes[:born_at]
-      row :gender, class: classes[:gender], &:gender_name
-      row :address, class: classes[:address]
-      row :address_scope, class: classes[:address_scope_id] do
+      chrow :born_at
+      chrow :gender, &:gender_name
+      chrow :address
+      chrow :address_scope, change_field: :address_scope_id do
         resource.full_address_scope
       end
-      row :postal_code, class: classes[:postal_code]
-      row :email, class: classes[:email] do
+      chrow :postal_code
+      chrow :email do
         resource.email_link
       end
-      row :phone, class: classes[:phone]
-      row :scope, class: classes[:scope_id] do
-        resource.full_scope
-      end
+      chrow :phone
     end
   end
 end
