@@ -15,8 +15,6 @@ class DocumentIdValidator < ActiveModel::EachValidator
   end
 
   def validate_document_id(type, scope, value)
-    return false if value.nil?
-
     # Basic check for minimum length
     return false if value.length < Settings.people.document_id_minimum_length
 
@@ -27,6 +25,8 @@ class DocumentIdValidator < ActiveModel::EachValidator
   end
 
   def validate_spanish_document(type, value)
+    return false if type.blank?
+
     case type.to_sym
     when :dni
       value.upcase == value && validate_nif(value)

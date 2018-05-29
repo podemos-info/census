@@ -18,9 +18,9 @@ module People
     normalize :first_name, :last_name1, :last_name2, with: :whitespace
     normalize :address, :postal_code, with: :whitespace
 
-    validates :document_type, inclusion: { in: Person.document_types.keys }, allow_nil: true
-    validates :document_id, document_id: { type: :current_document_type, scope: :current_document_scope_code }, allow_nil: true
-    validates :gender, inclusion: { in: Person.genders.keys }, allow_nil: true
+    validates :document_type, inclusion: { in: Person.document_types.keys }, allow_blank: true
+    validates :document_id, document_id: { type: :current_document_type, scope: :current_document_scope_code }, allow_blank: true
+    validates :gender, inclusion: { in: Person.genders.keys }, allow_blank: true
 
     validates :first_name, :last_name1, :document_type, :document_id, :born_at, :gender, :address, :postal_code, :email, filled: { required: :complete_required? }
 
@@ -61,7 +61,13 @@ module People
     end
 
     def document_id
-      current_document_type ? Normalizr.normalize(current_document_id, :"document_#{current_document_type}") : current_document_id
+      return current_document_id if current_document_id.blank?
+
+      if current_document_type && Person.document_types.keys.include?(current_document_type)
+        Normalizr.normalize(current_document_id, :"document_#{current_document_type}")
+      else
+        current_document_id
+      end
     end
 
     private
