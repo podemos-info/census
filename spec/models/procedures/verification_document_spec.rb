@@ -24,7 +24,17 @@ describe Procedures::DocumentVerification, :db do
     end
 
     it_behaves_like "an event notifiable with hutch" do
-      let(:publish_notification) { ["census.people.full_status_changed", { person: person.qualified_id }] }
+      let(:publish_notification) do
+        [
+          "census.people.full_status_changed", {
+            person: person.qualified_id,
+            state: person.state,
+            membership_level: person.membership_level,
+            verification: "verified",
+            scope: person.scope&.code
+          }
+        ]
+      end
     end
   end
 

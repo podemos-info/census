@@ -57,7 +57,15 @@ describe Issues::People::UntrustedPhone, :db do
       end
 
       it_behaves_like "an event notifiable with hutch" do
-        let(:publish_notification) { ["census.people.full_status_changed", { person: procedure_person.qualified_id }] }
+        let(:publish_notification) do
+          [
+            "census.people.full_status_changed", {
+              person: procedure_person.qualified_id,
+              state: "trashed",
+              verification: "fraudulent"
+            }
+          ]
+        end
       end
     end
 
