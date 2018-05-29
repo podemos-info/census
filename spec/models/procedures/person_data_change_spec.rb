@@ -27,19 +27,44 @@ describe Procedures::PersonDataChange, :db do
   end
 
   context "when accepted" do
+    subject(:accepting) { procedure.accept! }
     CHANGING_COLUMNS.each do |attribute|
       it "sets #{attribute}" do
-        expect { procedure.accept! } .to change { procedure.person.send(attribute) } .to(person.send(attribute))
+        expect { subject } .to change { procedure.person.send(attribute) } .to(person.send(attribute))
       end
+    end
+
+    it_behaves_like "an event notifiable with hutch" do
+      let(:publish_notification) do
+        [
+          "census.people.full_status_changed", {
+            person: procedure.person.qualified_id,
+            state: procedure.person.state,
+            membership_level: procedure.person.membership_level,
+            verification: procedure.person.verification,
+            scope: person.scope&.code
+          }
+        ]
+      end
+    end
+
+    context "and scope column is not modified" do
+      let(:changing_columns) { CHANGING_COLUMNS - [:scope_id] }
+
+      it_behaves_like "an event not notifiable with hutch"
     end
   end
 
   context "when rejected" do
+    subject(:rejecting) { procedure.reject! }
+
     CHANGING_COLUMNS.each do |attribute|
       it "sets #{attribute}" do
-        expect { procedure.reject! } .not_to change { procedure.person.send(attribute) }
+        expect { subject } .not_to change { procedure.person.send(attribute) }
       end
     end
+
+    it_behaves_like "an event not notifiable with hutch"
   end
 
   with_versioning do

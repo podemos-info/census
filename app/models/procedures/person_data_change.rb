@@ -17,6 +17,7 @@ module Procedures
 
     def persist_accept_changes!
       person.save!
+      ::People::ChangesPublisher.full_status_changed!(person) if modifies?(:scope_id)
     end
 
     def possible_issues
