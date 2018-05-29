@@ -53,7 +53,15 @@ describe Issues::People::DuplicatedPerson, :db do
       end
 
       it_behaves_like "an event notifiable with hutch" do
-        let(:publish_notification) { ["census.people.full_status_changed", { person: existing_person.qualified_id }] }
+        let(:publish_notification) do
+          [
+            "census.people.full_status_changed", {
+              person: existing_person.qualified_id,
+              state: "trashed",
+              verification: "mistake"
+            }
+          ]
+        end
       end
     end
 
@@ -81,7 +89,15 @@ describe Issues::People::DuplicatedPerson, :db do
       end
 
       it_behaves_like "an event notifiable with hutch" do
-        let(:publish_notification) { ["census.people.full_status_changed", { person: procedure_person.qualified_id }] }
+        let(:publish_notification) do
+          [
+            "census.people.full_status_changed", {
+              person: procedure_person.qualified_id,
+              state: "trashed",
+              verification: "mistake"
+            }
+          ]
+        end
       end
     end
 

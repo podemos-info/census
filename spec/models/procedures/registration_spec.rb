@@ -35,7 +35,17 @@ describe Procedures::Registration, :db do
     end
 
     it_behaves_like "an event notifiable with hutch" do
-      let(:publish_notification) { ["census.people.full_status_changed", { person: procedure.person.qualified_id }] }
+      let(:publish_notification) do
+        [
+          "census.people.full_status_changed", {
+            person: procedure.person.qualified_id,
+            state: "enabled",
+            membership_level: "follower",
+            verification: "not_verified",
+            scope: person.scope&.code
+          }
+        ]
+      end
     end
   end
 
@@ -54,7 +64,15 @@ describe Procedures::Registration, :db do
     end
 
     it_behaves_like "an event notifiable with hutch" do
-      let(:publish_notification) { ["census.people.full_status_changed", { person: procedure.person.qualified_id }] }
+      let(:publish_notification) do
+        [
+          "census.people.full_status_changed", {
+            person: procedure.person.qualified_id,
+            state: "trashed",
+            verification: "not_verified"
+          }
+        ]
+      end
     end
   end
 
