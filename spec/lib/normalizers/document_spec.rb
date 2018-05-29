@@ -35,14 +35,9 @@ describe Normalizr do
       it { is_expected.to eq("00000001R") }
     end
 
-    context "handles nil values" do
-      let(:value) { nil }
-      it { is_expected.to eq(nil) }
-    end
-
     context "handles empty values" do
       let(:value) { "" }
-      it { is_expected.to eq(nil) }
+      it { is_expected.to eq("") }
     end
   end
 
@@ -74,19 +69,9 @@ describe Normalizr do
       it { is_expected.to eq("X0000001R") }
     end
 
-    context "handles nil values" do
-      let(:value) { nil }
-      it { is_expected.to eq(nil) }
-    end
-
     context "handles empty values" do
       let(:value) { "" }
-      it { is_expected.to eq(nil) }
-    end
-
-    context "returns nil on too short values" do
-      let(:value) { "" }
-      it { is_expected.to eq(nil) }
+      it { is_expected.to eq("") }
     end
   end
 
@@ -108,14 +93,9 @@ describe Normalizr do
       it { is_expected.to eq("AB1234567") }
     end
 
-    context "handles nil values" do
-      let(:value) { nil }
-      it { is_expected.to eq(nil) }
-    end
-
     context "handles empty values" do
       let(:value) { "" }
-      it { is_expected.to eq(nil) }
+      it { is_expected.to eq("") }
     end
   end
 end
