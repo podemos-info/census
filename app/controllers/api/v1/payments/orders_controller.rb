@@ -6,7 +6,7 @@ module Api
       form = Orders::OrderForm.from_params(params_with_person)
       ::Payments::CreateOrder.call(form: form) do
         on(:invalid) do
-          render json: form&.errors, status: :unprocessable_entity
+          render json: form.errors.details, status: :unprocessable_entity
         end
         on(:error) do
           render json: {}, status: :internal_server_error

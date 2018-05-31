@@ -25,7 +25,7 @@ module Api
     def call_command(command_class, form)
       command_class.call(form: form) do
         on(:invalid) do
-          render json: form.errors, status: :unprocessable_entity
+          render json: form.errors.details, status: :unprocessable_entity
         end
         on(:error) do
           render json: {}, status: :internal_server_error

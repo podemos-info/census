@@ -63,6 +63,10 @@ describe Api::V1::PeopleController, type: :controller do
           expect(subject).to have_http_status(:unprocessable_entity)
           expect(subject.content_type).to eq("application/json")
         end
+
+        it "returns the errors collection" do
+          expect(subject.body).to eq({ scope: [{ error: "blank" }] }.to_json)
+        end
       end
 
       context "when saving fails" do
@@ -111,6 +115,10 @@ describe Api::V1::PeopleController, type: :controller do
         it "is not valid" do
           expect(subject).to have_http_status(:unprocessable_entity)
           expect(subject.content_type).to eq("application/json")
+        end
+
+        it "returns the errors collection" do
+          expect(subject.body).to eq({ scope: [{ error: "blank" }] }.to_json)
         end
       end
 
@@ -163,6 +171,10 @@ describe Api::V1::PeopleController, type: :controller do
         it "is not valid" do
           expect(subject).to have_http_status(:unprocessable_entity)
           expect(subject.content_type).to eq("application/json")
+        end
+
+        it "returns the errors collection" do
+          expect(subject.body).to eq({ person: [{ error: "blank" }] }.to_json)
         end
       end
 

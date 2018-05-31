@@ -40,6 +40,10 @@ describe Api::V1::People::MembershipLevelsController, type: :controller do
           expect(subject).to have_http_status(:unprocessable_entity)
           expect(subject.content_type).to eq("application/json")
         end
+
+        it "returns the errors collection" do
+          expect(subject.body).to eq({ person: [{ error: "blank" }] }.to_json)
+        end
       end
 
       context "when saving fails" do

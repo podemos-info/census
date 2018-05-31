@@ -38,13 +38,15 @@ describe Api::V1::People::DocumentVerificationsController, type: :controller do
       end
 
       context "with an invalid person id" do
-        before do
-          person.delete
-        end
+        before { person.delete }
 
         it "is not valid" do
           expect(subject).to have_http_status(:unprocessable_entity)
           expect(subject.content_type).to eq("application/json")
+        end
+
+        it "returns the errors collection" do
+          expect(subject.body).to eq({ person: [{ error: "blank" }] }.to_json)
         end
       end
 
