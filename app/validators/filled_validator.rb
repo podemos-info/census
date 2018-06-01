@@ -5,6 +5,6 @@ class FilledValidator < ActiveModel::EachValidator
     required = options.fetch(:required, true)
     required = record.send(required) if required.is_a? Symbol
 
-    record.errors.add(attribute, :blank, options) if value.blank? && (required || !value.nil?)
+    record.errors.add(attribute, :blank) if value.blank? && (required || !value.nil?)
   end
 end
