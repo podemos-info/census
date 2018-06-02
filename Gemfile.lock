@@ -36,10 +36,10 @@ GIT
 
 GIT
   remote: https://github.com/podemos-info/rectify.git
-  revision: ee19aee0b4816d9b348535985f50d5b489adeb75
-  branch: fix/same_name_for_mimic_and_field
+  revision: 3465265f9b409c796e97758080a4842d38751780
+  branch: 0.10-stable
   specs:
-    rectify (0.12.0)
+    rectify (0.10.0)
       activemodel (>= 4.1.0)
       activerecord (>= 4.1.0)
       activesupport (>= 4.1.0)
