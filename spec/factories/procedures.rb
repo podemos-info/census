@@ -27,7 +27,7 @@ FactoryBot.define do
 
     trait :processed do
       processed_by { build(:admin) }
-      processed_at { Faker::Time.between(created_at, Settings.procedures.undo_minutes.minutes.ago, :between) }
+      processed_at { Faker::Time.between(created_at, [Settings.procedures.undo_minutes.minutes.ago, created_at].max, :between) }
       state { Faker::Boolean.boolean(0.7) ? :accepted : :rejected }
       comment { Faker::Lorem.paragraph(1, true, 2) }
     end
