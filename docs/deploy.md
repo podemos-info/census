@@ -4,7 +4,7 @@
 
   Census servers should meet the following requirements:
    * Installed system libraries: `git`, `libpq-dev` and `imagemagick`
-   * RVM with ruby 2.4.2
+   * RVM with ruby 2.5.1
    * NodeJS v6
    * Access to the following services:
      * PostgreSQL server (tested on version 9.5)
