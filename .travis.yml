@@ -31,6 +31,10 @@ before_deploy:
 - chmod 600 config/deploy/deploy_rsa
 - ssh-add config/deploy/deploy_rsa
 
+branches:
+  only:
+    - master
+
 deploy:
   provider: script
   script: BRANCH=$TRAVIS_BRANCH rvm $TRAVIS_RUBY_VERSION do bin/cap staging deploy
