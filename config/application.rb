@@ -26,6 +26,8 @@ module Census
 
     config.middleware.use Rack::Attack
 
+    config.exceptions_app = routes
+
     # Prevent host header injection (http://carlos.bueno.org/2008/06/host-header-injection.html)
     if Settings.security.host_url
       routes.default_url_options = { host: Settings.security.host_url }
