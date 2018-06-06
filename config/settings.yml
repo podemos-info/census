@@ -73,6 +73,7 @@ procedures:
 
 regional:
   local_code: ES
+  non_local_code: XX
   locales:
     default: es
     available: # don't include default locale

@@ -3,7 +3,6 @@
 module Census
   module Seeds
     class Scopes
-      EXTERIOR_SCOPE = "XX"
       CACHE_PATH = Rails.root.join("tmp", "cache", "#{Rails.env}_scopes.csv").freeze
 
       class << self
@@ -82,7 +81,7 @@ module Census
       def parent_code(code)
         return nil if code == Scope.local_code
         parent_code = code.rindex(/\W/i)
-        parent_code ? code[0..parent_code - 1] : EXTERIOR_SCOPE
+        parent_code ? code[0..parent_code - 1] : Scope.non_local_code
       end
 
       def save_scope(row)
