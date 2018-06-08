@@ -23,5 +23,9 @@ module Procedures
       person.save!
       ::People::ChangesPublisher.full_status_changed!(person)
     end
+
+    def process_reject
+      person.request_verification
+    end
   end
 end
