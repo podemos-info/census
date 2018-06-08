@@ -32,8 +32,11 @@ module People
 
     def save_document_verification
       Person.transaction do
-        person.receive_verification! if person.may_receive_verification?
         document_verification.save!
+        if person.may_receive_verification?
+          person.receive_verification!
+          ::People::ChangesPublisher.full_status_changed!(person)
+        end
         :ok
       end || :error
     end
