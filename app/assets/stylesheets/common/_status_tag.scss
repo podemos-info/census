@@ -76,6 +76,9 @@
   &.verification_requested {
     @include gutter-status_tag($warning-color);
   }
+  &.verification_received {
+    @include gutter-status_tag($almost-success-color);
+  }
   &.verified {
     @include gutter-status_tag($success-color);
   }
