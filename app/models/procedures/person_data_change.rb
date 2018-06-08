@@ -15,7 +15,8 @@ module Procedures
       person.assign_attributes(from_person_data)
     end
 
-    def persist_accept_changes!
+    def persist_changes!
+      return unless person.has_changes_to_save?
       person.save!
       ::People::ChangesPublisher.full_status_changed!(person) if modifies?(:scope_id)
     end

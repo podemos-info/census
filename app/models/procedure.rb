@@ -31,8 +31,6 @@ class Procedure < ApplicationRecord
 
   def undo_reject; end
 
-  def persist_reject_changes!; end
-
   def processable?
     pending? && !processed? && issues_summary != :pending
   end
