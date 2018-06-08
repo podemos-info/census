@@ -33,6 +33,20 @@ describe People::CreateDocumentVerification do
     it "updates the person verification state" do
       expect { subject } .to change { person.reload.verification } .from("not_verified").to("verification_received")
     end
+
+    it_behaves_like "an event notifiable with hutch" do
+      let(:publish_notification) do
+        [
+          "census.people.full_status_changed", {
+            person: person.qualified_id,
+            state: person.state,
+            membership_level: person.membership_level,
+            verification: "verification_received",
+            scope: person.scope&.code
+          }
+        ]
+      end
+    end
   end
 
   context "when invalid" do
@@ -45,9 +59,12 @@ describe People::CreateDocumentVerification do
     it "doesn't create the new procedure" do
       expect { subject } .to_not change { Procedures::DocumentVerification.count }
     end
+
+    it_behaves_like "an event not notifiable with hutch"
   end
 
   context "when a procedure already exists for the person" do
+    let!(:person) { create(:person, verification: :verification_received) }
     let!(:procedure) { create(:document_verification, person: person) }
     let(:files) { [build(:attachment, :non_image).file, build(:attachment).file] }
 
@@ -58,5 +75,7 @@ describe People::CreateDocumentVerification do
     it "updates the updated_at column in the existing procedure" do
       expect { subject } .to change { procedure.attachments.pluck(:id) }
     end
+
+    it_behaves_like "an event not notifiable with hutch"
   end
 end

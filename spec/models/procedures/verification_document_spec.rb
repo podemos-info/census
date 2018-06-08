@@ -45,7 +45,19 @@ describe Procedures::DocumentVerification, :db do
       expect { subject } .to_not change { Person.find(person.id).verified? }
     end
 
-    it_behaves_like "an event not notifiable with hutch"
+    it_behaves_like "an event notifiable with hutch" do
+      let(:publish_notification) do
+        [
+          "census.people.full_status_changed", {
+            person: person.qualified_id,
+            state: person.state,
+            membership_level: person.membership_level,
+            verification: "verification_requested",
+            scope: person.scope&.code
+          }
+        ]
+      end
+    end
   end
 
   with_versioning do
