@@ -8,10 +8,10 @@ module ProcedureStates
 
     aasm column: :state do
       state :pending, initial: true
-      state :accepted, before_enter: :process_accept, after_enter: :persist_accept_changes!,
-                       before_exit: :undo_accept, after_exit: :persist_accept_changes!
-      state :rejected, before_enter: :process_reject, after_enter: :persist_reject_changes!,
-                       before_exit: :undo_reject, after_exit: :persist_reject_changes!
+      state :accepted, before_enter: :process_accept, after_enter: :persist_changes!,
+                       before_exit: :undo_accept, after_exit: :persist_changes!
+      state :rejected, before_enter: :process_reject, after_enter: :persist_changes!,
+                       before_exit: :undo_reject, after_exit: :persist_changes!
       state :dismissed
 
       event :accept do

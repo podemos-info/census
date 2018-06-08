@@ -11,7 +11,7 @@ module PersonVerifications
       state :verification_requested, :verification_received, :verified, :mistake, :fraudulent
 
       event :request_verification do
-        transitions from: :not_verified, to: :verification_requested, guard: :kept?
+        transitions from: [:not_verified, :verification_received], to: :verification_requested, guard: :kept?
       end
 
       event :receive_verification do
@@ -23,7 +23,7 @@ module PersonVerifications
       end
 
       event :undo_verification do
-        transitions from: :verified, to: :not_verified
+        transitions from: :verified, to: :verification_received
       end
 
       event :fraud_detected, before: :ensure_trashed do

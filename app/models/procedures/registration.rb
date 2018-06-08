@@ -27,12 +27,8 @@ module Procedures
       person.trash
     end
 
-    def persist_accept_changes!
-      person.save!
-      ::People::ChangesPublisher.full_status_changed!(person)
-    end
-
-    def persist_reject_changes!
+    def persist_changes!
+      return unless person.has_changes_to_save?
       person.save!
       ::People::ChangesPublisher.full_status_changed!(person)
     end

@@ -37,6 +37,7 @@ es:
           not_verified: No verificadas
           pending: Pendientes
           trashed: Borradas
+          verification_received: Verificación recibida
           verification_requested: Verificación solicitada
           verified: Verificadas
           with_open_issues: Con incidencias abiertas
@@ -227,6 +228,7 @@ es:
         verification/fraudulent: fraudulenta
         verification/mistake: por error
         verification/not_verified: no verificada
+        verification/verification_received: verificación recibida
         verification/verification_requested: verificación solicitada
         verification/verified: verificada
       procedure:

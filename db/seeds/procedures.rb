@@ -16,6 +16,7 @@ random_people.enabled.not_verified.limit(5).each do |person|
   document_verification = Procedures::DocumentVerification.create!(person: person,
                                                                    information: {},
                                                                    state: :pending)
+  person.receive_verification!
 
   document_verification.attachments.create!(file: File.new(File.join(attachments_path, "#{person.document_type}-sample1.png")))
   document_verification.attachments.create!(file: File.new(File.join(attachments_path, "#{person.document_type}-sample2.png")))
@@ -33,11 +34,15 @@ random_people.enabled.not_verified.limit(5).each do |person|
     comment: Faker::Lorem.paragraph(1, true, 2)
   )
 
-  next unless document_verification.accepted?
-  person.verify
-  person.to_member if Faker::Boolean.boolean(0.5) && person.adult?
-  person.save!
-  Rails.logger.debug { "Person document verification accepted for: #{document_verification.person.decorate(data_context)}" }
+  if document_verification.accepted?
+    person.verify
+    person.to_member if Faker::Boolean.boolean(0.5) && person.adult?
+    person.save!
+    Rails.logger.debug { "Person document verification accepted for: #{document_verification.person.decorate(data_context)}" }
+  else
+    person.request_verification!
+    Rails.logger.debug { "Person document verification rejected for: #{document_verification.person.decorate(data_context)}" }
+  end
 end
 
 # create 5 unprocessed document verifications
@@ -46,6 +51,7 @@ random_people.enabled.not_verified.limit(5).each do |person|
   PaperTrail.request.whodunnit = person
   document_verification = Procedures::DocumentVerification.create!(person: person,
                                                                    information: {})
+  person.receive_verification!
   document_verification.attachments.create!(file: File.new(File.join(attachments_path, "#{person.document_type}-sample1.png")))
   document_verification.attachments.create!(file: File.new(File.join(attachments_path, "#{person.document_type}-sample2.png")))
   Rails.logger.debug { "Person document verification created for: #{document_verification.person.decorate(data_context)}" }

@@ -18,9 +18,14 @@ module Procedures
       person.undo_verification
     end
 
-    def persist_accept_changes!
+    def persist_changes!
+      return unless person.has_changes_to_save?
       person.save!
       ::People::ChangesPublisher.full_status_changed!(person)
+    end
+
+    def process_reject
+      person.request_verification
     end
   end
 end
