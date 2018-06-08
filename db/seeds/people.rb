@@ -106,5 +106,11 @@ register_person untrusted: :phone
 register_person untrusted: :phone_prefix
 register_person untrusted: :email
 
+# request verification to some random people
+random_people.enabled.not_verified.limit(10).each do |person|
+  person.request_verification!
+  Rails.logger.debug { "Requested document verification for: #{person.decorate(data_context)}" }
+end
+
 # Back to reality
 Timecop.return
