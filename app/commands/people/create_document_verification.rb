@@ -31,14 +31,19 @@ module People
     private
 
     def save_document_verification
-      document_verification.save ? :ok : :error
+      Person.transaction do
+        person.receive_verification! if person.may_receive_verification?
+        document_verification.save!
+        :ok
+      end || :error
     end
 
     attr_reader :form, :admin
+    delegate :person, to: :form
 
     def document_verification
       @document_verification ||= begin
-        procedure_for(form.person, ::Procedures::DocumentVerification) do |procedure|
+        procedure_for(person, ::Procedures::DocumentVerification) do |procedure|
           procedure.attachments.clear
           form.files.each do |file|
             procedure.attachments.build(file: file)

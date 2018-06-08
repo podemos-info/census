@@ -26,8 +26,12 @@ describe People::CreateDocumentVerification do
       expect { subject } .to broadcast(:ok)
     end
 
-    it "create a new procedure to verify the person document" do
+    it "creates a new procedure to verify the person document" do
       expect { subject } .to change { Procedures::DocumentVerification.count } .by(1)
+    end
+
+    it "updates the person verification state" do
+      expect { subject } .to change { person.reload.verification } .from("not_verified").to("verification_received")
     end
   end
 
