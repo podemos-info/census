@@ -7,7 +7,7 @@
 server ENV["STAGING_SERVER_MASTER_HOST"], port: ENV["STAGING_SERVER_MASTER_PORT"], user: ENV["STAGING_USER"], roles: %w(master app db web)
 server ENV["STAGING_SERVER_SLAVE_HOST"], port: ENV["STAGING_SERVER_SLAVE_PORT"], user: ENV["STAGING_USER"], roles: %w(slave app web)
 
-set :rails_env, :production
+set :rails_env, :staging
 
 # Use RVM system installation
 set :rvm_type, :system
@@ -20,10 +20,9 @@ set :sneakers_workers, %w(FinancesWorker PaymentsWorker ProceduresWorker)
 
 def db_tasks_environment
   {
-    rails_env: :production,
+    rails_env: :staging,
     disable_database_environment_check: true,
-    seed_passwords_prefix: ENV["SEED_PASSWORDS_PREFIX"],
-    seed: true
+    seed_passwords_prefix: ENV["SEED_PASSWORDS_PREFIX"]
   }
 end
 
