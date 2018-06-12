@@ -12,6 +12,10 @@ development:
 test:
   <<: *default
 
+staging:
+  <<: *default
+  url: <%= ENV["SNEAKERS_URL"] %>
+
 production:
   <<: *default
   url: <%= ENV["SNEAKERS_URL"] %>

@@ -4,17 +4,26 @@ default: &default
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+credentials: &credentials
   host: <%= ENV.fetch("DATABASE_HOST") { "localhost" } %>
   username: <%= ENV.fetch("DATABASE_USERNAME") { "" } %>
   password: <%= ENV.fetch("DATABASE_PASSWORD") { "" } %>
 
 development:
   <<: *default
+  <<: *credentials
   database: <%= ENV.fetch("DATABASE_NAME") { "census_development" } %>
 
 test:
   <<: *default
+  <<: *credentials
   database: <%= ENV.fetch("DATABASE_NAME") { "census_test" } %>
 
+staging:
+  <<: *default
+  url: <%= ENV["DATABASE_URL"] %>
+
 production:
+  <<: *default
   url: <%= ENV["DATABASE_URL"] %>
