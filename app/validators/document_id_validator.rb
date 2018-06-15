@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
-# This validator takes care of normalizing and validating a document identifier format.
+# This validator takes care of validating a document identifier format.
 class DocumentIdValidator < ActiveModel::EachValidator
   include ActiveModel::Validations::SpanishVatValidatorsHelpers
+
+  SPANISH_PASSPORT_REGEX = /^([A-Z]\d{10})|([A-Z]{2,3}\d{6})$/.freeze
 
   def initialize(args = {})
     @type_method = args[:type] || :type
@@ -33,7 +35,7 @@ class DocumentIdValidator < ActiveModel::EachValidator
     when :nie
       value.upcase == value && validate_nie(value)
     when :passport
-      value.match(/^([A-Z]\d{10})|([A-Z]{2,3}\d{6})$/).present?
+      SPANISH_PASSPORT_REGEX.match? value
     end
   end
 end
