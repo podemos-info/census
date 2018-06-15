@@ -13,6 +13,40 @@ def data_context
   @data_context ||= { context: { current_admin: Admin.new(role: :data) } }
 end
 
+def random_person_data
+  local_scopes = Scope.local.descendants.leafs
+  emigrant_scopes = Scope.local.not_descendants.leafs
+  doc = Person.document_types.keys.sample
+  young = Faker::Boolean.boolean(0.1)
+  emigrant = Faker::Boolean.boolean(0.1)
+  scope = local_scopes.sample
+
+  postal_code = if emigrant
+                  Faker::Address.zip_code
+                else
+                  "#{scope.part_of_scopes.map { |s| s.mappings["INE-PROV"] } .compact.first}#{Faker::Number.number(3)}"
+                end
+
+  {
+    first_name: Faker::Name.first_name,
+    last_name1: Faker::Name.last_name,
+    last_name2: Faker::Name.last_name,
+    document_type: doc,
+    document_id: Faker::SpanishDocument.generate(doc),
+    document_scope: doc == "passport" ? Scope.top_level.sample : Scope.local,
+    born_at: young ? Faker::Date.between(18.years.ago, 14.years.ago) : Faker::Date.between(99.years.ago, 18.years.ago),
+    gender: Person.genders.keys.sample,
+    address: Faker::Address.street_address,
+    address_scope: emigrant ? emigrant_scopes.sample : scope,
+    postal_code: postal_code,
+    email: Faker::Internet.unique.email,
+    phone: "0034" + Faker::Number.number(9),
+    scope: scope,
+    membership_level: :follower,
+    state: :enabled
+  }
+end
+
 def register_person(use_procedure: true, copy_from_procedure: nil, untrusted: nil)
   if copy_from_procedure
     person_data = copy_from_procedure.person_data.with_indifferent_access
@@ -20,31 +54,7 @@ def register_person(use_procedure: true, copy_from_procedure: nil, untrusted: ni
     person_data[:address_scope] = Scope.find(person_data[:address_scope_id])
     person_data[:scope] = Scope.find(person_data[:scope_id])
   else
-    local_scopes = Scope.local.descendants.leafs
-    emigrant_scopes = Scope.local.not_descendants.leafs
-    doc = Person.document_types.keys.sample
-    young = Faker::Boolean.boolean(0.1)
-    emigrant = Faker::Boolean.boolean(0.1)
-    scope = local_scopes.sample
-
-    person_data = {
-      first_name: Faker::Name.first_name,
-      last_name1: Faker::Name.last_name,
-      last_name2: Faker::Name.last_name,
-      document_type: doc,
-      document_id: Faker::SpanishDocument.generate(doc),
-      document_scope: doc == "passport" ? Scope.top_level.sample : Scope.local,
-      born_at: young ? Faker::Date.between(18.years.ago, 14.years.ago) : Faker::Date.between(99.years.ago, 18.years.ago),
-      gender: Person.genders.keys.sample,
-      address: Faker::Address.street_address,
-      address_scope: emigrant ? emigrant_scopes.sample : scope,
-      postal_code: Faker::Address.zip_code,
-      email: Faker::Internet.unique.email,
-      phone: "0034" + Faker::Number.number(9),
-      scope: scope,
-      membership_level: :follower,
-      state: :enabled
-    }
+    person_data = random_person_data
   end
 
   case untrusted
