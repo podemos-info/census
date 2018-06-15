@@ -18,7 +18,7 @@ class PostalCodeValidator < ActiveModel::EachValidator
   end
 
   def validate_spanish_postal_code(scope, value)
-    province = scope.part_of_scopes.map {|s| s.mappings["INE-PROV"] } .compact.first
+    province = scope.part_of_scopes.map { |s| s.mappings["INE-PROV"] } .compact.first
     return true unless province
 
     /^#{province}\d{3}$/.match? value

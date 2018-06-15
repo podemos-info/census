@@ -75,7 +75,7 @@ module People
       return current_postal_code if current_postal_code.blank? || current_address_scope.blank?
 
       if current_address_scope.code.starts_with?("ES-")
-        Normalizr.normalize(current_postal_code, :"spanish_postal_code")
+        Normalizr.normalize(current_postal_code, :spanish_postal_code)
       else
         current_postal_code
       end

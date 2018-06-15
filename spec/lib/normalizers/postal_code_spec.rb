@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe Normalizr do
-  subject(:normalizr) { Normalizr.normalize(value, :"spanish_postal_code") }
+  subject(:normalizr) { Normalizr.normalize(value, :spanish_postal_code) }
 
   context "does nothing on normalized value" do
     let(:value) { "12345" }
