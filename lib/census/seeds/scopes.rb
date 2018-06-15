@@ -1,42 +1,34 @@
 # frozen_string_literal: true
 
+require "csv"
+
 module Census
   module Seeds
     class Scopes
-      CACHE_PATH = Rails.root.join("tmp", "cache", "#{Rails.env}_scopes.csv").freeze
+      def seed(options = {})
+        base_path = options[:base_path]
 
-      class << self
-        def instance
-          @instance ||= Scopes.new
-        end
+        puts "Loading scope types..."
+        save_scope_types("#{base_path}/scope_types.tsv")
 
-        def seed(options = {})
-          instance.seed options
-        end
-
-        def cache_scopes
-          conn = ActiveRecord::Base.connection.raw_connection
-          File.open(CACHE_PATH, "w:ASCII-8BIT") do |file|
-            conn.copy_data "COPY (SELECT * FROM scopes) To STDOUT With CSV HEADER DELIMITER E'\t' NULL '' ENCODING 'UTF8'" do
-              while (row = conn.get_copy_data) do file.puts row end
-            end
-          end
+        puts "Loading scopes..."
+        if File.exist?(cache_path)
+          load_cached_scopes(cache_path)
+        else
+          load_original_scopes("#{base_path}/scopes.tsv", "#{base_path}/scopes.translations.tsv", "#{base_path}/scopes.mappings.tsv", "#{base_path}/scopes.metadata.tsv")
+          cache_scopes(cache_path)
         end
       end
 
-      def seed(options = {})
-        @path = File.join(options[:base_path], "scopes")
-
-        save_scope_types
-        save_scopes
+      def cache_path
+        @cache_path ||= ENV["SCOPES_CACHE_PATH"].presence || Rails.root.join("tmp", "cache", "#{Rails.env}_scopes.csv")
       end
 
       private
 
-      def save_scope_types
-        puts "Loading scope types..."
+      def save_scope_types(source)
         @scope_types = Hash.new { |h, k| h[k] = Hash.new { |h2, k2| h2[k2] = {} } }
-        CSV.foreach(File.join(@path, "scope_types.tsv"), col_sep: "\t", headers: true) do |row|
+        CSV.foreach(source, col_sep: "\t", headers: true) do |row|
           @scope_types[row["Code"]][:id] = row["UID"]
           @scope_types[row["Code"]][:name][row["Locale"]] = row["Singular"]
           @scope_types[row["Code"]][:plural][row["Locale"]] = row["Plural"]
@@ -51,31 +43,44 @@ module Census
         end
       end
 
-      def save_scopes
-        puts "Loading scopes..."
-        return if use_cached_scopes
-
+      def load_original_scopes(main_source, translations_source, mappings_source, metadata_source)
         @translations = Hash.new { |h, k| h[k] = {} }
-        CSV.foreach(File.join(@path, "scopes.translations.tsv"), col_sep: "\t", headers: true) do |row|
+        CSV.foreach(translations_source, col_sep: "\t", headers: true) do |row|
           @translations[row["UID"]][row["Locale"]] = row["Translation"]
         end
 
+        @mappings = Hash.new { |h, k| h[k] = {} }
+        CSV.foreach(mappings_source, col_sep: "\t", headers: true) do |row|
+          @mappings[row["UID"]][row["Encoding"]] = row["Code"]
+        end
+
+        @metadata = Hash.new { |h, k| h[k] = {} }
+        CSV.foreach(metadata_source, col_sep: "\t", headers: true) do |row|
+          @metadata[row["UID"]][row["Key"]] = row["Value"]
+        end
+
         @scope_ids = {}
-        CSV.foreach(File.join(@path, "scopes.tsv"), col_sep: "\t", headers: true) do |row|
+        CSV.foreach(main_source, col_sep: "\t", headers: true) do |row|
           save_scope row
         end
       end
 
-      def use_cached_scopes
-        return unless File.exist?(CACHE_PATH)
-
+      def load_cached_scopes(source)
         conn = ActiveRecord::Base.connection.raw_connection
-        File.open(CACHE_PATH, "r:ASCII-8BIT") do |file|
+        File.open(source, "r:ASCII-8BIT") do |file|
           conn.copy_data "COPY scopes FROM STDOUT With CSV HEADER DELIMITER E'\t' NULL '' ENCODING 'UTF8'" do
             conn.put_copy_data(file.readline) until file.eof?
           end
         end
-        true
+      end
+
+      def cache_scopes(target)
+        conn = ActiveRecord::Base.connection.raw_connection
+        File.open(target, "w:ASCII-8BIT") do |file|
+          conn.copy_data "COPY (SELECT * FROM scopes) To STDOUT With CSV HEADER DELIMITER E'\t' NULL '' ENCODING 'UTF8'" do
+            while (row = conn.get_copy_data) do file.puts row end
+          end
+        end
       end
 
       def parent_code(code)
@@ -93,6 +98,8 @@ module Census
         scope.scope_type_id = @scope_types[row["Type"]][:id]
         scope.name = @translations[code]
         scope.parent_id = @scope_ids[parent_code(code)]
+        scope.mappings = @mappings[code]
+        scope.metadata = @metadata[code]
 
         scope.save!
         @scope_ids[code] = scope.id

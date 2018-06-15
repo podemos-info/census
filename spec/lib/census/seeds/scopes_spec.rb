@@ -5,11 +5,11 @@ require "census/seeds/scopes"
 
 describe Census::Seeds::Scopes do
   describe "#seed" do
-    subject(:method) { described_class.seed base_path: base_path }
-    before { FileUtils.rm_rf(Census::Seeds::Scopes::CACHE_PATH) }
+    subject(:method) { instance.seed base_path: base_path }
+    before { FileUtils.rm_rf(instance.cache_path) }
 
-    let(:base_path) { File.expand_path("../../../factories/seeds", __dir__) }
-    let(:instance) { described_class.instance }
+    let(:base_path) { File.expand_path("../../../factories/seeds/scopes", __dir__) }
+    let(:instance) { described_class.new }
 
     it "loads scopes data" do
       expect { subject } .to change { Scope.count } .from(0).to(20)
@@ -26,8 +26,7 @@ describe Census::Seeds::Scopes do
 
     context "when data is cached" do
       before do
-        described_class.seed base_path: base_path
-        described_class.cache_scopes
+        instance.seed base_path: base_path
         Scope.delete_all
       end
 

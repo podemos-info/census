@@ -7,7 +7,7 @@ base_path = File.expand_path("seeds", __dir__)
 $LOAD_PATH.push base_path
 
 require "census/seeds/scopes"
-Census::Seeds::Scopes.seed base_path: base_path
+Census::Seeds::Scopes.new.seed base_path: "#{base_path}/scopes"
 
 unless Rails.env.production?
   Rails.logger = Logger.new(STDOUT)

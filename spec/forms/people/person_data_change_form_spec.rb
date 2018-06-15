@@ -80,6 +80,37 @@ describe People::PersonDataChangeForm do
     end
   end
 
+  context "with a spanish address scope" do
+    let!(:address_scope) { create(:scope, code: "ES-CL-LE-211", parent: province) }
+    let(:province) { create(:scope, code: "ES-CL-LE", mappings: { "INE-PROV" => "24" }) }
+
+    context "when setting it without a valid postal code" do
+      let(:changes) { { address_scope_code: "ES-CL-LE" } }
+
+      it { is_expected.to be_invalid }
+    end
+
+    context "when setting it and a valid postal code" do
+      let(:changes) { { address_scope_code: "ES-CL-LE", postal_code: "24123" } }
+
+      it { is_expected.to be_valid }
+    end
+
+    context "when it is set and changes to an invalid postal code" do
+      let(:person) { create(:person, address_scope: address_scope, postal_code: "24123") }
+      let(:changes) { { postal_code: "14123" } }
+
+      it { is_expected.to be_invalid }
+    end
+
+    context "when it is set and changes to a valid postal code" do
+      let(:person) { create(:person, address_scope: address_scope, postal_code: "24123") }
+      let(:changes) { { postal_code: "24001" } }
+
+      it { is_expected.to be_valid }
+    end
+  end
+
   describe "#has_changes?" do
     it { is_expected.to have_changes }
 

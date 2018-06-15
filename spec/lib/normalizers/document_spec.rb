@@ -3,9 +3,7 @@
 require "rails_helper"
 
 describe Normalizr do
-  subject do
-    Normalizr.normalize(value, :"document_#{document_type}")
-  end
+  subject(:normalizr) { Normalizr.normalize(value, :"document_#{document_type}") }
 
   context "when normalizing a dni" do
     let(:document_type) { :dni }

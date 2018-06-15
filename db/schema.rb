@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_18_102501) do
+ActiveRecord::Schema.define(version: 2018_06_15_093511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -268,6 +268,8 @@ ActiveRecord::Schema.define(version: 2018_05_18_102501) do
     t.integer "children_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.jsonb "mappings", default: {}, null: false
+    t.jsonb "metadata", default: {}, null: false
     t.index ["code"], name: "index_scopes_on_code", unique: true
     t.index ["parent_id"], name: "index_scopes_on_parent_id"
     t.index ["part_of"], name: "index_scopes_on_part_of", using: :gin

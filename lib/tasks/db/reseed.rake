@@ -20,8 +20,4 @@ namespace :db do
     # Seed fake data again
     Rake::Task["db:seed"].execute
   end
-
-  task :cache_scopes, [] => :environment do
-    Census::Seeds::Scopes.cache_scopes
-  end
 end

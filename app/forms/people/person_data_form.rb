@@ -23,6 +23,7 @@ module People
     validates :gender, inclusion: { in: Person.genders.keys }, allow_blank: true
 
     validates :first_name, :last_name1, :document_type, :document_id, :born_at, :gender, :address, :postal_code, :email, filled: { required: :complete_required? }
+    validates :postal_code, postal_code: { scope: :current_address_scope }, allow_blank: true
 
     validate :validate_document_scope
 
@@ -70,6 +71,16 @@ module People
       end
     end
 
+    def postal_code
+      return current_postal_code if current_postal_code.blank? || current_address_scope.blank?
+
+      if current_address_scope.code.starts_with?("ES-")
+        Normalizr.normalize(current_postal_code, :spanish_postal_code)
+      else
+        current_postal_code
+      end
+    end
+
     private
 
     def validate_document_scope
@@ -91,6 +102,14 @@ module People
 
     def current_document_scope_code
       current_document_scope&.code
+    end
+
+    def current_postal_code
+      @current_postal_code ||= @postal_code || person&.postal_code
+    end
+
+    def current_address_scope
+      @current_address_scope ||= address_scope || person&.address_scope
     end
   end
 end
