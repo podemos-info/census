@@ -64,59 +64,61 @@ describe People::RegistrationForm do
     end
   end
 
-  context "with a missing document type" do
-    let(:document_type) { nil }
+  describe "document validation" do
+    context "with a missing document type" do
+      let(:document_type) { nil }
 
-    it "is invalid" do
-      expect(subject).not_to be_valid
+      it "is invalid" do
+        expect(subject).not_to be_valid
+      end
+
+      it "adds a single error" do
+        subject.valid?
+
+        expect(subject.errors[:document_type].count).to eq(1)
+      end
     end
 
-    it "adds a single error" do
-      subject.valid?
+    context "with an empty document type" do
+      let(:document_type) { "" }
 
-      expect(subject.errors[:document_type].count).to eq(1)
-    end
-  end
+      it "is invalid" do
+        expect(subject).not_to be_valid
+      end
 
-  context "with an empty document type" do
-    let(:document_type) { "" }
+      it "adds a single error" do
+        subject.valid?
 
-    it "is invalid" do
-      expect(subject).not_to be_valid
-    end
-
-    it "adds a single error" do
-      subject.valid?
-
-      expect(subject.errors[:document_type].count).to eq(1)
-    end
-  end
-
-  context "with a missing document id" do
-    let(:document_id) { nil }
-
-    it "is invalid" do
-      expect(subject).not_to be_valid
+        expect(subject.errors[:document_type].count).to eq(1)
+      end
     end
 
-    it "adds a single error" do
-      subject.valid?
+    context "with a missing document id" do
+      let(:document_id) { nil }
 
-      expect(subject.errors[:document_id].count).to eq(1)
+      it "is invalid" do
+        expect(subject).not_to be_valid
+      end
+
+      it "adds a single error" do
+        subject.valid?
+
+        expect(subject.errors[:document_id].count).to eq(1)
+      end
     end
-  end
 
-  context "with an empty document id" do
-    let(:document_id) { "" }
+    context "with an empty document id" do
+      let(:document_id) { "" }
 
-    it "is invalid" do
-      expect(subject).not_to be_valid
-    end
+      it "is invalid" do
+        expect(subject).not_to be_valid
+      end
 
-    it "adds a single error" do
-      subject.valid?
+      it "adds a single error" do
+        subject.valid?
 
-      expect(subject.errors[:document_id].count).to eq(1)
+        expect(subject.errors[:document_id].count).to eq(1)
+      end
     end
   end
 
@@ -181,6 +183,46 @@ describe People::RegistrationForm do
       let(:document_scope_code) { "ES" }
 
       it { is_expected.to be_valid }
+    end
+  end
+
+  describe "postal code validation" do
+    context "with an empty postal code" do
+      let(:postal_code) { "" }
+
+      it "is invalid" do
+        expect(subject).not_to be_valid
+      end
+
+      it "adds a single error" do
+        subject.valid?
+
+        expect(subject.errors[:postal_code].count).to eq(1)
+      end
+    end
+
+    context "when the user lives in a spanish province" do
+      let(:address_scope) { create(:scope, code: "ES-CL-LE-211", parent: province) }
+      let(:province) { create(:scope, code: "ES-CL-LE", mappings: { "INE-PROV" => "24" }) }
+
+      context "when postal code is invalid" do
+        let(:postal_code) { "01234" }
+        it "is invalid" do
+          expect(subject).not_to be_valid
+        end
+
+        it "adds a single error" do
+          subject.valid?
+
+          expect(subject.errors[:postal_code].count).to eq(1)
+        end
+      end
+
+      context "when postal code is valid" do
+        let(:postal_code) { "24234" }
+
+        it { is_expected.to be_valid }
+      end
     end
   end
 end
