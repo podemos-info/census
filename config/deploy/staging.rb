@@ -60,5 +60,9 @@ namespace :deploy do
   end
 end
 
-after "deploy:publishing", "systemd:sneakers:restart"
 after "deploy:publishing", "deploy:db:reseed"
+
+# Restart sneakers daemon
+on roles(:master) do
+  after "deploy:publishing", "systemd:sneakers:restart"
+end
