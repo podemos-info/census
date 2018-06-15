@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "census/normalizers/document"
+require "census/normalizers/postal_code"
 
 Normalizr.configure do
   default :strip, :blank
