@@ -37,8 +37,8 @@ gem "paper_trail-globalid", github: "leio10/paper_trail-globalid", branch: "adap
 gem "pg", "~> 0.18"
 gem "puma"
 gem "pundit"
-gem "rack-attack"
-gem "rails", "~> 5.1"
+gem "rack-attack", "~> 5.2.0" # use 5.2 until https://github.com/kickstarter/rack-attack/issues/355 is fixed
+gem "rails", "~> 5.2"
 gem "rails-i18n"
 gem "rectify", github: "podemos-info/rectify", branch: "0.10-stable"
 gem "sassc-rails"
