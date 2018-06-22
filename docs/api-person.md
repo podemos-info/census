@@ -83,21 +83,22 @@ Parameter             | Data type | Description
 * When there is an error creating the cancellation, server response will be `:server_internal_error` (HTTP 500).
 
 ## Person retrieval
-:round_pushpin: Retrieve the person data.
+:round_pushpin: Retrieve the person data. It also allows to retrieve the person's data as it was at a given timestamp.
 ```
 GET api/v1/people/:person_id
 ```
 
-Parameter             | Data type | Description
-----------------------|-----------|-------------------------------
+Parameter             | Data type | Description                                    | Format
+----------------------|-----------|------------------------------------------------|----------------
 `person_id`           |  string   | Person's qualified identifier
+`version_at`          |  datetime | Timestamp used to query person data (optional) | `YYYY-MM-DD HH:MM +HH:MM`
 
 ### Return value
 * When the person exists in the database, server response will be `:ok` (HTTP 200) with a JSON with all the person data:
  (fields `id`.
 
-Parameter             | Data type | Description
-----------------------|-----------|------------------------
+Parameter             | Data type | Description                   | Format
+----------------------|-----------|-------------------------------|----------------
 `person_id`           |  string   | Person's qualified identifier
 `first_name`          |  string   | Person's first name
 `last_name1`          |  string   | Person's first last name

@@ -17,8 +17,8 @@ module Api
     end
 
     def show
-      render(json: {}, status: :not_found) && return unless person
-      render json: person
+      render(json: {}, status: :not_found) && return unless person_at
+      render json: person_at
     end
 
     def permitted_params
@@ -31,6 +31,14 @@ module Api
 
     def qualified_id_param
       :id
+    end
+
+    def person_at
+      @person_at ||= version_at ? person.paper_trail.version_at(version_at) : person
+    end
+
+    def version_at
+      @version_at ||= Time.zone.parse(params[:version_at]) if params[:version_at]
     end
   end
 end

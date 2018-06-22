@@ -189,46 +189,125 @@ describe Api::V1::PeopleController, type: :controller do
     end
   end
 
-  describe "retrieve person information" do
-    subject(:endpoint) { get :show, params: { id: person.qualified_id_at(:decidim) } }
+  with_versioning do
+    describe "retrieve person information" do
+      subject(:endpoint) { get :show, params: params }
 
-    let(:person) { create(:person) }
+      let(:person) { create(:person) }
+      let(:params) { { id: person.qualified_id_at(:decidim) } }
 
-    it { is_expected.to be_successful }
+      it { is_expected.to be_successful }
 
-    context "returned data" do
-      subject(:response) { JSON.parse(endpoint.body) }
+      describe "returned data" do
+        subject(:response) { JSON.parse(endpoint.body) }
 
-      it "includes person first name" do
-        expect(subject["first_name"]).to eq(person.first_name)
-      end
+        shared_examples_for "returns full state information" do
+          it "includes person scope code" do
+            expect(subject["scope_code"]).to eq(person.scope.code)
+          end
+          it "includes person state" do
+            expect(subject["state"]).to eq(person.state)
+          end
+          it "includes person verification" do
+            expect(subject["verification"]).to eq(person.verification)
+          end
+          it "includes person membership level" do
+            expect(subject["membership_level"]).to eq(person.membership_level)
+          end
+        end
 
-      it "includes person scope code" do
-        expect(subject["scope_code"]).to eq(person.scope.code)
-      end
+        shared_examples_for "returns person personal data" do
+          it "includes person first name" do
+            expect(subject["first_name"]).to eq(person.first_name)
+          end
 
-      it "includes person document scope code" do
-        expect(subject["address_scope_code"]).to eq(person.address_scope.code)
-      end
+          it "includes person address scope code" do
+            expect(subject["address_scope_code"]).to eq(person.address_scope.code)
+          end
 
-      it "includes person document scope code" do
-        expect(subject["document_scope_code"]).to eq(person.document_scope.code)
-      end
+          it "includes person document scope code" do
+            expect(subject["document_scope_code"]).to eq(person.document_scope.code)
+          end
+        end
 
-      it "includes person state" do
-        expect(subject["state"]).to eq(person.state)
-      end
+        shared_examples_for "does not return internal information" do
+          it "does not include hidden fields" do
+            expect(subject.keys).not_to include("created_at", "updated_at", "discarded_at", "scope_id", "address_scope_id", "document_scope_id")
+          end
+        end
 
-      it "includes person verification" do
-        expect(subject["verification"]).to eq(person.verification)
-      end
+        shared_examples_for "does not return person personal data" do
+          it "does not include person data fields" do
+            expect(subject.keys).not_to include("first_name", "last_name1", "last_name2", "document_type", "document_id", "document_scope_code", "born_at",
+                                                "gender", "address", "postal_code", "address_scope_code", "email", "phone")
+          end
+        end
 
-      it "includes person membership level" do
-        expect(subject["membership_level"]).to eq(person.membership_level)
-      end
+        include_examples "returns full state information"
 
-      it "does not include hidden fields" do
-        expect(subject.keys).not_to include(%w(created_at updated_at discarded_at verifications scope_id address_scope_id document_scope_id))
+        include_examples "returns person personal data"
+
+        include_examples "does not return internal information"
+
+        context "when using census qualified id" do
+          let(:params) { { id: person.qualified_id } }
+
+          include_examples "returns full state information"
+
+          include_examples "returns person personal data"
+
+          include_examples "does not return internal information"
+        end
+
+        context "when user is discarded" do
+          before do
+            person.discard
+          end
+
+          include_examples "returns full state information"
+
+          include_examples "does not return person personal data"
+
+          include_examples "does not return internal information"
+        end
+
+        context "when retrieving an old person version" do
+          before do
+            current_person.save
+            Timecop.travel 1.month.from_now
+            current_person.verify!
+          end
+          after { Timecop.return }
+
+          let(:params) { { id: current_person.qualified_id_at(:decidim), version_at: version_at } }
+          let(:current_person) { create(:person) }
+          let(:person) { current_person.paper_trail.version_at(version_at) }
+          let(:version_at) { 7.days.ago }
+
+          include_examples "returns full state information"
+
+          include_examples "returns person personal data"
+
+          include_examples "does not return internal information"
+
+          it "it is not verified" do
+            expect(subject["verification"]).to eq("not_verified")
+          end
+
+          context "when user is discarded" do
+            before do
+              Timecop.travel 1.month.from_now
+              current_person.discard
+            end
+            after { Timecop.return }
+
+            include_examples "returns full state information"
+
+            include_examples "does not return person personal data"
+
+            include_examples "does not return internal information"
+          end
+        end
       end
     end
   end
