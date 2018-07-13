@@ -15,7 +15,7 @@ Rails.application.routes.draw do
             get :total
           end
         end
-        resources :payment_methods
+        resources :payment_methods, only: [:index, :show]
       end
     end
   end
