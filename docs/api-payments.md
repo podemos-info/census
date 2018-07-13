@@ -63,3 +63,25 @@ Parameter             | Data type | Description
 `type`                |  string   | Payment method type: `PaymentMethods::DirectDebit` or `PaymentMethods::CreditCard`
 
 * When there is no person for the given `person_id`, server response will be `:unprocessable_entity` (HTTP 422) and an empty JSON.
+
+## Payment method retrieval
+:round_pushpin: Retrieve a payment method information.
+```
+GET api/v1/payments/payment_methods/:id
+```
+
+Parameter             | Data type | Description
+----------------------|-----------|------------------------
+`id`                  |  integer  | Payment method identifier at Census
+
+### Return value
+* When the payment method exists in the database, server response will be `:ok` (HTTP 200) with a JSON with the payment method information:
+ (fields `id`.
+
+Parameter             | Data type | Description
+----------------------|-----------|------------------------
+`id`                  |  integer  | Payment method identifier at Census
+`name`                |  string   | Payment method human name
+`type`                |  string   | Payment method type: `PaymentMethods::DirectDebit` or `PaymentMethods::CreditCard`
+
+* When there is no payment method for the given `id`, server response will be `:not_found` (HTTP 404) and an empty JSON.
