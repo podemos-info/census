@@ -37,7 +37,7 @@ Parameter             | Data type | Description                   | Format
 ## Person data changes
 :round_pushpin: Creates a person data change procedure.
 ```
-PATCH api/v1/people
+PATCH api/v1/people/:person_id
 ```
 
 Parameter             | Data type | Description                   | Format
@@ -68,7 +68,7 @@ Parameter             | Data type | Description                   | Format
 ## Person cancellation
 :round_pushpin: Creates a cancellation procedure for a person.
 ```
-DELETE api/v1/people
+DELETE api/v1/people/:person_id
 ```
 
 Parameter             | Data type | Description
@@ -115,7 +115,7 @@ Parameter             | Data type | Description                   | Format
 `scope_code`          |  string   | Person's scope_code
 `phone`               |  string   | Person's phone
 
-* When there is no person for the given `person_id`, server response will be `:unprocessable_entity` (HTTP 422) and an empty JSON.
+* When there is no person for the given `person_id`, server response will be `:not_found` (HTTP 404) and an empty JSON.
 
 ## Membership level change
 :round_pushpin: Creates a membership level change procedure for a person.
