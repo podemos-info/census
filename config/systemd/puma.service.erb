@@ -1,0 +1,29 @@
+[Unit]
+Description = <%= fetch(:application) %>'s Puma HTTP Server
+After = network.target
+
+# Uncomment for socket activation (see below)
+Requires = <%= fetch(:application) %>_puma.socket
+
+[Service]
+# Foreground process (do not use --daemon in ExecStart or config.rb)
+Type = simple
+
+# Preferably configure a non-privileged user
+User = <%= ENV["STAGING_USER"] %>
+Group = <%= ENV["STAGING_USER"] %>
+
+# The path to the puma application root
+Environment = RAILS_ENV=<%= fetch(:rails_env) %>
+Environment = PWD=<%= current_path %>
+WorkingDirectory = <%= current_path %>
+
+# The command to start Puma. This variant uses a binstub generated via
+ExecStart = <%= SSHKit.config.command_map[:rvm] %> default do <%= shared_path %>/sbin/puma -C <%= current_path %>/config/puma.rb
+
+Restart = always
+
+PIDFile = <%= current_path %>/tmp/pids/puma.pid
+
+[Install]
+WantedBy = multi-user.target

@@ -66,3 +66,4 @@ after "deploy:publishing", "deploy:db:reseed"
 on roles(:master) do
   after "deploy:publishing", "systemd:sneakers:restart"
 end
+after "deploy:publishing", "systemd:puma:restart"

@@ -19,11 +19,9 @@ require "capistrano/bundler"
 require "capistrano/rails/assets"
 require "capistrano/rails/migrations"
 
-require "capistrano/puma"
-install_plugin Capistrano::Puma
-
 require "capistrano/systemd/multiservice"
 install_plugin Capistrano::Systemd::MultiService.new_service("sneakers")
+install_plugin Capistrano::Systemd::MultiService.new_service("puma")
 
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined
 Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }
