@@ -69,7 +69,6 @@ group :development, :test do
   gem "capistrano-rails", "~> 1.3", require: false
   gem "capistrano-rvm", require: false
   gem "capistrano-systemd-multiservice", require: false
-  gem "capistrano3-puma", require: false
   gem "simplecov", require: false
 end
 
