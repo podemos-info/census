@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/activeadmin/activeadmin.git
-  revision: 951a2901b950c84f8ff17c72c954446a31527136
+  revision: 0fe85d7ad941e98462725c25cc8a0ebacb4467b1
   specs:
     activeadmin (2.0.0.alpha)
       arbre (>= 1.1.1)
@@ -69,12 +69,14 @@ GEM
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
     active_job_reporter (0.1.2)
       rails (~> 5.1)
+    active_material (1.4.2)
     active_model_serializers (0.10.7)
       actionpack (>= 4.1, < 6)
       activemodel (>= 4.1, < 6)
       case_transform (>= 0.2)
       jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
-    activeadmin_addons (1.5.0)
+    activeadmin_addons (1.6.0)
+      active_material
       railties
       require_all (~> 1.5)
       sass-rails
@@ -271,7 +273,7 @@ GEM
     formtastic (3.1.5)
       actionpack (>= 3.2.13)
     formtastic_i18n (0.6.0)
-    geocoder (1.4.9)
+    geocoder (1.5.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     has_scope (0.7.2)
@@ -380,7 +382,7 @@ GEM
     pry-rails (0.3.6)
       pry (>= 0.10.4)
     public_suffix (3.0.2)
-    puma (3.11.4)
+    puma (3.12.0)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     pundit-matchers (1.4.1)
@@ -389,7 +391,7 @@ GEM
     rack (2.0.5)
     rack-attack (5.2.0)
       rack
-    rack-test (1.0.0)
+    rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.2.0)
       actioncable (= 5.2.0)
@@ -434,7 +436,7 @@ GEM
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
     referer-parser (0.3.0)
-    regexp-examples (1.4.2)
+    regexp-examples (1.4.3)
     request_store (1.4.1)
       rack (>= 1.4)
     require_all (1.5.0)
@@ -473,7 +475,7 @@ GEM
     safe_yaml (1.0.4)
     safely_block (0.2.1)
       errbase
-    sass (3.5.6)
+    sass (3.5.7)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)

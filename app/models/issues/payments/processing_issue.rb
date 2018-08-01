@@ -7,7 +7,7 @@ module Issues
       store_accessor :fix_information, :comment
 
       def detected?
-        payment_method.user_visible? && payment_method.response_code.present? && response_code_info[:role].present?
+        payment_method.complete? && payment_method.response_code.present? && response_code_info[:role].present?
       end
 
       def fill

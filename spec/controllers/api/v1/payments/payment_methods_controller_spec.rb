@@ -22,7 +22,7 @@ describe Api::V1::Payments::PaymentMethodsController, type: :controller do
 
       it "each returned payment method includes only id, name and type" do
         subject.each do |payment_method_info|
-          expect(payment_method_info.keys) .to contain_exactly("id", "name", "type")
+          expect(payment_method_info.keys) .to contain_exactly("id", "name", "type", "status", "verified?")
           expect([payment_method.id, payment_method2.id]) .to include(payment_method_info["id"])
           expect([payment_method.name, payment_method2.name]) .to include(payment_method_info["name"])
           expect([payment_method.type, payment_method2.type]) .to include(payment_method_info["type"])
@@ -39,10 +39,30 @@ describe Api::V1::Payments::PaymentMethodsController, type: :controller do
     context "returned data" do
       subject(:response) { JSON.parse(endpoint.body) }
       it "include payment method information" do
-        expect(response.keys) .to contain_exactly("id", "name", "type")
+        expect(response.keys) .to contain_exactly("id", "name", "type", "status", "verified?")
         expect(response["id"]) .to eq(payment_method.id)
         expect(response["name"]) .to eq(payment_method.name)
         expect(response["type"]) .to eq(payment_method.type)
+        expect(response["status"]) .to eq("incomplete")
+        expect(response["verified?"]) .to be_falsey
+      end
+
+      context "when it's verified" do
+        let!(:payment_method) { create(:credit_card, :external_verified) }
+
+        it "include payment method information" do
+          expect(response["status"]) .to eq("active")
+          expect(response["verified?"]) .to be_truthy
+        end
+      end
+
+      context "when it's expired" do
+        let!(:payment_method) { create(:credit_card, :external_verified, :expired) }
+
+        it "include payment method information" do
+          expect(response["status"]) .to eq("inactive")
+          expect(response["verified?"]) .to be_truthy
+        end
       end
     end
   end

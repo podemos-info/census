@@ -15,8 +15,8 @@ FactoryBot.define do
     person
     payment_processor { :redsys }
     authorization_token { "1234567890abcdef" }
-    expiration_year { expires_at.year }
-    expiration_month { expires_at.month }
+    expiration_year { expires_at.year.to_s }
+    expiration_month { expires_at.month.to_s }
 
     trait :expired do
       expires_at { 2.months.ago }
@@ -31,8 +31,7 @@ FactoryBot.define do
 
     trait :external_verified do
       authorization_token { "f9b36152f049a8fbe6a800bcb49837cfb4808d37" }
-      expiration_year { "2020" }
-      expiration_month { "12" }
+      expires_at { 1.year.from_now }
       verified { true }
     end
   end

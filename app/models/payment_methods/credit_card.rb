@@ -15,7 +15,7 @@ module PaymentMethods
       !authorized?
     end
 
-    def user_visible?
+    def complete?
       verified?
     end
 

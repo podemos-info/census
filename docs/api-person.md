@@ -162,7 +162,7 @@ Parameter             | Data type | Description
 `person_id`           |  string   | Person's qualified identifier
 
 ### Return value
-* When the person exists in the database, server response will be `:ok` (HTTP 200) with a JSON with all the pending procedures related to the person:
+* When the person exists in the database, server response will be `:ok` (HTTP 200) and a JSON with all the pending procedures related to the person:
  (fields `id`.
 
 Parameter             | Data type | Description

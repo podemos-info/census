@@ -27,7 +27,7 @@ class PaymentMethod < ApplicationRecord
     false
   end
 
-  def user_visible?
+  def complete?
     true
   end
 
