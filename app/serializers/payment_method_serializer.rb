@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PaymentMethodSerializer < ActiveModel::Serializer
-  attributes :id, :type, :name, :status
+  attributes :id, :type, :name, :status, :verified?
 
   def status
     return "inactive" unless object.active?

@@ -62,8 +62,10 @@ Parameter             | Data type | Description
 `name`                |  string   | Payment method human name
 `type`                |  string   | Payment method type: `PaymentMethods::DirectDebit` or `PaymentMethods::CreditCard`
 `status`              |  string   | Payment method status: `incomplete`, `active` or `inactive`
+`verified?`           |  boolean  | Was the payment method successfuly used before?
 
 * When there is no person for the given `person_id`, server response will be `:unprocessable_entity` (HTTP 422) and an empty JSON.
+* The `verified` status is different from `active`
 
 ## Payment method retrieval
 :round_pushpin: Retrieve a payment method information.
@@ -85,5 +87,6 @@ Parameter             | Data type | Description
 `name`                |  string   | Payment method human name
 `type`                |  string   | Payment method type: `PaymentMethods::DirectDebit` or `PaymentMethods::CreditCard`
 `status`              |  string   | Payment method status: `incomplete`, `active` or `inactive`
+`verified?`           |  boolean  | Was the payment method successfuly used before?
 
 * When there is no payment method for the given `id`, server response will be `:not_found` (HTTP 404) and an empty JSON.
