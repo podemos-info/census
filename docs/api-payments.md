@@ -18,7 +18,7 @@ Parameter             | Data type | Description            | Only when `payment_
 `iban`                |  string   | Normalized bank account's IBAN (no speces or symbols, only letters and numbers) | `direct_debit`
 
 ### Return value
-* When the order is successfully created, server response will be `:created` (HTTP 201) with a JSON with the used payment method identifier in the `payment_method_id` key.
+* When the order is successfully created, server response will be `:created` (HTTP 201) and a JSON with the used payment method identifier in the `payment_method_id` key.
 * When using `credit_card_external` payment method, server response will be `:accepted` (HTTP 202) and the JSON will also include the `form` key, with information to generate a page with a `<FORM>` tag that should be sumbitted to the payment gateway. This form could be submitted automatically with JavaSscript or could present a summary of the payment and a submit button to proceed. This hash will contain two keys:
   * `action` is the URL where the form should be submitted
   * `fields` is a `Hash` with key/value pairs that should be included in the form with hidden input fields.
@@ -39,7 +39,7 @@ Parameter             | Data type | Description
 `until_date`          |  datetime | Optional. Include orders created before this date (use ISO datetime format)
 
 ### Return value
-* Server response will be `:ok` (HTTP 200) with a JSON with the `amount` key.
+* Server response will be `:ok` (HTTP 200) and a JSON with the `amount` key.
 * Person or campaign filter should be used, server response will be `:unprocessable_entity` (HTTP 422) otherwise.
 
 ## Payment methods retrieval
@@ -53,7 +53,7 @@ Parameter             | Data type | Description
 `person_id`           |  string   | Person's qualified identifier
 
 ### Return value
-* When the person exists in the database, server response will be `:ok` (HTTP 200) with a JSON with all the payment methods related to that person:
+* When the person exists in the database, server response will be `:ok` (HTTP 200) and a JSON with all the payment methods related to that person:
  (fields `id`.
 
 Parameter             | Data type | Description
@@ -76,7 +76,7 @@ Parameter             | Data type | Description
 `id`                  |  integer  | Payment method identifier at Census
 
 ### Return value
-* When the payment method exists in the database, server response will be `:ok` (HTTP 200) with a JSON with the payment method information:
+* When the payment method exists in the database, server response will be `:ok` (HTTP 200) and a JSON with the payment method information:
  (fields `id`.
 
 Parameter             | Data type | Description
