@@ -7,11 +7,12 @@ module Census
     class Scopes
       def seed(options = {})
         base_path = options[:base_path]
+        @logger = options[:logger]
 
-        puts "Loading scope types..."
+        logger&.info "Loading scope types...\r"
         save_scope_types("#{base_path}/scope_types.tsv")
 
-        puts "Loading scopes..."
+        logger&.info "Loading scopes...\r"
         if File.exist?(cache_path)
           load_cached_scopes(cache_path)
         else
@@ -25,6 +26,8 @@ module Census
       end
 
       private
+
+      attr_reader :logger
 
       def save_scope_types(source)
         @scope_types = Hash.new { |h, k| h[k] = Hash.new { |h2, k2| h2[k2] = {} } }
@@ -90,7 +93,7 @@ module Census
       end
 
       def save_scope(row)
-        print "#{row["UID"].ljust(30)}\r"
+        logger&.info "#{row["UID"].ljust(30)}\r"
         code = row["UID"]
 
         scope = Scope.find_or_initialize_by(code: code)
