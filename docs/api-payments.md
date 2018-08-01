@@ -61,6 +61,7 @@ Parameter             | Data type | Description
 `id`                  |  integer  | Payment method identifier at Census
 `name`                |  string   | Payment method human name
 `type`                |  string   | Payment method type: `PaymentMethods::DirectDebit` or `PaymentMethods::CreditCard`
+`status`              |  string   | Payment method status: `incomplete`, `active` or `inactive`
 
 * When there is no person for the given `person_id`, server response will be `:unprocessable_entity` (HTTP 422) and an empty JSON.
 
@@ -83,5 +84,6 @@ Parameter             | Data type | Description
 `id`                  |  integer  | Payment method identifier at Census
 `name`                |  string   | Payment method human name
 `type`                |  string   | Payment method type: `PaymentMethods::DirectDebit` or `PaymentMethods::CreditCard`
+`status`              |  string   | Payment method status: `incomplete`, `active` or `inactive`
 
 * When there is no payment method for the given `id`, server response will be `:not_found` (HTTP 404) and an empty JSON.
