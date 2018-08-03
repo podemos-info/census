@@ -31,7 +31,7 @@ describe Procedures::MembershipLevelChange, :db do
             state: person.state,
             membership_level: "member",
             verification: person.verification,
-            scope: person.scope&.code
+            scope_code: person.scope&.code
           }
         ]
       end

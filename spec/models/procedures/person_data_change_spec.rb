@@ -42,7 +42,7 @@ describe Procedures::PersonDataChange, :db do
             state: procedure.person.state,
             membership_level: procedure.person.membership_level,
             verification: procedure.person.verification,
-            scope: person.scope&.code
+            scope_code: person.scope&.code
           }
         ]
       end

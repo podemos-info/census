@@ -31,7 +31,7 @@ describe Procedures::DocumentVerification, :db do
             state: person.state,
             membership_level: person.membership_level,
             verification: "verified",
-            scope: person.scope&.code
+            scope_code: person.scope&.code
           }
         ]
       end
@@ -53,7 +53,7 @@ describe Procedures::DocumentVerification, :db do
             state: person.state,
             membership_level: person.membership_level,
             verification: "verification_requested",
-            scope: person.scope&.code
+            scope_code: person.scope&.code
           }
         ]
       end

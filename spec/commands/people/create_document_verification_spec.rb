@@ -42,7 +42,7 @@ describe People::CreateDocumentVerification do
             state: person.state,
             membership_level: person.membership_level,
             verification: "verification_received",
-            scope: person.scope&.code
+            scope_code: person.scope&.code
           }
         ]
       end
