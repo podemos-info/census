@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PersonSerializer < ActiveModel::Serializer
-  attributes :id, :membership_level, :scope_code, :state, :verification, :external_ids
+  attributes :person_id, :membership_level, :scope_code, :state, :verification, :external_ids
   attribute :first_name, unless: :discarded?
   attribute :last_name1, unless: :discarded?
   attribute :last_name2, unless: :discarded?
@@ -15,6 +15,10 @@ class PersonSerializer < ActiveModel::Serializer
   attribute :address_scope_code, unless: :discarded?
   attribute :email, unless: :discarded?
   attribute :phone, unless: :discarded?
+
+  def person_id
+    object.id
+  end
 
   def scope_code
     object.scope&.code
