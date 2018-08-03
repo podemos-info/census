@@ -23,7 +23,7 @@ module People
         state: person.state,
         membership_level: person.membership_level,
         verification: person.verification,
-        scope: person.scope&.code
+        scope_code: person.scope&.code
       }
     end
   end

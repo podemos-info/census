@@ -31,7 +31,7 @@ module Api
           render json: {}, status: :internal_server_error
         end
         on(:noop) do
-          render json: {}, status: :no_content
+          render status: :no_content
         end
         on(:ok) do |info|
           result = yield(info) if block_given?

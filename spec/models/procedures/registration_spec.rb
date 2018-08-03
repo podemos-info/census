@@ -42,7 +42,7 @@ describe Procedures::Registration, :db do
             state: "enabled",
             membership_level: "follower",
             verification: "not_verified",
-            scope: person.scope&.code
+            scope_code: person.scope&.code
           }
         ]
       end
