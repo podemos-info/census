@@ -2,7 +2,7 @@
 Description = <%= fetch(:application) %>'s Puma HTTP Server Accept Sockets
 
 [Socket]
-ListenStream = <%= current_path %>/tmp/sockets/puma.sock
+ListenStream = <%= shared_path %>/tmp/sockets/puma.sock
 NoDelay = true
 ReusePort = true
 Backlog = 1024
