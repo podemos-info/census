@@ -38,7 +38,7 @@ describe UpdateProcedureJob, type: :job do
       end
 
       it "keeps the issue related objects before fixing it" do
-        expect { subject } .not_to change { open_issue.reload.people }
+        expect { subject } .not_to change { open_issue.reload.person_ids }
       end
     end
 
@@ -62,7 +62,7 @@ describe UpdateProcedureJob, type: :job do
       end
 
       it "keeps the issue related objects before fixing it" do
-        expect { subject } .not_to change { open_issue.reload.people }
+        expect { subject } .not_to change { open_issue.reload.person_ids }
       end
     end
   end
