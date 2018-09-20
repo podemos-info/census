@@ -7,6 +7,7 @@ describe CampaignsController, type: :controller do
   include_context "devise login"
 
   subject(:resource) { all_resources[resource_class] }
+
   let(:resource_class) { Campaign }
   let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
   let!(:campaign) { create(:campaign) }
@@ -25,18 +26,21 @@ describe CampaignsController, type: :controller do
 
   describe "index page" do
     subject { get :index }
+
     it { is_expected.to be_successful }
     it { is_expected.to render_template("index") }
   end
 
-  context "show page" do
+  describe "show page" do
     subject { get :show, params: { id: campaign.id } }
+
     it { is_expected.to be_successful }
     it { is_expected.to render_template("show") }
   end
 
   describe "edit page" do
     subject { get :edit, params: { id: campaign.id } }
+
     it { is_expected.to be_successful }
     it { is_expected.to render_template("edit") }
   end
@@ -46,14 +50,16 @@ describe CampaignsController, type: :controller do
       campaign.assign_attributes campaign_code: "KKKKKK"
       patch :update, params: { id: campaign.id, bic: campaign.attributes }
     end
+
     it { expect(subject).to have_http_status(:found) }
     it { expect(subject.location).to eq(campaign_url(campaign.id)) }
-    it { expect { subject } .to change { campaign.campaign_code }.to("KKKKKK") }
+    it { expect { subject } .to change(campaign, :campaign_code).to("KKKKKK") }
   end
 
   describe "destroy page" do
     subject { put :destroy, params: { id: campaign.id } }
-    it { expect { subject } .to change { Campaign.count }.by(-1) }
+
+    it { expect { subject } .to change(Campaign, :count).by(-1) }
     it { is_expected.to have_http_status(:found) }
     it { expect(subject.location).to eq(campaigns_url) }
   end

@@ -7,6 +7,7 @@ describe VisitsController, type: :controller do
   include_context "devise login"
 
   subject(:resource) { all_resources[resource_class] }
+
   let(:resource_class) { Visit }
   let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
   let!(:visit) { create(:visit) }
@@ -23,14 +24,16 @@ describe VisitsController, type: :controller do
     is_expected.to be_include_in_menu
   end
 
-  context "index page" do
+  describe "index page" do
     subject { get :index }
+
     it { is_expected.to be_successful }
     it { is_expected.to render_template("index") }
   end
 
-  context "show page" do
+  describe "show page" do
     subject { get :show, params: { id: visit.id } }
+
     it { is_expected.to be_successful }
     it { is_expected.to render_template("show") }
   end

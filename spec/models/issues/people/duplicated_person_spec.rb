@@ -4,6 +4,7 @@ require "rails_helper"
 
 describe Issues::People::DuplicatedPerson, :db do
   subject(:issue) { create(:duplicated_person, other_person: existing_person) }
+
   let(:procedure_person) { issue.procedure.person }
   let(:existing_person) { create(:person) }
 
@@ -11,6 +12,7 @@ describe Issues::People::DuplicatedPerson, :db do
 
   describe "#fill" do
     subject(:fill) { issue.fill }
+
     let(:issue) { create(:duplicated_person, :not_evaluated, other_person: existing_person) }
 
     it "stores the affected people array" do

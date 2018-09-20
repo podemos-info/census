@@ -30,7 +30,7 @@ describe Payments::CreateOrder do
     end
 
     it "saves the order" do
-      expect { subject } .to change { Order.count } .by(1)
+      expect { subject } .to change(Order, :count) .by(1)
     end
   end
 
@@ -43,7 +43,7 @@ describe Payments::CreateOrder do
     end
 
     it "saves the order" do
-      expect { subject } .to change { Order.count }
+      expect { subject } .to change(Order, :count)
     end
   end
 
@@ -55,7 +55,7 @@ describe Payments::CreateOrder do
     end
 
     it "doesn't save the order" do
-      expect { subject } .not_to change { Order.count }
+      expect { subject } .not_to change(Order, :count)
     end
   end
 
@@ -68,7 +68,7 @@ describe Payments::CreateOrder do
     end
 
     it "doesn't save the order" do
-      expect { subject } .not_to change { Order.count }
+      expect { subject } .not_to change(Order, :count)
     end
   end
 
@@ -81,7 +81,7 @@ describe Payments::CreateOrder do
     end
 
     it "saves the order" do
-      expect { subject } .to change { Order.count } .by(1)
+      expect { subject } .to change(Order, :count) .by(1)
     end
   end
 
@@ -94,11 +94,11 @@ describe Payments::CreateOrder do
     end
 
     it "saves the order" do
-      expect { subject } .to change { Order.count } .by(1)
+      expect { subject } .to change(Order, :count) .by(1)
     end
   end
 
-  context "unexpected fails scenario" do
+  context "when unexpected errors occurr" do
     context "when payment method is invalid" do
       before { stub_command("Payments::SavePaymentMethod", :invalid) }
 
@@ -107,7 +107,7 @@ describe Payments::CreateOrder do
       end
 
       it "doesn't save the order" do
-        expect { subject } .not_to change { Order.count }
+        expect { subject } .not_to change(Order, :count)
       end
     end
 
@@ -119,7 +119,7 @@ describe Payments::CreateOrder do
       end
 
       it "doesn't save the order" do
-        expect { subject } .not_to change { Order.count }
+        expect { subject } .not_to change(Order, :count)
       end
     end
 
@@ -131,7 +131,7 @@ describe Payments::CreateOrder do
       end
 
       it "doesn't save the order" do
-        expect { subject } .not_to change { Order.count }
+        expect { subject } .not_to change(Order, :count)
       end
     end
   end

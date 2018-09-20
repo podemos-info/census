@@ -68,8 +68,9 @@ describe People::CreatePersonDataChange do
     end
 
     describe "the created procedure" do
-      before { command }
       subject(:created_procedure) { Procedures::PersonDataChange.last }
+
+      before { command }
 
       it "saves the first_name column" do
         expect(created_procedure.first_name).to eq("changed")
@@ -89,7 +90,7 @@ describe People::CreatePersonDataChange do
     end
 
     it "doesn't create the new procedure" do
-      expect { subject } .to_not change { Procedures::PersonDataChange.count }
+      expect { subject } .not_to change(Procedures::PersonDataChange, :count)
     end
   end
 
@@ -101,7 +102,7 @@ describe People::CreatePersonDataChange do
     end
 
     it "doesn't create the new procedure" do
-      expect { subject } .to_not change { Procedures::PersonDataChange.count }
+      expect { subject } .not_to change(Procedures::PersonDataChange, :count)
     end
   end
 
@@ -109,7 +110,7 @@ describe People::CreatePersonDataChange do
     let!(:procedure) { create(:person_data_change, person: person, changing_columns: [:last_name1, :email]) }
 
     it "does not create a new procedure" do
-      expect { subject } .not_to change { Procedures::PersonDataChange.count }
+      expect { subject } .not_to change(Procedures::PersonDataChange, :count)
     end
 
     describe "the updated procedure" do

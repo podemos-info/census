@@ -4,12 +4,14 @@ require "rails_helper"
 
 describe Issues::People::UntrustedPhone, :db do
   subject(:issue) { create(:untrusted_phone) }
+
   let(:procedure_person) { issue.procedure.person }
 
   it { is_expected.to be_valid }
 
   describe "#fill" do
     subject(:fill) { issue.fill }
+
     let(:issue) { create(:untrusted_phone, :not_evaluated) }
 
     it "stores the affected people array" do

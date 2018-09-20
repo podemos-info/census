@@ -4,11 +4,13 @@ require "rails_helper"
 
 describe ScopeDecorator do
   subject(:decorator) { scope.decorate(context: { current_admin: admin }) }
+
   let(:scope) { build(:scope) }
   let(:admin) { build(:admin) }
 
   describe "#full_path" do
     subject(:full_path) { decorator.full_path(*args) }
+
     let!(:grandparent) { create(:scope, name: Census::Faker::Localized.literal("grandparent")) }
     let!(:parent) { create(:scope, name: Census::Faker::Localized.literal("parent"), parent: grandparent) }
     let!(:scope) { create(:scope, name: Census::Faker::Localized.literal("scope"), parent: parent) }

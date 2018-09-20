@@ -8,11 +8,13 @@ describe Payments::ProcessOrdersBatch do
       described_class.call(orders_batch: orders_batch, admin: admin)
     end
   end
+
   let!(:admin) { create(:admin) }
   let(:orders_batch) { create(:orders_batch) }
 
   context "when valid" do
     let(:cassete) { "valid_process_orders_batch_command" }
+
     it "broadcasts :ok" do
       expect { subject } .to broadcast(:ok)
     end
@@ -50,6 +52,7 @@ describe Payments::ProcessOrdersBatch do
 
   context "when there are too many errors saving the payment methods" do
     let(:cassete) { "process_orders_batch_command_too_many_save_payment_method_errors" }
+
     before { stub_command("Payments::SavePaymentMethod", :error) }
 
     it "broadcasts :processor_aborted and error" do
@@ -58,8 +61,9 @@ describe Payments::ProcessOrdersBatch do
   end
 
   context "when there are too many errors saving the orders" do
-    let(:cassete) { "process_orders_batch_command_too_many_save_order_errors" }
     before { allow_any_instance_of(Order).to receive(:save!).and_raise(ActiveRecord::Rollback) }
+
+    let(:cassete) { "process_orders_batch_command_too_many_save_order_errors" }
 
     it "broadcasts :processor_aborted and error" do
       expect { subject } .to broadcast(:processor_aborted).and broadcast(:error)

@@ -43,6 +43,7 @@ module Issues
       def do_the_fix
         people.each do |person|
           next if chosen_person_id == person.id
+
           person.send("#{cause}_detected")
           person.save!
           ::People::ChangesPublisher.full_status_changed!(person)

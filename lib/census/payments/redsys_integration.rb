@@ -77,6 +77,7 @@ module Census
 
       def format_response(force_error)
         return nil if response_code.blank? # only can be used to respond parsed responses
+
         @success = false if force_error
 
         envelope(response_message)
@@ -84,6 +85,7 @@ module Census
 
       def success?
         return nil unless response_code&.to_i
+
         @success ||= response_code.to_i <= 100 || %w(0400 0481 0500 0900).include?(response_code)
       end
 

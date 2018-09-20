@@ -3,38 +3,35 @@
 require "rails_helper"
 
 describe "Rack attack", type: :request do
-  context "fail2ban rule" do
+  describe "fail2ban rule" do
+    subject { get "/" }
+
     before do
       override_ip "PENTESTER"
+      tries.times { get "/wp-admin" }
     end
 
-    subject do
-      get "/wp-admin"
-    end
+    let(:tries) { 1 }
 
-    it "blocks pentester IP for only one request" do
-      expect(subject).to eq(403)
-      expect(get("/")).to eq(302)
-    end
+    it { is_expected.to eq(302) }
 
-    context "blocks pentester IP on repeated requests" do
-      subject do
-        3.times { get "/wp-admin" }
-        get "/"
-      end
-      it { expect(subject).to eq(403) }
+    context "when pentester IP made repeated requests" do
+      let(:tries) { 3 }
+
+      it { is_expected.to eq(403) }
     end
   end
 
-  context "throttle too many request from the same IP" do
+  describe "throttle too many request from the same IP" do
+    subject { get "/" }
+
     before do
       override_ip "ANNOYER"
+      tries.times { get "/" }
     end
 
-    subject do
-      10.times { get "/" }
-      get "/"
-    end
-    it { expect(subject).to eq(429) }
+    let(:tries) { 10 }
+
+    it { is_expected.to eq(429) }
   end
 end

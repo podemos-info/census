@@ -7,7 +7,7 @@ describe PaymentMethodPolicy do
 
   let(:payment_method) { create(:credit_card) }
 
-  context "being a system admin" do
+  context "when user is a system admin" do
     let(:user) { create(:admin) }
 
     it { is_expected.to permit_actions([:index, :show, :dismiss_issues]) }
@@ -16,7 +16,7 @@ describe PaymentMethodPolicy do
     it { is_expected.to forbid_action :destroy }
   end
 
-  context "being a data admin" do
+  context "when user is a data admin" do
     let(:user) { create(:admin, :data) }
 
     it { is_expected.to forbid_actions([:index, :show, :dismiss_issues]) }
@@ -25,7 +25,7 @@ describe PaymentMethodPolicy do
     it { is_expected.to forbid_action :destroy }
   end
 
-  context "being a data_help admin" do
+  context "when user is a data_help admin" do
     let(:user) { create(:admin, :data_help) }
 
     it { is_expected.to forbid_actions([:index, :show, :dismiss_issues]) }
@@ -34,7 +34,7 @@ describe PaymentMethodPolicy do
     it { is_expected.to forbid_action :destroy }
   end
 
-  context "being a finances admin" do
+  context "when user is a finances admin" do
     let(:user) { create(:admin, :finances) }
 
     it { is_expected.to permit_actions([:index, :show, :dismiss_issues]) }

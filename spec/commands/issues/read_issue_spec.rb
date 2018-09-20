@@ -13,7 +13,7 @@ describe Issues::ReadIssue do
     end
 
     it "deletes the issue unread" do
-      expect { subject } .to change { IssueUnread.count } .by(-1)
+      expect { subject } .to change(IssueUnread, :count) .by(-1)
     end
   end
 
@@ -27,7 +27,7 @@ describe Issues::ReadIssue do
     end
 
     it "can't delete the issue unread" do
-      expect { subject } .not_to change { IssueUnread.count }
+      expect { subject } .not_to change(IssueUnread, :count)
     end
   end
 end

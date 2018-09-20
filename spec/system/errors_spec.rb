@@ -15,8 +15,10 @@ describe "Errors", type: :system do
     it "returns html with a message" do
       visit target_url
 
-      expect(page.response_headers["Content-Type"]).to match(/html/)
-      expect(page.body).to eq(error_message)
+      aggregate_failures "testing response" do
+        expect(page.response_headers["Content-Type"]).to match(/html/)
+        expect(page.body).to eq(error_message)
+      end
     end
   end
 
@@ -24,21 +26,23 @@ describe "Errors", type: :system do
     it "returns empty json" do
       visit target_url
 
-      expect(page.response_headers["Content-Type"]).to match(/json/)
-      expect(page.body).to eq("{}")
+      aggregate_failures "testing response" do
+        expect(page.body).to eq("{}")
+        expect(page.response_headers["Content-Type"]).to match(/json/)
+      end
     end
   end
 
   context "when visiting a non existing url" do
-    shared_context "in the backend" do
+    shared_context "with a backend url" do
       let(:target_url) { "/hakuna" }
     end
 
-    shared_context "in the API" do
+    shared_context "with an API url" do
       let(:target_url) { "/api/hakuna" }
     end
 
-    context "in development" do
+    context "when developing" do
       shared_examples_for "an unexistent development url" do
         it "returns an informative exception" do
           expect { visit target_url }.to raise_error(ActionController::RoutingError, "No route matches [GET] \"#{target_url}\"")
@@ -46,19 +50,19 @@ describe "Errors", type: :system do
       end
 
       context "with a backend request" do
-        include_context "in the backend"
+        include_context "with a backend url"
 
         it_behaves_like "an unexistent development url"
       end
 
       context "with an API request" do
-        include_context "in the API"
+        include_context "with an API url"
 
         it_behaves_like "an unexistent development url"
       end
     end
 
-    context "in production", environment: :production do
+    context "when running in production", environment: :production do
       shared_examples_for "an unexistent production url" do
         it "returns not found status" do
           visit target_url
@@ -68,7 +72,7 @@ describe "Errors", type: :system do
       end
 
       context "with a backend request" do
-        include_context "in the backend"
+        include_context "with a backend url"
 
         it_behaves_like "an unexistent production url"
 
@@ -78,7 +82,7 @@ describe "Errors", type: :system do
       end
 
       context "with an API request" do
-        include_context "in the API"
+        include_context "with an API url"
 
         it_behaves_like "an unexistent production url"
 
@@ -88,7 +92,7 @@ describe "Errors", type: :system do
   end
 
   context "when server crashes" do
-    shared_context "in the backend" do
+    shared_context "with a backend url" do
       let(:target_url) { "/login" }
 
       before do
@@ -96,7 +100,7 @@ describe "Errors", type: :system do
       end
     end
 
-    shared_context "in the API" do
+    shared_context "with an API url" do
       let(:person) { create(:person) }
 
       let(:target_url) { "api/v1/people/#{person.id}@census" }
@@ -106,7 +110,7 @@ describe "Errors", type: :system do
       end
     end
 
-    context "in development" do
+    context "when developing" do
       shared_examples_for "a crashing development url" do
         it "crashes properly" do
           expect { visit target_url }.to raise_error(NoMethodError, /undefined method `hakuna_matata' for/)
@@ -114,19 +118,19 @@ describe "Errors", type: :system do
       end
 
       context "with a backend request" do
-        include_context "in the backend"
+        include_context "with a backend url"
 
         it_behaves_like "a crashing development url"
       end
 
       context "with an API request" do
-        include_context "in the API"
+        include_context "with an API url"
 
         it_behaves_like "a crashing development url"
       end
     end
 
-    context "in production", environment: :production do
+    context "when running in production", environment: :production do
       shared_examples_for "a crashing production url" do
         it "crashes properly" do
           visit target_url
@@ -136,7 +140,7 @@ describe "Errors", type: :system do
       end
 
       context "with a backend request" do
-        include_context "in the backend"
+        include_context "with a backend url"
 
         it_behaves_like "a crashing production url"
 
@@ -146,7 +150,7 @@ describe "Errors", type: :system do
       end
 
       context "with an API request" do
-        include_context "in the API"
+        include_context "with an API url"
 
         it_behaves_like "a crashing production url"
 

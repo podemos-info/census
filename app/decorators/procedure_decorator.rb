@@ -76,6 +76,7 @@ class ProcedureDecorator < ApplicationDecorator
 
   def before_person
     return person unless processed?
+
     @before_person ||= person.paper_trail.version_at(processed_at - 0.01.seconds, dup: true)&.decorate(context: context)
   end
 

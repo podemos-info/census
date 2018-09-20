@@ -4,17 +4,12 @@ require "rails_helper"
 
 describe Procedures::DocumentVerification, :db do
   subject(:procedure) { create(:document_verification, :ready_to_process, person: person) }
+
   let!(:person) { create(:person) }
 
   it { is_expected.to be_valid }
-
-  it "is acceptable" do
-    is_expected.to be_acceptable
-  end
-
-  it "is not auto_processable" do
-    is_expected.not_to be_auto_processable
-  end
+  it { is_expected.to be_acceptable }
+  it { is_expected.not_to be_auto_processable }
 
   context "when accepted" do
     subject(:accepting) { procedure.accept! }
@@ -42,7 +37,7 @@ describe Procedures::DocumentVerification, :db do
     subject(:rejecting) { procedure.reject! }
 
     it "does not change person verification status" do
-      expect { subject } .to_not change { Person.find(person.id).verified? }
+      expect { subject } .not_to change { Person.find(person.id).verified? }
     end
 
     it_behaves_like "an event notifiable with hutch" do
@@ -61,7 +56,7 @@ describe Procedures::DocumentVerification, :db do
   end
 
   with_versioning do
-    context "after accepting the procedure" do
+    context "when has accepted the procedure" do
       before do
         procedure.accept!
       end
@@ -71,13 +66,13 @@ describe Procedures::DocumentVerification, :db do
       end
     end
 
-    context "after rejecting the procedure" do
+    context "when has rejected the procedure" do
       before do
         procedure.reject!
       end
 
       it "undo does not change person membership level" do
-        expect { procedure.undo! } .to_not change { Person.find(person.id).verified? }
+        expect { procedure.undo! } .not_to change { Person.find(person.id).verified? }
       end
     end
   end

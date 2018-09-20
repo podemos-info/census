@@ -83,20 +83,20 @@ FactoryBot.define do
       state { :processed }
       processed_at { Faker::Time.between(3.days.ago, 1.day.ago, :between) }
       processed_by { build(:admin) }
-      response_code "0000"
+      response_code { "0000" }
       after :build do |order|
         order.payment_method.response_code = order.response_code
       end
     end
 
     trait :user_issue do
-      response_code "0180"
+      response_code { "0180" }
     end
     trait :finances_issue do
-      response_code "0102"
+      response_code { "0102" }
     end
     trait :system_issue do
-      response_code "9999"
+      response_code { "9999" }
     end
   end
 
@@ -145,7 +145,7 @@ FactoryBot.define do
   end
 
   factory :bic do
-    country "ES"
+    country { "ES" }
     bank_code { Faker::Number.between(1, 10_000).to_s.rjust(4, "0") }
     bic { "#{[*("A".."Z")].sample(4).join}#{country}#{[*("A".."Z")].sample(2).join}" }
 

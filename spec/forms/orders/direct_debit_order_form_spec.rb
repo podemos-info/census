@@ -12,9 +12,9 @@ describe Orders::DirectDebitOrderForm do
       iban: iban
     )
   end
+
   let(:order) { build(:order) }
   let(:iban) { order.payment_method.iban }
-
   let(:person_id) { order.person.id }
   let(:description) { order.description }
   let(:amount) { order.amount }
@@ -24,16 +24,19 @@ describe Orders::DirectDebitOrderForm do
 
   context "with an invalid IBAN" do
     let(:iban) { "ES0000030000300000000000" }
+
     it { is_expected.to be_invalid }
   end
 
   context "with a non-SEPA IBAN" do
     let(:iban) { "AD7100030000300000000000" }
+
     it { is_expected.to be_invalid }
   end
 
   describe "#payment_method" do
     subject(:method) { form.payment_method }
+
     it { is_expected.to be_present }
 
     it "matches the given payment method IBAN" do

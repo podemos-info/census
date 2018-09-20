@@ -22,158 +22,144 @@ describe DocumentIdValidator do
 
   let(:subject) { validatable.new(document_type: document_type, document_scope: document_scope, document_id: document_id) }
 
-  context "when the scope is Spain" do
+  context "with a spanish document" do
     let(:document_scope) { "ES" }
 
-    context "and the document type is DNI" do
+    context "with a DNI" do
       let(:document_type) { :dni }
       let(:document_id) { "00000001R" }
 
       it { is_expected.to be_valid }
 
-      context "fails if is not upcased" do
+      context "when the id is not upcased" do
         let(:document_id) { "00000001r" }
+
         it { is_expected.to be_invalid }
       end
 
-      context "fails if the id is too short" do
+      context "when the id is too short" do
         let(:document_id) { "1R" }
+
         it { is_expected.to be_invalid }
       end
 
-      context "fails if the id format is wrong" do
+      context "when the id format is wrong" do
         let(:document_id) { "ABCD12345" }
+
         it { is_expected.to be_invalid }
       end
 
-      context "fails if the id is too long" do
+      context "when the id is too long" do
         let(:document_id) { "000000001R" }
+
         it { is_expected.to be_invalid }
       end
 
-      context "fails if the final letter is wrong" do
+      context "when the final letter is wrong" do
         let(:document_id) { "00000001T" }
+
         it { is_expected.to be_invalid }
       end
     end
 
-    context "and the document type is NIE" do
+    context "with a NIE" do
       let(:document_type) { :nie }
       let(:document_id) { "X0000001R" }
 
       it { is_expected.to be_valid }
 
-      context "fails if is not upcased" do
+      context "when the id is not upcased" do
         let(:document_id) { "x0000001r" }
+
         it { is_expected.to be_invalid }
       end
 
-      context "fails if the id is too short" do
+      context "when the id is too short" do
         let(:document_id) { "X1R" }
+
         it { is_expected.to be_invalid }
       end
 
-      context "fails if the id format is wrong" do
+      context "when the id format is wrong" do
         let(:document_id) { "ABCD12345" }
+
         it { is_expected.to be_invalid }
       end
 
-      context "fails if the id is too long" do
+      context "when the id is too long" do
         let(:document_id) { "0X0000001R" }
+
         it { is_expected.to be_invalid }
       end
 
-      context "fails if the id is too long" do
+      context "when the id is too long" do
         let(:document_id) { "0X0000001R" }
+
         it { is_expected.to be_invalid }
       end
 
-      context "fails if the final letter is wrong" do
+      context "when the final letter is wrong" do
         let(:document_id) { "X0000001T" }
+
         it { is_expected.to be_invalid }
       end
     end
 
-    context "and the document type is Passport" do
+    context "with a passport" do
       let(:document_type) { :passport }
       let(:document_id) { "ABC123456" }
 
       it { is_expected.to be_valid }
 
-      context "fails if is not upcased" do
+      context "when is not upcased" do
         let(:document_id) { "abc123456" }
+
         it { is_expected.to be_invalid }
       end
 
-      context "accepts old format" do
+      context "when has the old format" do
         let(:document_id) { "AB123456" }
+
         it { is_expected.to be_valid }
       end
 
-      context "accepts very old format, based on DNI number" do
+      context "when has the very old format, based on DNI number" do
         let(:document_id) { "A0000000100" }
+
         it { is_expected.to be_valid }
       end
 
-      context "fails if the id format is wrong" do
+      context "when the id format is wrong" do
         let(:document_id) { "123456ABC" }
+
         it { is_expected.to be_invalid }
       end
 
-      context "fails if the id is too short" do
+      context "when the id is too short" do
         let(:document_id) { "1234" }
+
         it { is_expected.to be_invalid }
       end
 
-      context "fails if the id is too long" do
+      context "when the id is too long" do
         let(:document_id) { "0A000000100" }
+
         it { is_expected.to be_invalid }
       end
     end
   end
 
-  context "when the scope is not Spain" do
+  context "with a non spanish passport" do
+    let(:document_type) { :passport }
     let(:document_scope) { "EU" }
+    let(:document_id) { "AB123456" }
 
-    context "and the document type is DNI" do
-      let(:document_type) { :dni }
-      let(:document_id) { "00000001R" }
+    it { is_expected.to be_valid }
 
-      it { is_expected.to be_valid }
+    context "when the id is too short" do
+      let(:document_id) { "123" }
 
-      context "fails if the id is too short" do
-        let(:document_id) { "1R" }
-        it { is_expected.to be_invalid }
-      end
-    end
-
-    context "and the document type is NIE" do
-      let(:document_type) { :nie }
-      let(:document_id) { "X0000001R" }
-
-      it { is_expected.to be_valid }
-
-      context "fails if the id is too short" do
-        let(:document_id) { "X1R" }
-        it { is_expected.to be_invalid }
-      end
-    end
-
-    context "and the document type is Passport" do
-      let(:document_type) { :nie }
-      let(:document_id) { "ABC123456" }
-
-      it { is_expected.to be_valid }
-
-      context "accepts any format" do
-        let(:document_id) { "AB123456" }
-        it { is_expected.to be_valid }
-      end
-
-      context "fails if the id is too short" do
-        let(:document_id) { "123" }
-        it { is_expected.to be_invalid }
-      end
+      it { is_expected.to be_invalid }
     end
   end
 end

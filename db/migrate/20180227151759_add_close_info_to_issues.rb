@@ -2,8 +2,10 @@
 
 class AddCloseInfoToIssues < ActiveRecord::Migration[5.1]
   def change
-    rename_column :issues, :fixed_at, :closed_at
-    add_column :issues, :fix_information, :jsonb, default: {}, null: false
-    add_column :issues, :close_result, :integer
+    change_table :issues, bulk: true do |t|
+      t.rename :fixed_at, :closed_at
+      t.jsonb :fix_information, default: {}, null: false
+      t.integer :close_result
+    end
   end
 end

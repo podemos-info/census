@@ -14,7 +14,7 @@ describe Issues::AssignIssue do
     end
 
     it "changes the issue assigned_to field" do
-      expect { subject } .to change { issue.assigned_to } .to(admin.person)
+      expect { subject } .to change(issue, :assigned_to).to(admin.person)
     end
   end
 end

@@ -4,16 +4,12 @@ require "rails_helper"
 
 describe PersonDecorator do
   subject { person.decorate(context: { current_admin: admin }) }
+
   let(:person) { build(:person) }
   let(:admin) { build(:admin) }
 
-  it "returns the decorated scope" do
-    expect(subject.scope.decorated?).to be_truthy
-  end
-
-  it "returns the decorated address scope" do
-    expect(subject.address_scope.decorated?).to be_truthy
-  end
+  it { expect(subject.scope).to be_decorated }
+  it { expect(subject.address_scope).to be_decorated }
 
   describe "name composition" do
     let(:person) { build(:person, first_name: "María", last_name1: "Pérez", last_name2: "García") }
@@ -52,41 +48,39 @@ describe PersonDecorator do
     end
   end
 
-  describe "options" do
+  describe "#gender_options" do
+    subject(:options) { described_class.gender_options }
+
     it "returns the right number of gender options" do
-      expect(PersonDecorator.gender_options.count).to eq(Person.genders.count)
+      expect(options.count).to eq(Person.genders.count)
     end
 
     it "returns gender options well formatted" do
-      expect(PersonDecorator.gender_options.map(&:count).uniq).to eq([2])
+      expect(options.map(&:count).uniq).to eq([2])
     end
+  end
+
+  describe "#document_type_options" do
+    subject(:options) { described_class.document_type_options }
 
     it "returns the right number of document type options" do
-      expect(PersonDecorator.document_type_options.count).to eq(Person.document_types.count)
+      expect(options.count).to eq(Person.document_types.count)
     end
 
     it "returns document type options well formatted" do
-      expect(PersonDecorator.document_type_options.map(&:count).uniq).to eq([2])
+      expect(options.map(&:count).uniq).to eq([2])
     end
   end
 
   context "when person is cancelled" do
     let(:person) { build(:person, :cancelled, first_name: "María", last_name1: "Pérez", last_name2: "García") }
 
-    describe "name" do
-      it "returns the anonymized last names always" do
-        expect(subject.last_name1).to eq("P.")
-        expect(subject.last_name2).to eq("G.")
-        expect(subject.last_names).to eq("P. G.")
-      end
-
-      it "returns the anonymized last names always" do
-        expect(subject.full_name).to eq("P. G., María")
-      end
-
-      it "returns the anonymized last names always" do
-        expect(subject.name).to eq("P. G., María")
-      end
+    describe "names anonymization" do
+      it { expect(subject.last_name1).to eq("P.") }
+      it { expect(subject.last_name2).to eq("G.") }
+      it { expect(subject.last_names).to eq("P. G.") }
+      it { expect(subject.full_name).to eq("P. G., María") }
+      it { expect(subject.name).to eq("P. G., María") }
     end
 
     describe "sensible fields" do

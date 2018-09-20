@@ -69,6 +69,7 @@ module ProcedureStates
 
     def full_acceptable_by?(processor)
       return false unless processor&.person_id != person_id && acceptable?
+
       process_accept
       ret = dependent_procedures.all? do |dependent_procedure|
         dependent_procedure.person = person # synchronize child person status with parent person

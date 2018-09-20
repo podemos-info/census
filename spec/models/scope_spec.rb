@@ -3,9 +3,9 @@
 require "rails_helper"
 
 describe Scope, :db do
-  let(:scope) { build(:scope) }
-
   subject { scope }
+
+  let(:scope) { build(:scope) }
 
   matcher :match_scopes do |expected|
     match do |results|
@@ -21,54 +21,69 @@ describe Scope, :db do
 
   it { is_expected.to be_valid }
 
-  context "local scope" do
-    let!(:scope) { create(:local_scope) }
+  describe "#local" do
+    subject { Scope.local }
 
-    it "#local returns configured scope" do
-      expect(Scope.local).to eq scope
-    end
+    before { scope }
+
+    let(:scope) { create(:local_scope) }
+
+    it { is_expected.to eq scope }
   end
 
-  context "hierarchies" do
+  context "with scope hierarchies" do
+    before { grand_child_scope && other_scope }
+
     let(:scope) { create(:scope) }
     let(:child_scope) { create(:scope, parent: scope) }
-    let!(:grand_child_scope) { create(:scope, parent: child_scope) }
-    let!(:other_scope) { create(:local_scope) }
+    let(:grand_child_scope) { create(:scope, parent: child_scope) }
+    let(:other_scope) { create(:local_scope) }
 
-    it "#top_level returns top level scopes" do
-      expect(Scope.top_level).to match_scopes [scope, other_scope]
+    describe "#top_level" do
+      subject { Scope.top_level }
+
+      it { is_expected .to match_scopes [scope, other_scope] }
     end
 
-    context "#descendants" do
-      it "returns scope and its children" do
-        expect(subject.descendants).to match_scopes [scope, child_scope, grand_child_scope]
+    describe "#descendants" do
+      subject { scope.descendants }
+
+      it { is_expected.to match_scopes [scope, child_scope, grand_child_scope] }
+
+      context "with a child scope" do
+        subject { child_scope.descendants }
+
+        it { is_expected.to match_scopes [child_scope, grand_child_scope] }
       end
 
-      it "returns only the scope when there are no children" do
-        expect(other_scope.descendants).to match_scopes [other_scope]
-      end
+      context "with an unrelated scope" do
+        subject { other_scope.descendants }
 
-      it "does not return the ancestors" do
-        expect(child_scope.descendants).to match_scopes [child_scope, grand_child_scope]
-      end
-    end
-
-    context "#not_descendants" do
-      it "does not include the scope or its descendants" do
-        expect(scope.not_descendants).to match_scopes [other_scope]
-      end
-
-      it "includes scope ancestors" do
-        expect(child_scope.not_descendants).to match_scopes [scope, other_scope]
+        it { is_expected.to match_scopes [other_scope] }
       end
     end
 
-    context "#part_of_scopes" do
-      it "include the scope and its ancestors in descending order" do
-        expect(grand_child_scope.part_of_scopes).to eq_scopes [scope, child_scope, grand_child_scope]
+    describe "#not_descendants" do
+      subject { scope.not_descendants }
+
+      it { is_expected.to match_scopes [other_scope] }
+
+      context "with a child scope" do
+        subject { child_scope.not_descendants }
+
+        it { is_expected.to match_scopes [scope, other_scope] }
       end
-      it "include the scope and its ancestors until the root scope" do
-        expect(grand_child_scope.part_of_scopes(scope)).to eq_scopes [child_scope, grand_child_scope]
+    end
+
+    describe "#part_of_scopes" do
+      subject { grand_child_scope.part_of_scopes }
+
+      it { is_expected.to eq_scopes [scope, child_scope, grand_child_scope] }
+
+      context "with a root scope as a parameter" do
+        subject { grand_child_scope.part_of_scopes(scope) }
+
+        it { is_expected.to eq_scopes [child_scope, grand_child_scope] }
       end
     end
   end

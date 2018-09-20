@@ -24,7 +24,7 @@ describe Payments::CreateOrdersBatch do
     end
 
     it "saves the order" do
-      expect { subject } .to change { OrdersBatch.count } .by(1)
+      expect { subject } .to change(OrdersBatch, :count).by(1)
     end
   end
 
@@ -36,7 +36,7 @@ describe Payments::CreateOrdersBatch do
     end
 
     it "doesn't save the orders batch" do
-      expect { subject } .not_to change { OrdersBatch.count }
+      expect { subject } .not_to change(OrdersBatch, :count)
     end
 
     it "doesn't modify the orders for the orders batch" do
@@ -52,7 +52,7 @@ describe Payments::CreateOrdersBatch do
     end
 
     it "doesn't save the orders batch" do
-      expect { subject } .not_to change { OrdersBatch.count }
+      expect { subject } .not_to change(OrdersBatch, :count)
     end
   end
 
@@ -64,7 +64,7 @@ describe Payments::CreateOrdersBatch do
     end
 
     it "doesn't save the orders batch" do
-      expect { subject } .not_to change { OrdersBatch.count }
+      expect { subject } .not_to change(OrdersBatch, :count)
     end
 
     it "doesn't modify the orders for the orders batch" do

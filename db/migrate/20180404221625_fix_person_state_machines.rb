@@ -1,11 +1,23 @@
 # frozen_string_literal: true
 
 class FixPersonStateMachines < ActiveRecord::Migration[5.1]
-  def change
-    remove_column :people, :membership_level, :string
-    remove_column :people, :verifications, :integer
+  def up
+    change_table :people, bulk: true do |t|
+      t.remove :membership_level
+      t.remove :verifications
 
-    add_column :people, :verification, :integer
-    add_column :people, :membership_level, :integer
+      t.integer :verification
+      t.integer :membership_level
+    end
+  end
+
+  def down
+    change_table :people, bulk: true do |t|
+      t.remove :membership_level
+      t.remove :verification
+
+      t.integer :verifications
+      t.string :membership_level
+    end
   end
 end

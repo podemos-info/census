@@ -6,11 +6,13 @@ describe PeopleController, type: :controller do
   render_views
   include_context "devise login"
 
+  before { person && issue }
+
   let(:resource_class) { Person }
   let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
   let(:resource) { all_resources[resource_class] }
-  let!(:person) { create(:person) }
-  let!(:issue) { create(:duplicated_document) } # creates a pending person with a procedure and an issue
+  let(:person) { create(:person) }
+  let(:issue) { create(:duplicated_document) } # creates a pending person with a procedure and an issue
   let(:current_admin) { create(:admin, :data) }
 
   it "defines actions" do
@@ -27,31 +29,40 @@ describe PeopleController, type: :controller do
 
   describe "index page" do
     subject { get :index, params: params }
+
     let(:params) { {} }
 
     it { is_expected.to be_successful }
     it { is_expected.to render_template("index") }
 
-    context "pending people" do
+    context "when filtered by pending people" do
       let(:params) { { scope: "pending" } }
+
       it { is_expected.to be_successful }
     end
-    context "ordered by full_name" do
+
+    context "when ordered by full_name" do
       let(:params) { { order: "full_name_desc" } }
+
       it { is_expected.to be_successful }
     end
-    context "ordered by full_document" do
+
+    context "when ordered by full_document" do
       let(:params) { { order: "full_document_asc" } }
+
       it { is_expected.to be_successful }
     end
-    context "ordered by scope" do
+
+    context "when ordered by scope" do
       let(:params) { { order: "scope_desc" } }
+
       it { is_expected.to be_successful }
     end
   end
 
   describe "edit page" do
     subject { get :edit, params: { id: person.id } }
+
     it { is_expected.to be_successful }
     it { is_expected.to render_template("edit") }
   end
@@ -63,7 +74,10 @@ describe PeopleController, type: :controller do
 
     describe "show page" do
       subject { get :show, params: { id: person.id } }
-      let!(:download) { create(:download, person: person) }
+
+      before { download }
+
+      let(:download) { create(:download, person: person) }
 
       it { is_expected.to be_successful }
       it { is_expected.to render_template("show") }
@@ -71,8 +85,10 @@ describe PeopleController, type: :controller do
       include_examples "has comments enabled"
 
       context "when accessing as finances admin" do
+        before { order }
+
         let(:current_admin) { create(:admin, :finances) }
-        let!(:order) { create(:order, person: person) }
+        let(:order) { create(:order, person: person) }
 
         it { is_expected.to be_successful }
         it { is_expected.to render_template("show") }
@@ -84,11 +100,12 @@ describe PeopleController, type: :controller do
         person.assign_attributes first_name: first_name
         patch :update, params: { id: person.id, person: person.attributes }
       end
+
       let(:first_name) { "changed" }
 
       it { is_expected.to have_http_status(:found) }
       it { expect(subject.location).to eq(person_url(person.id)) }
-      it { expect { subject } .to change { person.first_name }.from("original").to("changed") }
+      it { expect { subject } .to change(person, :first_name).from("original").to("changed") }
 
       context "when nothing changes" do
         let(:first_name) { person.first_name }
@@ -131,11 +148,11 @@ describe PeopleController, type: :controller do
           .to("Se ha enviado la solicitud de verificación a <a href=\"/people/#{person.id}\">#{person.id}</a>.")
       end
 
-      it "should change the person verification state" do
+      it "changes the person verification state" do
         expect { subject } .to change { person.reload.verification } .from("not_verified").to("verification_requested")
       end
 
-      context "trying to request verification to a verified person" do
+      context "when trying to request verification to a verified person" do
         let(:person) { create(:person, :verified) }
 
         it { is_expected.to redirect_to(person_path(person)) }
@@ -170,6 +187,7 @@ describe PeopleController, type: :controller do
 
       context "when submitting data" do
         subject { patch :cancellation, params: { id: person.id, channel: channel, reason: reason } }
+
         let(:channel) { "email" }
         let(:reason) { "Razones de peso" }
 
@@ -181,7 +199,7 @@ describe PeopleController, type: :controller do
             .to("Se ha creado el procedimiento de baja.")
         end
 
-        it "should change the person state" do
+        it "changes the person state" do
           perform_enqueued_jobs do
             expect { subject } .to change { person.reload.state } .from("enabled").to("cancelled")
           end

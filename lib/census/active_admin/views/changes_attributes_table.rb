@@ -19,6 +19,7 @@ module Census
 
         def chrow(field, machine: nil, change_field: field, &block)
           return if @mode == :changes && !@changes[change_field]
+
           if machine
             state_row(field, machine: machine, class: @changes[change_field], &block)
           else

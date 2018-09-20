@@ -8,11 +8,13 @@ describe OrdersBatchesController, type: :controller do
 
   subject(:resource) { all_resources[resource_class] }
 
+  before { pending_order }
+
   let(:resource_class) { OrdersBatch }
   let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
   let(:force_valid_bic) { true }
   let(:orders_batch) { create(:orders_batch) }
-  let!(:pending_order) { create(:order) }
+  let(:pending_order) { create(:order) }
   let(:current_admin) { create(:admin, :finances) }
 
   it "defines actions" do
@@ -29,6 +31,7 @@ describe OrdersBatchesController, type: :controller do
 
   describe "index page" do
     subject(:page) { get :index }
+
     it { is_expected.to be_successful }
     it { is_expected.to render_template("index") }
   end
@@ -36,11 +39,13 @@ describe OrdersBatchesController, type: :controller do
   with_versioning do
     describe "show page" do
       subject(:page) { get :show, params: { id: orders_batch.id } }
+
       it { is_expected.to be_successful }
       it { is_expected.to render_template("show") }
 
       context "with orders with issues" do
         let(:orders_batch) { create(:orders_batch, :with_issues) }
+
         it { is_expected.to be_successful }
         it { is_expected.to render_template("show") }
       end
@@ -54,7 +59,7 @@ describe OrdersBatchesController, type: :controller do
     it { is_expected.to render_template("new") }
 
     context "without pending orders" do
-      let!(:pending_order) { nil }
+      let(:pending_order) { nil }
 
       it "alert the user that a new orders batch can't be created" do
         expect { subject } .to change { flash[:alert] } .from(nil).to("No hay órdenes pendientes para incluir en el lote de órdenes")
@@ -67,8 +72,10 @@ describe OrdersBatchesController, type: :controller do
 
   describe "create page" do
     subject { put :create, params: { orders_batch: { description: orders_batch.description, orders_from: 1.year.ago, orders_to: Time.zone.today } } }
+
     let(:orders_batch) { build(:orders_batch) }
-    it { expect { subject } .to change { OrdersBatch.count }.by(1) }
+
+    it { expect { subject } .to change(OrdersBatch, :count).by(1) }
     it { is_expected.to have_http_status(:found) }
     it { expect(subject.location).to eq(orders_batch_url(OrdersBatch.last)) }
 
@@ -85,6 +92,7 @@ describe OrdersBatchesController, type: :controller do
 
   describe "edit page" do
     subject { get :edit, params: { id: orders_batch.id } }
+
     it { is_expected.to be_successful }
     it { expect(subject).to render_template("edit") }
   end
@@ -99,8 +107,9 @@ describe OrdersBatchesController, type: :controller do
       expect { subject } .to change { flash[:notice] } .from(nil).to("El lote de órdenes está siendo procesado.")
     end
 
-    context "created job" do
+    context "with created job" do
       subject(:job_record) { Job.last }
+
       before { page }
 
       it { is_expected.to be_enqueued }
@@ -111,6 +120,7 @@ describe OrdersBatchesController, type: :controller do
 
   describe "review orders orders batch" do
     subject(:page) { get :review_orders, params: { id: orders_batch.id } }
+
     context "without orders with issues" do
       it "success" do
         is_expected.to have_http_status(:found)
@@ -124,9 +134,11 @@ describe OrdersBatchesController, type: :controller do
 
       context "when submit pending bics" do
         subject(:page) { post :review_orders, params: { id: orders_batch.id, pending_bics: pending_bics } }
+
         let(:pending_bics) do
           Hash[orders_batch.orders.map do |order|
             next unless order.payment_method.is_a?(PaymentMethods::DirectDebit) && order.payment_method.bic.nil?
+
             iban_parts = IbanBic.parse(order.payment_method.iban)
             ["#{iban_parts[:country]}_#{iban_parts[:bank]}", "ABCD#{iban_parts[:country]}XX"]
           end .compact]

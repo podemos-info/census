@@ -21,6 +21,7 @@ module Procedures
 
     def persist_changes!
       return unless person.has_changes_to_save?
+
       person.save!
       ::People::ChangesPublisher.full_status_changed!(person)
     end

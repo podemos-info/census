@@ -4,17 +4,12 @@ require "rails_helper"
 
 describe Procedures::MembershipLevelChange, :db do
   subject(:procedure) { create(:membership_level_change, :ready_to_process, person: person, to_membership_level: "member") }
+
   let!(:person) { create(:person, :verified) }
 
   it { is_expected.to be_valid }
-
-  it "is acceptable" do
-    is_expected.to be_acceptable
-  end
-
-  it "is auto_processable" do
-    is_expected.to be_auto_processable
-  end
+  it { is_expected.to be_acceptable }
+  it { is_expected.to be_auto_processable }
 
   context "when accepted" do
     subject(:accepting) { procedure.accept! }
@@ -42,23 +37,24 @@ describe Procedures::MembershipLevelChange, :db do
     subject(:rejecting) { procedure.reject! }
 
     it "rejection does not changes person membership level" do
-      expect { subject } .to_not change { Person.find(person.id).membership_level }
+      expect { subject } .not_to change { Person.find(person.id).membership_level }
     end
 
     it_behaves_like "an event not notifiable with hutch"
   end
 
   context "when the target membership level is not allowed" do
-    let!(:person) { create(:person) }
+    before { person }
 
-    it "#acceptable? returns false" do
-      is_expected.not_to be_acceptable
-    end
+    let(:person) { create(:person) }
+
+    it { is_expected.not_to be_acceptable }
   end
 
   with_versioning do
-    context "after accepting the procedure" do
+    context "when has accepted the procedure" do
       subject(:undo) { procedure.undo! }
+
       before { procedure.accept! }
 
       it "undo revert person membership evel to previous value" do
@@ -66,12 +62,13 @@ describe Procedures::MembershipLevelChange, :db do
       end
     end
 
-    context "after rejecting the procedure" do
+    context "when has rejected the procedure" do
       subject(:undo) { procedure.undo! }
+
       before { procedure.reject! }
 
       it "undo does not change person membership level" do
-        expect { subject } .to_not change { Person.find(person.id).membership_level }
+        expect { subject } .not_to change { Person.find(person.id).membership_level }
       end
     end
   end

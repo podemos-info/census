@@ -6,6 +6,7 @@ class PaymentMethodSerializer < ActiveModel::Serializer
   def status
     return "inactive" unless object.active?
     return "incomplete" unless object.complete?
+
     "active"
   end
 end

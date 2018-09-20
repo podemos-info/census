@@ -71,14 +71,20 @@ describe CallbacksController, type: :controller do
     </SOAP-ENV:Envelope>
   XML
 
-  context "redsys payment callbacks" do
+  describe "redsys payment callbacks" do
     subject(:page) { post :payments, params: { payment_processor: :redsys }, body: redsys_response.to_s }
-    let!(:person) { create(:person, id: 1) }
+
+    before do
+      Timecop.freeze(now)
+      person && order
+    end
+
+    after { Timecop.return }
+
+    let(:person) { create(:person, id: 1) }
     let(:now) { Time.zone.local(2017, 11, 22, 14, 5) }
-    let!(:order) { create(:order, :external, id: order_id) }
+    let(:order) { create(:order, :external, id: order_id) }
     let(:order_id) { 671 }
-    before(:each) { Timecop.freeze(now) }
-    after(:each) { Timecop.return }
 
     context "when redsys response is correct" do
       let(:redsys_response) { OK_REQUEST }
@@ -160,7 +166,7 @@ describe CallbacksController, type: :controller do
         expect { subject } .to change { order.reload.payment_method.response_code } .to("0184")
       end
       it "does not create a new issue" do
-        expect { subject } .not_to change { Issue.count }
+        expect { subject } .not_to change(Issue, :count)
       end
       it "responds a KO WSDL message" do
         expect(subject.body.delete("\n")) .to eq ERROR_RESPONSE

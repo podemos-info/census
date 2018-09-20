@@ -14,8 +14,8 @@ describe Orders::CreditCardAuthorizedOrderForm do
       expiration_month: expiration_month
     )
   end
-  let(:order) { build(:order, :external_verified) }
 
+  let(:order) { build(:order, :external_verified) }
   let(:person_id) { order.person.id }
   let(:description) { order.description }
   let(:amount) { order.amount }
@@ -28,16 +28,19 @@ describe Orders::CreditCardAuthorizedOrderForm do
 
   context "without authorization token" do
     let(:authorization_token) { nil }
+
     it { is_expected.to be_invalid }
   end
 
   context "without expiration year" do
     let(:expiration_year) { nil }
+
     it { is_expected.to be_invalid }
   end
 
   context "without expiration month" do
     let(:expiration_month) { nil }
+
     it { is_expected.to be_invalid }
   end
 

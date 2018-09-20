@@ -12,9 +12,9 @@ describe Orders::ExistingPaymentMethodOrderForm do
       payment_method_id: payment_method_id
     )
   end
+
   let(:order) { build(:order) }
   let(:payment_method_id) { create(:credit_card, person: order.person).id }
-
   let(:person_id) { order.person.id }
   let(:description) { order.description }
   let(:amount) { order.amount }
@@ -24,6 +24,7 @@ describe Orders::ExistingPaymentMethodOrderForm do
 
   context "without a payment_method_id" do
     let(:payment_method_id) { nil }
+
     it { is_expected.to be_invalid }
   end
 

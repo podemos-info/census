@@ -3,9 +3,9 @@
 require "rails_helper"
 
 describe ScopeType, :db do
-  let(:scope_type) { build(:scope_type) }
-
   subject { scope_type }
+
+  let(:scope_type) { build(:scope_type) }
 
   it { is_expected.to be_valid }
 end

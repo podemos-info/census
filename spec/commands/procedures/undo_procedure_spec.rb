@@ -30,7 +30,7 @@ describe Procedures::UndoProcedure do
         expect { subject } .to change { Procedure.find(procedure.id).comment } .to(nil)
       end
 
-      context "on dependent procedures" do
+      context "with dependent procedures" do
         let(:procedure) { create(:document_verification, :with_dependent_procedure, :undoable) }
         let(:dependent_procedure) { procedure.dependent_procedures.first }
 
@@ -54,6 +54,7 @@ describe Procedures::UndoProcedure do
 
     context "when undoing a rejected procedure" do
       let(:procedure) { create(:document_verification, :undoable_rejected) }
+
       it "broadcasts :ok" do
         expect { subject } .to broadcast(:ok)
       end
@@ -74,7 +75,7 @@ describe Procedures::UndoProcedure do
         expect { subject } .to change { Procedure.find(procedure.id).comment } .to(nil)
       end
 
-      context "on dependent procedures" do
+      context "with dependent procedures" do
         let(:procedure) { create(:document_verification, :with_dependent_procedure, :undoable_rejected) }
         let(:dependent_procedure) { procedure.dependent_procedures.first }
 
@@ -96,57 +97,56 @@ describe Procedures::UndoProcedure do
       end
     end
 
-    context "when processed_by" do
-      context "is other" do
-        let!(:admin) { create(:admin) }
+    context "when processor is other" do
+      let(:admin) { create(:admin) }
 
-        it "broadcasts :invalid" do
-          expect { subject } .to broadcast(:invalid)
-        end
+      it "broadcasts :invalid" do
+        expect { subject } .to broadcast(:invalid)
+      end
+
+      it "does not revert procedure state" do
+        expect { subject } .not_to change { Procedure.find(procedure.id).state }
+      end
+
+      it "does not revert processed_by" do
+        expect { subject } .not_to change { Procedure.find(procedure.id).processed_by }
+      end
+
+      it "does not revert processing date" do
+        expect { subject } .not_to change { Procedure.find(procedure.id).processed_at }
+      end
+
+      it "does not revert comment" do
+        expect { subject } .not_to change { Procedure.find(procedure.id).comment }
+      end
+
+      context "with dependent procedures" do
+        let(:procedure) { create(:document_verification, :with_dependent_procedure, :undoable) }
+        let(:dependent_procedure) { procedure.dependent_procedures.first }
 
         it "does not revert procedure state" do
-          expect { subject } .to_not change { Procedure.find(procedure.id).state }
+          expect { subject } .not_to change { Procedure.find(dependent_procedure.id).state }
         end
 
         it "does not revert processed_by" do
-          expect { subject } .to_not change { Procedure.find(procedure.id).processed_by }
+          expect { subject } .not_to change { Procedure.find(dependent_procedure.id).processed_by }
         end
 
         it "does not revert processing date" do
-          expect { subject } .to_not change { Procedure.find(procedure.id).processed_at }
+          expect { subject } .not_to change { Procedure.find(dependent_procedure.id).processed_at }
         end
 
         it "does not revert comment" do
-          expect { subject } .to_not change { Procedure.find(procedure.id).comment }
-        end
-
-        context "on dependent procedures" do
-          let(:procedure) { create(:document_verification, :with_dependent_procedure, :undoable) }
-          let(:dependent_procedure) { procedure.dependent_procedures.first }
-
-          it "does not revert procedure state" do
-            expect { subject } .to_not change { Procedure.find(dependent_procedure.id).state }
-          end
-
-          it "does not revert processed_by" do
-            expect { subject } .to_not change { Procedure.find(dependent_procedure.id).processed_by }
-          end
-
-          it "does not revert processing date" do
-            expect { subject } .to_not change { Procedure.find(dependent_procedure.id).processed_at }
-          end
-
-          it "does not revert comment" do
-            expect { subject } .to_not change { Procedure.find(dependent_procedure.id).comment }
-          end
+          expect { subject } .not_to change { Procedure.find(dependent_procedure.id).comment }
         end
       end
+    end
 
-      context "is the affected person" do
-        let(:admin) { build(:admin, person: procedure.person) }
-        it "broadcasts :invalid" do
-          expect { subject }.to broadcast(:invalid)
-        end
+    context "when processor is the affected person" do
+      let(:admin) { build(:admin, person: procedure.person) }
+
+      it "broadcasts :invalid" do
+        expect { subject }.to broadcast(:invalid)
       end
     end
   end

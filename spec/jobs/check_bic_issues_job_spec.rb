@@ -12,6 +12,7 @@ describe CheckBicIssuesJob, type: :job do
 
   context "when everything works ok" do
     let(:job_record) { ActiveJobReporter::Job.last }
+
     it "completes the job" do
       subject
       expect(job_record.result).to eq("ok")

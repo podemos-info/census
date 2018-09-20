@@ -7,6 +7,7 @@ describe DownloadsController, type: :controller do
   include_context "devise login"
 
   subject(:resource) { all_resources[resource_class] }
+
   let(:resource_class) { Download }
   let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
   let!(:person) { create(:person) }
@@ -24,20 +25,23 @@ describe DownloadsController, type: :controller do
     is_expected.not_to be_include_in_menu
   end
 
-  context "index page" do
+  describe "index page" do
     subject { get :index, params: { person_id: person.id } }
+
     it { is_expected.to be_successful }
     it { is_expected.to render_template("index") }
   end
 
-  context "show page" do
+  describe "show page" do
     subject { get :show, params: { person_id: person.id, id: download.id } }
+
     it { is_expected.to be_successful }
     it { is_expected.to render_template("show") }
   end
 
-  context "download file" do
+  describe "download file" do
     subject { get :download, params: { person_id: person.id, id: download.id } }
+
     it { expect(subject).to be_successful }
     it { expect(subject.content_type).to eq("application/pdf") }
     it { expect(subject.body).to eq(download.file.read) }

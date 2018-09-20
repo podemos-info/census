@@ -33,6 +33,7 @@ module PaymentMethods
 
     def expires_at
       return nil unless expiration_year && expiration_month
+
       @expires_at ||= Date.civil(expiration_year.to_i, expiration_month.to_i, 1) + 1.month
     end
 

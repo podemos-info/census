@@ -30,8 +30,8 @@ FactoryBot.define do
     end
     visit_id { visit.id }
     admin { visit.admin }
-    name "page_view"
-    properties controller: "dashboard", action: "index"
+    name { "page_view" }
+    properties { { controller: "dashboard", action: "index" } }
     time { Time.zone.now }
 
     trait :person_view do
@@ -63,11 +63,11 @@ FactoryBot.define do
     postal_code { Faker::Address.postcode }
     latitude { Faker::Address.latitude }
     longitude { Faker::Address.longitude }
-    utm_source ""
-    utm_medium ""
-    utm_term ""
-    utm_content ""
-    utm_campaign ""
+    utm_source { "" }
+    utm_medium { "" }
+    utm_term { "" }
+    utm_content { "" }
+    utm_campaign { "" }
     started_at { Time.zone.now }
   end
 
