@@ -45,7 +45,7 @@ module Payments
     end
 
     def only_allowed_changes?
-      !@bic_record.persisted? || (@bic_record.changed - ["bic"]).empty?
+      !@bic_record.persisted? || (@bic_record.changed - %w(bic)).empty?
     end
   end
 end

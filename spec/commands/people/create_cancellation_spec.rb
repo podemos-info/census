@@ -33,8 +33,9 @@ describe People::CreateCancellation do
     end
 
     describe "the created procedure" do
-      before { command }
       subject(:created_procedure) { Procedures::Cancellation.last }
+
+      before { command }
 
       it "saves the reason" do
         expect(created_procedure.reload.reason).to eq("Because yes!")
@@ -54,7 +55,7 @@ describe People::CreateCancellation do
     end
 
     it "doesn't create the new procedure" do
-      expect { subject } .to_not change { Procedures::Cancellation.count }
+      expect { subject } .not_to change(Procedures::Cancellation, :count)
     end
   end
 
@@ -63,7 +64,7 @@ describe People::CreateCancellation do
     let(:reason) { "changed" }
 
     it "does not create a new procedure" do
-      expect { subject } .not_to change { Procedures::Cancellation.count }
+      expect { subject } .not_to change(Procedures::Cancellation, :count)
     end
 
     it "updates the updated_at column in the existing procedure" do

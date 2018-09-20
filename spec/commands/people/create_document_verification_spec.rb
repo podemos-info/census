@@ -57,7 +57,7 @@ describe People::CreateDocumentVerification do
     end
 
     it "doesn't create the new procedure" do
-      expect { subject } .to_not change { Procedures::DocumentVerification.count }
+      expect { subject } .not_to change(Procedures::DocumentVerification, :count)
     end
 
     it_behaves_like "an event not notifiable with hutch"
@@ -69,7 +69,7 @@ describe People::CreateDocumentVerification do
     let(:files) { [build(:attachment, :non_image).file, build(:attachment).file] }
 
     it "does not create a new procedure" do
-      expect { subject } .not_to change { Procedures::DocumentVerification.count }
+      expect { subject } .not_to change(Procedures::DocumentVerification, :count)
     end
 
     it "updates the updated_at column in the existing procedure" do

@@ -13,19 +13,18 @@ describe EventDecorator do
   describe "#description" do
     subject(:method) { decorator.description }
 
-    context "dashboard view" do
-      it { is_expected.to eq("") }
-    end
+    it { is_expected.to eq("") }
 
-    context "person view" do
+    context "when is a person event" do
       let(:event) { create(:event, :person_view, person: person) }
+
       it { is_expected.to eq("<a href=\"/people/#{person.id}\">#{decorated_person.full_name}</a>") }
-    end
 
-    context "cancelled person view" do
-      let(:event) { create(:event, :person_view, person: person) }
-      let(:person) { create(:person, :cancelled) }
-      it { is_expected.to eq(decorated_person.full_name) }
+      context "when person is cancelled" do
+        let(:person) { create(:person, :cancelled) }
+
+        it { is_expected.to eq(decorated_person.full_name) }
+      end
     end
   end
 end

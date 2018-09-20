@@ -4,10 +4,12 @@ require "rails_helper"
 
 describe IssueDecorator do
   subject(:decorator) { issue.decorate(context: { current_admin: admin }) }
+
   let(:admin) { build(:admin) }
 
   describe "#description" do
     subject(:method) { decorator.description }
+
     context "when has a text description" do
       let(:issue) { build(:issue, description: "a description") }
 

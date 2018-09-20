@@ -32,6 +32,7 @@ module Issues
       def do_the_fix
         people.each do |person|
           next if trusted?
+
           person.send("fraud_detected")
           person.save!
           ::People::ChangesPublisher.full_status_changed!(person)

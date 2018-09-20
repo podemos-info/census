@@ -25,6 +25,7 @@ class JobDecorator < ApplicationDecorator
 
   def result_name
     return "" unless object.result
+
     I18n.t("census.jobs.result.#{object.result}")
   end
 

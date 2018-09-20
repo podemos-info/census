@@ -207,6 +207,7 @@ describe People::RegistrationForm do
 
       context "when postal code is invalid" do
         let(:postal_code) { "01234" }
+
         it "is invalid" do
           expect(subject).not_to be_valid
         end

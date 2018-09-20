@@ -67,16 +67,17 @@ describe People::CreateRegistration do
       end
 
       it "create a new person" do
-        expect { subject } .to change { Person.count } .by(1)
+        expect { subject } .to change(Person, :count).by(1)
       end
 
       it "create a new procedure to register the person" do
-        expect { subject } .to change { Procedures::Registration.count } .by(1)
+        expect { subject } .to change(Procedures::Registration, :count).by(1)
       end
 
       describe "the created procedure" do
-        before { command }
         subject(:created_procedure) { Procedures::Registration.last }
+
+        before { command }
 
         [:first_name, :last_name1, :last_name2, :document_type, :document_id, :born_at, :gender, :address,
          :postal_code, :email, :phone, :scope_id, :address_scope_id, :document_scope_id, :external_ids].each do |column|
@@ -95,7 +96,7 @@ describe People::CreateRegistration do
       end
 
       it "doesn't create the new procedure" do
-        expect { subject } .to_not change { Procedures::Registration.count }
+        expect { subject } .not_to change(Procedures::Registration, :count)
       end
     end
 
@@ -104,7 +105,7 @@ describe People::CreateRegistration do
       let!(:procedure) { create(:registration, person: existing_person) }
 
       it "does not create a new procedure" do
-        expect { subject } .not_to change { Procedures::Registration.count }
+        expect { subject } .not_to change(Procedures::Registration, :count)
       end
 
       describe "the updated procedure" do

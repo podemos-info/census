@@ -15,7 +15,7 @@ describe Issues::CheckIssues do
     end
 
     it "doesn't create new issues" do
-      expect { subject } .not_to change { Issue.count }
+      expect { subject } .not_to change(Issue, :count)
     end
   end
 
@@ -42,24 +42,21 @@ describe Issues::CheckIssues do
   end
 
   context "when an unfixed issue for this document exists" do
-    let!(:same_person) { create(:person, :copy, from: person) }
-    let(:more_people) { create(:person, :copy, from: person) }
     before do
+      same_person
       described_class.call(issuable: procedure, admin: admin)
       more_people
     end
+
+    let(:same_person) { create(:person, :copy, from: person) }
+    let(:more_people) { create(:person, :copy, from: person) }
 
     it "broadcast :existing_issue" do
       expect { subject } .to broadcast(:existing_issue)
     end
 
     it "doesn't create new issues" do
-      expect { subject } .not_to change { Issue.count }
-    end
-
-    it "relate the person to the existing issue" do
-      subject
-      expect(Issues::People::DuplicatedDocument.last.people).to contain_exactly(procedure.person, same_person, more_people)
+      expect { subject } .not_to change(Issue, :count)
     end
 
     it "relate the person to the existing issue" do
@@ -69,19 +66,21 @@ describe Issues::CheckIssues do
   end
 
   context "when an unfixed issue for this document existed, but is fixed now" do
-    let!(:same_person) { create(:person, :copy, from: person) }
-    let(:other_person) { build(:person) }
     before do
+      same_person
       described_class.call(issuable: procedure, admin: admin)
       same_person.update!(document_id: other_person.document_id)
     end
+
+    let(:same_person) { create(:person, :copy, from: person) }
+    let(:other_person) { build(:person) }
 
     it "broadcast :gone_issue" do
       expect { subject } .to broadcast(:gone_issue)
     end
 
     it "doesn't create new issues" do
-      expect { subject } .not_to change { Issue.count }
+      expect { subject } .not_to change(Issue, :count)
     end
 
     it "closes the existing issue" do
@@ -89,7 +88,7 @@ describe Issues::CheckIssues do
     end
 
     it "keeps the issue related objects before fixing it" do
-      expect { subject } .not_to change { Issue.last.people }
+      expect { subject } .not_to change { Issue.last.person_ids }
     end
   end
 end

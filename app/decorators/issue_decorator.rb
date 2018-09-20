@@ -50,7 +50,7 @@ class IssueDecorator < ApplicationDecorator
   end
 
   def classed_relevant_attributes
-    @classed_relevant_attributes ||= object.class.stored_attributes[:information].zip(["relevant"].cycle).to_h
+    @classed_relevant_attributes ||= object.class.stored_attributes[:information].zip(%w(relevant).cycle).to_h
   end
 
   def fix_attributes

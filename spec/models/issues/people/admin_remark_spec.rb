@@ -4,12 +4,14 @@ require "rails_helper"
 
 describe Issues::People::AdminRemark, :db do
   subject(:issue) { create(:admin_remark) }
+
   let(:procedure_person) { issue.procedure.person }
 
   it { is_expected.to be_valid }
 
   describe "#fill" do
     subject(:fill) { issue.fill }
+
     let(:issue) { create(:admin_remark, :not_evaluated) }
 
     it "stores the affected people array" do
@@ -26,7 +28,7 @@ describe Issues::People::AdminRemark, :db do
       before { procedure_person.trash }
 
       it "returns false" do
-        is_expected.to_not be_detected
+        is_expected.not_to be_detected
       end
     end
   end
@@ -37,6 +39,7 @@ describe Issues::People::AdminRemark, :db do
       issue.comment = comment
       issue.fix!
     end
+
     let(:comment) { Faker::Lorem.paragraph(1, true, 2) }
 
     context "when marks issue as fixed" do

@@ -8,6 +8,7 @@ describe VersionsController, type: :controller do
 
   with_versioning do
     subject(:resource) { all_resources[resource_class] }
+
     let(:resource_class) { Version }
     let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
     let!(:order_version) { create(:version, :order) }
@@ -28,13 +29,16 @@ describe VersionsController, type: :controller do
 
     describe "index page" do
       subject { get :index }
+
       it { is_expected.to be_successful }
       it { is_expected.to render_template("index") }
     end
 
     describe "show page" do
       subject { get :show, params: { id: version.id } }
+
       let(:version) { person_version }
+
       it { is_expected.to be_successful }
       it { is_expected.to render_template("show") }
 

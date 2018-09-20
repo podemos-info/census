@@ -105,7 +105,7 @@ ActiveAdmin.register Person do
 
   sidebar :issues, partial: "people/issues", only: :show, if: -> { person.issues.any? }
   sidebar :procedures, partial: "people/procedures", only: :show, if: -> { policy(Procedure).index? && person.procedures.any? }
-  sidebar :orders, partial: "people/orders", only: :show, if: -> { policy(Order).index? && person.orders.any? }
+  sidebar :orders, partial: "people/orders", only: :show, if: -> { policy(Order).index? }
   sidebar :downloads, partial: "people/downloads", only: :show, if: -> { policy(Download).index? && person.downloads.any? }
   sidebar :versions, partial: "people/versions", only: :show, if: -> { policy(Version).index? && person.versions.any? }
 

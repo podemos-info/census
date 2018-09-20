@@ -47,7 +47,7 @@ describe Procedures::ProcessProcedure do
       expect { subject } .to change { Procedure.find(procedure.id).comment } .to("This is a comment")
     end
 
-    context "on dependent procedures" do
+    context "with dependent procedures" do
       let!(:procedure) { create(:document_verification, :with_dependent_procedure) }
       let(:dependent_procedure) { procedure.dependent_procedures.first }
 
@@ -71,6 +71,7 @@ describe Procedures::ProcessProcedure do
 
   context "when adding an issue" do
     let(:action) { :issue }
+
     it "broadcasts :issue_ok" do
       expect { subject } .to broadcast(:issue_ok)
     end
@@ -121,39 +122,39 @@ describe Procedures::ProcessProcedure do
     end
 
     it "does not update procedure state" do
-      expect { subject } .to_not change { Procedure.find(procedure.id).state }
+      expect { subject } .not_to change { Procedure.find(procedure.id).state }
     end
 
     it "does not set processed_by" do
-      expect { subject } .to_not change { Procedure.find(procedure.id).processed_by }
+      expect { subject } .not_to change { Procedure.find(procedure.id).processed_by }
     end
 
     it "does not set processing date" do
-      expect { subject } .to_not change { Procedure.find(procedure.id).processed_at }
+      expect { subject } .not_to change { Procedure.find(procedure.id).processed_at }
     end
 
     it "does not update comment" do
-      expect { subject } .to_not change { Procedure.find(procedure.id).comment }
+      expect { subject } .not_to change { Procedure.find(procedure.id).comment }
     end
 
-    context "on dependent procedures" do
+    context "with dependent procedures" do
       let(:procedure) { create(:document_verification, :with_dependent_procedure) }
       let(:dependent_procedure) { procedure.dependent_procedures.first }
 
       it "does not update procedure state" do
-        expect { subject } .to_not change { Procedure.find(dependent_procedure.id).state }
+        expect { subject } .not_to change { Procedure.find(dependent_procedure.id).state }
       end
 
       it "does not set processed_by" do
-        expect { subject } .to_not change { Procedure.find(dependent_procedure.id).processed_by }
+        expect { subject } .not_to change { Procedure.find(dependent_procedure.id).processed_by }
       end
 
       it "does not set processing date" do
-        expect { subject } .to_not change { Procedure.find(dependent_procedure.id).processed_at }
+        expect { subject } .not_to change { Procedure.find(dependent_procedure.id).processed_at }
       end
 
       it "does not update comment" do
-        expect { subject } .to_not change { Procedure.find(dependent_procedure.id).comment }
+        expect { subject } .not_to change { Procedure.find(dependent_procedure.id).comment }
       end
     end
   end
@@ -166,19 +167,19 @@ describe Procedures::ProcessProcedure do
     end
 
     it "does not update procedure state" do
-      expect { subject } .to_not change { Procedure.find(procedure.id).state }
+      expect { subject } .not_to change { Procedure.find(procedure.id).state }
     end
 
     it "does not set processed_by" do
-      expect { subject } .to_not change { Procedure.find(procedure.id).processed_by }
+      expect { subject } .not_to change { Procedure.find(procedure.id).processed_by }
     end
 
     it "does not set processing date" do
-      expect { subject } .to_not change { Procedure.find(procedure.id).processed_at }
+      expect { subject } .not_to change { Procedure.find(procedure.id).processed_at }
     end
 
     it "does not update comment" do
-      expect { subject } .to_not change { Procedure.find(procedure.id).comment }
+      expect { subject } .not_to change { Procedure.find(procedure.id).comment }
     end
   end
 end

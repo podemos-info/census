@@ -30,7 +30,7 @@ describe UpdateProcedureJob, type: :job do
       end
 
       it "doesn't create new issues" do
-        expect { subject } .not_to change { Issue.count }
+        expect { subject } .not_to change(Issue, :count)
       end
 
       it "closes the existing issue" do
@@ -38,7 +38,7 @@ describe UpdateProcedureJob, type: :job do
       end
 
       it "keeps the issue related objects before fixing it" do
-        expect { subject } .not_to change { open_issue.reload.people }
+        expect { subject } .not_to change { open_issue.reload.person_ids }
       end
     end
 
@@ -54,7 +54,7 @@ describe UpdateProcedureJob, type: :job do
       end
 
       it "doesn't create new issues" do
-        expect { subject } .not_to change { Issue.count }
+        expect { subject } .not_to change(Issue, :count)
       end
 
       it "closes the existing issue" do
@@ -62,7 +62,7 @@ describe UpdateProcedureJob, type: :job do
       end
 
       it "keeps the issue related objects before fixing it" do
-        expect { subject } .not_to change { open_issue.reload.people }
+        expect { subject } .not_to change { open_issue.reload.person_ids }
       end
     end
   end

@@ -6,6 +6,7 @@ CHANGING_COLUMNS = [:first_name, :last_name1, :last_name2, :scope_id, :address_s
 
 describe Procedures::PersonDataChange, :db do
   subject(:procedure) { create(:person_data_change, :ready_to_process, person_copy_data: person, changing_columns: changing_columns) }
+
   let(:changing_columns) { CHANGING_COLUMNS }
   let(:admin) { create(:admin) }
   let(:person) do
@@ -13,21 +14,13 @@ describe Procedures::PersonDataChange, :db do
   end
 
   it { is_expected.to be_valid }
-
-  it "is acceptable" do
-    is_expected.to be_acceptable
-  end
-
-  it "is fully acceptable" do
-    expect(subject.full_acceptable_by?(admin)).to be_truthy
-  end
-
-  it "is auto_processable" do
-    is_expected.to be_auto_processable
-  end
+  it { is_expected.to be_acceptable }
+  it { is_expected.to be_full_acceptable_by(admin) }
+  it { is_expected.to be_auto_processable }
 
   context "when accepted" do
     subject(:accepting) { procedure.accept! }
+
     CHANGING_COLUMNS.each do |attribute|
       it "sets #{attribute}" do
         expect { subject } .to change { procedure.person.send(attribute) } .to(person.send(attribute))
@@ -48,7 +41,7 @@ describe Procedures::PersonDataChange, :db do
       end
     end
 
-    context "and scope column is not modified" do
+    context "when scope column is not modified" do
       let(:changing_columns) { CHANGING_COLUMNS - [:scope_id] }
 
       it_behaves_like "an event not notifiable with hutch"
@@ -68,16 +61,19 @@ describe Procedures::PersonDataChange, :db do
   end
 
   with_versioning do
-    context "after accepting the procedure" do
+    context "when has accepted the procedure" do
       subject(:undo) { procedure.undo! }
+
       before do
-        @previous_person = procedure.person.attributes.with_indifferent_access
+        previous_person
         procedure.accept!
       end
 
+      let(:previous_person) { procedure.person.attributes.with_indifferent_access }
+
       CHANGING_COLUMNS.each do |attribute|
         it "undoes unsets #{attribute}" do
-          expect { subject } .to change { procedure.person.send(attribute) } .from(person.send(attribute)).to(@previous_person[attribute])
+          expect { subject } .to change { procedure.person.send(attribute) } .from(person.send(attribute)).to(previous_person[attribute])
         end
       end
     end

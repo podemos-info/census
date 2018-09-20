@@ -10,6 +10,7 @@ describe Orders::OrdersBatchForm do
       orders_to: orders_to
     )
   end
+
   let(:orders_batch) { build(:orders_batch) }
   let(:orders_from) { 1.year.ago }
   let(:orders_to) { Time.zone.now }

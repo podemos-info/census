@@ -2,7 +2,9 @@
 
 class AddMetadataToScopes < ActiveRecord::Migration[5.2]
   def change
-    add_column :scopes, :mappings, :jsonb, default: {}, null: false
-    add_column :scopes, :metadata, :jsonb, default: {}, null: false
+    change_table :scopes, bulk: true do |t|
+      t.jsonb :mappings, default: {}, null: false
+      t.jsonb :metadata, default: {}, null: false
+    end
   end
 end

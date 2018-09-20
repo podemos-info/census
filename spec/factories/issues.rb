@@ -7,8 +7,8 @@ FactoryBot.define do
 
   factory :issue do
     transient do
-      issuable nil
-      evaluated true
+      issuable { nil }
+      evaluated { true }
     end
     level { "medium" }
 
@@ -17,7 +17,7 @@ FactoryBot.define do
     end
 
     trait :not_evaluated do
-      evaluated false
+      evaluated { false }
     end
 
     trait :fixed do
@@ -57,7 +57,7 @@ FactoryBot.define do
     document_scope_id { other_person.document_scope_id }
 
     trait :ready_to_fix do
-      cause :mistake
+      cause { :mistake }
       chosen_person_id { issuable.person.id }
     end
 
@@ -81,7 +81,7 @@ FactoryBot.define do
     born_at { other_person.born_at }
 
     trait :ready_to_fix do
-      cause :mistake
+      cause { :mistake }
       chosen_person_ids { [issuable.person.id] }
     end
 
@@ -148,6 +148,7 @@ FactoryBot.define do
         iban: iban
       }
     end
+
     after :create do |issue, evaluator|
       if evaluator.evaluated
         issue.orders << evaluator.issuable.orders

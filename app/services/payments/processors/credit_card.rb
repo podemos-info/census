@@ -5,6 +5,7 @@ module Payments
     class CreditCard < Payments::Processor
       def process_batch(*)
         return :aborted unless yield
+
         :ok
       end
 

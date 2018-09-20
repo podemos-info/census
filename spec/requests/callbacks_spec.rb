@@ -5,7 +5,7 @@ require "rails_helper"
 describe "Callbacks", type: :request do
   let(:person) { build(:person) }
 
-  context "payments method" do
+  describe "payments method" do
     subject { post callbacks_payments_path(:redsys) }
 
     it "ignore invalid request" do

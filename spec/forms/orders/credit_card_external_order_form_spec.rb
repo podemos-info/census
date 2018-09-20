@@ -12,8 +12,8 @@ describe Orders::CreditCardExternalOrderForm do
       return_url: return_url
     )
   end
-  let(:order) { build(:order, :external) }
 
+  let(:order) { build(:order, :external) }
   let(:person_id) { order.person.id }
   let(:description) { order.description }
   let(:amount) { order.amount }
@@ -22,8 +22,9 @@ describe Orders::CreditCardExternalOrderForm do
 
   it { expect(subject).to be_valid }
 
-  context "without return urln" do
+  context "without a return url" do
     let(:return_url) { nil }
+
     it { is_expected.to be_invalid }
   end
 

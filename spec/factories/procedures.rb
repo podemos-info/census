@@ -82,7 +82,7 @@ FactoryBot.define do
 
   factory :membership_level_change, parent: :procedure, class: :"procedures/membership_level_change" do
     from_membership_level { person.membership_level }
-    to_membership_level "member"
+    to_membership_level { "member" }
 
     person { create(:person, :verified) }
   end

@@ -11,8 +11,8 @@ describe Orders::OrderForm do
       campaign_code: campaign_code
     )
   end
-  let(:order) { build(:order) }
 
+  let(:order) { build(:order) }
   let(:person_id) { order.person.id }
   let(:description) { order.description }
   let(:amount) { order.amount }
@@ -22,26 +22,31 @@ describe Orders::OrderForm do
 
   context "without person" do
     let(:person_id) { nil }
+
     it { is_expected.to be_invalid }
   end
 
   context "without description" do
     let(:description) { nil }
+
     it { is_expected.to be_invalid }
   end
 
   context "with negative amount" do
     let(:amount) { -1 }
+
     it { is_expected.to be_invalid }
   end
 
   context "without amount" do
     let(:amount) { nil }
+
     it { is_expected.to be_invalid }
   end
 
   context "without campaign code" do
     let(:campaign_code) { nil }
+
     it { is_expected.to be_invalid }
   end
 end

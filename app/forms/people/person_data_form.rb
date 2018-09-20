@@ -64,7 +64,7 @@ module People
     def document_id
       return current_document_id if current_document_id.blank?
 
-      if current_document_type && Person.document_types.keys.include?(current_document_type)
+      if current_document_type && Person.document_types.has_key?(current_document_type)
         Normalizr.normalize(current_document_id, :"document_#{current_document_type}")
       else
         current_document_id

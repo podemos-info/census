@@ -6,11 +6,13 @@ describe ProceduresController, type: :controller do
   render_views
   include_context "devise login"
 
-  let!(:processed_by) { create(:admin) }
+  before { procedure && processed_by }
+
+  let(:processed_by) { create(:admin) }
   let(:resource_class) { Procedure }
   let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
   let(:resource) { all_resources[resource_class] }
-  let!(:procedure) { create(:document_verification, :with_attachments, :with_dependent_procedure) }
+  let(:procedure) { create(:document_verification, :with_attachments, :with_dependent_procedure) }
 
   it "defines actions" do
     expect(resource.defined_actions).to contain_exactly(:index, :show, :update)
@@ -25,31 +27,37 @@ describe ProceduresController, type: :controller do
   end
 
   with_versioning do
-    context "index page" do
+    describe "index page" do
       subject { get :index }
+
       it { expect(subject).to be_successful }
       it { expect(subject).to render_template("index") }
 
-      context "accepted tab" do
+      context "with accepted tab" do
         subject { get :index, params: { scope: :accepted } }
+
         let(:current_admin) { procedure.processed_by }
-        let!(:procedure) { create(:document_verification, :undoable) }
+        let(:procedure) { create(:document_verification, :undoable) }
+
         it { expect(subject).to be_successful }
         it { expect(subject).to render_template("index") }
       end
     end
 
-    context "show procedure" do
+    describe "show procedure" do
       subject { get :show, params: { id: procedure.id } }
+
       it { expect(subject).to be_successful }
       it { expect(subject).to render_template("show") }
 
       include_examples "has comments enabled"
 
       context "when procedure has issues" do
+        before { open_issue && closed_issue }
+
         let(:current_admin) { create(:admin, :data) }
-        let!(:open_issue) { create(:duplicated_document, issuable: procedure) }
-        let!(:closed_issue) { create(:duplicated_person, :ready_to_fix, :fixed, issuable: procedure) }
+        let(:open_issue) { create(:duplicated_document, issuable: procedure) }
+        let(:closed_issue) { create(:duplicated_person, :ready_to_fix, :fixed, issuable: procedure) }
 
         it { is_expected.to be_successful }
         it { is_expected.to render_template("show") }
@@ -63,34 +71,42 @@ describe ProceduresController, type: :controller do
       end
     end
 
-    context "show processed procedure" do
-      let!(:procedure) { create(:document_verification, :processed) }
+    describe "show processed procedure" do
       subject { get :show, params: { id: procedure.id } }
+
+      let!(:procedure) { create(:document_verification, :processed) }
+
       it { expect(subject).to be_successful }
       it { expect(subject).to render_template("show") }
     end
 
-    context "trying to undone when not undoable" do
+    describe "trying to undone when not undoable" do
       subject { patch :undo, params: { id: procedure.id } }
 
       it "returns an error" do
-        expect(subject).to redirect_to(procedures_path)
+        subject
         expect(flash[:error]).to be_present
+      end
+
+      it "redirect to procedures page" do
+        expect(subject).to redirect_to(procedures_path)
       end
     end
 
-    context "undoable procedure" do
+    describe "undoable procedure" do
       let!(:procedure) { create(:document_verification, :undoable) }
       let(:current_admin) { procedure.processed_by }
 
-      context "index page" do
+      describe "index page" do
         subject { get :index }
+
         it { expect(subject).to be_successful }
         it { expect(subject).to render_template("index") }
       end
 
       describe "show" do
         subject { get :show, params: { id: procedure.id } }
+
         it { expect(subject).to be_successful }
         it { expect(subject).to render_template("show") }
       end
@@ -98,12 +114,16 @@ describe ProceduresController, type: :controller do
       describe "undo" do
         subject { patch :undo, params: { id: procedure.id } }
 
-        it "returns ok" do
-          expect(subject).to redirect_to(procedures_path)
+        it "notifies that it was ok" do
+          subject
           expect(flash[:notice]).to be_present
         end
 
-        it "should have undone the procedure" do
+        it "redirect to procedures page" do
+          expect(subject).to redirect_to(procedures_path)
+        end
+
+        it "have undone the procedure" do
           expect { subject } .to change { Procedure.find(procedure.id).state } .to("pending")
         end
 
@@ -124,6 +144,7 @@ describe ProceduresController, type: :controller do
 
   describe "update page" do
     subject { patch :update, params: { id: procedure.id, procedure: params } }
+
     let(:params) { { action: "reject", comment: Faker::Lorem.paragraph(1, true, 2) } }
 
     it { is_expected.to redirect_to(procedures_path) }
@@ -157,7 +178,7 @@ describe ProceduresController, type: :controller do
       it { is_expected.to render_template("show") }
 
       it "does not reject the procedure" do
-        expect { subject } .to_not change { Procedure.find(procedure.id).state }.from("pending")
+        expect { subject } .not_to change { Procedure.find(procedure.id).state }.from("pending")
       end
     end
 
@@ -170,8 +191,9 @@ describe ProceduresController, type: :controller do
     end
   end
 
-  context "download attachment" do
+  describe "download attachment" do
     subject { get :view_attachment, params: { id: procedure.id, attachment_id: procedure.attachments.first.id } }
+
     it { expect(subject).to be_successful }
     it { expect(subject.content_type).to eq("image/png") }
     it { expect(subject.body).to eq(procedure.attachments.first.file.read) }

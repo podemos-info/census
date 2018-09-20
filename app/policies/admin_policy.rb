@@ -7,6 +7,7 @@ class AdminPolicy < ApplicationPolicy
 
   def show?
     return true if user == record
+
     user.data_role? || super
   end
 

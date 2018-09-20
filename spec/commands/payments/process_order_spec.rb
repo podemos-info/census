@@ -14,6 +14,7 @@ describe Payments::ProcessOrder do
 
   context "when valid" do
     let(:cassete) { "valid_process_order_command" }
+
     it "broadcasts :ok" do
       expect { subject } .to broadcast(:ok)
     end
@@ -51,8 +52,9 @@ describe Payments::ProcessOrder do
   end
 
   context "when there is an error saving the payment method" do
-    let(:cassete) { "process_order_command_save_payment_method_error" }
     before { stub_command("Payments::SavePaymentMethod", :error) }
+
+    let(:cassete) { "process_order_command_save_payment_method_error" }
 
     it "broadcasts :error" do
       expect { subject } .to broadcast(:error)
@@ -70,8 +72,9 @@ describe Payments::ProcessOrder do
   end
 
   context "when there is an error saving the order" do
-    let(:cassete) { "process_order_command_save_order_error" }
     before { allow(order).to receive(:save!).and_raise(ActiveRecord::Rollback) }
+
+    let(:cassete) { "process_order_command_save_order_error" }
 
     it "broadcasts :error" do
       expect { subject } .to broadcast(:error)

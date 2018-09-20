@@ -3,9 +3,9 @@
 require "rails_helper"
 
 describe Attachment, :db do
-  let(:attachment) { build(:attachment) }
-
   subject { attachment }
+
+  let(:attachment) { build(:attachment) }
 
   matcher :be_a_png do
     match do |uploader|
@@ -23,6 +23,7 @@ describe Attachment, :db do
 
   context "when saved" do
     let(:attachment) { create(:attachment) }
+
     it "encrypts original file" do
       expect(attachment.file).to be_encrypted
     end
@@ -32,34 +33,46 @@ describe Attachment, :db do
     end
   end
 
-  context "attachment file versions should be recoverable" do
+  context "when attachment file versions should be recoverable" do
+    subject(:file) { attachment.file }
+
     before do
       attachment.save!
       FileUtils.rm_rf(File.join(attachment.file.root.to_s, attachment.file.cache_dir)) # delete all cache files
       attachment.reload
     end
 
-    it "keeps original file encrypted" do
-      expect(attachment.file).to be_encrypted
+    it { is_expected.to be_encrypted }
+    it { is_expected.to be_a_png }
+
+    context "with versions file" do
+      subject(:thumbnail) { file.thumbnail }
+
+      it { is_expected.to be_encrypted }
+      it { is_expected.to be_a_png }
     end
 
     it "keeps file versions encrypted" do
-      expect(attachment.file).to be_encrypted
+      expect(file.thumbnail).to be_encrypted
     end
 
-    it "can retrieve decrypted file" do
-      expect(attachment.file).to be_a_png
-    end
+    describe "#recreate_versions!" do
+      subject { file.recreate_versions! }
 
-    it "can recreate versiones" do
-      version_path = file_path(attachment.file.thumbnail)
-      File.delete(version_path)
-      expect(File.exist?(version_path)).to be_falsey
+      before { File.delete(version_path) }
 
-      attachment.file.recreate_versions!
-      expect(File.exist?(version_path)).to be_truthy
+      let(:version_path) { file_path(file.thumbnail) }
 
-      expect(attachment.file.thumbnail).to be_a_png
+      it { expect { subject } .to change { File.exist?(version_path) } }
+
+      context "with versions file" do
+        subject(:thumbnail) { file.thumbnail }
+
+        before { file.recreate_versions! }
+
+        it { is_expected.to be_encrypted }
+        it { is_expected.to be_a_png }
+      end
     end
   end
 

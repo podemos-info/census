@@ -25,22 +25,24 @@ describe Api::V1::PeopleController, type: :controller do
         params
       end
 
-      it "is valid" do
-        is_expected.to have_http_status(:accepted)
-        expect(subject.content_type).to eq("application/json")
+      it { is_expected.to have_http_status(:accepted) }
+      it { expect(subject.content_type).to eq("application/json") }
+
+      it "creates a new person" do
+        expect { subject } .to change(Person, :count).by(1)
+      end
+
+      it "returns the create person id" do
         expect(subject.body).to eq({ person_id: Person.last.id } .to_json)
       end
 
-      it "creates a new person" do
-        expect { subject } .to change { Person.count }.by(1)
-      end
-
       it "creates a new registration procedure" do
-        expect { subject } .to change { Procedures::Registration.count }.by(1)
+        expect { subject } .to change(Procedures::Registration, :count).by(1)
       end
 
       describe "procedure created" do
         subject(:created_procedure) { Procedures::Registration.last }
+
         before { endpoint }
 
         it "correctly sets the user scope" do
@@ -59,10 +61,8 @@ describe Api::V1::PeopleController, type: :controller do
       context "with an invalid scope id" do
         let(:scope_code) { "AN INVALID SCOPE CODE" }
 
-        it "is not valid" do
-          expect(subject).to have_http_status(:unprocessable_entity)
-          expect(subject.content_type).to eq("application/json")
-        end
+        it { expect(subject).to have_http_status(:unprocessable_entity) }
+        it { expect(subject.content_type).to eq("application/json") }
 
         it "returns the errors collection" do
           expect(subject.body).to eq({ scope: [{ error: "blank" }] }.to_json)
@@ -72,10 +72,8 @@ describe Api::V1::PeopleController, type: :controller do
       context "when saving fails" do
         before { stub_command("People::CreateRegistration", :error) }
 
-        it "is returns an error" do
-          expect(subject).to have_http_status(:internal_server_error)
-          expect(subject.content_type).to eq("application/json")
-        end
+        it { expect(subject).to have_http_status(:internal_server_error) }
+        it { expect(subject.content_type).to eq("application/json") }
       end
     end
 
@@ -86,25 +84,27 @@ describe Api::V1::PeopleController, type: :controller do
       let(:changes) { { person: { first_name: "CHANGED", scope_code: scope_code } } }
       let(:scope_code) { scope.code }
 
-      it "is valid" do
-        is_expected.to have_http_status(:accepted)
-        expect(subject.content_type).to eq("application/json")
-      end
+      it { is_expected.to have_http_status(:accepted) }
+      it { expect(subject.content_type).to eq("application/json") }
 
       it "creates a new person data change procedure" do
-        expect { subject } .to change { Procedures::PersonDataChange.count }.by(1)
+        expect { subject } .to change(Procedures::PersonDataChange, :count).by(1)
       end
 
       describe "procedure created" do
         subject(:created_procedure) { Procedures::PersonDataChange.last }
+
         before { endpoint }
 
         it "correctly saves the affected person" do
           expect(subject.person_id).to eq(person.id)
         end
 
-        it "correctly saves the changed attributes" do
+        it "correctly saves the name" do
           expect(subject.first_name).to eq("CHANGED")
+        end
+
+        it "correctly saves the scope" do
           expect(subject.scope_id).to eq(scope.id)
         end
       end
@@ -112,10 +112,8 @@ describe Api::V1::PeopleController, type: :controller do
       context "with an invalid scope id" do
         let(:scope_code) { "AN INVALID SCOPE CODE" }
 
-        it "is not valid" do
-          expect(subject).to have_http_status(:unprocessable_entity)
-          expect(subject.content_type).to eq("application/json")
-        end
+        it { expect(subject).to have_http_status(:unprocessable_entity) }
+        it { expect(subject.content_type).to eq("application/json") }
 
         it "returns the errors collection" do
           expect(subject.body).to eq({ scope: [{ error: "blank" }] }.to_json)
@@ -125,10 +123,8 @@ describe Api::V1::PeopleController, type: :controller do
       context "when saving fails" do
         before { stub_command("People::CreatePersonDataChange", :error) }
 
-        it "is returns an error" do
-          expect(subject).to have_http_status(:internal_server_error)
-          expect(subject.content_type).to eq("application/json")
-        end
+        it { expect(subject).to have_http_status(:internal_server_error) }
+        it { expect(subject.content_type).to eq("application/json") }
       end
     end
 
@@ -139,17 +135,16 @@ describe Api::V1::PeopleController, type: :controller do
       let(:person_id) { person.qualified_id_at(:decidim) }
       let(:params) { { reason: "I don't wanna", channel: "decidim" } }
 
-      it "is valid" do
-        is_expected.to have_http_status(:accepted)
-        expect(subject.content_type).to eq("application/json")
-      end
+      it { is_expected.to have_http_status(:accepted) }
+      it { expect(subject.content_type).to eq("application/json") }
 
       it "creates a new cancellation procedure" do
-        expect { subject } .to change { Procedures::Cancellation.count }.by(1)
+        expect { subject } .to change(Procedures::Cancellation, :count).by(1)
       end
 
       describe "procedure created" do
         subject(:created_procedure) { Procedures::Cancellation.last }
+
         before { endpoint }
 
         it "correctly saves the affected person" do
@@ -168,10 +163,8 @@ describe Api::V1::PeopleController, type: :controller do
       context "with an invalid person id" do
         let(:person_id) { 0 }
 
-        it "is not valid" do
-          expect(subject).to have_http_status(:unprocessable_entity)
-          expect(subject.content_type).to eq("application/json")
-        end
+        it { expect(subject).to have_http_status(:unprocessable_entity) }
+        it { expect(subject.content_type).to eq("application/json") }
 
         it "returns the errors collection" do
           expect(subject.body).to eq({ person: [{ error: "blank" }] }.to_json)
@@ -181,10 +174,8 @@ describe Api::V1::PeopleController, type: :controller do
       context "when saving fails" do
         before { stub_command("People::CreateCancellation", :error) }
 
-        it "is returns an error" do
-          expect(subject).to have_http_status(:internal_server_error)
-          expect(subject.content_type).to eq("application/json")
-        end
+        it { expect(subject).to have_http_status(:internal_server_error) }
+        it { expect(subject.content_type).to eq("application/json") }
       end
     end
   end
@@ -277,6 +268,7 @@ describe Api::V1::PeopleController, type: :controller do
             Timecop.travel 1.month.from_now
             current_person.verify!
           end
+
           after { Timecop.return }
 
           let(:params) { { id: current_person.qualified_id_at(:decidim), version_at: version_at } }
@@ -290,7 +282,7 @@ describe Api::V1::PeopleController, type: :controller do
 
           include_examples "does not return internal information"
 
-          it "it is not verified" do
+          it "is not verified" do
             expect(subject["verification"]).to eq("not_verified")
           end
 
@@ -299,6 +291,7 @@ describe Api::V1::PeopleController, type: :controller do
               Timecop.travel 1.month.from_now
               current_person.discard
             end
+
             after { Timecop.return }
 
             include_examples "returns full state information"

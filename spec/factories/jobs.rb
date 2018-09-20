@@ -3,9 +3,9 @@
 FactoryBot.define do
   factory :job do
     job_id { generate(:job_id) }
-    job_type "ProcessOrdersBatchJob"
-    status "enqueued"
-    result nil
+    job_type { "ProcessOrdersBatchJob" }
+    status { "enqueued" }
+    result { nil }
     user { create(:admin) }
 
     after :build do |job|
@@ -17,12 +17,12 @@ FactoryBot.define do
     end
 
     trait :running do
-      status "running"
+      status { "running" }
     end
 
     trait :finished do
-      status "finished"
-      result "ok"
+      status { "finished" }
+      result { "ok" }
     end
   end
 
@@ -39,7 +39,7 @@ FactoryBot.define do
 
   factory :job_message, class: :"active_job_reporter/job_message" do
     job { create(:job) }
-    message_type "user"
+    message_type { "user" }
     message { { key: "process_orders_batch_job.order_ok", related: job.job_objects.first.object.orders.map(&:to_gid_param) } }
 
     trait :raw_related do

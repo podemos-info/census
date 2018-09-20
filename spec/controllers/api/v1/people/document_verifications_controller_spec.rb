@@ -12,38 +12,36 @@ describe Api::V1::People::DocumentVerificationsController, type: :controller do
       let(:params) { { person_id: person.qualified_id_at(:decidim), files: [api_attachment_format(attachment), api_attachment_format(attachment)] } }
       let(:attachment) { build(:attachment) }
 
-      it "is valid" do
-        is_expected.to have_http_status(:accepted)
-        expect(subject.content_type).to eq("application/json")
-      end
+      it { is_expected.to have_http_status(:accepted) }
+      it { expect(subject.content_type).to eq("application/json") }
 
       it "creates a new document verification procedure" do
-        expect { subject } .to change { Procedure.count }.by(1)
+        expect { subject } .to change(Procedure, :count).by(1)
       end
 
       describe "stores files received as attachments" do
-        before { page }
         subject(:procedure) { Procedure.last }
+
+        before { page }
 
         it "has saved both attachments" do
           expect(subject.attachments.count).to eq(2)
         end
 
+        it "store attachments filenames" do
+          expect(subject.attachments.map { |a| a.file.file.filename }.uniq).to eq([attachment.file.filename])
+        end
+
         it "store attachments contents" do
-          subject.attachments.each do |saved_attachment|
-            expect(saved_attachment.file.file.filename).to eq(attachment.file.filename)
-            expect(saved_attachment.file.file.read).to eq(attachment.file.read)
-          end
+          expect(subject.attachments.map { |a| a.file.file.read }.uniq).to eq([attachment.file.read])
         end
       end
 
       context "with an invalid person id" do
         before { person.delete }
 
-        it "is not valid" do
-          expect(subject).to have_http_status(:unprocessable_entity)
-          expect(subject.content_type).to eq("application/json")
-        end
+        it { expect(subject).to have_http_status(:unprocessable_entity) }
+        it { expect(subject.content_type).to eq("application/json") }
 
         it "returns the errors collection" do
           expect(subject.body).to eq({ person: [{ error: "blank" }] }.to_json)
@@ -53,10 +51,8 @@ describe Api::V1::People::DocumentVerificationsController, type: :controller do
       context "when saving fails" do
         before { stub_command("People::CreateDocumentVerification", :error) }
 
-        it "is returns an error" do
-          expect(subject).to have_http_status(:internal_server_error)
-          expect(subject.content_type).to eq("application/json")
-        end
+        it { expect(subject).to have_http_status(:internal_server_error) }
+        it { expect(subject.content_type).to eq("application/json") }
       end
     end
   end

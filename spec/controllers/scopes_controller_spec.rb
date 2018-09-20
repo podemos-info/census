@@ -7,6 +7,7 @@ describe ScopesController, type: :controller do
   include_context "devise login"
 
   subject(:resource) { all_resources[resource_class] }
+
   let(:resource_class) { Scope }
   let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
   let!(:scope) { create(:scope) }
@@ -25,7 +26,9 @@ describe ScopesController, type: :controller do
 
   describe "browse page" do
     subject(:page) { get :browse, params: params }
+
     let(:params) { { title: "field" } }
+
     it { is_expected.to be_successful }
     it { is_expected.to render_template("browse") }
 

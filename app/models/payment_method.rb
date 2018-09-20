@@ -36,6 +36,6 @@ class PaymentMethod < ApplicationRecord
   end
 
   def self.flags
-    flag_mapping.values.flat_map(&:keys)
+    flag_mapping&.values&.flat_map(&:keys)
   end
 end

@@ -105,6 +105,7 @@ class PersonDecorator < ApplicationDecorator
 
   def convert_to_initials(string)
     return "" if string.strip.blank?
+
     "#{string.strip.first.upcase}."
   end
 end

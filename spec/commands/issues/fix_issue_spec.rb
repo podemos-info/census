@@ -4,7 +4,8 @@ require "rails_helper"
 
 describe Issues::FixIssue do
   subject(:command) { described_class.call(issue: issue, admin: admin) }
-  before(:each) do
+
+  before do
     issue.cause = :mistake
     issue.chosen_person_id = chosen_person_id
   end

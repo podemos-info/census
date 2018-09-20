@@ -14,7 +14,7 @@ ActiveAdmin.register PaymentMethod do
   menu parent: I18n.t("active_admin.payments")
 
   scope :all
-  PaymentMethod.flags.each do |flag|
+  PaymentMethod.flags&.each do |flag|
     scope flag
   end
 

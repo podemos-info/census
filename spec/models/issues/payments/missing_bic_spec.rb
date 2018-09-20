@@ -9,6 +9,7 @@ describe Issues::Payments::MissingBic, :db do
 
   describe "#fill" do
     subject(:fill) { issue.fill }
+
     let(:issue) { create(:missing_bic, :not_evaluated, issuable: order.payment_method) }
     let(:order) { create(:order) }
 
@@ -26,6 +27,7 @@ describe Issues::Payments::MissingBic, :db do
       issue.bic = bic
       issue.fix!
     end
+
     let(:country) { issue.country }
     let(:bank_code) { issue.bank_code }
 

@@ -7,7 +7,7 @@ describe ProcedurePolicy do
 
   let(:procedure) { create(:document_verification) }
 
-  context "when being a system admin" do
+  context "when user is a system admin" do
     let(:user) { create(:admin) }
 
     it { is_expected.to permit_actions([:index, :show, :undo, :view_attachment]) }
@@ -16,7 +16,7 @@ describe ProcedurePolicy do
     it { is_expected.to forbid_action :destroy }
   end
 
-  context "when being a data admin" do
+  context "when user is a data admin" do
     let(:user) { create(:admin, :data) }
 
     it { is_expected.to permit_actions([:index, :show, :undo, :view_attachment]) }
@@ -25,7 +25,7 @@ describe ProcedurePolicy do
     it { is_expected.to forbid_action :destroy }
   end
 
-  context "when being a data_help admin" do
+  context "when user is a data_help admin" do
     let(:user) { create(:admin, :data_help) }
 
     it { is_expected.to permit_actions([:index, :show, :undo, :view_attachment]) }
@@ -34,7 +34,7 @@ describe ProcedurePolicy do
     it { is_expected.to forbid_action :destroy }
   end
 
-  context "when being a finances admin" do
+  context "when user is a finances admin" do
     let(:user) { create(:admin, :finances) }
 
     it { is_expected.to forbid_actions([:index, :show, :undo, :view_attachment]) }
@@ -46,7 +46,7 @@ describe ProcedurePolicy do
   describe "procedure with cancelled person" do
     let(:procedure) { create(:document_verification, :cancelled_person) }
 
-    context "when being a system admin" do
+    context "when user is a system admin" do
       let(:user) { create(:admin) }
 
       it { is_expected.to forbid_actions([:index, :show, :undo, :view_attachment]) }
@@ -55,7 +55,7 @@ describe ProcedurePolicy do
       it { is_expected.to forbid_action :destroy }
     end
 
-    context "when being a data admin" do
+    context "when user is a data admin" do
       let(:user) { create(:admin, :data) }
 
       it { is_expected.to permit_actions([:index, :show, :view_attachment]) }
@@ -65,7 +65,7 @@ describe ProcedurePolicy do
       it { is_expected.to forbid_action :destroy }
     end
 
-    context "when being a data_help admin" do
+    context "when user is a data_help admin" do
       let(:user) { create(:admin, :data_help) }
 
       it { is_expected.to forbid_actions([:index, :show, :undo, :view_attachment]) }
@@ -74,7 +74,7 @@ describe ProcedurePolicy do
       it { is_expected.to forbid_action :destroy }
     end
 
-    context "when being a finances admin" do
+    context "when user is a finances admin" do
       let(:user) { create(:admin, :finances) }
 
       it { is_expected.to forbid_actions([:index, :show, :undo, :view_attachment]) }

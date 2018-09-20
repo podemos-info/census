@@ -4,17 +4,12 @@ require "rails_helper"
 
 describe Procedures::Registration, :db do
   subject(:procedure) { create(:registration, :ready_to_process, person_copy_data: person) }
+
   let(:person) { build(:person) }
 
   it { is_expected.to be_valid }
-
-  it "is acceptable" do
-    is_expected.to be_acceptable
-  end
-
-  it "is auto_processable" do
-    is_expected.to be_auto_processable
-  end
+  it { is_expected.to be_acceptable }
+  it { is_expected.to be_auto_processable }
 
   context "when accepted" do
     subject(:accepting) { procedure.accept! }
@@ -77,8 +72,9 @@ describe Procedures::Registration, :db do
   end
 
   with_versioning do
-    context "after accepting the procedure" do
+    context "when has accepted the procedure" do
       subject(:undo) { procedure.undo! }
+
       before { procedure.accept! }
 
       [:document_type, :document_id, :document_scope_id, :phone, :email, :address, :address_scope_id,
@@ -93,8 +89,9 @@ describe Procedures::Registration, :db do
       end
     end
 
-    context "after rejecting the procedure" do
+    context "when has rejected the procedure" do
       subject(:undo) { procedure.undo! }
+
       before { procedure.reject! }
 
       it "undoes change of person membership level" do

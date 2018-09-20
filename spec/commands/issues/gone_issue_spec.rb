@@ -14,15 +14,15 @@ describe Issues::GoneIssue do
     end
 
     it "changes the issue assigned_to field" do
-      expect { subject } .to change { issue.assigned_to } .to(admin.person)
+      expect { subject } .to change(issue, :assigned_to).to(admin.person)
     end
 
     it "saves the closed_at field" do
-      expect { subject } .to change { issue.closed_at } .from(nil)
+      expect { subject } .to change(issue, :closed_at).from(nil)
     end
 
     it "saves the close result as gone" do
-      expect { subject } .to change { issue.close_result } .from(nil).to("gone")
+      expect { subject } .to change(issue, :close_result).from(nil).to("gone")
     end
   end
 
@@ -37,15 +37,15 @@ describe Issues::GoneIssue do
     end
 
     it "doesn't changes the issue assigned_to field" do
-      expect { subject } .not_to change { issue.assigned_to }
+      expect { subject } .not_to change(issue, :assigned_to)
     end
 
     it "saves the closed_at field" do
-      expect { subject } .to change { issue.closed_at } .from(nil)
+      expect { subject } .to change(issue, :closed_at).from(nil)
     end
 
     it "saves the close result as gone" do
-      expect { subject } .to change { issue.close_result } .from(nil).to("gone")
+      expect { subject } .to change(issue, :close_result).from(nil).to("gone")
     end
   end
 end

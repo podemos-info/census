@@ -7,6 +7,7 @@ describe IssuesController, type: :controller do
   include_context "devise login"
 
   subject(:resource) { all_resources[resource_class] }
+
   let(:resource_class) { Issue }
   let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
   let!(:issue) { issue_unread.issue }
@@ -27,25 +28,29 @@ describe IssuesController, type: :controller do
 
   describe "index page" do
     subject { get :index, params: params }
+
     let(:params) { {} }
 
     it { is_expected.to be_successful }
     it { is_expected.to render_template("index") }
 
-    context "ordered by issue type" do
+    context "when ordered by issue type" do
       let(:params) { { order: "issue_type_desc" } }
+
       it { is_expected.to be_successful }
     end
   end
 
   describe "show page" do
     subject { get :show, params: { id: issue.id } }
+
     it { is_expected.to be_successful }
     it { is_expected.to render_template("show") }
   end
 
   describe "assign me an issue" do
     subject { patch :assign_me, params: { id: issue.id } }
+
     it { is_expected.to have_http_status(:found) }
     it { expect(subject.location).to eq(issues_url) }
     it "assigns the issue to the current admin" do
@@ -55,6 +60,7 @@ describe IssuesController, type: :controller do
 
   describe "edit page" do
     subject { get :edit, params: { id: issue.id } }
+
     it { expect(subject).to be_successful }
     it { expect(subject).to render_template("edit") }
   end
@@ -88,6 +94,7 @@ describe IssuesController, type: :controller do
     }.each do |issue_type, params|
       describe "fix a #{issue_type.to_s.humanize} issue" do
         subject { patch :update, params: { id: issue.id, issue: params[:request_params].call(issue) } }
+
         let(:issue) { create(issue_type) }
         let(:current_admin) { create(:admin, params[:role]) }
 
@@ -100,8 +107,10 @@ describe IssuesController, type: :controller do
     end
 
     context "when fixing an issue returns an error" do
-      before { stub_command("Issues::FixIssue", :error) }
       subject { patch :update, params: { id: issue.id, issue: { chosen_person_id: issue.procedure.person_id, cause: :mistake, comment: "Is real" } } }
+
+      before { stub_command("Issues::FixIssue", :error) }
+
       let(:issue) { create(:duplicated_document) }
 
       it { is_expected.to have_http_status(:ok) }

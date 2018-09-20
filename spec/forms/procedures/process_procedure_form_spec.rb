@@ -27,6 +27,7 @@ describe Procedures::ProcessProcedureForm do
 
   context "when event is undo" do
     let(:action) { :undo }
+
     it "is not accepting" do
       is_expected.not_to be_accepting
     end

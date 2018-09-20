@@ -4,6 +4,7 @@ require "rails_helper"
 
 describe Downloads::CreateDownload do
   subject(:command) { described_class.call(form: form, admin: admin) }
+
   let(:download) { build(:download) }
   let(:admin) { create(:admin) }
   let(:valid) { true }
@@ -28,14 +29,15 @@ describe Downloads::CreateDownload do
     end
 
     it "creates the download" do
-      expect { subject } .to change { Download.count } .by(1)
+      expect { subject } .to change(Download, :count).by(1)
     end
 
-    context "saved download" do
+    context "with saved download" do
       subject(:saved_download) do
         command
         Download.last
       end
+
       it "has the given person" do
         expect(subject.person.id) .to eq(form.person.id)
       end
@@ -56,7 +58,7 @@ describe Downloads::CreateDownload do
     end
 
     it "doesn't create the download" do
-      expect { subject } .to_not change { Download.count }
+      expect { subject } .not_to change(Download, :count)
     end
   end
 end

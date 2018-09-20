@@ -49,10 +49,10 @@ FactoryBot.define do
     email { Faker::Internet.unique.email }
     phone { "0034" + Faker::Number.number(9) }
     created_at { Faker::Time.between(3.years.ago, 3.days.ago, :between) }
-    scope nil
-    document_scope nil
-    address_scope nil
-    state :enabled
+    scope { nil }
+    document_scope { nil }
+    address_scope { nil }
+    state { :enabled }
     external_ids { { decidim: generate(:decidim_id) } }
 
     after :build do |person, evaluator|
@@ -73,14 +73,14 @@ FactoryBot.define do
     end
 
     trait :pending do
-      born_at nil
-      gender nil
-      address nil
-      postal_code nil
-      email nil
-      phone nil
-      created_at nil
-      state :pending
+      born_at { nil }
+      gender { nil }
+      address { nil }
+      postal_code { nil }
+      email { nil }
+      phone { nil }
+      created_at { nil }
+      state { :pending }
 
       after :build do |person|
         person.document_id = nil
@@ -96,7 +96,7 @@ FactoryBot.define do
     end
 
     trait :verified do
-      verification :verified
+      verification { :verified }
     end
 
     trait :copy do
@@ -111,7 +111,7 @@ FactoryBot.define do
     end
 
     trait :cancelled do
-      state :cancelled
+      state { :cancelled }
       discarded_at { Faker::Date.between(created_at, Time.zone.now) }
     end
   end

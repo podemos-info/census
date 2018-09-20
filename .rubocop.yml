@@ -1,9 +1,17 @@
+require: rubocop-rspec
+
 # Common configuration.
 AllCops:
   Include:
+    - '**/*.arb'
+    - '**/*.rb'
+    - '**/*.gemfile'
+    - '**/*.gemspec'
+    - '**/*.rake'
+    - '**/*.ru'
     - '**/Gemfile'
     - '**/Rakefile'
-    - '**/*.arb'
+
   Exclude:
     - 'db/schema.rb'
     - 'vendor/**/*'
@@ -1264,3 +1272,26 @@ Rails/HasManyOrHasOneDependent:
 
 Metrics/BlockLength:
   Enabled: false
+
+RSpec/ImplicitSubject:
+  Enabled: false
+
+RSpec/NamedSubject:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Max: 5
+
+RSpec/AnyInstance:
+  Enabled: false
+
+RSpec/MessageSpies:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Exclude:
+    - spec/system/*.rb
+
+RSpec/ExampleLength:
+  Exclude:
+    - spec/system/*.rb
