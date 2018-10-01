@@ -17,13 +17,21 @@ describe "People", type: :request do
     end
 
     describe "update method" do
-      subject { post api_v1_person_membership_levels_path(person_id: person.qualified_id_at(:decidim)), params: { membership_level: "member" } }
+      subject { post api_v1_person_membership_levels_path(path_params), params: { membership_level: "member" } }
 
       let(:person) { create(:person) }
+      let(:path_params) { { person_id: qualified_id } }
+      let(:qualified_id) { person.qualified_id_at(:decidim) }
 
       it { expect(subject).to eq(202) }
 
       include_examples "only authorized api clients"
+
+      context "when passing a different locale" do
+        let(:path_params) { { person_id: qualified_id, locale: :gl } }
+
+        it { expect(subject).to eq(202) }
+      end
     end
   end
 end
