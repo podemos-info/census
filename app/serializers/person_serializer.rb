@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PersonSerializer < ActiveModel::Serializer
-  attributes :person_id, :membership_level, :scope_code, :state, :verification, :external_ids
+  attributes :person_id, :membership_level, :scope_code, :state, :verification, :phone_verification, :external_ids
   attribute :first_name, unless: :discarded?
   attribute :last_name1, unless: :discarded?
   attribute :last_name2, unless: :discarded?

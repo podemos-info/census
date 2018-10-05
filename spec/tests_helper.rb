@@ -10,6 +10,7 @@ require "shared/has_comments_enabled"
 require "shared/hutch_notifications"
 require "shared/only_authorized_api_clients"
 require "shared/only_authorized_payment_callbacks"
+require "shared/sms_service"
 
 require "simplecov"
 SimpleCov.start "rails" do

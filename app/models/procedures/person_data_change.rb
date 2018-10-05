@@ -18,6 +18,8 @@ module Procedures
     def persist_changes!
       return unless person.has_changes_to_save?
 
+      unverify_changed_attributes
+
       person.save!
       ::People::ChangesPublisher.full_status_changed!(person) if modifies?(:scope_id)
     end
@@ -32,6 +34,11 @@ module Procedures
     end
 
     private
+
+    def unverify_changed_attributes
+      person.unverify if person.verified? && modifies?(:document_type, :document_id, :document_scope_id)
+      person.unverify_phone if person.phone_verified? && modifies?(:phone)
+    end
 
     def modifies?(*attributes)
       attributes.any? do |attribute|

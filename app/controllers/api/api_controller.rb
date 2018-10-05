@@ -3,6 +3,11 @@
 module Api
   class ApiController < ActionController::API
     before_action :set_paper_trail_whodunnit
+    before_action :set_locale
+
+    def set_locale
+      I18n.locale = params[:locale] || I18n.default_locale
+    end
 
     def person
       @person ||= Person.qualified_find(params[qualified_id_param]) if params[qualified_id_param]

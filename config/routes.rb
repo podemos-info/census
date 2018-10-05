@@ -3,19 +3,22 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      resources :people, only: [:create, :update, :destroy, :show] do
-        resources :document_verifications, only: [:create], controller: "people/document_verifications"
-        resources :membership_levels, only: [:create], controller: "people/membership_levels"
-        resources :procedures, only: [:index], controller: "people/procedures"
-      end
-
-      namespace :payments do
-        resources :orders, only: [:create] do
-          collection do
-            get :total
-          end
+      scope "/(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
+        resources :people, only: [:create, :update, :destroy, :show] do
+          resources :document_verifications, only: [:create], controller: "people/document_verifications"
+          resources :membership_levels, only: [:create], controller: "people/membership_levels"
+          resources :procedures, only: [:index], controller: "people/procedures"
+          resources :phone_verifications, only: [:new, :create], controller: "people/phone_verifications"
         end
-        resources :payment_methods, only: [:index, :show]
+
+        namespace :payments do
+          resources :orders, only: [:create] do
+            collection do
+              get :total
+            end
+          end
+          resources :payment_methods, only: [:index, :show]
+        end
       end
     end
   end

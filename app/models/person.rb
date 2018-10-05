@@ -4,6 +4,7 @@ class Person < ApplicationRecord
   include Discard::Model
   include AASM
   include PersonStates
+  include PersonPhoneVerifications
   include PersonVerifications
   include PersonMembershipLevels
   include Issuable

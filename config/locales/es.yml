@@ -215,6 +215,10 @@ es:
         membership_level/member: afiliada
         name_link: Nombre
         phone: Teléfono
+        phone_verification: Comprobación de teléfono
+        phone_verification/not_verified: teléfono no verificado
+        phone_verification/reassigned: verificación de teléfono reasignada a otra persona
+        phone_verification/verified: teléfono verificado
         postal_code: Código postal
         scope: Lugar de participación
         scope_id: Lugar de participación
@@ -224,7 +228,7 @@ es:
         state/pending: pendiente
         state/trashed: borrada
         updated_at: Última actualización
-        verification: Comprobación
+        verification: Comprobación de identidad
         verification/fraudulent: fraudulenta
         verification/mistake: por error
         verification/not_verified: no verificada
@@ -331,6 +335,9 @@ es:
       procedures/person_data_change:
         one: Cambio de datos personales
         other: Cambios de datos personales
+      procedures/phone_verification:
+        one: Verificación de teléfono
+        other: Verificaciones de teléfono
       procedures/registration:
         one: Registro
         other: Registros
@@ -414,6 +421,9 @@ es:
         people/duplicated_person:
           name: Datos personales duplicados
           tip: Los siguientes registros tienen datos personales similares, por lo que es posible que correspondan a la misma persona. Para resolver la incidencia debes utilizar los datos de las siguientes personas para indicar cuales de ellas debe permanecer en el censo.
+        people/duplicated_verified_phone:
+          name: Teléfono verificado reutilizado
+          tip: Las siguientes personas se han verificado con el mismo número de teléfono. Para resolver la incidencia debes elegir las personas que pueden usar dicho número. Las personas que no escojas perderán la verificación del teléfono si están verificadas o serán marcadas como fraudulentas si no lo están.
         people/untrusted_email:
           name: Email sospechoso
           tip: Este registro tiene asociado un número de teléfono sospechoso, por lo que puede ser una inscripción fraudulenta. Para resolver la incidencia debes comprobar la dirección de correo e indicar si es correcta.
@@ -533,6 +543,8 @@ es:
         other: Otro
         undisclosed: No quiero decirlo
       request_verification: Solicitar verificación
+      start_phone_verification:
+        sms_message: Tu código de activación es %{otp_code}
       view_downloads: Ver descargas
       view_orders: Ver órdenes (%{count})
       view_payment_methods: Ver métodos de pago (%{count})

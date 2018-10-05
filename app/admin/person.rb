@@ -37,6 +37,7 @@ ActiveAdmin.register Person do
     state_column :state, machine: :state
     state_column :membership_level, machine: :membership_level
     state_column :verification, class: :left, machine: :verification
+    state_column :phone_verification, class: :left, machine: :phone_verification
   end
 
   scope :enabled, group: :enabled, default: true

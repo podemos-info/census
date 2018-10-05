@@ -149,4 +149,13 @@ FactoryBot.define do
     reason { Faker::Lorem.paragraph(1, true, 2) }
     person
   end
+
+  factory :phone_verification, parent: :procedure, class: :"procedures/phone_verification" do
+    phone { nil }
+    person
+
+    trait :phone_modification do
+      phone { "0034" + Faker::Number.number(9) }
+    end
+  end
 end
