@@ -5,6 +5,7 @@ panel title do
     chrow :membership_level, machine: :membership_level
     chrow :state, machine: :state
     chrow :verification, machine: :verification
+    chrow :phone_verification, machine: :phone_verification
     chrow :scope, change_field: :scope_id do
       resource.full_scope
     end

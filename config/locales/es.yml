@@ -215,6 +215,10 @@ es:
         membership_level/member: afiliada
         name_link: Nombre
         phone: Teléfono
+        phone_verification: Comprobación de teléfono
+        phone_verification/not_verified: teléfono no verificado
+        phone_verification/reassigned: verificación de teléfono reasignada a otra persona
+        phone_verification/verified: teléfono verificado
         postal_code: Código postal
         scope: Lugar de participación
         scope_id: Lugar de participación
