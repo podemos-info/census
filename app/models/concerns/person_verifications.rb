@@ -33,6 +33,10 @@ module PersonVerifications
       event :mistake_detected, before: :ensure_trashed do
         transitions from: [:not_verified, :verification_requested, :verification_received, :verified], to: :mistake
       end
+
+      event :unverify do
+        transitions from: :verified, to: :not_verified
+      end
     end
 
     private

@@ -18,6 +18,8 @@ module Procedures
     def persist_changes!
       return unless person.has_changes_to_save?
 
+      person.unverify if person.verified? && modifies?(:document_type, :document_id, :document_scope_id)
+      person.unverify_phone if person.phone_verified? && modifies?(:phone)
       person.save!
       ::People::ChangesPublisher.full_status_changed!(person) if modifies?(:scope_id)
     end
