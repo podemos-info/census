@@ -32,19 +32,8 @@ module Issues
       end
 
       def do_the_fix
-        affected_people_with_verified_phone.each do |person|
-          next if chosen_person_ids.include?(person.id)
-
-          person.reassign_phone
-          person.save!
-        end
-
-        affected_people_without_verified_phone.each do |person|
-          next if chosen_person_ids.include?(person.id)
-
-          person.fraud_detected
-          person.save!
-        end
+        fix_verified_people
+        fix_not_verified_people
       end
 
       def fixed_for?(issuable)
@@ -74,6 +63,24 @@ module Issues
 
       def validate_chosen_person_ids
         errors.add(:chosen_person_ids, :not_affected_person) unless chosen_person_ids.all? { |chosen_person_id| person_ids.include?(chosen_person_id) }
+      end
+
+      def fix_verified_people
+        affected_people_with_verified_phone.each do |person|
+          next if chosen_person_ids.include?(person.id)
+
+          person.reassign_phone
+          person.save!
+        end
+      end
+
+      def fix_not_verified_people
+        affected_people_without_verified_phone.each do |person|
+          next if chosen_person_ids.include?(person.id)
+
+          person.fraud_detected
+          person.save!
+        end
       end
     end
   end
