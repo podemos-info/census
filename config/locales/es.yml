@@ -228,7 +228,7 @@ es:
         state/pending: pendiente
         state/trashed: borrada
         updated_at: Última actualización
-        verification: Comprobación
+        verification: Comprobación de identidad
         verification/fraudulent: fraudulenta
         verification/mistake: por error
         verification/not_verified: no verificada

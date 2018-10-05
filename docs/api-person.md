@@ -114,7 +114,12 @@ Parameter             | Data type | Description                    | Format
 `email`               |  string   | Person's email
 `scope_code`          |  string   | Person's scope_code
 `phone`               |  string   | Person's phone
+`state`               |  string   | Person's state                 | `pending`, `enabled`, `cancelled` or `trashed`
+`membership_level`    |  string   | Person's membership level      | `follower` or `member`
+`verification`        |  string   | Person's identity verification | `not_verified`, `verification_requested`, `verification_received`, `verified`, `mistake` or `fraud`
 `phone_verification`  |  string   | Person's phone verification    | `not_verified`, `verified` or `reassigned`
+`external_ids`        |  json     | Person's external systems ids
+
 
 * When there is no person for the given `person_id`, server response will be `:not_found` (HTTP 404) and an empty JSON.
 
@@ -145,12 +150,12 @@ POST api/v1/people/:person_id/document_verifications
 Parameter             | Data type | Description
 ----------------------|-----------|-------------------------------
 `person_id`           |  string   | Person's qualified identifier
-`reason`              |  string   | Reason for the cancellation (optional)
+`files`               |  json     | A JSON with an array of hashes with three fields: `filename`, `content_type` and `base_64_content`.
 
 ### Return value
 * When the document verification is successfully created, server response will be `:accepted` (HTTP 202).
 * When the given parameters for the procedure are invalid, server response will be `:unprocessable_entity` (HTTP 422) and a JSON with the errors for each parameter.
-* When there is an error creating the cancellation, server response will be `:server_internal_error` (HTTP 500).
+* When there is an error creating the verification, server response will be `:server_internal_error` (HTTP 500).
 
 ## Start a phone verification
 :round_pushpin: Starts a phone verification sending an SMS with the code to the person or given phone.
