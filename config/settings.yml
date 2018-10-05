@@ -54,6 +54,9 @@ people:
   document_id_minimum_length: 4
   external_systems:
     - decidim
+  phone_verification:
+    otp_length: 7
+    expires_after: 300
 
 procedures:
   auto_processables:
@@ -94,3 +97,7 @@ system:
     api_key: <%= ENV["AIRBRAKE_API_KEY"] %>
     project_id: <%= ENV["AIRBRAKE_PROJECT_ID"] %>
     host: <%= ENV["AIRBRAKE_HOST"] %>
+  esendex:
+    username: <%= ENV["ESENDEX_USERNAME"] %>
+    password: <%= ENV["ESENDEX_PASSWORD"] %>
+    account_reference: <%= ENV["ESENDEX_ACCOUNT"] %>

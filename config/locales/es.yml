@@ -537,6 +537,8 @@ es:
         other: Otro
         undisclosed: No quiero decirlo
       request_verification: Solicitar verificación
+      start_phone_verification:
+        sms_message: Tu código de activación es %{otp_code}
       view_downloads: Ver descargas
       view_orders: Ver órdenes (%{count})
       view_payment_methods: Ver métodos de pago (%{count})

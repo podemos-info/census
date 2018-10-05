@@ -143,6 +143,7 @@ GEM
     babel-transpiler (0.7.0)
       babel-source (>= 4.0, < 6)
       execjs (~> 2.0)
+    base32 (0.3.2)
     bcrypt (3.1.12)
     better_errors (2.5.0)
       coderay (>= 1.0.0)
@@ -253,6 +254,9 @@ GEM
     equalizer (0.0.11)
     errbase (0.1.1)
     erubi (1.7.1)
+    esendex (0.6.0)
+      nestful (~> 0.0.8)
+      nokogiri (~> 1.8, >= 1.8.2)
     execjs (2.7.0)
     factory_bot (4.11.1)
       activesupport (>= 3.0.0)
@@ -353,6 +357,8 @@ GEM
     money (6.12.0)
       i18n (>= 0.6.4, < 1.1)
     multi_json (1.13.1)
+    nestful (0.0.8)
+      activesupport (>= 3.0.0.beta)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (5.0.2)
@@ -435,6 +441,7 @@ GEM
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
+    rotp (3.3.1)
     rspec-core (3.8.0)
       rspec-support (~> 3.8.0)
     rspec-expectations (3.8.1)
@@ -579,6 +586,7 @@ DEPENDENCIES
   ahoy_matey
   airbrake (~> 5.8)
   arctic_admin
+  base32
   better_errors
   brakeman
   byebug
@@ -595,6 +603,7 @@ DEPENDENCIES
   discard
   dotenv-rails
   draper
+  esendex
   factory_bot_rails
   faker
   faker-spanish_document
@@ -622,6 +631,7 @@ DEPENDENCIES
   rails-controller-testing
   rails-i18n
   rectify!
+  rotp
   rspec-rails
   rubocop
   rubocop-rspec

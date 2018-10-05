@@ -152,6 +152,23 @@ Parameter             | Data type | Description
 * When the given parameters for the procedure are invalid, server response will be `:unprocessable_entity` (HTTP 422) and a JSON with the errors for each parameter.
 * When there is an error creating the cancellation, server response will be `:server_internal_error` (HTTP 500).
 
+## Start a phone verification
+:round_pushpin: Starts a phone verification sending an SMS with the code to the person or given phone.
+```
+POST api/v1/people/:person_id/phone_verifications/new
+```
+
+Parameter             | Data type | Description
+----------------------|-----------|-------------------------------
+`person_id`           |  string   | Person's qualified identifier
+`phone`               |  string   | A different phone number to be verified (optional)
+
+### Return value
+* When the message is successfully sent, server response will be `:accepted` (HTTP 202).
+* When the given parameters for the procedure are invalid, server response will be `:unprocessable_entity` (HTTP 422) and a JSON with the errors for each parameter.
+* When there is an error sending the message, server response will be `:server_internal_error` (HTTP 500).
+
+
 ## Procedures
 :round_pushpin: Retrieve all the pending procedures for the person.
 ```
