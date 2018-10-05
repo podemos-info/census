@@ -8,7 +8,7 @@ Rails.application.routes.draw do
           resources :document_verifications, only: [:create], controller: "people/document_verifications"
           resources :membership_levels, only: [:create], controller: "people/membership_levels"
           resources :procedures, only: [:index], controller: "people/procedures"
-          resources :phone_verifications, only: [:new], controller: "people/phone_verifications"
+          resources :phone_verifications, only: [:new, :create], controller: "people/phone_verifications"
         end
 
         namespace :payments do

@@ -335,6 +335,9 @@ es:
       procedures/person_data_change:
         one: Cambio de datos personales
         other: Cambios de datos personales
+      procedures/phone_verification:
+        one: Verificación de teléfono
+        other: Verificaciones de teléfono
       procedures/registration:
         one: Registro
         other: Registros
@@ -418,6 +421,9 @@ es:
         people/duplicated_person:
           name: Datos personales duplicados
           tip: Los siguientes registros tienen datos personales similares, por lo que es posible que correspondan a la misma persona. Para resolver la incidencia debes utilizar los datos de las siguientes personas para indicar cuales de ellas debe permanecer en el censo.
+        people/duplicated_verified_phone:
+          name: Teléfono verificado reutilizado
+          tip: Las siguientes personas se han verificado con el mismo número de teléfono. Para resolver la incidencia debes elegir las personas que pueden usar dicho número. Las personas que no escojas perderán la verificación del teléfono si están verificadas o serán marcadas como fraudulentas si no lo están.
         people/untrusted_email:
           name: Email sospechoso
           tip: Este registro tiene asociado un número de teléfono sospechoso, por lo que puede ser una inscripción fraudulenta. Para resolver la incidencia debes comprobar la dirección de correo e indicar si es correcta.

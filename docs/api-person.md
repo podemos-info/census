@@ -169,6 +169,23 @@ Parameter             | Data type | Description
 * When there is an error sending the message, server response will be `:server_internal_error` (HTTP 500).
 
 
+## Phone verification
+:round_pushpin: Creates a phone verification procedure for a person.
+```
+POST api/v1/people/:person_id/phone_verifications
+```
+
+Parameter             | Data type | Description
+----------------------|-----------|-------------------------------
+`person_id`           |  string   | Person's qualified identifier
+`received_code`       |  string   | The validation code received in the phone
+`phone`               |  string   | A different phone number to be verified (optional)
+
+### Return value
+* When the phone verification is successfully created, server response will be `:accepted` (HTTP 202).
+* When the given parameters for the procedure are invalid, server response will be `:unprocessable_entity` (HTTP 422) and a JSON with the errors for each parameter.
+* When there is an error creating the phone verification, server response will be `:server_internal_error` (HTTP 500).
+
 ## Procedures
 :round_pushpin: Retrieve all the pending procedures for the person.
 ```
