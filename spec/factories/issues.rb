@@ -93,6 +93,26 @@ FactoryBot.define do
     end
   end
 
+  factory :duplicated_verified_phone, parent: :issue, class: :"issues/people/duplicated_verified_phone" do
+    transient do
+      issuable { create(:phone_verification, phone: other_person.phone) }
+      other_person { create(:person, :phone_verified) }
+    end
+    role { "data" }
+    phone { other_person.phone }
+
+    trait :ready_to_fix do
+      chosen_person_ids { [issuable.person.id] }
+    end
+
+    after :build do |issue, evaluator|
+      if evaluator.evaluated
+        issue.people = [evaluator.other_person, evaluator.issuable.person]
+        issue.procedures << evaluator.issuable
+      end
+    end
+  end
+
   factory :untrusted_email, parent: :issue, class: :"issues/people/untrusted_email" do
     transient do
       issuable { create(:registration, person_copy_data: temp_person) }

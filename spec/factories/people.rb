@@ -99,6 +99,10 @@ FactoryBot.define do
       verification { :verified }
     end
 
+    trait :phone_verified do
+      phone_verification { :verified }
+    end
+
     trait :copy do
       transient do
         from { build(:person) }

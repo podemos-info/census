@@ -87,6 +87,10 @@ describe IssuesController, type: :controller do
         role: :data,
         request_params: ->(_issue) { { trusted: false, comment: "Is not real" } }
       },
+      duplicated_verified_phone: {
+        role: :data,
+        request_params: ->(issue) { { chosen_person_ids: [issue.procedure.person_id], comment: "Phone reassignment" } }
+      },
       missing_bic: {
         role: :finances,
         request_params: ->(issue) { { bic: "ABCD#{issue.payment_methods.first.iban_parts[:country]}XX" } }
