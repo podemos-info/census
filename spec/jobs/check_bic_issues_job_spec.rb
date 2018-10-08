@@ -5,8 +5,8 @@ require "rails_helper"
 describe CheckBicIssuesJob, type: :job do
   subject(:job) { described_class.perform_now(country: country, bank_code: bank_code, admin: current_admin) }
 
-  let(:country) { direct_debit.iban_parts[:country] }
-  let(:bank_code) { direct_debit.iban_parts[:bank_code] }
+  let(:country) { direct_debit.country }
+  let(:bank_code) { direct_debit.bank_code }
   let(:direct_debit) { create(:direct_debit) }
   let(:current_admin) { create(:admin, :finances) }
 

@@ -16,6 +16,6 @@ class CheckBicIssuesJob < ApplicationJob
   private
 
   def payment_method
-    @payment_method ||= ::PaymentMethodsForBank.for_parts(country: @country, bank: @bank_code).first
+    @payment_method ||= ::PaymentMethodsForBank.for(country: @country, bank_code: @bank_code).first
   end
 end
