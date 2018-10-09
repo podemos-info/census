@@ -10,14 +10,12 @@ module HasAdditionalInformation
   end
 
   module ClassMethods
+    attr_reader :additional_information_names
+
     @additional_information_names = []
 
     def additional_information(*names)
       @additional_information_names = names
-    end
-
-    def additional_information_names
-      @additional_information_names
     end
   end
 end

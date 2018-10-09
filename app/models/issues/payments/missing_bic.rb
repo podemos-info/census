@@ -50,7 +50,7 @@ module Issues
       end
 
       def affected_payment_methods
-        @affected_payment_methods ||= ::PaymentMethodsForBank.for(iban: direct_debit.iban)
+        @affected_payment_methods ||= ::PaymentMethodsForBank.for_iban(direct_debit.iban)
       end
 
       def affected_orders

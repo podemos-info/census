@@ -160,7 +160,7 @@ Parameter             | Data type | Description
 ## Start a phone verification
 :round_pushpin: Starts a phone verification sending an SMS with the code to the person or given phone.
 ```
-POST api/v1/people/:person_id/phone_verifications/new
+GET api/v1/people/:person_id/phone_verifications/new
 ```
 
 Parameter             | Data type | Description

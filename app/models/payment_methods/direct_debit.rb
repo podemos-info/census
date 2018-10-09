@@ -2,7 +2,8 @@
 
 module PaymentMethods
   class DirectDebit < PaymentMethod
-    store_accessor :information, :iban
+    store_accessor :information, :country, :bank_code
+
     additional_information :iban, :bic
 
     before_validation :set_payment_processor
@@ -37,15 +38,24 @@ module PaymentMethods
       @iban_parts ||= IbanBic.parse(iban)
     end
 
+    def iban
+      indifferent_sensible_data[:iban]
+    end
+
     def iban=(value)
-      super value
+      self.sensible_data = { iban: value }
       @bic = @iban_parts = nil
+      self.information = { country: iban_parts&.fetch(:country, nil), bank_code: iban_parts&.fetch(:bank, nil) }
     end
 
     private
 
     def set_payment_processor
       self.payment_processor ||= Settings.payments.default_processors.direct_debit
+    end
+
+    def indifferent_sensible_data
+      sensible_data&.with_indifferent_access || {}
     end
   end
 end
