@@ -2,7 +2,7 @@
 
 context.instance_eval do
   if policy(procedure).update?
-    if procedure.issues.any?
+    if issues_for_resource.any?
       panel t("census.procedures.process") do
         div class: "flash flash_alert" do
           para t("census.procedures.fix_issues")

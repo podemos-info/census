@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   helper TranslationsHelper
+  helper_method :issues_for_resource
 
   before_action :set_paper_trail_whodunnit
   before_action :check_resource_issues, only: [:show, :edit]

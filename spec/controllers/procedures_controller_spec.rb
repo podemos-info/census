@@ -52,21 +52,42 @@ describe ProceduresController, type: :controller do
 
       include_examples "has comments enabled"
 
-      context "when procedure has issues" do
-        before { open_issue && closed_issue }
+      context "when has a closed issue" do
+        before { closed_issue }
 
-        let(:current_admin) { create(:admin, :data) }
-        let(:open_issue) { create(:duplicated_document, issuable: procedure) }
         let(:closed_issue) { create(:duplicated_person, :ready_to_fix, :fixed, issuable: procedure) }
+        let(:current_admin) { create(:admin, :data) }
 
         it { is_expected.to be_successful }
         it { is_expected.to render_template("show") }
-        it "shows an error message" do
-          expect { subject }
-            .to change { flash[:alert] }
-            .from(nil)
-            .to "¡Atención! Hay incidencias abiertas asociadas a este registro: "\
-                "<a class=\"member_link\" href=\"/issues/#{open_issue.id}/edit\">Documento duplicado ##{open_issue.id}</a>."
+
+        it "doesn't show an error message" do
+          expect { subject } .not_to change { flash[:alert] } .from(nil)
+        end
+
+        it "shows the procedure processing form" do
+          expect(subject.body).to include("procedure_action_input")
+        end
+
+        context "when has a open issue too" do
+          before { open_issue }
+
+          let(:open_issue) { create(:duplicated_document, issuable: procedure) }
+
+          it { is_expected.to be_successful }
+          it { is_expected.to render_template("show") }
+
+          it "shows an error message" do
+            expect { subject }
+              .to change { flash[:alert] }
+              .from(nil)
+              .to "¡Atención! Hay incidencias abiertas asociadas a este registro: "\
+                  "<a class=\"member_link\" href=\"/issues/#{open_issue.id}/edit\">Documento duplicado ##{open_issue.id}</a>."
+          end
+
+          it "doesn't show the procedure processing form" do
+            expect(subject.body).not_to include("procedure_action_input")
+          end
         end
       end
     end
