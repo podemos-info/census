@@ -30,6 +30,8 @@ describe Api::V1::Payments::OrdersController, type: :controller do
       it { is_expected.to have_http_status(:created) }
       it { expect(subject.content_type).to eq("application/json") }
 
+      include_examples "doesn't track the user visit"
+
       it "responds with a JSON with payment_method_id" do
         expect(JSON.parse(subject.body)) .to have_key("payment_method_id")
       end

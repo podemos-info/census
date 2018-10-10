@@ -28,6 +28,8 @@ describe Api::V1::PeopleController, type: :controller do
       it { is_expected.to have_http_status(:accepted) }
       it { expect(subject.content_type).to eq("application/json") }
 
+      include_examples "doesn't track the user visit"
+
       it "creates a new person" do
         expect { subject } .to change(Person, :count).by(1)
       end
@@ -86,6 +88,7 @@ describe Api::V1::PeopleController, type: :controller do
 
       it { is_expected.to have_http_status(:accepted) }
       it { expect(subject.content_type).to eq("application/json") }
+      include_examples "doesn't track the user visit"
 
       it "creates a new person data change procedure" do
         expect { subject } .to change(Procedures::PersonDataChange, :count).by(1)
@@ -137,6 +140,7 @@ describe Api::V1::PeopleController, type: :controller do
 
       it { is_expected.to have_http_status(:accepted) }
       it { expect(subject.content_type).to eq("application/json") }
+      include_examples "doesn't track the user visit"
 
       it "creates a new cancellation procedure" do
         expect { subject } .to change(Procedures::Cancellation, :count).by(1)
@@ -188,6 +192,7 @@ describe Api::V1::PeopleController, type: :controller do
       let(:params) { { id: person.qualified_id_at(:decidim) } }
 
       it { is_expected.to be_successful }
+      include_examples "doesn't track the user visit"
 
       describe "returned data" do
         subject(:response) { JSON.parse(endpoint.body) }

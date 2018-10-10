@@ -35,6 +35,8 @@ describe PeopleController, type: :controller do
     it { is_expected.to be_successful }
     it { is_expected.to render_template("index") }
 
+    include_examples "tracks the user visit"
+
     context "when filtered by pending people" do
       let(:params) { { scope: "pending" } }
 
@@ -65,6 +67,8 @@ describe PeopleController, type: :controller do
 
     it { is_expected.to be_successful }
     it { is_expected.to render_template("edit") }
+
+    include_examples "tracks the user visit"
   end
 
   with_versioning do
@@ -83,6 +87,7 @@ describe PeopleController, type: :controller do
       it { is_expected.to render_template("show") }
 
       include_examples "has comments enabled"
+      include_examples "tracks the user visit"
 
       context "when accessing as finances admin" do
         before { order }
@@ -106,6 +111,8 @@ describe PeopleController, type: :controller do
       it { is_expected.to have_http_status(:found) }
       it { expect(subject.location).to eq(person_url(person.id)) }
       it { expect { subject } .to change(person, :first_name).from("original").to("changed") }
+
+      include_examples "tracks the user visit"
 
       context "when nothing changes" do
         let(:first_name) { person.first_name }
@@ -152,6 +159,8 @@ describe PeopleController, type: :controller do
         expect { subject } .to change { person.reload.verification } .from("not_verified").to("verification_requested")
       end
 
+      include_examples "tracks the user visit"
+
       context "when trying to request verification to a verified person" do
         let(:person) { create(:person, :verified) }
 
@@ -184,6 +193,8 @@ describe PeopleController, type: :controller do
 
       it { is_expected.to be_successful }
       it { is_expected.to render_template("cancellation") }
+
+      include_examples "tracks the user visit"
 
       context "when submitting data" do
         subject { patch :cancellation, params: { id: person.id, channel: channel, reason: reason } }

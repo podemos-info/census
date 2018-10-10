@@ -32,6 +32,8 @@ describe ScopesController, type: :controller do
     it { is_expected.to be_successful }
     it { is_expected.to render_template("browse") }
 
+    include_examples "doesn't track the user visit"
+
     context "with a current scope" do
       let(:params) { { title: "field", current: scope.id } }
       let(:scope) { create(:scope) }

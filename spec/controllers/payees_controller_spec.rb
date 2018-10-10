@@ -29,6 +29,8 @@ describe PayeesController, type: :controller do
 
     it { is_expected.to be_successful }
     it { is_expected.to render_template("index") }
+
+    include_examples "tracks the user visit"
   end
 
   describe "show page" do
@@ -36,6 +38,8 @@ describe PayeesController, type: :controller do
 
     it { is_expected.to be_successful }
     it { is_expected.to render_template("show") }
+
+    include_examples "tracks the user visit"
   end
 
   describe "new page" do
@@ -43,6 +47,8 @@ describe PayeesController, type: :controller do
 
     it { is_expected.to be_successful }
     it { is_expected.to render_template("new") }
+
+    include_examples "tracks the user visit"
   end
 
   describe "create page" do
@@ -53,6 +59,8 @@ describe PayeesController, type: :controller do
     it { expect { subject } .to change(Payee, :count).by(1) }
     it { is_expected.to have_http_status(:found) }
     it { expect(subject.location).to eq(payee_url(Payee.last)) }
+
+    include_examples "tracks the user visit"
   end
 
   describe "edit page" do
@@ -60,6 +68,8 @@ describe PayeesController, type: :controller do
 
     it { is_expected.to be_successful }
     it { is_expected.to render_template("edit") }
+
+    include_examples "tracks the user visit"
   end
 
   describe "update page" do
@@ -71,6 +81,8 @@ describe PayeesController, type: :controller do
     it { expect(subject).to have_http_status(:found) }
     it { expect(subject.location).to eq(payee_url(payee.id)) }
     it { expect { subject } .to change(payee, :name).to("KKKKKK") }
+
+    include_examples "tracks the user visit"
   end
 
   describe "destroy page" do
@@ -79,5 +91,7 @@ describe PayeesController, type: :controller do
     it { expect { subject } .to change(Payee, :count).by(-1) }
     it { is_expected.to have_http_status(:found) }
     it { expect(subject.location).to eq(payees_url) }
+
+    include_examples "tracks the user visit"
   end
 end

@@ -30,6 +30,8 @@ describe OrdersController, type: :controller do
 
     it { is_expected.to be_successful }
     it { is_expected.to render_template("index") }
+
+    include_examples "tracks the user visit"
   end
 
   with_versioning do
@@ -40,17 +42,20 @@ describe OrdersController, type: :controller do
       it { is_expected.to render_template("show") }
 
       include_examples "has comments enabled"
+      include_examples "tracks the user visit"
     end
   end
 
   describe "new order" do
     subject(:page) { get :new }
 
+    it { expect { subject } .to change { flash[:alert] } .from(nil).to("Puedes crear órdenes desde la página de una persona o un método de pago.") }
+
     it "redirects to index page" do
       is_expected.to redirect_to(orders_path)
     end
 
-    it { expect { subject } .to change { flash[:alert] } .from(nil).to("Puedes crear órdenes desde la página de una persona o un método de pago.") }
+    include_examples "tracks the user visit"
   end
 
   describe "new order for a person page" do
@@ -58,6 +63,8 @@ describe OrdersController, type: :controller do
 
     it { is_expected.to be_successful }
     it { is_expected.to render_template("new") }
+
+    include_examples "tracks the user visit"
   end
 
   describe "new order for a payment method page" do
@@ -65,6 +72,8 @@ describe OrdersController, type: :controller do
 
     it { is_expected.to be_successful }
     it { is_expected.to render_template("new") }
+
+    include_examples "tracks the user visit"
   end
 
   describe "create order" do
@@ -73,14 +82,14 @@ describe OrdersController, type: :controller do
     let(:payment_method) { nil }
     let(:order) { build(:order, payment_method: payment_method) }
 
-    context "with external authorization payment method" do
-      it "increment the number of orders" do
-        expect { subject } .to change(Order, :count)
-      end
-      it "generate the form with the data for the payment" do
-        is_expected.to render_template("orders/payment_form")
-      end
+    it "increment the number of orders" do
+      expect { subject } .to change(Order, :count)
     end
+    it "generate the form with the data for the payment" do
+      is_expected.to render_template("orders/payment_form")
+    end
+
+    include_examples "tracks the user visit"
 
     context "with an existing payment_method" do
       let(:payment_method) { create(:credit_card) }
@@ -186,17 +195,17 @@ describe OrdersController, type: :controller do
   describe "external payment result page" do
     subject(:page) { get :external_payment_result, params: { result: result } }
 
-    context "when payment was ok" do
-      let(:result) { "ok" }
+    let(:result) { "ok" }
 
-      it "success" do
-        is_expected.to have_http_status(:found)
-      end
-      it { expect { subject } .to change { flash[:notice] } .from(nil).to("La orden ha sido creada") }
-      it "shows the index page" do
-        expect(subject.location).to eq(orders_url)
-      end
+    it "success" do
+      is_expected.to have_http_status(:found)
     end
+    it { expect { subject } .to change { flash[:notice] } .from(nil).to("La orden ha sido creada") }
+    it "shows the index page" do
+      expect(subject.location).to eq(orders_url)
+    end
+
+    include_examples "tracks the user visit"
 
     context "when payment was ko" do
       let(:result) { "ko" }

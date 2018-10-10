@@ -101,6 +101,8 @@ describe CallbacksController, type: :controller do
       it "responds an OK WSDL message" do
         expect(subject.body.delete("\n")) .to eq OK_RESPONSE
       end
+
+      include_examples "doesn't track the user visit"
     end
 
     context "when redsys response has an invalid format" do

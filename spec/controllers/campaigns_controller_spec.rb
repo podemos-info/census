@@ -29,6 +29,8 @@ describe CampaignsController, type: :controller do
 
     it { is_expected.to be_successful }
     it { is_expected.to render_template("index") }
+
+    include_examples "tracks the user visit"
   end
 
   describe "show page" do
@@ -36,6 +38,8 @@ describe CampaignsController, type: :controller do
 
     it { is_expected.to be_successful }
     it { is_expected.to render_template("show") }
+
+    include_examples "tracks the user visit"
   end
 
   describe "edit page" do
@@ -43,6 +47,8 @@ describe CampaignsController, type: :controller do
 
     it { is_expected.to be_successful }
     it { is_expected.to render_template("edit") }
+
+    include_examples "tracks the user visit"
   end
 
   describe "update page" do
@@ -54,6 +60,8 @@ describe CampaignsController, type: :controller do
     it { expect(subject).to have_http_status(:found) }
     it { expect(subject.location).to eq(campaign_url(campaign.id)) }
     it { expect { subject } .to change(campaign, :campaign_code).to("KKKKKK") }
+
+    include_examples "tracks the user visit"
   end
 
   describe "destroy page" do
@@ -62,5 +70,7 @@ describe CampaignsController, type: :controller do
     it { expect { subject } .to change(Campaign, :count).by(-1) }
     it { is_expected.to have_http_status(:found) }
     it { expect(subject.location).to eq(campaigns_url) }
+
+    include_examples "tracks the user visit"
   end
 end

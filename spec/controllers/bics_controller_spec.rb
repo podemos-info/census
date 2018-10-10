@@ -29,6 +29,8 @@ describe BicsController, type: :controller do
 
     it { is_expected.to be_successful }
     it { is_expected.to render_template("index") }
+
+    include_examples "tracks the user visit"
   end
 
   describe "show page" do
@@ -36,6 +38,8 @@ describe BicsController, type: :controller do
 
     it { is_expected.to be_successful }
     it { is_expected.to render_template("show") }
+
+    include_examples "tracks the user visit"
   end
 
   describe "new page" do
@@ -43,6 +47,8 @@ describe BicsController, type: :controller do
 
     it { is_expected.to be_successful }
     it { is_expected.to render_template("new") }
+
+    include_examples "tracks the user visit"
   end
 
   describe "create page" do
@@ -53,6 +59,8 @@ describe BicsController, type: :controller do
     it { expect { subject } .to change(Bic, :count).by(1) }
     it { is_expected.to have_http_status(:found) }
     it { expect(subject.location).to eq(bic_url(Bic.last.id)) }
+
+    include_examples "tracks the user visit"
 
     context "with invalid params" do
       let(:bic) { build(:bic, :invalid) }
@@ -91,6 +99,8 @@ describe BicsController, type: :controller do
     it { expect(subject.location).to eq(bic_url(bic.id)) }
     it { expect { subject } .to change { Bic.find(bic.id).bic }.to(new_bic) }
 
+    include_examples "tracks the user visit"
+
     context "with invalid params" do
       before { bic.assign_attributes bic: "1a22" }
 
@@ -112,6 +122,8 @@ describe BicsController, type: :controller do
 
   describe "destroy page" do
     subject { put :destroy, params: { id: bic.id } }
+
+    include_examples "tracks the user visit"
 
     it { expect { subject } .to change(Bic, :count).by(-1) }
     it { is_expected.to have_http_status(:found) }

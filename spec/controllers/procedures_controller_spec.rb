@@ -33,6 +33,8 @@ describe ProceduresController, type: :controller do
       it { expect(subject).to be_successful }
       it { expect(subject).to render_template("index") }
 
+      include_examples "tracks the user visit"
+
       context "with accepted tab" do
         subject { get :index, params: { scope: :accepted } }
 
@@ -51,6 +53,7 @@ describe ProceduresController, type: :controller do
       it { expect(subject).to render_template("show") }
 
       include_examples "has comments enabled"
+      include_examples "tracks the user visit"
 
       context "when has a closed issue" do
         before { closed_issue }
@@ -99,6 +102,8 @@ describe ProceduresController, type: :controller do
 
       it { expect(subject).to be_successful }
       it { expect(subject).to render_template("show") }
+
+      include_examples "tracks the user visit"
     end
 
     describe "trying to undone when not undoable" do
@@ -112,6 +117,8 @@ describe ProceduresController, type: :controller do
       it "redirect to procedures page" do
         expect(subject).to redirect_to(procedures_path)
       end
+
+      include_examples "tracks the user visit"
     end
 
     describe "undoable procedure" do
@@ -174,6 +181,8 @@ describe ProceduresController, type: :controller do
       expect { subject } .to change { Procedure.find(procedure.id).state }.from("pending").to("rejected")
     end
 
+    include_examples "tracks the user visit"
+
     context "when creating an issue" do
       let(:params) { { action: "issue", comment: Faker::Lorem.paragraph(1, true, 2) } }
 
@@ -218,5 +227,7 @@ describe ProceduresController, type: :controller do
     it { expect(subject).to be_successful }
     it { expect(subject.content_type).to eq("image/png") }
     it { expect(subject.body).to eq(procedure.attachments.first.file.read) }
+
+    include_examples "tracks the user visit"
   end
 end

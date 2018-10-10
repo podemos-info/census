@@ -29,6 +29,8 @@ describe PaymentMethodsController, type: :controller do
 
     it { is_expected.to be_successful }
     it { is_expected.to render_template("index") }
+
+    include_examples "tracks the user visit"
   end
 
   with_versioning do
@@ -37,6 +39,8 @@ describe PaymentMethodsController, type: :controller do
 
       it { is_expected.to be_successful }
       it { is_expected.to render_template("show") }
+
+      include_examples "tracks the user visit"
     end
   end
 
@@ -47,6 +51,8 @@ describe PaymentMethodsController, type: :controller do
 
     it { expect(subject).to be_successful }
     it { expect(subject).to render_template("new") }
+
+    include_examples "tracks the user visit"
   end
 
   describe "create page" do
@@ -58,6 +64,8 @@ describe PaymentMethodsController, type: :controller do
     it { expect { subject } .to change(PaymentMethod, :count).by(1) }
     it { expect(subject).to have_http_status(:found) }
     it { expect(subject.location).to eq(person_payment_method_url(person, PaymentMethod.last)) }
+
+    include_examples "tracks the user visit"
 
     context "when saving fails" do
       before { stub_command("Payments::SavePaymentMethod", :error) }
@@ -72,6 +80,8 @@ describe PaymentMethodsController, type: :controller do
 
     it { expect(subject).to be_successful }
     it { expect(subject).to render_template("edit") }
+
+    include_examples "tracks the user visit"
   end
 
   describe "update page" do
@@ -83,6 +93,8 @@ describe PaymentMethodsController, type: :controller do
     it { expect(subject).to have_http_status(:found) }
     it { expect(subject.location).to eq(payment_method_url(payment_method)) }
     it { expect { subject } .to change(payment_method, :name).to("KKKKKK") }
+
+    include_examples "tracks the user visit"
 
     context "when saving fails" do
       before { stub_command("Payments::SavePaymentMethod", :error) }
