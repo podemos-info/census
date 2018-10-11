@@ -11,3 +11,4 @@ class Ahoy::Store < Ahoy::DatabaseStore
 end
 
 Ahoy.user_method = ->(controller) { controller.current_admin }
+Ahoy.server_side_visits = :when_needed

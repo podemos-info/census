@@ -29,6 +29,8 @@ describe VisitsController, type: :controller do
 
     it { is_expected.to be_successful }
     it { is_expected.to render_template("index") }
+
+    include_examples "doesn't track the user visit"
   end
 
   describe "show page" do
@@ -36,5 +38,7 @@ describe VisitsController, type: :controller do
 
     it { is_expected.to be_successful }
     it { is_expected.to render_template("show") }
+
+    include_examples "doesn't track the user visit"
   end
 end

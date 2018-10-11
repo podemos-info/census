@@ -34,6 +34,8 @@ describe IssuesController, type: :controller do
     it { is_expected.to be_successful }
     it { is_expected.to render_template("index") }
 
+    include_examples "tracks the user visit"
+
     context "when ordered by issue type" do
       let(:params) { { order: "issue_type_desc" } }
 
@@ -46,6 +48,8 @@ describe IssuesController, type: :controller do
 
     it { is_expected.to be_successful }
     it { is_expected.to render_template("show") }
+
+    include_examples "tracks the user visit"
   end
 
   describe "assign me an issue" do
@@ -56,6 +60,8 @@ describe IssuesController, type: :controller do
     it "assigns the issue to the current admin" do
       expect { subject } .to change { Issue.find(issue.id).assigned_to } .from(nil).to(current_admin.person)
     end
+
+    include_examples "tracks the user visit"
   end
 
   describe "edit page" do
@@ -63,6 +69,8 @@ describe IssuesController, type: :controller do
 
     it { expect(subject).to be_successful }
     it { expect(subject).to render_template("edit") }
+
+    include_examples "tracks the user visit"
   end
 
   with_versioning do
@@ -122,6 +130,8 @@ describe IssuesController, type: :controller do
       it "closes the issue" do
         expect { subject } .not_to change { issue.reload.closed? } .from(false)
       end
+
+      include_examples "tracks the user visit"
     end
   end
 end

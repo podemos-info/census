@@ -364,8 +364,10 @@ es:
         create: Guardar
         destroy: Borrar
         edit: Modificar
+        error: Error al ejecutar la página
         index: Ver
         new: Crear
+        not_found: Página no encontrada
         search: Buscar
         show: Ver
         update: Actualizar
@@ -373,6 +375,7 @@ es:
       controller:
         active_admin/devise/session: Sesión
         dashboard: Portada
+        error: ''
         system: Sistema
         version: Version
       properties: Propiedades

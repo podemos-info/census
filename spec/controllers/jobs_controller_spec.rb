@@ -29,6 +29,8 @@ describe JobsController, type: :controller do
 
     it { is_expected.to be_successful }
     it { is_expected.to render_template("index") }
+
+    include_examples "doesn't track the user visit"
   end
 
   describe "show page" do
@@ -36,6 +38,8 @@ describe JobsController, type: :controller do
 
     it { is_expected.to be_successful }
     it { is_expected.to render_template("show") }
+
+    include_examples "doesn't track the user visit"
   end
 
   describe "running processes count" do
@@ -44,6 +48,8 @@ describe JobsController, type: :controller do
     it { is_expected.to be_successful }
     it { expect(subject.content_type).to eq("application/json") }
     it { expect(subject.body).to eq("0") }
+
+    include_examples "doesn't track the user visit"
 
     context "when there are running jobs" do
       before { job }

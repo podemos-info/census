@@ -34,6 +34,8 @@ describe OrdersBatchesController, type: :controller do
 
     it { is_expected.to be_successful }
     it { is_expected.to render_template("index") }
+
+    include_examples "tracks the user visit"
   end
 
   with_versioning do
@@ -42,6 +44,8 @@ describe OrdersBatchesController, type: :controller do
 
       it { is_expected.to be_successful }
       it { is_expected.to render_template("show") }
+
+      include_examples "tracks the user visit"
 
       context "with orders with issues" do
         let(:orders_batch) { create(:orders_batch, :with_issues) }
@@ -57,6 +61,8 @@ describe OrdersBatchesController, type: :controller do
 
     it { is_expected.to be_successful }
     it { is_expected.to render_template("new") }
+
+    include_examples "tracks the user visit"
 
     context "without pending orders" do
       let(:pending_order) { nil }
@@ -79,6 +85,8 @@ describe OrdersBatchesController, type: :controller do
     it { is_expected.to have_http_status(:found) }
     it { expect(subject.location).to eq(orders_batch_url(OrdersBatch.last)) }
 
+    include_examples "tracks the user visit"
+
     context "when saving fails" do
       before { stub_command("Payments::CreateOrdersBatch", :error) }
 
@@ -95,6 +103,8 @@ describe OrdersBatchesController, type: :controller do
 
     it { is_expected.to be_successful }
     it { expect(subject).to render_template("edit") }
+
+    include_examples "tracks the user visit"
   end
 
   describe "charge orders batch" do
@@ -102,6 +112,8 @@ describe OrdersBatchesController, type: :controller do
 
     it { is_expected.to have_http_status(:found) }
     it { expect(subject.location).to eq(orders_batches_url) }
+
+    include_examples "tracks the user visit"
 
     it "inform that the orders batch will be processed" do
       expect { subject } .to change { flash[:notice] } .from(nil).to("El lote de órdenes está siendo procesado.")
@@ -121,11 +133,9 @@ describe OrdersBatchesController, type: :controller do
   describe "review orders orders batch" do
     subject(:page) { get :review_orders, params: { id: orders_batch.id } }
 
-    context "without orders with issues" do
-      it "success" do
-        is_expected.to have_http_status(:found)
-      end
-    end
+    it { is_expected.to have_http_status(:found) }
+
+    include_examples "tracks the user visit"
 
     context "with orders with issues" do
       let(:orders_batch) { create(:orders_batch, :with_issues) }

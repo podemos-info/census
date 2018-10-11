@@ -3,6 +3,8 @@
 require "rails_helper"
 
 describe "Errors", type: :system do
+  subject { visit target_url }
+
   before(:example, environment: :production) do
     allow(Rails.application).to receive(:env_config)
       .with(no_args)
@@ -13,24 +15,28 @@ describe "Errors", type: :system do
 
   shared_examples_for "a backend url" do
     it "returns html with a message" do
-      visit target_url
+      subject
 
       aggregate_failures "testing response" do
         expect(page.response_headers["Content-Type"]).to match(/html/)
         expect(page.body).to eq(error_message)
       end
     end
+
+    include_examples "tracks the user visit"
   end
 
   shared_examples_for "an API url" do
     it "returns empty json" do
-      visit target_url
+      subject
 
       aggregate_failures "testing response" do
         expect(page.body).to eq("{}")
         expect(page.response_headers["Content-Type"]).to match(/json/)
       end
     end
+
+    include_examples "doesn't track the user visit"
   end
 
   context "when visiting a non existing url" do
@@ -45,7 +51,7 @@ describe "Errors", type: :system do
     context "when developing" do
       shared_examples_for "an unexistent development url" do
         it "returns an informative exception" do
-          expect { visit target_url }.to raise_error(ActionController::RoutingError, "No route matches [GET] \"#{target_url}\"")
+          expect { subject }.to raise_error(ActionController::RoutingError, "No route matches [GET] \"#{target_url}\"")
         end
       end
 
@@ -65,7 +71,7 @@ describe "Errors", type: :system do
     context "when running in production", environment: :production do
       shared_examples_for "an unexistent production url" do
         it "returns not found status" do
-          visit target_url
+          subject
 
           expect(page).to have_http_status(:not_found)
         end
@@ -113,7 +119,7 @@ describe "Errors", type: :system do
     context "when developing" do
       shared_examples_for "a crashing development url" do
         it "crashes properly" do
-          expect { visit target_url }.to raise_error(NoMethodError, /undefined method `hakuna_matata' for/)
+          expect { subject }.to raise_error(NoMethodError, /undefined method `hakuna_matata' for/)
         end
       end
 
@@ -133,7 +139,7 @@ describe "Errors", type: :system do
     context "when running in production", environment: :production do
       shared_examples_for "a crashing production url" do
         it "crashes properly" do
-          visit target_url
+          subject
 
           expect(page).to have_http_status(:internal_server_error)
         end

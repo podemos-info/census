@@ -29,6 +29,8 @@ describe AdminsController, type: :controller do
 
     it { is_expected.to be_successful }
     it { is_expected.to render_template("index") }
+
+    include_examples "tracks the user visit"
   end
 
   describe "edit page" do
@@ -36,6 +38,8 @@ describe AdminsController, type: :controller do
 
     it { expect(subject).to be_successful }
     it { expect(subject).to render_template("edit") }
+
+    include_examples "tracks the user visit"
   end
 
   with_versioning do
@@ -44,6 +48,8 @@ describe AdminsController, type: :controller do
 
       it { is_expected.to be_successful }
       it { is_expected.to render_template("show") }
+
+      include_examples "tracks the user visit"
     end
 
     describe "update page" do
@@ -55,6 +61,8 @@ describe AdminsController, type: :controller do
       it { expect(subject).to have_http_status(:found) }
       it { expect(subject.location).to eq(admin_url(admin.id)) }
       it { expect { subject } .to change(admin, :role).to("data") }
+
+      include_examples "tracks the user visit"
     end
   end
 end

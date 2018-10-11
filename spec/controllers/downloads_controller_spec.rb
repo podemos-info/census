@@ -30,6 +30,8 @@ describe DownloadsController, type: :controller do
 
     it { is_expected.to be_successful }
     it { is_expected.to render_template("index") }
+
+    include_examples "tracks the user visit"
   end
 
   describe "show page" do
@@ -37,6 +39,8 @@ describe DownloadsController, type: :controller do
 
     it { is_expected.to be_successful }
     it { is_expected.to render_template("show") }
+
+    include_examples "tracks the user visit"
   end
 
   describe "download file" do
@@ -45,5 +49,7 @@ describe DownloadsController, type: :controller do
     it { expect(subject).to be_successful }
     it { expect(subject.content_type).to eq("application/pdf") }
     it { expect(subject.body).to eq(download.file.read) }
+
+    include_examples "tracks the user visit"
   end
 end
