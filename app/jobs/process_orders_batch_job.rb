@@ -6,7 +6,7 @@ class ProcessOrdersBatchJob < ApplicationJob
   def related_objects
     [
       arguments.first&.fetch(:orders_batch, nil)
-    ]
+    ].compact
   end
 
   def perform(orders_batch:, admin:)

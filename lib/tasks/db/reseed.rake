@@ -3,8 +3,17 @@
 require "census/seeds/scopes"
 
 namespace :db do
-  desc "Reseed database without loading all scopes again"
+  desc "Clean fake data and seed it again"
   task :reseed, [] => :environment do
+    # Clear fake data
+    Rake::Task["db:clean"].execute
+
+    # Seed fake data again
+    Rake::Task["db:seed"].execute
+  end
+
+  desc "Removes all fake data"
+  task :clean, [] => :environment do
     ActiveRecord::Tasks::DatabaseTasks.check_protected_environments!
     raise "Not allowed to run on production" if Rails.env.production?
 
@@ -16,8 +25,5 @@ namespace :db do
 
     # Delete uploads
     %w(tmp/uploads non-public/uploads).each { |folder| FileUtils.rm_rf folder }
-
-    # Seed fake data again
-    Rake::Task["db:seed"].execute
   end
 end

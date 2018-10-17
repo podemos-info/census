@@ -11,12 +11,14 @@ describe ProcessOrdersBatchJob, type: :job do
 
   let(:orders_batch) { create(:orders_batch) }
   let(:current_admin) { create(:admin, :finances) }
+  let(:job_record) { ActiveJobReporter::Job.first }
 
   context "when orders are ok" do
     let(:cassete) { "orders_batch_job_payment" }
 
     it "completes the job" do
-      expect(subject.result).to eq(:ok)
+      subject
+      expect(job_record.result).to eq("ok")
     end
 
     it "sets the orders batch processed date" do
@@ -45,7 +47,8 @@ describe ProcessOrdersBatchJob, type: :job do
     let(:cassete) { "orders_batch_job_payment_reprocess" }
 
     it "completes the job" do
-      expect(subject.result).to eq(:ok)
+      subject
+      expect(job_record.result).to eq("ok")
     end
 
     it "sets the orders batch processed date" do
@@ -66,16 +69,18 @@ describe ProcessOrdersBatchJob, type: :job do
     let(:cassete) { "orders_batch_job_payment_review" }
 
     it "doesn't complete the job" do
-      expect(subject.result).to eq(:review)
+      subject
+      expect(job_record.result).to eq("review")
     end
   end
 
-  context "when orders invalid parameters" do
-    let(:cassete) { "orders_batch_job_invalid" }
+  context "when has invalid parameters" do
     let(:orders_batch) { nil }
+    let(:cassete) { "orders_batch_job_invalid" }
 
     it "doesn't complete the job" do
-      expect(subject.result).to eq(:invalid)
+      subject
+      expect(job_record.result).to eq("invalid")
     end
   end
 
@@ -85,7 +90,8 @@ describe ProcessOrdersBatchJob, type: :job do
     let(:cassete) { "orders_batch_job_too_many_errors" }
 
     it "doesn't complete the job" do
-      expect(subject.result).to eq(:error)
+      subject
+      expect(job_record.result).to eq("error")
     end
   end
 
@@ -95,7 +101,8 @@ describe ProcessOrdersBatchJob, type: :job do
     let(:cassete) { "orders_batch_job_check_issues_fails" }
 
     it "completes the job" do
-      expect(subject.result).to eq(:ok)
+      subject
+      expect(job_record.result).to eq("ok")
     end
   end
 
@@ -105,7 +112,8 @@ describe ProcessOrdersBatchJob, type: :job do
     let(:cassete) { "orders_batch_job_errors_on_charge" }
 
     it "doesn't complete the job" do
-      expect(subject.result).to eq(:error)
+      subject
+      expect(job_record.result).to eq("error")
     end
   end
 end

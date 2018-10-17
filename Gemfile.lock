@@ -24,18 +24,6 @@ GIT
       globalid
       paper_trail (>= 4.0.0)
 
-GIT
-  remote: https://github.com/podemos-info/rectify.git
-  revision: 3465265f9b409c796e97758080a4842d38751780
-  branch: 0.10-stable
-  specs:
-    rectify (0.10.0)
-      activemodel (>= 4.1.0)
-      activerecord (>= 4.1.0)
-      activesupport (>= 4.1.0)
-      virtus (~> 1.0.5)
-      wisper (>= 1.6.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -433,6 +421,12 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+    rectify (0.13.0)
+      activemodel (>= 4.1.0)
+      activerecord (>= 4.1.0)
+      activesupport (>= 4.1.0)
+      virtus (~> 1.0.5)
+      wisper (>= 1.6.1)
     referer-parser (0.3.0)
     regexp-examples (1.4.3)
     request_store (1.4.1)
@@ -630,7 +624,7 @@ DEPENDENCIES
   rails (~> 5.2)
   rails-controller-testing
   rails-i18n
-  rectify!
+  rectify
   rotp
   rspec-rails
   rubocop
