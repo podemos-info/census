@@ -28,15 +28,17 @@ en:
         updated_at: Updated at
   census:
     people:
+      document_types:
+        dni: DNI
+        nie: NIE
+        passport: Passport
       genders:
         female: Female
         male: Male
         other: Other
         undisclosed: Undisclosed
-      document_types:
-        dni: DNI
-        nie: NIE
-        passport: Passport
+      start_phone_verification:
+        sms_message: Your activation code is %{otp_code}
   errors:
     messages:
       cycle_detected: a scope's parent can't be one of its descendants
