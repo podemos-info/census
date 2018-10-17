@@ -13,6 +13,12 @@ class ApplicationController < ActionController::Base
 
   after_action :track_action
 
+  before_action :set_locale
+
+  def set_locale
+    I18n.locale = params[:locale] || I18n.default_locale
+  end
+
   def edit; end
 
   def show; end
