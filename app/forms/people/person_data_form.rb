@@ -26,6 +26,7 @@ module People
     validates :postal_code, postal_code: { scope: :current_address_scope }, allow_blank: true
 
     validate :validate_document_scope
+    validate :validate_born_at
 
     [:document_scope, :address_scope, :scope].each do |field|
       attribute :"#{field}_id", Integer
@@ -82,6 +83,12 @@ module People
     end
 
     private
+
+    def validate_born_at
+      return if born_at.blank?
+
+      errors.add :born_at, :invalid unless born_at.is_a?(Date)
+    end
 
     def validate_document_scope
       errors.add :document_scope, :should_be_local if current_document_type && current_document_type != "passport" &&
