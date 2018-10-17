@@ -42,7 +42,7 @@ gem "pundit"
 gem "rack-attack", "~> 5.2.0" # use 5.2 until https://github.com/kickstarter/rack-attack/issues/355 is fixed
 gem "rails", "~> 5.2"
 gem "rails-i18n"
-gem "rectify", github: "podemos-info/rectify", branch: "0.10-stable"
+gem "rectify"
 gem "rotp"
 gem "sassc-rails"
 gem "secure_headers"
