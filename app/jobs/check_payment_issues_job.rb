@@ -8,7 +8,7 @@ class CheckPaymentIssuesJob < ApplicationJob
   def related_objects
     [
       arguments.first&.fetch(:issuable, nil)
-    ]
+    ].compact
   end
 
   def perform(issuable:, admin:)

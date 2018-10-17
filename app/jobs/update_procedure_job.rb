@@ -8,7 +8,7 @@ class UpdateProcedureJob < ApplicationJob
   def related_objects
     [
       arguments.first&.fetch(:procedure, nil)
-    ]
+    ].compact
   end
 
   def perform(procedure:, admin:)
