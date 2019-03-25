@@ -225,10 +225,10 @@ AZ-MI	municipality	Mingəçevir
 AZ-NA	municipality	Naftalan
 AZ-NEF	rayon	Neftçala
 AZ-NX	autonomous republic	Naxçıvan
-AZ-NX-NV	municipality	Naxçıvan
 AZ-NX-BAB	rayon	Babək
 AZ-NX-CUL	rayon	Culfa
 AZ-NX-KAN	rayon	Kǝngǝrli
+AZ-NX-NV	municipality	Naxçıvan
 AZ-NX-ORD	rayon	Ordubad
 AZ-NX-SAD	rayon	Sədərək
 AZ-NX-SAH	rayon	Şahbuz
@@ -270,16 +270,16 @@ AZ-ZAQ	rayon	Zaqatala
 AZ-ZAR	rayon	Zərdab
 BA	country	Bosnia and Herzegovina
 BA-BIH	entity	Federacija Bosne i Hercegovine
-BA-BIH-05	canton	Bosansko-podrinjski kanton
-BA-BIH-07	canton	Hercegovačko-neretvanski kanton
-BA-BIH-10	canton	Kanton br. 10 (Livanjski kanton)
-BA-BIH-09	canton	Kanton Sarajevo
-BA-BIH-02	canton	Posavski kanton
-BA-BIH-06	canton	Srednjobosanski kanton
-BA-BIH-03	canton	Tuzlanski kanton
 BA-BIH-01	canton	Unsko-sanski kanton
-BA-BIH-08	canton	Zapadnohercegovački kanton
+BA-BIH-02	canton	Posavski kanton
+BA-BIH-03	canton	Tuzlanski kanton
 BA-BIH-04	canton	Zeničko-dobojski kanton
+BA-BIH-05	canton	Bosansko-podrinjski kanton
+BA-BIH-06	canton	Srednjobosanski kanton
+BA-BIH-07	canton	Hercegovačko-neretvanski kanton
+BA-BIH-08	canton	Zapadnohercegovački kanton
+BA-BIH-09	canton	Kanton Sarajevo
+BA-BIH-10	canton	Kanton br. 10 (Livanjski kanton)
 BA-BRC	district	Brčko distrikt
 BA-SRP	entity	Republika Srpska
 BB	country	Barbados
@@ -300,14 +300,14 @@ BD-A-02	district	Barguna
 BD-A-06	district	Barisal
 BD-A-07	district	Bhola
 BD-A-25	district	Jhalakati
-BD-A-51	district	Patuakhali
 BD-A-50	district	Pirojpur
+BD-A-51	district	Patuakhali
 BD-B	division	Chittagong
 BD-B-01	district	Bandarban
 BD-B-04	district	Brahmanbaria
+BD-B-08	district	Comilla
 BD-B-09	district	Chandpur
 BD-B-10	district	Chittagong
-BD-B-08	district	Comilla
 BD-B-11	district	Cox's Bazar
 BD-B-16	district	Feni
 BD-B-29	district	Khagrachari
@@ -317,20 +317,20 @@ BD-B-56	district	Rangamati
 BD-C	division	Dhaka
 BD-C-13	district	Dhaka
 BD-C-15	district	Faridpur
-BD-C-18	district	Gazipur
 BD-C-17	district	Gopalganj
+BD-C-18	district	Gazipur
 BD-C-21	district	Jamalpur
 BD-C-26	district	Kishorganj
-BD-C-36	district	Madaripur
 BD-C-33	district	Manikganj
-BD-C-35	district	Munshiganj
 BD-C-34	district	Mymensingh
+BD-C-35	district	Munshiganj
+BD-C-36	district	Madaripur
 BD-C-40	district	Narayanganj
-BD-C-42	district	Narsingdi
 BD-C-41	district	Netrakona
+BD-C-42	district	Narsingdi
 BD-C-53	district	Rajbari
-BD-C-62	district	Shariatpur
 BD-C-57	district	Sherpur
+BD-C-62	district	Shariatpur
 BD-C-63	district	Tangail
 BD-D	division	Khulna
 BD-D-05	district	Bagerhat
@@ -346,9 +346,9 @@ BD-D-58	district	Satkhira
 BD-E	division	Rajshahi
 BD-E-03	district	Bogra
 BD-E-24	district	Jaipurhat
-BD-E-48	district	Naogaon
 BD-E-44	district	Natore
 BD-E-45	district	Nawabganj
+BD-E-48	district	Naogaon
 BD-E-49	district	Pabna
 BD-E-54	district	Rajshahi
 BD-E-59	district	Sirajganj
@@ -364,17 +364,18 @@ BD-F-64	district	Thakurgaon
 BD-G	division	Sylhet
 BD-G-20	district	Habiganj
 BD-G-38	district	Moulvibazar
-BD-G-61	district	Sunamganj
 BD-G-60	district	Sylhet
+BD-G-61	district	Sunamganj
+BD-7	division	Rangpur bibhag
 BE	country	Belgium
-BE-BRU	region	Bruxelles-Capitale, Région de;Brussels Hoofdstedelijk Gewest
-BE-VLG	region	Vlaams Gewest
+BE-BRU	region	Brussels-Capital Region
+BE-VLG	region	Flemish Region
 BE-VLG-VAN	province	Antwerpen
+BE-VLG-VBR	province	Vlaams-Brabant
 BE-VLG-VLI	province	Limburg
 BE-VLG-VOV	province	Oost-Vlaanderen
-BE-VLG-VBR	province	Vlaams-Brabant
 BE-VLG-VWV	province	West-Vlaanderen
-BE-WAL	region	wallonne, Région
+BE-WAL	region	Walloon Region
 BE-WAL-WBR	province	Brabant wallon
 BE-WAL-WHT	province	Hainaut
 BE-WAL-WLG	province	Liège
@@ -403,8 +404,8 @@ BF-05-NAM	province	Namentenga
 BF-05-SMT	province	Sanmatenga
 BF-06	region	Centre-Ouest
 BF-06-BLK	province	Boulkiemdé
-BF-06-SNG	province	Sanguié
 BF-06-SIS	province	Sissili
+BF-06-SNG	province	Sanguié
 BF-06-ZIR	province	Ziro
 BF-07	region	Centre-Sud
 BF-07-BAZ	province	Bazèga
@@ -506,6 +507,15 @@ BJ-PL	department	Plateau
 BJ-ZO	department	Zou
 BL	country	Saint Barthélemy
 BM	country	Bermuda
+BM-DEV	parish	Devenshire
+BM-HAM	parish	Hamilton
+BM-PAG	parish	Paget
+BM-PEM	parish	Pembroke
+BM-SGE	parish	Saint George's
+BM-SAN	parish	Sandys
+BM-SMI	parish	Smiths
+BM-SOU	parish	Southampton
+BM-WAR	parish	Warwick
 BN	country	Brunei Darussalam
 BN-BE	district	Belait
 BN-BM	district	Brunei-Muara
@@ -534,7 +544,6 @@ BR-BA	state	Bahia
 BR-CE	state	Ceará
 BR-DF	federal district	Distrito Federal
 BR-ES	state	Espírito Santo
-BR-FN	state	Fernando de Noronha
 BR-GO	state	Goiás
 BR-MA	state	Maranhão
 BR-MG	state	Minas Gerais
@@ -645,6 +654,23 @@ CA-NU	territory	Nunavut
 CA-ON	province	Ontario
 CA-PE	province	Prince Edward Island
 CA-QC	province	Quebec
+CA-QC-01	region	Bas-Saint-Laurent
+CA-QC-02	region	Saguenay–Lac-Saint-Jean
+CA-QC-03	region	Capitale-Nationale
+CA-QC-04	region	Mauricie
+CA-QC-05	region	Estrie
+CA-QC-06	region	Montréal
+CA-QC-07	region	Outaouais
+CA-QC-08	region	Abitibi-Témiscamingue
+CA-QC-09	region	Côte-Nord
+CA-QC-10	region	Nord-du-Québec
+CA-QC-11	region	Gaspésie–Îles-de-la-Madeleine
+CA-QC-12	region	Chaudière-Appalaches
+CA-QC-13	region	Laval
+CA-QC-14	region	Lanaudière
+CA-QC-15	region	Laurentides
+CA-QC-16	region	Montérégie
+CA-QC-17	region	Centre-du-Québec
 CA-SK	province	Saskatchewan
 CA-YT	territory	Yukon Territory
 CC	country	Cocos (Keeling) Islands
@@ -858,7 +884,7 @@ CU-12	province	Granma
 CU-13	province	Santiago de Cuba
 CU-14	province	Guantánamo
 CU-99	special municipality	Isla de la Juventud
-CV	country	Cape Verde
+CV	country	Cabo Verde
 CV-B	geographical region	Ilhas de Barlavento
 CV-B-BV	municipality	Boa Vista
 CV-B-PA	municipality	Paul
@@ -869,17 +895,17 @@ CV-B-SL	municipality	Sal
 CV-B-SV	municipality	São Vicente
 CV-S	geographical region	Ilhas de Sotavento
 CV-S-BR	municipality	Brava
+CV-S-CA	municipality	Santa Catarina
+CV-S-CF	municipality	Santa Catarina de Fogo
+CV-S-CR	municipality	Santa Cruz
 CV-S-MA	municipality	Maio
 CV-S-MO	municipality	Mosteiros
 CV-S-PR	municipality	Praia
 CV-S-RS	municipality	Ribeira Grande de Santiago
-CV-S-CA	municipality	Santa Catarina
-CV-S-CF	municipality	Santa Catarina de Fogo
-CV-S-CR	municipality	Santa Cruz
 CV-S-SD	municipality	São Domingos
 CV-S-SF	municipality	São Filipe
-CV-S-SO	municipality	São Lourenço dos Órgãos
 CV-S-SM	municipality	São Miguel
+CV-S-SO	municipality	São Lourenço dos Órgãos
 CV-S-SS	municipality	São Salvador do Mundo
 CV-S-TA	municipality	Tarrafal
 CV-S-TS	municipality	Tarrafal de São Nicolau
@@ -892,112 +918,119 @@ CY-03	district	Lárnaka
 CY-04	district	Ammóchostos
 CY-05	district	Páfos
 CY-06	district	Kerýneia
-CZ	country	Czech Republic
-CZ-JC	region	Jihočeský kraj
-CZ-JC-311	district	České Budějovice
-CZ-JC-312	district	Český Krumlov
-CZ-JC-313	district	Jindřichův Hradec
-CZ-JC-314	district	Písek
-CZ-JC-315	district	Prachatice
-CZ-JC-316	district	Strakonice
-CZ-JC-317	district	Tábor
-CZ-JM	region	Jihomoravský kraj
-CZ-JM-621	district	Blansko
-CZ-JM-622	district	Brno-město
-CZ-JM-623	district	Brno-venkov
-CZ-JM-624	district	Břeclav
-CZ-JM-625	district	Hodonín
-CZ-JM-626	district	Vyškov
-CZ-JM-627	district	Znojmo
-CZ-KA	region	Karlovarský kraj
-CZ-KA-411	district	Cheb
-CZ-KA-412	district	Karlovy Vary
-CZ-KA-413	district	Sokolov
-CZ-KR	region	Královéhradecký kraj
-CZ-KR-521	district	Hradec Králové
-CZ-KR-522	district	Jičín
-CZ-KR-523	district	Náchod
-CZ-KR-524	district	Rychnov nad Kněžnou
-CZ-KR-525	district	Trutnov
-CZ-LI	region	Liberecký kraj
-CZ-LI-511	district	Česká Lípa
-CZ-LI-512	district	Jablonec nad Nisou
-CZ-LI-513	district	Liberec
-CZ-LI-514	district	Semily
-CZ-MO	region	Moravskoslezský kraj
-CZ-MO-801	district	Bruntál
-CZ-MO-802	district	Frýdek Místek
-CZ-MO-803	district	Karviná
-CZ-MO-804	district	Nový Jičín
-CZ-MO-805	district	Opava
-CZ-MO-806	district	Ostrava město
-CZ-OL	region	Olomoucký kraj
-CZ-OL-711	district	Jeseník
-CZ-OL-712	district	Olomouc
-CZ-OL-713	district	Prostĕjov
-CZ-OL-714	district	Přerov
-CZ-OL-715	district	Šumperk
-CZ-PA	region	Pardubický kraj
-CZ-PA-531	district	Chrudim
-CZ-PA-532	district	Pardubice
-CZ-PA-533	district	Svitavy
-CZ-PA-534	district	Ústí nad Orlicí
-CZ-PL	region	Plzeňský kraj
-CZ-PL-321	district	Domažlice
-CZ-PL-322	district	Klatovy
-CZ-PL-324	district	Plzeň jih
-CZ-PL-323	district	Plzeň město
-CZ-PL-325	district	Plzeň sever
-CZ-PL-326	district	Rokycany
-CZ-PL-327	district	Tachov
-CZ-PR	region	Praha, hlavní město
-CZ-PR-101	district	Praha 1
-CZ-PR-102	district	Praha 2
-CZ-PR-103	district	Praha 3
-CZ-PR-104	district	Praha 4
-CZ-PR-105	district	Praha 5
-CZ-PR-106	district	Praha 6
-CZ-PR-107	district	Praha 7
-CZ-PR-108	district	Praha 8
-CZ-PR-109	district	Praha 9
-CZ-PR-10A	district	Praha 10
-CZ-PR-10B	district	Praha 11
-CZ-PR-10C	district	Praha 12
-CZ-PR-10D	district	Praha 13
-CZ-PR-10E	district	Praha 14
-CZ-PR-10F	district	Praha 15
-CZ-ST	region	Středočeský kraj
-CZ-ST-201	district	Benešov
-CZ-ST-202	district	Beroun
-CZ-ST-203	district	Kladno
-CZ-ST-204	district	Kolín
-CZ-ST-205	district	Kutná Hora
-CZ-ST-206	district	Mělník
-CZ-ST-207	district	Mladá Boleslav
-CZ-ST-208	district	Nymburk
-CZ-ST-209	district	Praha východ
-CZ-ST-20A	district	Praha západ
-CZ-ST-20B	district	Příbram
-CZ-ST-20C	district	Rakovník
-CZ-US	region	Ústecký kraj
-CZ-US-421	district	Děčín
-CZ-US-422	district	Chomutov
-CZ-US-423	district	Litoměřice
-CZ-US-424	district	Louny
-CZ-US-425	district	Most
-CZ-US-426	district	Teplice
-CZ-US-427	district	Ústí nad Labem
-CZ-VY	region	Vysočina
-CZ-VY-611	district	Havlíčkův Brod
-CZ-VY-612	district	Jihlava
-CZ-VY-613	district	Pelhřimov
-CZ-VY-614	district	Třebíč
-CZ-VY-615	district	Žd’ár nad Sázavou
-CZ-ZL	region	Zlínský kraj
-CZ-ZL-721	district	Kromĕříž
-CZ-ZL-722	district	Uherské Hradištĕ
-CZ-ZL-723	district	Vsetín
-CZ-ZL-724	district	Zlín
+CZ	country	Czechia
+CZ-10	capital city	Praha, Hlavní mešto
+CZ-10-101	district	Praha 1
+CZ-10-102	district	Praha 2
+CZ-10-103	district	Praha 3
+CZ-10-104	district	Praha 4
+CZ-10-105	district	Praha 5
+CZ-10-106	district	Praha 6
+CZ-10-107	district	Praha 7
+CZ-10-108	district	Praha 8
+CZ-10-109	district	Praha 9
+CZ-10-110	district	Praha 10
+CZ-10-111	district	Praha 11
+CZ-10-112	district	Praha 12
+CZ-10-113	district	Praha 13
+CZ-10-114	district	Praha 14
+CZ-10-115	district	Praha 15
+CZ-10-116	district	Praha 16
+CZ-10-117	district	Praha 17
+CZ-10-118	district	Praha 18
+CZ-10-119	district	Praha 19
+CZ-10-120	district	Praha 20
+CZ-10-121	district	Praha 21
+CZ-10-122	district	Praha 22
+CZ-20	region	Středočeský kraj
+CZ-20-201	district	Benešov
+CZ-20-202	district	Beroun
+CZ-20-203	district	Kladno
+CZ-20-204	district	Kolín
+CZ-20-205	district	Kutná Hora
+CZ-20-206	district	Mělník
+CZ-20-207	district	Mladá Boleslav
+CZ-20-208	district	Nymburk
+CZ-20-209	district	Praha-východ
+CZ-20-20A	district	Praha-západ
+CZ-20-20B	district	Příbram
+CZ-20-20C	district	Rakovník
+CZ-31	region	Jihočeský kraj
+CZ-31-311	district	České Budějovice
+CZ-31-312	district	Český Krumlov
+CZ-31-313	district	Jindřichův Hradec
+CZ-31-314	district	Písek
+CZ-31-315	district	Prachatice
+CZ-31-316	district	Strakonice
+CZ-31-317	district	Tábor
+CZ-32	region	Plzeňský kraj
+CZ-32-321	district	Domažlice
+CZ-32-322	district	Klatovy
+CZ-32-323	district	Plzeň-město
+CZ-32-324	district	Plzeň-jih
+CZ-32-325	district	Plzeň-sever
+CZ-32-326	district	Rokycany
+CZ-32-327	district	Tachov
+CZ-41	region	Karlovarský kraj
+CZ-41-411	district	Cheb
+CZ-41-412	district	Karlovy Vary
+CZ-41-413	district	Sokolov
+CZ-42	region	Ústecký kraj
+CZ-42-421	district	Děčín
+CZ-42-422	district	Chomutov
+CZ-42-423	district	Litoměřice
+CZ-42-424	district	Louny
+CZ-42-425	district	Most
+CZ-42-426	district	Teplice
+CZ-42-427	district	Ústí nad Labem
+CZ-51	region	Liberecký kraj
+CZ-51-511	district	Česká Lípa
+CZ-51-512	district	Jablonec nad Nisou
+CZ-51-513	district	Liberec
+CZ-51-514	district	Semily
+CZ-52	region	Královéhradecký kraj
+CZ-52-521	district	Hradec Králové
+CZ-52-522	district	Jičín
+CZ-52-523	district	Náchod
+CZ-52-524	district	Rychnov nad Kněžnou
+CZ-52-525	district	Trutnov
+CZ-53	region	Pardubický kraj
+CZ-53-531	district	Chrudim
+CZ-53-532	district	Pardubice
+CZ-53-533	district	Svitavy
+CZ-53-534	district	Ústí nad Orlicí
+CZ-63	region	Kraj Vysočina
+CZ-63-631	district	Havlíčkův Brod
+CZ-63-632	district	Jihlava
+CZ-63-633	district	Pelhřimov
+CZ-63-634	district	Třebíč
+CZ-63-635	district	Žďár nad Sázavou
+CZ-64	region	Jihomoravský kraj
+CZ-64-641	district	Blansko
+CZ-64-642	district	Brno-město
+CZ-64-643	district	Brno-venkov
+CZ-64-644	district	Břeclav
+CZ-64-645	district	Hodonín
+CZ-64-646	district	Vyškov
+CZ-64-647	district	Znojmo
+CZ-71	region	Olomoucký kraj
+CZ-71-711	district	Jeseník
+CZ-71-712	district	Olomouc
+CZ-71-713	district	Prostějov
+CZ-71-714	district	Přerov
+CZ-71-715	district	Šumperk
+CZ-72	region	Zlínský kraj
+CZ-72-721	district	Kroměříž
+CZ-72-722	district	Uherské Hradiště
+CZ-72-723	district	Vsetín
+CZ-72-724	district	Zlín
+CZ-80	region	Moravskoslezský kraj
+CZ-80-801	district	Bruntál
+CZ-80-802	district	Frýdek Místek
+CZ-80-803	district	Karviná
+CZ-80-804	district	Nový Jičín
+CZ-80-805	district	Opava
+CZ-80-806	district	Ostrava-město
 DE	country	Germany
 DE-BB	state	Brandenburg
 DE-BE	state	Berlin
@@ -1258,9 +1291,9 @@ ES-ML	autonomous city	Melilla
 ES-NC	autonomous community	Navarre
 ES-NC-NA	province	Navarra / Nafarroa
 ES-PV	autonomous community	Basque Country
-ES-PV-VI	province	Álava
-ES-PV-SS	province	Guipúzcoa / Gipuzkoa
 ES-PV-BI	province	Vizcaya / Bizkaia
+ES-PV-SS	province	Gipuzkoa
+ES-PV-VI	province	Álava
 ES-RI	autonomous community	La Rioja
 ES-RI-LO	province	La Rioja
 ES-VC	autonomous community	Valencian Community
@@ -1313,137 +1346,131 @@ FM-TRK	state	Chuuk
 FM-YAP	state	Yap
 FO	country	Faroe Islands
 FR	country	France
-FR-A	metropolitan region	Alsace
-FR-A-67	metropolitan department	Bas-Rhin
-FR-A-68	metropolitan department	Haut-Rhin
-FR-B	metropolitan region	Aquitaine
-FR-B-24	metropolitan department	Dordogne
-FR-B-33	metropolitan department	Gironde
-FR-B-40	metropolitan department	Landes
-FR-B-47	metropolitan department	Lot-et-Garonne
-FR-B-64	metropolitan department	Pyrénées-Atlantiques
+FR-ARA	metropolitan region	Auvergne-Rhône-Alpes
+FR-ARA-01	metropolitan department	Ain
+FR-ARA-03	metropolitan department	Allier
+FR-ARA-07	metropolitan department	Ardèche
+FR-ARA-15	metropolitan department	Cantal
+FR-ARA-26	metropolitan department	Drôme
+FR-ARA-38	metropolitan department	Isère
+FR-ARA-42	metropolitan department	Loire
+FR-ARA-43	metropolitan department	Haute-Loire
+FR-ARA-63	metropolitan department	Puy-de-Dôme
+FR-ARA-69	metropolitan department	Rhône
+FR-ARA-73	metropolitan department	Savoie
+FR-ARA-74	metropolitan department	Haute-Savoie
+FR-BFC	metropolitan region	Bourgogne-Franche-Comté
+FR-BFC-21	metropolitan department	Côte-d'Or
+FR-BFC-25	metropolitan department	Doubs
+FR-BFC-39	metropolitan department	Jura
+FR-BFC-58	metropolitan department	Nièvre
+FR-BFC-70	metropolitan department	Haute-Saône
+FR-BFC-71	metropolitan department	Saône-et-Loire
+FR-BFC-89	metropolitan department	Yonne
+FR-BFC-90	metropolitan department	Territoire de Belfort
 FR-BL	overseas territorial collectivity	Saint-Barthélemy
-FR-C	metropolitan region	Auvergne
-FR-C-03	metropolitan department	Allier
-FR-C-15	metropolitan department	Cantal
-FR-C-43	metropolitan department	Haute-Loire
-FR-C-63	metropolitan department	Puy-de-Dôme
+FR-BRE	metropolitan region	Bretagne
+FR-BRE-22	metropolitan department	Côtes-d'Armor
+FR-BRE-29	metropolitan department	Finistère
+FR-BRE-35	metropolitan department	Ille-et-Vilaine
+FR-BRE-56	metropolitan department	Morbihan
+FR-COR	metropolitan region	Corse
+FR-COR-2A	metropolitan department	Corse-du-Sud
+FR-COR-2B	metropolitan department	Haute-Corse
 FR-CP	dependency	Clipperton
-FR-D	metropolitan region	Bourgogne
-FR-D-21	metropolitan department	Côte-d'Or
-FR-D-58	metropolitan department	Nièvre
-FR-D-71	metropolitan department	Saône-et-Loire
-FR-D-89	metropolitan department	Yonne
-FR-E	metropolitan region	Bretagne
-FR-E-22	metropolitan department	Côtes-d'Armor
-FR-E-29	metropolitan department	Finistère
-FR-E-35	metropolitan department	Ille-et-Vilaine
-FR-E-56	metropolitan department	Morbihan
-FR-F	metropolitan region	Centre
-FR-F-18	metropolitan department	Cher
-FR-F-28	metropolitan department	Eure-et-Loir
-FR-F-36	metropolitan department	Indre
-FR-F-37	metropolitan department	Indre-et-Loire
-FR-F-41	metropolitan department	Loir-et-Cher
-FR-F-45	metropolitan department	Loiret
-FR-G	metropolitan region	Champagne-Ardenne
-FR-G-08	metropolitan department	Ardennes
-FR-G-10	metropolitan department	Aube
-FR-G-52	metropolitan department	Haute-Marne
-FR-G-51	metropolitan department	Marne
-FR-GF	overseas region/department	Guyane
-FR-GP	overseas region/department	Guadeloupe
-FR-H	metropolitan region	Corse
-FR-H-2A	metropolitan department	Corse-du-Sud
-FR-H-2B	metropolitan department	Haute-Corse
-FR-I	metropolitan region	Franche-Comté
-FR-I-25	metropolitan department	Doubs
-FR-I-70	metropolitan department	Haute-Saône
-FR-I-39	metropolitan department	Jura
-FR-I-90	metropolitan department	Territoire de Belfort
-FR-J	metropolitan region	Île-de-France
-FR-J-91	metropolitan department	Essonne
-FR-J-92	metropolitan department	Hauts-de-Seine
-FR-J-75	metropolitan department	Paris
-FR-J-77	metropolitan department	Seine-et-Marne
-FR-J-93	metropolitan department	Seine-Saint-Denis
-FR-J-94	metropolitan department	Val-de-Marne
-FR-J-95	metropolitan department	Val d'Oise
-FR-J-78	metropolitan department	Yvelines
-FR-K	metropolitan region	Languedoc-Roussillon
-FR-K-11	metropolitan department	Aude
-FR-K-30	metropolitan department	Gard
-FR-K-34	metropolitan department	Hérault
-FR-K-48	metropolitan department	Lozère
-FR-K-66	metropolitan department	Pyrénées-Orientales
-FR-L	metropolitan region	Limousin
-FR-L-19	metropolitan department	Corrèze
-FR-L-23	metropolitan department	Creuse
-FR-L-87	metropolitan department	Haute-Vienne
-FR-M	metropolitan region	Lorraine
-FR-M-54	metropolitan department	Meurthe-et-Moselle
-FR-M-55	metropolitan department	Meuse
-FR-M-57	metropolitan department	Moselle
-FR-M-88	metropolitan department	Vosges
+FR-CVL	metropolitan region	Centre-Val de Loire
+FR-CVL-18	metropolitan department	Cher
+FR-CVL-28	metropolitan department	Eure-et-Loir
+FR-CVL-36	metropolitan department	Indre
+FR-CVL-37	metropolitan department	Indre-et-Loire
+FR-CVL-41	metropolitan department	Loir-et-Cher
+FR-CVL-45	metropolitan department	Loiret
+FR-GES	metropolitan region	Grand-Est
+FR-GES-08	metropolitan department	Ardennes
+FR-GES-10	metropolitan department	Aube
+FR-GES-51	metropolitan department	Marne
+FR-GES-52	metropolitan department	Haute-Marne
+FR-GES-54	metropolitan department	Meurthe-et-Moselle
+FR-GES-55	metropolitan department	Meuse
+FR-GES-57	metropolitan department	Moselle
+FR-GES-67	metropolitan department	Bas-Rhin
+FR-GES-68	metropolitan department	Haut-Rhin
+FR-GES-88	metropolitan department	Vosges
+FR-GF	overseas territorial collectivity	Guyane (française)
+FR-GUA	overseas region	Guadeloupe
+FR-GUA-GP	overseas department	Guadeloupe
+FR-HDF	metropolitan region	Hauts-de-France
+FR-HDF-02	metropolitan department	Aisne
+FR-HDF-59	metropolitan department	Nord
+FR-HDF-60	metropolitan department	Oise
+FR-HDF-62	metropolitan department	Pas-de-Calais
+FR-HDF-80	metropolitan department	Somme
+FR-IDF	metropolitan region	Île-de-France
+FR-IDF-75	metropolitan department	Paris
+FR-IDF-77	metropolitan department	Seine-et-Marne
+FR-IDF-78	metropolitan department	Yvelines
+FR-IDF-91	metropolitan department	Essonne
+FR-IDF-92	metropolitan department	Hauts-de-Seine
+FR-IDF-93	metropolitan department	Seine-Saint-Denis
+FR-IDF-94	metropolitan department	Val-de-Marne
+FR-IDF-95	metropolitan department	Val-d'Oise
+FR-LRE	overseas region	La Réunion
+FR-LRE-RE	overseas department	La Réunion
+FR-MAY	overseas region	Mayotte
+FR-MAY-YT	overseas department	Mayotte
 FR-MF	overseas territorial collectivity	Saint-Martin
-FR-MQ	overseas region/department	Martinique
-FR-N	metropolitan region	Midi-Pyrénées
-FR-N-09	metropolitan department	Ariège
-FR-N-12	metropolitan department	Aveyron
-FR-N-32	metropolitan department	Gers
-FR-N-31	metropolitan department	Haute-Garonne
-FR-N-65	metropolitan department	Hautes-Pyrénées
-FR-N-46	metropolitan department	Lot
-FR-N-81	metropolitan department	Tarn
-FR-N-82	metropolitan department	Tarn-et-Garonne
+FR-MQ	overseas territorial collectivity	Martinique
+FR-NAQ	metropolitan region	Nouvelle-Aquitaine
+FR-NAQ-16	metropolitan department	Charente
+FR-NAQ-17	metropolitan department	Charente-Maritime
+FR-NAQ-19	metropolitan department	Corrèze
+FR-NAQ-23	metropolitan department	Creuse
+FR-NAQ-24	metropolitan department	Dordogne
+FR-NAQ-33	metropolitan department	Gironde
+FR-NAQ-40	metropolitan department	Landes
+FR-NAQ-47	metropolitan department	Lot-et-Garonne
+FR-NAQ-64	metropolitan department	Pyrénées-Atlantiques
+FR-NAQ-79	metropolitan department	Deux-Sèvres
+FR-NAQ-86	metropolitan department	Vienne
+FR-NAQ-87	metropolitan department	Haute-Vienne
 FR-NC	overseas territorial collectivity	Nouvelle-Calédonie
-FR-O	metropolitan region	Nord-Pas-de-Calais
-FR-O-59	metropolitan department	Nord
-FR-O-62	metropolitan department	Pas-de-Calais
-FR-P	metropolitan region	Basse-Normandie
-FR-P-14	metropolitan department	Calvados
-FR-P-50	metropolitan department	Manche
-FR-P-61	metropolitan department	Orne
+FR-NOR	metropolitan region	Normandie
+FR-NOR-14	metropolitan department	Calvados
+FR-NOR-27	metropolitan department	Eure
+FR-NOR-50	metropolitan department	Manche
+FR-NOR-61	metropolitan department	Orne
+FR-NOR-76	metropolitan department	Seine-Maritime
+FR-OCC	metropolitan region	Occitanie
+FR-OCC-09	metropolitan department	Ariège
+FR-OCC-11	metropolitan department	Aude
+FR-OCC-12	metropolitan department	Aveyron
+FR-OCC-30	metropolitan department	Gard
+FR-OCC-31	metropolitan department	Haute-Garonne
+FR-OCC-32	metropolitan department	Gers
+FR-OCC-34	metropolitan department	Hérault
+FR-OCC-46	metropolitan department	Lot
+FR-OCC-48	metropolitan department	Lozère
+FR-OCC-65	metropolitan department	Hautes-Pyrénées
+FR-OCC-66	metropolitan department	Pyrénées-Orientales
+FR-OCC-81	metropolitan department	Tarn
+FR-OCC-82	metropolitan department	Tarn-et-Garonne
+FR-PAC	metropolitan region	Provence-Alpes-Côte-d’Azur
+FR-PAC-04	metropolitan department	Alpes-de-Haute-Provence
+FR-PAC-05	metropolitan department	Hautes-Alpes
+FR-PAC-06	metropolitan department	Alpes-Maritimes
+FR-PAC-13	metropolitan department	Bouches-du-Rhône
+FR-PAC-83	metropolitan department	Var
+FR-PAC-84	metropolitan department	Vaucluse
+FR-PDL	metropolitan region	Pays-de-la-Loire
+FR-PDL-44	metropolitan department	Loire-Atlantique
+FR-PDL-49	metropolitan department	Maine-et-Loire
+FR-PDL-53	metropolitan department	Mayenne
+FR-PDL-72	metropolitan department	Sarthe
+FR-PDL-85	metropolitan department	Vendée
 FR-PF	overseas territorial collectivity	Polynésie française
 FR-PM	overseas territorial collectivity	Saint-Pierre-et-Miquelon
-FR-Q	metropolitan region	Haute-Normandie
-FR-Q-27	metropolitan department	Eure
-FR-Q-76	metropolitan department	Seine-Maritime
-FR-R	metropolitan region	Pays de la Loire
-FR-R-44	metropolitan department	Loire-Atlantique
-FR-R-49	metropolitan department	Maine-et-Loire
-FR-R-53	metropolitan department	Mayenne
-FR-R-72	metropolitan department	Sarthe
-FR-R-85	metropolitan department	Vendée
-FR-RE	overseas region/department	La Réunion
-FR-S	metropolitan region	Picardie
-FR-S-02	metropolitan department	Aisne
-FR-S-60	metropolitan department	Oise
-FR-S-80	metropolitan department	Somme
-FR-T	metropolitan region	Poitou-Charentes
-FR-T-16	metropolitan department	Charente
-FR-T-17	metropolitan department	Charente-Maritime
-FR-T-79	metropolitan department	Deux-Sèvres
-FR-T-86	metropolitan department	Vienne
 FR-TF	overseas territorial collectivity	Terres australes françaises
-FR-U	metropolitan region	Provence-Alpes-Côte d'Azur
-FR-U-04	metropolitan department	Alpes-de-Haute-Provence
-FR-U-06	metropolitan department	Alpes-Maritimes
-FR-U-13	metropolitan department	Bouches-du-Rhône
-FR-U-05	metropolitan department	Hautes-Alpes
-FR-U-83	metropolitan department	Var
-FR-U-84	metropolitan department	Vaucluse
-FR-V	metropolitan region	Rhône-Alpes
-FR-V-01	metropolitan department	Ain
-FR-V-07	metropolitan department	Ardèche
-FR-V-26	metropolitan department	Drôme
-FR-V-74	metropolitan department	Haute-Savoie
-FR-V-38	metropolitan department	Isère
-FR-V-42	metropolitan department	Loire
-FR-V-69	metropolitan department	Rhône
-FR-V-73	metropolitan department	Savoie
 FR-WF	overseas territorial collectivity	Wallis-et-Futuna
-FR-YT	overseas region/department	Mayotte
 GA	country	Gabon
 GA-1	province	Estuaire
 GA-2	province	Haut-Ogooué
@@ -1455,243 +1482,231 @@ GA-7	province	Ogooué-Lolo
 GA-8	province	Ogooué-Maritime
 GA-9	province	Woleu-Ntem
 GB	country	United Kingdom
-GB-ABD	council area	Aberdeenshire
-GB-ABE	council area	Aberdeen City
-GB-AGB	council area	Argyll and Bute
-GB-AGY	unitary authority (wales)	Isle of Anglesey;Sir Ynys Môn
-GB-ANS	council area	Angus
-GB-ANT	district council area	Antrim
-GB-ARD	district council area	Ards
-GB-ARM	district council area	Armagh
-GB-BAS	unitary authority (england)	Bath and North East Somerset
-GB-BBD	unitary authority (england)	Blackburn with Darwen
-GB-BDF	unitary authority (england)	Bedford
-GB-BDG	london borough	Barking and Dagenham
-GB-BEN	london borough	Brent
-GB-BEX	london borough	Bexley
-GB-BFS	district council area	Belfast
-GB-BGE	unitary authority (wales)	Bridgend;Pen-y-bont ar Ogwr
-GB-BGW	unitary authority (wales)	Blaenau Gwent
-GB-BIR	metropolitan district	Birmingham
-GB-BKM	two-tier county	Buckinghamshire
-GB-BLA	district council area	Ballymena
-GB-BLY	district council area	Ballymoney
-GB-BMH	unitary authority (england)	Bournemouth
-GB-BNB	district council area	Banbridge
-GB-BNE	london borough	Barnet
-GB-BNH	unitary authority (england)	Brighton and Hove
-GB-BNS	metropolitan district	Barnsley
-GB-BOL	metropolitan district	Bolton
-GB-BPL	unitary authority (england)	Blackpool
-GB-BRC	unitary authority (england)	Bracknell Forest
-GB-BRD	metropolitan district	Bradford
-GB-BRY	london borough	Bromley
-GB-BST	unitary authority (england)	Bristol, City of
-GB-BUR	metropolitan district	Bury
-GB-CAM	two-tier county	Cambridgeshire
-GB-CAY	unitary authority (wales)	Caerphilly;Caerffili
-GB-CBF	unitary authority (england)	Central Bedfordshire
-GB-CGN	unitary authority (wales)	Ceredigion;Sir Ceredigion
-GB-CGV	district council area	Craigavon
-GB-CHE	unitary authority (england)	Cheshire East
-GB-CHW	unitary authority (england)	Cheshire West and Chester
-GB-CKF	district council area	Carrickfergus
-GB-CKT	district council area	Cookstown
-GB-CLD	metropolitan district	Calderdale
-GB-CLK	council area	Clackmannanshire
-GB-CLR	district council area	Coleraine
-GB-CMA	two-tier county	Cumbria
-GB-CMD	london borough	Camden
-GB-CMN	unitary authority (wales)	Carmarthenshire;Sir Gaerfyrddin
-GB-CON	unitary authority (england)	Cornwall
-GB-COV	metropolitan district	Coventry
-GB-CRF	unitary authority (wales)	Cardiff;Caerdydd
-GB-CRY	london borough	Croydon
-GB-CSR	district council area	Castlereagh
-GB-CWY	unitary authority (wales)	Conwy
-GB-DAL	unitary authority (england)	Darlington
-GB-DBY	two-tier county	Derbyshire
-GB-DEN	unitary authority (wales)	Denbighshire;Sir Ddinbych
-GB-DER	unitary authority (england)	Derby
-GB-DEV	two-tier county	Devon
-GB-DGN	district council area	Dungannon and South Tyrone
-GB-DGY	council area	Dumfries and Galloway
-GB-DNC	metropolitan district	Doncaster
-GB-DND	council area	Dundee City
-GB-DOR	two-tier county	Dorset
-GB-DOW	district council area	Down
-GB-DRY	district council area	Derry
-GB-DUD	metropolitan district	Dudley
-GB-DUR	unitary authority (england)	Durham, County
-GB-EAL	london borough	Ealing
-GB-EAW	included for completeness	England and Wales
-GB-EAY	council area	East Ayrshire
-GB-EDH	council area	Edinburgh, City of
-GB-EDU	council area	East Dunbartonshire
-GB-ELN	council area	East Lothian
-GB-ELS	council area	Eilean Siar
-GB-ENF	london borough	Enfield
+GB-EAW	nation	England and Wales
 GB-ENG	country	England
-GB-ERW	council area	East Renfrewshire
-GB-ERY	unitary authority (england)	East Riding of Yorkshire
-GB-ESS	two-tier county	Essex
-GB-ESX	two-tier county	East Sussex
-GB-FAL	council area	Falkirk
-GB-FER	district council area	Fermanagh
-GB-FIF	council area	Fife
-GB-FLN	unitary authority (wales)	Flintshire;Sir y Fflint
-GB-GAT	metropolitan district	Gateshead
-GB-GBN	included for completeness	Great Britain
-GB-GLG	council area	Glasgow City
-GB-GLS	two-tier county	Gloucestershire
-GB-GRE	london borough	Greenwich
-GB-GWN	unitary authority (wales)	Gwynedd
-GB-HAL	unitary authority (england)	Halton
-GB-HAM	two-tier county	Hampshire
-GB-HAV	london borough	Havering
-GB-HCK	london borough	Hackney
-GB-HEF	unitary authority (england)	Herefordshire
-GB-HIL	london borough	Hillingdon
-GB-HLD	council area	Highland
-GB-HMF	london borough	Hammersmith and Fulham
-GB-HNS	london borough	Hounslow
-GB-HPL	unitary authority (england)	Hartlepool
-GB-HRT	two-tier county	Hertfordshire
-GB-HRW	london borough	Harrow
-GB-HRY	london borough	Haringey
-GB-IOW	unitary authority (england)	Isle of Wight
-GB-ISL	london borough	Islington
-GB-IVC	council area	Inverclyde
-GB-KEC	london borough	Kensington and Chelsea
-GB-KEN	two-tier county	Kent
-GB-KHL	unitary authority (england)	Kingston upon Hull
-GB-KIR	metropolitan district	Kirklees
-GB-KTT	london borough	Kingston upon Thames
-GB-KWL	metropolitan district	Knowsley
-GB-LAN	two-tier county	Lancashire
-GB-LBH	london borough	Lambeth
-GB-LCE	unitary authority (england)	Leicester
-GB-LDS	metropolitan district	Leeds
-GB-LEC	two-tier county	Leicestershire
-GB-LEW	london borough	Lewisham
-GB-LIN	two-tier county	Lincolnshire
-GB-LIV	metropolitan district	Liverpool
-GB-LMV	district council area	Limavady
-GB-LND	city corporation	London, City of
-GB-LRN	district council area	Larne
-GB-LSB	district council area	Lisburn
-GB-LUT	unitary authority (england)	Luton
-GB-MAN	metropolitan district	Manchester
-GB-MDB	unitary authority (england)	Middlesbrough
-GB-MDW	unitary authority (england)	Medway
-GB-MFT	district council area	Magherafelt
-GB-MIK	unitary authority (england)	Milton Keynes
-GB-MLN	council area	Midlothian
-GB-MON	unitary authority (wales)	Monmouthshire;Sir Fynwy
-GB-MRT	london borough	Merton
-GB-MRY	council area	Moray
-GB-MTY	unitary authority (wales)	Merthyr Tydfil;Merthyr Tudful
-GB-MYL	district council area	Moyle
-GB-NAY	council area	North Ayrshire
-GB-NBL	unitary authority (england)	Northumberland
-GB-NDN	district council area	North Down
-GB-NEL	unitary authority (england)	North East Lincolnshire
-GB-NET	metropolitan district	Newcastle upon Tyne
-GB-NFK	two-tier county	Norfolk
-GB-NGM	unitary authority (england)	Nottingham
+GB-ENG-BAS	unitary authority	Bath and North East Somerset
+GB-ENG-BBD	unitary authority	Blackburn with Darwen
+GB-ENG-BDF	unitary authority	Bedford
+GB-ENG-BDG	london borough	Barking and Dagenham
+GB-ENG-BEN	london borough	Brent
+GB-ENG-BEX	london borough	Bexley
+GB-ENG-BIR	metropolitan district	Birmingham
+GB-ENG-BKM	two-tier county	Buckinghamshire
+GB-ENG-BMH	unitary authority	Bournemouth
+GB-ENG-BNE	london borough	Barnet
+GB-ENG-BNH	unitary authority	Brighton and Hove
+GB-ENG-BNS	metropolitan district	Barnsley
+GB-ENG-BOL	metropolitan district	Bolton
+GB-ENG-BPL	unitary authority	Blackpool
+GB-ENG-BRC	unitary authority	Bracknell Forest
+GB-ENG-BRD	metropolitan district	Bradford
+GB-ENG-BRY	london borough	Bromley
+GB-ENG-BST	unitary authority	Bristol, City of
+GB-ENG-BUR	metropolitan district	Bury
+GB-ENG-CAM	two-tier county	Cambridgeshire
+GB-ENG-CBF	unitary authority	Central Bedfordshire
+GB-ENG-CHE	unitary authority	Cheshire East
+GB-ENG-CHW	unitary authority	Cheshire West and Chester
+GB-ENG-CLD	metropolitan district	Calderdale
+GB-ENG-CMA	two-tier county	Cumbria
+GB-ENG-CMD	london borough	Camden
+GB-ENG-CON	unitary authority	Cornwall
+GB-ENG-COV	metropolitan district	Coventry
+GB-ENG-CRY	london borough	Croydon
+GB-ENG-DAL	unitary authority	Darlington
+GB-ENG-DBY	two-tier county	Derbyshire
+GB-ENG-DER	unitary authority	Derby
+GB-ENG-DEV	two-tier county	Devon
+GB-ENG-DNC	metropolitan district	Doncaster
+GB-ENG-DOR	two-tier county	Dorset
+GB-ENG-DUD	metropolitan district	Dudley
+GB-ENG-DUR	unitary authority	Durham County
+GB-ENG-EAL	london borough	Ealing
+GB-ENG-ENF	london borough	Enfield
+GB-ENG-ERY	unitary authority	East Riding of Yorkshire
+GB-ENG-ESS	two-tier county	Essex
+GB-ENG-ESX	two-tier county	East Sussex
+GB-ENG-GAT	metropolitan district	Gateshead
+GB-ENG-GLS	two-tier county	Gloucestershire
+GB-ENG-GRE	london borough	Greenwich
+GB-ENG-HAL	unitary authority	Halton
+GB-ENG-HAM	two-tier county	Hampshire
+GB-ENG-HAV	london borough	Havering
+GB-ENG-HCK	london borough	Hackney
+GB-ENG-HEF	unitary authority	Herefordshire
+GB-ENG-HIL	london borough	Hillingdon
+GB-ENG-HMF	london borough	Hammersmith and Fulham
+GB-ENG-HNS	london borough	Hounslow
+GB-ENG-HPL	unitary authority	Hartlepool
+GB-ENG-HRT	two-tier county	Hertfordshire
+GB-ENG-HRW	london borough	Harrow
+GB-ENG-HRY	london borough	Haringey
+GB-ENG-IOS	unitary authority	Isles of Scilly
+GB-ENG-IOW	unitary authority	Isle of Wight
+GB-ENG-ISL	london borough	Islington
+GB-ENG-KEC	london borough	Kensington and Chelsea
+GB-ENG-KEN	two-tier county	Kent
+GB-ENG-KHL	unitary authority	Kingston upon Hull
+GB-ENG-KIR	metropolitan district	Kirklees
+GB-ENG-KTT	london borough	Kingston upon Thames
+GB-ENG-KWL	metropolitan district	Knowsley
+GB-ENG-LAN	two-tier county	Lancashire
+GB-ENG-LBH	london borough	Lambeth
+GB-ENG-LCE	unitary authority	Leicester
+GB-ENG-LDS	metropolitan district	Leeds
+GB-ENG-LEC	two-tier county	Leicestershire
+GB-ENG-LEW	london borough	Lewisham
+GB-ENG-LIN	two-tier county	Lincolnshire
+GB-ENG-LIV	metropolitan district	Liverpool
+GB-ENG-LND	city corporation	London, City of
+GB-ENG-LUT	unitary authority	Luton
+GB-ENG-MAN	metropolitan district	Manchester
+GB-ENG-MDB	unitary authority	Middlesbrough
+GB-ENG-MDW	unitary authority	Medway
+GB-ENG-MIK	unitary authority	Milton Keynes
+GB-ENG-MRT	london borough	Merton
+GB-ENG-NBL	unitary authority	Northumberland
+GB-ENG-NEL	unitary authority	North East Lincolnshire
+GB-ENG-NET	metropolitan district	Newcastle upon Tyne
+GB-ENG-NFK	two-tier county	Norfolk
+GB-ENG-NGM	unitary authority	Nottingham
+GB-ENG-NLN	unitary authority	North Lincolnshire
+GB-ENG-NSM	unitary authority	North Somerset
+GB-ENG-NTH	two-tier county	Northamptonshire
+GB-ENG-NTT	two-tier county	Nottinghamshire
+GB-ENG-NTY	metropolitan district	North Tyneside
+GB-ENG-NWM	london borough	Newham
+GB-ENG-NYK	two-tier county	North Yorkshire
+GB-ENG-OLD	metropolitan district	Oldham
+GB-ENG-OXF	two-tier county	Oxfordshire
+GB-ENG-PLY	unitary authority	Plymouth
+GB-ENG-POL	unitary authority	Poole
+GB-ENG-POR	unitary authority	Portsmouth
+GB-ENG-PTE	unitary authority	Peterborough
+GB-ENG-RCC	unitary authority	Redcar and Cleveland
+GB-ENG-RCH	metropolitan district	Rochdale
+GB-ENG-RDB	london borough	Redbridge
+GB-ENG-RDG	unitary authority	Reading
+GB-ENG-RIC	london borough	Richmond upon Thames
+GB-ENG-ROT	metropolitan district	Rotherham
+GB-ENG-RUT	unitary authority	Rutland
+GB-ENG-SAW	metropolitan district	Sandwell
+GB-ENG-SFK	two-tier county	Suffolk
+GB-ENG-SFT	metropolitan district	Sefton
+GB-ENG-SGC	unitary authority	South Gloucestershire
+GB-ENG-SHF	metropolitan district	Sheffield
+GB-ENG-SHN	metropolitan district	St. Helens
+GB-ENG-SHR	unitary authority	Shropshire
+GB-ENG-SKP	metropolitan district	Stockport
+GB-ENG-SLF	metropolitan district	Salford
+GB-ENG-SLG	unitary authority	Slough
+GB-ENG-SND	metropolitan district	Sunderland
+GB-ENG-SOL	metropolitan district	Solihull
+GB-ENG-SOM	two-tier county	Somerset
+GB-ENG-SOS	unitary authority	Southend-on-Sea
+GB-ENG-SRY	two-tier county	Surrey
+GB-ENG-STE	unitary authority	Stoke-on-Trent
+GB-ENG-STH	unitary authority	Southampton
+GB-ENG-STN	london borough	Sutton
+GB-ENG-STS	two-tier county	Staffordshire
+GB-ENG-STT	unitary authority	Stockton-on-Tees
+GB-ENG-STY	metropolitan district	South Tyneside
+GB-ENG-SWD	unitary authority	Swindon
+GB-ENG-SWK	london borough	Southwark
+GB-ENG-TAM	metropolitan district	Tameside
+GB-ENG-TFW	unitary authority	Telford and Wrekin
+GB-ENG-THR	unitary authority	Thurrock
+GB-ENG-TOB	unitary authority	Torbay
+GB-ENG-TRF	metropolitan district	Trafford
+GB-ENG-TWH	london borough	Tower Hamlets
+GB-ENG-WAR	two-tier county	Warwickshire
+GB-ENG-WBK	unitary authority	West Berkshire
+GB-ENG-WFT	london borough	Waltham Forest
+GB-ENG-WGN	metropolitan district	Wigan
+GB-ENG-WIL	unitary authority	Wiltshire
+GB-ENG-WKF	metropolitan district	Wakefield
+GB-ENG-WLL	metropolitan district	Walsall
+GB-ENG-WLV	metropolitan district	Wolverhampton
+GB-ENG-WND	london borough	Wandsworth
+GB-ENG-WNM	unitary authority	Windsor and Maidenhead
+GB-ENG-WOK	unitary authority	Wokingham
+GB-ENG-WOR	two-tier county	Worcestershire
+GB-ENG-WRL	metropolitan district	Wirral
+GB-ENG-WRT	unitary authority	Warrington
+GB-ENG-WSM	london borough	Westminster
+GB-ENG-WSX	two-tier county	West Sussex
+GB-ENG-YOR	unitary authority	York
+GB-GBN	nation	Great Britain
 GB-NIR	province	Northern Ireland
-GB-NLK	council area	North Lanarkshire
-GB-NLN	unitary authority (england)	North Lincolnshire
-GB-NSM	unitary authority (england)	North Somerset
-GB-NTA	district council area	Newtownabbey
-GB-NTH	two-tier county	Northamptonshire
-GB-NTL	unitary authority (wales)	Neath Port Talbot;Castell-nedd Port Talbot
-GB-NTT	two-tier county	Nottinghamshire
-GB-NTY	metropolitan district	North Tyneside
-GB-NWM	london borough	Newham
-GB-NWP	unitary authority (wales)	Newport;Casnewydd
-GB-NYK	two-tier county	North Yorkshire
-GB-NYM	district council area	Newry and Mourne
-GB-OLD	metropolitan district	Oldham
-GB-OMH	district council area	Omagh
-GB-ORK	council area	Orkney Islands
-GB-OXF	two-tier county	Oxfordshire
-GB-PEM	unitary authority (wales)	Pembrokeshire;Sir Benfro
-GB-PKN	council area	Perth and Kinross
-GB-PLY	unitary authority (england)	Plymouth
-GB-POL	unitary authority (england)	Poole
-GB-POR	unitary authority (england)	Portsmouth
-GB-POW	unitary authority (wales)	Powys
-GB-PTE	unitary authority (england)	Peterborough
-GB-RCC	unitary authority (england)	Redcar and Cleveland
-GB-RCH	metropolitan district	Rochdale
-GB-RCT	unitary authority (wales)	Rhondda, Cynon, Taff;Rhondda, Cynon,Taf
-GB-RDB	london borough	Redbridge
-GB-RDG	unitary authority (england)	Reading
-GB-RFW	council area	Renfrewshire
-GB-RIC	london borough	Richmond upon Thames
-GB-ROT	metropolitan district	Rotherham
-GB-RUT	unitary authority (england)	Rutland
-GB-SAW	metropolitan district	Sandwell
-GB-SAY	council area	South Ayrshire
-GB-SCB	council area	Scottish Borders, The
+GB-NIR-ABC	district	Armagh, Banbridge and Craigavon
+GB-NIR-AND	district	Ards and North Down
+GB-NIR-ANN	district	Antrim and Newtownabbey
+GB-NIR-BFS	district	Belfast
+GB-NIR-CCG	district	Causeway Coast and Glens
+GB-NIR-DRS	district	Derry and Strabane
+GB-NIR-FMO	district	Fermanagh and Omagh
+GB-NIR-LBC	district	Lisburn and Castlereagh
+GB-NIR-MEA	district	Mid and East Antrim
+GB-NIR-MUL	district	Mid Ulster
+GB-NIR-NMD	district	Newry, Mourne and Down
 GB-SCT	country	Scotland
-GB-SFK	two-tier county	Suffolk
-GB-SFT	metropolitan district	Sefton
-GB-SGC	unitary authority (england)	South Gloucestershire
-GB-SHF	metropolitan district	Sheffield
-GB-SHN	metropolitan district	St. Helens
-GB-SHR	unitary authority (england)	Shropshire
-GB-SKP	metropolitan district	Stockport
-GB-SLF	metropolitan district	Salford
-GB-SLG	unitary authority (england)	Slough
-GB-SLK	council area	South Lanarkshire
-GB-SND	metropolitan district	Sunderland
-GB-SOL	metropolitan district	Solihull
-GB-SOM	two-tier county	Somerset
-GB-SOS	unitary authority (england)	Southend-on-Sea
-GB-SRY	two-tier county	Surrey
-GB-STB	district council area	Strabane
-GB-STE	unitary authority (england)	Stoke-on-Trent
-GB-STG	council area	Stirling
-GB-STH	unitary authority (england)	Southampton
-GB-STN	london borough	Sutton
-GB-STS	two-tier county	Staffordshire
-GB-STT	unitary authority (england)	Stockton-on-Tees
-GB-STY	metropolitan district	South Tyneside
-GB-SWA	unitary authority (wales)	Swansea;Abertawe
-GB-SWD	unitary authority (england)	Swindon
-GB-SWK	london borough	Southwark
-GB-TAM	metropolitan district	Tameside
-GB-TFW	unitary authority (england)	Telford and Wrekin
-GB-THR	unitary authority (england)	Thurrock
-GB-TOB	unitary authority (england)	Torbay
-GB-TOF	unitary authority (wales)	Torfaen;Tor-faen
-GB-TRF	metropolitan district	Trafford
-GB-TWH	london borough	Tower Hamlets
-GB-UKM	included for completeness	United Kingdom
-GB-VGL	unitary authority (wales)	Vale of Glamorgan, The;Bro Morgannwg
-GB-WAR	two-tier county	Warwickshire
-GB-WBK	unitary authority (england)	West Berkshire
-GB-WDU	council area	West Dunbartonshire
-GB-WFT	london borough	Waltham Forest
-GB-WGN	metropolitan district	Wigan
-GB-WKF	metropolitan district	Wakefield
-GB-WLL	metropolitan district	Walsall
-GB-WLN	council area	West Lothian
-GB-WLS	country	Wales
-GB-WLV	metropolitan district	Wolverhampton
-GB-WND	london borough	Wandsworth
-GB-WNM	unitary authority (england)	Windsor and Maidenhead
-GB-WOK	unitary authority (england)	Wokingham
-GB-WOR	two-tier county	Worcestershire
-GB-WRL	metropolitan district	Wirral
-GB-WRT	unitary authority (england)	Warrington
-GB-WRX	unitary authority (wales)	Wrexham;Wrecsam
-GB-WSM	london borough	Westminster
-GB-WSX	two-tier county	West Sussex
-GB-YOR	unitary authority (england)	York
-GB-ZET	council area	Shetland Islands
+GB-SCT-ABD	council area	Aberdeenshire
+GB-SCT-ABE	council area	Aberdeen City
+GB-SCT-AGB	council area	Argyll and Bute
+GB-SCT-ANS	council area	Angus
+GB-SCT-CLK	council area	Clackmannanshire
+GB-SCT-DGY	council area	Dumfries and Galloway
+GB-SCT-DND	council area	Dundee City
+GB-SCT-EAY	council area	East Ayrshire
+GB-SCT-EDH	council area	Edinburgh, City of
+GB-SCT-EDU	council area	East Dunbartonshire
+GB-SCT-ELN	council area	East Lothian
+GB-SCT-ELS	council area	Eilean Siar
+GB-SCT-ERW	council area	East Renfrewshire
+GB-SCT-FAL	council area	Falkirk
+GB-SCT-FIF	council area	Fife
+GB-SCT-GLG	council area	Glasgow City
+GB-SCT-HLD	council area	Highland
+GB-SCT-IVC	council area	Inverclyde
+GB-SCT-MLN	council area	Midlothian
+GB-SCT-MRY	council area	Moray
+GB-SCT-NAY	council area	North Ayrshire
+GB-SCT-NLK	council area	North Lanarkshire
+GB-SCT-ORK	council area	Orkney Islands
+GB-SCT-PKN	council area	Perth and Kinross
+GB-SCT-RFW	council area	Renfrewshire
+GB-SCT-SAY	council area	South Ayrshire
+GB-SCT-SCB	council area	Scottish Borders, The
+GB-SCT-SLK	council area	South Lanarkshire
+GB-SCT-STG	council area	Stirling
+GB-SCT-WDU	council area	West Dunbartonshire
+GB-SCT-WLN	council area	West Lothian
+GB-SCT-ZET	council area	Shetland Islands
+GB-UKM	nation	United Kingdom
+GB-WLS	country	Wales; Cymru
+GB-WLS-AGY	unitary authority	Isle of Anglesey; Sir Ynys Môn
+GB-WLS-BGE	unitary authority	Bridgend; Pen-y-bont ar Ogwr
+GB-WLS-BGW	unitary authority	Blaenau Gwent
+GB-WLS-CAY	unitary authority	Caerphilly; Caerffili
+GB-WLS-CGN	unitary authority	Ceredigion; Sir Ceredigion
+GB-WLS-CMN	unitary authority	Carmarthenshire; Sir Gaerfyrddin
+GB-WLS-CRF	unitary authority	Cardiff; Caerdydd
+GB-WLS-CWY	unitary authority	Conwy
+GB-WLS-DEN	unitary authority	Denbighshire; Sir Ddinbych
+GB-WLS-FLN	unitary authority	Flintshire; Sir y Fflint
+GB-WLS-GWN	unitary authority	Gwynedd
+GB-WLS-MON	unitary authority	Monmouthshire; Sir Fynwy
+GB-WLS-MTY	unitary authority	Merthyr Tydfil; Merthyr Tudful
+GB-WLS-NTL	unitary authority	Neath Port Talbot; Castell-nedd Port Talbot
+GB-WLS-NWP	unitary authority	Newport; Casnewydd
+GB-WLS-PEM	unitary authority	Pembrokeshire; Sir Benfro
+GB-WLS-POW	unitary authority	Powys
+GB-WLS-RCT	unitary authority	Rhondda, Cynon, Taff; Rhondda, Cynon, Taf
+GB-WLS-SWA	unitary authority	Swansea; Abertawe
+GB-WLS-TOF	unitary authority	Torfaen; Tor-faen
+GB-WLS-VGL	unitary authority	Vale of Glamorgan, The; Bro Morgannwg
+GB-WLS-WRX	unitary authority	Wrexham; Wrecsam
+GB-MDX	province	Middlesex
 GB-WIL	province	Wiltshire
 GD	country	Grenada
 GD-01	parish	Saint Andrew
@@ -1797,48 +1812,48 @@ GR	country	Greece
 GR-69	self-governed part	Agio Oros
 GR-A	administrative region	Anatoliki Makedonia kai Thraki
 GR-A-52	department	Drama
-GR-A-71	department	Evros
 GR-A-55	department	Kavala
-GR-A-73	department	Rodopi
+GR-A-71	department	Evros
 GR-A-72	department	Xanthi
+GR-A-73	department	Rodopi
 GR-B	administrative region	Kentriki Makedonia
-GR-B-64	department	Chalkidiki
 GR-B-53	department	Imathia
+GR-B-54	department	Thessaloniki
 GR-B-57	department	Kilkis
 GR-B-59	department	Pella
 GR-B-61	department	Pieria
 GR-B-62	department	Serres
-GR-B-54	department	Thessaloniki
+GR-B-64	department	Chalkidiki
 GR-C	administrative region	Dytiki Makedonia
-GR-C-63	department	Florina
 GR-C-51	department	Grevena
 GR-C-56	department	Kastoria
 GR-C-58	department	Kozani
+GR-C-63	department	Florina
 GR-D	administrative region	Ipeiros
+GR-D-32	department	Thesprotia
 GR-D-33	department	Ioannina
 GR-D-34	department	Preveza
-GR-D-32	department	Thesprotia
 GR-E	administrative region	Thessalia
 GR-E-41	department	Karditsa
 GR-E-42	department	Larisa
 GR-E-43	department	Magnisia
 GR-E-44	department	Trikala
 GR-F	administrative region	Ionia Nisia
-GR-F-31	department	Arta
-GR-F-23	department	Kefallonia
-GR-F-22	department	Kerkyra
-GR-F-24	department	Lefkada
 GR-F-21	department	Zakynthos
+GR-F-22	department	Kerkyra
+GR-F-23	department	Kefallonia
+GR-F-24	department	Lefkada
+GR-F-31	department	Arta
 GR-G	administrative region	Dytiki Ellada
-GR-G-13	department	Achaïa
 GR-G-01	department	Aitolia kai Akarnania
+GR-G-13	department	Achaïa
 GR-G-14	department	Ileia
 GR-H	administrative region	Sterea Ellada
-GR-H-05	department	Evrytania
-GR-H-04	department	Evvoias
-GR-H-07	department	Fokida
-GR-H-06	department	Fthiotida
 GR-H-03	department	Voiotia
+GR-H-04	department	Evvoias
+GR-H-05	department	Evrytania
+GR-H-06	department	Fthiotida
+GR-H-07	department	Fokida
 GR-I	administrative region	Attiki
 GR-I-A1	department	Attiki
 GR-J	administrative region	Peloponnisos
@@ -1848,17 +1863,17 @@ GR-J-15	department	Korinthia
 GR-J-16	department	Lakonia
 GR-J-17	department	Messinia
 GR-K	administrative region	Voreio Aigaio
-GR-K-85	department	Chios
 GR-K-83	department	Lesvos
 GR-K-84	department	Samos
+GR-K-85	department	Chios
 GR-L	administrative region	Notio Aigaio
 GR-L-81	department	Dodekanisos
 GR-L-82	department	Kyklades
 GR-M	administrative region	Kriti
-GR-M-94	department	Chania
 GR-M-91	department	Irakleio
 GR-M-92	department	Lasithi
 GR-M-93	department	Rethymno
+GR-M-94	department	Chania
 GS	country	South Georgia and the South Sandwich Islands
 GT	country	Guatemala
 GT-AV	department	Alta Verapaz
@@ -2012,15 +2027,16 @@ ID-IJ-PB	province	Papua Barat
 ID-JW	geographical unit	Jawa
 ID-JW-BT	province	Banten
 ID-JW-JB	province	Jawa Barat
-ID-JW-JT	province	Jawa Tengah
 ID-JW-JI	province	Jawa Timur
 ID-JW-JK	special district	Jakarta Raya
+ID-JW-JT	province	Jawa Tengah
 ID-JW-YO	special region	Yogyakarta
 ID-KA	geographical unit	Kalimantan
 ID-KA-KB	province	Kalimantan Barat
-ID-KA-KT	province	Kalimantan Tengah
-ID-KA-KS	province	Kalimantan Selatan
 ID-KA-KI	province	Kalimantan Timur
+ID-KA-KS	province	Kalimantan Selatan
+ID-KA-KT	province	Kalimantan Tengah
+ID-KA-KU	province	Kalimantan Utara
 ID-ML	geographical unit	Maluku
 ID-ML-MA	province	Maluku
 ID-ML-MU	province	Maluku Utara
@@ -2030,11 +2046,11 @@ ID-NU-NB	province	Nusa Tenggara Barat
 ID-NU-NT	province	Nusa Tenggara Timur
 ID-SL	geographical unit	Sulawesi
 ID-SL-GO	province	Gorontalo
-ID-SL-SR	province	Sulawesi Barat
-ID-SL-SN	province	Sulawesi Selatan
-ID-SL-ST	province	Sulawesi Tengah
-ID-SL-SG	province	Sulawesi Tenggara
 ID-SL-SA	province	Sulawesi Utara
+ID-SL-SG	province	Sulawesi Tenggara
+ID-SL-SN	province	Sulawesi Selatan
+ID-SL-SR	province	Sulawesi Barat
+ID-SL-ST	province	Sulawesi Tengah
 ID-SM	geographical unit	Sumatera
 ID-SM-AC	autonomous province	Aceh
 ID-SM-BB	province	Bangka Belitung
@@ -2058,14 +2074,14 @@ IE-L-CW	county	Carlow
 IE-L-D	county	Dublin
 IE-L-KE	county	Kildare
 IE-L-KK	county	Kilkenny
-IE-L-LS	county	Laois
 IE-L-LD	county	Longford
 IE-L-LH	county	Louth
+IE-L-LS	county	Laois
 IE-L-MH	county	Meath
 IE-L-OY	county	Offaly
 IE-L-WH	county	Westmeath
-IE-L-WX	county	Wexford
 IE-L-WW	county	Wicklow
+IE-L-WX	county	Wexford
 IE-M	province	Munster
 IE-M-CE	county	Clare
 IE-M-CO	county	Cork
@@ -2121,6 +2137,7 @@ IN-TR	state	Tripura
 IN-UP	state	Uttar Pradesh
 IN-UT	state	Uttarakhand
 IN-WB	state	West Bengal
+IN-TG	state	Telangana
 IO	country	British Indian Ocean Territory
 IQ	country	Iraq
 IQ-AN	governorate	Al Anbar
@@ -2201,9 +2218,9 @@ IT-25-CO	province	Como
 IT-25-CR	province	Cremona
 IT-25-LC	province	Lecco
 IT-25-LO	province	Lodi
-IT-25-MN	province	Mantova
-IT-25-MI	province	Milano
 IT-25-MB	province	Monza e Brianza
+IT-25-MI	province	Milano
+IT-25-MN	province	Mantova
 IT-25-PV	province	Pavia
 IT-25-SO	province	Sondrio
 IT-25-VA	province	Varese
@@ -2216,8 +2233,8 @@ IT-34-PD	province	Padova
 IT-34-RO	province	Rovigo
 IT-34-TV	province	Treviso
 IT-34-VE	province	Venezia
-IT-34-VR	province	Verona
 IT-34-VI	province	Vicenza
+IT-34-VR	province	Verona
 IT-36	region	Friuli-Venezia Giulia
 IT-36-GO	province	Gorizia
 IT-36-PN	province	Pordenone
@@ -2230,11 +2247,11 @@ IT-42-SP	province	La Spezia
 IT-42-SV	province	Savona
 IT-45	region	Emilia-Romagna
 IT-45-BO	province	Bologna
-IT-45-FE	province	Ferrara
 IT-45-FC	province	Forlì-Cesena
+IT-45-FE	province	Ferrara
 IT-45-MO	province	Modena
-IT-45-PR	province	Parma
 IT-45-PC	province	Piacenza
+IT-45-PR	province	Parma
 IT-45-RA	province	Ravenna
 IT-45-RE	province	Reggio Emilia
 IT-45-RN	province	Rimini
@@ -2246,8 +2263,8 @@ IT-52-LI	province	Livorno
 IT-52-LU	province	Lucca
 IT-52-MS	province	Massa-Carrara
 IT-52-PI	province	Pisa
-IT-52-PT	province	Pistoia
 IT-52-PO	province	Prato
+IT-52-PT	province	Pistoia
 IT-52-SI	province	Siena
 IT-55	region	Umbria
 IT-55-PG	province	Perugia
@@ -2265,8 +2282,8 @@ IT-62-RI	province	Rieti
 IT-62-RM	province	Roma
 IT-62-VT	province	Viterbo
 IT-65	region	Abruzzo
-IT-65-CH	province	Chieti
 IT-65-AQ	province	L'Aquila
+IT-65-CH	province	Chieti
 IT-65-PE	province	Pescara
 IT-65-TE	province	Teramo
 IT-67	region	Molise
@@ -2280,8 +2297,8 @@ IT-72-NA	province	Napoli
 IT-72-SA	province	Salerno
 IT-75	region	Puglia
 IT-75-BA	province	Bari
-IT-75-BT	province	Barletta-Andria-Trani
 IT-75-BR	province	Brindisi
+IT-75-BT	province	Barletta-Andria-Trani
 IT-75-FG	province	Foggia
 IT-75-LE	province	Lecce
 IT-75-TA	province	Taranto
@@ -2289,8 +2306,8 @@ IT-77	region	Basilicata
 IT-77-MT	province	Matera
 IT-77-PZ	province	Potenza
 IT-78	region	Calabria
-IT-78-CZ	province	Catanzaro
 IT-78-CS	province	Cosenza
+IT-78-CZ	province	Catanzaro
 IT-78-KR	province	Crotone
 IT-78-RC	province	Reggio Calabria
 IT-78-VV	province	Vibo Valentia
@@ -2307,12 +2324,12 @@ IT-82-TP	province	Trapani
 IT-88	region	Sardegna
 IT-88-CA	province	Cagliari
 IT-88-CI	province	Carbonia-Iglesias
-IT-88-VS	province	Medio Campidano
 IT-88-NU	province	Nuoro
 IT-88-OG	province	Ogliastra
-IT-88-OT	province	Olbia-Tempio
 IT-88-OR	province	Oristano
+IT-88-OT	province	Olbia-Tempio
 IT-88-SS	province	Sassari
+IT-88-VS	province	Medio Campidano
 JE	country	Jersey
 JM	country	Jamaica
 JM-01	parish	Kingston
@@ -2391,13 +2408,53 @@ JP-45	prefecture	Miyazaki
 JP-46	prefecture	Kagoshima
 JP-47	prefecture	Okinawa
 KE	country	Kenya
-KE-110	province	Nairobi Municipality
-KE-200	province	Central
-KE-300	province	Coast
-KE-400	province	Eastern
-KE-500	province	North-Eastern Kaskazini Mashariki
-KE-700	province	Rift Valley
-KE-800	province	Western Magharibi
+KE-01	county	Baringo
+KE-02	county	Bomet
+KE-03	county	Bungoma
+KE-04	county	Busia
+KE-05	county	Elgeyo/Marakwet
+KE-06	county	Embu
+KE-07	county	Garissa
+KE-08	county	Homa Bay
+KE-09	county	Isiolo
+KE-10	county	Kajiado
+KE-11	county	Kakamega
+KE-12	county	Kericho
+KE-13	county	Kiambu
+KE-14	county	Kilifi
+KE-15	county	Kirinyaga
+KE-16	county	Kisii
+KE-17	county	Kisumu
+KE-18	county	Kitui
+KE-19	county	Kwale
+KE-20	county	Laikipia
+KE-21	county	Lamu
+KE-22	county	Machakos
+KE-23	county	Makueni
+KE-24	county	Mandera
+KE-25	county	Marsabit
+KE-26	county	Meru
+KE-27	county	Migori
+KE-28	county	Mombasa
+KE-29	county	Murang'a
+KE-30	county	Nairobi City
+KE-31	county	Nakuru
+KE-32	county	Nandi
+KE-33	county	Narok
+KE-34	county	Nyamira
+KE-35	county	Nyandarua
+KE-36	county	Nyeri
+KE-37	county	Samburu
+KE-38	county	Siaya
+KE-39	county	Taita/Taveta
+KE-40	county	Tana River
+KE-41	county	Tharaka-Nithi
+KE-42	county	Trans Nzoia
+KE-43	county	Turkana
+KE-44	county	Uasin Gishu
+KE-45	county	Vihiga
+KE-46	county	Wajir
+KE-47	county	West Pokot
 KG	country	Kyrgyzstan
 KG-B	region	Batken
 KG-C	region	Chü
@@ -2528,8 +2585,8 @@ LA-VI	province	Vientiane
 LA-VT	prefecture	Vientiane
 LA-XA	province	Xaignabouli
 LA-XE	province	Xékong
-LA-XI	province	Xiangkhoang
-LA-XN	special zone	Xiasômboun
+LA-XI	province	Xiangkhouang
+LA-XS	province	Xaisômboun
 LB	country	Lebanon
 LB-AK	governorate	Aakkâr
 LB-AS	governorate	Liban-Nord
@@ -2563,17 +2620,17 @@ LK-2-22	district	Mātale
 LK-2-23	district	Nuvara Ĕliya
 LK-3	province	Dakuṇu paḷāta
 LK-3-31	district	Gālla
-LK-3-33	district	Hambantŏṭa
 LK-3-32	district	Mātara
+LK-3-33	district	Hambantŏṭa
 LK-4	province	Uturu paḷāta
 LK-4-41	district	Yāpanaya
 LK-4-42	district	Kilinŏchchi
 LK-4-43	district	Mannārama
-LK-4-45	district	Mulativ
 LK-4-44	district	Vavuniyāva
+LK-4-45	district	Mulativ
 LK-5	province	Næ̆gĕnahira paḷāta
-LK-5-52	district	Ampāara
 LK-5-51	district	Maḍakalapuva
+LK-5-52	district	Ampāara
 LK-5-53	district	Trikuṇāmalaya
 LK-6	province	Vayamba paḷāta
 LK-6-61	district	Kuruṇægala
@@ -2585,8 +2642,8 @@ LK-8	province	Ūva paḷāta
 LK-8-81	district	Badulla
 LK-8-82	district	Mŏṇarāgala
 LK-9	province	Sabaragamuva paḷāta
-LK-9-92	district	Kægalla
 LK-9-91	district	Ratnapura
+LK-9-92	district	Kægalla
 LR	country	Liberia
 LR-BG	county	Bong
 LR-BM	county	Bomi
@@ -2774,10 +2831,10 @@ LY-ZA	popularates	Az Zāwiyah
 MA	country	Morocco
 MA-01	economic region	Tanger-Tétouan
 MA-01-CHE	province	Chefchaouen
-MA-01-LAR	province	Larache
 MA-01-FAH	prefecture	Fahs-Beni Makada
-MA-01-TNG	prefecture	Tanger-Assilah
+MA-01-LAR	province	Larache
 MA-01-TET	prefecture	Tétouan
+MA-01-TNG	prefecture	Tanger-Assilah
 MA-02	economic region	Gharb-Chrarda-Beni Hssen
 MA-02-KEN	province	Kénitra
 MA-02-SIK	province	Sidl Kacem
@@ -2790,16 +2847,16 @@ MA-04-BER	province	Berkane
 MA-04-FIG	province	Figuig
 MA-04-JRA	province	Jrada
 MA-04-NAD	province	Nador
-MA-04-TAI	province	Taourirt
 MA-04-OUJ	prefecture	Oujda-Angad
+MA-04-TAI	province	Taourirt
 MA-05	economic region	Fès-Boulemane
 MA-05-BOM	province	Boulemane
+MA-05-FES	prefecture	Fès-Dar-Dbibegh
 MA-05-MOU	province	Moulay Yacoub
 MA-05-SEF	province	Sefrou
-MA-05-FES	prefecture	Fès-Dar-Dbibegh
 MA-06	economic region	Meknès-Tafilalet
-MA-06-HAJ	province	El Hajeb
 MA-06-ERR	province	Errachidia
+MA-06-HAJ	province	El Hajeb
 MA-06-IFR	province	Ifrane
 MA-06-KHN	province	Khenifra
 MA-06-MEK	prefecture	Meknès
@@ -2809,10 +2866,10 @@ MA-07-RAB	prefecture	Rabat
 MA-07-SAL	prefecture	Salé
 MA-07-SKH	prefecture	Skhirate-Témara
 MA-08	economic region	Grand Casablanca
-MA-08-MED	province	Médiouna
-MA-08-NOU	province	Nouaceur
 MA-08-CAS	prefecture	Casablanca [Dar el Beïda]
+MA-08-MED	province	Médiouna
 MA-08-MOH	prefecture	Mohammadia
+MA-08-NOU	province	Nouaceur
 MA-09	economic region	Chaouia-Ouardigha
 MA-09-BES	province	Ben Slimane
 MA-09-KHO	province	Khouribga
@@ -2821,9 +2878,9 @@ MA-10	economic region	Doukhala-Abda
 MA-10-JDI	province	El Jadida
 MA-10-SAF	province	Safi
 MA-11	economic region	Marrakech-Tensift-Al Haouz
-MA-11-HAO	province	Al Haouz
 MA-11-CHI	province	Chichaoua
 MA-11-ESI	province	Essaouira
+MA-11-HAO	province	Al Haouz
 MA-11-KES	province	Kelaat es Sraghna
 MA-11-MMD	prefecture	Marrakech-Medina
 MA-11-MMN	prefecture	Marrakech-Menara
@@ -2832,25 +2889,25 @@ MA-12	economic region	Tadla-Azilal
 MA-12-AZI	province	Azilal
 MA-12-BEM	province	Beni Mellal
 MA-13	economic region	Sous-Massa-Draa
+MA-13-AGD	prefecture	Agadir-Ida-Outanane
 MA-13-CHT	province	Chtouka-Ait Baha
+MA-13-INE	prefecture	Inezgane-Ait Melloul
 MA-13-OUA	province	Ouarzazate
 MA-13-TAR	province	Taroudant
 MA-13-TIZ	province	Tiznit
 MA-13-ZAG	province	Zagora
-MA-13-AGD	prefecture	Agadir-Ida-Outanane
-MA-13-INE	prefecture	Inezgane-Ait Melloul
 MA-14	economic region	Guelmim-Es Smara
 MA-14-ASZ	province	Assa-Zag
 MA-14-ESM	province	Es Smara (EH)
 MA-14-GUE	province	Guelmim
-MA-14-TNT	province	Tan-Tan
 MA-14-TAT	province	Tata
+MA-14-TNT	province	Tan-Tan
 MA-15	economic region	Laâyoune-Boujdour-Sakia el Hamra
 MA-15-BOD	province	Boujdour (EH)
 MA-15-LAA	province	Laâyoune (EH)
 MA-16	economic region	Oued ed Dahab-Lagouira
-MA-16-OUD	province	Oued ed Dahab (EH)
 MA-16-AOU	prefecture	Aousserd
+MA-16-OUD	province	Oued ed Dahab (EH)
 MC	country	Monaco
 MC-CL	quarter	La Colle
 MC-CO	quarter	La Condamine
@@ -3204,26 +3261,26 @@ MU-SA	district	Savanne
 MU-VP	city	Vacoas-Phoenix
 MV	country	Maldives
 MV-CE	province	Central
-MV-CE-17	administrative atoll	Dhaalu
-MV-CE-14	administrative atoll	Faafu
 MV-CE-12	administrative atoll	Meemu
+MV-CE-14	administrative atoll	Faafu
+MV-CE-17	administrative atoll	Dhaalu
 MV-MLE	city	Male
 MV-NC	province	North Central
-MV-NC-02	administrative atoll	Alifu Alifu
 MV-NC-00	administrative atoll	Alifu Dhaalu
-MV-NC-26	administrative atoll	Kaafu
+MV-NC-02	administrative atoll	Alifu Alifu
 MV-NC-04	administrative atoll	Vaavu
+MV-NC-26	administrative atoll	Kaafu
 MV-NO	province	North
-MV-NO-20	administrative atoll	Baa
 MV-NO-03	administrative atoll	Lhaviyani
-MV-NO-25	administrative atoll	Noonu
 MV-NO-13	administrative atoll	Raa
+MV-NO-20	administrative atoll	Baa
+MV-NO-25	administrative atoll	Noonu
 MV-SC	province	South Central
 MV-SC-27	administrative atoll	Gaafu Alifu
 MV-SC-28	administrative atoll	Gaafu Dhaalu
 MV-SU	province	South
-MV-SU-29	administrative atoll	Gnaviyani
 MV-SU-01	administrative atoll	Seenu
+MV-SU-29	administrative atoll	Gnaviyani
 MV-UN	province	Upper North
 MV-UN-07	administrative atoll	Haa Alifu
 MV-UN-23	administrative atoll	Haa Dhaalu
@@ -3238,25 +3295,25 @@ MW-C-DO	district	Dowa
 MW-C-KS	district	Kasungu
 MW-C-LI	district	Lilongwe
 MW-C-MC	district	Mchinji
+MW-C-NI	district	Ntchisi
 MW-C-NK	district	Nkhotakota
 MW-C-NU	district	Ntcheu
-MW-C-NI	district	Ntchisi
 MW-C-SA	district	Salima
 MW-N	region	Northern Region
 MW-N-CT	district	Chitipa
 MW-N-KR	district	Karonga
 MW-N-LK	district	Likoma
 MW-N-MZ	district	Mzimba
-MW-N-NE	district	Neno
 MW-N-NB	district	Nkhata Bay
+MW-N-NE	district	Neno
 MW-N-RU	district	Rumphi
 MW-S	region	Southern Region
 MW-S-BA	district	Balaka
 MW-S-BL	district	Blantyre
 MW-S-CK	district	Chikwawa
 MW-S-CR	district	Chiradzulu
-MW-S-MH	district	Machinga
 MW-S-MG	district	Mangochi
+MW-S-MH	district	Machinga
 MW-S-MU	district	Mulanje
 MW-S-MW	district	Mwanza
 MW-S-NS	district	Nsanje
@@ -3265,37 +3322,2455 @@ MW-S-TH	district	Thyolo
 MW-S-ZO	district	Zomba
 MX	country	Mexico
 MX-AGU	state	Aguascalientes
+MX-AGU-001	municipality	Aguascalientes
+MX-AGU-002	municipality	Asientos
+MX-AGU-003	municipality	Calvillo
+MX-AGU-004	municipality	Cosio
+MX-AGU-005	municipality	Jesús María
+MX-AGU-006	municipality	Pabellón de Arteaga
+MX-AGU-007	municipality	Rincón de Romos
+MX-AGU-008	municipality	San José de Gracia
+MX-AGU-009	municipality	Tepezala
+MX-AGU-010	municipality	El Llano
+MX-AGU-011		San Francisco de los Romo
 MX-BCN	state	Baja California
+MX-BCN-001	municipality	Ensenada
+MX-BCN-002	municipality	Mexicali
+MX-BCN-003	municipality	Tecate
+MX-BCN-004	municipality	Tijuana
+MX-BCN-005	municipality	Playas de Rosarito
 MX-BCS	state	Baja California Sur
+MX-BCS-001	municipality	Comondú
+MX-BCS-002	municipality	Mulege
+MX-BCS-003	municipality	La Paz
+MX-BCS-004	municipality	Los Cabos
+MX-BCS-005	municipality	Loreto
 MX-CAM	state	Campeche
+MX-CAM-001	municipality	Calkini
+MX-CAM-002	municipality	Campeche
+MX-CAM-003	municipality	Carmen
+MX-CAM-004	municipality	Champotón
+MX-CAM-005	municipality	Hecelchakan
+MX-CAM-006	municipality	Hopelchen
+MX-CAM-007	municipality	Palizada
+MX-CAM-008	municipality	Tenabo
+MX-CAM-009	municipality	Escarcega
+MX-CAM-010	municipality	Calakmul
+MX-CAM-011		Candelaria
 MX-CHH	state	Chihuahua
+MX-CHH-001	municipality	Ahumada
+MX-CHH-002	municipality	Aldama
+MX-CHH-003	municipality	Allende
+MX-CHH-004	municipality	Aquiles Serdán
+MX-CHH-005	municipality	Ascensión
+MX-CHH-006	municipality	Bachiniva
+MX-CHH-007	municipality	Balleza
+MX-CHH-008	municipality	Batopilas
+MX-CHH-009	municipality	Bocoyna
+MX-CHH-010	municipality	Buenaventura
+MX-CHH-011	municipality	Camargo
+MX-CHH-012	municipality	Carichí
+MX-CHH-013	municipality	Casas Grandes
+MX-CHH-014	municipality	Coronado
+MX-CHH-015	municipality	Coyame del Sotol
+MX-CHH-016	municipality	La Cruz
+MX-CHH-017	municipality	Cuauhtémoc
+MX-CHH-018	municipality	Cusihuiriachi
+MX-CHH-019	municipality	Chihuahua
+MX-CHH-020	municipality	Chinipas
+MX-CHH-021	municipality	Delicias
+MX-CHH-022	municipality	Dr. Belisario Domínguez
+MX-CHH-023	municipality	Galeana
+MX-CHH-024	municipality	Santa Isabel
+MX-CHH-025	municipality	Gómez Farias
+MX-CHH-026	municipality	Gran Morelos
+MX-CHH-027	municipality	Guachochi
+MX-CHH-028	municipality	Guadalupe
+MX-CHH-029	municipality	Guadalupe y Calvo
+MX-CHH-030	municipality	Guazapares
+MX-CHH-031	municipality	Guerrero
+MX-CHH-032	municipality	Hidalgo del Parral
+MX-CHH-033	municipality	Huejotitán
+MX-CHH-034	municipality	Ignacio Zaragoza
+MX-CHH-035	municipality	Janos
+MX-CHH-036	municipality	Jiménez
+MX-CHH-037	municipality	Juárez
+MX-CHH-038	municipality	Julimes
+MX-CHH-039	municipality	López
+MX-CHH-040	municipality	Madera
+MX-CHH-041	municipality	Maguarichi
+MX-CHH-042	municipality	Manuel Benavides
+MX-CHH-043	municipality	Matachi
+MX-CHH-044	municipality	Matamoros
+MX-CHH-045	municipality	Meoqui
+MX-CHH-046	municipality	Morelos
+MX-CHH-047	municipality	Moris
+MX-CHH-048	municipality	Namiquipa
+MX-CHH-049	municipality	Nonoava
+MX-CHH-050	municipality	Nuevo Casas Grandes
+MX-CHH-051	municipality	Ocampo
+MX-CHH-052	municipality	Ojinaga
+MX-CHH-053	municipality	Praxedis G. Guerrero
+MX-CHH-054	municipality	Riva Palacio
+MX-CHH-055	municipality	Rosales
+MX-CHH-056	municipality	Rosario
+MX-CHH-057	municipality	San Francisco de Borja
+MX-CHH-058	municipality	San Francisco de Conchos
+MX-CHH-059	municipality	San Francisco del Oro
+MX-CHH-060	municipality	Santa Barbara
+MX-CHH-061	municipality	Satevo
+MX-CHH-062	municipality	Saucillo
+MX-CHH-063	municipality	Temosachic
+MX-CHH-064	municipality	El Tule
+MX-CHH-065	municipality	Urique
+MX-CHH-066	municipality	Uruachi
+MX-CHH-067	municipality	Valle de Zaragoza
 MX-CHP	state	Chiapas
+MX-CHP-001	municipality	Acacoyagua
+MX-CHP-002	municipality	Acala
+MX-CHP-003	municipality	Acapetahua
+MX-CHP-004	municipality	Altamirano
+MX-CHP-005	municipality	Amatán
+MX-CHP-006	municipality	Amatenango de la Frontera
+MX-CHP-007	municipality	Amatenango del Valle
+MX-CHP-008	municipality	Ángel Albino Corzo
+MX-CHP-009	municipality	Arriaga
+MX-CHP-010	municipality	Bejucal de Ocampo
+MX-CHP-011	municipality	Bella Vista
+MX-CHP-012	municipality	Berriozábal
+MX-CHP-013	municipality	Bochil
+MX-CHP-014	municipality	El Bosque
+MX-CHP-015	municipality	Cacahoatán
+MX-CHP-016	municipality	Catazaja
+MX-CHP-017	municipality	Cintalapa
+MX-CHP-018	municipality	Coapilla
+MX-CHP-019	municipality	Comitán de Domínguez
+MX-CHP-020	municipality	La Concordia
+MX-CHP-021	municipality	Copainala
+MX-CHP-022	municipality	Chalchihuitán
+MX-CHP-023	municipality	Chamula
+MX-CHP-024	municipality	Chanal
+MX-CHP-025	municipality	Chapultenango
+MX-CHP-026	municipality	Chenalho
+MX-CHP-027	municipality	Chiapa de Corzo
+MX-CHP-028	municipality	Chiapilla
+MX-CHP-029	municipality	Chicoasen
+MX-CHP-030	municipality	Chicomuselo
+MX-CHP-031	municipality	Chilón
+MX-CHP-032	municipality	Escuintla
+MX-CHP-033	municipality	Francisco León
+MX-CHP-034	municipality	Frontera Comalapa
+MX-CHP-035	municipality	Frontera Hidalgo
+MX-CHP-036	municipality	La Grandeza
+MX-CHP-037	municipality	Huehuetán
+MX-CHP-038	municipality	Huixtan
+MX-CHP-039	municipality	Huitiupán
+MX-CHP-040	municipality	Huixtla
+MX-CHP-041	municipality	La Independencia
+MX-CHP-042	municipality	Ixhuatán
+MX-CHP-043	municipality	Ixtacomitán
+MX-CHP-044	municipality	Ixtapa
+MX-CHP-045	municipality	Ixtapangajoya
+MX-CHP-046	municipality	Jiquipilas
+MX-CHP-047	municipality	Jitotol
+MX-CHP-048	municipality	Juárez
+MX-CHP-049	municipality	Larrainzar
+MX-CHP-050	municipality	La Libertad
+MX-CHP-051	municipality	Mapastepec
+MX-CHP-052	municipality	Las Margaritas
+MX-CHP-053	municipality	Mazapa de Madero
+MX-CHP-054	municipality	Mazatán
+MX-CHP-055	municipality	Metapa
+MX-CHP-056	municipality	Mitontic
+MX-CHP-057	municipality	Motozintla
+MX-CHP-058	municipality	Nicolas Ruiz
+MX-CHP-059	municipality	Ocosingo
+MX-CHP-060	municipality	Ocotepec
+MX-CHP-061	municipality	Ocozocoautla de Espinosa
+MX-CHP-062	municipality	Ostuacán
+MX-CHP-063	municipality	Osumacinta
+MX-CHP-064	municipality	Oxchuc
+MX-CHP-065	municipality	Palenque
+MX-CHP-066	municipality	Pantelho
+MX-CHP-067	municipality	Pantepec
+MX-CHP-068	municipality	Pichucalco
+MX-CHP-069	municipality	Pijijiapan
+MX-CHP-070	municipality	El Porvenir
+MX-CHP-071	municipality	Villa Comaltitlán
+MX-CHP-072	municipality	Pueblo Nuevo Solistahuacán
+MX-CHP-073	municipality	Rayón
+MX-CHP-074	municipality	Reforma
+MX-CHP-075	municipality	Las Rosas
+MX-CHP-076	municipality	Sabanilla
+MX-CHP-077	municipality	Salto de Agua
+MX-CHP-078	municipality	San Cristóbal de las Casas
+MX-CHP-079	municipality	San Fernando
+MX-CHP-080	municipality	Siltepec
+MX-CHP-081	municipality	Simojovel
+MX-CHP-082	municipality	Sitala
+MX-CHP-083	municipality	Socoltenango
+MX-CHP-084	municipality	Solosuchiapa
+MX-CHP-085	municipality	Soyalo
+MX-CHP-086	municipality	Suchiapa
+MX-CHP-087	municipality	Suchiate
+MX-CHP-088	municipality	Sunuapa
+MX-CHP-089	municipality	Tapachula
+MX-CHP-090	municipality	Tapalapa
+MX-CHP-091	municipality	Tapilula
+MX-CHP-092	municipality	Tecpatan
+MX-CHP-093	municipality	Tenejapa
+MX-CHP-094	municipality	Teopisca
+MX-CHP-096	municipality	Tila
+MX-CHP-097	municipality	Tonalá
+MX-CHP-098	municipality	Totolapa
+MX-CHP-099	municipality	La Trinitaria
+MX-CHP-100	municipality	Tumbala
+MX-CHP-101	municipality	Tuxtla Gutiérrez
+MX-CHP-102	municipality	Tuxtla Chico
+MX-CHP-103	municipality	Tuzantan
+MX-CHP-104	municipality	Tzimol
+MX-CHP-105	municipality	Unión Juárez
+MX-CHP-106	municipality	Venustiano Carranza
+MX-CHP-107	municipality	Villa Corzo
+MX-CHP-108	municipality	Villaflores
+MX-CHP-109	municipality	Yajalón
+MX-CHP-110	municipality	San Lucas
+MX-CHP-111	municipality	Zinacantán
+MX-CHP-112	municipality	San Juan Cancuc
+MX-CHP-113	municipality	Aldama
+MX-CHP-114	municipality	Benemérito de las Américas
+MX-CHP-115	municipality	Maravilla Tenejapa
+MX-CHP-116	municipality	Marqués de Comillas
+MX-CHP-117	municipality	Montecristo de Guerrero
+MX-CHP-118	municipality	San Andrés Duraznal
+MX-CHP-119	municipality	Santiago el Pinar
 MX-COA	state	Coahuila
+MX-COA-001	municipality	Abasolo
+MX-COA-002	municipality	Acuña
+MX-COA-003	municipality	Allende
+MX-COA-004	municipality	Arteaga
+MX-COA-005	municipality	Candela
+MX-COA-006	municipality	Casta
+MX-COA-007	municipality	Cuatro Ciénegas
+MX-COA-008	municipality	Escobedo
+MX-COA-009	municipality	Francisco I. Madero
+MX-COA-010	municipality	Frontera
+MX-COA-011	municipality	General Cepeda
+MX-COA-012	municipality	Guerrero
+MX-COA-013	municipality	Hidalgo
+MX-COA-014	municipality	Jiménez
+MX-COA-015	municipality	Juárez
+MX-COA-016	municipality	Lamadrid
+MX-COA-017	municipality	Matamoros
+MX-COA-018	municipality	Monclova
+MX-COA-019	municipality	Morelos
+MX-COA-020	municipality	Múzquiz
+MX-COA-021	municipality	Nadadores
+MX-COA-022	municipality	Nava
+MX-COA-023	municipality	Ocampo
+MX-COA-024	municipality	Parras
+MX-COA-025	municipality	Piedras Negras
+MX-COA-026	municipality	Progreso
+MX-COA-027	municipality	Ramos Arizpe
+MX-COA-028	municipality	Sabinas
+MX-COA-029	municipality	Sacramento
+MX-COA-030	municipality	Saltillo
+MX-COA-031	municipality	San Buenaventura
+MX-COA-032	municipality	San Juan de Sabinas
+MX-COA-033	municipality	San Pedro
+MX-COA-034	municipality	Sierra Mojada
+MX-COA-035	municipality	Torreón
+MX-COA-036	municipality	Viesca
+MX-COA-037	municipality	Villa Unión
+MX-COA-038	municipality	Zaragoza
 MX-COL	state	Colima
-MX-DIF	federal district	Distrito Federal
+MX-COL-001	municipality	Armería
+MX-COL-002	municipality	Colima
+MX-COL-003	municipality	Comala
+MX-COL-004	municipality	Coquimatlán
+MX-COL-005	municipality	Cuauhtémoc
+MX-COL-006	municipality	Ixtlahuacán
+MX-COL-007	municipality	Manzanillo
+MX-COL-008	municipality	Minatitlán
+MX-COL-009	municipality	Tecomán
+MX-COL-010	municipality	Villa de Álvarez
+MX-CDMX	state	Ciudad de México
 MX-DUR	state	Durango
+MX-DUR-001	municipality	Canatlán
+MX-DUR-002	municipality	Canelas
+MX-DUR-003	municipality	Coneto de Comonfort
+MX-DUR-004	municipality	Cuencame
+MX-DUR-005	municipality	Durango
+MX-DUR-006	municipality	General Simón Bolívar
+MX-DUR-007	municipality	Gómez Palacio
+MX-DUR-008	municipality	Guadalupe Victoria
+MX-DUR-009	municipality	Guanacevi
+MX-DUR-010	municipality	Hidalgo
+MX-DUR-011	municipality	Inde
+MX-DUR-012	municipality	Lerdo
+MX-DUR-013	municipality	Mapimi
+MX-DUR-014	municipality	Mezquital
+MX-DUR-015	municipality	Nazas
+MX-DUR-016	municipality	Nombre de Dios
 MX-GRO	state	Guerrero
+MX-GRO-001	municipality	Acapulco de Juárez
+MX-GRO-002	municipality	Ahuacuotzingo
+MX-GRO-003	municipality	Ajuchitlán del Progreso
+MX-GRO-004	municipality	Alcozauca de Guerrero
+MX-GRO-005	municipality	Alpoyeca
+MX-GRO-006	municipality	Apaxtla
+MX-GRO-007	municipality	Arcelia
+MX-GRO-008	municipality	Atenango del Río
+MX-GRO-009	municipality	Atlamajalcingo del Monte
+MX-GRO-010	municipality	Atlixtac
+MX-GRO-011	municipality	Atoyac de Álvarez
+MX-GRO-012	municipality	Ayutla de los Libres
+MX-GRO-013	municipality	Azoyu
+MX-GRO-014	municipality	Benito Juárez
+MX-GRO-015	municipality	Buenavista de Cuellar
+MX-GRO-016	municipality	Coahuayutla de Jose María Izazaga
+MX-GRO-017	municipality	Cocula
+MX-GRO-018	municipality	Copala
+MX-GRO-019	municipality	Copalillo
+MX-GRO-020	municipality	Copanatoyac
+MX-GRO-021	municipality	Coyuca de Benítez
+MX-GRO-022	municipality	Coyuca de Catalán
+MX-GRO-023	municipality	Cuajinicuilapa
+MX-GRO-024	municipality	Cualac
+MX-GRO-025	municipality	Cuautepec
+MX-GRO-026	municipality	Cuetzala del Progreso
+MX-GRO-027	municipality	Cutzamala de Pinzón
+MX-GRO-028	municipality	Chilapa de Álvarez
+MX-GRO-029	municipality	Chilpancingo de los Bravo
+MX-GRO-030	municipality	Florencio Villarreal
+MX-GRO-031	municipality	General Canuto A. Neri
+MX-GRO-032	municipality	General Heliodoro Castillo
+MX-GRO-033	municipality	Huamuxtitlán
+MX-GRO-034	municipality	Huitzuco de los Figueroa
+MX-GRO-035	municipality	Iguala de la Independencia
+MX-GRO-036	municipality	Igualapa
+MX-GRO-037	municipality	Ixcateopan de Cuauhtémoc
+MX-GRO-038	municipality	Zihuatanejo de Azueta
+MX-GRO-039	municipality	Juan R. Escudero
+MX-GRO-040	municipality	Leonardo Bravo
+MX-GRO-041	municipality	Malinaltepec
+MX-GRO-042	municipality	Martir de Cuilapan
+MX-GRO-043	municipality	Metlatonoc
+MX-GRO-044	municipality	Mochitlán
+MX-GRO-045	municipality	Olinala
+MX-GRO-046	municipality	Ometepec
+MX-GRO-047	municipality	Pedro Ascencio Alquisiras
+MX-GRO-048	municipality	Petatlán
+MX-GRO-049	municipality	Pilcaya
+MX-GRO-050	municipality	Pungarabato
+MX-GRO-051	municipality	Quechultenango
+MX-GRO-052	municipality	San Luis Acatlán
+MX-GRO-053	municipality	San Marcos
+MX-GRO-054	municipality	San Miguel Totolapan
+MX-GRO-055	municipality	Taxco de Alarcón
+MX-GRO-056	municipality	Tecoanapa
+MX-GRO-057	municipality	Tecpan de Galeana
+MX-GRO-058	municipality	Teloloapan
+MX-GRO-059	municipality	Tepecoacuilco de Trujano
+MX-GRO-060	municipality	Tetipac
+MX-GRO-061	municipality	Tixtla de Guerrero
+MX-GRO-062	municipality	Tlacoachistlahuaca
+MX-GRO-063	municipality	Tlacoapa
+MX-GRO-064	municipality	Tlalchapa
+MX-GRO-065	municipality	Tlalixtaquilla de Maldonado
+MX-GRO-066	municipality	Tlapa de Comonfort
+MX-GRO-067	municipality	Tlapehuala
+MX-GRO-068	municipality	La Unión de Isidoro Montes de Oca
+MX-GRO-069	municipality	Xalpatlahuac
+MX-GRO-070	municipality	Xochihuehuetlán
+MX-GRO-071	municipality	Xochistlahuaca
+MX-GRO-072	municipality	Zapotitlán Tablas
+MX-GRO-073	municipality	Zirandaro
+MX-GRO-074	municipality	Zitlala
+MX-GRO-075	municipality	Eduardo Neri
+MX-GRO-076	municipality	Acatepec
+MX-GRO-077	municipality	Marquelia
+MX-GRO-078	municipality	Cochoapa el Grande
+MX-GRO-079	municipality	Jose Joaquín de Herrera
+MX-GRO-080	municipality	Juchitan
+MX-GRO-081	municipality	Iliatenco
 MX-GUA	state	Guanajuato
+MX-GUA-001	municipality	Abasolo
+MX-GUA-002	municipality	Acambaro
+MX-GUA-003	municipality	San Miguel de Allende
+MX-GUA-004	municipality	Apaseo el Alto
+MX-GUA-005	municipality	Apaseo el Grande
+MX-GUA-006	municipality	Atarjea
+MX-GUA-007	municipality	Celaya
+MX-GUA-008	municipality	Manuel Doblado
+MX-GUA-009	municipality	Comonfort
+MX-GUA-010	municipality	Coroneo
+MX-GUA-011	municipality	Cortazar
+MX-GUA-012	municipality	Cueramaro
+MX-GUA-013	municipality	Doctor Mora
+MX-GUA-014	municipality	Dolores Hidalgo Cuna de la Independencia Nacional
+MX-GUA-015	municipality	Guanajuato
+MX-GUA-016	municipality	Huanimaro
+MX-GUA-017	municipality	Irapuato
+MX-GUA-018	municipality	Jaral del Progreso
+MX-GUA-019	municipality	Jerecuaro
+MX-GUA-020	municipality	León
+MX-GUA-021	municipality	Moroleón
+MX-GUA-022	municipality	Ocampo
+MX-GUA-023	municipality	Penjamo
+MX-GUA-024	municipality	Pueblo Nuevo
+MX-GUA-025	municipality	Purisima del Rincón
+MX-GUA-026	municipality	Romita
+MX-GUA-027	municipality	Salamanca
+MX-GUA-028	municipality	Salvatierra
+MX-GUA-029	municipality	San Diego de la Unión
+MX-GUA-030	municipality	San Felipe
+MX-GUA-031	municipality	San Francisco del Rincón
+MX-GUA-032	municipality	San Jose Iturbide
+MX-GUA-033	municipality	San Luis de la Paz
+MX-GUA-034	municipality	Santa Catarina
+MX-GUA-035	municipality	Santa Cruz de Juventino Rosas
+MX-GUA-036	municipality	Santiago Maravatio
+MX-GUA-037	municipality	Silao
+MX-GUA-038	municipality	Tarandacuao
+MX-GUA-039	municipality	Tarimoro
+MX-GUA-040	municipality	Tierra Blanca
+MX-GUA-041	municipality	Uriangato
+MX-GUA-042	municipality	Valle de Santiago
+MX-GUA-043	municipality	Victoria
+MX-GUA-044	municipality	Villagran
+MX-GUA-045	municipality	Xichu
+MX-GUA-046	municipality	Yuriria
 MX-HID	state	Hidalgo
+MX-HID-001	municipality	Acatlán
+MX-HID-002	municipality	Acaxochitlan
+MX-HID-003	municipality	Actopan
+MX-HID-004	municipality	Agua Blanca de Iturbide
+MX-HID-005	municipality	Ajacuba
+MX-HID-006	municipality	Alfajayucan
+MX-HID-007	municipality	Almoloya
+MX-HID-008	municipality	Apan
+MX-HID-009	municipality	El Arenal
+MX-HID-010	municipality	Atitalaquia
+MX-HID-011	municipality	Atlapexco
+MX-HID-012	municipality	Atotonilco el Grande
+MX-HID-013	municipality	Atotonilco de Tula
+MX-HID-014	municipality	Calnali
+MX-HID-015	municipality	Cardonal
+MX-HID-016	municipality	Cuautepec de Hinojosa
+MX-HID-017	municipality	Chapantongo
+MX-HID-018	municipality	Chapulhuacán
+MX-HID-019	municipality	Chilcuautla
+MX-HID-020	municipality	Eloxochitlan
+MX-HID-021	municipality	Emiliano Zapata
+MX-HID-022	municipality	Epazoyucan
+MX-HID-023	municipality	Francisco I. Madero
+MX-HID-024	municipality	Huasca de Ocampo
+MX-HID-025	municipality	Huautla
+MX-HID-026	municipality	Huazalingo
+MX-HID-027	municipality	Huehuetla
+MX-HID-028	municipality	Huejutla de Reyes
+MX-HID-029	municipality	Huichapan
+MX-HID-030	municipality	Ixmiquilpan
+MX-HID-031	municipality	Jacala de Ledezma
+MX-HID-032	municipality	Jaltocan
+MX-HID-033	municipality	Juárez Hidalgo
+MX-HID-034	municipality	Lolotla
+MX-HID-035	municipality	Metepec
+MX-HID-036	municipality	San Agustin Metzquititlán
+MX-HID-037	municipality	Metztitlán
+MX-HID-038	municipality	Mineral del Chico
+MX-HID-039	municipality	Mineral del Monte
+MX-HID-040	municipality	La Misión
+MX-HID-041	municipality	Mixquiahuala de Juárez
+MX-HID-042	municipality	Molango de Escamilla
+MX-HID-043	municipality	Nicolas Flores
+MX-HID-044	municipality	Nopala de Villagran
+MX-HID-045	municipality	Omitlan de Juárez
+MX-HID-046	municipality	San Felipe Orizatlan
+MX-HID-047	municipality	Pacula
+MX-HID-048	municipality	Pachuca de Soto
+MX-HID-049	municipality	Pisaflores
+MX-HID-050	municipality	Progreso de Obregón
+MX-HID-051	municipality	Mineral de la Reforma
+MX-HID-052	municipality	San Agustin Tlaxiaca
+MX-HID-053	municipality	San Bartolo Tutotepec
+MX-HID-054	municipality	San Salvador
+MX-HID-055	municipality	Santiago de Anaya
+MX-HID-056	municipality	Santiago Tulantepec de Lugo Guerrero
+MX-HID-057	municipality	Singuilucan
+MX-HID-058	municipality	Tasquillo
+MX-HID-059	municipality	Tecozautla
+MX-HID-060	municipality	Tenango de Doria
+MX-HID-061	municipality	Tepeapulco
+MX-HID-062	municipality	Tepehuacán de Guerrero
+MX-HID-063	municipality	Tepeji del Río de Ocampo
+MX-HID-064	municipality	Tepetitlán
+MX-HID-065	municipality	Tetepango
+MX-HID-066	municipality	Villa de Tezontepec
+MX-HID-067	municipality	Tezontepec de Aldama
+MX-HID-068	municipality	Tianguistengo
+MX-HID-069	municipality	Tizayuca
+MX-HID-070	municipality	Tlahuelilpan
+MX-HID-071	municipality	Tlahuiltepa
+MX-HID-072	municipality	Tlanalapa
+MX-HID-073	municipality	Tlanchinol
+MX-HID-074	municipality	Tlaxcoapan
+MX-HID-075	municipality	Tolcayuca
+MX-HID-076	municipality	Tula de Allende
+MX-HID-077	municipality	Tulancingo de Bravo
+MX-HID-078	municipality	Xochiatipan
+MX-HID-079	municipality	Xochicoatlan
+MX-HID-080	municipality	Yahualica
+MX-HID-081	municipality	Zacualtipan de Ángeles
+MX-HID-082	municipality	Zapotlan de Juárez
+MX-HID-083	municipality	Zempoala
+MX-HID-084	municipality	Zimapan
 MX-JAL	state	Jalisco
+MX-JAL-001	municipality	Acatic
+MX-JAL-002	municipality	Acatlán de Juárez
+MX-JAL-003	municipality	Ahualulco de Mercado
+MX-JAL-004	municipality	Amacueca
+MX-JAL-005	municipality	Amatitan
+MX-JAL-006	municipality	Ameca
+MX-JAL-007	municipality	San Juanito de Escobedo
+MX-JAL-008	municipality	Arandas
+MX-JAL-009	municipality	El Arenal
+MX-JAL-010	municipality	Atemajac de Brizuela
+MX-JAL-011	municipality	Atengo
+MX-JAL-012	municipality	Atenguillo
+MX-JAL-013	municipality	Atotonilco el Alto
+MX-JAL-014	municipality	Atoyac
+MX-JAL-015	municipality	Autlan de Navarro
+MX-JAL-016	municipality	Ayotlan
+MX-JAL-017	municipality	Ayutla
+MX-JAL-018	municipality	La Barca
+MX-JAL-019	municipality	Bola
+MX-JAL-020	municipality	Cabo Corrientes
+MX-JAL-021	municipality	Casimiro Castillo
+MX-JAL-022	municipality	Cihuatlan
+MX-JAL-023	municipality	Zapotlan el Grande
+MX-JAL-024	municipality	Cocula
+MX-JAL-025	municipality	Colotlan
+MX-JAL-026	municipality	Concepción de Buenos Aires
+MX-JAL-027	municipality	Cuautitlán de García Barragan
+MX-JAL-028	municipality	Cuautla
+MX-JAL-029	municipality	Cuquio
+MX-JAL-030	municipality	Chapala
+MX-JAL-031	municipality	Chimaltitan
+MX-JAL-032	municipality	Chiquilistlan
+MX-JAL-033	municipality	Degollado
+MX-JAL-034	municipality	Ejutla
+MX-JAL-035	municipality	Encarnación de Díaz
+MX-JAL-036	municipality	Etzatlan
+MX-JAL-037	municipality	El Grullo
+MX-JAL-038	municipality	Guachinango
+MX-JAL-039	municipality	Guadalajara
+MX-JAL-040	municipality	Hostotipaquillo
+MX-JAL-041	municipality	Huejucar
+MX-JAL-042	municipality	Huejuquilla el Alto
+MX-JAL-043	municipality	La Huerta
+MX-JAL-044	municipality	Ixtlahuacán de los Membrillos
+MX-JAL-045	municipality	Ixtlahuacán del Río
+MX-JAL-046	municipality	Jalostotitlán
+MX-JAL-047	municipality	Jamay
+MX-JAL-048	municipality	Jesús María
+MX-JAL-049	municipality	Jilotlan de los Dolores
+MX-JAL-050	municipality	Jocotepec
+MX-JAL-051	municipality	Juanacatlán
+MX-JAL-052	municipality	Juchitlan
+MX-JAL-053	municipality	Lagos de Moreno
+MX-JAL-054	municipality	El Limón
+MX-JAL-055	municipality	Magdalena
+MX-JAL-056	municipality	Santa María del Oro
+MX-JAL-057	municipality	La Manzanilla de la Paz
+MX-JAL-058	municipality	Mascota
+MX-JAL-059	municipality	Mazamitla
+MX-JAL-060	municipality	Mexticacán
+MX-JAL-061	municipality	Mezquitic
+MX-JAL-062	municipality	Mixtlán
+MX-JAL-063	municipality	Ocotlán
+MX-JAL-064	municipality	Ojuelos de Jalisco
+MX-JAL-065	municipality	Pihuamo
+MX-JAL-066	municipality	Poncitlan
+MX-JAL-067	municipality	Puerto Vallarta
+MX-JAL-068	municipality	Villa Purificación
+MX-JAL-069	municipality	Quitupan
+MX-JAL-070	municipality	El Salto
+MX-JAL-071	municipality	San Cristóbal de la Barranca
+MX-JAL-072	municipality	San Diego de Alejandria
+MX-JAL-073	municipality	San Juan de los Lagos
+MX-JAL-074	municipality	San Julian
+MX-JAL-075	municipality	San Marcos
+MX-JAL-076	municipality	San Martín de Bola
+MX-JAL-077	municipality	San Martín Hidalgo
+MX-JAL-078	municipality	San Miguel el Alto
+MX-JAL-079	municipality	Gómez Farias
+MX-JAL-080	municipality	San Sebastián del Oeste
+MX-JAL-081	municipality	Santa María de los Ángeles
+MX-JAL-082	municipality	Sayula
+MX-JAL-083	municipality	Tala
+MX-JAL-084	municipality	Talpa de Allende
+MX-JAL-085	municipality	Tamazula de Gordiano
+MX-JAL-086	municipality	Tapalpa
+MX-JAL-087	municipality	Tecalitlán
+MX-JAL-088	municipality	Tecolotlán
+MX-JAL-089	municipality	Techaluta de Montenegro
+MX-JAL-090	municipality	Tenamaxtlán
+MX-JAL-091	municipality	Teocaltiche
+MX-JAL-092	municipality	Teocuitatlán de Corona
+MX-JAL-093	municipality	Tepatitlán de Morelos
+MX-JAL-094	municipality	Tequila
+MX-JAL-095	municipality	Teuchitlan
+MX-JAL-096	municipality	Tizapán el Alto
+MX-JAL-097	municipality	Tlajomulco de Zu
+MX-JAL-098	municipality	San Pedro Tlaquepaque
+MX-JAL-099	municipality	Tolimán
+MX-JAL-100	municipality	Tomatlan
+MX-JAL-101	municipality	Tonala
+MX-JAL-102	municipality	Tonaya
+MX-JAL-103	municipality	Tonila
+MX-JAL-104	municipality	Totatiche
+MX-JAL-105	municipality	Tototlan
+MX-JAL-106	municipality	Tuxcacuesco
+MX-JAL-107	municipality	Tuxcueca
+MX-JAL-108	municipality	Tuxpan
+MX-JAL-109	municipality	Unión de San Antonio
+MX-JAL-110	municipality	Unión de Tula
+MX-JAL-111	municipality	Valle de Guadalupe
+MX-JAL-112	municipality	Valle de Juárez
+MX-JAL-113	municipality	San Gabriel
+MX-JAL-114	municipality	Villa Corona
+MX-JAL-115	municipality	Villa Guerrero
+MX-JAL-116	municipality	Villa Hidalgo
+MX-JAL-117	municipality	Canadas de Obregón
+MX-JAL-118	municipality	Yahualica de González Gallo
+MX-JAL-119	municipality	Zacoalco de Torres
+MX-JAL-120	municipality	Zapopan
+MX-JAL-121	municipality	Zapotiltic
+MX-JAL-122	municipality	Zapotitlán de Vadillo
+MX-JAL-123	municipality	Zapotlan del Rey
+MX-JAL-124	municipality	Zapotlanejo
+MX-JAL-125	municipality	San Ignacio Cerro Gordo
 MX-MEX	state	México
+MX-MEX-001	municipality	Acambay
+MX-MEX-002	municipality	Acolman
+MX-MEX-003	municipality	Aculco
+MX-MEX-004	municipality	Almoloya de Alquisiras
+MX-MEX-005	municipality	Almoloya de Juárez
+MX-MEX-006	municipality	Almoloya del Río
+MX-MEX-007	municipality	Amanalco
+MX-MEX-008	municipality	Amatepec
+MX-MEX-009	municipality	Amecameca
+MX-MEX-010	municipality	Apaxco
+MX-MEX-011	municipality	Atenco
+MX-MEX-012	municipality	ATizapán
+MX-MEX-013	municipality	ATizapán de Zaragoza
+MX-MEX-014	municipality	Atlacomulco
+MX-MEX-015	municipality	Atlautla
+MX-MEX-016	municipality	Axapusco
+MX-MEX-017	municipality	Ayapango
+MX-MEX-018	municipality	Calimaya
+MX-MEX-019	municipality	Capulhuac
+MX-MEX-020	municipality	Coacalco de Berriozábal
+MX-MEX-021	municipality	Coatepec Harinas
+MX-MEX-022	municipality	Cocotitlán
+MX-MEX-023	municipality	Coyotepec
+MX-MEX-024	municipality	Cuautitlán
+MX-MEX-025	municipality	Chalco
+MX-MEX-026	municipality	Chapa de Mota
+MX-MEX-027	municipality	Chapultepec
+MX-MEX-028	municipality	Chiautla
+MX-MEX-029	municipality	Chicoloapan
+MX-MEX-030	municipality	Chiconcuac
+MX-MEX-031	municipality	Chimalhuacán
+MX-MEX-032	municipality	Donato Guerra
+MX-MEX-033	municipality	Ecatepec de Morelos
+MX-MEX-034	municipality	Ecatzingo
+MX-MEX-035	municipality	Huehuetoca
+MX-MEX-036	municipality	Hueypoxtla
+MX-MEX-037	municipality	Huixquilucan
+MX-MEX-038	municipality	Isidro Fabela
+MX-MEX-039	municipality	Ixtapaluca
+MX-MEX-040	municipality	Ixtapan de la Sal
+MX-MEX-041	municipality	Ixtapan del Oro
+MX-MEX-042	municipality	Ixtlahuaca
+MX-MEX-043	municipality	Xalatlaco
+MX-MEX-044	municipality	Jaltenco
+MX-MEX-045	municipality	Jilotepec
+MX-MEX-046	municipality	Jilotzingo
+MX-MEX-047	municipality	Jiquipilco
+MX-MEX-048	municipality	Jocotitlán
+MX-MEX-049	municipality	Joquicingo
+MX-MEX-050	municipality	Juchitepec
+MX-MEX-051	municipality	Lerma
+MX-MEX-052	municipality	Malinalco
+MX-MEX-053	municipality	Melchor Ocampo
+MX-MEX-054	municipality	Metepec
+MX-MEX-055	municipality	Mexicaltzingo
+MX-MEX-056	municipality	Morelos
+MX-MEX-057	municipality	Naucalpan de Juárez
+MX-MEX-058	municipality	Nezahualcoyotl
+MX-MEX-059	municipality	Nextlalpan
+MX-MEX-060	municipality	Nicolas Romero
+MX-MEX-061	municipality	Nopaltepec
+MX-MEX-062	municipality	Ocoyoacac
+MX-MEX-063	municipality	Ocuilan
+MX-MEX-064	municipality	El Oro
+MX-MEX-065	municipality	Otumba
+MX-MEX-066	municipality	Otzoloapan
+MX-MEX-067	municipality	Otzolotepec
+MX-MEX-068	municipality	Ozumba
+MX-MEX-069	municipality	Papalotla
+MX-MEX-070	municipality	La Paz
+MX-MEX-071	municipality	Polotitlán
+MX-MEX-072	municipality	Rayón
+MX-MEX-073	municipality	San Antonio la Isla
+MX-MEX-074	municipality	San Felipe del Progreso
+MX-MEX-075	municipality	San Martín de las Piramides
+MX-MEX-076	municipality	San Mateo Atenco
+MX-MEX-077	municipality	San Simón de Guerrero
+MX-MEX-078	municipality	Santo Tomas
+MX-MEX-079	municipality	Soyaniquilpan de Juárez
+MX-MEX-080	municipality	Sultepec
+MX-MEX-081	municipality	Tecamac
+MX-MEX-082	municipality	Tejupilco
+MX-MEX-083	municipality	Temamatla
+MX-MEX-084	municipality	Temascalapa
+MX-MEX-085	municipality	Temascalcingo
+MX-MEX-086	municipality	Temascaltepec
+MX-MEX-087	municipality	Temoaya
+MX-MEX-088	municipality	Tenancingo
+MX-MEX-089	municipality	Tenango del Aire
+MX-MEX-090	municipality	Tenango del Valle
+MX-MEX-091	municipality	Teoloyucan
+MX-MEX-092	municipality	Teotihuacán
+MX-MEX-093	municipality	Tepetlaoxtoc
+MX-MEX-094	municipality	Tepetlixpa
+MX-MEX-095	municipality	Tepotzotlan
+MX-MEX-096	municipality	Tequixquiac
+MX-MEX-097	municipality	Texcaltitlán
+MX-MEX-098	municipality	Texcalyacac
+MX-MEX-099	municipality	Texcoco
+MX-MEX-100	municipality	Tezoyuca
+MX-MEX-101	municipality	Tianguistenco
+MX-MEX-102	municipality	Timilpan
+MX-MEX-103	municipality	Tlalmanalco
+MX-MEX-104	municipality	Tlalnepantla de Baz
+MX-MEX-105	municipality	Tlatlaya
+MX-MEX-106	municipality	Toluca
+MX-MEX-107	municipality	Tonatico
+MX-MEX-108	municipality	Tultepec
+MX-MEX-109	municipality	Tultitlán
+MX-MEX-110	municipality	Valle de Bravo
+MX-MEX-111	municipality	Villa de Allende
+MX-MEX-112	municipality	Villa del Carbón
+MX-MEX-113	municipality	Villa Guerrero
+MX-MEX-114	municipality	Villa Victoria
+MX-MEX-115	municipality	Xonacatlán
+MX-MEX-116	municipality	Zacazonapan
+MX-MEX-117	municipality	Zacualpan
+MX-MEX-118	municipality	Zinacantepec
+MX-MEX-119	municipality	Zumpahuacán
+MX-MEX-120	municipality	Zumpango
+MX-MEX-121	municipality	Cuautitlán Izcalli
+MX-MEX-122	municipality	Valle de Chalco Solidaridad
+MX-MEX-123	municipality	Luvianos
+MX-MEX-124	municipality	San Jose del Rincón
+MX-MEX-125	municipality	Tonanitla
 MX-MIC	state	Michoacán
+MX-MIC-001	municipality	Acuitzio
+MX-MIC-002	municipality	Aguililla
+MX-MIC-003	municipality	Alvaro Obregón
+MX-MIC-004	municipality	Angamacutiro
+MX-MIC-005	municipality	Angangueo
+MX-MIC-006	municipality	Apatzingan
+MX-MIC-007	municipality	Aporo
+MX-MIC-008	municipality	Aquila
+MX-MIC-009	municipality	ARío
+MX-MIC-010	municipality	Arteaga
+MX-MIC-011	municipality	Brise
+MX-MIC-012	municipality	Buenavista
+MX-MIC-013	municipality	Caracuaro
+MX-MIC-014	municipality	Coahuayana
+MX-MIC-015	municipality	Coalcoman de Vazquez Pallares
+MX-MIC-016	municipality	Coeneo
+MX-MIC-017	municipality	Contepec
+MX-MIC-018	municipality	Copandaro
+MX-MIC-019	municipality	Cotija
+MX-MIC-020	municipality	Cuitzeo
+MX-MIC-021	municipality	Charapan
+MX-MIC-022	municipality	Charo
+MX-MIC-023	municipality	Chavinda
+MX-MIC-024	municipality	Cheran
+MX-MIC-025	municipality	Chilchota
+MX-MIC-026	municipality	Chinicuila
+MX-MIC-027	municipality	Chucandiro
+MX-MIC-028	municipality	Churintzio
+MX-MIC-029	municipality	Churumuco
+MX-MIC-030	municipality	Ecuandureo
+MX-MIC-031	municipality	Epitacio Huerta
+MX-MIC-032	municipality	Erongaricuaro
+MX-MIC-033	municipality	Gabriel Zamora
+MX-MIC-034	municipality	Hidalgo
+MX-MIC-035	municipality	La huacána
+MX-MIC-036	municipality	Huandacareo
+MX-MIC-037	municipality	Huaniqueo
+MX-MIC-038	municipality	Huetamo
+MX-MIC-039	municipality	Huiramba
+MX-MIC-040	municipality	Indaparapeo
+MX-MIC-041	municipality	Irimbo
+MX-MIC-042	municipality	Ixtlan
+MX-MIC-043	municipality	Jacona
+MX-MIC-044	municipality	Jiménez
+MX-MIC-045	municipality	Jiquilpan
+MX-MIC-046	municipality	Juárez
+MX-MIC-047	municipality	Jungapeo
+MX-MIC-048	municipality	Lagunillas
+MX-MIC-049	municipality	Madero
+MX-MIC-050	municipality	Maravatio
+MX-MIC-051	municipality	Marcos Castellanos
+MX-MIC-052	municipality	Lazaro Cárdenas
+MX-MIC-053	municipality	Morelia
+MX-MIC-054	municipality	Morelos
+MX-MIC-055	municipality	Mugica
+MX-MIC-056	municipality	Nahuatzen
+MX-MIC-057	municipality	Nocupetaro
+MX-MIC-058	municipality	Nuevo Parangaricutiro
+MX-MIC-059	municipality	Nuevo Urecho
+MX-MIC-060	municipality	Numaran
+MX-MIC-061	municipality	Ocampo
+MX-MIC-062	municipality	Pajacuaran
+MX-MIC-063	municipality	Panindicuaro
+MX-MIC-064	municipality	Paracuaro
+MX-MIC-065	municipality	Paracho
+MX-MIC-066	municipality	Patzcuaro
+MX-MIC-067	municipality	Penjamillo
+MX-MIC-068	municipality	Periban
+MX-MIC-069	municipality	La Piedad
+MX-MIC-070	municipality	Purepero
+MX-MIC-071	municipality	Puruandiro
+MX-MIC-072	municipality	Querendaro
+MX-MIC-073	municipality	Quiroga
+MX-MIC-074	municipality	Cojumatlan de Regules
+MX-MIC-075	municipality	Los Reyes
+MX-MIC-076	municipality	Sahuayo
+MX-MIC-077	municipality	San Lucas
+MX-MIC-078	municipality	Santa Ana Maya
+MX-MIC-079	municipality	Salvador Escalante
+MX-MIC-080	municipality	Senguio
+MX-MIC-081	municipality	Susupuato
+MX-MIC-082	municipality	Tacambaro
+MX-MIC-083	municipality	Tancitaro
+MX-MIC-084	municipality	Tangamandapio
+MX-MIC-085	municipality	Tangancicuaro
+MX-MIC-086	municipality	Tanhuato
+MX-MIC-087	municipality	Taretan
+MX-MIC-088	municipality	Tarimbaro
+MX-MIC-089	municipality	Tepalcatepec
+MX-MIC-090	municipality	Tingambato
+MX-MIC-091	municipality	Ting
+MX-MIC-092	municipality	Tiquicheo de Nicolas Romero
+MX-MIC-093	municipality	Tlalpujahua
+MX-MIC-094	municipality	Tlazazalca
+MX-MIC-095	municipality	Tocumbo
+MX-MIC-096	municipality	Tumbiscatio
+MX-MIC-097	municipality	Turicato
+MX-MIC-098	municipality	Tuxpan
+MX-MIC-099	municipality	Tuzantla
+MX-MIC-100	municipality	Tzintzuntzan
+MX-MIC-101	municipality	Tzitzio
+MX-MIC-102	municipality	Uruapan
+MX-MIC-103	municipality	Venustiano Carranza
+MX-MIC-104	municipality	Villamar
+MX-MIC-105	municipality	Vista Hermosa
+MX-MIC-106	municipality	Yurecuaro
+MX-MIC-107	municipality	Zacapu
+MX-MIC-108	municipality	Zamora
+MX-MIC-109	municipality	Zinaparo
+MX-MIC-110	municipality	Zinapecuaro
+MX-MIC-111	municipality	Ziracuaretiro
+MX-MIC-112	municipality	Zitacuaro
+MX-MIC-113	municipality	Jose Sixto Verduzco
 MX-MOR	state	Morelos
+MX-MOR-001	municipality	Amacuzac
+MX-MOR-002	municipality	Atlatlahucan
+MX-MOR-003	municipality	Axochiapan
+MX-MOR-004	municipality	Ayala
+MX-MOR-005	municipality	Coatlan del Río
+MX-MOR-006	municipality	Cuautla
+MX-MOR-007	municipality	Cuernavaca
+MX-MOR-008	municipality	Emiliano Zapata
+MX-MOR-009	municipality	Huitzilac
+MX-MOR-010	municipality	Jantetelco
+MX-MOR-011	municipality	Jiutepec
+MX-MOR-012	municipality	Jojutla
+MX-MOR-013	municipality	Jonacatepec
+MX-MOR-014	municipality	Mazatepec
+MX-MOR-015	municipality	Miacatlán
+MX-MOR-016	municipality	Ocuituco
+MX-MOR-017	municipality	Puente de Ixtla
+MX-MOR-018	municipality	Temixco
+MX-MOR-019	municipality	Tepalcingo
+MX-MOR-020	municipality	Tepoztlan
+MX-MOR-021	municipality	Tetecala
+MX-MOR-022	municipality	Tetela del Volcan
+MX-MOR-023	municipality	Tlalnepantla
+MX-MOR-024	municipality	TlalTizapán de Zapata
+MX-MOR-025	municipality	Tlaquiltenango
+MX-MOR-026	municipality	Tlayacapan
+MX-MOR-027	municipality	Totolapan
+MX-MOR-028	municipality	Xochitepec
+MX-MOR-029	municipality	Yautepec
+MX-MOR-030	municipality	Yecapixtla
+MX-MOR-031	municipality	Zacatepec
+MX-MOR-032	municipality	Zacualpan
+MX-MOR-033	municipality	Temoac
 MX-NAY	state	Nayarit
+MX-NAY-001	municipality	Acaponeta
+MX-NAY-002	municipality	Ahuacatlán
+MX-NAY-003	municipality	Amatlán de Cañas
+MX-NAY-004	municipality	Compostela
+MX-NAY-005	municipality	Huajicori
+MX-NAY-006	municipality	Ixtlán del Río
+MX-NAY-007	municipality	Jala
+MX-NAY-008	municipality	Xalisco
+MX-NAY-009	municipality	Del Nayar
+MX-NAY-010	municipality	Rosamorada
+MX-NAY-011	municipality	Ruiz
+MX-NAY-012	municipality	San Blas
+MX-NAY-013	municipality	San Pedro Lagunillas
+MX-NAY-014	municipality	Santa María del Oro
+MX-NAY-015	municipality	Santiago Ixcuintla
+MX-NAY-016	municipality	Tecuala
+MX-NAY-017	municipality	Tepic
+MX-NAY-018	municipality	Tuxpan
+MX-NAY-019	municipality	La Yesca
+MX-NAY-020	municipality	Bahia de Banderas
 MX-NLE	state	Nuevo León
+MX-NLE-001	municipality	Abasolo
+MX-NLE-002	municipality	Agualeguas
+MX-NLE-003	municipality	Los Aldamas
+MX-NLE-004	municipality	Allende
+MX-NLE-005	municipality	Anahuac
+MX-NLE-006	municipality	Apodaca
+MX-NLE-007	municipality	Aramberri
+MX-NLE-008	municipality	Bustamante
+MX-NLE-009	municipality	Cadereyta Jiménez
+MX-NLE-010	municipality	Carmen
+MX-NLE-011	municipality	Cerralvo
+MX-NLE-012	municipality	Ciénega de Flores
+MX-NLE-013	municipality	China
+MX-NLE-014	municipality	Dr. Arroyo
+MX-NLE-015	municipality	Dr. Coss
+MX-NLE-016	municipality	Dr. González
+MX-NLE-017	municipality	Galeana
+MX-NLE-018	municipality	García
+MX-NLE-019	municipality	San Pedro Garza García
+MX-NLE-020	municipality	Gral. Bravo
+MX-NLE-021	municipality	Gral. Escobedo
+MX-NLE-022	municipality	Gral. Teran
+MX-NLE-023	municipality	Gral. Trevino
+MX-NLE-024	municipality	Gral. Zaragoza
+MX-NLE-025	municipality	Gral. Zuazua
+MX-NLE-026	municipality	Guadalupe
+MX-NLE-027	municipality	Los Herreras
+MX-NLE-028	municipality	Higueras
+MX-NLE-029	municipality	Hualahuises
+MX-NLE-030	municipality	Iturbide
+MX-NLE-031	municipality	Juárez
+MX-NLE-032	municipality	Lampazos de Naranjo
+MX-NLE-033	municipality	Linares
+MX-NLE-034	municipality	Marin
+MX-NLE-035	municipality	Melchor Ocampo
+MX-NLE-036	municipality	Mier y Noriega
+MX-NLE-037	municipality	Mina
+MX-NLE-038	municipality	Montemorelos
+MX-NLE-039	municipality	Monterrey
+MX-NLE-040	municipality	Paras
+MX-NLE-041	municipality	Pesqueria
+MX-NLE-042	municipality	Los Ramones
+MX-NLE-043	municipality	Rayones
+MX-NLE-044	municipality	Sabinas Hidalgo
+MX-NLE-045	municipality	Salinas Victoria
+MX-NLE-046	municipality	San Nicolas de los Garza
+MX-NLE-047	municipality	Hidalgo
+MX-NLE-048	municipality	Santa Catarina
+MX-NLE-049	municipality	Santiago
+MX-NLE-050	municipality	Vallecillo
+MX-NLE-051	municipality	Villaldama
 MX-OAX	state	Oaxaca
+MX-OAX-001	municipality	Abejones
+MX-OAX-002	municipality	Acatlán de Perez Figueroa
+MX-OAX-003	municipality	Asunción Cacalotepec
+MX-OAX-004	municipality	Asunción Cuyotepeji
+MX-OAX-005	municipality	Asunción Ixtaltepec
+MX-OAX-006	municipality	Asunción Nochixtlan
+MX-OAX-007	municipality	Asunción Ocotlan
+MX-OAX-008	municipality	Asunción Tlacolulita
+MX-OAX-009	municipality	Ayotzintepec
+MX-OAX-010	municipality	El Barrio de la Soledad
+MX-OAX-011	municipality	Calihuala
+MX-OAX-012	municipality	Candelaria Loxicha
+MX-OAX-013	municipality	Ciénega de Zimatlan
+MX-OAX-014	municipality	Ciudad Ixtepec
+MX-OAX-015	municipality	Coatecas Altas
+MX-OAX-016	municipality	Coicoyan de las Flores
+MX-OAX-017	municipality	La Compa
+MX-OAX-018	municipality	Concepción Buenavista
+MX-OAX-019	municipality	Concepción Papalo
+MX-OAX-020	municipality	Constancia del Rosrio
+MX-OAX-021	municipality	Cosolapa
+MX-OAX-022	municipality	Cosoltepec
+MX-OAX-023	municipality	Cuilapam de Guerrero
+MX-OAX-024	municipality	Cuyamecalco Villa de Zaragoza
+MX-OAX-025	municipality	Chahuites
+MX-OAX-026	municipality	Chalcatongo de Hidalgo
+MX-OAX-027	municipality	Chiquihuitlan de Benito Juárez
+MX-OAX-028	municipality	Heroica Ciudad de Ejutla de Crespo
+MX-OAX-029	municipality	Eloxochitlán de Flores Magón
+MX-OAX-030	municipality	El Espinal
+MX-OAX-031	municipality	Tamazulapam del Espiritu Santo
+MX-OAX-032	municipality	Fresnillo de Trujano
+MX-OAX-033	municipality	Guadalupe Etla
+MX-OAX-034	municipality	Guadalupe de Ramirez
+MX-OAX-035	municipality	Guelatao de Juárez
+MX-OAX-036	municipality	Guevea de Humboldt
+MX-OAX-037	municipality	Mesones Hidalgo
+MX-OAX-038	municipality	Villa Hidalgo
+MX-OAX-039	municipality	Heroica Ciudad de Huajuapan de León
+MX-OAX-040	municipality	Huautepec
+MX-OAX-041	municipality	Huautla de Jiménez
+MX-OAX-042	municipality	Ixtlan de Juárez
+MX-OAX-043	municipality	Heroica Ciudad de Juchitan de Zaragoza
+MX-OAX-044	municipality	Loma Bonita
+MX-OAX-045	municipality	Magdalena Apasco
+MX-OAX-046	municipality	Magdalena Jaltepec
+MX-OAX-047	municipality	Santa Magdalena Jicotlán
+MX-OAX-048	municipality	Magdalena Mixtepec
+MX-OAX-049	municipality	Magdalena Ocotlan
+MX-OAX-050	municipality	Magdalena Penasco
+MX-OAX-051	municipality	Magdalena Teitipac
+MX-OAX-052	municipality	Magdalena Tequisistlan
+MX-OAX-053	municipality	Magdalena Tlacotepec
+MX-OAX-054	municipality	Magdalena Zahuatlán
+MX-OAX-055	municipality	Mariscala de Juárez
+MX-OAX-056	municipality	Martires de Tacubaya
+MX-OAX-057	municipality	Matias Romero Avenda
+MX-OAX-058	municipality	Mazatlan Villa de Flores
+MX-OAX-059	municipality	Miahuatlan de Porfirio Díaz
+MX-OAX-060	municipality	Mixistlan de la Reforma
+MX-OAX-061	municipality	Monjas
+MX-OAX-062	municipality	Natividad
+MX-OAX-063	municipality	Nazareno Etla
+MX-OAX-064	municipality	Nejapa de Madero
+MX-OAX-065	municipality	Ixpantepec Nieves
+MX-OAX-066	municipality	Santiago Niltepec
+MX-OAX-067	municipality	Oaxaca de Juárez
+MX-OAX-068	municipality	Ocotlan de Morelos
+MX-OAX-069	municipality	La Pe
+MX-OAX-070	municipality	Pinotepa de Dón Luis
+MX-OAX-071	municipality	Pluma Hidalgo
+MX-OAX-072	municipality	San Jose del Progreso
+MX-OAX-073	municipality	Putla Villa de Guerrero
+MX-OAX-074	municipality	Santa Catarina Quioquitani
+MX-OAX-075	municipality	Reforma de Pineda
+MX-OAX-076	municipality	La Reforma
+MX-OAX-077	municipality	Reyes Etla
+MX-OAX-078	municipality	Rojas de Cuauhtémoc
+MX-OAX-079	municipality	Salina Cruz
+MX-OAX-080	municipality	San Agustin Amatengo
+MX-OAX-081	municipality	San Agustin Atenango
+MX-OAX-082	municipality	San Agustin Chayuco
+MX-OAX-083	municipality	San Agustin de las Juntas
+MX-OAX-084	municipality	San Agustin Etla
+MX-OAX-085	municipality	San Agustin Loxicha
+MX-OAX-086	municipality	San Agustin Tlacotepec
+MX-OAX-087	municipality	San Agustin Yatareni
+MX-OAX-088	municipality	San Andrés Cabecera Nueva
+MX-OAX-089	municipality	San Andrés Dinicuiti
+MX-OAX-090	municipality	San Andrés Huaxpaltepec
+MX-OAX-091	municipality	San Andrés Huayapam
+MX-OAX-092	municipality	San Andrés Ixtlahuaca
+MX-OAX-093	municipality	San Andrés Lagunas
+MX-OAX-094	municipality	San Andrés Nuxi
+MX-OAX-095	municipality	San Andrés Paxtlan
+MX-OAX-096	municipality	San Andrés Sinaxtla
+MX-OAX-097	municipality	San Andrés Solaga
+MX-OAX-098	municipality	San Andrés Teotilalpam
+MX-OAX-099	municipality	San Andrés Tepetlapa
+MX-OAX-100	municipality	San Andrés Yaa
+MX-OAX-101	municipality	San Andrés Zabache
+MX-OAX-102	municipality	San Andrés Zautla
+MX-OAX-103	municipality	San Antonino Castillo Velasco
+MX-OAX-104	municipality	San Antonino el Alto
+MX-OAX-105	municipality	San Antonino Monte Verde
+MX-OAX-106	municipality	San Antonio Acutla
+MX-OAX-107	municipality	San Antonio de la Cal
+MX-OAX-108	municipality	San Antonio Huitepec
+MX-OAX-109	municipality	San Antonio Nanahuatipam
+MX-OAX-110	municipality	San Antonio Sinicahua
+MX-OAX-111	municipality	San Antonio Tepetlapa
+MX-OAX-112	municipality	San Baltazar Chichicapam
+MX-OAX-113	municipality	San Baltazar Loxicha
+MX-OAX-114	municipality	San Baltazar Yatzachi el Bajo
+MX-OAX-115	municipality	San Bartolo Coyotepec
+MX-OAX-116	municipality	San Bartolome Ayautla
+MX-OAX-117	municipality	San Bartolome Loxicha
+MX-OAX-118	municipality	San Bartolome Quialana
+MX-OAX-119	municipality	San Bartolome Yucua
+MX-OAX-120	municipality	San Bartolome Zoogocho
+MX-OAX-121	municipality	San Bartolo Soyaltepec
+MX-OAX-122	municipality	San Bartolo Yautepec
+MX-OAX-123	municipality	San Bernardo Mixtepec
+MX-OAX-124	municipality	San Blas Atempa
+MX-OAX-125	municipality	San Carlos Yautepec
+MX-OAX-126	municipality	San Cristóbal Amatlan
+MX-OAX-127	municipality	San Cristóbal Amoltepec
+MX-OAX-128	municipality	San Cristóbal Lachrioag
+MX-OAX-129	municipality	San Cristóbal Suchixtlahuaca
+MX-OAX-130	municipality	San Dionisio del Mar
+MX-OAX-131	municipality	San Dionisio Ocotepec
+MX-OAX-132	municipality	San Dionisio Ocotlan
+MX-OAX-133	municipality	San Esteban Atatlahuca
+MX-OAX-134	municipality	San Felipe Jalapa de Díaz
+MX-OAX-135	municipality	San Felipe Tejalapam
+MX-OAX-136	municipality	San Felipe Usila
+MX-OAX-137	municipality	San Francisco Cahuacua
+MX-OAX-138	municipality	San Francisco Cajonos
+MX-OAX-139	municipality	San Francisco Chapulapa
+MX-OAX-140	municipality	San Francisco Chindua
+MX-OAX-141	municipality	San Francisco del Mar
+MX-OAX-142	municipality	San Francisco Huehuetlán
+MX-OAX-143	municipality	San Francisco Ixhuatan
+MX-OAX-144	municipality	San Francisco Jaltepetongo
+MX-OAX-145	municipality	San Francisco Lachigolo
+MX-OAX-146	municipality	San Francisco Logueche
+MX-OAX-147	municipality	San Francisco Nuxa
+MX-OAX-148	municipality	San Francisco Ozolotepec
+MX-OAX-149	municipality	San Francisco Sola
+MX-OAX-150	municipality	San Francisco Telixtlahuaca
+MX-OAX-151	municipality	San Francisco Teopan
+MX-OAX-152	municipality	San Francisco Tlapancingo
+MX-OAX-153	municipality	San Gabriel Mixtepec
+MX-OAX-154	municipality	San Ildefonso Amatlan
+MX-OAX-155	municipality	San Ildefonso Sola
+MX-OAX-156	municipality	San Ildefonso Villa Alta
+MX-OAX-157	municipality	San Jacinto Amilpas
+MX-OAX-158	municipality	San Jacinto Tlacotepec
+MX-OAX-159	municipality	San Jeronimo Coatlan
+MX-OAX-160	municipality	San Jeronimo Silacayoapilla
+MX-OAX-161	municipality	San Jeronimo Sosola
+MX-OAX-162	municipality	San Jeronimo Taviche
+MX-OAX-163	municipality	San Jeronimo Tecoatl
+MX-OAX-164	municipality	San Jorge Nuchita
+MX-OAX-165	municipality	San Jose Ayuquila
+MX-OAX-166	municipality	San Jose Chiltepec
+MX-OAX-167	municipality	San Jose del Penasco
+MX-OAX-168	municipality	San Jose Estancia Grande
+MX-OAX-169	municipality	San Jose Independencia
+MX-OAX-170	municipality	San Jose Lachiguiri
+MX-OAX-171	municipality	San Jose Tenango
+MX-OAX-172	municipality	San Juan Achiutla
+MX-OAX-173	municipality	San Juan Atepec
+MX-OAX-174	municipality	Animas Trujano
+MX-OAX-175	municipality	San Juan Bautista Atatlahuca
+MX-OAX-176	municipality	San Juan Bautista Coixtlahuaca
+MX-OAX-177	municipality	San Juan Bautista Cuicatlan
+MX-OAX-178	municipality	San Juan Bautista Guelache
+MX-OAX-179	municipality	San Juan Bautista Jayacatlán
+MX-OAX-180	municipality	San Juan Bautista Lo de Soto
+MX-OAX-181	municipality	San Juan Bautista Suchitepec
+MX-OAX-182	municipality	San Juan Bautista Tlacoatzintepec
+MX-OAX-183	municipality	San Juan Bautista Tlachichilco
+MX-OAX-184	municipality	San Juan Bautista Tuxtepec
+MX-OAX-185	municipality	San Juan Cacahuatepec
+MX-OAX-186	municipality	San Juan Cieneguilla
+MX-OAX-187	municipality	San Juan Coatzospam
+MX-OAX-188	municipality	San Juan Colorado
+MX-OAX-189	municipality	San Juan Comaltepec
+MX-OAX-190	municipality	San Juan Cotzocón
+MX-OAX-191	municipality	San Juan Chicomezuchil
+MX-OAX-192	municipality	San Juan Chilateca
+MX-OAX-193	municipality	San Juan del Estado
+MX-OAX-194	municipality	San Juan del Río
+MX-OAX-195	municipality	San Juan Diuxi
+MX-OAX-196	municipality	San Juan EvÁngelista Analco
+MX-OAX-197	municipality	San Juan Guelavia
+MX-OAX-198	municipality	San Juan Guichicovi
+MX-OAX-199	municipality	San Juan Ihualtepec
+MX-OAX-200	municipality	San Juan Juquila Mixes
+MX-OAX-201	municipality	San Juan Juquila Vijanos
+MX-OAX-202	municipality	San Juan Lachao
+MX-OAX-203	municipality	San Juan Lachigalla
+MX-OAX-204	municipality	San Juan Lajarcia
+MX-OAX-205	municipality	San Juan Lalana
+MX-OAX-206	municipality	San Juan de los Cues
+MX-OAX-207	municipality	San Juan Mazatlan
+MX-OAX-208	municipality	San Juan Mixtepec -Dto. 08 -
+MX-OAX-209	municipality	San Juan Mixtepec -Dto. 26 -
+MX-OAX-210	municipality	San Juan
+MX-OAX-211	municipality	San Juan Ozolotepec
+MX-OAX-212	municipality	San Juan Petlapa
+MX-OAX-213	municipality	San Juan Quiahije
+MX-OAX-214	municipality	San Juan Quiotepec
+MX-OAX-215	municipality	San Juan Sayultepec
+MX-OAX-216	municipality	San Juan Tabaa
+MX-OAX-217	municipality	San Juan Tamazola
+MX-OAX-218	municipality	San Juan Teita
+MX-OAX-219	municipality	San Juan Teitipac
+MX-OAX-220	municipality	San Juan Tepeuxila
+MX-OAX-221	municipality	San Juan Teposcolula
+MX-OAX-222	municipality	San Juan Yaee
+MX-OAX-223	municipality	San Juan Yatzona
+MX-OAX-224	municipality	San Juan Yucuita
+MX-OAX-225	municipality	San Lorenzo
+MX-OAX-226	municipality	San Lorenzo Albarradas
+MX-OAX-227	municipality	San Lorenzo Cacaotepec
+MX-OAX-228	municipality	San Lorenzo Cuaunecuiltitla
+MX-OAX-229	municipality	San Lorenzo Texmelucan
+MX-OAX-230	municipality	San Lorenzo Victoria
+MX-OAX-231	municipality	San Lucas Camotlan
+MX-OAX-232	municipality	San Lucas Ojitlan
+MX-OAX-233	municipality	San Lucas Quiavini
+MX-OAX-234	municipality	San Lucas Zoquiapam
+MX-OAX-235	municipality	San Luis Amatlan
+MX-OAX-236	municipality	San Marcial Ozolotepec
+MX-OAX-237	municipality	San Marcos Arteaga
+MX-OAX-238	municipality	San Martín de los Cansecos
+MX-OAX-239	municipality	San Martín Huamelulpam
+MX-OAX-240	municipality	San Martín Itunyoso
+MX-OAX-241	municipality	San Martín Lachila
+MX-OAX-242	municipality	San Martín Peras
+MX-OAX-243	municipality	San Martín Tilcajete
+MX-OAX-244	municipality	San Martín Toxpalan
+MX-OAX-245	municipality	San Martín Zacatepec
+MX-OAX-246	municipality	San Mateo Cajonos
+MX-OAX-247	municipality	Capulalpam de Méndez
+MX-OAX-248	municipality	San Mateo del Mar
+MX-OAX-249	municipality	San Mateo Yoloxochitlan
+MX-OAX-250	municipality	San Mateo Etlatongo
+MX-OAX-251	municipality	San Mateo Nejapam
+MX-OAX-252	municipality	San Mateo Penasco
+MX-OAX-253	municipality	San Mateo Pinas
+MX-OAX-254	municipality	San Mateo Río Hondo
+MX-OAX-255	municipality	San Mateo Sindihui
+MX-OAX-256	municipality	San Mateo Tlapiltepec
+MX-OAX-257	municipality	San Melchor Betaza
+MX-OAX-258	municipality	San Miguel Achiutla
+MX-OAX-259	municipality	San Miguel Ahuehuetitlán
+MX-OAX-260	municipality	San Miguel Aloapam
+MX-OAX-261	municipality	San Miguel Amatitlán
+MX-OAX-262	municipality	San Miguel Amatlan
+MX-OAX-263	municipality	San Miguel Coatlan
+MX-OAX-264	municipality	San Miguel Chicahua
+MX-OAX-265	municipality	San Miguel Chimalapa
+MX-OAX-266	municipality	San Miguel del Puerto
+MX-OAX-267	municipality	San Miguel del Río
+MX-OAX-268	municipality	San Miguel Ejutla
+MX-OAX-269	municipality	San Miguel el Grande
+MX-OAX-270	municipality	San Miguel Huautla
+MX-OAX-271	municipality	San Miguel Mixtepec
+MX-OAX-272	municipality	San Miguel Panixtlahuaca
+MX-OAX-273	municipality	San Miguel Peras
+MX-OAX-274	municipality	San Miguel Piedras
+MX-OAX-275	municipality	San Miguel Quetzaltepec
+MX-OAX-276	municipality	San Miguel Santa Flor
+MX-OAX-277	municipality	Villa Sola de Vega
+MX-OAX-278	municipality	San Miguel Soyaltepec
+MX-OAX-279	municipality	San Miguel Suchixtepec
+MX-OAX-280	municipality	Villa Talea de Castro
+MX-OAX-281	municipality	San Miguel Tecomatlan
+MX-OAX-282	municipality	San Miguel Tenango
+MX-OAX-283	municipality	San Miguel Tequixtepec
+MX-OAX-284	municipality	San Miguel Tilquiapam
+MX-OAX-285	municipality	San Miguel Tlacamama
+MX-OAX-286	municipality	San Miguel Tlacotepec
+MX-OAX-287	municipality	San Miguel Tulancingo
+MX-OAX-288	municipality	San Miguel Yotao
+MX-OAX-289	municipality	San Nicolas
+MX-OAX-290	municipality	San Nicolas Hidalgo
+MX-OAX-291	municipality	San Pablo Coatlan
+MX-OAX-292	municipality	San Pablo Cuatro Venados
+MX-OAX-293	municipality	San Pablo Etla
+MX-OAX-294	municipality	San Pablo Huitzo
+MX-OAX-295	municipality	San Pablo Huixtepec
+MX-OAX-296	municipality	San Pablo Macuiltianguis
+MX-OAX-297	municipality	San Pablo Tijaltepec
+MX-OAX-298	municipality	San Pablo Villa de Mitla
+MX-OAX-299	municipality	San Pablo Yaganiza
+MX-OAX-300	municipality	San Pedro Amuzgos
+MX-OAX-301	municipality	San Pedro Apostol
+MX-OAX-302	municipality	San Pedro Atoyac
+MX-OAX-303	municipality	San Pedro Cajonos
+MX-OAX-304	municipality	San Pedro Coxcaltepec Cantaros
+MX-OAX-305	municipality	San Pedro Comitancillo
+MX-OAX-306	municipality	San Pedro el Alto
+MX-OAX-307	municipality	San Pedro Huamelula
+MX-OAX-308	municipality	San Pedro Huilotepec
+MX-OAX-309	municipality	San Pedro Ixcatlan
+MX-OAX-310	municipality	San Pedro Ixtlahuaca
+MX-OAX-311	municipality	San Pedro Jaltepetongo
+MX-OAX-312	municipality	San Pedro Jicayan
+MX-OAX-313	municipality	San Pedro Jocotipac
+MX-OAX-314	municipality	San Pedro Juchatengo
+MX-OAX-315	municipality	San Pedro Martir
+MX-OAX-316	municipality	San Pedro Martir Quiechapa
+MX-OAX-317	municipality	San Pedro Martir Yucuxaco
+MX-OAX-318	municipality	San Pedro Mixtepec -Dto. 22 -
+MX-OAX-319	municipality	San Pedro Mixtepec -Dto. 26 -
+MX-OAX-320	municipality	San Pedro Molinos
+MX-OAX-321	municipality	San Pedro Nopala
+MX-OAX-322	municipality	San Pedro Ocopetatillo
+MX-OAX-323	municipality	San Pedro Ocotepec
+MX-OAX-324	municipality	San Pedro Pochutla
+MX-OAX-325	municipality	San Pedro Quiatoni
+MX-OAX-326	municipality	San Pedro Sochiapam
+MX-OAX-327	municipality	San Pedro Tapanatepec
+MX-OAX-328	municipality	San Pedro Taviche
+MX-OAX-329	municipality	San Pedro Teozacoalco
+MX-OAX-330	municipality	San Pedro Teutila
+MX-OAX-331	municipality	San Pedro Tidaa
+MX-OAX-332	municipality	San Pedro Topiltepec
+MX-OAX-333	municipality	San Pedro Totolapam
+MX-OAX-334	municipality	Villa de Tututepec de Melchor Ocampo
+MX-OAX-335	municipality	San Pedro Yaneri
+MX-OAX-336	municipality	San Pedro Yolox
+MX-OAX-337	municipality	San Pedro y San Pablo Ayutla
+MX-OAX-338	municipality	Villa de Etla
+MX-OAX-339	municipality	San Pedro y San Pablo Teposcolula
+MX-OAX-340	municipality	San Pedro y San Pablo Tequixtepec
+MX-OAX-341	municipality	San Pedro Yucunama
+MX-OAX-342	municipality	San Raymundo Jalpan
+MX-OAX-343	municipality	San Sebastián Abasolo
+MX-OAX-344	municipality	San Sebastián Coatlan
+MX-OAX-345	municipality	San Sebastián Ixcapa
+MX-OAX-346	municipality	San Sebastián Nicananduta
+MX-OAX-347	municipality	San Sebastián Río Hondo
+MX-OAX-348	municipality	San Sebastián Tecomaxtlahuaca
+MX-OAX-349	municipality	San Sebastián Teitipac
+MX-OAX-350	municipality	San Sebastián Tutla
+MX-OAX-351	municipality	San Simón Almolongas
+MX-OAX-352	municipality	San Simón Zahuatlan
+MX-OAX-353	municipality	Santa Ana
+MX-OAX-354	municipality	Santa Ana Ateixtlahuaca
+MX-OAX-355	municipality	Santa Ana Cuauhtémoc
+MX-OAX-356	municipality	Santa Ana del Valle
+MX-OAX-357	municipality	Santa Ana Tavela
+MX-OAX-358	municipality	Santa Ana Tlapacoyan
+MX-OAX-359	municipality	Santa Ana Yareni
+MX-OAX-360	municipality	Santa Ana Zegache
+MX-OAX-361	municipality	Santa Catalina Quieri
+MX-OAX-362	municipality	Santa Catarina Cuixtla
+MX-OAX-363	municipality	Santa Catarina Ixtepeji
+MX-OAX-364	municipality	Santa Catarina Juquila
+MX-OAX-365	municipality	Santa Catarina Lachatao
+MX-OAX-366	municipality	Santa Catarina Loxicha
+MX-OAX-367	municipality	Santa Catarina Mechoacán
+MX-OAX-368	municipality	Santa Catarina Minas
+MX-OAX-369	municipality	Santa Catarina Quiane
+MX-OAX-370	municipality	Santa Catarina Tayata
+MX-OAX-371	municipality	Santa Catarina Ticua
+MX-OAX-372	municipality	Santa Catarina Yosonotu
+MX-OAX-373	municipality	Santa Catarina Zapoquila
+MX-OAX-374	municipality	Santa Cruz Acatepec
+MX-OAX-375	municipality	Santa Cruz Amilpas
+MX-OAX-376	municipality	Santa Cruz de Bravo
+MX-OAX-377	municipality	Santa Cruz Itundujia
+MX-OAX-378	municipality	Santa Cruz Mixtepec
+MX-OAX-379	municipality	Santa Cruz Nundaco
+MX-OAX-380	municipality	Santa Cruz Papalutla
+MX-OAX-381	municipality	Santa Cruz Tacache de Mina
+MX-OAX-382	municipality	Santa Cruz Tacahua
+MX-OAX-383	municipality	Santa Cruz Tayata
+MX-OAX-384	municipality	Santa Cruz Xitla
+MX-OAX-385	municipality	Santa Cruz Xoxocotlan
+MX-OAX-386	municipality	Santa Cruz Zenzontepec
+MX-OAX-387	municipality	Santa Gertrudis
+MX-OAX-388	municipality	Santa Ines del Monte
+MX-OAX-389	municipality	Santa Ines Yatzeche
+MX-OAX-390	municipality	Santa Lucia del Camino
+MX-OAX-391	municipality	Santa Lucia Miahuatlan
+MX-OAX-392	municipality	Santa Lucia Monteverde
+MX-OAX-393	municipality	Santa Lucia Ocotlan
+MX-OAX-394	municipality	Santa María Alotepec
+MX-OAX-395	municipality	Santa María Apazco
+MX-OAX-396	municipality	Santa María la Asunción
+MX-OAX-397	municipality	Heroica Ciudad de Tlaxiaco
+MX-OAX-398	municipality	Ayoquezco de Aldama
+MX-OAX-399	municipality	Santa María Atzompa
+MX-OAX-400	municipality	Santa María Camotlan
+MX-OAX-401	municipality	Santa María Colotepec
+MX-OAX-402	municipality	Santa María Cortijo
+MX-OAX-403	municipality	Santa María Coyotepec
+MX-OAX-404	municipality	Santa María Chachoapam
+MX-OAX-405	municipality	Villa de Chilapa de Díaz
+MX-OAX-406	municipality	Santa María Chilchotla
+MX-OAX-407	municipality	Santa María Chimalapa
+MX-OAX-408	municipality	Santa María del Rosrio
+MX-OAX-409	municipality	Santa María del Tule
+MX-OAX-410	municipality	Santa María Ecatepec
+MX-OAX-411	municipality	Santa María Guelace
+MX-OAX-412	municipality	Santa María Guienagati
+MX-OAX-413	municipality	Santa María Huatulco
+MX-OAX-414	municipality	Santa María Huazolotitlán
+MX-OAX-415	municipality	Santa María Ipalapa
+MX-OAX-416	municipality	Santa María Ixcatlan
+MX-OAX-417	municipality	Santa María Jacatepec
+MX-OAX-418	municipality	Santa María Jalapa del Marqués
+MX-OAX-419	municipality	Santa María Jaltianguis
+MX-OAX-420	municipality	Santa María Lachixio
+MX-OAX-421	municipality	Santa María Mixtequilla
+MX-OAX-422	municipality	Santa María Nativitas
+MX-OAX-423	municipality	Santa María Nduayaco
+MX-OAX-424	municipality	Santa María Ozolotepec
+MX-OAX-425	municipality	Santa María Papalo
+MX-OAX-426	municipality	Santa María Pe
+MX-OAX-427	municipality	Santa María Petapa
+MX-OAX-428	municipality	Santa María Quiegolani
+MX-OAX-429	municipality	Santa María Sola
+MX-OAX-430	municipality	Santa María Tataltepec
+MX-OAX-431	municipality	Santa María Tecomavaca
+MX-OAX-432	municipality	Santa María Temaxcalapa
+MX-OAX-433	municipality	Santa María Temaxcaltepec
+MX-OAX-434	municipality	Santa María Teopoxco
+MX-OAX-435	municipality	Santa María Tepantlali
+MX-OAX-436	municipality	Santa María Texcatitlán
+MX-OAX-437	municipality	Santa María Tlahuitoltepec
+MX-OAX-438	municipality	Santa María Tlalixtac
+MX-OAX-439	municipality	Santa María Tonameca
+MX-OAX-440	municipality	Santa María Totolapilla
+MX-OAX-441	municipality	Santa María Xadani
+MX-OAX-442	municipality	Santa María Yalina
+MX-OAX-443	municipality	Santa María Yavesia
+MX-OAX-444	municipality	Santa María Yolotepec
+MX-OAX-445	municipality	Santa María Yosoyua
+MX-OAX-446	municipality	Santa María Yucuhiti
+MX-OAX-447	municipality	Santa María Zacatepec
+MX-OAX-448	municipality	Santa María Zaniza
+MX-OAX-449	municipality	Santa María Zoquitlan
+MX-OAX-450	municipality	Santiago Amoltepec
+MX-OAX-451	municipality	Santiago Apoala
+MX-OAX-452	municipality	Santiago Apostol
+MX-OAX-453	municipality	Santiago Astata
+MX-OAX-454	municipality	Santiago Atitlán
+MX-OAX-455	municipality	Santiago Ayuquililla
+MX-OAX-456	municipality	Santiago Cacaloxtepec
+MX-OAX-457	municipality	Santiago Camotlan
+MX-OAX-458	municipality	Santiago Comaltepec
+MX-OAX-459	municipality	Santiago Chazumba
+MX-OAX-460	municipality	Santiago Choapam
+MX-OAX-461	municipality	Santiago del Río
+MX-OAX-462	municipality	Santiago Huajolotitlán
+MX-OAX-463	municipality	Santiago Huauclilla
+MX-OAX-464	municipality	Santiago Ihuitlan Plumas
+MX-OAX-465	municipality	Santiago Ixcuintepec
+MX-OAX-466	municipality	Santiago Ixtayutla
+MX-OAX-467	municipality	Santiago Jamiltepec
+MX-OAX-468	municipality	Santiago Jocotepec
+MX-OAX-469	municipality	Santiago Juxtlahuaca
+MX-OAX-470	municipality	Santiago Lachiguiri
+MX-OAX-471	municipality	Santiago Lalopa
+MX-OAX-472	municipality	Santiago Laollaga
+MX-OAX-473	municipality	Santiago Laxopa
+MX-OAX-474	municipality	Santiago Llano Grande
+MX-OAX-475	municipality	Santiago Matatlan
+MX-OAX-476	municipality	Santiago Miltepec
+MX-OAX-477	municipality	Santiago Minas
+MX-OAX-478	municipality	Santiago Nacaltepec
+MX-OAX-479	municipality	Santiago Nejapilla
+MX-OAX-480	municipality	Santiago Nundiche
+MX-OAX-481	municipality	Santiago Nuyoo
+MX-OAX-482	municipality	Santiago Pinotepa Nacional
+MX-OAX-483	municipality	Santiago Suchilquitongo
+MX-OAX-484	municipality	Santiago Tamazola
+MX-OAX-485	municipality	Santiago Tapextla
+MX-OAX-486	municipality	Villa Tejupam de la Unión
+MX-OAX-487	municipality	Santiago Tenango
+MX-OAX-488	municipality	Santiago Tepetlapa
+MX-OAX-489	municipality	Santiago Tetepec
+MX-OAX-490	municipality	Santiago Texcalcingo
+MX-OAX-491	municipality	Santiago Textitlán
+MX-OAX-492	municipality	Santiago Tilantongo
+MX-OAX-493	municipality	Santiago Tillo
+MX-OAX-494	municipality	Santiago Tlazoyaltepec
+MX-OAX-495	municipality	Santiago Xanica
+MX-OAX-496	municipality	Santiago Xiacui
+MX-OAX-497	municipality	Santiago Yaitepec
+MX-OAX-498	municipality	Santiago Yaveo
+MX-OAX-499	municipality	Santiago Yolomecatl
+MX-OAX-500	municipality	Santiago Yosondua
+MX-OAX-501	municipality	Santiago Yucuyachi
+MX-OAX-502	municipality	Santiago Zacatepec
+MX-OAX-503	municipality	Santiago Zoochila
+MX-OAX-504	municipality	Nuevo Zoquiapam
+MX-OAX-505	municipality	Santo Domingo Ingenio
+MX-OAX-506	municipality	Santo Domingo Albarradas
+MX-OAX-507	municipality	Santo Domingo Armenta
+MX-OAX-508	municipality	Santo Domingo Chihuitan
+MX-OAX-509	municipality	Santo Domingo de Morelos
+MX-OAX-510	municipality	Santo Domingo Ixcatlan
+MX-OAX-511	municipality	Santo Domingo Nuxaa
+MX-OAX-512	municipality	Santo Domingo Ozolotepec
+MX-OAX-513	municipality	Santo Domingo Petapa
+MX-OAX-514	municipality	Santo Domingo Roayaga
+MX-OAX-515	municipality	Santo Domingo Tehuantepec
+MX-OAX-516	municipality	Santo Domingo Teojomulco
+MX-OAX-517	municipality	Santo Domingo Tepuxtepec
+MX-OAX-518	municipality	Santo Domingo Tlatayapam
+MX-OAX-519	municipality	Santo Domingo Tomaltepec
+MX-OAX-520	municipality	Santo Domingo Tonala
+MX-OAX-521	municipality	Santo Domingo Tonaltepec
+MX-OAX-522	municipality	Santo Domingo Xagacia
+MX-OAX-523	municipality	Santo Domingo Yanhuitlan
+MX-OAX-524	municipality	Santo Domingo Yodohino
+MX-OAX-525	municipality	Santo Domingo Zanatepec
+MX-OAX-526	municipality	Santos Reyes Nopala
+MX-OAX-527	municipality	Santos Reyes Papalo
+MX-OAX-528	municipality	Santos Reyes Tepejillo
+MX-OAX-529	municipality	Santos Reyes Yucuna
+MX-OAX-530	municipality	Santo Tomas Jalieza
+MX-OAX-531	municipality	Santo Tomas Mazaltepec
+MX-OAX-532	municipality	Santo Tomas Ocotepec
+MX-OAX-533	municipality	Santo Tomas Tamazulapan
+MX-OAX-534	municipality	San Vicente Coatlan
+MX-OAX-535	municipality	San Vicente Lachixio
+MX-OAX-536	municipality	San Vicente Nu
+MX-OAX-537	municipality	Silacayoapam
+MX-OAX-538	municipality	Sitio de Xitlapehua
+MX-OAX-539	municipality	Soledad Etla
+MX-OAX-540	municipality	Villa de Tamazulapam del Progreso
+MX-OAX-541	municipality	Tanetze de Zaragoza
+MX-OAX-542	municipality	Taniche
+MX-OAX-543	municipality	Tataltepec de Valdes
+MX-OAX-544	municipality	Teococuilco de Marcos Perez
+MX-OAX-545	municipality	Teotitlán de Flores Magón
+MX-OAX-546	municipality	Teotitlán del Valle
+MX-OAX-547	municipality	Teotongo
+MX-OAX-548	municipality	Tepelmeme Villa de Morelos
+MX-OAX-549	municipality	Heroica Villa Tezoatlan de Segura y Luna, Cuna de la Independenc
+MX-OAX-550	municipality	San Jeronimo Tlacochahuaya
+MX-OAX-551	municipality	Tlacolula de Matamoros
+MX-OAX-552	municipality	Tlacotepec Plumas
+MX-OAX-553	municipality	Tlalixtac de Cabrera
+MX-OAX-554	municipality	Totontepec Villa de Morelos
+MX-OAX-555	municipality	Trinidad Zaachila
+MX-OAX-556	municipality	La Trinidad Vista Hermosa
+MX-OAX-557	municipality	Unión Hidalgo
+MX-OAX-558	municipality	Valrio Trujano
+MX-OAX-559	municipality	San Juan Bautista Valle Nacional
+MX-OAX-560	municipality	Villa Díaz Ordaz
+MX-OAX-561	municipality	Yaxe
+MX-OAX-562	municipality	Magdalena Yodocono de Porfrio Díaz
+MX-OAX-563	municipality	Yogana
+MX-OAX-564	municipality	Yutanduchi de Guerrero
+MX-OAX-565	municipality	Villa de Zaachila
+MX-OAX-566	municipality	San Mateo Yucutindo
+MX-OAX-567	municipality	Zapotitlán Lagunas
+MX-OAX-568	municipality	Zapotitlán Palmas
+MX-OAX-569	municipality	Santa Ines de Zaragoza
+MX-OAX-570	municipality	Zimatlan de Álvarez
 MX-PUE	state	Puebla
+MX-PUE-001	municipality	Acajete
+MX-PUE-002	municipality	Acateno
+MX-PUE-003	municipality	Acatlán
+MX-PUE-004	municipality	Acatzingo
+MX-PUE-005	municipality	Acteopan
+MX-PUE-006	municipality	Ahuacatlán
+MX-PUE-007	municipality	Ahuatlan
+MX-PUE-008	municipality	Ahuazotepec
+MX-PUE-009	municipality	Ahuehuetitla
+MX-PUE-010	municipality	Ajalpan
+MX-PUE-011	municipality	Albino Zertuche
+MX-PUE-012	municipality	Aljojuca
+MX-PUE-013	municipality	Altepexi
+MX-PUE-014	municipality	Amixtlan
+MX-PUE-015	municipality	Amozoc
+MX-PUE-016	municipality	Aquixtla
+MX-PUE-017	municipality	Atempan
+MX-PUE-018	municipality	Atexcal
+MX-PUE-019	municipality	Atlixco
+MX-PUE-020	municipality	Atoyatempan
+MX-PUE-021	municipality	Atzala
+MX-PUE-022	municipality	Atzitzihuacán
+MX-PUE-023	municipality	Atzitzintla
+MX-PUE-024	municipality	Axutla
+MX-PUE-025	municipality	Ayotoxco de Guerrero
+MX-PUE-026	municipality	Calpan
+MX-PUE-027	municipality	Caltepec
+MX-PUE-028	municipality	Camocuautla
+MX-PUE-029	municipality	Caxhuacán
+MX-PUE-030	municipality	Coatepec
+MX-PUE-031	municipality	Coatzingo
+MX-PUE-032	municipality	Cohetzala
+MX-PUE-033	municipality	Cohuecan
+MX-PUE-034	municipality	Coronango
+MX-PUE-035	municipality	Coxcatlán
+MX-PUE-036	municipality	Coyomeapan
+MX-PUE-037	municipality	Coyotepec
+MX-PUE-038	municipality	Cuapiaxtla de Madero
+MX-PUE-039	municipality	Cuautempan
+MX-PUE-040	municipality	Cuautinchan
+MX-PUE-041	municipality	Cuautlancingo
+MX-PUE-042	municipality	Cuayuca de Andrade
+MX-PUE-043	municipality	Cuetzalan del Progreso
+MX-PUE-044	municipality	Cuyoaco
+MX-PUE-045	municipality	Chalchicomula de Sesma
+MX-PUE-046	municipality	Chapulco
+MX-PUE-047	municipality	Chiautla
+MX-PUE-048	municipality	Chiautzingo
+MX-PUE-049	municipality	Chiconcuautla
+MX-PUE-050	municipality	Chichiquila
+MX-PUE-051	municipality	Chietla
+MX-PUE-052	municipality	Chigmecatitlán
+MX-PUE-053	municipality	Chignahuapán
+MX-PUE-054	municipality	Chignautla
+MX-PUE-055	municipality	Chila
+MX-PUE-056	municipality	Chila de la Sal
+MX-PUE-057	municipality	Honey
+MX-PUE-058	municipality	Chilchotla
+MX-PUE-059	municipality	Chinantla
+MX-PUE-060	municipality	Domingo Arenas
+MX-PUE-061	municipality	Eloxochitlán
+MX-PUE-062	municipality	Epatlan
+MX-PUE-063	municipality	Esperanza
+MX-PUE-064	municipality	Francisco Z. Mena
+MX-PUE-065	municipality	General Felipe Ángeles
+MX-PUE-066	municipality	Guadalupe
+MX-PUE-067	municipality	Guadalupe Victoria
+MX-PUE-068	municipality	Hermenegildo Galeana
+MX-PUE-069	municipality	Huaquechula
+MX-PUE-070	municipality	Huatlatlauca
+MX-PUE-071	municipality	Huauchinango
+MX-PUE-072	municipality	Huehuetla
+MX-PUE-073	municipality	Huehuetlan el Chico
+MX-PUE-074	municipality	Huejotzingo
+MX-PUE-075	municipality	Hueyapan
+MX-PUE-076	municipality	Hueytamalco
+MX-PUE-077	municipality	Hueytlalpan
+MX-PUE-078	municipality	Huitzilan de Serdán
+MX-PUE-079	municipality	Huitziltepec
+MX-PUE-080	municipality	Atlequizayan
+MX-PUE-081	municipality	Ixcamilpa de Guerrero
+MX-PUE-082	municipality	Ixcaquixtla
+MX-PUE-083	municipality	Ixtacamaxtitlán
+MX-PUE-084	municipality	Ixtepec
+MX-PUE-085	municipality	Izucar de Matamoros
+MX-PUE-086	municipality	Jalpan
+MX-PUE-087	municipality	Jolalpan
+MX-PUE-088	municipality	Jonotla
+MX-PUE-089	municipality	Jopala
+MX-PUE-090	municipality	Juan C. Bonilla
+MX-PUE-091	municipality	Juan Galindo
+MX-PUE-092	municipality	Juan N. Méndez
+MX-PUE-093	municipality	Lafragua
+MX-PUE-094	municipality	Libres
+MX-PUE-095	municipality	La Magdalena Tlatlauquitepec
+MX-PUE-096	municipality	Mazapiltepec de Juárez
+MX-PUE-097	municipality	Mixtla
+MX-PUE-098	municipality	Molcaxac
+MX-PUE-099	municipality	Canada Morelos
+MX-PUE-100	municipality	Naupan
+MX-PUE-101	municipality	Nauzontla
+MX-PUE-102	municipality	Nealtican
+MX-PUE-103	municipality	Nicolas Bravo
+MX-PUE-104	municipality	Nopalucan
+MX-PUE-105	municipality	Ocotepec
+MX-PUE-106	municipality	Ocoyucan
+MX-PUE-107	municipality	Olintla
+MX-PUE-108	municipality	Oriental
+MX-PUE-109	municipality	Pahuatlan
+MX-PUE-110	municipality	Palmar de Bravo
+MX-PUE-111	municipality	Pantepec
+MX-PUE-112	municipality	Petlalcingo
+MX-PUE-113	municipality	Piaxtla
+MX-PUE-114	municipality	Puebla
+MX-PUE-115	municipality	Quecholac
+MX-PUE-116	municipality	Quimixtlan
+MX-PUE-117	municipality	Rafael Lara Grajales
+MX-PUE-118	municipality	Los Reyes de Juárez
+MX-PUE-119	municipality	San Andrés Cholula
+MX-PUE-120	municipality	San Antonio Canada
+MX-PUE-121	municipality	San Diego la Mesa Tochimiltzingo
+MX-PUE-122	municipality	San Felipe Teotlalcingo
+MX-PUE-123	municipality	San Felipe Tepatlan
+MX-PUE-124	municipality	San Gabriel Chilac
+MX-PUE-125	municipality	San Gregorio Atzompa
+MX-PUE-126	municipality	San Jeronimo Tecuanipan
+MX-PUE-127	municipality	San Jeronimo Xayacatlán
+MX-PUE-128	municipality	San Jose Chiapa
+MX-PUE-129	municipality	San Jose Miahuatlan
+MX-PUE-130	municipality	San Juan Atenco
+MX-PUE-131	municipality	San Juan Atzompa
+MX-PUE-132	municipality	San Martín Texmelucan
+MX-PUE-133	municipality	San Martín Totoltepec
+MX-PUE-134	municipality	San Matias Tlalancaleca
+MX-PUE-135	municipality	San Miguel Ixitlan
+MX-PUE-136	municipality	San Miguel Xoxtla
+MX-PUE-137	municipality	San Nicolas Buenos Aires
+MX-PUE-138	municipality	San Nicolas de los Ranchos
+MX-PUE-139	municipality	San Pablo Anicano
+MX-PUE-140	municipality	San Pedro Cholula
+MX-PUE-141	municipality	San Pedro Yeloixtlahuaca
+MX-PUE-142	municipality	San Salvador el Seco
+MX-PUE-143	municipality	San Salvador el Verde
+MX-PUE-144	municipality	San Salvador Huixcolotla
+MX-PUE-145	municipality	San Sebastián Tlacotepec
+MX-PUE-146	municipality	Santa Catarina Tlaltempan
+MX-PUE-147	municipality	Santa Ines Ahuatempan
+MX-PUE-148	municipality	Santa Isabel Cholula
+MX-PUE-149	municipality	Santiago Miahuatlan
+MX-PUE-150	municipality	Huehuetlan el Grande
+MX-PUE-151	municipality	Santo Tomas Hueyotlipan
+MX-PUE-152	municipality	Soltepec
+MX-PUE-153	municipality	Tecali de Herrera
+MX-PUE-154	municipality	Tecamachalco
+MX-PUE-155	municipality	Tecomatlan
+MX-PUE-156	municipality	Tehuacán
+MX-PUE-157	municipality	Tehuitzingo
+MX-PUE-158	municipality	Tenampulco
+MX-PUE-159	municipality	Teopantlan
+MX-PUE-160	municipality	Teotlalco
+MX-PUE-161	municipality	Tepanco de López
+MX-PUE-162	municipality	Tepango de Rodríguez
+MX-PUE-163	municipality	Tepatlaxco de Hidalgo
+MX-PUE-164	municipality	Tepeaca
+MX-PUE-165	municipality	Tepemaxalco
+MX-PUE-166	municipality	Tepeojuma
+MX-PUE-167	municipality	Tepetzintla
+MX-PUE-168	municipality	Tepexco
+MX-PUE-169	municipality	Tepexi de Rodríguez
+MX-PUE-170	municipality	Tepeyahualco
+MX-PUE-171	municipality	Tepeyahualco de Cuauhtémoc
+MX-PUE-172	municipality	Tetela de Ocampo
+MX-PUE-173	municipality	Teteles de Avila Castillo
+MX-PUE-174	municipality	Teziutlan
+MX-PUE-175	municipality	Tianguismanalco
+MX-PUE-176	municipality	Tilapa
+MX-PUE-177	municipality	Tlacotepec de Benito Juárez
+MX-PUE-178	municipality	Tlacuilotepec
+MX-PUE-179	municipality	Tlachichuca
+MX-PUE-180	municipality	Tlahuapan
+MX-PUE-181	municipality	Tlaltenango
+MX-PUE-182	municipality	Tlanepantla
+MX-PUE-183	municipality	Tlaola
+MX-PUE-184	municipality	Tlapacoya
+MX-PUE-185	municipality	Tlapanala
+MX-PUE-186	municipality	Tlatlauquitepec
+MX-PUE-187	municipality	Tlaxco
+MX-PUE-188	municipality	Tochimilco
+MX-PUE-189	municipality	Tochtepec
+MX-PUE-190	municipality	Totoltepec de Guerrero
+MX-PUE-191	municipality	Tulcingo
+MX-PUE-192	municipality	Tuzamapan de Galeana
+MX-PUE-193	municipality	Tzicatlacoyan
+MX-PUE-194	municipality	Venustiano Carranza
+MX-PUE-195	municipality	Vicente Guerrero
+MX-PUE-196	municipality	Xayacatlán de Bravo
+MX-PUE-197	municipality	Xicotepec
+MX-PUE-198	municipality	Xicotlan
+MX-PUE-199	municipality	Xiutetelco
+MX-PUE-200	municipality	Xochiapulco
+MX-PUE-201	municipality	Xochiltepec
+MX-PUE-202	municipality	Xochitlan de Vicente Suarez
+MX-PUE-203	municipality	Xochitlan Todos Santos
+MX-PUE-204	municipality	Yaonahuac
+MX-PUE-205	municipality	Yehualtepec
+MX-PUE-206	municipality	Zacapala
+MX-PUE-207	municipality	Zacapoaxtla
+MX-PUE-208	municipality	Zacatlán
+MX-PUE-209	municipality	Zapotitlán
+MX-PUE-210	municipality	Zapotitlán de Méndez
+MX-PUE-211	municipality	Zaragoza
+MX-PUE-212	municipality	Zautla
+MX-PUE-213	municipality	Zihuateutla
+MX-PUE-214	municipality	Zinacatepec
+MX-PUE-215	municipality	Zongozotla
+MX-PUE-216	municipality	Zoquiapan
+MX-PUE-217	municipality	Zoquitlan
 MX-QUE	state	Querétaro
+MX-QUE-001	municipality	Amealco de Bonfil
+MX-QUE-002	municipality	Pinal de Amoles
+MX-QUE-003	municipality	Arroyo Seco
+MX-QUE-004	municipality	Cadereyta de Montes
+MX-QUE-005	municipality	Colón
+MX-QUE-006	municipality	Corregidora
+MX-QUE-007	municipality	Ezequiel Montes
+MX-QUE-008	municipality	Huimilpan
+MX-QUE-009	municipality	Jalpan de Serra
+MX-QUE-010	municipality	Landa de Matamoros
+MX-QUE-011	municipality	El Marqués
+MX-QUE-012	municipality	Pedro Escobedo
+MX-QUE-013	municipality	Penamiller
+MX-QUE-014	municipality	Queretaro
+MX-QUE-015	municipality	San Joaquín
+MX-QUE-016	municipality	San Juan del Río
+MX-QUE-017	municipality	Tequisquiapan
+MX-QUE-018	municipality	Tolimán
 MX-ROO	state	Quintana Roo
+MX-ROO-001	municipality	Cozumel
+MX-ROO-002	municipality	Felipe Carrillo Puerto
+MX-ROO-003	municipality	Isla Mujeres
+MX-ROO-004	municipality	Othón P. Blanco
+MX-ROO-005	municipality	Benito Juárez
+MX-ROO-006	municipality	Jose María Morelos
+MX-ROO-007	municipality	Lazaro Cárdenas
+MX-ROO-008	municipality	Solidaridad
+MX-ROO-009	municipality	Tulum
+MX-ROO-010	municipality	Bacalar
 MX-SIN	state	Sinaloa
+MX-SIN-001	municipality	Ahome
+MX-SIN-002	municipality	Angostura
+MX-SIN-003	municipality	Badiraguato
+MX-SIN-004	municipality	Concordia
+MX-SIN-005	municipality	Cosala
+MX-SIN-006	municipality	Culiacán
+MX-SIN-007	municipality	Choix
+MX-SIN-008	municipality	Elota
+MX-SIN-009	municipality	Escuinapa
+MX-SIN-010	municipality	El Fuerte
+MX-SIN-011	municipality	Guasave
+MX-SIN-012	municipality	Mazatlan
+MX-SIN-013	municipality	Mocorito
+MX-SIN-014	municipality	Rosario
+MX-SIN-015	municipality	Salvador Alvarado
+MX-SIN-016	municipality	San Ignacio
+MX-SIN-017	municipality	Sinaloa
+MX-SIN-018	municipality	Navolato
 MX-SLP	state	San Luis Potosí
+MX-SLP-001	municipality	Ahualulco
+MX-SLP-002	municipality	Alaquines
+MX-SLP-003	municipality	Aquismón
+MX-SLP-004	municipality	Armadillo de los Infante
+MX-SLP-005	municipality	Cárdenas
+MX-SLP-006	municipality	Catorce
+MX-SLP-007	municipality	Cedral
+MX-SLP-008	municipality	Cerritos
+MX-SLP-009	municipality	Cerro de San Pedro
+MX-SLP-010	municipality	Ciudad del Maíz
+MX-SLP-011	municipality	Ciudad Fernández
+MX-SLP-012	municipality	Tancanhuitz
+MX-SLP-013	municipality	Ciudad Valles
+MX-SLP-014	municipality	Coxcatlan
+MX-SLP-015	municipality	Charcas
+MX-SLP-016	municipality	Ebano
+MX-SLP-017	municipality	Guadalcazar
+MX-SLP-018	municipality	Huehuetlán
+MX-SLP-019	municipality	Lagunillas
+MX-SLP-020	municipality	Matehuala
+MX-SLP-021	municipality	Mexquitic de Carmona
+MX-SLP-022	municipality	Moctezuma
+MX-SLP-023	municipality	Rayón
+MX-SLP-024	municipality	Ríoverde
+MX-SLP-025	municipality	Salinas
+MX-SLP-026	municipality	San Antonio
+MX-SLP-027	municipality	San Ciro de Acosta
+MX-SLP-028	municipality	San Luis Potosi
+MX-SLP-029	municipality	San Martín Chalchicuautla
+MX-SLP-030	municipality	San Nicolas Tolentino
+MX-SLP-031	municipality	Santa Catarina
+MX-SLP-032	municipality	Santa María del Río
+MX-SLP-033	municipality	Santo Domingo
+MX-SLP-034	municipality	San Vicente Tancuayalab
+MX-SLP-035	municipality	Soledad de Graciano Sanchez
+MX-SLP-036	municipality	Tamasopo
+MX-SLP-037	municipality	Tamazunchale
+MX-SLP-038	municipality	Tampacán
+MX-SLP-039	municipality	Tampamolón Corona
+MX-SLP-040	municipality	Tamuin
+MX-SLP-041	municipality	Tanlajas
+MX-SLP-042	municipality	Tanquian de Escobedo
+MX-SLP-043	municipality	Tierra Nueva
+MX-SLP-044	municipality	Vanegas
+MX-SLP-045	municipality	Venado
+MX-SLP-046	municipality	Villa de Arriaga
+MX-SLP-047	municipality	Villa de Guadalupe
+MX-SLP-048	municipality	Villa de la Paz
+MX-SLP-049	municipality	Villa de Ramos
+MX-SLP-050	municipality	Villa de Reyes
+MX-SLP-051	municipality	Villa Hidalgo
+MX-SLP-052	municipality	Villa Juárez
+MX-SLP-053	municipality	Axtla de Terrazas
+MX-SLP-054	municipality	Xilitla
+MX-SLP-055	municipality	Zaragoza
+MX-SLP-056	municipality	Villa de Arista
+MX-SLP-057	municipality	Matlapa
+MX-SLP-058	municipality	El Naranjo
 MX-SON	state	Sonora
+MX-SON-001	municipality	Aconchi
+MX-SON-002	municipality	Agua Prieta
+MX-SON-003	municipality	Alamos
+MX-SON-004	municipality	Altar
+MX-SON-005	municipality	Arivechi
+MX-SON-006	municipality	Arizpe
+MX-SON-007	municipality	Atil
+MX-SON-008	municipality	Bacadehuachi
+MX-SON-009	municipality	Bacanora
+MX-SON-010	municipality	Bacerac
+MX-SON-011	municipality	Bacoachi
+MX-SON-012	municipality	Bacum
+MX-SON-013	municipality	Banamichi
+MX-SON-014	municipality	Baviacora
+MX-SON-015	municipality	Bavispe
+MX-SON-016	municipality	Benjamin Hill
+MX-SON-017	municipality	Caborca
+MX-SON-018	municipality	Cajeme
+MX-SON-019	municipality	Cananea
+MX-SON-020	municipality	Carbo
+MX-SON-021	municipality	La Colorada
+MX-SON-022	municipality	Cucurpe
+MX-SON-023	municipality	Cumpas
+MX-SON-024	municipality	Divisaderos
+MX-SON-025	municipality	Empalme
+MX-SON-026	municipality	Etchojoa
+MX-SON-027	municipality	Fronteras
+MX-SON-028	municipality	Granados
+MX-SON-029	municipality	Guaymas
+MX-SON-030	municipality	Hermosillo
+MX-SON-031	municipality	Huachinera
+MX-SON-032	municipality	Huasabas
+MX-SON-033	municipality	Huatabampo
+MX-SON-034	municipality	Huepac
+MX-SON-035	municipality	Imuris
+MX-SON-036	municipality	Magdalena
+MX-SON-037	municipality	Mazatan
+MX-SON-038	municipality	Moctezuma
+MX-SON-039	municipality	Naco
+MX-SON-040	municipality	Nacori Chico
+MX-SON-041	municipality	Nacozari de García
+MX-SON-042	municipality	Navojoa
+MX-SON-043	municipality	Nogales
+MX-SON-044	municipality	Onavas
+MX-SON-045	municipality	Opodepe
+MX-SON-046	municipality	Oquitoa
+MX-SON-047	municipality	Pitiquito
+MX-SON-048	municipality	Puerto Pe
+MX-SON-049	municipality	Quiriego
+MX-SON-050	municipality	Rayón
+MX-SON-051	municipality	Rosario
+MX-SON-052	municipality	Sahuaripa
+MX-SON-053	municipality	San Felipe de Jesús
+MX-SON-054	municipality	San Javier
+MX-SON-055	municipality	San Luis Río Colorado
+MX-SON-056	municipality	San Miguel de Horcasitas
+MX-SON-057	municipality	San Pedro de la Cueva
+MX-SON-058	municipality	Santa Ana
+MX-SON-059	municipality	Santa Cruz
+MX-SON-060	municipality	Saric
+MX-SON-061	municipality	Soyopa
+MX-SON-062	municipality	Suaqui Grande
+MX-SON-063	municipality	Tepache
+MX-SON-064	municipality	Trincheras
+MX-SON-065	municipality	Tubutama
+MX-SON-066	municipality	Ures
+MX-SON-067	municipality	Villa Hidalgo
+MX-SON-068	municipality	Villa Pesqueira
+MX-SON-069	municipality	Yecora
+MX-SON-070	municipality	General Plutarco Elias Calles
+MX-SON-071	municipality	Benito Juárez
+MX-SON-072	municipality	San Ignacio Río Muerto
 MX-TAB	state	Tabasco
+MX-TAB-001	municipality	Balancan
+MX-TAB-002	municipality	Cárdenas
+MX-TAB-003	municipality	Centla
+MX-TAB-004	municipality	Centro
+MX-TAB-005	municipality	Comalcalco
+MX-TAB-006	municipality	Cunduacán
+MX-TAB-007	municipality	Emiliano Zapata
+MX-TAB-008	municipality	Huimanguillo
+MX-TAB-009	municipality	Jalapa
+MX-TAB-010	municipality	Jalpa de Méndez
+MX-TAB-011	municipality	Jonuta
+MX-TAB-012	municipality	Macuspana
+MX-TAB-013	municipality	Nacajuca
+MX-TAB-014	municipality	paraíso
+MX-TAB-015	municipality	Tacotalpa
+MX-TAB-016	municipality	Teapa
+MX-TAB-017	municipality	Tenosique
 MX-TAM	state	Tamaulipas
+MX-TAM-001	municipality	Abasolo
+MX-TAM-002	municipality	Aldama
+MX-TAM-003	municipality	Altamira
+MX-TAM-004	municipality	Antiguo Morelos
+MX-TAM-005	municipality	Burgos
+MX-TAM-006	municipality	Bustamante
+MX-TAM-007	municipality	Camargo
+MX-TAM-008	municipality	Casas
+MX-TAM-009	municipality	Ciudad Madero
+MX-TAM-010	municipality	Cruillas
+MX-TAM-011	municipality	Gómez Farias
+MX-TAM-012	municipality	González
+MX-TAM-013	municipality	Guemez
+MX-TAM-014	municipality	Guerrero
+MX-TAM-015	municipality	Gustavo Díaz Ordaz
+MX-TAM-016	municipality	Hidalgo
+MX-TAM-017	municipality	Jaumave
+MX-TAM-018	municipality	Jiménez
+MX-TAM-019	municipality	Llera
+MX-TAM-020	municipality	Mainero
+MX-TAM-021	municipality	El Mante
+MX-TAM-022	municipality	Matamoros
+MX-TAM-023	municipality	Méndez
+MX-TAM-024	municipality	Mier
+MX-TAM-025	municipality	Miguel Alemán
+MX-TAM-026	municipality	Miquihuana
+MX-TAM-027	municipality	Nuevo Laredo
+MX-TAM-028	municipality	Nuevo Morelos
+MX-TAM-029	municipality	Ocampo
+MX-TAM-030	municipality	Padilla
+MX-TAM-031	municipality	Palmillas
+MX-TAM-032	municipality	Reynosa
+MX-TAM-033	municipality	Río Bravo
+MX-TAM-034	municipality	San Carlos
+MX-TAM-035	municipality	San Fernando
+MX-TAM-036	municipality	San Nicolas
+MX-TAM-037	municipality	Soto la Marina
+MX-TAM-038	municipality	Tampico
+MX-TAM-039	municipality	Tula
+MX-TAM-040	municipality	Valle Hermoso
+MX-TAM-041	municipality	Victoria
+MX-TAM-042	municipality	Villagran
+MX-TAM-043	municipality	Xicotencatl
 MX-TLA	state	Tlaxcala
+MX-TLA-001	municipality	Amaxac de Guerrero
+MX-TLA-002	municipality	Apetatitlán de Antonio Carvajal
+MX-TLA-003	municipality	Atlangatepec
+MX-TLA-004	municipality	Atltzayanca
+MX-TLA-005	municipality	Apizaco
+MX-TLA-006	municipality	Calpulalpan
+MX-TLA-007	municipality	El Carmen Tequexquitla
+MX-TLA-008	municipality	Cuapiaxtla
+MX-TLA-009	municipality	Cuaxomulco
+MX-TLA-010	municipality	Chiautempan
+MX-TLA-011	municipality	Munoz
+MX-TLA-012	municipality	Espanita
+MX-TLA-013	municipality	Huamantla
+MX-TLA-014	municipality	Hueyotlipan
+MX-TLA-015	municipality	Ixtacuixtla de Maríano Matamoros
+MX-TLA-016	municipality	Ixtenco
+MX-TLA-017	municipality	Mazatecochco de Jose María Morelos
+MX-TLA-018	municipality	Contla de Juan Cuamatzi
+MX-TLA-019	municipality	Tepetitla de Lardizabal
+MX-TLA-020	municipality	Sanctorum de Lazaro Cárdenas
+MX-TLA-021	municipality	Nanacamilpa de Maríano Arista
+MX-TLA-022	municipality	Acuamanala de Miguel Hidalgo
+MX-TLA-023	municipality	Nativitas
+MX-TLA-024	municipality	Panotla
+MX-TLA-025	municipality	San Pablo del Monte
+MX-TLA-026	municipality	Santa Cruz Tlaxcala
+MX-TLA-027	municipality	Tenancingo
+MX-TLA-028	municipality	Teolocholco
+MX-TLA-029	municipality	Tepeyanco
+MX-TLA-030	municipality	Terrenate
+MX-TLA-031	municipality	Tetla de la Solidaridad
+MX-TLA-032	municipality	Tetlatlahuca
+MX-TLA-033	municipality	Tlaxcala
+MX-TLA-034	municipality	Tlaxco
+MX-TLA-035	municipality	Tocatlan
+MX-TLA-036	municipality	Totolac
+MX-TLA-037	municipality	Ziltlaltepec de Trinidad Sanchez Santos
+MX-TLA-038	municipality	Tzompantepec
+MX-TLA-039	municipality	Xaloztoc
+MX-TLA-040	municipality	Xaltocan
+MX-TLA-041	municipality	Papalotla de Xicohtencatl
+MX-TLA-042	municipality	Xicohtzinco
+MX-TLA-043	municipality	Yauhquemehcan
+MX-TLA-044	municipality	Zacatelco
+MX-TLA-045	municipality	Benito Juárez
+MX-TLA-046	municipality	Emiliano Zapata
+MX-TLA-047	municipality	Lazaro Cárdenas
+MX-TLA-048	municipality	La Magdalena Tlaltelulco
+MX-TLA-049	municipality	San Damian Texoloc
+MX-TLA-050	municipality	San Francisco Tetlanohcan
+MX-TLA-051	municipality	San Jeronimo Zacualpan
+MX-TLA-052	municipality	San Jose Teacalco
+MX-TLA-053	municipality	San Juan Huactzinco
+MX-TLA-054	municipality	San Lorenzo Axocomanitla
+MX-TLA-055	municipality	San Lucas Tecopilco
+MX-TLA-056	municipality	Santa Ana Nopalucan
+MX-TLA-057	municipality	Santa Apolonia Teacalco
+MX-TLA-058	municipality	Santa Catarina Ayometla
+MX-TLA-059	municipality	Santa Cruz Quilehtla
+MX-TLA-060	municipality	Santa Isabel Xiloxoxtla
 MX-VER	state	Veracruz
+MX-VER-001	municipality	Acajete
+MX-VER-002	municipality	Acatlán
+MX-VER-003	municipality	Acayucan
+MX-VER-004	municipality	Actopan
+MX-VER-005	municipality	Acula
+MX-VER-006	municipality	Acultzingo
+MX-VER-007	municipality	Camarón de Tejeda
+MX-VER-008	municipality	Alpatlahuac
+MX-VER-009	municipality	Alto Lucero de Gutiérrez Barrios
+MX-VER-010	municipality	Altotonga
+MX-VER-011	municipality	Alvarado
+MX-VER-012	municipality	Amatitlán
+MX-VER-013	municipality	Naranjos Amatlan
+MX-VER-014	municipality	Amatlan de los Reyes
+MX-VER-015	municipality	Ángel R. Cabada
+MX-VER-016	municipality	La Antigua
+MX-VER-017	municipality	Apazapan
+MX-VER-018	municipality	Aquila
+MX-VER-019	municipality	Astacinga
+MX-VER-020	municipality	Atlahuilco
+MX-VER-021	municipality	Atoyac
+MX-VER-022	municipality	Atzacán
+MX-VER-023	municipality	Atzalan
+MX-VER-024	municipality	Tlaltetela
+MX-VER-025	municipality	Ayahualulco
+MX-VER-026	municipality	Banderilla
+MX-VER-027	municipality	Benito Juárez
+MX-VER-028	municipality	Boca del Río
+MX-VER-029	municipality	Calcahualco
+MX-VER-030	municipality	Camerino Z. Mendoza
+MX-VER-031	municipality	Carrillo Puerto
+MX-VER-032	municipality	Catemaco
+MX-VER-033	municipality	Cazones de Herrera
+MX-VER-034	municipality	Cerro Azul
+MX-VER-035	municipality	Citlaltepetl
+MX-VER-036	municipality	Coacoatzintla
+MX-VER-037	municipality	Coahuitlan
+MX-VER-038	municipality	Coatepec
+MX-VER-039	municipality	Coatzacoalcos
+MX-VER-040	municipality	Coatzintla
+MX-VER-041	municipality	Coetzala
+MX-VER-042	municipality	Colipa
+MX-VER-043	municipality	Comapa
+MX-VER-044	municipality	Córdoba
+MX-VER-045	municipality	Cosamaloapan de Carpio
+MX-VER-046	municipality	Cosautlan de Carvajal
+MX-VER-047	municipality	Coscomatepec
+MX-VER-048	municipality	Cosoleacaque
+MX-VER-049	municipality	Cotaxtla
+MX-VER-050	municipality	Coxquihui
+MX-VER-051	municipality	Coyutla
+MX-VER-052	municipality	Cuichapa
+MX-VER-053	municipality	Cuitláhuac
+MX-VER-054	municipality	Chacaltianguis
+MX-VER-055	municipality	Chalma
+MX-VER-056	municipality	Chiconamel
+MX-VER-057	municipality	Chiconquiaco
+MX-VER-058	municipality	Chicontepec
+MX-VER-059	municipality	Chinameca
+MX-VER-060	municipality	Chinampa de Gorostiza
+MX-VER-061	municipality	Las Choapas
+MX-VER-062	municipality	Chocamán
+MX-VER-063	municipality	Chontla
+MX-VER-064	municipality	Chumatlán
+MX-VER-065	municipality	Emiliano Zapata
+MX-VER-066	municipality	Espinal
+MX-VER-067	municipality	Filomeno Mata
+MX-VER-068	municipality	Fortín
+MX-VER-069	municipality	Gutiérrez Zamora
+MX-VER-070	municipality	Hidalgotitlán
+MX-VER-071	municipality	Huatusco
+MX-VER-072	municipality	Huayacocotla
+MX-VER-073	municipality	Hueyapan de Ocampo
+MX-VER-074	municipality	Huiloapan de Cuauhtémoc
+MX-VER-075	municipality	Ignacio de la Llave
+MX-VER-076	municipality	Ilamatlán
+MX-VER-077	municipality	Isla
+MX-VER-078	municipality	Ixcatepec
+MX-VER-079	municipality	Ixhuacán de los Reyes
+MX-VER-080	municipality	Ixhuatlán del Café
+MX-VER-081	municipality	Ixhuatlancillo
+MX-VER-082	municipality	Ixhuatlán del Sureste
+MX-VER-083	municipality	Ixhuatlán de Madero
+MX-VER-084	municipality	Ixmatlahuacán
+MX-VER-085	municipality	Ixtaczoquitlan
+MX-VER-086	municipality	Jalacingo
+MX-VER-087	municipality	Xalapa
+MX-VER-088	municipality	Jalcomulco
+MX-VER-089	municipality	Jáltipan
+MX-VER-090	municipality	Jamapa
+MX-VER-091	municipality	Jesús Carranza
+MX-VER-092	municipality	Xico
+MX-VER-093	municipality	Jilotepec
+MX-VER-094	municipality	Juan Rodríguez Clara
+MX-VER-095	municipality	Juchique de Ferrer
+MX-VER-096	municipality	Landero y Coss
+MX-VER-097	municipality	Lerdo de Tejada
+MX-VER-098	municipality	Magdalena
+MX-VER-099	municipality	Maltrata
+MX-VER-100	municipality	Manlio Fabio Altamirano
+MX-VER-101	municipality	Maríano Escobedo
+MX-VER-102	municipality	Martínez de la Torre
+MX-VER-103	municipality	Mecatlan
+MX-VER-104	municipality	Mecayapan
+MX-VER-105	municipality	Medellin
+MX-VER-106	municipality	Miahuatlan
+MX-VER-107	municipality	Las Minas
+MX-VER-108	municipality	Minatitlán
+MX-VER-109	municipality	Misantla
+MX-VER-110	municipality	Mixtla de Altamirano
+MX-VER-111	municipality	Moloacán
+MX-VER-112	municipality	Naolinco
+MX-VER-113	municipality	Naranjal
+MX-VER-114	municipality	Nautla
+MX-VER-115	municipality	Nogales
+MX-VER-116	municipality	Oluta
+MX-VER-117	municipality	Omealca
+MX-VER-118	municipality	Orizaba
+MX-VER-119	municipality	Otatitlán
+MX-VER-120	municipality	Oteapan
+MX-VER-121	municipality	Ozuluama de Mascare
+MX-VER-122	municipality	Pajapan
+MX-VER-123	municipality	Panuco
+MX-VER-124	municipality	Papantla
+MX-VER-125	municipality	Paso del Macho
+MX-VER-126	municipality	Paso de Ovejas
+MX-VER-127	municipality	La Perla
+MX-VER-128	municipality	Perote
+MX-VER-129	municipality	Platón Sanchez
+MX-VER-130	municipality	Playa Vicente
+MX-VER-131	municipality	Poza Rica de Hidalgo
+MX-VER-132	municipality	Las Vigas de Ramirez
+MX-VER-133	municipality	Pueblo Viejo
+MX-VER-134	municipality	Puente Nacional
+MX-VER-135	municipality	Rafael Delgado
+MX-VER-136	municipality	Rafael Lucio
+MX-VER-137	municipality	Los Reyes
+MX-VER-138	municipality	Río Blanco
+MX-VER-139	municipality	Saltabarranca
+MX-VER-140	municipality	San Andrés Tenejapan
+MX-VER-141	municipality	San Andrés Tuxtla
+MX-VER-142	municipality	San Juan EvÁngelista
+MX-VER-143	municipality	Santiago Tuxtla
+MX-VER-144	municipality	Sayula de Alemán
+MX-VER-145	municipality	Soconusco
+MX-VER-146	municipality	Sochiapa
+MX-VER-147	municipality	Soledad Atzompa
+MX-VER-148	municipality	Soledad de Doblado
+MX-VER-149	municipality	Soteapan
+MX-VER-150	municipality	Tamalin
+MX-VER-151	municipality	Tamiahua
+MX-VER-152	municipality	Tampico Alto
+MX-VER-153	municipality	Tancoco
+MX-VER-154	municipality	Tantima
+MX-VER-155	municipality	Tantoyuca
+MX-VER-156	municipality	Tatatila
+MX-VER-157	municipality	Castillo de Teayo
+MX-VER-158	municipality	Tecolutla
+MX-VER-159	municipality	Tehuipango
+MX-VER-160	municipality	Alamo Temapache
+MX-VER-161	municipality	Tempoal
+MX-VER-162	municipality	Tenampa
+MX-VER-163	municipality	Tenochtitlán
+MX-VER-164	municipality	Teocelo
+MX-VER-165	municipality	Tepatlaxco
+MX-VER-166	municipality	Tepetlán
+MX-VER-167	municipality	Tepetzintla
+MX-VER-168	municipality	Tequila
+MX-VER-169	municipality	Jose Azueta
+MX-VER-170	municipality	Texcatepec
+MX-VER-171	municipality	Texhuacán
+MX-VER-172	municipality	Texistepec
+MX-VER-173	municipality	Tezonapa
+MX-VER-174	municipality	Tierra Blanca
+MX-VER-175	municipality	Tihuatlan
+MX-VER-176	municipality	Tlacojalpan
+MX-VER-177	municipality	Tlacolulan
+MX-VER-178	municipality	Tlacotalpan
+MX-VER-179	municipality	Tlacotepec de Mejía
+MX-VER-180	municipality	Tlachichilco
+MX-VER-181	municipality	Tlalixcoyan
+MX-VER-182	municipality	Tlalnelhuayocan
+MX-VER-183	municipality	Tlapacoyan
+MX-VER-184	municipality	Tlaquilpa
+MX-VER-185	municipality	Tlilapan
+MX-VER-186	municipality	Tomatlan
+MX-VER-187	municipality	Tonayan
+MX-VER-188	municipality	Totutla
+MX-VER-189	municipality	Tuxpan
+MX-VER-190	municipality	Tuxtilla
+MX-VER-191	municipality	Ursulo Galvan
+MX-VER-192	municipality	Vega de Alatorre
+MX-VER-193	municipality	Veracruz
+MX-VER-194	municipality	Villa Aldama
+MX-VER-195	municipality	Xoxocotla
+MX-VER-196	municipality	Yanga
+MX-VER-197	municipality	Yecuatla
+MX-VER-198	municipality	Zacualpan
+MX-VER-199	municipality	Zaragoza
+MX-VER-200	municipality	Zentla
+MX-VER-201	municipality	Zongolica
+MX-VER-202	municipality	Zontecomatlan de López y Fuentes
+MX-VER-203	municipality	Zozocolco de Hidalgo
+MX-VER-204	municipality	Agua Dulce
+MX-VER-205	municipality	El Higo
+MX-VER-206	municipality	Nanchital de Lazaro Cárdenas del Río
+MX-VER-207	municipality	Tres Valles
+MX-VER-208	municipality	Carlos A. Carrillo
+MX-VER-209	municipality	Tatahuicapan de Juárez
+MX-VER-210	municipality	Uxpanapa
+MX-VER-211	municipality	San Rafael
+MX-VER-212	municipality	Santiago Sochiapan
 MX-YUC	state	Yucatán
+MX-YUC-001	municipality	Abala
+MX-YUC-002	municipality	Acanceh
+MX-YUC-003	municipality	Akil
+MX-YUC-004	municipality	Baca
+MX-YUC-005	municipality	Bokoba
+MX-YUC-006	municipality	Buctzotz
+MX-YUC-007	municipality	Cacalchen
+MX-YUC-008	municipality	Calotmul
+MX-YUC-009	municipality	Cansahcab
+MX-YUC-010	municipality	Cantamayec
+MX-YUC-011	municipality	Celestun
+MX-YUC-012	municipality	Cenotillo
+MX-YUC-013	municipality	Conkal
+MX-YUC-014	municipality	Cuncunul
+MX-YUC-015	municipality	Cuzama
+MX-YUC-016	municipality	Chacsinkin
+MX-YUC-017	municipality	Chankom
+MX-YUC-018	municipality	Chapab
+MX-YUC-019	municipality	Chemax
+MX-YUC-020	municipality	Chicxulub Pueblo
+MX-YUC-021	municipality	Chichimila
+MX-YUC-022	municipality	Chikindzonot
+MX-YUC-023	municipality	Chochola
+MX-YUC-024	municipality	Chumayel
+MX-YUC-025	municipality	Dzan
+MX-YUC-026	municipality	Dzemul
+MX-YUC-027	municipality	Dzidzantun
+MX-YUC-028	municipality	Dzilam de Bravo
+MX-YUC-029	municipality	Dzilam González
+MX-YUC-030	municipality	Dzitas
+MX-YUC-031	municipality	Dzoncauich
+MX-YUC-032	municipality	Espita
+MX-YUC-033	municipality	Halacho
+MX-YUC-034	municipality	Hocaba
+MX-YUC-035	municipality	Hoctun
+MX-YUC-036	municipality	Homun
+MX-YUC-037	municipality	Huhi
+MX-YUC-038	municipality	Hunucma
+MX-YUC-039	municipality	Ixil
+MX-YUC-040	municipality	Izamal
+MX-YUC-041	municipality	Kanasin
+MX-YUC-042	municipality	Kantunil
+MX-YUC-043	municipality	Kaua
+MX-YUC-044	municipality	Kinchil
+MX-YUC-045	municipality	Kopoma
+MX-YUC-046	municipality	Mama
+MX-YUC-047	municipality	Mani
+MX-YUC-048	municipality	Maxcanu
+MX-YUC-049	municipality	Mayapan
+MX-YUC-050	municipality	Merida
+MX-YUC-051	municipality	Mococha
+MX-YUC-052	municipality	Motul
+MX-YUC-053	municipality	Muna
+MX-YUC-054	municipality	Muxupip
+MX-YUC-055	municipality	Opichen
+MX-YUC-056	municipality	Oxkutzcab
+MX-YUC-057	municipality	Panaba
+MX-YUC-058	municipality	Peto
+MX-YUC-059	municipality	Progreso
+MX-YUC-060	municipality	Quintana Roo
+MX-YUC-061	municipality	Río Lagartos
+MX-YUC-062	municipality	Sacalum
+MX-YUC-063	municipality	Samahil
+MX-YUC-064	municipality	Sanahcat
+MX-YUC-065	municipality	San Felipe
+MX-YUC-066	municipality	Santa Elena
+MX-YUC-067	municipality	Seye
+MX-YUC-068	municipality	Sinanche
+MX-YUC-069	municipality	Sotuta
+MX-YUC-070	municipality	Sucila
+MX-YUC-071	municipality	Sudzal
+MX-YUC-072	municipality	Suma
+MX-YUC-073	municipality	Tahdziu
+MX-YUC-074	municipality	Tahmek
+MX-YUC-075	municipality	Teabo
+MX-YUC-076	municipality	Tecoh
+MX-YUC-077	municipality	Tekal de Venegas
+MX-YUC-078	municipality	Tekanto
+MX-YUC-079	municipality	Tekax
+MX-YUC-080	municipality	Tekit
+MX-YUC-081	municipality	Tekom
+MX-YUC-082	municipality	Telchac Pueblo
+MX-YUC-083	municipality	Telchac Puerto
+MX-YUC-084	municipality	Temax
+MX-YUC-085	municipality	Temozón
+MX-YUC-086	municipality	Tepakan
+MX-YUC-087	municipality	Tetiz
+MX-YUC-088	municipality	Teya
+MX-YUC-089	municipality	Ticul
+MX-YUC-090	municipality	Timucuy
+MX-YUC-091	municipality	Tinum
+MX-YUC-092	municipality	Tixcacalcupul
+MX-YUC-093	municipality	Tixkokob
+MX-YUC-094	municipality	Tixmehuac
+MX-YUC-095	municipality	Tixpehual
+MX-YUC-096	municipality	Tizimin
+MX-YUC-097	municipality	Tunkas
+MX-YUC-098	municipality	Tzucacab
+MX-YUC-099	municipality	Uayma
+MX-YUC-100	municipality	Ucu
+MX-YUC-101	municipality	Umán
+MX-YUC-102	municipality	Valladolid
+MX-YUC-103	municipality	Xocchel
+MX-YUC-104	municipality	Yaxcaba
+MX-YUC-105	municipality	Yaxkukul
+MX-YUC-106	municipality	Yobain
 MX-ZAC	state	Zacatecas
+MX-ZAC-001	municipality	Apozol
+MX-ZAC-002	municipality	Apulco
+MX-ZAC-003	municipality	Atolinga
+MX-ZAC-004	municipality	Benito Juárez
+MX-ZAC-005	municipality	Calera
+MX-ZAC-006	municipality	Canitas de Felipe Pescador
+MX-ZAC-007	municipality	Concepción del Oro
+MX-ZAC-008	municipality	Cuauhtémoc
+MX-ZAC-009	municipality	Chalchihuites
+MX-ZAC-010	municipality	Fresnillo
+MX-ZAC-011	municipality	Trinidad García de la Cadena
+MX-ZAC-012	municipality	Genaro Codina
+MX-ZAC-013	municipality	General Enrique Estrada
+MX-ZAC-014	municipality	General Francisco R. Murguia
+MX-ZAC-015	municipality	El Plateado de Joaquín Amaro
+MX-ZAC-016	municipality	General Panfilo Natera
+MX-ZAC-017	municipality	Guadalupe
+MX-ZAC-018	municipality	Huanusco
+MX-ZAC-019	municipality	Jalpa
+MX-ZAC-020	municipality	Jerez
+MX-ZAC-021	municipality	Jiménez del Teul
+MX-ZAC-022	municipality	Juan Aldama
+MX-ZAC-023	municipality	Juchipila
+MX-ZAC-024	municipality	Loreto
+MX-ZAC-025	municipality	Luis Moya
+MX-ZAC-026	municipality	Mazapil
+MX-ZAC-027	municipality	Melchor Ocampo
+MX-ZAC-028	municipality	Mezquital del Oro
+MX-ZAC-029	municipality	Miguel Auza
+MX-ZAC-030	municipality	Momax
+MX-ZAC-031	municipality	Monte Escobedo
+MX-ZAC-032	municipality	Morelos
+MX-ZAC-033	municipality	Moyahua de Estrada
+MX-ZAC-034	municipality	Nochistlan de Mejía
+MX-ZAC-035	municipality	Noria de Ángeles
+MX-ZAC-036	municipality	Ojocaliente
+MX-ZAC-037	municipality	Panuco
+MX-ZAC-038	municipality	Pinos
+MX-ZAC-039	municipality	Río Grande
+MX-ZAC-040	municipality	Sain Alto
+MX-ZAC-041	municipality	El Salvador
+MX-ZAC-042	municipality	Sombrerete
+MX-ZAC-043	municipality	Susticacán
+MX-ZAC-044	municipality	Tabasco
+MX-ZAC-045	municipality	Tepechitlan
+MX-ZAC-046	municipality	Tepetongo
+MX-ZAC-047	municipality	Teul de González Ortega
+MX-ZAC-048	municipality	Tlaltenango de Sanchez Román
+MX-ZAC-049	municipality	Valparaíso
+MX-ZAC-050	municipality	Vetagrande
+MX-ZAC-051	municipality	Villa de Cos
+MX-ZAC-052	municipality	Villa García
+MX-ZAC-053	municipality	Villa González Ortega
+MX-ZAC-054	municipality	Villa Hidalgo
+MX-ZAC-055	municipality	Villanueva
+MX-ZAC-056	municipality	Zacatecas
+MX-ZAC-057	municipality	Trancoso
+MX-ZAC-058	municipality	Santa María de la Paz
 MY	country	Malaysia
 MY-01	state	Johor
 MY-02	state	Kedah
@@ -3320,9 +5795,9 @@ MZ-G	province	Gaza
 MZ-I	province	Inhambane
 MZ-L	province	Maputo
 MZ-MPM	city	Maputo (city)
-MZ-N	province	Numpula
+MZ-N	province	Nampula
 MZ-P	province	Cabo Delgado
-MZ-Q	province	Zambezia
+MZ-Q	province	Zambézia
 MZ-S	province	Sofala
 MZ-T	province	Tete
 NA	country	Namibia
@@ -3485,24 +5960,22 @@ NR-14	district	Yaren
 NU	country	Niue
 NZ	country	New Zealand
 NZ-CIT	special island authority	Chatham Islands Territory
-NZ-N	island	North Island
-NZ-N-AUK	regional council	Auckland
-NZ-N-BOP	regional council	Bay of Plenty
-NZ-N-HKB	regional council	Hawke's Bay
-NZ-N-MWT	regional council	Manawatu-Wanganui
-NZ-N-NTL	regional council	Northland
-NZ-N-TKI	regional council	Taranaki
-NZ-N-WKO	regional council	Waikato
-NZ-N-WGN	regional council	Wellington
-NZ-N-GIS	unitary authority	Gisborne District
-NZ-S	island	South Island
-NZ-S-CAN	regional council	Canterbury
-NZ-S-OTA	regional council	Otago
-NZ-S-STL	regional council	Southland
-NZ-S-WTC	regional council	West Coast
-NZ-S-MBH	unitary authority	Marlborough District
-NZ-S-NSN	unitary authority	Nelson City
-NZ-S-TAS	unitary authority	Tasman District
+NZ-AUK	region	Auckland
+NZ-BOP	region	Bay of Plenty
+NZ-CAN	region	Canterbury
+NZ-GIS	region	Gisborne
+NZ-HKB	region	Hawke's Bay
+NZ-MWT	region	Manawatu-Wanganui
+NZ-MBH	region	Marlborough
+NZ-NSN	region	Nelson
+NZ-NTL	region	Northland
+NZ-OTA	region	Otago
+NZ-STL	region	Southland
+NZ-TKI	region	Taranaki
+NZ-TAS	region	Tasman
+NZ-WGN	region	Wellington
+NZ-WKO	region	Waikato
+NZ-WTC	region	West Coast
 OM	country	Oman
 OM-BA	region	Al Bāţinah
 OM-BU	governorate	Al Buraymī
@@ -3609,7 +6082,7 @@ PH-06-ANT	province	Antique
 PH-06-CAP	province	Capiz
 PH-06-GUI	province	Guimaras
 PH-06-ILI	province	Iloilo
-PH-06-NEC	province	Negroe Occidental
+PH-06-NEC	province	Negros Occidental
 PH-07	region	Central Visayas (Region VII)
 PH-07-BOH	province	Bohol
 PH-07-CEB	province	Cebu
@@ -3634,9 +6107,9 @@ PH-10-MSC	province	Misamis Occidental
 PH-10-MSR	province	Misamis Oriental
 PH-11	region	Davao (Region XI)
 PH-11-COM	province	Compostela Valley
-PH-11-DAV	province	Davao del Norte
-PH-11-DAS	province	Davao del Sur
 PH-11-DAO	province	Davao Oriental
+PH-11-DAS	province	Davao del Sur
+PH-11-DAV	province	Davao del Norte
 PH-11-SAR	province	Sarangani
 PH-11-SCO	province	South Cotabato
 PH-12	region	Soccsksargen (Region XII)
@@ -3701,6 +6174,7 @@ PL-WP	province	Wielkopolskie
 PL-ZP	province	Zachodniopomorskie
 PM	country	Saint Pierre and Miquelon
 PN	country	Pitcairn
+PR	country	Puerto Rico
 PS	country	Palestine, State of
 PS-BTH	governorate	Bethlehem
 PS-DEB	governorate	Deir El Balah
@@ -3848,19 +6322,19 @@ RS-23	district	Jablanički okrug
 RS-24	district	Pčinjski okrug
 RS-KM	autonomous province	Kosovo-Metohija
 RS-KM-25	district	Kosovski okrug
-RS-KM-28	district	Kosovsko-Mitrovački okrug
-RS-KM-29	district	Kosovsko-Pomoravski okrug
 RS-KM-26	district	Pećki okrug
 RS-KM-27	district	Prizrenski okrug
+RS-KM-28	district	Kosovsko-Mitrovački okrug
+RS-KM-29	district	Kosovsko-Pomoravski okrug
 RS-VO	autonomous province	Vojvodina
-RS-VO-06	district	Južnobački okrug
-RS-VO-04	district	Južnobanatski okrug
 RS-VO-01	district	Severnobački okrug
-RS-VO-03	district	Severnobanatski okrug
 RS-VO-02	district	Srednjebanatski okrug
-RS-VO-07	district	Sremski okrug
+RS-VO-03	district	Severnobanatski okrug
+RS-VO-04	district	Južnobanatski okrug
 RS-VO-05	district	Zapadnobački okrug
-RU	country	Russian Federation
+RS-VO-06	district	Južnobački okrug
+RS-VO-07	district	Sremski okrug
+RU	country	Russia
 RU-AD	republic	Adygeya, Respublika
 RU-AL	republic	Altay, Respublika
 RU-ALT	administrative territory	Altayskiy kray
@@ -4739,87 +7213,87 @@ UG	country	Uganda
 UG-C	geographical region	Central
 UG-C-101	district	Kalangala
 UG-C-102	district	Kampala
-UG-C-112	district	Kayunga
 UG-C-103	district	Kiboga
 UG-C-104	district	Luwero
-UG-C-116	district	Lyantonde
 UG-C-105	district	Masaka
-UG-C-114	district	Mityana
 UG-C-106	district	Mpigi
 UG-C-107	district	Mubende
 UG-C-108	district	Mukono
-UG-C-115	district	Nakaseke
 UG-C-109	district	Nakasongola
 UG-C-110	district	Rakai
 UG-C-111	district	Sembabule
+UG-C-112	district	Kayunga
 UG-C-113	district	Wakiso
+UG-C-114	district	Mityana
+UG-C-115	district	Nakaseke
+UG-C-116	district	Lyantonde
 UG-E	geographical region	Eastern
-UG-E-216	district	Amuria
-UG-E-217	district	Budaka
-UG-E-223	district	Bududa
 UG-E-201	district	Bugiri
-UG-E-224	district	Bukedea
-UG-E-218	district	Bukwa
 UG-E-202	district	Busia
-UG-E-219	district	Butaleja
 UG-E-203	district	Iganga
 UG-E-204	district	Jinja
-UG-E-213	district	Kaberamaido
-UG-E-220	district	Kaliro
 UG-E-205	district	Kamuli
 UG-E-206	district	Kapchorwa
 UG-E-207	district	Katakwi
 UG-E-208	district	Kumi
-UG-E-221	district	Manafwa
-UG-E-214	district	Mayuge
 UG-E-209	district	Mbale
-UG-E-222	district	Namutumba
 UG-E-210	district	Pallisa
-UG-E-215	district	Sironko
 UG-E-211	district	Soroti
 UG-E-212	district	Tororo
+UG-E-213	district	Kaberamaido
+UG-E-214	district	Mayuge
+UG-E-215	district	Sironko
+UG-E-216	district	Amuria
+UG-E-217	district	Budaka
+UG-E-218	district	Bukwa
+UG-E-219	district	Butaleja
+UG-E-220	district	Kaliro
+UG-E-221	district	Manafwa
+UG-E-222	district	Namutumba
+UG-E-223	district	Bududa
+UG-E-224	district	Bukedea
 UG-N	geographical region	Northern
-UG-N-317	district	Abim
 UG-N-301	district	Adjumani
-UG-N-314	district	Amolatar
-UG-N-319	district	Amuru
 UG-N-302	district	Apac
 UG-N-303	district	Arua
-UG-N-318	district	Dokolo
 UG-N-304	district	Gulu
-UG-N-315	district	Kaabong
 UG-N-305	district	Kitgum
-UG-N-316	district	Koboko
 UG-N-306	district	Kotido
 UG-N-307	district	Lira
-UG-N-320	district	Maracha
 UG-N-308	district	Moroto
 UG-N-309	district	Moyo
-UG-N-311	district	Nakapiripirit
 UG-N-310	district	Nebbi
-UG-N-321	district	Oyam
+UG-N-311	district	Nakapiripirit
 UG-N-312	district	Pader
 UG-N-313	district	Yumbe
+UG-N-314	district	Amolatar
+UG-N-315	district	Kaabong
+UG-N-316	district	Koboko
+UG-N-317	district	Abim
+UG-N-318	district	Dokolo
+UG-N-319	district	Amuru
+UG-N-320	district	Maracha
+UG-N-321	district	Oyam
 UG-W	geographical region	Western
-UG-W-419	district	Buliisa
 UG-W-401	district	Bundibugyo
 UG-W-402	district	Bushenyi
 UG-W-403	district	Hoima
-UG-W-416	district	Ibanda
-UG-W-417	district	Isingiro
 UG-W-404	district	Kabale
 UG-W-405	district	Kabarole
-UG-W-413	district	Kamwenge
-UG-W-414	district	Kanungu
 UG-W-406	district	Kasese
 UG-W-407	district	Kibaale
-UG-W-418	district	Kiruhura
 UG-W-408	district	Kisoro
-UG-W-415	district	Kyenjojo
 UG-W-409	district	Masindi
 UG-W-410	district	Mbarara
 UG-W-411	district	Ntungamo
 UG-W-412	district	Rukungiri
+UG-W-413	district	Kamwenge
+UG-W-414	district	Kanungu
+UG-W-415	district	Kyenjojo
+UG-W-416	district	Ibanda
+UG-W-417	district	Isingiro
+UG-W-418	district	Kiruhura
+UG-W-419	district	Buliisa
 UM	country	United States Minor Outlying Islands
 UM-67	territory	Johnston Atoll
 UM-71	territory	Midway Islands
@@ -5130,6 +7604,7 @@ ES-PV-VI-017	municipality	Campezo/Kanpezu
 ES-PV-VI-021	municipality	Elburgo/Burgelu
 ES-PV-VI-022	municipality	Elciego
 ES-PV-VI-023	municipality	Elvillar/Bilar
+ES-PV-VI-047	municipality	Erriberabeitia
 ES-PV-VI-046	municipality	Erriberagoitia/Ribera Alta
 ES-PV-VI-056	municipality	Harana/Valle de Arana
 ES-PV-VI-901	municipality	Iruña Oka/Iruña de Oca
@@ -5150,7 +7625,6 @@ ES-PV-VI-041	municipality	Navaridas
 ES-PV-VI-042	municipality	Okondo
 ES-PV-VI-043	municipality	Oyón-Oion
 ES-PV-VI-044	municipality	Peñacerrada-Urizaharra
-ES-PV-VI-047	municipality	Ribera Baja/Erribera Beitia
 ES-PV-VI-052	municipality	Samaniego
 ES-PV-VI-053	municipality	San Millán/Donemiliaga
 ES-PV-VI-054	municipality	Urkabustaiz
@@ -5393,7 +7867,7 @@ ES-VC-A-081	municipality	Xaló
 ES-AN-AL-001	municipality	Abla
 ES-AN-AL-002	municipality	Abrucena
 ES-AN-AL-003	municipality	Adra
-ES-AN-AL-004	municipality	Albánchez
+ES-AN-AL-004	municipality	Albanchez
 ES-AN-AL-005	municipality	Alboloduy
 ES-AN-AL-006	municipality	Albox
 ES-AN-AL-007	municipality	Alcolea
@@ -5948,7 +8422,7 @@ ES-IB-PM-ME-037	municipality	Es Mercadal
 ES-IB-PM-ME-902	municipality	Es Migjorn Gran
 ES-IB-PM-MA-038	municipality	Montuïri
 ES-IB-PM-MA-039	municipality	Muro
-ES-IB-PM-MA-040	municipality	Palma de Mallorca
+ES-IB-PM-MA-040	municipality	Palma
 ES-IB-PM-MA-041	municipality	Petra
 ES-IB-PM-MA-044	municipality	Sa Pobla
 ES-IB-PM-MA-042	municipality	Pollença
@@ -6901,7 +9375,7 @@ ES-AN-CA-019	municipality	Grazalema
 ES-AN-CA-020	municipality	Jerez de la Frontera
 ES-AN-CA-021	municipality	Jimena de la Frontera
 ES-AN-CA-022	municipality	La Línea de la Concepción
-ES-AN-CA-023	municipality	Medina-Sidonia
+ES-AN-CA-023	municipality	Medina Sidonia
 ES-AN-CA-024	municipality	Olvera
 ES-AN-CA-025	municipality	Paterna de Rivera
 ES-AN-CA-026	municipality	Prado del Rey
@@ -6911,6 +9385,7 @@ ES-AN-CA-029	municipality	Puerto Serrano
 ES-AN-CA-030	municipality	Rota
 ES-AN-CA-031	municipality	San Fernando
 ES-AN-CA-902	municipality	San José del Valle
+ES-AN-CA-903	municipality	San Martín del Tesorillo
 ES-AN-CA-033	municipality	San Roque
 ES-AN-CA-032	municipality	Sanlúcar de Barrameda
 ES-AN-CA-034	municipality	Setenil de las Bodegas
@@ -6929,7 +9404,7 @@ ES-VC-CS-005	municipality	l' Alcora
 ES-VC-CS-006	municipality	Alcudia de Veo
 ES-VC-CS-007	municipality	Alfondeguilla
 ES-VC-CS-008	municipality	Algimia de Almonacid
-ES-VC-CS-009	municipality	Almazora/Almassora
+ES-VC-CS-009	municipality	Almassora
 ES-VC-CS-010	municipality	Almedíjar
 ES-VC-CS-011	municipality	Almenara
 ES-VC-CS-901	municipality	les/Alquerías del Niño Perdido Alqueries
@@ -6948,7 +9423,7 @@ ES-VC-CS-025	municipality	Benafigos
 ES-VC-CS-026	municipality	Benassal
 ES-VC-CS-027	municipality	Benicarló
 ES-VC-CS-028	municipality	Benicasim/Benicàssim
-ES-VC-CS-029	municipality	Benlloch
+ES-VC-CS-029	municipality	Benlloc
 ES-VC-CS-021	municipality	Betxí
 ES-VC-CS-032	municipality	Borriana/Burriana
 ES-VC-CS-031	municipality	Borriol
@@ -7042,11 +9517,11 @@ ES-VC-CS-126	municipality	la Vall d'Uixó
 ES-VC-CS-123	municipality	Vallat
 ES-VC-CS-127	municipality	Vallibona
 ES-VC-CS-128	municipality	Vilafamés
+ES-VC-CS-129	municipality	Vilafranca/Villafranca del Cid
 ES-VC-CS-132	municipality	Vilanova d'Alcolea
 ES-VC-CS-134	municipality	Vilar de Canes
 ES-VC-CS-135	municipality	Vila-real
 ES-VC-CS-136	municipality	la Vilavella
-ES-VC-CS-129	municipality	Villafranca del Cid/Vilafranca
 ES-VC-CS-130	municipality	Villahermosa del Río
 ES-VC-CS-131	municipality	Villamalur
 ES-VC-CS-133	municipality	Villanueva de Viver
@@ -7186,12 +9661,14 @@ ES-AN-CO-024	municipality	Encinas Reales
 ES-AN-CO-025	municipality	Espejo
 ES-AN-CO-026	municipality	Espiel
 ES-AN-CO-027	municipality	Fernán-Núñez
+ES-AN-CO-901	municipality	Fuente Carreteros
 ES-AN-CO-028	municipality	Fuente la Lancha
 ES-AN-CO-029	municipality	Fuente Obejuna
 ES-AN-CO-030	municipality	Fuente Palmera
 ES-AN-CO-031	municipality	Fuente-Tójar
 ES-AN-CO-032	municipality	La Granjuela
 ES-AN-CO-033	municipality	Guadalcázar
+ES-AN-CO-902	municipality	La Guijarrosa
 ES-AN-CO-034	municipality	El Guijo
 ES-AN-CO-035	municipality	Hinojosa del Duque
 ES-AN-CO-036	municipality	Hornachuelos
@@ -7591,12 +10068,12 @@ ES-CT-GI-024	municipality	Bolvir
 ES-CT-GI-025	municipality	Bordils
 ES-CT-GI-026	municipality	Borrassà
 ES-CT-GI-027	municipality	Breda
-ES-CT-GI-028	municipality	Brunyola
+ES-CT-GI-028	municipality	Brunyola i Sant Martí Sapresa
 ES-CT-GI-031	municipality	Cabanelles
 ES-CT-GI-030	municipality	Cabanes
 ES-CT-GI-032	municipality	Cadaqués
 ES-CT-GI-033	municipality	Caldes de Malavella
-ES-CT-GI-034	municipality	Calonge
+ES-CT-GI-034	municipality	Calonge i Sant Antoni
 ES-CT-GI-035	municipality	Camós
 ES-CT-GI-036	municipality	Campdevànol
 ES-CT-GI-037	municipality	Campelles
@@ -7854,6 +10331,7 @@ ES-AN-GR-071	municipality	Dúrcal
 ES-AN-GR-072	municipality	Escúzar
 ES-AN-GR-074	municipality	Ferreira
 ES-AN-GR-076	municipality	Fonelas
+ES-AN-GR-077	municipality	Fornes
 ES-AN-GR-078	municipality	Freila
 ES-AN-GR-079	municipality	Fuente Vaqueros
 ES-AN-GR-905	municipality	Las Gabias
@@ -7880,7 +10358,7 @@ ES-AN-GR-103	municipality	Ítrabo
 ES-AN-GR-105	municipality	Iznalloz
 ES-AN-GR-106	municipality	Játar
 ES-AN-GR-107	municipality	Jayena
-ES-AN-GR-108	municipality	Jerez del Marquesado
+ES-AN-GR-108	municipality	Jérez del Marquesado
 ES-AN-GR-109	municipality	Jete
 ES-AN-GR-111	municipality	Jun
 ES-AN-GR-112	municipality	Juviles
@@ -7938,6 +10416,7 @@ ES-AN-GR-176	municipality	Soportújar
 ES-AN-GR-177	municipality	Sorvilán
 ES-AN-GR-901	municipality	La Taha
 ES-AN-GR-178	municipality	Torre-Cardela
+ES-AN-GR-916	municipality	Torrenueva Costa
 ES-AN-GR-179	municipality	Torvizcón
 ES-AN-GR-180	municipality	Trevélez
 ES-AN-GR-181	municipality	Turón
@@ -8412,6 +10891,7 @@ ES-AN-H-075	municipality	Villanueva de las Cruces
 ES-AN-H-076	municipality	Villanueva de los Castillejos
 ES-AN-H-077	municipality	Villarrasa
 ES-AN-H-078	municipality	Zalamea la Real
+ES-AN-H-902	municipality	La Zarza-Perrunal
 ES-AN-H-079	municipality	Zufre
 ES-AR-HU-001	municipality	Abiego
 ES-AR-HU-002	municipality	Abizanda
@@ -9883,7 +12363,7 @@ ES-NC-NA-150	municipality	Leoz/Leotz
 ES-NC-NA-151	municipality	Lerga
 ES-NC-NA-152	municipality	Lerín
 ES-NC-NA-153	municipality	Lesaka
-ES-NC-NA-154	municipality	Lezáun
+ES-NC-NA-154	municipality	Lezaun
 ES-NC-NA-155	municipality	Liédena
 ES-NC-NA-156	municipality	Lizoáin-Arriasgoiti
 ES-NC-NA-157	municipality	Lodosa
@@ -9964,7 +12444,7 @@ ES-NC-NA-232	municipality	Tudela
 ES-NC-NA-233	municipality	Tulebras
 ES-NC-NA-234	municipality	Ucar
 ES-NC-NA-123	municipality	Uharte Arakil
-ES-NC-NA-235	municipality	Ujué
+ES-NC-NA-235	municipality	Ujué/Uxue
 ES-NC-NA-236	municipality	Ultzama
 ES-NC-NA-237	municipality	Unciti
 ES-NC-NA-238	municipality	Unzué/Untzue
@@ -10554,7 +13034,7 @@ ES-CL-SA-113	municipality	El Cubo de Don Sancho
 ES-CL-SA-115	municipality	Dios le Guarde
 ES-CL-SA-116	municipality	Doñinos de Ledesma
 ES-CL-SA-117	municipality	Doñinos de Salamanca
-ES-CL-SA-118	municipality	Ejeme
+ES-CL-SA-118	municipality	Éjeme
 ES-CL-SA-120	municipality	Encina de San Silvestre
 ES-CL-SA-119	municipality	La Encina
 ES-CL-SA-121	municipality	Encinas de Abajo
@@ -11005,6 +13485,7 @@ ES-CL-SG-037	municipality	Calabazas de Fuentidueña
 ES-CL-SG-039	municipality	Campo de San Pedro
 ES-CL-SG-040	municipality	Cantalejo
 ES-CL-SG-041	municipality	Cantimpalos
+ES-CL-SG-161	municipality	Carabias
 ES-CL-SG-043	municipality	Carbonero el Mayor
 ES-CL-SG-044	municipality	Carrascal del Río
 ES-CL-SG-045	municipality	Casla
@@ -11112,7 +13593,6 @@ ES-CL-SG-157	municipality	Pelayos del Arroyo
 ES-CL-SG-158	municipality	Perosillo
 ES-CL-SG-159	municipality	Pinarejos
 ES-CL-SG-160	municipality	Pinarnegrillo
-ES-CL-SG-161	municipality	Pradales
 ES-CL-SG-162	municipality	Prádena
 ES-CL-SG-163	municipality	Puebla de Pedraza
 ES-CL-SG-164	municipality	Rapariegos
@@ -11249,6 +13729,7 @@ ES-AN-SE-066	municipality	Las Navas de la Concepción
 ES-AN-SE-067	municipality	Olivares
 ES-AN-SE-068	municipality	Osuna
 ES-AN-SE-069	municipality	Los Palacios y Villafranca
+ES-AN-SE-904	municipality	El Palmar de Troya
 ES-AN-SE-070	municipality	Palomares del Río
 ES-AN-SE-071	municipality	Paradas
 ES-AN-SE-072	municipality	Pedrera
@@ -11962,7 +14443,7 @@ ES-CM-TO-075	municipality	Hontanar
 ES-CM-TO-076	municipality	Hormigos
 ES-CM-TO-077	municipality	Huecas
 ES-CM-TO-078	municipality	Huerta de Valdecarábanos
-ES-CM-TO-079	municipality	La Iglesuela
+ES-CM-TO-079	municipality	La Iglesuela del Tiétar
 ES-CM-TO-080	municipality	Illán de Vacas
 ES-CM-TO-081	municipality	Illescas
 ES-CM-TO-082	municipality	Lagartera
@@ -12118,7 +14599,7 @@ ES-VC-V-027	municipality	Alfarrasí
 ES-VC-V-023	municipality	Alfauir
 ES-VC-V-028	municipality	Algar de Palancia
 ES-VC-V-029	municipality	Algemesí
-ES-VC-V-030	municipality	Algimia de Alfara
+ES-VC-V-030	municipality	Algímia d'Alfara
 ES-VC-V-031	municipality	Alginet
 ES-VC-V-032	municipality	Almàssera
 ES-VC-V-033	municipality	Almiserà
@@ -12217,7 +14698,7 @@ ES-VC-V-129	municipality	Fuenterrobles
 ES-VC-V-131	municipality	Gandia
 ES-VC-V-902	municipality	Gátova
 ES-VC-V-130	municipality	Gavarda
-ES-VC-V-132	municipality	Genovés
+ES-VC-V-132	municipality	el Genovés
 ES-VC-V-133	municipality	Gestalgar
 ES-VC-V-134	municipality	Gilet
 ES-VC-V-135	municipality	Godella
@@ -12260,7 +14741,7 @@ ES-VC-V-175	municipality	Montitxelvo/Montichelvo
 ES-VC-V-176	municipality	Montroi/Montroy
 ES-VC-V-172	municipality	Montserrat
 ES-VC-V-177	municipality	Museros
-ES-VC-V-178	municipality	Náquera
+ES-VC-V-178	municipality	Nàquera/Náquera
 ES-VC-V-179	municipality	Navarrés
 ES-VC-V-180	municipality	Novelé/Novetlè
 ES-VC-V-181	municipality	Oliva
@@ -12337,7 +14818,7 @@ ES-VC-V-246	municipality	Tous
 ES-VC-V-247	municipality	Tuéjar
 ES-VC-V-248	municipality	Turís
 ES-VC-V-249	municipality	Utiel
-ES-VC-V-250	municipality	Valencia
+ES-VC-V-250	municipality	València
 ES-VC-V-251	municipality	Vallada
 ES-VC-V-252	municipality	Vallanca
 ES-VC-V-253	municipality	Vallés
@@ -13065,7 +15546,7 @@ ES-AR-Z-125	municipality	Ibdes
 ES-AR-Z-126	municipality	Illueca
 ES-AR-Z-128	municipality	Isuerre
 ES-AR-Z-129	municipality	Jaraba
-ES-AR-Z-130	municipality	Jarque
+ES-AR-Z-130	municipality	Jarque de Moncayo
 ES-AR-Z-131	municipality	Jaulín
 ES-AR-Z-132	municipality	La Joyosa
 ES-AR-Z-133	municipality	Lagata
