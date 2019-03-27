@@ -3,7 +3,7 @@
 class AddExternalIdsToPeople < ActiveRecord::Migration[5.1]
   def up
     change_table :people, bulk: true do |t|
-      t.remove :extra, :jsonb
+      t.remove :extra
 
       t.jsonb :external_ids, default: {}
       t.index "external_ids jsonb_path_ops", name: "index_people_on_external_ids", using: :gin
