@@ -490,7 +490,6 @@ GEM
       sprockets (> 2.11)
       sprockets-rails
       tilt
-    secure_headers (6.0.0)
     select2-rails (4.0.3)
       thor (~> 0.14)
     sepa_king (0.11.1)
@@ -630,7 +629,6 @@ DEPENDENCIES
   rubocop
   rubocop-rspec
   sassc-rails
-  secure_headers
   sepa_king
   simplecov
   sneakers
