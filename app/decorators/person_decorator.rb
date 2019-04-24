@@ -51,7 +51,7 @@ class PersonDecorator < ApplicationDecorator
 
   def full_document
     @full_document ||= sensible_data do
-      "#{document_type_name}#{" - #{document_scope.name}" if object.passport_document_type?} - #{object.document_id}" if object.document_id
+      "#{document_type_name}#{" - #{document_scope.name}" if object.passport_document_type? && object.document_scope} - #{object.document_id}" if object.document_id
     end
   end
 
