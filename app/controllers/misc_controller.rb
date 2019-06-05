@@ -5,7 +5,7 @@ class MiscController < ActionController::API
     body = request.body.read
     begin
       info = ActiveSupport::JSON.decode(body)
-    rescue ActiveSupport::JSON.parse_error
+    rescue ActiveSupport::JSON.parse_error => _e
       info = { body: body }
     end
     ahoy.track "security_report", info

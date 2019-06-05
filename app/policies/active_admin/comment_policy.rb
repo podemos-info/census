@@ -7,7 +7,7 @@ module ActiveAdmin
     end
 
     def index?
-      false
+      true
     end
 
     def destroy?

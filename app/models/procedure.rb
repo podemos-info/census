@@ -10,7 +10,7 @@ class Procedure < ApplicationRecord
   belongs_to :processed_by, class_name: "Admin", optional: true
   belongs_to :depends_on, class_name: "Procedure", optional: true
 
-  has_paper_trail class_name: "Version"
+  has_paper_trail versions: { class_name: "Version" }
   has_many :versions, as: :item, dependent: :destroy, inverse_of: :item
 
   has_many :dependent_procedures,

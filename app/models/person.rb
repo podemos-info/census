@@ -10,7 +10,7 @@ class Person < ApplicationRecord
   include Issuable
   include ExternalSystems
 
-  has_paper_trail class_name: "Version"
+  has_paper_trail versions: { class_name: "Version" }
 
   belongs_to :document_scope, class_name: "Scope", optional: true
   belongs_to :address_scope, class_name: "Scope", optional: true

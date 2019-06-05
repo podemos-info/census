@@ -5,7 +5,7 @@ class Order < ApplicationRecord
   include Issuable
   include Discard::Model
 
-  has_paper_trail class_name: "Version"
+  has_paper_trail versions: { class_name: "Version" }
 
   has_many :versions, as: :item, dependent: :destroy, inverse_of: :item
   belongs_to :person

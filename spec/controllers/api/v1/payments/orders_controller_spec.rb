@@ -91,7 +91,7 @@ describe Api::V1::Payments::OrdersController, type: :controller do
   end
 
   describe "Orders processed total amount for a campaign" do
-    subject(:request) { get :total, params: params }
+    subject(:total_request) { get :total, params: params }
 
     before { person_order && no_person_order && no_campaign_order && no_person_campaign_order && unprocessed_order && old_order }
 
@@ -127,7 +127,7 @@ describe Api::V1::Payments::OrdersController, type: :controller do
         it { expect(subject.content_type).to eq("application/json") }
 
         context "with the JSON response" do
-          subject(:body) { JSON.parse(request.body) }
+          subject(:body) { JSON.parse(total_request.body) }
 
           it { is_expected .to have_key("amount") }
           it { expect(body["amount"]) .to eq(amount) }

@@ -26,7 +26,7 @@ FactoryBot.define do
 
   factory :event do
     transient do
-      visit { build(:visit) }
+      visit { create(:visit) }
     end
     visit_id { visit.id }
     admin { visit.admin }
@@ -38,7 +38,18 @@ FactoryBot.define do
       transient do
         person { create(:person) }
       end
-      properties { { controller: "person", action: "show", id: person.id } }
+      properties { { controller: "people", action: "show", id: person.id } }
+    end
+
+    trait :people_search do
+      transient do
+        q { { "first_name_contains" => "test" } }
+      end
+      properties { { controller: "people", action: "index", q: q } }
+    end
+
+    trait :security_report do
+      name { "security_report" }
     end
   end
 

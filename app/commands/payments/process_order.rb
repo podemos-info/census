@@ -53,16 +53,16 @@ module Payments
         on(:ok) { ret = true }
       end
       ret
-    rescue StandardError => error
-      Census::Payments.handle_order_unrecoverable_error(order: order, error: error, action: "saving payment method")
+    rescue StandardError => e
+      Census::Payments.handle_order_unrecoverable_error(order: order, error: e, action: "saving payment method")
       false
     end
 
     def save_order
       order.save!
       true
-    rescue StandardError => error
-      Census::Payments.handle_order_unrecoverable_error(order: order, error: error, action: "saving order")
+    rescue StandardError => e
+      Census::Payments.handle_order_unrecoverable_error(order: order, error: e, action: "saving order")
       false
     end
 

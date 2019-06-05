@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe ProceduresController, type: :controller do
   render_views
-  include_context "devise login"
+  include_context "with a devise login"
 
   before { procedure && processed_by }
 

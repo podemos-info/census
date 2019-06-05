@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe "Dashboard", type: :request do
-  include_context "devise login"
+  include_context "with a devise login"
 
   describe "index page" do
     subject { get root_path }

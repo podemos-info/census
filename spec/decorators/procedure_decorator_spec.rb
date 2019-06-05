@@ -6,7 +6,7 @@ describe ProcedureDecorator do
   subject(:decorator) { procedure.decorate(context: { current_admin: admin }) }
 
   let(:admin) { build(:admin) }
-  let(:person) { build(:person) }
+  let(:person) { create(:person) }
   let(:procedure) { build(:document_verification, :with_attachments, person: person) }
 
   it { expect(subject.person).to be_decorated }

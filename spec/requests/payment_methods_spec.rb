@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe "PaymentMethods", type: :request do
-  include_context "devise login"
+  include_context "with a devise login"
   let!(:payment_method) { create(:direct_debit) }
 
   describe "index page" do

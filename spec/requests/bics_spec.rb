@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe "Bics", type: :request do
-  include_context "devise login"
+  include_context "with a devise login"
   let!(:bic) { create(:bic) }
 
   describe "index page" do

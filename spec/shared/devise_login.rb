@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-shared_context "devise login", shared_context: :metadata do
+shared_context "with a devise login", shared_context: :metadata do
   before do
     sign_in current_admin
   end

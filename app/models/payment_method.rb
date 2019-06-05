@@ -12,8 +12,8 @@ class PaymentMethod < ApplicationRecord
             2 => :inactive,
             check_for_column: false
 
-  attr_encrypted :sensible_data, type: :json
-  has_paper_trail class_name: "Version"
+  attr_encrypted :sensible_data, type: :json, random_iv: false
+  has_paper_trail versions: { class_name: "Version" }
   has_many :versions, as: :item, dependent: :destroy, inverse_of: :item
   has_many :orders, dependent: :restrict_with_exception
   belongs_to :person

@@ -4,7 +4,7 @@ class Admin < ApplicationRecord
   include HasRole
   include Discard::Model
 
-  has_paper_trail class_name: "Version"
+  has_paper_trail versions: { class_name: "Version" }
   has_many :versions, as: :item, dependent: :destroy, inverse_of: :item
 
   has_many :jobs, dependent: :restrict_with_exception, foreign_key: "user_id"

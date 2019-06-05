@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe "Visits", type: :request do
-  include_context "devise login"
+  include_context "with a devise login"
 
   subject(:page) { get visits_path }
 

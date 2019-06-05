@@ -12,7 +12,7 @@ FactoryBot.define do
       expires_at { 4.years.from_now }
     end
 
-    person
+    person { create(:person) }
     payment_processor { :redsys }
     authorization_token { "1234567890abcdef" }
     expiration_year { expires_at.year.to_s }
@@ -37,7 +37,7 @@ FactoryBot.define do
   end
 
   factory :direct_debit, class: :"payment_methods/direct_debit" do
-    person
+    person { create(:person) }
     iban { IbanBic.random_iban(tags: [:sepa], not_tags: [:fixed_iban_check]) }
     payment_processor { :sepa }
 
@@ -51,13 +51,13 @@ FactoryBot.define do
   end
 
   factory :order do
-    person
+    person { create(:person) }
     payment_method { create(:direct_debit, person: person) }
 
     currency { "EUR" }
     amount { Faker::Number.between(1, 10_000) }
     description { Faker::Lorem.sentence(1, true, 4) }
-    campaign
+    campaign { create(:campaign) }
 
     trait :credit_card do
       payment_method { build(:credit_card, person: person) }
@@ -162,6 +162,6 @@ FactoryBot.define do
   factory :payee do
     name { Faker::Lorem.sentence(1, true, 4) }
     iban { IbanBic.random_iban(tags: [:sepa], not_tags: [:fixed_iban_check]) }
-    scope
+    scope { create(:scope) }
   end
 end

@@ -4,7 +4,7 @@
 class DocumentIdValidator < ActiveModel::EachValidator
   include ActiveModel::Validations::SpanishVatValidatorsHelpers
 
-  SPANISH_PASSPORT_REGEX = /^([A-Z]\d{10})|([A-Z]{2,3}\d{6})$/
+  SPANISH_PASSPORT_REGEX = /^([A-Z]\d{10})|([A-Z]{2,3}\d{6})$/.freeze
 
   def initialize(args = {})
     @type_method = args[:type] || :type

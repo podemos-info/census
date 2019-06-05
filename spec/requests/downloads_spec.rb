@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe "Downloads", type: :request do
-  include_context "devise login"
+  include_context "with a devise login"
 
   subject(:page) { get person_downloads_path(person_id: person.id) }
 

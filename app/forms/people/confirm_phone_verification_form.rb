@@ -10,7 +10,7 @@ module People
     validate :check_received_code
 
     def check_received_code
-      errors.add :received_code, :invalid if person && !otp.verify_with_drift(received_code, Settings.people.phone_verification.expires_after)
+      errors.add :received_code, :invalid if person && !otp.verify(received_code, drift_behind: Settings.people.phone_verification.expires_after)
     end
   end
 end

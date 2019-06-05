@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe VersionsController, type: :controller do
   render_views
-  include_context "devise login"
+  include_context "with a devise login"
 
   with_versioning do
     subject(:resource) { all_resources[resource_class] }

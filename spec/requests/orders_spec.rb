@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe "Orders", type: :request do
-  include_context "devise login"
+  include_context "with a devise login"
   let!(:order) { create(:order) }
 
   describe "index page" do

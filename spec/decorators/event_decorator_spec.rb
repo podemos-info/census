@@ -10,6 +10,24 @@ describe EventDecorator do
   let(:person) { create(:person) }
   let(:admin) { build(:admin) }
 
+  describe "#name" do
+    subject(:method) { decorator.name }
+
+    it { is_expected.to eq("Ver portada") }
+
+    context "when is a person event" do
+      let(:event) { create(:event, :person_view, person: person) }
+
+      it { is_expected.to eq("Ver persona") }
+    end
+
+    context "when is a security event" do
+      let(:event) { create(:event, :security_report) }
+
+      it { is_expected.to eq("Informe de seguridad") }
+    end
+  end
+
   describe "#description" do
     subject(:method) { decorator.description }
 
@@ -25,6 +43,12 @@ describe EventDecorator do
 
         it { is_expected.to eq(decorated_person.full_name) }
       end
+    end
+
+    context "when is a people search" do
+      let(:event) { create(:event, :people_search, q: { "first_name_contains" => "alb" }) }
+
+      it { is_expected.to eq("Nombre contiene 'alb'") }
     end
   end
 end

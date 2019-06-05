@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe "Events", type: :request do
-  include_context "devise login"
+  include_context "with a devise login"
 
   before do
     event

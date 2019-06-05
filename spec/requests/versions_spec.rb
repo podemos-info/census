@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe "Versions", type: :request do
-  include_context "devise login"
+  include_context "with a devise login"
 
   with_versioning do
     subject(:page) { get versions_path }

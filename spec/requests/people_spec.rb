@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe "People", type: :request do
-  include_context "devise login"
+  include_context "with a devise login"
   let(:person) { create(:person, :verified) }
   let(:current_admin) { create(:admin, :data) }
 

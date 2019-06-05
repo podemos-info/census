@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe "Admins", type: :request do
-  include_context "devise login"
+  include_context "with a devise login"
 
   subject(:page) { get admins_path }
 
