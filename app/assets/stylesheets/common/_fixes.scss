@@ -40,15 +40,26 @@ table.index {
   td.right {
     text-align: right;
   }
+
   td.left {
     text-align: left;
   }
 }
 
-.sidebar {
-  .panel_contents th {
-    padding: 0px 8px;
+body.index #sidebar {
+  -webkit-box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+
+  &::before {
+    -webkit-box-shadow: -3px 0 4px 0 rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: -3px 0 4px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: -3px 0 4px 0 rgba(0, 0, 0, 0.1);
   }
+}
+
+body.index.with_filters #sidebar::before {
+  color: $error-color;
 }
 
 .scopes {

@@ -9,6 +9,8 @@
     this.running = false;
     this.auth_token = document.getElementsByName("csrf-token")[0].content;
     this.updateRunning();
+
+    if ($(".current_filter").length>0) $("body").addClass("with_filters");
   };
 
   Header.prototype.updateRunning = function() {
