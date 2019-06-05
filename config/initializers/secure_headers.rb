@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-=begin
 SecureHeaders::Configuration.default do |config|
   config.cookies = {
     secure: true, # mark all cookies as "Secure"
@@ -16,7 +15,7 @@ SecureHeaders::Configuration.default do |config|
   config.x_download_options = "noopen"
   config.x_permitted_cross_domain_policies = "none"
   config.referrer_policy = "origin-when-cross-origin"
-  config.clear_site_data = %w(storage executionContexts) # cookies breaks login on mobile, cache seems to hang mobile chrome browser
+  config.clear_site_data = %w(storage) # cookies breaks login on mobile, cache seems to hang mobile chrome browser
 
   # TO-DO: review this
   config.csp = {
@@ -46,15 +45,4 @@ SecureHeaders::Configuration.default do |config|
   #   img_src: %w(somewhereelse.com),
   #   report_uri: %w(https://report-uri.io/example-csp-report-only)
   # })
-  # config.hpkp = {
-  #   report_only: false,
-  #   max_age: 60.days.to_i,
-  #   include_subdomains: true,
-  #   report_uri: "https://report-uri.io/example-hpkp",
-  #   pins: [
-  #     {sha256: "abc"},
-  #     {sha256: "123"}
-  #   ]
-  # }
 end
-=end
