@@ -10,8 +10,8 @@ Requires = <%= fetch(:application) %>_puma.socket
 Type = simple
 
 # Preferably configure a non-privileged user
-User = <%= ENV["STAGING_USER"] %>
-Group = <%= ENV["STAGING_USER"] %>
+User = <%= ENV[fetch(:rails_env),upcase + "_USER"] %>
+Group = <%= ENV[fetch(:rails_env),upcase + "_USER"] %>
 
 # The path to the puma application root
 Environment = RAILS_ENV=<%= fetch(:rails_env) %>
