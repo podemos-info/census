@@ -63,15 +63,7 @@ es:
       visits: Visitas
     system: Sistema
   activemodel:
-    attributes:
-      cancellation:
-        channel: Canal
-        reason: Razones
-    models:
-      cancellation: cancelación
-      person: persona
-  activerecord:
-    attributes:
+    attributes: &attributes
       active_job_reporter/job_message:
         created_at: Fecha
         message: Mensaje
@@ -95,6 +87,9 @@ es:
         bic: Código BIC/SWIFT
         country: Código de país
         name_link: País - entidad
+      cancellation:
+        channel: Canal
+        reason: Razones
       campaign:
         campaign_code: Código de campaña
         description: Descripción
@@ -200,6 +195,8 @@ es:
         discarded_at: Fecha de borrado
         document_id: Documento
         document_type: Tipo de documento
+        document_scope: País del documento
+        document_scope_id: País del documento
         email: Correo electrónico
         email_link: Correo electrónico
         first_name: Nombre
@@ -271,6 +268,11 @@ es:
         referrer: Página de origen
         screen_resolution: Resolución de pantalla
         started_at: Fecha y hora
+    models:
+      cancellation: cancelación
+      person: persona
+  activerecord:
+    attributes: *attributes
     models:
       admin:
         one: Administrador
