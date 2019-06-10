@@ -84,7 +84,7 @@ group :test do
   gem "rspec-rails"
   gem "vcr"
   gem "webmock"
-  gem "wisper-rspec"
+  gem "wisper-rspec", github: "krisleech/wisper-rspec", ref: "61f3576"
 end
 
 group :development do
