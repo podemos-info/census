@@ -37,8 +37,8 @@ ActiveAdmin.register Issue do
       render "show"
     end
 
-    show_table context: self, title: t("census.issues.information"), table: resource.information
-    show_table context: self, title: t("census.issues.fix_information"), table: resource.fix_information
+    show_table context: self, resource: resource, title: t("census.issues.information"), table: resource.information
+    show_table context: self, resource: resource, title: t("census.issues.fix_information"), table: resource.fix_information
   end
 
   form title: I18n.t("census.issues.close.action"), decorate: true do |f|
