@@ -45,6 +45,34 @@ random_people.enabled.not_verified.limit(5).each do |person|
   end
 end
 
+# create 5 person data changes
+random_people.enabled.limit(5).each do |person|
+  Timecop.freeze Faker::Time.between(person.created_at, 3.days.ago(real_now), :between)
+  PaperTrail.request.whodunnit = person
+
+  person_data_change = Procedures::PersonDataChange.create!(person: person,
+                                                            information: { person_data: {
+                                                              first_name: Faker::Name.first_name,
+                                                              last_name1: Faker::Name.last_name
+                                                            } },
+                                                            state: :pending)
+
+  Rails.logger.debug { "Person data change created for: #{person_data_change.person.decorate(data_context)}" }
+
+  current_admin = admins.sample
+  Issues::CheckIssues.call(issuable: person_data_change, admin: current_admin)
+  if person_data_change.issues_summary != :ok
+    Rails.logger.debug { "Person data change pending: #{person_data_change.person.decorate(data_context)}" }
+    next
+  end
+
+  Timecop.freeze Faker::Time.between(Time.zone.now, real_now, :between)
+  PaperTrail.request.whodunnit = current_admin
+  UpdateProcedureJob.perform_later(procedure: person_data_change, admin: current_admin)
+
+  Rails.logger.debug { "Person data change accepted for: #{person_data_change.person.decorate(data_context)}" }
+end
+
 # create 5 unprocessed document verifications
 random_people.enabled.not_verified.limit(5).each do |person|
   Timecop.freeze Faker::Time.between(3.days.ago(real_now), 1.day.ago(real_now), :between)
