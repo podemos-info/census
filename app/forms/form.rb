@@ -19,4 +19,29 @@ class Form < Rectify::Form
       path
     end
   end
+
+  class << self
+    def model_name
+      mimicked_model&.model_name || super
+    end
+
+    def human_attribute_name(attr)
+      mimicked_model&.human_attribute_name(attr) || super
+    end
+
+    private
+
+    def mimicked_model
+      return @mimicked_model if defined?(@mimicked_model)
+
+      @mimicked_model = mimicked_model_from_model_name
+    end
+
+    def mimicked_model_from_model_name
+      mimicked_model_name.to_s.classify.constantize if mimicked_model_name &&
+                                                       mimicked_model_name != :form
+    rescue LoadError, NameError => _e
+      nil
+    end
+  end
 end
