@@ -34,9 +34,16 @@ context.instance_eval do
       chrow :updated_at
     end
 
+    show_additional_information = resource.additional_information.any?
     show_external_ids = resource.external_ids.present?
     if local_assigns[:mode] == :changes
+      show_additional_information &= local_assigns[:changes][:additional_information]
       show_external_ids &= local_assigns[:changes][:external_ids]
+    end
+
+    if show_additional_information
+      show_table(context: self, resource: resource, title: t("census.people.information"),
+                 table: resource.additional_information)
     end
 
     if show_external_ids

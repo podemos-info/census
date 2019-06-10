@@ -547,6 +547,7 @@ es:
         male: Masculino
         other: Otro
         undisclosed: No quiero decirlo
+      information: Información adicional
       request_verification: Solicitar verificación
       start_phone_verification:
         sms_message: Tu código de activación es %{otp_code}
