@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 active_admin_form_for controller.form_resource do |f|
-  f.inputs do
+  f.inputs person.full_name do
     f.input :first_name
     f.input :last_name1
     f.input :last_name2
