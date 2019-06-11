@@ -13,8 +13,6 @@ require "action_view/railtie"
 require "active_job/railtie"
 require "active_model/railtie"
 require "active_record/railtie"
-# require "sprockets/railtie"
-# require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -32,6 +30,13 @@ module Census
     if Settings.security.host_url
       routes.default_url_options = { host: Settings.security.host_url }
       config.action_controller.asset_host = Settings.security.host_url
+    end
+
+    if Settings.security.cas_server.present?
+      require "rack-cas"
+      require "rack-cas/session_store/active_record"
+      config.rack_cas.server_url = Settings.security.cas_server
+      config.rack_cas.session_store = RackCAS::ActiveRecordStore
     end
 
     preload_paths = %w(app/decorators/concerns app/forms/**/ app/jobs/concerns app/models/**/ app/services/**/).freeze

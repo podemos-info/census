@@ -91,6 +91,7 @@ security:
     payment_callbacks: <%= ENV.fetch("ALLOWED_IPS_CALLBACK_PAYMENTS") { "" } &.split(/[^\.\d]/) %>
   request_rate_limit: 300
   host_url: <%= ENV["HOST_URL"] %>
+  cas_server: <%= ENV["CAS_SERVER"] %>
 
 system:
   airbrake:

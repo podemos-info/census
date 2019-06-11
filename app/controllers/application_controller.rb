@@ -3,6 +3,8 @@
 class ApplicationController < ActionController::Base
   include Rectify::ControllerHelpers
   include Pundit
+  include CasAuthentication
+
   protect_from_forgery with: :exception
 
   helper TranslationsHelper

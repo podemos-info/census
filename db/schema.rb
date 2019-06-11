@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_06_175639) do
+ActiveRecord::Schema.define(version: 2019_06_11_125040) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -277,6 +277,17 @@ ActiveRecord::Schema.define(version: 2019_06_06_175639) do
     t.index ["parent_id"], name: "index_scopes_on_parent_id"
     t.index ["part_of"], name: "index_scopes_on_part_of", using: :gin
     t.index ["scope_type_id"], name: "index_scopes_on_scope_type_id"
+  end
+
+  create_table "sessions", force: :cascade do |t|
+    t.string "session_id", null: false
+    t.string "cas_ticket"
+    t.text "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cas_ticket"], name: "index_sessions_on_cas_ticket"
+    t.index ["session_id"], name: "index_sessions_on_session_id"
+    t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
 
   create_table "versions", force: :cascade do |t|
