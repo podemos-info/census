@@ -40,6 +40,7 @@ gem "pg", "~> 0.18"
 gem "puma"
 gem "pundit"
 gem "rack-attack"
+gem "rack-cas", require: true
 gem "rails", "~> 5.2"
 gem "rails-i18n"
 gem "rectify"
@@ -95,6 +96,7 @@ group :development do
   gem "listen"
   gem "pry-rails"
   gem "rubocop", require: false
+  gem "rubocop-rails"
   gem "rubocop-rspec"
   gem "spring"
   gem "spring-watcher-listen"
