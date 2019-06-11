@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       scope "/(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
         resources :people, only: [:create, :update, :destroy, :show] do
+          resources :additional_informations, only: [:create], controller: "people/additional_informations"
           resources :document_verifications, only: [:create], controller: "people/document_verifications"
           resources :membership_levels, only: [:create], controller: "people/membership_levels"
           resources :procedures, only: [:index], controller: "people/procedures"

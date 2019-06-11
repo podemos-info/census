@@ -5,7 +5,7 @@ module People
   class MembershipLevelForm < Form
     include ::HasPerson
 
-    mimic :membership_level_change
+    mimic "Procedures::MembershipLevelChange"
 
     attribute :membership_level, String
 

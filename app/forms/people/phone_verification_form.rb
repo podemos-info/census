@@ -5,6 +5,8 @@ module People
   class PhoneVerificationForm < Form
     include ::HasPerson
 
+    mimic "Procedures::PhoneVerification"
+
     attribute :phone, String
 
     def phone

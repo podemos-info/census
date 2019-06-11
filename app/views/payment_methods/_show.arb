@@ -13,6 +13,6 @@ context.instance_eval do
       chrow :created_at
       chrow :updated_at
     end
-    show_table(context: context, title: t("census.payment_methods.information"), table: resource.additional_information) if resource.additional_information.any?
+    show_table(context: context, resource: resource, title: t("census.payment_methods.information"), table: resource.additional_information) if resource.additional_information.any?
   end
 end

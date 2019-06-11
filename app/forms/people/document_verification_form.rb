@@ -5,7 +5,7 @@ module People
   class DocumentVerificationForm < Form
     include ::HasPerson
 
-    mimic :document_verification
+    mimic "Procedures::DocumentVerification"
 
     attribute :files, Array
 

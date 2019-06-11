@@ -62,14 +62,6 @@ es:
       versions: Versiones
       visits: Visitas
     system: Sistema
-  activemodel:
-    attributes:
-      cancellation:
-        channel: Canal
-        reason: Razones
-    models:
-      cancellation: cancelación
-      person: persona
   activerecord:
     attributes:
       active_job_reporter/job_message:
@@ -99,6 +91,9 @@ es:
         campaign_code: Código de campaña
         description: Descripción
         payee: Beneficiario
+      cancellation:
+        channel: Canal
+        reason: Razones
       download:
         created_at: Fecha de creación
         expires_at: Fecha de expiración
@@ -199,6 +194,8 @@ es:
         created_at: Fecha de creación
         discarded_at: Fecha de borrado
         document_id: Documento
+        document_scope: País del documento
+        document_scope_id: País del documento
         document_type: Tipo de documento
         email: Correo electrónico
         email_link: Correo electrónico
@@ -284,6 +281,9 @@ es:
       campaign:
         one: Campaña
         other: Campañas
+      cancellation:
+        one: Cancelación
+        other: Cancelaciones
       comment:
         one: Comentario
         other: Comentarios
@@ -545,6 +545,7 @@ es:
         male: Masculino
         other: Otro
         undisclosed: No quiero decirlo
+      information: Información adicional
       request_verification: Solicitar verificación
       start_phone_verification:
         sms_message: Tu código de activación es %{otp_code}
