@@ -40,7 +40,7 @@ gem "pg", "~> 0.18"
 gem "puma"
 gem "pundit"
 gem "rack-attack"
-gem "rack-cas", require: true
+gem "rack-cas", require: false
 gem "rails", "~> 5.2"
 gem "rails-i18n"
 gem "rectify"

@@ -13,7 +13,6 @@ require "action_view/railtie"
 require "active_job/railtie"
 require "active_model/railtie"
 require "active_record/railtie"
-require "rack-cas/session_store/active_record"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -34,6 +33,8 @@ module Census
     end
 
     if Settings.security.cas_server.present?
+      require "rack-cas"
+      require "rack-cas/session_store/active_record"
       config.rack_cas.server_url = Settings.security.cas_server
       config.rack_cas.session_store = RackCAS::ActiveRecordStore
     end
