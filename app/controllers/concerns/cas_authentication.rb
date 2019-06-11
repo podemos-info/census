@@ -10,14 +10,14 @@ module CasAuthentication
   end
 
   def set_current_admin
+    return if Settings.security.cas_server.blank?
     return head(401) unless cas_info
-    return redirect_to(Settings.security.cas_server) unless current_admin
 
-    warden.set_user(current_admin)
-  end
+    @current_admin = Admin.find_by(username: cas_user)
 
-  def current_admin
-    @current_admin ||= Admin.find_by(username: cas_user)
+    return redirect_to(Settings.security.cas_server) unless @current_admin
+
+    warden.set_user(@current_admin)
   end
 
   private

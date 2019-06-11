@@ -3,7 +3,7 @@
 class ApplicationController < ActionController::Base
   include Rectify::ControllerHelpers
   include Pundit
-  include CasAuthentication if Settings.security.cas_server.present?
+  include CasAuthentication
 
   protect_from_forgery with: :exception
 
