@@ -8,7 +8,7 @@ ActiveAdmin.register Procedure do
 
   includes :person, :issues
 
-  config.sort_order = "created_at_asc"
+  config.sort_order = "created_at_desc"
 
   actions :index, :show, :update # update is used for procedure processing
 

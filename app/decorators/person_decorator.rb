@@ -85,6 +85,14 @@ class PersonDecorator < ApplicationDecorator
     I18n.t("census.people.document_types.#{document_type}") if document_type
   end
 
+  def last_locations
+    @last_locations ||= PersonLastLocations.for(object)
+  end
+
+  def count_locations
+    @count_locations ||= PersonCountLocations.for(object)
+  end
+
   def self.gender_options
     @gender_options ||= Person.genders.keys.map do |gender|
       [I18n.t("census.people.genders.#{gender}"), gender]

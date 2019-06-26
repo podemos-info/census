@@ -1,0 +1,13 @@
+# frozen_string_literal: true
+
+table_for person.last_locations do
+  column do |person_location|
+    span link_to person_location.created_at.to_date.to_s(:db), url_for([person, person_location])
+  end
+  column do |person_location|
+    span person_location.ip
+  end
+end
+ul do
+  li link_to t("census.people.view_locations", count: person.count_locations), person_person_locations_path(person_id: person.id)
+end

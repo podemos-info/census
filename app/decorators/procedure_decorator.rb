@@ -84,7 +84,7 @@ class ProcedureDecorator < ApplicationDecorator
     @after_person ||= if processed?
                         person.paper_trail.version_at(processed_at + 0.01.seconds, dup: true)&.decorate(context: context)
                       else
-                        object.deep_dup.tap(&:process_accept).person
+                        object.deep_dup.tap(&:process_accept).person&.decorate(context: context)
                       end
   end
 
