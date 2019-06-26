@@ -12,7 +12,7 @@ gem "dotenv-rails", require: "dotenv/rails-now"
 gem "aasm"
 gem "active_job_reporter"
 gem "active_model_serializers"
-gem "activeadmin", github: "activeadmin/activeadmin"
+gem "activeadmin", "~> 2.1.0"
 gem "activeadmin_addons"
 gem "activemerchant"
 gem "airbrake", "~> 5.8"
@@ -95,7 +95,7 @@ group :development do
   gem "i18n-tasks"
   gem "listen"
   gem "pry-rails"
-  gem "rubocop", require: false
+  gem "rubocop", "~> 0.71.0", require: false
   gem "rubocop-rails"
   gem "rubocop-rspec"
   gem "spring"
