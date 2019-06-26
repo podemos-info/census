@@ -2,7 +2,7 @@
 
 module People
   # A command to request a verification to a person.
-  class RequestVerification < PersonCommand
+  class RequestVerification < Rectify::Command
     # Public: Initializes the command.
     # person - The person that should be verified.
     # admin - The admin user requesting the verification.

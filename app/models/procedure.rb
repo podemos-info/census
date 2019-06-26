@@ -9,6 +9,7 @@ class Procedure < ApplicationRecord
   belongs_to :person
   belongs_to :processed_by, class_name: "Admin", optional: true
   belongs_to :depends_on, class_name: "Procedure", optional: true
+  belongs_to :person_location, optional: true
 
   has_paper_trail versions: { class_name: "Version" }
   has_many :versions, as: :item, dependent: :destroy, inverse_of: :item

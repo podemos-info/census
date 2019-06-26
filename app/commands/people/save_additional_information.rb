@@ -3,12 +3,6 @@
 module People
   # A command to set additional information for a person.
   class SaveAdditionalInformation < PersonCommand
-    # Public: Initializes the command.
-    # form - A form object with the params.
-    def initialize(form:)
-      @form = form
-    end
-
     # Executes the command. Broadcasts these events:
     #
     # - :ok when everything is valid.
