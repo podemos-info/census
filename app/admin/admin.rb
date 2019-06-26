@@ -11,7 +11,7 @@ ActiveAdmin.register Admin do
     column :username, class: :left do |admin|
       link_to admin.username, admin_path(id: admin.id)
     end
-    column :username
+    column :person
     column :role_name
     column :created_at
     actions
