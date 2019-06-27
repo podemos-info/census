@@ -31,17 +31,22 @@ module People
 
     def update_person_location
       person.with_lock do
-        if same_location?
-          if location_time < current_location.created_at
-            current_location.update created_at: location_time
-          elsif location_time > current_location.updated_at
-            current_location.update updated_at: location_time
-          end
-        else
-          current_location.discard if current_location && location_time > current_location.created_at
-          @current_location = new_location
-        end
+        # rubocop:disable Rails/SkipsModelValidations
+        current_location.update_column timestamp_column_to_update, location_time if timestamp_column_to_update
+        # rubocop:enable Rails/SkipsModelValidations
+
+        @current_location = new_location unless same_location?
         :ok
+      end
+    end
+
+    def timestamp_column_to_update
+      if same_location? && before_current?
+        :created_at
+      elsif same_location? && after_current?
+        :updated_at
+      elsif current_location && !same_location? && !before_current?
+        :deleted_at
       end
     end
 
@@ -75,6 +80,14 @@ module People
 
     def location_time
       @location_time ||= Time.zone.at(location[:time])
+    end
+
+    def before_current?
+      @before_current ||= current_location && location_time < current_location.created_at
+    end
+
+    def after_current?
+      @after_current ||= current_location && location_time > current_location.updated_at
     end
   end
 end
