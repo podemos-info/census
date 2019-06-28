@@ -3,12 +3,26 @@
 require "rails_helper"
 
 describe UpdateProcedureJob, type: :job do
-  subject(:job) { described_class.perform_now(procedure: procedure, admin: current_admin) }
+  subject(:job) do
+    described_class.perform_now(procedure: procedure,
+                                admin: current_admin,
+                                location: location)
+  end
+
+  let(:person) { procedure.person }
+  let(:person_location) { build(:person_location) }
+  let(:location) do
+    {
+      qualified_id: person.qualified_id,
+      user_agent: person_location.user_agent,
+      ip: person_location.ip,
+      time: Time.zone.now
+    }
+  end
 
   shared_examples_for "an update procedure job" do
     context "when everything works ok" do
       let(:procedure) { create(:registration) }
-      let(:person) { procedure.person }
 
       it "completes the job" do
         expect { subject } .to change { job_for(procedure)&.result } .from(nil).to("ok")
