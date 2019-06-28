@@ -583,6 +583,9 @@ es:
         issue: Abrir incidencia
         reject: Rechazar
         undo: Deshacer
+      comments:
+        auto_accepted: Procedimiento aceptado de manera automática.
+        discarded_person: Procedimiento descartado ya que la persona ha sido dada de baja.
       dependent_procedures: Procedimientos dependientes
       edit_person: Modificar datos
       fix_issues: Debes resolver las incidencias para poder procesar este procedimiento.

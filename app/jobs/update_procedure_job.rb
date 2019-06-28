@@ -11,15 +11,15 @@ class UpdateProcedureJob < ApplicationJob
     ].compact
   end
 
-  def perform(procedure:, admin:, location: {})
+  def perform(procedure:, admin:, location: nil)
     update_person_location(procedure, location) if location.present?
 
     update_issues(procedure, admin)
 
-    action = procedure_action(procedure)
-    return unless action
+    auto_process_params = procedure_auto_process_params(procedure)
+    return unless auto_process_params
 
-    auto_process(action, procedure, admin)
+    auto_process(auto_process_params, procedure, admin)
 
     update_related_procedures_issues(procedure, admin)
   end
@@ -27,7 +27,7 @@ class UpdateProcedureJob < ApplicationJob
   private
 
   def update_person_location(procedure, location)
-    People::UpdatePersonLocation.call(person: procedure.person, location: location) do
+    People::UpdatePersonLocation.call(form: People::PersonLocationForm.from_params(location)) do
       on(:ok) do |info|
         procedure.update(person_location_id: info[:current_location].id) if info[:current_location]
       end
@@ -40,10 +40,10 @@ class UpdateProcedureJob < ApplicationJob
     Issues::CheckIssues.call(issuable: procedure, admin: admin, &log_issues_message)
   end
 
-  def auto_process(action, procedure, admin)
+  def auto_process(auto_process_params, procedure, admin)
     form = Procedures::ProcessProcedureForm.from_params(procedure: procedure,
                                                         processed_by: admin,
-                                                        action: action)
+                                                        **auto_process_params)
 
     Procedures::ProcessProcedure.call(form: form, admin: admin) do
       on(:invalid) { log :user, key: "auto_process.invalid" }
@@ -57,13 +57,13 @@ class UpdateProcedureJob < ApplicationJob
     end
   end
 
-  def procedure_action(procedure)
+  def procedure_auto_process_params(procedure)
     return unless procedure.pending?
 
     if procedure.person.discarded?
-      "dismiss"
+      { action: "dismiss", comment: "discarded_person" }
     elsif procedure.auto_processable? && procedure.issues_summary == :ok
-      "accept"
+      { action: "accept", comment: "auto_accepted" }
     end
   end
 

@@ -54,6 +54,14 @@ class ProcedureDecorator < ApplicationDecorator
     h.link_to text || I18n.t("census.procedures.process"), h.procedure_path(object), class: "member_link"
   end
 
+  def comment
+    @comment ||= if object.comment.match(/^[a-z_]+$/)
+                   I18n.t("census.procedures.comments.#{object.comment}", default: object.comment)
+                 else
+                   object.comment
+                 end
+  end
+
   def route_key
     "procedures"
   end
