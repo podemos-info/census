@@ -3,14 +3,6 @@
 module People
   # A command to create a document verification procedure for a person.
   class CreateDocumentVerification < PersonCommand
-    # Public: Initializes the command.
-    # form - A form object with the params.
-    # admin - The admin user creating the document verification for the person.
-    def initialize(form:, admin: nil)
-      @form = form
-      @admin = admin
-    end
-
     # Executes the command. Broadcasts these events:
     #
     # - :ok when everything is valid.
@@ -25,7 +17,11 @@ module People
 
       broadcast result, document_verification: document_verification
 
-      ::UpdateProcedureJob.perform_later(procedure: document_verification, admin: admin) if result == :ok
+      if result == :ok
+        ::UpdateProcedureJob.perform_later(procedure: document_verification,
+                                           admin: admin,
+                                           location: location)
+      end
     end
 
     private

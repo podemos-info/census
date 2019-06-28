@@ -3,14 +3,6 @@
 module People
   # A command to create a change of membership for a person.
   class CreateMembershipLevelChange < PersonCommand
-    # Public: Initializes the command.
-    # form - A form object with the params.
-    # admin - The admin user creating the person.
-    def initialize(form:, admin: nil)
-      @form = form
-      @admin = admin
-    end
-
     # Executes the command. Broadcasts these events:
     #
     # - :ok when everything is valid.
@@ -26,7 +18,11 @@ module People
 
       broadcast result, membership_level_change: membership_level_change
 
-      ::UpdateProcedureJob.perform_later(procedure: membership_level_change, admin: admin) if result == :ok
+      if result == :ok
+        ::UpdateProcedureJob.perform_later(procedure: membership_level_change,
+                                           admin: admin,
+                                           location: location)
+      end
     end
 
     private

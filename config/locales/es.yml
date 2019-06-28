@@ -57,6 +57,7 @@ es:
       jobs: Tareas
       orders: Órdenes
       person: Persona
+      person_locations: Ubicaciones
       procedure: Procedimiento
       procedures: Procedimientos
       versions: Versiones
@@ -232,6 +233,13 @@ es:
         verification/verification_received: verificación recibida
         verification/verification_requested: verificación solicitada
         verification/verified: verificada
+      person_location:
+        created_at: Primer acceso
+        deleted_at: Siguiente ubicación
+        ip: Dirección IP
+        person: Persona
+        updated_at: Último acceso
+        user_agent: Navegador
       procedure:
         auto_processed?: Procesado automáticamente
         channel: Recibido a través de
@@ -320,6 +328,9 @@ es:
       person:
         one: Persona
         other: Personas
+      person_location:
+        one: Ubicación
+        other: Ubicaciones
       procedure:
         one: Procedimiento
         other: Procedimientos
@@ -550,6 +561,7 @@ es:
       start_phone_verification:
         sms_message: Tu código de activación es %{otp_code}
       view_downloads: Ver descargas
+      view_locations: Ver ubicaciones (%{count})
       view_orders: Ver órdenes (%{count})
       view_payment_methods: Ver métodos de pago (%{count})
       view_procedures: Ver procedimientos (%{count})
@@ -571,6 +583,9 @@ es:
         issue: Abrir incidencia
         reject: Rechazar
         undo: Deshacer
+      comments:
+        auto_accepted: Procedimiento aceptado de manera automática.
+        discarded_person: Procedimiento descartado ya que la persona ha sido dada de baja.
       dependent_procedures: Procedimientos dependientes
       edit_person: Modificar datos
       fix_issues: Debes resolver las incidencias para poder procesar este procedimiento.

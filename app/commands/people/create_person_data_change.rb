@@ -3,14 +3,6 @@
 module People
   # A command to create a person data change procedure.
   class CreatePersonDataChange < PersonCommand
-    # Public: Initializes the command.
-    # form - A form object with the params.
-    # admin - The admin user creating the person.
-    def initialize(form:, admin: nil)
-      @form = form
-      @admin = admin
-    end
-
     # Executes the command. Broadcasts these events:
     #
     # - :ok when everything is valid.
@@ -26,7 +18,11 @@ module People
 
       broadcast result, person_data_change: person_data_change
 
-      ::UpdateProcedureJob.perform_later(procedure: person_data_change, admin: admin) if result == :ok
+      if result == :ok
+        ::UpdateProcedureJob.perform_later(procedure: person_data_change,
+                                           admin: admin,
+                                           location: location)
+      end
     end
 
     private

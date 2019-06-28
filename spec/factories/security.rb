@@ -6,7 +6,7 @@ FactoryBot.define do
   end
 
   factory :admin do
-    person
+    person { create(:person) }
     username { generate(:username) }
     password { Faker::Internet.password }
     role { "system" }

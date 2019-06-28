@@ -47,7 +47,7 @@ FactoryBot.define do
     address { Faker::Address.street_address }
     postal_code { Faker::Address.zip_code }
     email { Faker::Internet.unique.email }
-    phone { "0034" + Faker::Number.number(9) }
+    phone { "003467" + Faker::Number.number(7) }
     created_at { Faker::Time.between(3.years.ago, 3.days.ago, :between) }
     scope { nil }
     document_scope { nil }
@@ -124,5 +124,13 @@ FactoryBot.define do
     association :person, factory: :person, strategy: :build
     expires_at { Faker::Date.between(1.day.from_now, 30.days.from_now) }
     file { test_file("attachment-non-image.pdf", "application/pdf") }
+  end
+
+  factory :person_location do
+    person { create(:person) }
+    ip { Faker::Internet.ip_v4_address }
+    user_agent { Faker::Internet.user_agent }
+    created_at { Faker::Date.between(1.day.from_now, 30.days.from_now) }
+    updated_at { Faker::Date.between(Time.zone.now, created_at) }
   end
 end

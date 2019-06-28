@@ -109,6 +109,7 @@ ActiveAdmin.register Person do
   sidebar :orders, partial: "people/orders", only: :show, if: -> { policy(Order).index? }
   sidebar :downloads, partial: "people/downloads", only: :show, if: -> { policy(Download).index? && person.downloads.any? }
   sidebar :versions, partial: "people/versions", only: :show, if: -> { policy(Version).index? && person.versions.any? }
+  sidebar :person_locations, partial: "people/locations", only: :show, if: -> { policy(PersonLocation).index? && person.person_locations.any? }
 
   controller do
     def form_resource

@@ -54,6 +54,14 @@ class ProcedureDecorator < ApplicationDecorator
     h.link_to text || I18n.t("census.procedures.process"), h.procedure_path(object), class: "member_link"
   end
 
+  def comment
+    @comment ||= if object.comment.match(/^[a-z_]+$/)
+                   I18n.t("census.procedures.comments.#{object.comment}", default: object.comment)
+                 else
+                   object.comment
+                 end
+  end
+
   def route_key
     "procedures"
   end
@@ -84,7 +92,7 @@ class ProcedureDecorator < ApplicationDecorator
     @after_person ||= if processed?
                         person.paper_trail.version_at(processed_at + 0.01.seconds, dup: true)&.decorate(context: context)
                       else
-                        object.deep_dup.tap(&:process_accept).person
+                        object.deep_dup.tap(&:process_accept).person&.decorate(context: context)
                       end
   end
 

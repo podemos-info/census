@@ -10,6 +10,18 @@ panel I18n.t("census.procedures.procedure") do
       row(:comment) if resource.comment.present?
     end
   end
+
+  if resource.person_location
+    panel resource.person_location.model_name.human do
+      attributes_table_for resource.person_location do
+        row :ip
+        row :user_agent
+        row :created_at
+        row :updated_at
+        row :deleted_at
+      end
+    end
+  end
 end
 
 if resource.dependent_procedures.any?

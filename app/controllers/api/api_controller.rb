@@ -30,7 +30,7 @@ module Api
     end
 
     def call_command(command_class, form)
-      command_class.call(form: form) do
+      command_class.call(form: form, location: location) do
         on(:invalid) do
           render json: form.errors.details, status: :unprocessable_entity
         end
@@ -49,6 +49,15 @@ module Api
 
     def qualified_id_param
       :person_id
+    end
+
+    def location
+      {
+        qualified_id: params[qualified_id_param],
+        user_agent: request.user_agent,
+        ip: request.headers["HTTP_USER_IP"],
+        time: Time.zone.now.to_f
+      }
     end
   end
 end

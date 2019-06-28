@@ -45,28 +45,11 @@ describe ProcedureDecorator do
         expect(subject.link("test")).to eq("test")
       end
     end
-  end
 
-  context "with a document verification" do
-    let(:person) { build(:person, first_name: "María", last_name1: "Pérez", last_name2: "García") }
-    let(:procedure) { create(:document_verification, person: person) }
-
-    it "returns the type name" do
-      expect(subject.type_name).to eq("Verificación de documento")
-    end
-
-    it "returns the type name and the id when retrieving name" do
-      expect(subject.name).to eq("Verificación de documento ##{procedure.id}")
-    end
-  end
-
-  context "when procedure is processed" do
-    let(:procedure) { build(:document_verification, :processed) }
-
-    it { expect(subject.processed_by).to be_decorated }
-
-    describe "#link" do
+    context "when procedure is processed" do
       let(:procedure) { create(:document_verification, :processed) }
+
+      it { expect(subject.processed_by).to be_decorated }
 
       it "returns the process link" do
         expect(subject.link).to eq("<a class=\"member_link\" href=\"/procedures/#{procedure.id}\">Ver</a>")
@@ -87,6 +70,34 @@ describe ProcedureDecorator do
           expect(subject.link("test")).to eq("test")
         end
       end
+    end
+  end
+
+  describe "#comment" do
+    subject { decorator.comment }
+
+    let(:procedure) { create(:document_verification, :processed, comment: comment) }
+    let(:comment) { "prueba" }
+
+    it { is_expected.to eq(comment) }
+
+    context "when procedure was auto processed" do
+      let(:comment) { "auto_accepted" }
+
+      it { is_expected.to eq("Procedimiento aceptado de manera automática.") }
+    end
+  end
+
+  context "with a document verification" do
+    let(:person) { build(:person, first_name: "María", last_name1: "Pérez", last_name2: "García") }
+    let(:procedure) { create(:document_verification, person: person) }
+
+    it "returns the type name" do
+      expect(subject.type_name).to eq("Verificación de documento")
+    end
+
+    it "returns the type name and the id when retrieving name" do
+      expect(subject.name).to eq("Verificación de documento ##{procedure.id}")
     end
   end
 

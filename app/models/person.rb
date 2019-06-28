@@ -23,6 +23,7 @@ class Person < ApplicationRecord
   has_many :orders, dependent: :restrict_with_exception
   has_many :payment_methods, dependent: :restrict_with_exception
   has_many :downloads, dependent: :restrict_with_exception
+  has_many :person_locations, dependent: :restrict_with_exception
 
   enum document_type: [:dni, :nie, :passport], _suffix: true
   enum gender: [:female, :male, :other, :undisclosed], _suffix: true

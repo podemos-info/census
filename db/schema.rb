@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_11_125040) do
+ActiveRecord::Schema.define(version: 2019_06_26_160031) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -239,6 +239,16 @@ ActiveRecord::Schema.define(version: 2019_06_11_125040) do
     t.index ["scope_id"], name: "index_people_on_scope_id"
   end
 
+  create_table "person_locations", force: :cascade do |t|
+    t.bigint "person_id", null: false
+    t.string "ip"
+    t.text "user_agent"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["person_id"], name: "index_person_locations_on_person_id"
+  end
+
   create_table "procedures", force: :cascade do |t|
     t.bigint "person_id"
     t.string "type", null: false
@@ -250,8 +260,10 @@ ActiveRecord::Schema.define(version: 2019_06_11_125040) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "depends_on_id"
+    t.bigint "person_location_id"
     t.index ["depends_on_id"], name: "index_procedures_on_depends_on_id"
     t.index ["person_id"], name: "index_procedures_on_person_id"
+    t.index ["person_location_id"], name: "index_procedures_on_person_location_id"
     t.index ["processed_by_id"], name: "index_procedures_on_processed_by_id"
   end
 
