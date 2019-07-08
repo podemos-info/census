@@ -13,12 +13,13 @@ describe UpdateProcedureJob, type: :job do
   let(:person_location) { build(:person_location) }
   let(:location) do
     {
-      qualified_id: person.qualified_id,
+      qualified_id: qualified_id,
       user_agent: person_location.user_agent,
       ip: person_location.ip,
       time: Time.zone.now
     }
   end
+  let(:qualified_id) { person.qualified_id }
 
   shared_examples_for "an update procedure job" do
     context "when everything works ok" do
@@ -31,6 +32,8 @@ describe UpdateProcedureJob, type: :job do
       it "accepts the new person" do
         expect { subject }.to change { person.reload.state }.from("pending").to("enabled")
       end
+
+      it_behaves_like "processes the new person location"
     end
 
     context "when a person with an open issue is cancelled" do
@@ -54,6 +57,8 @@ describe UpdateProcedureJob, type: :job do
       it "keeps the issue related objects before fixing it" do
         expect { subject } .not_to change { open_issue.reload.person_ids.sort }
       end
+
+      it_behaves_like "processes the new person location"
     end
 
     context "when a person related to an open issue is cancelled" do
@@ -78,6 +83,42 @@ describe UpdateProcedureJob, type: :job do
       it "keeps the issue related objects before fixing it" do
         expect { subject } .not_to change { open_issue.reload.person_ids.sort }
       end
+
+      it_behaves_like "processes the new person location"
+    end
+
+    context "with an invalid location" do
+      let(:procedure) { create(:registration) }
+      let(:qualified_id) { person.id }
+
+      it "completes the job" do
+        expect { subject } .to change { job_for(procedure)&.result } .from(nil).to("ok")
+      end
+
+      it "accepts the new person" do
+        expect { subject }.to change { person.reload.state }.from("pending").to("enabled")
+      end
+
+      it_behaves_like "processes an invalid person location"
+    end
+
+    context "with no location" do
+      let(:procedure) { create(:registration) }
+      let(:location) { nil }
+
+      it "completes the job" do
+        expect { subject } .to change { job_for(procedure)&.result } .from(nil).to("ok")
+      end
+
+      it "accepts the new person" do
+        expect { subject }.to change { person.reload.state }.from("pending").to("enabled")
+      end
+
+      it "doesn't store the person location" do
+        expect { subject }.not_to change { person.person_locations.count }
+      end
+
+      it_behaves_like "doesn't receive a person location"
     end
   end
 

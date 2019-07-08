@@ -53,7 +53,7 @@ module Api
 
     def location
       {
-        qualified_id: params[qualified_id_param],
+        qualified_id: person&.qualified_id,
         user_agent: request.user_agent,
         ip: request.headers["HTTP_USER_IP"],
         time: Time.zone.now.to_f

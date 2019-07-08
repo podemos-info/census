@@ -18,6 +18,7 @@ module People
       broadcast result, registration: registration, person: person
 
       if result == :ok
+        location[:qualified_id] = person.qualified_id
         ::UpdateProcedureJob.perform_later(procedure: registration,
                                            admin: admin,
                                            location: location)
