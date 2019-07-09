@@ -1,0 +1,110 @@
+---
+
+version: 2
+
+jobs:
+  main:
+    docker:
+      - image: circleci/ruby:2.5.1-node
+        environment:
+          DATABASE_USERNAME: postgres
+
+      - image: postgres
+        environment:
+          POSTGRES_USER: postgres
+
+      - image: rabbitmq:3.7.16
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - bundler-dependencies-{{ .Environment.BUNDLER_CACHE_INFIX }}-{{ checksum "Gemfile.lock" }}
+
+      - run:
+          name: Install dependencies
+          command: bundle install --path /home/circleci/project/vendor/bundle
+
+      - save_cache:
+          key: bundler-dependencies-{{ .Environment.BUNDLER_CACHE_INFIX }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      - run:
+          name: Create and migrate DB
+          command: bin/rails db:create db:migrate
+
+      - run:
+          name: Run brakeman
+          command: bundle exec brakeman
+
+      - run:
+          name: Check i18n files
+          command: bundle exec i18n-tasks health
+
+      - run:
+          name: Run rubocop
+          command: bin/rubocop -c .rubocop.yml
+
+      - run:
+          name: Run tests
+          command: SIMPLECOV=true bin/rspec
+
+      - run:
+          name: Download Code Climate test-reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-0.6.3-linux-amd64 > /tmp/cc-test-reporter
+            chmod +x /tmp/cc-test-reporter
+
+      - run:
+          name: Generate code coverage report
+          command: /tmp/cc-test-reporter format-coverage --output /tmp/codeclimate.json
+
+      - run:
+          name: Upload coverage results to Code Climate
+          command: /tmp/cc-test-reporter upload-coverage --input /tmp/codeclimate.json
+
+      - store_artifacts:
+          path: /root/project/tmp/screenshots
+
+  deploy:
+    docker:
+      - image: circleci/ruby:2.5.1
+
+    steps:
+      - checkout
+
+      - attach_workspace:
+          at: /tmp
+
+      - restore_cache:
+          keys:
+            - bundler-dependencies-{{ .Environment.BUNDLER_CACHE_INFIX }}-{{ checksum "Gemfile.lock" }}
+
+      - run:
+          name: Install dependencies
+          command: bundle install --path /home/circleci/project/vendor/bundle
+
+      - save_cache:
+          key: bundler-dependencies-{{ .Environment.BUNDLER_CACHE_INFIX }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      - add_ssh_keys:
+          fingerprints:
+            - "43:69:49:83:52:61:1b:5c:e4:2c:3c:2b:ea:7b:8f:32"
+
+      - deploy:
+          command: bin/deploy-staging.sh
+
+workflows:
+  version: 2
+
+  test_and_deploy:
+    jobs:
+      - main
+
+      - deploy:
+          requires:
+            - main
