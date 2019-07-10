@@ -464,6 +464,9 @@ es:
           processor_completed: Órdenes para el sistema de cobro procesadas por completo
           processor_error: Ha ocurrido un error durante el procesamiento de las órdenes para el sistema de cobro
           unprocessable_order: Orden no procesada
+        update_person_location:
+          error: Ha ocurrido un error durante la actualización de la ubicación de la persona
+          invalid: La información de la ubicación de la persona es incorrecta
       messages: Registro de actividad
       result:
         error: Con errores de procesamiento

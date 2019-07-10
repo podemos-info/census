@@ -1,8 +1,17 @@
 # Census
 
-[![Travis](https://travis-ci.org/podemos-info/census.svg?branch=master)](https://travis-ci.org/podemos-info/census)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/073f81918e3636dbc15a/test_coverage)](https://codeclimate.com/github/podemos-info/census/test_coverage)
-[![Maintainability](https://api.codeclimate.com/v1/badges/073f81918e3636dbc15a/maintainability)](https://codeclimate.com/github/podemos-info/census/maintainability)
+[![Build][build]][build_url]
+[![Coverage][coverage]][coverage_url]
+[![Maintainability][maintainability]][maintainability_url]
+
+[build]: https://circleci.com/gh/podemos-info/census/tree/master.svg?style=svg
+[build_url]: https://circleci.com/gh/podemos-info/census/tree/master
+
+[coverage]: https://api.codeclimate.com/v1/badges/073f81918e3636dbc15a/test_coverage
+[coverage_url]: https://codeclimate.com/github/podemos-info/census/test_coverage
+
+[maintainability]: https://api.codeclimate.com/v1/badges/073f81918e3636dbc15a/maintainability
+[maintainability_url]: https://codeclimate.com/github/podemos-info/census/maintainability
 
 Census is an open source census management application. It is aimed to store people and payments data securely. It was created to be used within [Decidim](https://github.com/decidim/decidim), but it could be integrated with any other application. Currently, it can't be used as a standalone application, since it has no UI for end user operations.
 
