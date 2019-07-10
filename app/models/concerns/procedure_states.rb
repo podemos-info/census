@@ -39,8 +39,12 @@ module ProcedureStates
       processed? && processed_by.nil?
     end
 
+    def undo_minutes
+      @undo_minutes ||= Settings.procedures.undo_minutes.minutes
+    end
+
     def undoable?
-      processed_at && processed_at > Settings.procedures.undo_minutes.minutes.ago && undo_version.present?
+      processed_at && processed_at > undo_minutes.ago && undo_version.present?
     end
 
     def undoable_by?(processor)
