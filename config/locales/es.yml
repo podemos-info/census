@@ -370,9 +370,6 @@ es:
       view_visits: Ver actividad
     downloads:
       download: Descargar
-    fast_filter:
-      placeholder: Búsqueda rápida
-      update_results: Presiona %{icon} para actualizar
     events:
       action:
         cancellation: Dar de baja
@@ -397,6 +394,9 @@ es:
       type:
         page_view: "%{action} %{controller}"
         security_report: Informe de seguridad
+    fast_filter:
+      placeholder: Búsqueda rápida
+      update_results: Presiona %{icon} para actualizar
     issues:
       action_message:
         already_closed: La incidencia ya está resuelta
