@@ -59,7 +59,7 @@ body.index #sidebar {
 }
 
 body.index.with_filters #sidebar::before {
-  color: $error-color;
+  color: $success-color;
 }
 
 .scopes {
