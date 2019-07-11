@@ -29,7 +29,10 @@ module Procedures
     private
 
     def send_affiliation_change_email
-      PeopleMailer.unaffiliated(person).deliver_later(wait: undo_minutes) if person.member?
+      if person.member?
+        PeopleMailer.with(person: person)
+                    .unaffiliated.deliver_later(wait: undo_minutes)
+      end
     end
   end
 end
