@@ -369,6 +369,9 @@ es:
       view_visits: Ver actividad
     downloads:
       download: Descargar
+    fast_filter:
+      placeholder: Búsqueda rápida
+      update_results: Presiona %{icon} para actualizar
     events:
       action:
         cancellation: Dar de baja

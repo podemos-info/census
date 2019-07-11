@@ -4,3 +4,4 @@
 //= require jquery-ui/i18n/datepicker-es
 //= require data_picker
 //= require header
+//= require fast_filter
