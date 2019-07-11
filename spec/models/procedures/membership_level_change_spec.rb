@@ -17,6 +17,10 @@ describe Procedures::MembershipLevelChange, :db do
     it "changes person membership level" do
       expect { subject } .to change { Person.find(person.id).membership_level } .from("follower").to("member")
     end
+    it "sends an email to the person" do
+      subject
+      expect(ActionMailer::Parameterized::DeliveryJob).to have_been_enqueued.on_queue("mailers")
+    end
 
     it_behaves_like "an event notifiable with hutch" do
       let(:publish_notification) do
@@ -38,6 +42,11 @@ describe Procedures::MembershipLevelChange, :db do
 
     it "rejection does not changes person membership level" do
       expect { subject } .not_to change { Person.find(person.id).membership_level }
+    end
+
+    it "doesn't sends an email to the person" do
+      subject
+      expect(ActionMailer::Parameterized::DeliveryJob).not_to have_been_enqueued.on_queue("mailers")
     end
 
     it_behaves_like "an event not notifiable with hutch"

@@ -3,9 +3,9 @@
 require "rails_helper"
 
 describe Procedures::Cancellation, :db do
-  subject(:procedure) { create(:cancellation, :ready_to_process) }
+  subject(:procedure) { create(:cancellation, :ready_to_process, person: person) }
 
-  let(:person) { procedure.person }
+  let(:person) { create(:person, :member) }
 
   it { is_expected.to be_valid }
   it { is_expected.to be_acceptable }
@@ -20,6 +20,10 @@ describe Procedures::Cancellation, :db do
     it "destroys the person" do
       expect { subject } .to change(person, :discarded_at).from(nil)
     end
+    it "sends an email to the person" do
+      subject
+      expect(ActionMailer::Parameterized::DeliveryJob).to have_been_enqueued.on_queue("mailers")
+    end
 
     it_behaves_like "an event notifiable with hutch" do
       let(:publish_notification) do
@@ -32,6 +36,15 @@ describe Procedures::Cancellation, :db do
         ]
       end
     end
+
+    context "when person wasn't a member" do
+      let(:person) { create(:person) }
+
+      it "sends an email to the person" do
+        subject
+        expect(ActionMailer::Parameterized::DeliveryJob).not_to have_been_enqueued.on_queue("mailers")
+      end
+    end
   end
 
   context "when rejected" do
@@ -40,6 +53,10 @@ describe Procedures::Cancellation, :db do
     end
     it "doesn't destroy the person" do
       expect { procedure.reject! } .not_to change(person, :discarded_at)
+    end
+    it "doesn't sends an email to the person" do
+      subject
+      expect(ActionMailer::Parameterized::DeliveryJob).not_to have_been_enqueued.on_queue("mailers")
     end
 
     it_behaves_like "an event not notifiable with hutch"
