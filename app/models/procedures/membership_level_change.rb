@@ -24,6 +24,19 @@ module Procedures
 
       person.save!
       ::People::ChangesPublisher.full_status_changed!(person)
+      send_affiliation_change_email
+    end
+
+    private
+
+    def send_affiliation_change_email
+      if person.member?
+        PeopleMailer.with(person: person)
+                    .affiliated.deliver_later(wait: undo_minutes)
+      else
+        PeopleMailer.with(person: person)
+                    .unaffiliated.deliver_later(wait: undo_minutes)
+      end
     end
   end
 end

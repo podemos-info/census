@@ -649,3 +649,10 @@ es:
       update_of_list: Actualización de %{list} en %{model}
       update_of_number: Actualización de %{number} valores en %{model}
     unknown_author: "-"
+  people_mailer:
+    affiliated:
+      content: Hola %{name}, te has afiliado a Podemos.
+      subject: Afiliación a Podemos
+    unaffiliated:
+      content: Hola %{name}, has dado de baja tu afiliación a Podemos.
+      subject: Baja de la afiliación a Podemos

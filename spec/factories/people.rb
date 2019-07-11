@@ -99,6 +99,11 @@ FactoryBot.define do
       verification { :verified }
     end
 
+    trait :member do
+      verification { :verified }
+      membership_level { :member }
+    end
+
     trait :phone_verified do
       phone_verification { :verified }
     end

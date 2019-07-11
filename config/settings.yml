@@ -64,6 +64,8 @@ procedures:
     - membership_level_change
     - person_data_change
     - registration
+  emails:
+    from: <%= ENV["EMAILS_FROM"] %>
   undo_minutes: 30
   untrusted_email:
     domains_blacklist:
