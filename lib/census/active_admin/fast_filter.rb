@@ -36,7 +36,7 @@ ActiveAdmin::Views::TitleBar.class_eval do
         div id: "searchbox" do
           span icon(:fas, :search, id: "searchicon")
           input type: :text, id: "searchinput", name: :ff, placeholder: I18n.t("census.fast_filter.placeholder"), value: params[:ff], "data-value" => params[:ff]
-          para I18n.t("census.fast_filter.update_results", icon: icon(:fas, "level-down-alt", class: "rotate90")).html_safe, class: 'tip'
+          para I18n.t("census.fast_filter.update_results", icon: icon(:fas, "level-down-alt", class: "rotate90")).html_safe, class: "tip"
         end
       end
     end
