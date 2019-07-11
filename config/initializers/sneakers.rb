@@ -10,7 +10,7 @@ Dir.glob(File.expand_path("app/jobs/*_job.rb", Rails.root)).each do |job_file|
   require job_file
 end
 
-queues = ApplicationJob.descendants.map(&:queue_name).uniq
+queues = ApplicationJob.descendants.map(&:queue_name).uniq + %w(mailers)
 
 queues.each do |queue_name|
   Object.const_set("#{queue_name}_worker".classify, Class.new(ActiveJob::QueueAdapters::SneakersAdapter::JobWrapper) do
