@@ -251,6 +251,7 @@ es:
         processed_at: Fecha de procesado
         processed_by: Procesado por
         reason: Razones
+        scope: Lugar de participación
         state: Estado
         state/accepted: Aceptado
         state/dismissed: Descartado

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Procedure < ApplicationRecord
-  include ProcedureStates
   include Issuable
+  include ProcedureStates
 
   self.inheritance_column = :type
 
@@ -12,8 +12,9 @@ class Procedure < ApplicationRecord
   belongs_to :person_location, optional: true
 
   has_paper_trail versions: { class_name: "Version" }
-  has_many :versions, as: :item, dependent: :destroy, inverse_of: :item
 
+  has_one :scope, through: :person
+  has_many :versions, as: :item, dependent: :destroy, inverse_of: :item
   has_many :dependent_procedures,
            foreign_key: "depends_on_id",
            class_name: "Procedure",
@@ -27,6 +28,8 @@ class Procedure < ApplicationRecord
   validates :processed_at, presence: true, if: :processed?
   validate :processed_by, :processed_by_different_from_person
   validate :depends_on, :depends_on_person
+
+  include FastFilter
 
   def process_reject; end
 

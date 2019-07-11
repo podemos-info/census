@@ -40,6 +40,9 @@ ActiveAdmin.register Procedure do
       procedure.link(procedure.type_name)
     end
     column :person, class: :left, sortable: :full_name
+    column :scope, sortable: :scope, class: :left do |procedure|
+      procedure.person.scope&.local_path
+    end
     state_column :state
     bool_column :auto_processed?
     column :created_at
