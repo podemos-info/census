@@ -6,6 +6,7 @@ require "faker"
 require "timecop"
 
 require "shared/ahoy"
+require "shared/fast_filter"
 require "shared/login"
 require "shared/has_comments_enabled"
 require "shared/hutch_notifications"

@@ -11,7 +11,7 @@ describe PeopleController, type: :controller do
   let(:resource_class) { Person }
   let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
   let(:resource) { all_resources[resource_class] }
-  let(:person) { create(:person) }
+  let(:person) { create(:person, first_name: "Miguel", last_name1: "Serveto", last_name2: "Conesa") }
   let(:person_location) { create(:person_location, person: person) }
   let(:issue) { create(:duplicated_document) } # creates a pending person with a procedure and an issue
   let(:current_admin) { create(:admin, :data) }
@@ -37,6 +37,11 @@ describe PeopleController, type: :controller do
     it { is_expected.to render_template("index") }
 
     include_examples "tracks the user visit"
+
+    it_behaves_like "a controller that allows fast filter" do
+      let(:fast_filter) { "Miguel Servet" }
+      let(:result) { "Serveto Conesa, Miguel" }
+    end
 
     context "when filtered by pending people" do
       let(:params) { { scope: "pending" } }

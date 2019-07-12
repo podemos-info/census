@@ -6,3 +6,9 @@
     }
   }
 }
+
+@media screen and (max-width: $lg-width) {
+  #title_bar {
+    margin-right: 0px !important;
+  }
+}

@@ -28,16 +28,24 @@ describe ProceduresController, type: :controller do
 
   with_versioning do
     describe "index page" do
-      subject { get :index }
+      subject { get :index, params: params }
+
+      let(:params) { {} }
 
       it { expect(subject).to be_successful }
       it { expect(subject).to render_template("index") }
 
       include_examples "tracks the user visit"
 
-      context "with accepted tab" do
-        subject { get :index, params: { scope: :accepted } }
+      it_behaves_like "a controller that allows fast filter" do
+        let(:procedure) { create(:registration, person: person, person_copy_data: person) }
+        let(:person) { create(:person, first_name: "Miguel", last_name1: "Serveto", last_name2: "Conesa") }
+        let(:fast_filter) { "Miguel Servet" }
+        let(:result) { "Serveto Conesa, Miguel" }
+      end
 
+      context "with accepted tab" do
+        let(:params) { { scope: :accepted } }
         let(:current_admin) { procedure.processed_by }
         let(:procedure) { create(:document_verification, :undoable) }
 

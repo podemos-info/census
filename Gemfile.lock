@@ -361,6 +361,9 @@ GEM
     parser (2.6.3.0)
       ast (~> 2.4.0)
     pg (0.21.0)
+    pg_search (2.2.0)
+      activerecord (>= 4.2)
+      activesupport (>= 4.2)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -612,6 +615,7 @@ DEPENDENCIES
   paper_trail
   paper_trail-globalid!
   pg (~> 0.18)
+  pg_search
   pry-rails
   puma
   pundit

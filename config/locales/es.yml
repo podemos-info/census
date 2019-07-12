@@ -251,6 +251,7 @@ es:
         processed_at: Fecha de procesado
         processed_by: Procesado por
         reason: Razones
+        scope: Lugar de participación
         state: Estado
         state/accepted: Aceptado
         state/dismissed: Descartado
@@ -393,6 +394,9 @@ es:
       type:
         page_view: "%{action} %{controller}"
         security_report: Informe de seguridad
+    fast_filter:
+      placeholder: Búsqueda rápida
+      update_results: Presiona %{icon} para actualizar
     issues:
       action_message:
         already_closed: La incidencia ya está resuelta
