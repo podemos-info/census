@@ -81,4 +81,15 @@ describe Person, :db do
       it { is_expected.to be_nil }
     end
   end
+
+  it_behaves_like(
+    "a model that allows fast filter",
+    first_name: ->(person) { person.first_name },
+    last_names: ->(person) { [person.last_name1, person.last_name2].join(" ") },
+    document: ->(person) { person.document_id },
+    phone_number: ->(person) { person.phone },
+    phone_number_begining: ->(person) { person.phone[0..6] }
+  ) do
+    let(:resource) { create(:person) }
+  end
 end
