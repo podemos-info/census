@@ -27,6 +27,10 @@ module Procedures
       send_affiliation_change_email
     end
 
+    def fast_filter_contents
+      [to_membership_level] + super
+    end
+
     private
 
     def send_affiliation_change_email

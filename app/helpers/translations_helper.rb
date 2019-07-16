@@ -10,6 +10,6 @@ module TranslationsHelper
   #
   # Returns a String with the translation.
   def translated_attribute(attribute)
-    attribute.try(:[], I18n.locale.to_s) || ""
+    attribute.try(:[], I18n.locale.to_s) || attribute.try(:[], Settings.regional.locales.default) || ""
   end
 end

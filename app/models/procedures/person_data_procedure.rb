@@ -15,6 +15,10 @@ module Procedures
       @born_at ||= person_data_object.born_at&.to_date
     end
 
+    def fast_filter_contents
+      person_data.values + super
+    end
+
     protected
 
     def person_data_object

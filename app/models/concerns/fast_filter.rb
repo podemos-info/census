@@ -3,50 +3,43 @@
 module FastFilter
   extend ActiveSupport::Concern
 
-  class_methods do
-    FILTERABLE_ATTRIBUTES = {
-      person: [:first_name, :last_name1, :last_name2, :document_id, :born_at, :postal_code, :email, :phone],
-      procedure: [:information],
-      scope: [:name, :code]
-    }.freeze
-
-    def against_attributes
-      FILTERABLE_ATTRIBUTES[name.downcase.to_sym]
-    end
-
-    def associated_against_attributes(parents = 5)
-      ret = {}
-
-      FILTERABLE_ATTRIBUTES.each do |key, attributes|
-        ret[key] = attributes if instance_methods.include?(key)
-      end
-
-      if instance_methods.include?(:scope)
-        has_one :scope_parent1, through: :scope, source: :parent, class_name: "Scope"
-        (2..parents).each do |i|
-          has_one :"scope_parent#{i}", through: :"scope_parent#{i - 1}", source: :parent, class_name: "Scope"
-        end
-
-        (1..parents).map { |i| :"scope_parent#{i}" }.each do |key|
-          ret[key] = FILTERABLE_ATTRIBUTES[:scope]
-        end
-      end
-
-      ret
-    end
-  end
+  WORDS_SEPARATOR = %r{(?:[[:alnum:]]+)(?:[.\-\/@]*[[:alnum:]]+)*}.freeze
 
   included do
-    include PgSearch
+    include PgSearch::Model
 
     pg_search_scope :fast_filter,
                     using: {
                       tsearch: {
+                        tsvector_column: "fast_filter",
                         prefix: true,
                         dictionary: "simple"
                       }
                     },
-                    against: against_attributes,
-                    associated_against: associated_against_attributes
+                    against: :fast_filter
+
+    before_save :calculate_fast_filter
+  end
+
+  def calculate_fast_filter
+    self.fast_filter = fast_filter_tsvector
+  end
+
+  private
+
+  def fast_filter_tsvector
+    words = {}
+    fast_filter_contents.compact
+                        .map { |content| split_content(content) }
+                        .flatten
+                        .each_with_index do |word, index|
+      words[word] ||= []
+      words[word] << (index + 1)
+    end
+    words.map { |word, indexes| "'#{word}':#{indexes.join(",")}" } .sort.join(" ")
+  end
+
+  def split_content(content)
+    content.to_s.downcase.scan(WORDS_SEPARATOR).select(&:present?)
   end
 end

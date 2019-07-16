@@ -21,7 +21,7 @@ ActiveAdmin::Views::TitleBar.class_eval do
 
   def build_titlebar_left
     old_build_titlebar_left
-    build_fast_filter
+    build_fast_filter if index?
   end
 
   def build_fast_filter
@@ -49,5 +49,9 @@ ActiveAdmin::Views::TitleBar.class_eval do
       input type: :text, id: "searchinput", name: :ff, placeholder: I18n.t("census.fast_filter.placeholder"), value: params[:ff], "data-value" => params[:ff]
       para I18n.t("census.fast_filter.update_results", icon: icon(:fas, "level-down-alt", class: "rotate90")).html_safe, class: "tip"
     end
+  end
+
+  def index?
+    controller.action_name == "index"
   end
 end
