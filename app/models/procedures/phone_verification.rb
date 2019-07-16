@@ -33,5 +33,9 @@ module Procedures
       ret << Issues::People::UntrustedPhone if phone.present?
       ret
     end
+
+    def fast_filter_contents
+      [phone] + super
+    end
   end
 end

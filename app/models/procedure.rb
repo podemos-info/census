@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Procedure < ApplicationRecord
+  include FastFilter
   include Issuable
   include ProcedureStates
 
@@ -11,9 +12,8 @@ class Procedure < ApplicationRecord
   belongs_to :depends_on, class_name: "Procedure", optional: true
   belongs_to :person_location, optional: true
 
-  has_paper_trail versions: { class_name: "Version" }
+  has_paper_trail versions: { class_name: "Version" }, skip: [:fast_filter]
 
-  has_one :scope, through: :person
   has_many :versions, as: :item, dependent: :destroy, inverse_of: :item
   has_many :dependent_procedures,
            foreign_key: "depends_on_id",
@@ -28,8 +28,6 @@ class Procedure < ApplicationRecord
   validates :processed_at, presence: true, if: :processed?
   validate :processed_by, :processed_by_different_from_person
   validate :depends_on, :depends_on_person
-
-  include FastFilter
 
   def process_reject; end
 
@@ -64,6 +62,10 @@ class Procedure < ApplicationRecord
 
   def self.policy_class
     ProcedurePolicy
+  end
+
+  def fast_filter_contents
+    person.fast_filter_contents
   end
 
   private

@@ -5,13 +5,14 @@ class Person < ApplicationRecord
   include Discard::Model
 
   include ExternalSystems
+  include FastFilter
   include Issuable
   include PersonMembershipLevels
   include PersonPhoneVerifications
   include PersonStates
   include PersonVerifications
 
-  has_paper_trail versions: { class_name: "Version" }
+  has_paper_trail versions: { class_name: "Version" }, skip: [:fast_filter]
 
   belongs_to :document_scope, class_name: "Scope", optional: true
   belongs_to :address_scope, class_name: "Scope", optional: true
@@ -28,5 +29,18 @@ class Person < ApplicationRecord
   enum document_type: [:dni, :nie, :passport], _suffix: true
   enum gender: [:female, :male, :other, :undisclosed], _suffix: true
 
-  include FastFilter
+  def fast_filter_contents
+    [
+      first_name,
+      last_name1,
+      last_name2,
+      document_id,
+      born_at.to_s(:db),
+      postal_code,
+      email,
+      phone,
+      scope.code,
+      *scope.part_of_scopes.map { |s| s.name.values } .flatten.uniq
+    ]
+  end
 end
