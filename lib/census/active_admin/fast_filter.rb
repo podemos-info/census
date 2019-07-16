@@ -21,7 +21,7 @@ ActiveAdmin::Views::TitleBar.class_eval do
 
   def build_titlebar_left
     old_build_titlebar_left
-    build_fast_filter if is_index?
+    build_fast_filter if index?
   end
 
   def build_fast_filter
@@ -51,7 +51,7 @@ ActiveAdmin::Views::TitleBar.class_eval do
     end
   end
 
-  def is_index?
+  def index?
     controller.action_name == "index"
   end
 end

@@ -64,9 +64,7 @@ class Procedure < ApplicationRecord
     ProcedurePolicy
   end
 
-  def fast_filter_contents
-    person.fast_filter_contents
-  end
+  delegate :fast_filter_contents, to: :person
 
   private
 
