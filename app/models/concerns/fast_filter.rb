@@ -6,7 +6,7 @@ module FastFilter
   WORDS_SEPARATOR = %r{(?:[[:alnum:]]+)(?:[.\-\/@]*[[:alnum:]]+)*}.freeze
 
   included do
-    include PgSearch
+    include PgSearch::Model
 
     pg_search_scope :fast_filter,
                     using: {
@@ -29,7 +29,10 @@ module FastFilter
 
   def fast_filter_tsvector
     words = {}
-    fast_filter_contents.map { |content| split_content(content) }.flatten.each_with_index do |word, index|
+    fast_filter_contents.compact
+                        .map { |content| split_content(content) }
+                        .flatten
+                        .each_with_index do |word, index|
       words[word] ||= []
       words[word] << (index + 1)
     end
@@ -37,6 +40,6 @@ module FastFilter
   end
 
   def split_content(content)
-    content.to_s.downcase.scan(WORDS_SEPARATOR)
+    content.to_s.downcase.scan(WORDS_SEPARATOR).select(&:present?)
   end
 end

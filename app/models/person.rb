@@ -35,12 +35,19 @@ class Person < ApplicationRecord
       last_name1,
       last_name2,
       document_id,
-      born_at.to_s(:db),
+      born_at&.to_s(:db),
       postal_code,
       email,
       phone,
-      scope.code,
-      *scope.part_of_scopes.map { |s| s.name.values } .flatten.uniq
-    ]
+      scope&.code
+    ] + scope_names
+  end
+
+  private
+
+  def scope_names
+    return [] unless scope
+
+    scope.part_of_scopes.map { |s| s.name.values } .flatten.uniq
   end
 end
