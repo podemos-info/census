@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_26_160031) do
+ActiveRecord::Schema.define(version: 2019_07_16_074138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -233,9 +233,11 @@ ActiveRecord::Schema.define(version: 2019_06_26_160031) do
     t.integer "membership_level", null: false
     t.integer "phone_verification"
     t.jsonb "additional_information", default: {}, null: false
+    t.tsvector "fast_filter"
     t.index ["address_scope_id"], name: "index_people_on_address_scope_id"
     t.index ["document_scope_id"], name: "index_people_on_document_scope_id"
     t.index ["external_ids"], name: "index_people_on_external_ids", opclass: :jsonb_path_ops, using: :gin
+    t.index ["fast_filter"], name: "index_people_on_fast_filter", using: :gin
     t.index ["scope_id"], name: "index_people_on_scope_id"
   end
 
@@ -261,7 +263,9 @@ ActiveRecord::Schema.define(version: 2019_06_26_160031) do
     t.datetime "updated_at", null: false
     t.bigint "depends_on_id"
     t.bigint "person_location_id"
+    t.tsvector "fast_filter"
     t.index ["depends_on_id"], name: "index_procedures_on_depends_on_id"
+    t.index ["fast_filter"], name: "index_procedures_on_fast_filter", using: :gin
     t.index ["person_id"], name: "index_procedures_on_person_id"
     t.index ["person_location_id"], name: "index_procedures_on_person_location_id"
     t.index ["processed_by_id"], name: "index_procedures_on_processed_by_id"
