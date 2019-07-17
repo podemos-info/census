@@ -8,7 +8,7 @@ namespace :census do
         resource.calculate_fast_filter
 
         # rubocop:disable Rails/SkipsModelValidations
-        resource.update_column(:fast_filter, pp.fast_filter) if resource.has_changes_to_save?
+        resource.update_column(:fast_filter, resource.fast_filter) if resource.has_changes_to_save?
         # rubocop:enable Rails/SkipsModelValidations
       end
     end
