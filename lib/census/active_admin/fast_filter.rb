@@ -47,7 +47,12 @@ ActiveAdmin::Views::TitleBar.class_eval do
     div id: "searchbox" do
       span icon(:fas, :search, id: "searchicon")
       input type: :text, id: "searchinput", name: :ff, placeholder: I18n.t("census.fast_filter.placeholder"), value: params[:ff], "data-value" => params[:ff]
-      para I18n.t("census.fast_filter.update_results", icon: icon(:fas, "level-down-alt", class: "rotate90")).html_safe, class: "tip"
+      button class: "tip" do
+        span I18n.t("census.fast_filter.update_results", icon: icon(:fas, "level-down-alt", class: "rotate90")).html_safe
+      end
+      a href: clear_querystring, class: "clear" do
+        icon(:fas, :times, id: "close")
+      end
     end
   end
 
@@ -66,4 +71,10 @@ ActiveAdmin::Views::TitleBar.class_eval do
                                   end
   end
 
+  def clear_querystring
+    @clear_querystring ||= flat_query_string.to_h
+                                            .except("ff")
+                                            .to_query
+                                            .prepend("?")
+  end
 end
