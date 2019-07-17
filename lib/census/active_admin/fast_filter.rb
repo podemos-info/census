@@ -5,14 +5,14 @@ InheritedResources::BaseHelpers.module_eval do
 
   def end_of_association_chain
     if fast_filterable? && params[:ff].present?
-      old_end_of_association_chain.fast_filter(params[:ff])
+      old_end_of_association_chain.apply_fast_filter(params[:ff])
     else
       old_end_of_association_chain
     end
   end
 
   def fast_filterable?
-    resource_class.respond_to?(:fast_filter)
+    resource_class.respond_to?(:apply_fast_filter)
   end
 end
 

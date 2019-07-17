@@ -35,7 +35,7 @@ class Person < ApplicationRecord
       last_name1,
       last_name2,
       document_id,
-      born_at&.to_s(:db),
+      born_at,
       postal_code,
       email,
       phone,
