@@ -16,7 +16,16 @@ module Procedures
     end
 
     def fast_filter_contents
-      person_data.values + super
+      [
+        first_name,
+        last_name1,
+        last_name2,
+        document_id,
+        born_at,
+        postal_code,
+        email,
+        phone
+      ] + super
     end
 
     protected
