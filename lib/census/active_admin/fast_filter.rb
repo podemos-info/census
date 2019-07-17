@@ -38,7 +38,7 @@ ActiveAdmin::Views::TitleBar.class_eval do
   private
 
   def hidden_params
-    request.GET.each do |key, value|
+    flat_query_string.each do |key, value|
       input(type: :hidden, name: key, value: value) if value.present? && key != "ff"
     end
   end
@@ -54,4 +54,16 @@ ActiveAdmin::Views::TitleBar.class_eval do
   def index?
     controller.action_name == "index"
   end
+
+  def flat_query_string
+    @flat_query_string ||= request.query_string
+                                  .split("&")
+                                  .map do |pair|
+                                    pair.split("=", 2)
+                                        .in_groups_of(2)
+                                        .first
+                                        .map { |part| CGI.unescape(part || "") }
+                                  end
+  end
+
 end
