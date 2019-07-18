@@ -28,6 +28,11 @@ module Procedures
       ] + super
     end
 
+    def reload
+      @born_at = @person_data_object = nil
+      super
+    end
+
     protected
 
     def person_data_object
