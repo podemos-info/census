@@ -26,7 +26,7 @@ end
 
 shared_examples_for "a model that allows fast filter" do |cases|
   describe "#fast_filter" do
-    subject(:filtering) { described_class.fast_filter(text) }
+    subject(:filtering) { described_class.apply_fast_filter(text) }
 
     before { resource }
 

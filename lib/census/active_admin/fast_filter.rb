@@ -5,14 +5,14 @@ InheritedResources::BaseHelpers.module_eval do
 
   def end_of_association_chain
     if fast_filterable? && params[:ff].present?
-      old_end_of_association_chain.fast_filter(params[:ff])
+      old_end_of_association_chain.apply_fast_filter(params[:ff])
     else
       old_end_of_association_chain
     end
   end
 
   def fast_filterable?
-    resource_class.respond_to?(:fast_filter)
+    resource_class.respond_to?(:apply_fast_filter)
   end
 end
 
@@ -38,7 +38,7 @@ ActiveAdmin::Views::TitleBar.class_eval do
   private
 
   def hidden_params
-    request.GET.each do |key, value|
+    flat_query_string.each do |key, value|
       input(type: :hidden, name: key, value: value) if value.present? && key != "ff"
     end
   end
@@ -47,11 +47,34 @@ ActiveAdmin::Views::TitleBar.class_eval do
     div id: "searchbox" do
       span icon(:fas, :search, id: "searchicon")
       input type: :text, id: "searchinput", name: :ff, placeholder: I18n.t("census.fast_filter.placeholder"), value: params[:ff], "data-value" => params[:ff]
-      para I18n.t("census.fast_filter.update_results", icon: icon(:fas, "level-down-alt", class: "rotate90")).html_safe, class: "tip"
+      button class: "tip" do
+        span I18n.t("census.fast_filter.update_results", icon: icon(:fas, "level-down-alt", class: "rotate90")).html_safe
+      end
+      a href: clear_querystring, class: "clear" do
+        icon(:fas, :times, id: "close")
+      end
     end
   end
 
   def index?
     controller.action_name == "index"
+  end
+
+  def flat_query_string
+    @flat_query_string ||= request.query_string
+                                  .split("&")
+                                  .map do |pair|
+                                    pair.split("=", 2)
+                                        .in_groups_of(2)
+                                        .first
+                                        .map { |part| CGI.unescape(part || "") }
+                                  end
+  end
+
+  def clear_querystring
+    @clear_querystring ||= flat_query_string.to_h
+                                            .except("ff")
+                                            .to_query
+                                            .prepend("?")
   end
 end
