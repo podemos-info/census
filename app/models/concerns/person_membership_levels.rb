@@ -24,12 +24,14 @@ module PersonMembershipLevels
     end
 
     def memberable?
-      kept? && verified? && adult?
+      kept? && verified? && membership_allowed?
     end
 
     def adult?
       born_at < 18.years.ago
     end
+
+    alias_method :membership_allowed?, :adult?
 
     def may_change_membership_level?(target)
       aasm(:membership_level).may_fire_event? :"to_#{target}"

@@ -16,6 +16,7 @@ class PersonSerializer < ActiveModel::Serializer
   attribute :email, unless: :discarded?
   attribute :phone, unless: :discarded?
   attribute :additional_information, unless: :discarded?
+  attribute :membership_allowed?, unless: :discarded?
 
   def person_id
     object.id
