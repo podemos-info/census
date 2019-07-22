@@ -2,6 +2,11 @@
 
 require "rails_helper"
 
+PERSONAL_DATA_FIELDS = %w(first_name last_name1 last_name2 document_type document_id document_scope.code born_at
+                          gender address postal_code address_scope.code email phone membership_allowed?).freeze
+INTERNAL_DATA_FIELDS = %w(created_at updated_at discarded_at scope_id address_scope_id document_scope_id).freeze
+STATE_FIELDS = %w(scope.code state verification membership_level).freeze
+
 describe Api::V1::PeopleController, type: :controller do
   let(:scope) { create(:scope) }
   let(:address_scope) { create(:scope) }
@@ -197,45 +202,39 @@ describe Api::V1::PeopleController, type: :controller do
       describe "returned data" do
         subject(:response) { JSON.parse(endpoint.body) }
 
+        matcher :match_field do |person, field|
+          match do |model|
+            person_field = field.split(".").reduce(person, &:send)
+            person_field = person_field.to_s if person_field.is_a?(Date)
+            model[field.gsub(".", "_")] == person_field
+          end
+        end
+
         shared_examples_for "returns full state information" do
-          it "includes person scope code" do
-            expect(subject["scope_code"]).to eq(person.scope.code)
-          end
-          it "includes person state" do
-            expect(subject["state"]).to eq(person.state)
-          end
-          it "includes person verification" do
-            expect(subject["verification"]).to eq(person.verification)
-          end
-          it "includes person membership level" do
-            expect(subject["membership_level"]).to eq(person.membership_level)
+          STATE_FIELDS.each do |field|
+            it "includes person #{field.humanize.downcase}" do
+              expect(subject).to match_field(person, field)
+            end
           end
         end
 
         shared_examples_for "returns person personal data" do
-          it "includes person first name" do
-            expect(subject["first_name"]).to eq(person.first_name)
-          end
-
-          it "includes person address scope code" do
-            expect(subject["address_scope_code"]).to eq(person.address_scope.code)
-          end
-
-          it "includes person document scope code" do
-            expect(subject["document_scope_code"]).to eq(person.document_scope.code)
+          PERSONAL_DATA_FIELDS.each do |field|
+            it "includes person #{field.humanize.downcase}" do
+              expect(subject).to match_field(person, field)
+            end
           end
         end
 
         shared_examples_for "does not return internal information" do
-          it "does not include hidden fields" do
-            expect(subject.keys).not_to include("created_at", "updated_at", "discarded_at", "scope_id", "address_scope_id", "document_scope_id")
+          it "does not include internal fields" do
+            expect(subject.keys).not_to include(INTERNAL_DATA_FIELDS)
           end
         end
 
         shared_examples_for "does not return person personal data" do
           it "does not include person data fields" do
-            expect(subject.keys).not_to include("first_name", "last_name1", "last_name2", "document_type", "document_id", "document_scope_code", "born_at",
-                                                "gender", "address", "postal_code", "address_scope_code", "email", "phone")
+            expect(subject.keys).not_to include(PERSONAL_DATA_FIELDS)
           end
         end
 
