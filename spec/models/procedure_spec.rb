@@ -84,7 +84,7 @@ describe Procedure, :db do
   end
 
   context "with all descendants" do
-    Procedure.descendants.each do |procedure_class|
+    described_class.descendants.each do |procedure_class|
       describe "#{procedure_class} implements abstract methods" do
         subject(:procedure) { procedure_class.new }
 
