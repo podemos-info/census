@@ -65,7 +65,7 @@ procedures:
     - person_data_change
     - registration
   emails:
-    from: <%= ENV["EMAILS_FROM"] %>
+    from: <%= ENV["MAILS_FROM"] %>
   undo_minutes: 30
   untrusted_email:
     domains_blacklist:
@@ -90,6 +90,7 @@ regional:
 security:
   allowed_ips:
     api_clients: <%= ENV.fetch("ALLOWED_IPS_API_CLIENTS") { "" } &.split(/[^\.\d]/) %>
+    development: <%= ENV.fetch("ALLOWED_IPS_DEVELOPMENT") { "" } &.split(/[^\.\d]/) %>
     payment_callbacks: <%= ENV.fetch("ALLOWED_IPS_CALLBACK_PAYMENTS") { "" } &.split(/[^\.\d]/) %>
   request_rate_limit: 300
   host_url: <%= ENV["HOST_URL"] %>
@@ -104,3 +105,11 @@ system:
     username: <%= ENV["ESENDEX_USERNAME"] %>
     password: <%= ENV["ESENDEX_PASSWORD"] %>
     account_reference: <%= ENV["ESENDEX_ACCOUNT"] %>
+  smtp:
+    address: <%= ENV["SMTP_ADDRESS"] %>
+    authentication: <%= ENV["SMTP_AUTHENTICATION"] %>
+    enable_starttls_auto: <%= ENV["SMTP_ENABLE_STARTTLS_AUTO"] %>
+    user_name: <%= ENV["SMTP_USER_NAME"] %>
+    openssl_verify_mode: <%= ENV["SMTP_OPENSSL_VERIFY_MODE"] %>
+    password: <%= ENV["SMTP_PASSWORD"] %>
+    port: <%= ENV["SMTP_PORT"] %>

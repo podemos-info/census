@@ -38,7 +38,7 @@ git clone https://github.com/podemos-info/census.git
 cd census
 bundle
 ```
-* Create a database user with permissions and store its credentials in a new `.env` file, in the current directory.
+* Create a database user with permissions and store its credentials in a new `.env` file, in the current directory. Check the [configurations guide](docs/configuration.md) to know all that can be configured in the application.
 ```
 DATABASE_USERNAME=census
 DATABASE_PASSWORD=census
@@ -59,6 +59,7 @@ bundle exec rails server
  * Payments user: `finances0` (password `finances`)
 
 ## Documentation
+* [Configurations guide](docs/configuration.md)
 * [People API](docs/api-person.md)
 * [Payments API](docs/api-payments.md)
 * [Deployment guide](docs/deploy.md)

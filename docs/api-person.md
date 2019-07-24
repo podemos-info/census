@@ -120,7 +120,7 @@ Parameter                | Data type | Description                    | Format
 `phone_verification`     |  string   | Person's phone verification    | `not_verified`, `verified` or `reassigned`
 `external_ids`           |  json     | Person's external systems ids
 `additional_information` |  json     | Person's misc additional information
-
+`membership_allowed?`    |  boolean  | Is person is allowed to be member | `true` or `false`
 
 * When there is no person for the given `person_id`, server response will be `:not_found` (HTTP 404) and an empty JSON.
 

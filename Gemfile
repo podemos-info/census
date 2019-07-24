@@ -55,18 +55,6 @@ gem "symmetric-encryption"
 
 gem "ahoy_matey" # must appear after devise gem
 
-# Seeding gems
-gem "faker", require: false
-gem "faker-spanish_document", require: false
-gem "timecop", require: false
-
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-# gem "jbuilder", "~> 2.5"
-# Use ActiveModel has_secure_password
-# gem "bcrypt", "~> 3.1.7"
-# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem "rack-cors"
-
 group :development, :test do
   gem "brakeman", require: false
   gem "byebug", platform: :mri
@@ -101,4 +89,13 @@ group :development do
   gem "rubocop-rspec"
   gem "spring"
   gem "spring-watcher-listen"
+end
+
+group :development, :staging do
+  gem "letter_opener_web", "~> 1.3"
+
+  # Seeding gems
+  gem "faker", require: false
+  gem "faker-spanish_document", require: false
+  gem "timecop", require: false
 end

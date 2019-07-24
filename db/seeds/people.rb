@@ -13,11 +13,11 @@ def data_context
   @data_context ||= { context: { current_admin: Admin.new(role: :data) } }
 end
 
-def random_person_data
+def random_person_data(params)
   local_scopes = Scope.local.descendants.leafs
   emigrant_scopes = Scope.local.not_descendants.leafs
   doc = Person.document_types.keys.sample
-  young = Faker::Boolean.boolean(0.1)
+  young = params.fetch(:young, Faker::Boolean.boolean(0.1))
   emigrant = Faker::Boolean.boolean(0.1)
   scope = local_scopes.sample
 
@@ -34,7 +34,7 @@ def random_person_data
     document_type: doc,
     document_id: Faker::SpanishDocument.generate(doc),
     document_scope: doc == "passport" ? Scope.top_level.sample : Scope.local,
-    born_at: young ? Faker::Date.between(18.years.ago, 14.years.ago) : Faker::Date.between(99.years.ago, 18.years.ago),
+    born_at: young ? Faker::Date.between(15.years.ago, 14.years.ago) : Faker::Date.between(99.years.ago, 18.years.ago),
     gender: Person.genders.keys.sample,
     address: Faker::Address.street_address,
     address_scope: emigrant ? emigrant_scopes.sample : scope,
@@ -47,14 +47,14 @@ def random_person_data
   }
 end
 
-def register_person(use_procedure: true, copy_from_procedure: nil, untrusted: nil)
+def register_person(use_procedure: true, copy_from_procedure: nil, untrusted: nil, random_person_params: {})
   if copy_from_procedure
     person_data = copy_from_procedure.person_data.with_indifferent_access
     person_data[:document_scope] = Scope.find(person_data[:document_scope_id])
     person_data[:address_scope] = Scope.find(person_data[:address_scope_id])
     person_data[:scope] = Scope.find(person_data[:scope_id])
   else
-    person_data = random_person_data
+    person_data = random_person_data(random_person_params)
   end
 
   case untrusted
@@ -89,6 +89,18 @@ end
 # Once upon a time...
 Timecop.travel 3.years.ago
 
+# 1. Not canceled adult follower person
+register_person random_person_params: { young: false }
+
+# 2. Not canceled adult member person (will be membered later)
+register_person random_person_params: { young: false }
+
+# 3. Not canceled young person
+register_person random_person_params: { young: true }
+
+# 4. Canceled person (will be canceled later)
+register_person
+
 Admin.roles.each_key do |role|
   2.times do |i|
     person = register_person(use_procedure: false)
@@ -117,7 +129,7 @@ register_person untrusted: :phone_prefix
 register_person untrusted: :email
 
 # request verification to some random people
-random_people.enabled.not_verified.limit(10).each do |person|
+random_people(10, scopes: [:enabled, :not_verified]).each do |person|
   person.request_verification!
   Rails.logger.debug { "Requested document verification for: #{person.decorate(data_context)}" }
 end

@@ -56,7 +56,7 @@ describe Person, :db do
   end
 
   describe "qualified_find" do
-    subject(:qualified_find) { Person.qualified_find(qualified_id) }
+    subject(:qualified_find) { described_class.qualified_find(qualified_id) }
 
     let(:person) { create(:person) }
     let(:qualified_id) { person.qualified_id }

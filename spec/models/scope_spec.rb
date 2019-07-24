@@ -22,7 +22,7 @@ describe Scope, :db do
   it { is_expected.to be_valid }
 
   describe "#local" do
-    subject { Scope.local }
+    subject { described_class.local }
 
     before { scope }
 
@@ -40,7 +40,7 @@ describe Scope, :db do
     let(:other_scope) { create(:local_scope) }
 
     describe "#top_level" do
-      subject { Scope.top_level }
+      subject { described_class.top_level }
 
       it { is_expected .to match_scopes [scope, other_scope] }
     end

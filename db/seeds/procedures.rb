@@ -8,8 +8,9 @@ attachments_path = File.join(__dir__, "attachments")
 
 real_now = Time.zone.now
 
-# create 5 processed document verifications
-random_people.enabled.not_verified.limit(5).each do |person|
+# create processed document verifications
+exclude_ids = (1..10).to_a + Admin.pluck(:person_id)
+random_people(5, scopes: [:enabled, :not_verified], include_ids: [2], exclude_ids: exclude_ids).each do |person|
   Timecop.freeze Faker::Time.between(person.created_at, 3.days.ago(real_now), :between)
   PaperTrail.request.whodunnit = person
 
@@ -27,16 +28,19 @@ random_people.enabled.not_verified.limit(5).each do |person|
 
   PaperTrail.request.whodunnit = current_admin
 
+  state = Faker::Boolean.boolean(0.7) ? :accepted : :rejected
+  state = :accepted if person.id == 2
+
   document_verification.update!(
     processed_by: current_admin,
     processed_at: Time.zone.now,
-    state: Faker::Boolean.boolean(0.7) ? :accepted : :rejected,
+    state: state,
     comment: Faker::Lorem.paragraph(1, true, 2)
   )
 
   if document_verification.accepted?
     person.verify
-    person.to_member if Faker::Boolean.boolean(0.5) && person.adult?
+    person.to_member if person.id == 2 || (Faker::Boolean.boolean(0.5) && person.adult?)
     person.save!
     Rails.logger.debug { "Person document verification accepted for: #{document_verification.person.decorate(data_context)}" }
   else
@@ -46,7 +50,7 @@ random_people.enabled.not_verified.limit(5).each do |person|
 end
 
 # create 5 person data changes
-random_people.enabled.limit(5).each do |person|
+random_people(5, scopes: [:enabled]).each do |person|
   Timecop.freeze Faker::Time.between(person.created_at, 3.days.ago(real_now), :between)
   PaperTrail.request.whodunnit = person
 
@@ -74,7 +78,7 @@ random_people.enabled.limit(5).each do |person|
 end
 
 # create 5 unprocessed document verifications
-random_people.enabled.not_verified.limit(5).each do |person|
+random_people(5, scopes: [:enabled, :not_verified]).each do |person|
   Timecop.freeze Faker::Time.between(3.days.ago(real_now), 1.day.ago(real_now), :between)
   PaperTrail.request.whodunnit = person
   document_verification = Procedures::DocumentVerification.create!(person: person,

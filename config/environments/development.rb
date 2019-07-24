@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "census/api_tests" if ENV["API_TESTS"]
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
