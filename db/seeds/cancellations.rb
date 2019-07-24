@@ -6,8 +6,9 @@ admins = Admin.where role: [:data, :data_help]
 
 real_now = Time.zone.now
 
-# create 10 cancellation procedures
-random_people.where.not(id: Admin.pluck(:person_id)).limit(10).each do |person|
+# create some cancellation procedures
+exclude_ids = (1..10).to_a + Admin.pluck(:person_id)
+random_people(10, include_ids: [4], exclude_ids: exclude_ids).each do |person|
   Timecop.freeze Faker::Time.between(3.days.ago(real_now), 1.day.ago(real_now), :between)
   PaperTrail.request.whodunnit = person
   cancellation = Procedures::Cancellation.create!(person: person,

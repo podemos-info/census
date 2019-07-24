@@ -26,7 +26,7 @@ def create_order(person, credit_card, campaign)
 end
 
 # Once upon a time...
-Timecop.travel 2.years.ago
+Timecop.travel 1.year.ago
 
 # create payees
 Scope.local.children.each do |scope|
@@ -40,14 +40,14 @@ campaigns = (1..10).map do |i|
   campaign
 end
 
-23.times do
+11.times do
   # create 5 direct debit payment methods and orders
-  orders = random_people.limit(5).map do |person|
+  orders = random_people(5).map do |person|
     create_order person, false, campaigns.sample
   end
 
   # create 5 direct credit card methods and orders
-  orders2 = random_people.limit(5).map do |person|
+  orders2 = random_people(5).map do |person|
     create_order person, true, campaigns.sample
   end
 
@@ -62,12 +62,12 @@ end
 end
 
 # create 5 direct debit payment methods and orders
-random_people.limit(5).map do |person|
+random_people(5).map do |person|
   create_order person, false, campaigns.sample
 end
 
 # create 5 direct credit card methods and orders
-random_people.limit(5).map do |person|
+random_people(5).map do |person|
   create_order person, true, campaigns.sample
 end
 
