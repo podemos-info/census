@@ -105,3 +105,11 @@ system:
     username: <%= ENV["ESENDEX_USERNAME"] %>
     password: <%= ENV["ESENDEX_PASSWORD"] %>
     account_reference: <%= ENV["ESENDEX_ACCOUNT"] %>
+  smtp:
+    address: <%= ENV["SMTP_ADDRESS"] %>
+    authentication: <%= ENV["SMTP_AUTHENTICATION"] %>
+    enable_starttls_auto: <%= ENV["SMTP_ENABLE_STARTTLS_AUTO"] %>
+    user_name: <%= ENV["SMTP_USER_NAME"] %>
+    openssl_verify_mode: <%= ENV["SMTP_OPENSSL_VERIFY_MODE"] %>
+    password: <%= ENV["SMTP_PASSWORD"] %>
+    port: <%= ENV["SMTP_PORT"] %>
