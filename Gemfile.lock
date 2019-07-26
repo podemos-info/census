@@ -134,7 +134,7 @@ GEM
       coderay (>= 1.0.0)
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
-    brakeman (4.6.0)
+    brakeman (4.6.1)
     builder (3.2.3)
     bunny (2.14.2)
       amq-protocol (~> 2.3, >= 2.3.0)

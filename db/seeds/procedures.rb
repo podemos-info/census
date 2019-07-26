@@ -9,7 +9,7 @@ attachments_path = File.join(__dir__, "attachments")
 real_now = Time.zone.now
 
 # create processed document verifications
-exclude_ids = (1..10).to_a + Admin.pluck(:person_id)
+exclude_ids = (1..14).to_a + Admin.pluck(:person_id)
 random_people(5, scopes: [:enabled, :not_verified], include_ids: [2], exclude_ids: exclude_ids).each do |person|
   Timecop.freeze Faker::Time.between(person.created_at, 3.days.ago(real_now), :between)
   PaperTrail.request.whodunnit = person
