@@ -101,6 +101,11 @@ register_person random_person_params: { young: true }
 # 4. Canceled person (will be canceled later)
 register_person
 
+# 5 to 14. Regular adult people for tests
+10.times do
+  register_person random_person_params: { young: false }
+end
+
 Admin.roles.each_key do |role|
   2.times do |i|
     person = register_person(use_procedure: false)
