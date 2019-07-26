@@ -12,6 +12,8 @@ require "census/seeds/scopes"
 Census::Seeds::Scopes.new.seed base_path: "#{base_path}/scopes", logger: Rails.logger
 
 unless Rails.env.production?
+  Rails.application.config.active_job.queue_adapter = :inline
+
   require "faker"
   require "timecop"
 
