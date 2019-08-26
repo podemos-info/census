@@ -17,7 +17,7 @@ describe People::SmsSender do
 
     context "when there is no account configured" do
       it_behaves_like "an SMS is not sent" do
-        let(:sms_service_username) { nil }
+        let(:sms_service_username) { "" }
       end
     end
   end
