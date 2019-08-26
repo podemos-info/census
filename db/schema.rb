@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_16_074138) do
+ActiveRecord::Schema.define(version: 2019_08_26_111234) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -261,10 +261,8 @@ ActiveRecord::Schema.define(version: 2019_07_16_074138) do
     t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "depends_on_id"
     t.bigint "person_location_id"
     t.tsvector "fast_filter"
-    t.index ["depends_on_id"], name: "index_procedures_on_depends_on_id"
     t.index ["fast_filter"], name: "index_procedures_on_fast_filter", using: :gin
     t.index ["person_id"], name: "index_procedures_on_person_id"
     t.index ["person_location_id"], name: "index_procedures_on_person_location_id"
@@ -357,7 +355,6 @@ ActiveRecord::Schema.define(version: 2019_07_16_074138) do
   add_foreign_key "people", "scopes", column: "address_scope_id"
   add_foreign_key "people", "scopes", column: "document_scope_id"
   add_foreign_key "procedures", "admins", column: "processed_by_id"
-  add_foreign_key "procedures", "procedures", column: "depends_on_id"
   add_foreign_key "scopes", "scope_types"
   add_foreign_key "scopes", "scopes", column: "parent_id"
 end

@@ -59,7 +59,7 @@ ActiveAdmin.register Procedure do
   sidebar :person, partial: "procedures/person", only: [:show]
 
   action_item :undo_procedure, only: :show do
-    if procedure.full_undoable_by? controller.current_admin
+    if procedure.undoable_by? controller.current_admin
       link_to t("census.procedures.actions.undo"), undo_procedure_path(procedure), method: :patch,
                                                                                    data: { confirm: t("census.messages.sure_question") },
                                                                                    class: "member_link"
@@ -89,10 +89,6 @@ ActiveAdmin.register Procedure do
   end
 
   controller do
-    def scoped_collection
-      end_of_association_chain.independent
-    end
-
     def update
       set_resource_ivar resource.decorate
       Procedures::ProcessProcedure.call(form: form_resource, admin: current_admin) do

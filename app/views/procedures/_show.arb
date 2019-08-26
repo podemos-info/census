@@ -23,12 +23,3 @@ panel I18n.t("census.procedures.procedure") do
     end
   end
 end
-
-if resource.dependent_procedures.any?
-  panel I18n.t("census.procedures.dependent_procedures") do
-    table_for resource.dependent_procedures, i18n: Procedure do
-      column :type, &:type_name
-      column :summary
-    end
-  end
-end

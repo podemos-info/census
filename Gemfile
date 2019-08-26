@@ -44,6 +44,7 @@ gem "rack-attack"
 gem "rack-cas", require: false
 gem "rails", "~> 5.2"
 gem "rails-i18n"
+gem "ransack", "< 2.3"
 gem "rectify"
 gem "rotp"
 gem "sassc-rails"
