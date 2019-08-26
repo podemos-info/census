@@ -38,13 +38,6 @@ FactoryBot.define do
         procedure.processed_at = Time.zone.now
         procedure.comment = Faker::Lorem.paragraph(1, true, 2)
         procedure.accept!
-
-        procedure.dependent_procedures.each do |dependent_procedure|
-          dependent_procedure.processed_by = procedure.processed_by
-          dependent_procedure.processed_at = procedure.processed_at
-          dependent_procedure.comment = procedure.comment
-          dependent_procedure.accept!
-        end
       end
     end
 
@@ -54,13 +47,6 @@ FactoryBot.define do
         procedure.processed_at = Time.zone.now
         procedure.comment = Faker::Lorem.paragraph(1, true, 2)
         procedure.reject!
-
-        procedure.dependent_procedures.each do |dependent_procedure|
-          dependent_procedure.processed_by = procedure.processed_by
-          dependent_procedure.processed_at = procedure.processed_at
-          dependent_procedure.comment = procedure.comment
-          dependent_procedure.reject!
-        end
       end
     end
 
@@ -73,11 +59,6 @@ FactoryBot.define do
   end
 
   factory :document_verification, parent: :procedure, class: :"procedures/document_verification" do
-    trait :with_dependent_procedure do
-      after :create do |procedure|
-        create(:membership_level_change, depends_on: procedure, person: procedure.person)
-      end
-    end
   end
 
   factory :membership_level_change, parent: :procedure, class: :"procedures/membership_level_change" do

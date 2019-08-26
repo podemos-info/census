@@ -64,27 +64,15 @@ module ProcedureStates
 
     def permitted_event?(event, processor)
       case event.to_s
-      when "accept" then full_acceptable_by?(processor)
-      when "undo" then full_undoable_by?(processor)
+      when "accept" then acceptable_by?(processor)
+      when "undo" then undoable_by?(processor)
       else
         true
       end
     end
 
-    def full_acceptable_by?(processor)
-      return false unless processor&.person_id != person_id && acceptable?
-
-      process_accept
-      ret = dependent_procedures.all? do |dependent_procedure|
-        dependent_procedure.person = person # synchronize child person status with parent person
-        dependent_procedure.full_acceptable_by? processor
-      end
-      undo_accept
-      ret
-    end
-
-    def full_undoable_by?(processor)
-      undoable_by?(processor) && dependent_procedures.all? { |dependent_procedure| dependent_procedure.full_undoable_by? processor }
+    def acceptable_by?(processor)
+      processor&.person_id != person_id && acceptable?
     end
   end
 end

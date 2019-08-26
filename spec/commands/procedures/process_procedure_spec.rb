@@ -46,27 +46,6 @@ describe Procedures::ProcessProcedure do
     it "updates comment" do
       expect { subject } .to change { Procedure.find(procedure.id).comment } .to("This is a comment")
     end
-
-    context "with dependent procedures" do
-      let!(:procedure) { create(:document_verification, :with_dependent_procedure) }
-      let(:dependent_procedure) { procedure.dependent_procedures.first }
-
-      it "updates procedure state" do
-        expect { subject } .to change { Procedure.find(dependent_procedure.id).state } .from("pending").to("accepted")
-      end
-
-      it "sets processed_by" do
-        expect { subject } .to change { Procedure.find(dependent_procedure.id).processed_by } .to(admin)
-      end
-
-      it "sets processing date" do
-        expect { subject } .to change { Procedure.find(dependent_procedure.id).processed_at }
-      end
-
-      it "updates comment" do
-        expect { subject } .to change { Procedure.find(dependent_procedure.id).comment } .to("This is a comment")
-      end
-    end
   end
 
   context "when adding an issue" do
@@ -135,27 +114,6 @@ describe Procedures::ProcessProcedure do
 
     it "does not update comment" do
       expect { subject } .not_to change { Procedure.find(procedure.id).comment }
-    end
-
-    context "with dependent procedures" do
-      let(:procedure) { create(:document_verification, :with_dependent_procedure) }
-      let(:dependent_procedure) { procedure.dependent_procedures.first }
-
-      it "does not update procedure state" do
-        expect { subject } .not_to change { Procedure.find(dependent_procedure.id).state }
-      end
-
-      it "does not set processed_by" do
-        expect { subject } .not_to change { Procedure.find(dependent_procedure.id).processed_by }
-      end
-
-      it "does not set processing date" do
-        expect { subject } .not_to change { Procedure.find(dependent_procedure.id).processed_at }
-      end
-
-      it "does not update comment" do
-        expect { subject } .not_to change { Procedure.find(dependent_procedure.id).comment }
-      end
     end
   end
 

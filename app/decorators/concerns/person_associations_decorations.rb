@@ -4,16 +4,16 @@ module PersonAssociationsDecorations
   extend ActiveSupport::Concern
 
   included do
-    def independent_procedures
-      @independent_procedures ||= PersonIndependentProcedures.for(object).decorate(context: context)
+    def procedures
+      @procedures ||= PersonProcedures.for(object).decorate(context: context)
     end
 
     def last_procedures
-      @last_procedures ||= PersonLastIndependentProcedures.for(object).decorate(context: context)
+      @last_procedures ||= PersonLastProcedures.for(object).decorate(context: context)
     end
 
     def count_procedures
-      @count_procedures ||= independent_procedures.count
+      @count_procedures ||= procedures.count
     end
 
     def last_orders

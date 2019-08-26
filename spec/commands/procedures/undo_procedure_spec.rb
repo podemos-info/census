@@ -29,27 +29,6 @@ describe Procedures::UndoProcedure do
       it "reverts comment" do
         expect { subject } .to change { Procedure.find(procedure.id).comment } .to(nil)
       end
-
-      context "with dependent procedures" do
-        let(:procedure) { create(:document_verification, :with_dependent_procedure, :undoable) }
-        let(:dependent_procedure) { procedure.dependent_procedures.first }
-
-        it "reverts procedure state" do
-          expect { subject } .to change { Procedure.find(dependent_procedure.id).state } .to("pending")
-        end
-
-        it "reverts processed_by" do
-          expect { subject } .to change { Procedure.find(dependent_procedure.id).processed_by } .to(nil)
-        end
-
-        it "reverts processing date" do
-          expect { subject } .to change { Procedure.find(dependent_procedure.id).processed_at } .to(nil)
-        end
-
-        it "reverts comment" do
-          expect { subject } .to change { Procedure.find(dependent_procedure.id).comment } .to(nil)
-        end
-      end
     end
 
     context "when undoing a rejected procedure" do
@@ -74,27 +53,6 @@ describe Procedures::UndoProcedure do
       it "reverts comment" do
         expect { subject } .to change { Procedure.find(procedure.id).comment } .to(nil)
       end
-
-      context "with dependent procedures" do
-        let(:procedure) { create(:document_verification, :with_dependent_procedure, :undoable_rejected) }
-        let(:dependent_procedure) { procedure.dependent_procedures.first }
-
-        it "reverts procedure state" do
-          expect { subject } .to change { Procedure.find(dependent_procedure.id).state } .to("pending")
-        end
-
-        it "reverts processed_by" do
-          expect { subject } .to change { Procedure.find(dependent_procedure.id).processed_by } .to(nil)
-        end
-
-        it "reverts processing date" do
-          expect { subject } .to change { Procedure.find(dependent_procedure.id).processed_at } .to(nil)
-        end
-
-        it "reverts comment" do
-          expect { subject } .to change { Procedure.find(dependent_procedure.id).comment } .to(nil)
-        end
-      end
     end
 
     context "when processor is other" do
@@ -118,27 +76,6 @@ describe Procedures::UndoProcedure do
 
       it "does not revert comment" do
         expect { subject } .not_to change { Procedure.find(procedure.id).comment }
-      end
-
-      context "with dependent procedures" do
-        let(:procedure) { create(:document_verification, :with_dependent_procedure, :undoable) }
-        let(:dependent_procedure) { procedure.dependent_procedures.first }
-
-        it "does not revert procedure state" do
-          expect { subject } .not_to change { Procedure.find(dependent_procedure.id).state }
-        end
-
-        it "does not revert processed_by" do
-          expect { subject } .not_to change { Procedure.find(dependent_procedure.id).processed_by }
-        end
-
-        it "does not revert processing date" do
-          expect { subject } .not_to change { Procedure.find(dependent_procedure.id).processed_at }
-        end
-
-        it "does not revert comment" do
-          expect { subject } .not_to change { Procedure.find(dependent_procedure.id).comment }
-        end
       end
     end
 

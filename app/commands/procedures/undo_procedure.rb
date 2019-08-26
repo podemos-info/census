@@ -20,7 +20,7 @@ module Procedures
     #
     # Returns nothing.
     def call
-      return broadcast(:invalid) unless admin && procedure&.full_undoable_by?(admin)
+      return broadcast(:invalid) unless admin && procedure&.undoable_by?(admin)
 
       undo_procedure
 
@@ -40,10 +40,6 @@ module Procedures
     end
 
     def undo(current_procedure)
-      current_procedure.dependent_procedures.each do |child_procedure|
-        undo child_procedure
-      end
-
       current_procedure.undo
       current_procedure.processed_by = current_procedure.undo_version.processed_by
       current_procedure.processed_at = current_procedure.undo_version.processed_at

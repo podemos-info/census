@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class PersonIndependentProcedures < Rectify::Query
+class PersonLastProcedures < Rectify::Query
   def self.for(person)
     new(person).query
   end
@@ -10,6 +10,6 @@ class PersonIndependentProcedures < Rectify::Query
   end
 
   def query
-    @person.procedures.independent
+    PersonProcedures.for(@person).order(created_at: :desc).limit(3)
   end
 end

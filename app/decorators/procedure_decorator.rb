@@ -4,7 +4,6 @@ class ProcedureDecorator < ApplicationDecorator
   delegate_all
 
   attr_accessor :event
-  decorates_association :dependent_procedures
   decorates_association :issues
   decorates_association :person
   decorates_association :processed_by

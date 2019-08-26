@@ -62,10 +62,6 @@ module Procedures
       current_procedure.comment = form.comment
       current_procedure.send(form.action)
 
-      current_procedure.dependent_procedures.each do |child_procedure|
-        process child_procedure
-      end
-
       if current_procedure.invalid?
         @result = :invalid
         raise ActiveRecord::Rollback

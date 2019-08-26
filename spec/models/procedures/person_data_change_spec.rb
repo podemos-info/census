@@ -15,7 +15,7 @@ describe Procedures::PersonDataChange, :db do
 
   it { is_expected.to be_valid }
   it { is_expected.to be_acceptable }
-  it { is_expected.to be_full_acceptable_by(admin) }
+  it { is_expected.to be_acceptable_by(admin) }
   it { is_expected.to be_auto_processable }
 
   context "when accepted" do
