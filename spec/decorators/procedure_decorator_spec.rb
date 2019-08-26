@@ -88,6 +88,20 @@ describe ProcedureDecorator do
     end
   end
 
+  describe "#summary" do
+    subject { decorator.summary }
+
+    let(:procedure) { create(:document_verification) }
+
+    it { is_expected.to eq("") }
+
+    context "when procedure is a membership level change" do
+      let(:procedure) { create(:membership_level_change) }
+
+      it { is_expected.to eq("simpatizante &rarr; afiliada") }
+    end
+  end
+
   context "with a document verification" do
     let(:person) { build(:person, first_name: "María", last_name1: "Pérez", last_name2: "García") }
     let(:procedure) { create(:document_verification, person: person) }
