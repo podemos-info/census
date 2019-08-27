@@ -16,15 +16,16 @@ module People
     private
 
     def person_full_status(person)
-      return { person: person.qualified_id, state: person.state, verification: person.verification } if person.discarded?
+      full_status = { person: person.qualified_id, state: person.state, verification: person.verification }
 
-      {
-        person: person.qualified_id,
-        state: person.state,
+      return full_status if person.discarded?
+
+      full_status.update(
         membership_level: person.membership_level,
-        verification: person.verification,
-        scope_code: person.scope&.code
-      }
+        scope_code: person.scope&.code,
+        document_type: person.document_type,
+        age: person.age
+      )
     end
   end
 end

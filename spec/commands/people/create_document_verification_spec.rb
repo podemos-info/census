@@ -38,6 +38,8 @@ describe People::CreateDocumentVerification do
       let(:publish_notification) do
         [
           "census.people.full_status_changed", {
+            age: person.age,
+            document_type: person.document_type,
             person: person.qualified_id,
             state: person.state,
             membership_level: person.membership_level,

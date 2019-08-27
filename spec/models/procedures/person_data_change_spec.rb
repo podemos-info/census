@@ -31,6 +31,8 @@ describe Procedures::PersonDataChange, :db do
       let(:publish_notification) do
         [
           "census.people.full_status_changed", {
+            age: procedure.person.age,
+            document_type: procedure.person.document_type,
             person: procedure.person.qualified_id,
             state: procedure.person.state,
             membership_level: procedure.person.membership_level,

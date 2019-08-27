@@ -22,6 +22,8 @@ describe Procedures::DocumentVerification, :db do
       let(:publish_notification) do
         [
           "census.people.full_status_changed", {
+            age: procedure.person.age,
+            document_type: procedure.person.document_type,
             person: person.qualified_id,
             state: person.state,
             membership_level: person.membership_level,
@@ -44,6 +46,8 @@ describe Procedures::DocumentVerification, :db do
       let(:publish_notification) do
         [
           "census.people.full_status_changed", {
+            age: procedure.person.age,
+            document_type: procedure.person.document_type,
             person: person.qualified_id,
             state: person.state,
             membership_level: person.membership_level,

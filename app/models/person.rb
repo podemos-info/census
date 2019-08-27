@@ -43,6 +43,12 @@ class Person < ApplicationRecord
     ] + scope_names
   end
 
+  def age
+    return nil unless born_at
+
+    (Time.zone.today.to_s(:number).to_i - born_at.to_s(:number).to_i) / 10_000
+  end
+
   private
 
   def scope_names
