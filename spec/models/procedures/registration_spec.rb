@@ -33,6 +33,8 @@ describe Procedures::Registration, :db do
       let(:publish_notification) do
         [
           "census.people.full_status_changed", {
+            age: person.age,
+            document_type: person.document_type,
             person: procedure.person.qualified_id,
             state: "enabled",
             membership_level: "follower",

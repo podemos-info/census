@@ -11,7 +11,7 @@ panel I18n.t("census.procedures.procedure") do
     end
   end
 
-  if resource.person_location
+  if resource.person_location && resource.processed?
     panel resource.person_location.model_name.human do
       attributes_table_for resource.person_location do
         row :ip
