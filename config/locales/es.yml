@@ -540,6 +540,7 @@ es:
       action_message:
         cancellation_created: Se ha creado el procedimiento de baja.
         cant_request_verification: No se puede solicitar a %{link} que se verifique.
+        email_change_notification_sent: Se ha solicitado el envío de un correo para que se verifique el cambio de dirección. Si dicho correo no llega a su destino se debe a que ya existe otra inscripción con dicha dirección de correo. En ese caso, será necesaria que la persona que controla dicha cuenta cambie su dirección de correo por otra para volver a solicitar este cambio.
         error_requesting_verification: Ha ocurrido un error al intentar solicitar a %{link} que se verifique.
         no_changes_done: No se han realizado cambios.
         person_data_change_created: Se ha creado el procedimiento de cambio de datos.

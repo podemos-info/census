@@ -117,7 +117,7 @@ ActiveAdmin.register Person do
     end
 
     def update
-      @form_resource = People::PersonDataChangeForm.from_params(params, person_id: resource.id)
+      @form_resource = People::PersonDataChangeForm.from_params(params, person_id: resource.id, ignore_email: true)
       People::CreatePersonDataChange.call(form: form_resource, admin: current_admin) do
         on(:invalid) do
           resource.errors.merge!(form_resource.errors)
@@ -129,13 +129,22 @@ ActiveAdmin.register Person do
         end
         on(:noop) do
           flash[:notice] = t("census.people.action_message.no_changes_done")
+          send_confirm_email_notification(false)
           redirect_to(person_path)
         end
         on(:ok) do
           flash[:notice] = t("census.people.action_message.person_data_change_created")
+          send_confirm_email_notification(true)
           redirect_to(person_path)
         end
       end
+    end
+
+    def send_confirm_email_notification(additional_changes)
+      return unless form_resource.email != resource.email
+
+      ::People::ChangesPublisher.confirm_email_change!(resource, form_resource.email)
+      flash[additional_changes ? :info : :notice] = t("census.people.action_message.email_change_notification_sent")
     end
   end
 end
