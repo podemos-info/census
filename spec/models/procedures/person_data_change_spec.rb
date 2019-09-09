@@ -2,15 +2,38 @@
 
 require "rails_helper"
 
-CHANGING_COLUMNS = [:first_name, :last_name1, :last_name2, :scope_id, :address_scope_id].freeze
-
 describe Procedures::PersonDataChange, :db do
-  subject(:procedure) { create(:person_data_change, :ready_to_process, person_copy_data: person, changing_columns: changing_columns) }
+  subject(:procedure) do
+    create(:person_data_change, :ready_to_process, person: create(:person, document_type: :dni),
+                                                   person_copy_data: person,
+                                                   changing_columns: changing_columns)
+  end
 
-  let(:changing_columns) { CHANGING_COLUMNS }
   let(:admin) { create(:admin) }
+  let(:changing_columns) do
+    [
+      :first_name,
+      :last_name1,
+      :last_name2,
+      :born_at,
+      :document_type,
+      :document_id,
+      :email,
+      :phone,
+      :scope_id,
+      :address_scope_id
+    ]
+  end
   let(:person) do
-    build(:person, first_name: "changed", last_name1: "changed", document_id: "1R", email: "changed@changed.org", phone: "00000000000", document_scope: create(:scope))
+    build(:person, first_name: "changed",
+                   last_name1: "changed",
+                   last_name2: "changed",
+                   born_at: 18.years.ago,
+                   document_type: :passport,
+                   document_id: "ABC1234",
+                   email: "changed@changed.org",
+                   phone: "00000000000",
+                   scope: create(:scope))
   end
 
   it { is_expected.to be_valid }
@@ -21,30 +44,51 @@ describe Procedures::PersonDataChange, :db do
   context "when accepted" do
     subject(:accepting) { procedure.accept! }
 
-    CHANGING_COLUMNS.each do |attribute|
-      it "sets #{attribute}" do
-        expect { subject } .to change { procedure.person.send(attribute) } .to(person.send(attribute))
-      end
+    it "sets all changing columns" do
+      expect { subject } .to(change { methods_map(procedure.person.reload, changing_columns) }
+                           .to(methods_map(person, changing_columns)))
     end
 
     it_behaves_like "an event notifiable with hutch" do
-      let(:publish_notification) do
-        [
-          "census.people.full_status_changed", {
-            age: procedure.person.age,
-            document_type: procedure.person.document_type,
-            person: procedure.person.qualified_id,
-            state: procedure.person.state,
-            membership_level: procedure.person.membership_level,
-            verification: procedure.person.verification,
-            scope_code: person.scope&.code
-          }
-        ]
+      let(:publish_notification) { "census.people.full_status_changed" }
+      let(:publish_notification_args) do
+        {
+          person: procedure.person.qualified_id,
+          external_ids: procedure.person.external_ids,
+          state: procedure.person.state,
+          verification: procedure.person.verification,
+          membership_level: procedure.person.membership_level,
+          scope_code: person.scope&.code,
+          document_type: person.document_type,
+          age: person.age
+        }
       end
     end
 
-    context "when scope column is not modified" do
-      let(:changing_columns) { CHANGING_COLUMNS - [:scope_id] }
+    [:document_type, :born_at, :scope_id].each do |column|
+      context "when only #{column} is modified" do
+        let(:changing_columns) { [column] }
+
+        it_behaves_like "an event notifiable with hutch" do
+          let(:publish_notification) { "census.people.full_status_changed" }
+          let(:publish_notification_args) do
+            {
+              person: procedure.person.qualified_id,
+              external_ids: procedure.person.external_ids,
+              state: procedure.person.state,
+              verification: procedure.person.verification,
+              membership_level: procedure.person.membership_level,
+              scope_code: (column == :scope_id ? person : procedure.person).scope&.code,
+              document_type: (column == :document_type ? person : procedure.person).document_type,
+              age: (column == :born_at ? person : procedure.person).age
+            }
+          end
+        end
+      end
+    end
+
+    context "when no event column is modified" do
+      let(:changing_columns) { [:first_name] }
 
       it_behaves_like "an event not notifiable with hutch"
     end
@@ -53,10 +97,8 @@ describe Procedures::PersonDataChange, :db do
   context "when rejected" do
     subject(:rejecting) { procedure.reject! }
 
-    CHANGING_COLUMNS.each do |attribute|
-      it "sets #{attribute}" do
-        expect { subject } .not_to change { procedure.person.send(attribute) }
-      end
+    it "doesn't update the changing columns" do
+      expect { subject } .not_to change { methods_map(procedure.person.reload, changing_columns) }
     end
 
     it_behaves_like "an event not notifiable with hutch"
@@ -71,12 +113,12 @@ describe Procedures::PersonDataChange, :db do
         procedure.accept!
       end
 
-      let(:previous_person) { procedure.person.attributes.with_indifferent_access }
+      let(:previous_person) { procedure.person.dup }
 
-      CHANGING_COLUMNS.each do |attribute|
-        it "undoes unsets #{attribute}" do
-          expect { subject } .to change { procedure.person.send(attribute) } .from(person.send(attribute)).to(previous_person[attribute])
-        end
+      it "undoes unsets the changing columns" do
+        expect { subject } .to(change { methods_map(procedure.person.reload, changing_columns) }
+                             .from(methods_map(person, changing_columns))
+                             .to(methods_map(previous_person, changing_columns)))
       end
     end
   end
