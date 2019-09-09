@@ -21,7 +21,7 @@ module Procedures
       unverify_changed_attributes
 
       person.save!
-      ::People::ChangesPublisher.full_status_changed!(person) if modifies?(:scope_id)
+      ::People::ChangesPublisher.full_status_changed!(person) if modifies?(:scope_id, :document_type, :born_at)
     end
 
     def possible_issues
