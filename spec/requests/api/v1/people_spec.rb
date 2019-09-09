@@ -21,7 +21,7 @@ describe "People", type: :request do
 
       let(:person) { create(:person) }
       let(:path_params) { { person_id: qualified_id } }
-      let(:qualified_id) { person.qualified_id_at(:decidim) }
+      let(:qualified_id) { person.qualified_id_at("participa2-1") }
 
       it { expect(subject).to eq(202) }
 

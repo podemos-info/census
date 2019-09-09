@@ -8,7 +8,7 @@ describe Api::V1::Payments::OrdersController, type: :controller do
 
     let(:params) do
       {
-        person_id: person.qualified_id_at(:decidim),
+        person_id: person.qualified_id_at("participa2-1"),
         description: order.description,
         amount: order.amount,
         campaign_code: order.campaign.campaign_code,
@@ -96,7 +96,7 @@ describe Api::V1::Payments::OrdersController, type: :controller do
     before { person_order && no_person_order && no_campaign_order && no_person_campaign_order && unprocessed_order && old_order }
 
     let(:campaign_code) { order.campaign.campaign_code }
-    let(:person_id) { order.person.qualified_id_at(:decidim) }
+    let(:person_id) { order.person.qualified_id_at("participa2-1") }
     let(:order) { create(:order, :processed, amount: 1_000_000) }
     let(:person_order) { create(:order, :processed, person: order.person, campaign: order.campaign, amount: 100_000) }
     let(:no_person_order) { create(:order, :processed, campaign: order.campaign, amount: 10_000) }

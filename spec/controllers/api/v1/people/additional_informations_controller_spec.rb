@@ -11,7 +11,7 @@ describe Api::V1::People::AdditionalInformationsController, type: :controller do
     describe "create method" do
       subject(:page) { post :create, params: params }
 
-      let(:params) { { person_id: person.qualified_id_at(:decidim), key: key, json_value: value.to_json } }
+      let(:params) { { person_id: person.qualified_id_at("participa2-1"), key: key, json_value: value.to_json } }
 
       it { is_expected.to have_http_status(:accepted) }
       it { expect(subject.content_type).to eq("application/json") }

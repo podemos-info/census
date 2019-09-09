@@ -8,7 +8,7 @@ describe Api::V1::People::PhoneVerificationsController, type: :controller do
   describe "new method" do
     subject(:page) { get :new, params: params }
 
-    let(:params) { { person_id: person.qualified_id_at(:decidim), phone: phone } }
+    let(:params) { { person_id: person.qualified_id_at("participa2-1"), phone: phone } }
     let(:phone) { nil }
 
     include_context "when sending SMSs"
@@ -45,7 +45,7 @@ describe Api::V1::People::PhoneVerificationsController, type: :controller do
     subject(:page) { post :create, params: params }
 
     let(:params) { { person_id: qualified_id, phone: phone, received_code: received_code } }
-    let(:qualified_id) { person.qualified_id_at(:decidim) }
+    let(:qualified_id) { person.qualified_id_at("participa2-1") }
     let(:phone) { nil }
     let(:received_code) { People::ConfirmPhoneVerificationForm.new(person_id: person.id, phone: phone).otp_code }
 

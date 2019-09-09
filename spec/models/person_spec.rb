@@ -64,7 +64,7 @@ describe Person, :db do
     it { is_expected.to eq(person) }
 
     context "when given qualified_id is from an external system" do
-      let(:qualified_id) { person.qualified_id_at(:decidim) }
+      let(:qualified_id) { person.qualified_id_at("participa2-1") }
 
       it { is_expected.to eq(person) }
     end
