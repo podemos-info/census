@@ -62,4 +62,5 @@ bundle exec rails server
 * [Configurations guide](docs/configuration.md)
 * [People API](docs/api-person.md)
 * [Payments API](docs/api-payments.md)
+* [API notifications](docs/api-notifications.md)
 * [Deployment guide](docs/deploy.md)
