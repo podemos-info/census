@@ -68,7 +68,7 @@ def register_person(use_procedure: true, copy_from_procedure: nil, untrusted: ni
     person_data[:document_scope_code] = person_data[:document_scope].code
     person_data[:address_scope_code] = person_data[:address_scope].code
     person_data[:scope_code] = person_data[:scope].code
-    person_data[:origin_qualified_id] = "#{decidim_identifier}@decidim"
+    person_data[:origin_qualified_id] = "#{decidim_identifier}@participa2_application-1"
 
     People::CreateRegistration.call(form: People::RegistrationForm.from_params(person_data)) do
       on(:ok) do |info|
