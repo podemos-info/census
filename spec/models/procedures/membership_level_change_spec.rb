@@ -23,18 +23,18 @@ describe Procedures::MembershipLevelChange, :db do
     end
 
     it_behaves_like "an event notifiable with hutch" do
-      let(:publish_notification) do
-        [
-          "census.people.full_status_changed", {
-            age: person.age,
-            document_type: person.document_type,
-            person: person.qualified_id,
-            state: person.state,
-            membership_level: "member",
-            verification: person.verification,
-            scope_code: person.scope&.code
-          }
-        ]
+      let(:publish_notification) { "census.people.full_status_changed" }
+      let(:publish_notification_args) do
+        {
+          person: person.qualified_id,
+          external_ids: person.external_ids,
+          state: person.state,
+          verification: person.verification,
+          scope_code: person.scope&.code,
+          membership_level: "member",
+          document_type: person.document_type,
+          age: person.age
+        }
       end
     end
   end

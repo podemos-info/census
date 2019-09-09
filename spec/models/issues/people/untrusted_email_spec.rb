@@ -59,14 +59,14 @@ describe Issues::People::UntrustedEmail, :db do
       end
 
       it_behaves_like "an event notifiable with hutch" do
-        let(:publish_notification) do
-          [
-            "census.people.full_status_changed", {
-              person: procedure_person.qualified_id,
-              state: "trashed",
-              verification: "fraudulent"
-            }
-          ]
+        let(:publish_notification) { "census.people.full_status_changed" }
+        let(:publish_notification_args) do
+          {
+            person: procedure_person.qualified_id,
+            external_ids: procedure_person.external_ids,
+            state: "trashed",
+            verification: "fraudulent"
+          }
         end
       end
     end

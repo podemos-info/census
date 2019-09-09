@@ -10,7 +10,7 @@ shared_examples_for "an event notifiable with hutch" do
   include_context "when connected to hutch"
 
   it "publishes the notification" do
-    expect(Hutch).to receive(:publish).once.with(*publish_notification)
+    expect(Hutch).to receive(:publish).once.with(publish_notification, publish_notification_args)
 
     subject
   end
