@@ -30,7 +30,14 @@ FactoryBot.define do
       initialize_with { Scope.find_or_create_by(code: Settings.regional.local_code) }
     end
 
+    trait :non_local do
+      name { Census::Faker::Localized.literal("non_local") }
+      code { Settings.regional.non_local_code }
+      initialize_with { Scope.find_or_create_by(code: Settings.regional.non_local_code) }
+    end
+
     factory :local_scope, traits: [:local]
+    factory :non_local_scope, traits: [:non_local]
   end
 
   factory :person do
@@ -67,6 +74,8 @@ FactoryBot.define do
       person.document_id = Faker::SpanishDocument.generate(person.document_type) if person.document_id.blank?
 
       local_scope = create(:local_scope)
+      non_local_scope = create(:non_local_scope)
+
       person.scope ||= create(:scope, parent: local_scope)
       person.address_scope ||= evaluator.non_local ? create(:scope) : person.scope
       person.document_scope ||= foreign && person.document_type == :passport ? create(:scope) : local_scope
