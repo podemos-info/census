@@ -123,11 +123,18 @@ describe PeopleController, type: :controller do
 
       context "when changes the person email" do
         let(:changed_attributes) { { email: "mserveto2@example.org" } }
+        let(:notice_message) do
+          "Se ha solicitado el envío de un correo para que se verifique el cambio de dirección. Si dicho correo "\
+          "no llega a su destino se debe a que ya existe otra inscripción con dicha dirección de correo. En ese "\
+          "caso, será necesaria que la persona que controla dicha cuenta cambie su dirección de correo por otra "\
+          "para volver a solicitar este cambio."
+        end
 
         it { is_expected.to have_http_status(:found) }
         it { expect(subject.location).to eq(person_url(person.id)) }
+
         it "shows an error message" do
-          expect { subject } .to change { flash[:notice] } .from(nil).to("Se ha solicitado el envío de un correo para que se verifique el cambio de dirección. Si dicho correo no llega a su destino se debe a que ya existe otra inscripción con dicha dirección de correo. En ese caso, será necesaria que la persona que controla dicha cuenta cambie su dirección de correo por otra para volver a solicitar este cambio.")
+          expect { subject } .to change { flash[:notice] } .from(nil).to(notice_message)
         end
       end
 

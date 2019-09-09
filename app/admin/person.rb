@@ -129,22 +129,22 @@ ActiveAdmin.register Person do
         end
         on(:noop) do
           flash[:notice] = t("census.people.action_message.no_changes_done")
-          send_confirm_email_notification(false)
+          send_confirm_email_notification(:notice)
           redirect_to(person_path)
         end
         on(:ok) do
           flash[:notice] = t("census.people.action_message.person_data_change_created")
-          send_confirm_email_notification(true)
+          send_confirm_email_notification(:info)
           redirect_to(person_path)
         end
       end
     end
 
-    def send_confirm_email_notification(additional_changes)
+    def send_confirm_email_notification(message_mode)
       return unless form_resource.email != resource.email
 
       ::People::ChangesPublisher.confirm_email_change!(resource, form_resource.email)
-      flash[additional_changes ? :info : :notice] = t("census.people.action_message.email_change_notification_sent")
+      flash[message_mode] = t("census.people.action_message.email_change_notification_sent")
     end
   end
 end

@@ -2,7 +2,7 @@
 
 module MethodsMapHelper
   def methods_map(object, methods)
-    methods.map {|method| [method, object.send(method)] } .to_h
+    methods.map { |method| [method, object.send(method)] } .to_h
   end
 end
 
