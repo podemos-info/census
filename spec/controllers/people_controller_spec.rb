@@ -11,7 +11,7 @@ describe PeopleController, type: :controller do
   let(:resource_class) { Person }
   let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
   let(:resource) { all_resources[resource_class] }
-  let(:person) { create(:person, first_name: "Miguel", last_name1: "Serveto", last_name2: "Conesa") }
+  let(:person) { create(:person, first_name: "Miguel", last_name1: "Serveto", last_name2: "Conesa", email: "mserveto@example.org") }
   let(:person_location) { create(:person_location, person: person) }
   let(:issue) { create(:duplicated_document) } # creates a pending person with a procedure and an issue
   let(:current_admin) { create(:admin, :data) }
@@ -108,10 +108,11 @@ describe PeopleController, type: :controller do
 
     describe "update page" do
       subject do
-        person.assign_attributes first_name: first_name
+        person.assign_attributes changed_attributes
         patch :update, params: { id: person.id, person: person.attributes }
       end
 
+      let(:changed_attributes) { { first_name: first_name } }
       let(:first_name) { "changed" }
 
       it { is_expected.to have_http_status(:found) }
@@ -119,6 +120,16 @@ describe PeopleController, type: :controller do
       it { expect { subject } .to change(person, :first_name).from("original").to("changed") }
 
       include_examples "tracks the user visit"
+
+      context "when changes the person email" do
+        let(:changed_attributes) { { email: "mserveto2@example.org" } }
+
+        it { is_expected.to have_http_status(:found) }
+        it { expect(subject.location).to eq(person_url(person.id)) }
+        it "shows an error message" do
+          expect { subject } .to change { flash[:notice] } .from(nil).to("Se ha solicitado el envío de un correo para que se verifique el cambio de dirección. Si dicho correo no llega a su destino se debe a que ya existe otra inscripción con dicha dirección de correo. En ese caso, será necesaria que la persona que controla dicha cuenta cambie su dirección de correo por otra para volver a solicitar este cambio.")
+        end
+      end
 
       context "when nothing changes" do
         let(:first_name) { person.first_name }
