@@ -34,7 +34,7 @@ describe Procedures::Registration, :db do
       let(:publish_notification_args) do
         {
           person: procedure.person.qualified_id,
-          external_ids: procedure.person.external_ids,
+          external_ids: person.external_ids,
           state: "enabled",
           verification: "not_verified",
           membership_level: "follower",
