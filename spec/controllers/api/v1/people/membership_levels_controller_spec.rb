@@ -10,7 +10,7 @@ describe Api::V1::People::MembershipLevelsController, type: :controller do
     describe "create method" do
       subject(:page) { post :create, params: params }
 
-      let(:params) { { person_id: person.qualified_id_at(:decidim), membership_level: membership_level } }
+      let(:params) { { person_id: person.qualified_id_at("participa2-1"), membership_level: membership_level } }
 
       it { is_expected.to have_http_status(:accepted) }
       it { expect(subject.content_type).to eq("application/json") }

@@ -35,18 +35,18 @@ describe People::CreateDocumentVerification do
     end
 
     it_behaves_like "an event notifiable with hutch" do
-      let(:publish_notification) do
-        [
-          "census.people.full_status_changed", {
-            age: person.age,
-            document_type: person.document_type,
-            person: person.qualified_id,
-            state: person.state,
-            membership_level: person.membership_level,
-            verification: "verification_received",
-            scope_code: person.scope&.code
-          }
-        ]
+      let(:publish_notification) { "census.people.full_status_changed" }
+      let(:publish_notification_args) do
+        {
+          person: person.qualified_id,
+          external_ids: person.external_ids,
+          state: person.state,
+          verification: "verification_received",
+          membership_level: person.membership_level,
+          scope_code: person.scope&.code,
+          document_type: person.document_type,
+          age: person.age
+        }
       end
     end
   end

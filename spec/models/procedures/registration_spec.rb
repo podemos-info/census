@@ -22,7 +22,7 @@ describe Procedures::Registration, :db do
     end
 
     it "sets the person external system identifier" do
-      expect { subject } .to change { procedure.person.reload.qualified_id_at(:decidim) } .to(person.qualified_id_at(:decidim))
+      expect { subject } .to change { procedure.person.reload.qualified_id_at("participa2-1") } .to(person.qualified_id_at("participa2-1"))
     end
 
     it "changes the person membership level to follower" do
@@ -30,18 +30,18 @@ describe Procedures::Registration, :db do
     end
 
     it_behaves_like "an event notifiable with hutch" do
-      let(:publish_notification) do
-        [
-          "census.people.full_status_changed", {
-            age: person.age,
-            document_type: person.document_type,
-            person: procedure.person.qualified_id,
-            state: "enabled",
-            membership_level: "follower",
-            verification: "not_verified",
-            scope_code: person.scope&.code
-          }
-        ]
+      let(:publish_notification) { "census.people.full_status_changed" }
+      let(:publish_notification_args) do
+        {
+          person: procedure.person.qualified_id,
+          external_ids: person.external_ids,
+          state: "enabled",
+          verification: "not_verified",
+          membership_level: "follower",
+          scope_code: person.scope&.code,
+          document_type: person.document_type,
+          age: person.age
+        }
       end
     end
   end
@@ -61,14 +61,14 @@ describe Procedures::Registration, :db do
     end
 
     it_behaves_like "an event notifiable with hutch" do
-      let(:publish_notification) do
-        [
-          "census.people.full_status_changed", {
-            person: procedure.person.qualified_id,
-            state: "trashed",
-            verification: "not_verified"
-          }
-        ]
+      let(:publish_notification) { "census.people.full_status_changed" }
+      let(:publish_notification_args) do
+        {
+          person: procedure.person.qualified_id,
+          external_ids: procedure.person.external_ids,
+          state: "trashed",
+          verification: "not_verified"
+        }
       end
     end
   end

@@ -12,12 +12,14 @@ require "rspec/rails"
 
 # Add additional requires below this line. Rails is not loaded until this point!
 require "support/ahoy_helper"
-require "support/factory_bot"
 require "support/devise"
+require "support/factory_bot"
+require "support/methods_map"
 require "support/request_spec_helper"
 require "support/rspec_debug"
 require "support/stub_command"
 require "support/stub_sms_service"
+
 require "factory_helper"
 require "rectify/rspec"
 require "paper_trail/frameworks/rspec"

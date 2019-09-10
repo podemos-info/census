@@ -8,7 +8,7 @@ describe Api::V1::Payments::PaymentMethodsController, type: :controller do
   let(:payment_method) { create(:credit_card) }
 
   describe "retrieve person payment methods" do
-    subject(:endpoint) { get :index, params: { person_id: person.qualified_id_at(:decidim) } }
+    subject(:endpoint) { get :index, params: { person_id: person.qualified_id_at("participa2-1") } }
 
     before { payment_method2 && payment_method3 }
 

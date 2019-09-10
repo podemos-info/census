@@ -11,6 +11,8 @@ module People
 
     mimic :person
 
+    attribute :ignore_email, Boolean
+
     def complete_required?
       false
     end
@@ -20,7 +22,7 @@ module People
     end
 
     def changed_data
-      add_implicit_changes(changed_attributes)
+      add_implicit_changes(ignore_changes(changed_attributes))
     end
 
     def updatable_attributes
@@ -49,6 +51,12 @@ module People
         end
       end
       changes
+    end
+
+    def ignore_changes(changes)
+      return changes unless ignore_email
+
+      changes.except(:email)
     end
   end
 end

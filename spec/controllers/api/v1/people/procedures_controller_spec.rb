@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe Api::V1::People::ProceduresController, type: :controller do
   describe "retrieve person pending procedures methods" do
-    subject(:endpoint) { get :index, params: { person_id: person.qualified_id_at(:decidim) } }
+    subject(:endpoint) { get :index, params: { person_id: person.qualified_id_at("participa2-1") } }
 
     before { procedure1 && procedure2 }
 

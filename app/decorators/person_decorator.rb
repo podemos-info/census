@@ -106,7 +106,9 @@ class PersonDecorator < ApplicationDecorator
   end
 
   def self.country_options
-    @country_options ||= ([Scope.local.decorate] + Scope.where(parent: Scope.non_local).order(name: :asc).decorate).map do |scope|
+    @country_options ||= (
+      [Scope.local.decorate, Scope.non_local.decorate] + Scope.where(parent: Scope.non_local).order(name: :asc).decorate
+    ).map do |scope|
       [scope.name, scope.id]
     end.freeze
   end

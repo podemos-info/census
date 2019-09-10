@@ -23,7 +23,7 @@ describe Api::V1::PeopleController, type: :controller do
 
       let(:params) do
         params = { person: person.attributes.deep_symbolize_keys }
-        params[:person][:origin_qualified_id] = person.qualified_id_at(:decidim)
+        params[:person][:origin_qualified_id] = person.qualified_id_at("participa2-1")
         params[:person][:scope_code] = scope_code
         params[:person][:address_scope_code] = address_scope_code
         params[:person][:document_scope_code] = document_scope_code
@@ -85,7 +85,7 @@ describe Api::V1::PeopleController, type: :controller do
     end
 
     describe "update method" do
-      subject(:endpoint) { patch :update, params: { id: person.qualified_id_at(:decidim), **changes } }
+      subject(:endpoint) { patch :update, params: { id: person.qualified_id_at("participa2-1"), **changes } }
 
       let(:person) { create(:person) }
       let(:changes) { { person: { first_name: "CHANGED", scope_code: scope_code } } }
@@ -140,7 +140,7 @@ describe Api::V1::PeopleController, type: :controller do
       subject(:endpoint) { patch :destroy, params: { id: person_id, **params } }
 
       let(:person) { create(:person) }
-      let(:person_id) { person.qualified_id_at(:decidim) }
+      let(:person_id) { person.qualified_id_at("participa2-1") }
       let(:params) { { reason: "I don't wanna", channel: "decidim" } }
 
       it { is_expected.to have_http_status(:accepted) }
@@ -194,7 +194,7 @@ describe Api::V1::PeopleController, type: :controller do
       subject(:endpoint) { get :show, params: params }
 
       let(:person) { create(:person) }
-      let(:params) { { id: person.qualified_id_at(:decidim) } }
+      let(:params) { { id: person.qualified_id_at("participa2-1") } }
 
       it { is_expected.to be_successful }
       include_examples "doesn't track the user visit"
@@ -275,7 +275,7 @@ describe Api::V1::PeopleController, type: :controller do
 
           after { Timecop.return }
 
-          let(:params) { { id: current_person.qualified_id_at(:decidim), version_at: version_at } }
+          let(:params) { { id: current_person.qualified_id_at("participa2-1"), version_at: version_at } }
           let(:current_person) { create(:person) }
           let(:person) { current_person.paper_trail.version_at(version_at) }
           let(:version_at) { 7.days.ago }

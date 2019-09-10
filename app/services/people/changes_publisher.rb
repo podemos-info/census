@@ -5,7 +5,12 @@ module People
     include Singleton
 
     class << self
-      delegate :full_status_changed!, to: :instance
+      delegate :full_status_changed!, :confirm_email_change!, to: :instance
+    end
+
+    def confirm_email_change!(person, email)
+      Hutch.connect
+      Hutch.publish "census.people.confirm_email_change", person: person.qualified_id, external_ids: person.external_ids, email: email
     end
 
     def full_status_changed!(person)
@@ -16,7 +21,7 @@ module People
     private
 
     def person_full_status(person)
-      full_status = { person: person.qualified_id, state: person.state, verification: person.verification }
+      full_status = { person: person.qualified_id, external_ids: person.external_ids, state: person.state, verification: person.verification }
 
       return full_status if person.discarded?
 

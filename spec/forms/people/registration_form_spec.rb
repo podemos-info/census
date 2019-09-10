@@ -44,7 +44,7 @@ describe People::RegistrationForm do
   let(:scope_code) { scope.code }
   let(:email) { person.email }
   let(:phone) { person.phone }
-  let(:origin_qualified_id) { person.qualified_id_at(:decidim) }
+  let(:origin_qualified_id) { person.qualified_id_at("participa2-1") }
 
   it { is_expected.to be_valid }
 
