@@ -16,8 +16,6 @@ set :branch, ENV["BRANCH"] || "master"
 
 set :ssh_options, keys: ["config/deploy/deploy_rsa"] if File.exist?("config/deploy/deploy_rsa")
 
-set :sneakers_workers, %w(FinancesWorker PaymentsWorker ProceduresWorker)
-
 def db_tasks_environment
   {
     rails_env: :staging,
