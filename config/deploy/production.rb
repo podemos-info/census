@@ -15,8 +15,6 @@ set :rvm_custom_path, "/usr/share/rvm"
 
 set :ssh_options, keys: ["config/deploy/deploy_rsa"] if File.exist?("config/deploy/deploy_rsa")
 
-set :sneakers_workers, %w(FinancesWorker PaymentsWorker ProceduresWorker)
-
 # Restart sneakers daemon
 on roles(:master) do
   after "deploy:publishing", "systemd:sneakers:restart"
