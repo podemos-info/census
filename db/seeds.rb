@@ -3,6 +3,11 @@
 # don't seed on tests environment
 return if Rails.env.test?
 
+# TODO: Remove me once this is released: https://github.com/rails/rails/pull/35905
+ActiveSupport.on_load(:active_job) do
+  ActiveJob::Base.queue_adapter = Rails.env.development? ? :inline : Rails.application.config.active_job.queue_adapter
+end
+
 base_path = File.expand_path("seeds", __dir__)
 $LOAD_PATH.push base_path
 
@@ -12,8 +17,6 @@ require "census/seeds/scopes"
 Census::Seeds::Scopes.new.seed base_path: "#{base_path}/scopes", logger: Rails.logger
 
 unless Rails.env.production?
-  Rails.application.config.active_job.queue_adapter = :inline if Rails.env.development?
-
   require "faker"
   require "timecop"
 
