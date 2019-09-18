@@ -17,6 +17,17 @@ class PersonSerializer < ActiveModel::Serializer
   attribute :phone, unless: :discarded?
   attribute :additional_information, unless: :discarded?
   attribute :membership_allowed?, unless: :discarded?
+  attribute :created_at, unless: :discarded?
+
+  has_many :scopes, if: :with_scopes_info?
+
+  def scopes
+    Scope.includes(:scope_type).where(id: (
+      object.scope.part_of +
+      object.address_scope.part_of +
+      object.document_scope.part_of
+    ).uniq)
+  end
 
   def person_id
     object.id
@@ -40,5 +51,9 @@ class PersonSerializer < ActiveModel::Serializer
     else
       Person.find(object.id).discarded?
     end
+  end
+
+  def with_scopes_info?
+    !discarded? && instance_options[:with_scopes]
   end
 end
