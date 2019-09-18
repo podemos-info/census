@@ -18,7 +18,7 @@ module Api
 
     def show
       render(json: {}, status: :not_found) && return unless person_at
-      render json: person_at
+      render json: person_at, **show_params.to_h.symbolize_keys
     end
 
     def permitted_params
@@ -39,6 +39,10 @@ module Api
 
     def version_at
       @version_at ||= Time.zone.parse(params[:version_at]) if params[:version_at]
+    end
+
+    def show_params
+      params.permit(:with_scopes)
     end
   end
 end

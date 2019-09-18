@@ -91,6 +91,7 @@ GET api/v1/people/:person_id
 Parameter             | Data type | Description                                    | Format
 ----------------------|-----------|------------------------------------------------|----------------
 `person_id`           |  string   | Person's qualified identifier
+`with_scope`          |  boolean  | Include scopes information in the response (optional) | `true` or `false` (by default)
 `version_at`          |  datetime | Timestamp used to query person data (optional) | `YYYY-MM-DD HH:MM +HH:MM`
 
 ### Return value
@@ -121,6 +122,7 @@ Parameter                | Data type | Description                    | Format
 `external_ids`           |  json     | Person's external systems ids
 `additional_information` |  json     | Person's misc additional information
 `membership_allowed?`    |  boolean  | Is person is allowed to be member | `true` or `false`
+`scopes`                 |  json     | Person's scopes information (if requested) | Array of scope objects (`id`, `name`, `scope_type`, `code` and `mappings`)
 
 * When there is no person for the given `person_id`, server response will be `:not_found` (HTTP 404) and an empty JSON.
 
