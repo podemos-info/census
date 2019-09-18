@@ -3,8 +3,9 @@
 require "rails_helper"
 
 PERSONAL_DATA_FIELDS = %w(first_name last_name1 last_name2 document_type document_id document_scope.code born_at
-                          gender address postal_code address_scope.code email phone membership_allowed?).freeze
-INTERNAL_DATA_FIELDS = %w(created_at updated_at discarded_at scope_id address_scope_id document_scope_id).freeze
+                          gender address postal_code address_scope.code email phone membership_allowed?
+                          created_at).freeze
+INTERNAL_DATA_FIELDS = %w(updated_at discarded_at scope_id address_scope_id document_scope_id).freeze
 STATE_FIELDS = %w(scope.code state verification membership_level).freeze
 
 describe Api::V1::PeopleController, type: :controller do
@@ -205,7 +206,7 @@ describe Api::V1::PeopleController, type: :controller do
         matcher :match_field do |person, field|
           match do |model|
             person_field = field.split(".").reduce(person, &:send)
-            person_field = person_field.to_s if person_field.is_a?(Date)
+            person_field = person_field.as_json if person_field.is_a?(Date) || person_field.is_a?(Time)
             model[field.gsub(".", "_")] == person_field
           end
         end
@@ -226,6 +227,22 @@ describe Api::V1::PeopleController, type: :controller do
           end
         end
 
+        shared_examples_for "returns person scopes information" do
+          it "includes information for all person scopes" do
+            expect(subject["scopes"].map { |scope| scope["id"] }).to match_array((
+              person.scope.part_of +
+              person.address_scope.part_of +
+              person.document_scope.part_of
+            ).uniq)
+          end
+
+          it "includes the same information for every scope" do
+            subject["scopes"].each do |scope|
+              expect(scope.keys).to match_array(%w(id name scope_type code mappings))
+            end
+          end
+        end
+
         shared_examples_for "does not return internal information" do
           it "does not include internal fields" do
             expect(subject.keys).not_to include(INTERNAL_DATA_FIELDS)
@@ -238,9 +255,17 @@ describe Api::V1::PeopleController, type: :controller do
           end
         end
 
+        shared_examples_for "does not return person scopes information" do
+          it "does not include scope field" do
+            expect(subject.keys).not_to include(%(scopes))
+          end
+        end
+
         include_examples "returns full state information"
 
         include_examples "returns person personal data"
+
+        include_examples "does not return person scopes information"
 
         include_examples "does not return internal information"
 
@@ -250,6 +275,20 @@ describe Api::V1::PeopleController, type: :controller do
           include_examples "returns full state information"
 
           include_examples "returns person personal data"
+
+          include_examples "does not return person scopes information"
+
+          include_examples "does not return internal information"
+        end
+
+        context "when scopes information is requested" do
+          let(:params) { { id: person.qualified_id_at("participa2-1"), with_scopes: true } }
+
+          include_examples "returns full state information"
+
+          include_examples "returns person personal data"
+
+          include_examples "returns person scopes information"
 
           include_examples "does not return internal information"
         end
@@ -262,6 +301,8 @@ describe Api::V1::PeopleController, type: :controller do
           include_examples "returns full state information"
 
           include_examples "does not return person personal data"
+
+          include_examples "does not return person scopes information"
 
           include_examples "does not return internal information"
         end
@@ -284,6 +325,8 @@ describe Api::V1::PeopleController, type: :controller do
 
           include_examples "returns person personal data"
 
+          include_examples "does not return person scopes information"
+
           include_examples "does not return internal information"
 
           it "is not verified" do
@@ -301,6 +344,8 @@ describe Api::V1::PeopleController, type: :controller do
             include_examples "returns full state information"
 
             include_examples "does not return person personal data"
+
+            include_examples "does not return person scopes information"
 
             include_examples "does not return internal information"
           end
