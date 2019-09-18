@@ -792,40 +792,40 @@ CM-OU	province	West
 CM-SU	province	South
 CM-SW	province	South-West
 CN	country	China
-CN-11	municipality	Beijing
-CN-12	municipality	Tianjin
-CN-13	province	Hebei
-CN-14	province	Shanxi
-CN-15	autonomous region	Nei Mongol
-CN-21	province	Liaoning
-CN-22	province	Jilin
-CN-23	province	Heilongjiang
-CN-31	municipality	Shanghai
-CN-32	province	Jiangsu
-CN-33	province	Zhejiang
-CN-34	province	Anhui
-CN-35	province	Fujian
-CN-36	province	Jiangxi
-CN-37	province	Shandong
-CN-41	province	Henan
-CN-42	province	Hubei
-CN-43	province	Hunan
-CN-44	province	Guangdong
-CN-45	autonomous region	Guangxi
-CN-46	province	Hainan
-CN-50	municipality	Chongqing
-CN-51	province	Sichuan
-CN-52	province	Guizhou
-CN-53	province	Yunnan
-CN-54	autonomous region	Xizang
-CN-61	province	Shaanxi
-CN-62	province	Gansu
-CN-63	province	Qinghai
-CN-64	autonomous region	Ningxia
-CN-65	autonomous region	Xinjiang
-CN-71	province	Taiwan
-CN-91	special administrative region	Xianggang (Hong-Kong)
-CN-92	special administrative region	Aomen (Macau)
+CN-AH	province	Anhui Sheng
+CN-BJ	municipality	Beijing Shi
+CN-CQ	municipality	Chongqing Shi
+CN-FJ	province	Fujian Sheng
+CN-GD	province	Guangdong Sheng
+CN-GS	province	Gansu Sheng
+CN-GX	autonomous region	Guangxi Zhuangzu Zizhiqu
+CN-GZ	province	Guizhou Sheng
+CN-HA	province	Henan Sheng
+CN-HB	province	Hubei Sheng
+CN-HE	province	Hebei Sheng
+CN-HI	province	Hainan Sheng
+CN-HK	special administrative region	Hong Kong SAR (see also separate country code entry under HK)
+CN-HL	province	Heilongjiang Sheng
+CN-HN	province	Hunan Sheng
+CN-JL	province	Jilin Sheng
+CN-JS	province	Jiangsu Sheng
+CN-JX	province	Jiangxi Sheng
+CN-LN	province	Liaoning Sheng
+CN-MO	special administrative region	Macao SAR (see also separate country code entry under MO)
+CN-NM	autonomous region	Nei Mongol Zizhiqu
+CN-NX	autonomous region	Ningxia Huizi Zizhiqu
+CN-QH	province	Qinghai Sheng
+CN-SC	province	Sichuan Sheng
+CN-SD	province	Shandong Sheng
+CN-SH	municipality	Shanghai Shi
+CN-SN	province	Shaanxi Sheng
+CN-SX	province	Shanxi Sheng
+CN-TJ	municipality	Tianjin Shi
+CN-TW	province	Taiwan Sheng (see also separate country code entry under TW)
+CN-XJ	autonomous region	Xinjiang Uygur Zizhiqu
+CN-XZ	autonomous region	Xizang Zizhiqu
+CN-YN	province	Yunnan Sheng
+CN-ZJ	province	Zhejiang Sheng
 CO	country	Colombia
 CO-AMA	department	Amazonas
 CO-ANT	department	Antioquia
@@ -1706,8 +1706,6 @@ GB-WLS-SWA	unitary authority	Swansea; Abertawe
 GB-WLS-TOF	unitary authority	Torfaen; Tor-faen
 GB-WLS-VGL	unitary authority	Vale of Glamorgan, The; Bro Morgannwg
 GB-WLS-WRX	unitary authority	Wrexham; Wrecsam
-GB-MDX	province	Middlesex
-GB-WIL	province	Wiltshire
 GD	country	Grenada
 GD-01	parish	Saint Andrew
 GD-02	parish	Saint David
@@ -2109,7 +2107,7 @@ IN-AS	state	Assam
 IN-BR	state	Bihar
 IN-CH	union territory	Chandigarh
 IN-CT	state	Chhattisgarh
-IN-DD	union territory	Damen and Diu
+IN-DD	union territory	Daman and Diu
 IN-DL	union territory	Delhi
 IN-DN	union territory	Dadra and Nagar Haveli
 IN-GA	state	Goa
@@ -2127,17 +2125,17 @@ IN-MN	state	Manipur
 IN-MP	state	Madhya Pradesh
 IN-MZ	state	Mizoram
 IN-NL	state	Nagaland
-IN-OR	state	Orissa
+IN-OR	state	Odisha
 IN-PB	state	Punjab
 IN-PY	union territory	Puducherry
 IN-RJ	state	Rajasthan
 IN-SK	state	Sikkim
+IN-TG	state	Telangana
 IN-TN	state	Tamil Nadu
 IN-TR	state	Tripura
 IN-UP	state	Uttar Pradesh
 IN-UT	state	Uttarakhand
 IN-WB	state	West Bengal
-IN-TG	state	Telangana
 IO	country	British Indian Ocean Territory
 IQ	country	Iraq
 IQ-AN	governorate	Al Anbar
@@ -2829,85 +2827,93 @@ LY-WD	popularates	Wādī al Ḩayāt
 LY-WS	popularates	Wādī ash Shāţiʾ
 LY-ZA	popularates	Az Zāwiyah
 MA	country	Morocco
-MA-01	economic region	Tanger-Tétouan
-MA-01-CHE	province	Chefchaouen
-MA-01-FAH	prefecture	Fahs-Beni Makada
-MA-01-LAR	province	Larache
-MA-01-TET	prefecture	Tétouan
-MA-01-TNG	prefecture	Tanger-Assilah
-MA-02	economic region	Gharb-Chrarda-Beni Hssen
-MA-02-KEN	province	Kénitra
-MA-02-SIK	province	Sidl Kacem
-MA-03	economic region	Taza-Al Hoceima-Taounate
-MA-03-HOC	province	Al Hoceïma
-MA-03-TAO	province	Taounate
-MA-03-TAZ	province	Taza
-MA-04	economic region	L'Oriental
-MA-04-BER	province	Berkane
-MA-04-FIG	province	Figuig
-MA-04-JRA	province	Jrada
-MA-04-NAD	province	Nador
-MA-04-OUJ	prefecture	Oujda-Angad
-MA-04-TAI	province	Taourirt
-MA-05	economic region	Fès-Boulemane
-MA-05-BOM	province	Boulemane
-MA-05-FES	prefecture	Fès-Dar-Dbibegh
-MA-05-MOU	province	Moulay Yacoub
-MA-05-SEF	province	Sefrou
-MA-06	economic region	Meknès-Tafilalet
-MA-06-ERR	province	Errachidia
-MA-06-HAJ	province	El Hajeb
-MA-06-IFR	province	Ifrane
-MA-06-KHN	province	Khenifra
-MA-06-MEK	prefecture	Meknès
-MA-07	economic region	Rabat-Salé-Zemmour-Zaer
-MA-07-KHE	province	Khemisaet
-MA-07-RAB	prefecture	Rabat
-MA-07-SAL	prefecture	Salé
-MA-07-SKH	prefecture	Skhirate-Témara
-MA-08	economic region	Grand Casablanca
-MA-08-CAS	prefecture	Casablanca [Dar el Beïda]
-MA-08-MED	province	Médiouna
-MA-08-MOH	prefecture	Mohammadia
-MA-08-NOU	province	Nouaceur
-MA-09	economic region	Chaouia-Ouardigha
-MA-09-BES	province	Ben Slimane
-MA-09-KHO	province	Khouribga
-MA-09-SET	province	Settat
-MA-10	economic region	Doukhala-Abda
-MA-10-JDI	province	El Jadida
-MA-10-SAF	province	Safi
-MA-11	economic region	Marrakech-Tensift-Al Haouz
-MA-11-CHI	province	Chichaoua
-MA-11-ESI	province	Essaouira
-MA-11-HAO	province	Al Haouz
-MA-11-KES	province	Kelaat es Sraghna
-MA-11-MMD	prefecture	Marrakech-Medina
-MA-11-MMN	prefecture	Marrakech-Menara
-MA-11-SYB	prefecture	Sidi Youssef Ben Ali
-MA-12	economic region	Tadla-Azilal
-MA-12-AZI	province	Azilal
-MA-12-BEM	province	Beni Mellal
-MA-13	economic region	Sous-Massa-Draa
-MA-13-AGD	prefecture	Agadir-Ida-Outanane
-MA-13-CHT	province	Chtouka-Ait Baha
-MA-13-INE	prefecture	Inezgane-Ait Melloul
-MA-13-OUA	province	Ouarzazate
-MA-13-TAR	province	Taroudant
-MA-13-TIZ	province	Tiznit
-MA-13-ZAG	province	Zagora
-MA-14	economic region	Guelmim-Es Smara
-MA-14-ASZ	province	Assa-Zag
-MA-14-ESM	province	Es Smara (EH)
-MA-14-GUE	province	Guelmim
-MA-14-TAT	province	Tata
-MA-14-TNT	province	Tan-Tan
-MA-15	economic region	Laâyoune-Boujdour-Sakia el Hamra
-MA-15-BOD	province	Boujdour (EH)
-MA-15-LAA	province	Laâyoune (EH)
-MA-16	economic region	Oued ed Dahab-Lagouira
-MA-16-AOU	prefecture	Aousserd
-MA-16-OUD	province	Oued ed Dahab (EH)
+MA-01	economic region	Tanger-Tétouan-Al Hoceïma
+MA-01-TA	prefecture	Tanger-Assilah
+MA-01-MF	prefecture	M'diq-Fnideq
+MA-01-TE	province	Tétouan
+MA-01-FB	province	Fahs-Anjra
+MA-01-LA	province	Larache
+MA-01-AH	province	Al Hoceïma
+MA-01-CH	province	Chefchaouen
+MA-01-OU	province	Ouezzane
+MA-02	economic region	L'Oriental
+MA-02-OA	prefecture	Oujda-Angad
+MA-02-NA	province	Nador
+MA-02-DR	province	Driouch
+MA-02-JE	province	Jerada
+MA-02-BE	province	Berkane
+MA-02-TA	province	Taourirt
+MA-02-GU	province	Guercif
+MA-02-FI	province	Figuig
+MA-03	economic region	Fès-Meknès
+MA-03-FS	prefecture	Fès
+MA-03-ME	prefecture	Meknès
+MA-03-EH	province	El Hajeb
+MA-03-IF	province	Ifrane
+MA-03-ZM	province	Moulay Yaâcoub
+MA-03-SE	province	Séfrou
+MA-03-BO	province	Boulemane
+MA-03-TN	province	Taounate
+MA-03-TZ	province	Taza
+MA-04	economic region	Rabat-Salé-Kénitra
+MA-04-RA	prefecture	Rabat
+MA-04-SA	prefecture	Salé
+MA-04-ST	prefecture	Skhirate-Témara
+MA-04-KE	province	Kénitra
+MA-04-KH	province	Khémisset
+MA-04-SK	province	Sidi Kacem
+MA-04-SS	province	Sidi Slimane
+MA-05	economic region	Béni Mellal-Khénifra
+MA-05-BM	province	Béni-Mellal
+MA-05-AZ	province	Azilal
+MA-05-FB	province	Fquih Ben Salah
+MA-05-KF	province	Khénifra
+MA-05-KB	province	Khouribga
+MA-06	economic region	Casablanca-Settat
+MA-06-CB	prefecture	Casablanca
+MA-06-MH	prefecture	Mohammédia
+MA-06-EJ	province	El Jadida
+MA-06-NC	province	Nouaceur
+MA-06-ME	province	Médiouna
+MA-06-BS	province	Benslimane
+MA-06-BR	province	Berrechid
+MA-06-SE	province	Settat
+MA-06-SB	province	Sidi Bennour
+MA-07	economic region	Marrakech-Safi
+MA-07-MR	prefecture	Marrakech
+MA-07-CH	province	Chichaoua
+MA-07-AH	province	Al Haouz
+MA-07-EK	province	El Kelaâ des Sraghna
+MA-07-ES	province	Essaouira
+MA-07-RE	province	Rehamna
+MA-07-SA	province	Safi
+MA-07-YO	province	Youssoufia
+MA-08	economic region	Drâa-Tafilalet
+MA-08-ER	province	Errachidia
+MA-08-OU	province	Ouarzazate
+MA-08-MI	province	Midelt
+MA-08-TI	province	Tinghir
+MA-08-ZA	province	Zagora
+MA-09	economic region	Souss-Massa
+MA-09-AI	prefecture	Agadir Ida-Outanane
+MA-09-IA	prefecture	Inezgane-Aït Melloul
+MA-09-CA	province	Chtouka-Aït Baha
+MA-09-TR	province	Taroudant
+MA-09-TI	province	Tiznit
+MA-09-TT	province	Tata
+MA-10	economic region	Guelmim-Oued Noun
+MA-10-GU	province	Guelmim
+MA-10-AZ	province	Assa-Zag
+MA-10-TN	province	Tan-Tan
+MA-10-SI	province	Sidi Ifni
+MA-11	economic region	Laâyoune-Sakia El Hamra
+MA-11-LA	province	Laâyoune
+MA-11-BO	province	Boujdour
+MA-11-TA	province	Tarfaya
+MA-11-ES	province	Es-Semara
+MA-12	economic region	Dakhla-Oued Ed Dahab
+MA-12-OE	province	Oued Ed Dahab
+MA-12-AO	province	Aousserd
 MC	country	Monaco
 MC-CL	quarter	La Colle
 MC-CO	quarter	La Condamine
@@ -3021,7 +3027,7 @@ MH-T-MEJ	municipality	Mejit
 MH-T-MIL	municipality	Mili
 MH-T-UTI	municipality	Utirik
 MH-T-WTJ	municipality	Wotje
-MK	country	Macedonia, Republic of
+MK	country	North Macedonia
 MK-01	municipality	Aerodrom
 MK-02	municipality	Aračinovo
 MK-03	municipality	Berovo
@@ -3544,7 +3550,8 @@ MX-CHP-116	municipality	Marqués de Comillas
 MX-CHP-117	municipality	Montecristo de Guerrero
 MX-CHP-118	municipality	San Andrés Duraznal
 MX-CHP-119	municipality	Santiago el Pinar
-MX-COA	state	Coahuila
+MX-CMX	federal district	Ciudad de México
+MX-COA	state	Coahuila de Zaragoza
 MX-COA-001	municipality	Abasolo
 MX-COA-002	municipality	Acuña
 MX-COA-003	municipality	Allende
@@ -3594,7 +3601,6 @@ MX-COL-007	municipality	Manzanillo
 MX-COL-008	municipality	Minatitlán
 MX-COL-009	municipality	Tecomán
 MX-COL-010	municipality	Villa de Álvarez
-MX-CDMX	state	Ciudad de México
 MX-DUR	state	Durango
 MX-DUR-001	municipality	Canatlán
 MX-DUR-002	municipality	Canelas
@@ -4078,7 +4084,7 @@ MX-MEX-122	municipality	Valle de Chalco Solidaridad
 MX-MEX-123	municipality	Luvianos
 MX-MEX-124	municipality	San Jose del Rincón
 MX-MEX-125	municipality	Tonanitla
-MX-MIC	state	Michoacán
+MX-MIC	state	Michoacán de Ocampo
 MX-MIC-001	municipality	Acuitzio
 MX-MIC-002	municipality	Aguililla
 MX-MIC-003	municipality	Alvaro Obregón
@@ -5392,7 +5398,7 @@ MX-TLA-057	municipality	Santa Apolonia Teacalco
 MX-TLA-058	municipality	Santa Catarina Ayometla
 MX-TLA-059	municipality	Santa Cruz Quilehtla
 MX-TLA-060	municipality	Santa Isabel Xiloxoxtla
-MX-VER	state	Veracruz
+MX-VER	state	Veracruz de Ignacio de la Llave
 MX-VER-001	municipality	Acajete
 MX-VER-002	municipality	Acatlán
 MX-VER-003	municipality	Acayucan
@@ -6851,7 +6857,7 @@ SY-RA	governorate	Ar Raqqah
 SY-RD	governorate	Rif Dimashq
 SY-SU	governorate	As Suwayda'
 SY-TA	governorate	Tartus
-SZ	country	Swaziland
+SZ	country	Eswatini
 SZ-HH	district	Hhohho
 SZ-LU	district	Lubombo
 SZ-MA	district	Manzini
@@ -7546,13 +7552,13 @@ YT	country	Mayotte
 ZA	country	South Africa
 ZA-EC	province	Eastern Cape
 ZA-FS	province	Free State
-ZA-GP	province	Gauteng
+ZA-GT	province	Gauteng
 ZA-LP	province	Limpopo
 ZA-MP	province	Mpumalanga
 ZA-NC	province	Northern Cape
+ZA-NL	province	Kwazulu-Natal
 ZA-NW	province	North-West (South Africa)
 ZA-WC	province	Western Cape
-ZA-ZN	province	Kwazulu-Natal
 ZM	country	Zambia
 ZM-01	province	Western
 ZM-02	province	Central

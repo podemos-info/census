@@ -3964,176 +3964,176 @@ CN	ca	China
 CN	eu	China
 CN	ga	China
 CN	en	China
-CN-11	es	Beijing
-CN-11	ca	Beijing
-CN-11	eu	Beijing
-CN-11	ga	Beijing
-CN-11	en	Beijing
-CN-12	es	Tianjin
-CN-12	ca	Tianjin
-CN-12	eu	Tianjin
-CN-12	ga	Tianjin
-CN-12	en	Tianjin
-CN-13	es	Hebei
-CN-13	ca	Hebei
-CN-13	eu	Hebei
-CN-13	ga	Hebei
-CN-13	en	Hebei
-CN-14	es	Shanxi
-CN-14	ca	Shanxi
-CN-14	eu	Shanxi
-CN-14	ga	Shanxi
-CN-14	en	Shanxi
-CN-15	es	Nei Mongol
-CN-15	ca	Nei Mongol
-CN-15	eu	Nei Mongol
-CN-15	ga	Nei Mongol
-CN-15	en	Nei Mongol
-CN-21	es	Liaoning
-CN-21	ca	Liaoning
-CN-21	eu	Liaoning
-CN-21	ga	Liaoning
-CN-21	en	Liaoning
-CN-22	es	Jilin
-CN-22	ca	Jilin
-CN-22	eu	Jilin
-CN-22	ga	Jilin
-CN-22	en	Jilin
-CN-23	es	Heilongjiang
-CN-23	ca	Heilongjiang
-CN-23	eu	Heilongjiang
-CN-23	ga	Heilongjiang
-CN-23	en	Heilongjiang
-CN-31	es	Shanghai
-CN-31	ca	Shanghai
-CN-31	eu	Shanghai
-CN-31	ga	Shanghai
-CN-31	en	Shanghai
-CN-32	es	Jiangsu
-CN-32	ca	Jiangsu
-CN-32	eu	Jiangsu
-CN-32	ga	Jiangsu
-CN-32	en	Jiangsu
-CN-33	es	Zhejiang
-CN-33	ca	Zhejiang
-CN-33	eu	Zhejiang
-CN-33	ga	Zhejiang
-CN-33	en	Zhejiang
-CN-34	es	Anhui
-CN-34	ca	Anhui
-CN-34	eu	Anhui
-CN-34	ga	Anhui
-CN-34	en	Anhui
-CN-35	es	Fujian
-CN-35	ca	Fujian
-CN-35	eu	Fujian
-CN-35	ga	Fujian
-CN-35	en	Fujian
-CN-36	es	Jiangxi
-CN-36	ca	Jiangxi
-CN-36	eu	Jiangxi
-CN-36	ga	Jiangxi
-CN-36	en	Jiangxi
-CN-37	es	Shandong
-CN-37	ca	Shandong
-CN-37	eu	Shandong
-CN-37	ga	Shandong
-CN-37	en	Shandong
-CN-41	es	Henan
-CN-41	ca	Henan
-CN-41	eu	Henan
-CN-41	ga	Henan
-CN-41	en	Henan
-CN-42	es	Hubei
-CN-42	ca	Hubei
-CN-42	eu	Hubei
-CN-42	ga	Hubei
-CN-42	en	Hubei
-CN-43	es	Hunan
-CN-43	ca	Hunan
-CN-43	eu	Hunan
-CN-43	ga	Hunan
-CN-43	en	Hunan
-CN-44	es	Guangdong
-CN-44	ca	Guangdong
-CN-44	eu	Guangdong
-CN-44	ga	Guangdong
-CN-44	en	Guangdong
-CN-45	es	Guangxi
-CN-45	ca	Guangxi
-CN-45	eu	Guangxi
-CN-45	ga	Guangxi
-CN-45	en	Guangxi
-CN-46	es	Hainan
-CN-46	ca	Hainan
-CN-46	eu	Hainan
-CN-46	ga	Hainan
-CN-46	en	Hainan
-CN-50	es	Chongqing
-CN-50	ca	Chongqing
-CN-50	eu	Chongqing
-CN-50	ga	Chongqing
-CN-50	en	Chongqing
-CN-51	es	Sichuan
-CN-51	ca	Sichuan
-CN-51	eu	Sichuan
-CN-51	ga	Sichuan
-CN-51	en	Sichuan
-CN-52	es	Guizhou
-CN-52	ca	Guizhou
-CN-52	eu	Guizhou
-CN-52	ga	Guizhou
-CN-52	en	Guizhou
-CN-53	es	Yunnan
-CN-53	ca	Yunnan
-CN-53	eu	Yunnan
-CN-53	ga	Yunnan
-CN-53	en	Yunnan
-CN-54	es	Xizang
-CN-54	ca	Xizang
-CN-54	eu	Xizang
-CN-54	ga	Xizang
-CN-54	en	Xizang
-CN-61	es	Shaanxi
-CN-61	ca	Shaanxi
-CN-61	eu	Shaanxi
-CN-61	ga	Shaanxi
-CN-61	en	Shaanxi
-CN-62	es	Gansu
-CN-62	ca	Gansu
-CN-62	eu	Gansu
-CN-62	ga	Gansu
-CN-62	en	Gansu
-CN-63	es	Qinghai
-CN-63	ca	Qinghai
-CN-63	eu	Qinghai
-CN-63	ga	Qinghai
-CN-63	en	Qinghai
-CN-64	es	Ningxia
-CN-64	ca	Ningxia
-CN-64	eu	Ningxia
-CN-64	ga	Ningxia
-CN-64	en	Ningxia
-CN-65	es	Xinjiang
-CN-65	ca	Xinjiang
-CN-65	eu	Xinjiang
-CN-65	ga	Xinjiang
-CN-65	en	Xinjiang
-CN-71	es	Taiwan
-CN-71	ca	Taiwan
-CN-71	eu	Taiwan
-CN-71	ga	Taiwan
-CN-71	en	Taiwan
-CN-91	es	Xianggang (Hong-Kong)
-CN-91	ca	Xianggang (Hong-Kong)
-CN-91	eu	Xianggang (Hong-Kong)
-CN-91	ga	Xianggang (Hong-Kong)
-CN-91	en	Xianggang (Hong-Kong)
-CN-92	es	Aomen (Macau)
-CN-92	ca	Aomen (Macau)
-CN-92	eu	Aomen (Macau)
-CN-92	ga	Aomen (Macau)
-CN-92	en	Aomen (Macau)
+CN-AH	es	Anhui Sheng
+CN-AH	ca	Anhui Sheng
+CN-AH	eu	Anhui Sheng
+CN-AH	ga	Anhui Sheng
+CN-AH	en	Anhui Sheng
+CN-BJ	es	Beijing Shi
+CN-BJ	ca	Beijing Shi
+CN-BJ	eu	Beijing Shi
+CN-BJ	ga	Beijing Shi
+CN-BJ	en	Beijing Shi
+CN-CQ	es	Chongqing Shi
+CN-CQ	ca	Chongqing Shi
+CN-CQ	eu	Chongqing Shi
+CN-CQ	ga	Chongqing Shi
+CN-CQ	en	Chongqing Shi
+CN-FJ	es	Fujian Sheng
+CN-FJ	ca	Fujian Sheng
+CN-FJ	eu	Fujian Sheng
+CN-FJ	ga	Fujian Sheng
+CN-FJ	en	Fujian Sheng
+CN-GD	es	Guangdong Sheng
+CN-GD	ca	Guangdong Sheng
+CN-GD	eu	Guangdong Sheng
+CN-GD	ga	Guangdong Sheng
+CN-GD	en	Guangdong Sheng
+CN-GS	es	Gansu Sheng
+CN-GS	ca	Gansu Sheng
+CN-GS	eu	Gansu Sheng
+CN-GS	ga	Gansu Sheng
+CN-GS	en	Gansu Sheng
+CN-GX	es	Guangxi Zhuangzu Zizhiqu
+CN-GX	ca	Guangxi Zhuangzu Zizhiqu
+CN-GX	eu	Guangxi Zhuangzu Zizhiqu
+CN-GX	ga	Guangxi Zhuangzu Zizhiqu
+CN-GX	en	Guangxi Zhuangzu Zizhiqu
+CN-GZ	es	Guizhou Sheng
+CN-GZ	ca	Guizhou Sheng
+CN-GZ	eu	Guizhou Sheng
+CN-GZ	ga	Guizhou Sheng
+CN-GZ	en	Guizhou Sheng
+CN-HA	es	Henan Sheng
+CN-HA	ca	Henan Sheng
+CN-HA	eu	Henan Sheng
+CN-HA	ga	Henan Sheng
+CN-HA	en	Henan Sheng
+CN-HB	es	Hubei Sheng
+CN-HB	ca	Hubei Sheng
+CN-HB	eu	Hubei Sheng
+CN-HB	ga	Hubei Sheng
+CN-HB	en	Hubei Sheng
+CN-HE	es	Hebei Sheng
+CN-HE	ca	Hebei Sheng
+CN-HE	eu	Hebei Sheng
+CN-HE	ga	Hebei Sheng
+CN-HE	en	Hebei Sheng
+CN-HI	es	Hainan Sheng
+CN-HI	ca	Hainan Sheng
+CN-HI	eu	Hainan Sheng
+CN-HI	ga	Hainan Sheng
+CN-HI	en	Hainan Sheng
+CN-HK	es	Hong Kong SAR (see also separate country code entry under HK)
+CN-HK	ca	Hong Kong SAR (see also separate country code entry under HK)
+CN-HK	eu	Hong Kong SAR (see also separate country code entry under HK)
+CN-HK	ga	Hong Kong SAR (see also separate country code entry under HK)
+CN-HK	en	Hong Kong SAR (see also separate country code entry under HK)
+CN-HL	es	Heilongjiang Sheng
+CN-HL	ca	Heilongjiang Sheng
+CN-HL	eu	Heilongjiang Sheng
+CN-HL	ga	Heilongjiang Sheng
+CN-HL	en	Heilongjiang Sheng
+CN-HN	es	Hunan Sheng
+CN-HN	ca	Hunan Sheng
+CN-HN	eu	Hunan Sheng
+CN-HN	ga	Hunan Sheng
+CN-HN	en	Hunan Sheng
+CN-JL	es	Jilin Sheng
+CN-JL	ca	Jilin Sheng
+CN-JL	eu	Jilin Sheng
+CN-JL	ga	Jilin Sheng
+CN-JL	en	Jilin Sheng
+CN-JS	es	Jiangsu Sheng
+CN-JS	ca	Jiangsu Sheng
+CN-JS	eu	Jiangsu Sheng
+CN-JS	ga	Jiangsu Sheng
+CN-JS	en	Jiangsu Sheng
+CN-JX	es	Jiangxi Sheng
+CN-JX	ca	Jiangxi Sheng
+CN-JX	eu	Jiangxi Sheng
+CN-JX	ga	Jiangxi Sheng
+CN-JX	en	Jiangxi Sheng
+CN-LN	es	Liaoning Sheng
+CN-LN	ca	Liaoning Sheng
+CN-LN	eu	Liaoning Sheng
+CN-LN	ga	Liaoning Sheng
+CN-LN	en	Liaoning Sheng
+CN-MO	es	Macao SAR (see also separate country code entry under MO)
+CN-MO	ca	Macao SAR (see also separate country code entry under MO)
+CN-MO	eu	Macao SAR (see also separate country code entry under MO)
+CN-MO	ga	Macao SAR (see also separate country code entry under MO)
+CN-MO	en	Macao SAR (see also separate country code entry under MO)
+CN-NM	es	Nei Mongol Zizhiqu
+CN-NM	ca	Nei Mongol Zizhiqu
+CN-NM	eu	Nei Mongol Zizhiqu
+CN-NM	ga	Nei Mongol Zizhiqu
+CN-NM	en	Nei Mongol Zizhiqu
+CN-NX	es	Ningxia Huizi Zizhiqu
+CN-NX	ca	Ningxia Huizi Zizhiqu
+CN-NX	eu	Ningxia Huizi Zizhiqu
+CN-NX	ga	Ningxia Huizi Zizhiqu
+CN-NX	en	Ningxia Huizi Zizhiqu
+CN-QH	es	Qinghai Sheng
+CN-QH	ca	Qinghai Sheng
+CN-QH	eu	Qinghai Sheng
+CN-QH	ga	Qinghai Sheng
+CN-QH	en	Qinghai Sheng
+CN-SC	es	Sichuan Sheng
+CN-SC	ca	Sichuan Sheng
+CN-SC	eu	Sichuan Sheng
+CN-SC	ga	Sichuan Sheng
+CN-SC	en	Sichuan Sheng
+CN-SD	es	Shandong Sheng
+CN-SD	ca	Shandong Sheng
+CN-SD	eu	Shandong Sheng
+CN-SD	ga	Shandong Sheng
+CN-SD	en	Shandong Sheng
+CN-SH	es	Shanghai Shi
+CN-SH	ca	Shanghai Shi
+CN-SH	eu	Shanghai Shi
+CN-SH	ga	Shanghai Shi
+CN-SH	en	Shanghai Shi
+CN-SN	es	Shaanxi Sheng
+CN-SN	ca	Shaanxi Sheng
+CN-SN	eu	Shaanxi Sheng
+CN-SN	ga	Shaanxi Sheng
+CN-SN	en	Shaanxi Sheng
+CN-SX	es	Shanxi Sheng
+CN-SX	ca	Shanxi Sheng
+CN-SX	eu	Shanxi Sheng
+CN-SX	ga	Shanxi Sheng
+CN-SX	en	Shanxi Sheng
+CN-TJ	es	Tianjin Shi
+CN-TJ	ca	Tianjin Shi
+CN-TJ	eu	Tianjin Shi
+CN-TJ	ga	Tianjin Shi
+CN-TJ	en	Tianjin Shi
+CN-TW	es	Taiwan Sheng (see also separate country code entry under TW)
+CN-TW	ca	Taiwan Sheng (see also separate country code entry under TW)
+CN-TW	eu	Taiwan Sheng (see also separate country code entry under TW)
+CN-TW	ga	Taiwan Sheng (see also separate country code entry under TW)
+CN-TW	en	Taiwan Sheng (see also separate country code entry under TW)
+CN-XJ	es	Xinjiang Uygur Zizhiqu
+CN-XJ	ca	Xinjiang Uygur Zizhiqu
+CN-XJ	eu	Xinjiang Uygur Zizhiqu
+CN-XJ	ga	Xinjiang Uygur Zizhiqu
+CN-XJ	en	Xinjiang Uygur Zizhiqu
+CN-XZ	es	Xizang Zizhiqu
+CN-XZ	ca	Xizang Zizhiqu
+CN-XZ	eu	Xizang Zizhiqu
+CN-XZ	ga	Xizang Zizhiqu
+CN-XZ	en	Xizang Zizhiqu
+CN-YN	es	Yunnan Sheng
+CN-YN	ca	Yunnan Sheng
+CN-YN	eu	Yunnan Sheng
+CN-YN	ga	Yunnan Sheng
+CN-YN	en	Yunnan Sheng
+CN-ZJ	es	Zhejiang Sheng
+CN-ZJ	ca	Zhejiang Sheng
+CN-ZJ	eu	Zhejiang Sheng
+CN-ZJ	ga	Zhejiang Sheng
+CN-ZJ	en	Zhejiang Sheng
 CO	es	Colombia
 CO	ca	Colombia
 CO	eu	Colombia
@@ -8534,16 +8534,6 @@ GB-WLS-WRX	ca	Wrexham; Wrecsam
 GB-WLS-WRX	eu	Wrexham; Wrecsam
 GB-WLS-WRX	ga	Wrexham; Wrecsam
 GB-WLS-WRX	en	Wrexham; Wrecsam
-GB-MDX	es	Middlesex
-GB-MDX	ca	Middlesex
-GB-MDX	eu	Middlesex
-GB-MDX	ga	Middlesex
-GB-MDX	en	Middlesex
-GB-WIL	es	Wiltshire
-GB-WIL	ca	Wiltshire
-GB-WIL	eu	Wiltshire
-GB-WIL	ga	Wiltshire
-GB-WIL	en	Wiltshire
 GD	es	Granada
 GD	ca	Granada
 GD	eu	Granada
@@ -10549,11 +10539,11 @@ IN-CT	ca	Chhattisgarh
 IN-CT	eu	Chhattisgarh
 IN-CT	ga	Chhattisgarh
 IN-CT	en	Chhattisgarh
-IN-DD	es	Damen and Diu
-IN-DD	ca	Damen and Diu
-IN-DD	eu	Damen and Diu
-IN-DD	ga	Damen and Diu
-IN-DD	en	Damen and Diu
+IN-DD	es	Daman and Diu
+IN-DD	ca	Daman and Diu
+IN-DD	eu	Daman and Diu
+IN-DD	ga	Daman and Diu
+IN-DD	en	Daman and Diu
 IN-DL	es	Delhi
 IN-DL	ca	Delhi
 IN-DL	eu	Delhi
@@ -10639,11 +10629,11 @@ IN-NL	ca	Nagaland
 IN-NL	eu	Nagaland
 IN-NL	ga	Nagaland
 IN-NL	en	Nagaland
-IN-OR	es	Orissa
-IN-OR	ca	Orissa
-IN-OR	eu	Orissa
-IN-OR	ga	Orissa
-IN-OR	en	Orissa
+IN-OR	es	Odisha
+IN-OR	ca	Odisha
+IN-OR	eu	Odisha
+IN-OR	ga	Odisha
+IN-OR	en	Odisha
 IN-PB	es	Punjab
 IN-PB	ca	Punjab
 IN-PB	eu	Punjab
@@ -10664,6 +10654,11 @@ IN-SK	ca	Sikkim
 IN-SK	eu	Sikkim
 IN-SK	ga	Sikkim
 IN-SK	en	Sikkim
+IN-TG	es	Telangana
+IN-TG	ca	Telangana
+IN-TG	eu	Telangana
+IN-TG	ga	Telangana
+IN-TG	en	Telangana
 IN-TN	es	Tamil Nadu
 IN-TN	ca	Tamil Nadu
 IN-TN	eu	Tamil Nadu
@@ -10689,11 +10684,6 @@ IN-WB	ca	West Bengal
 IN-WB	eu	West Bengal
 IN-WB	ga	West Bengal
 IN-WB	en	West Bengal
-IN-TG	es	Telangana
-IN-TG	ca	Telangana
-IN-TG	eu	Telangana
-IN-TG	ga	Telangana
-IN-TG	en	Telangana
 IO	es	Territorio Británico del Océano Índico
 IO	ca	Territorio Británico del Océano Índico
 IO	eu	Territorio Británico del Océano Índico
@@ -14149,401 +14139,441 @@ MA	ca	Marruecos
 MA	eu	Marruecos
 MA	ga	Marruecos
 MA	en	Morocco
-MA-01	es	Tanger-Tétouan
-MA-01	ca	Tanger-Tétouan
-MA-01	eu	Tanger-Tétouan
-MA-01	ga	Tanger-Tétouan
-MA-01	en	Tanger-Tétouan
-MA-01-CHE	es	Chefchaouen
-MA-01-CHE	ca	Chefchaouen
-MA-01-CHE	eu	Chefchaouen
-MA-01-CHE	ga	Chefchaouen
-MA-01-CHE	en	Chefchaouen
-MA-01-FAH	es	Fahs-Beni Makada
-MA-01-FAH	ca	Fahs-Beni Makada
-MA-01-FAH	eu	Fahs-Beni Makada
-MA-01-FAH	ga	Fahs-Beni Makada
-MA-01-FAH	en	Fahs-Beni Makada
-MA-01-LAR	es	Larache
-MA-01-LAR	ca	Larache
-MA-01-LAR	eu	Larache
-MA-01-LAR	ga	Larache
-MA-01-LAR	en	Larache
-MA-01-TET	es	Tétouan
-MA-01-TET	ca	Tétouan
-MA-01-TET	eu	Tétouan
-MA-01-TET	ga	Tétouan
-MA-01-TET	en	Tétouan
-MA-01-TNG	es	Tanger-Assilah
-MA-01-TNG	ca	Tanger-Assilah
-MA-01-TNG	eu	Tanger-Assilah
-MA-01-TNG	ga	Tanger-Assilah
-MA-01-TNG	en	Tanger-Assilah
-MA-02	es	Gharb-Chrarda-Beni Hssen
-MA-02	ca	Gharb-Chrarda-Beni Hssen
-MA-02	eu	Gharb-Chrarda-Beni Hssen
-MA-02	ga	Gharb-Chrarda-Beni Hssen
-MA-02	en	Gharb-Chrarda-Beni Hssen
-MA-02-KEN	es	Kénitra
-MA-02-KEN	ca	Kénitra
-MA-02-KEN	eu	Kénitra
-MA-02-KEN	ga	Kénitra
-MA-02-KEN	en	Kénitra
-MA-02-SIK	es	Sidl Kacem
-MA-02-SIK	ca	Sidl Kacem
-MA-02-SIK	eu	Sidl Kacem
-MA-02-SIK	ga	Sidl Kacem
-MA-02-SIK	en	Sidl Kacem
-MA-03	es	Taza-Al Hoceima-Taounate
-MA-03	ca	Taza-Al Hoceima-Taounate
-MA-03	eu	Taza-Al Hoceima-Taounate
-MA-03	ga	Taza-Al Hoceima-Taounate
-MA-03	en	Taza-Al Hoceima-Taounate
-MA-03-HOC	es	Al Hoceïma
-MA-03-HOC	ca	Al Hoceïma
-MA-03-HOC	eu	Al Hoceïma
-MA-03-HOC	ga	Al Hoceïma
-MA-03-HOC	en	Al Hoceïma
-MA-03-TAO	es	Taounate
-MA-03-TAO	ca	Taounate
-MA-03-TAO	eu	Taounate
-MA-03-TAO	ga	Taounate
-MA-03-TAO	en	Taounate
-MA-03-TAZ	es	Taza
-MA-03-TAZ	ca	Taza
-MA-03-TAZ	eu	Taza
-MA-03-TAZ	ga	Taza
-MA-03-TAZ	en	Taza
-MA-04	es	L'Oriental
-MA-04	ca	L'Oriental
-MA-04	eu	L'Oriental
-MA-04	ga	L'Oriental
-MA-04	en	L'Oriental
-MA-04-BER	es	Berkane
-MA-04-BER	ca	Berkane
-MA-04-BER	eu	Berkane
-MA-04-BER	ga	Berkane
-MA-04-BER	en	Berkane
-MA-04-FIG	es	Figuig
-MA-04-FIG	ca	Figuig
-MA-04-FIG	eu	Figuig
-MA-04-FIG	ga	Figuig
-MA-04-FIG	en	Figuig
-MA-04-JRA	es	Jrada
-MA-04-JRA	ca	Jrada
-MA-04-JRA	eu	Jrada
-MA-04-JRA	ga	Jrada
-MA-04-JRA	en	Jrada
-MA-04-NAD	es	Nador
-MA-04-NAD	ca	Nador
-MA-04-NAD	eu	Nador
-MA-04-NAD	ga	Nador
-MA-04-NAD	en	Nador
-MA-04-OUJ	es	Oujda-Angad
-MA-04-OUJ	ca	Oujda-Angad
-MA-04-OUJ	eu	Oujda-Angad
-MA-04-OUJ	ga	Oujda-Angad
-MA-04-OUJ	en	Oujda-Angad
-MA-04-TAI	es	Taourirt
-MA-04-TAI	ca	Taourirt
-MA-04-TAI	eu	Taourirt
-MA-04-TAI	ga	Taourirt
-MA-04-TAI	en	Taourirt
-MA-05	es	Fès-Boulemane
-MA-05	ca	Fès-Boulemane
-MA-05	eu	Fès-Boulemane
-MA-05	ga	Fès-Boulemane
-MA-05	en	Fès-Boulemane
-MA-05-BOM	es	Boulemane
-MA-05-BOM	ca	Boulemane
-MA-05-BOM	eu	Boulemane
-MA-05-BOM	ga	Boulemane
-MA-05-BOM	en	Boulemane
-MA-05-FES	es	Fès-Dar-Dbibegh
-MA-05-FES	ca	Fès-Dar-Dbibegh
-MA-05-FES	eu	Fès-Dar-Dbibegh
-MA-05-FES	ga	Fès-Dar-Dbibegh
-MA-05-FES	en	Fès-Dar-Dbibegh
-MA-05-MOU	es	Moulay Yacoub
-MA-05-MOU	ca	Moulay Yacoub
-MA-05-MOU	eu	Moulay Yacoub
-MA-05-MOU	ga	Moulay Yacoub
-MA-05-MOU	en	Moulay Yacoub
-MA-05-SEF	es	Sefrou
-MA-05-SEF	ca	Sefrou
-MA-05-SEF	eu	Sefrou
-MA-05-SEF	ga	Sefrou
-MA-05-SEF	en	Sefrou
-MA-06	es	Meknès-Tafilalet
-MA-06	ca	Meknès-Tafilalet
-MA-06	eu	Meknès-Tafilalet
-MA-06	ga	Meknès-Tafilalet
-MA-06	en	Meknès-Tafilalet
-MA-06-ERR	es	Errachidia
-MA-06-ERR	ca	Errachidia
-MA-06-ERR	eu	Errachidia
-MA-06-ERR	ga	Errachidia
-MA-06-ERR	en	Errachidia
-MA-06-HAJ	es	El Hajeb
-MA-06-HAJ	ca	El Hajeb
-MA-06-HAJ	eu	El Hajeb
-MA-06-HAJ	ga	El Hajeb
-MA-06-HAJ	en	El Hajeb
-MA-06-IFR	es	Ifrane
-MA-06-IFR	ca	Ifrane
-MA-06-IFR	eu	Ifrane
-MA-06-IFR	ga	Ifrane
-MA-06-IFR	en	Ifrane
-MA-06-KHN	es	Khenifra
-MA-06-KHN	ca	Khenifra
-MA-06-KHN	eu	Khenifra
-MA-06-KHN	ga	Khenifra
-MA-06-KHN	en	Khenifra
-MA-06-MEK	es	Meknès
-MA-06-MEK	ca	Meknès
-MA-06-MEK	eu	Meknès
-MA-06-MEK	ga	Meknès
-MA-06-MEK	en	Meknès
-MA-07	es	Rabat-Salé-Zemmour-Zaer
-MA-07	ca	Rabat-Salé-Zemmour-Zaer
-MA-07	eu	Rabat-Salé-Zemmour-Zaer
-MA-07	ga	Rabat-Salé-Zemmour-Zaer
-MA-07	en	Rabat-Salé-Zemmour-Zaer
-MA-07-KHE	es	Khemisaet
-MA-07-KHE	ca	Khemisaet
-MA-07-KHE	eu	Khemisaet
-MA-07-KHE	ga	Khemisaet
-MA-07-KHE	en	Khemisaet
-MA-07-RAB	es	Rabat
-MA-07-RAB	ca	Rabat
-MA-07-RAB	eu	Rabat
-MA-07-RAB	ga	Rabat
-MA-07-RAB	en	Rabat
-MA-07-SAL	es	Salé
-MA-07-SAL	ca	Salé
-MA-07-SAL	eu	Salé
-MA-07-SAL	ga	Salé
-MA-07-SAL	en	Salé
-MA-07-SKH	es	Skhirate-Témara
-MA-07-SKH	ca	Skhirate-Témara
-MA-07-SKH	eu	Skhirate-Témara
-MA-07-SKH	ga	Skhirate-Témara
-MA-07-SKH	en	Skhirate-Témara
-MA-08	es	Grand Casablanca
-MA-08	ca	Grand Casablanca
-MA-08	eu	Grand Casablanca
-MA-08	ga	Grand Casablanca
-MA-08	en	Grand Casablanca
-MA-08-CAS	es	Casablanca [Dar el Beïda]
-MA-08-CAS	ca	Casablanca [Dar el Beïda]
-MA-08-CAS	eu	Casablanca [Dar el Beïda]
-MA-08-CAS	ga	Casablanca [Dar el Beïda]
-MA-08-CAS	en	Casablanca [Dar el Beïda]
-MA-08-MED	es	Médiouna
-MA-08-MED	ca	Médiouna
-MA-08-MED	eu	Médiouna
-MA-08-MED	ga	Médiouna
-MA-08-MED	en	Médiouna
-MA-08-MOH	es	Mohammadia
-MA-08-MOH	ca	Mohammadia
-MA-08-MOH	eu	Mohammadia
-MA-08-MOH	ga	Mohammadia
-MA-08-MOH	en	Mohammadia
-MA-08-NOU	es	Nouaceur
-MA-08-NOU	ca	Nouaceur
-MA-08-NOU	eu	Nouaceur
-MA-08-NOU	ga	Nouaceur
-MA-08-NOU	en	Nouaceur
-MA-09	es	Chaouia-Ouardigha
-MA-09	ca	Chaouia-Ouardigha
-MA-09	eu	Chaouia-Ouardigha
-MA-09	ga	Chaouia-Ouardigha
-MA-09	en	Chaouia-Ouardigha
-MA-09-BES	es	Ben Slimane
-MA-09-BES	ca	Ben Slimane
-MA-09-BES	eu	Ben Slimane
-MA-09-BES	ga	Ben Slimane
-MA-09-BES	en	Ben Slimane
-MA-09-KHO	es	Khouribga
-MA-09-KHO	ca	Khouribga
-MA-09-KHO	eu	Khouribga
-MA-09-KHO	ga	Khouribga
-MA-09-KHO	en	Khouribga
-MA-09-SET	es	Settat
-MA-09-SET	ca	Settat
-MA-09-SET	eu	Settat
-MA-09-SET	ga	Settat
-MA-09-SET	en	Settat
-MA-10	es	Doukhala-Abda
-MA-10	ca	Doukhala-Abda
-MA-10	eu	Doukhala-Abda
-MA-10	ga	Doukhala-Abda
-MA-10	en	Doukhala-Abda
-MA-10-JDI	es	El Jadida
-MA-10-JDI	ca	El Jadida
-MA-10-JDI	eu	El Jadida
-MA-10-JDI	ga	El Jadida
-MA-10-JDI	en	El Jadida
-MA-10-SAF	es	Safi
-MA-10-SAF	ca	Safi
-MA-10-SAF	eu	Safi
-MA-10-SAF	ga	Safi
-MA-10-SAF	en	Safi
-MA-11	es	Marrakech-Tensift-Al Haouz
-MA-11	ca	Marrakech-Tensift-Al Haouz
-MA-11	eu	Marrakech-Tensift-Al Haouz
-MA-11	ga	Marrakech-Tensift-Al Haouz
-MA-11	en	Marrakech-Tensift-Al Haouz
-MA-11-CHI	es	Chichaoua
-MA-11-CHI	ca	Chichaoua
-MA-11-CHI	eu	Chichaoua
-MA-11-CHI	ga	Chichaoua
-MA-11-CHI	en	Chichaoua
-MA-11-ESI	es	Essaouira
-MA-11-ESI	ca	Essaouira
-MA-11-ESI	eu	Essaouira
-MA-11-ESI	ga	Essaouira
-MA-11-ESI	en	Essaouira
-MA-11-HAO	es	Al Haouz
-MA-11-HAO	ca	Al Haouz
-MA-11-HAO	eu	Al Haouz
-MA-11-HAO	ga	Al Haouz
-MA-11-HAO	en	Al Haouz
-MA-11-KES	es	Kelaat es Sraghna
-MA-11-KES	ca	Kelaat es Sraghna
-MA-11-KES	eu	Kelaat es Sraghna
-MA-11-KES	ga	Kelaat es Sraghna
-MA-11-KES	en	Kelaat es Sraghna
-MA-11-MMD	es	Marrakech-Medina
-MA-11-MMD	ca	Marrakech-Medina
-MA-11-MMD	eu	Marrakech-Medina
-MA-11-MMD	ga	Marrakech-Medina
-MA-11-MMD	en	Marrakech-Medina
-MA-11-MMN	es	Marrakech-Menara
-MA-11-MMN	ca	Marrakech-Menara
-MA-11-MMN	eu	Marrakech-Menara
-MA-11-MMN	ga	Marrakech-Menara
-MA-11-MMN	en	Marrakech-Menara
-MA-11-SYB	es	Sidi Youssef Ben Ali
-MA-11-SYB	ca	Sidi Youssef Ben Ali
-MA-11-SYB	eu	Sidi Youssef Ben Ali
-MA-11-SYB	ga	Sidi Youssef Ben Ali
-MA-11-SYB	en	Sidi Youssef Ben Ali
-MA-12	es	Tadla-Azilal
-MA-12	ca	Tadla-Azilal
-MA-12	eu	Tadla-Azilal
-MA-12	ga	Tadla-Azilal
-MA-12	en	Tadla-Azilal
-MA-12-AZI	es	Azilal
-MA-12-AZI	ca	Azilal
-MA-12-AZI	eu	Azilal
-MA-12-AZI	ga	Azilal
-MA-12-AZI	en	Azilal
-MA-12-BEM	es	Beni Mellal
-MA-12-BEM	ca	Beni Mellal
-MA-12-BEM	eu	Beni Mellal
-MA-12-BEM	ga	Beni Mellal
-MA-12-BEM	en	Beni Mellal
-MA-13	es	Sous-Massa-Draa
-MA-13	ca	Sous-Massa-Draa
-MA-13	eu	Sous-Massa-Draa
-MA-13	ga	Sous-Massa-Draa
-MA-13	en	Sous-Massa-Draa
-MA-13-AGD	es	Agadir-Ida-Outanane
-MA-13-AGD	ca	Agadir-Ida-Outanane
-MA-13-AGD	eu	Agadir-Ida-Outanane
-MA-13-AGD	ga	Agadir-Ida-Outanane
-MA-13-AGD	en	Agadir-Ida-Outanane
-MA-13-CHT	es	Chtouka-Ait Baha
-MA-13-CHT	ca	Chtouka-Ait Baha
-MA-13-CHT	eu	Chtouka-Ait Baha
-MA-13-CHT	ga	Chtouka-Ait Baha
-MA-13-CHT	en	Chtouka-Ait Baha
-MA-13-INE	es	Inezgane-Ait Melloul
-MA-13-INE	ca	Inezgane-Ait Melloul
-MA-13-INE	eu	Inezgane-Ait Melloul
-MA-13-INE	ga	Inezgane-Ait Melloul
-MA-13-INE	en	Inezgane-Ait Melloul
-MA-13-OUA	es	Ouarzazate
-MA-13-OUA	ca	Ouarzazate
-MA-13-OUA	eu	Ouarzazate
-MA-13-OUA	ga	Ouarzazate
-MA-13-OUA	en	Ouarzazate
-MA-13-TAR	es	Taroudant
-MA-13-TAR	ca	Taroudant
-MA-13-TAR	eu	Taroudant
-MA-13-TAR	ga	Taroudant
-MA-13-TAR	en	Taroudant
-MA-13-TIZ	es	Tiznit
-MA-13-TIZ	ca	Tiznit
-MA-13-TIZ	eu	Tiznit
-MA-13-TIZ	ga	Tiznit
-MA-13-TIZ	en	Tiznit
-MA-13-ZAG	es	Zagora
-MA-13-ZAG	ca	Zagora
-MA-13-ZAG	eu	Zagora
-MA-13-ZAG	ga	Zagora
-MA-13-ZAG	en	Zagora
-MA-14	es	Guelmim-Es Smara
-MA-14	ca	Guelmim-Es Smara
-MA-14	eu	Guelmim-Es Smara
-MA-14	ga	Guelmim-Es Smara
-MA-14	en	Guelmim-Es Smara
-MA-14-ASZ	es	Assa-Zag
-MA-14-ASZ	ca	Assa-Zag
-MA-14-ASZ	eu	Assa-Zag
-MA-14-ASZ	ga	Assa-Zag
-MA-14-ASZ	en	Assa-Zag
-MA-14-ESM	es	Es Smara (EH)
-MA-14-ESM	ca	Es Smara (EH)
-MA-14-ESM	eu	Es Smara (EH)
-MA-14-ESM	ga	Es Smara (EH)
-MA-14-ESM	en	Es Smara (EH)
-MA-14-GUE	es	Guelmim
-MA-14-GUE	ca	Guelmim
-MA-14-GUE	eu	Guelmim
-MA-14-GUE	ga	Guelmim
-MA-14-GUE	en	Guelmim
-MA-14-TAT	es	Tata
-MA-14-TAT	ca	Tata
-MA-14-TAT	eu	Tata
-MA-14-TAT	ga	Tata
-MA-14-TAT	en	Tata
-MA-14-TNT	es	Tan-Tan
-MA-14-TNT	ca	Tan-Tan
-MA-14-TNT	eu	Tan-Tan
-MA-14-TNT	ga	Tan-Tan
-MA-14-TNT	en	Tan-Tan
-MA-15	es	Laâyoune-Boujdour-Sakia el Hamra
-MA-15	ca	Laâyoune-Boujdour-Sakia el Hamra
-MA-15	eu	Laâyoune-Boujdour-Sakia el Hamra
-MA-15	ga	Laâyoune-Boujdour-Sakia el Hamra
-MA-15	en	Laâyoune-Boujdour-Sakia el Hamra
-MA-15-BOD	es	Boujdour (EH)
-MA-15-BOD	ca	Boujdour (EH)
-MA-15-BOD	eu	Boujdour (EH)
-MA-15-BOD	ga	Boujdour (EH)
-MA-15-BOD	en	Boujdour (EH)
-MA-15-LAA	es	Laâyoune (EH)
-MA-15-LAA	ca	Laâyoune (EH)
-MA-15-LAA	eu	Laâyoune (EH)
-MA-15-LAA	ga	Laâyoune (EH)
-MA-15-LAA	en	Laâyoune (EH)
-MA-16	es	Oued ed Dahab-Lagouira
-MA-16	ca	Oued ed Dahab-Lagouira
-MA-16	eu	Oued ed Dahab-Lagouira
-MA-16	ga	Oued ed Dahab-Lagouira
-MA-16	en	Oued ed Dahab-Lagouira
-MA-16-AOU	es	Aousserd
-MA-16-AOU	ca	Aousserd
-MA-16-AOU	eu	Aousserd
-MA-16-AOU	ga	Aousserd
-MA-16-AOU	en	Aousserd
-MA-16-OUD	es	Oued ed Dahab (EH)
-MA-16-OUD	ca	Oued ed Dahab (EH)
-MA-16-OUD	eu	Oued ed Dahab (EH)
-MA-16-OUD	ga	Oued ed Dahab (EH)
-MA-16-OUD	en	Oued ed Dahab (EH)
+MA-01	es	Tanger-Tétouan-Al Hoceïma
+MA-01	ca	Tanger-Tétouan-Al Hoceïma
+MA-01	eu	Tanger-Tétouan-Al Hoceïma
+MA-01	ga	Tanger-Tétouan-Al Hoceïma
+MA-01	en	Tanger-Tétouan-Al Hoceïma
+MA-01-TA	es	Tanger-Assilah
+MA-01-TA	ca	Tanger-Assilah
+MA-01-TA	eu	Tanger-Assilah
+MA-01-TA	ga	Tanger-Assilah
+MA-01-TA	en	Tanger-Assilah
+MA-01-MF	es	M'diq-Fnideq
+MA-01-MF	ca	M'diq-Fnideq
+MA-01-MF	eu	M'diq-Fnideq
+MA-01-MF	ga	M'diq-Fnideq
+MA-01-MF	en	M'diq-Fnideq
+MA-01-TE	es	Tétouan
+MA-01-TE	ca	Tétouan
+MA-01-TE	eu	Tétouan
+MA-01-TE	ga	Tétouan
+MA-01-TE	en	Tétouan
+MA-01-FB	es	Fahs-Anjra
+MA-01-FB	ca	Fahs-Anjra
+MA-01-FB	eu	Fahs-Anjra
+MA-01-FB	ga	Fahs-Anjra
+MA-01-FB	en	Fahs-Anjra
+MA-01-LA	es	Larache
+MA-01-LA	ca	Larache
+MA-01-LA	eu	Larache
+MA-01-LA	ga	Larache
+MA-01-LA	en	Larache
+MA-01-AH	es	Al Hoceïma
+MA-01-AH	ca	Al Hoceïma
+MA-01-AH	eu	Al Hoceïma
+MA-01-AH	ga	Al Hoceïma
+MA-01-AH	en	Al Hoceïma
+MA-01-CH	es	Chefchaouen
+MA-01-CH	ca	Chefchaouen
+MA-01-CH	eu	Chefchaouen
+MA-01-CH	ga	Chefchaouen
+MA-01-CH	en	Chefchaouen
+MA-01-OU	es	Ouezzane
+MA-01-OU	ca	Ouezzane
+MA-01-OU	eu	Ouezzane
+MA-01-OU	ga	Ouezzane
+MA-01-OU	en	Ouezzane
+MA-02	es	L'Oriental
+MA-02	ca	L'Oriental
+MA-02	eu	L'Oriental
+MA-02	ga	L'Oriental
+MA-02	en	L'Oriental
+MA-02-OA	es	Oujda-Angad
+MA-02-OA	ca	Oujda-Angad
+MA-02-OA	eu	Oujda-Angad
+MA-02-OA	ga	Oujda-Angad
+MA-02-OA	en	Oujda-Angad
+MA-02-NA	es	Nador
+MA-02-NA	ca	Nador
+MA-02-NA	eu	Nador
+MA-02-NA	ga	Nador
+MA-02-NA	en	Nador
+MA-02-DR	es	Driouch
+MA-02-DR	ca	Driouch
+MA-02-DR	eu	Driouch
+MA-02-DR	ga	Driouch
+MA-02-DR	en	Driouch
+MA-02-JE	es	Jerada
+MA-02-JE	ca	Jerada
+MA-02-JE	eu	Jerada
+MA-02-JE	ga	Jerada
+MA-02-JE	en	Jerada
+MA-02-BE	es	Berkane
+MA-02-BE	ca	Berkane
+MA-02-BE	eu	Berkane
+MA-02-BE	ga	Berkane
+MA-02-BE	en	Berkane
+MA-02-TA	es	Taourirt
+MA-02-TA	ca	Taourirt
+MA-02-TA	eu	Taourirt
+MA-02-TA	ga	Taourirt
+MA-02-TA	en	Taourirt
+MA-02-GU	es	Guercif
+MA-02-GU	ca	Guercif
+MA-02-GU	eu	Guercif
+MA-02-GU	ga	Guercif
+MA-02-GU	en	Guercif
+MA-02-FI	es	Figuig
+MA-02-FI	ca	Figuig
+MA-02-FI	eu	Figuig
+MA-02-FI	ga	Figuig
+MA-02-FI	en	Figuig
+MA-03	es	Fès-Meknès
+MA-03	ca	Fès-Meknès
+MA-03	eu	Fès-Meknès
+MA-03	ga	Fès-Meknès
+MA-03	en	Fès-Meknès
+MA-03-FS	es	Fès
+MA-03-FS	ca	Fès
+MA-03-FS	eu	Fès
+MA-03-FS	ga	Fès
+MA-03-FS	en	Fès
+MA-03-ME	es	Meknès
+MA-03-ME	ca	Meknès
+MA-03-ME	eu	Meknès
+MA-03-ME	ga	Meknès
+MA-03-ME	en	Meknès
+MA-03-EH	es	El Hajeb
+MA-03-EH	ca	El Hajeb
+MA-03-EH	eu	El Hajeb
+MA-03-EH	ga	El Hajeb
+MA-03-EH	en	El Hajeb
+MA-03-IF	es	Ifrane
+MA-03-IF	ca	Ifrane
+MA-03-IF	eu	Ifrane
+MA-03-IF	ga	Ifrane
+MA-03-IF	en	Ifrane
+MA-03-ZM	es	Moulay Yaâcoub
+MA-03-ZM	ca	Moulay Yaâcoub
+MA-03-ZM	eu	Moulay Yaâcoub
+MA-03-ZM	ga	Moulay Yaâcoub
+MA-03-ZM	en	Moulay Yaâcoub
+MA-03-SE	es	Séfrou
+MA-03-SE	ca	Séfrou
+MA-03-SE	eu	Séfrou
+MA-03-SE	ga	Séfrou
+MA-03-SE	en	Séfrou
+MA-03-BO	es	Boulemane
+MA-03-BO	ca	Boulemane
+MA-03-BO	eu	Boulemane
+MA-03-BO	ga	Boulemane
+MA-03-BO	en	Boulemane
+MA-03-TN	es	Taounate
+MA-03-TN	ca	Taounate
+MA-03-TN	eu	Taounate
+MA-03-TN	ga	Taounate
+MA-03-TN	en	Taounate
+MA-03-TZ	es	Taza
+MA-03-TZ	ca	Taza
+MA-03-TZ	eu	Taza
+MA-03-TZ	ga	Taza
+MA-03-TZ	en	Taza
+MA-04	es	Rabat-Salé-Kénitra
+MA-04	ca	Rabat-Salé-Kénitra
+MA-04	eu	Rabat-Salé-Kénitra
+MA-04	ga	Rabat-Salé-Kénitra
+MA-04	en	Rabat-Salé-Kénitra
+MA-04-RA	es	Rabat
+MA-04-RA	ca	Rabat
+MA-04-RA	eu	Rabat
+MA-04-RA	ga	Rabat
+MA-04-RA	en	Rabat
+MA-04-SA	es	Salé
+MA-04-SA	ca	Salé
+MA-04-SA	eu	Salé
+MA-04-SA	ga	Salé
+MA-04-SA	en	Salé
+MA-04-ST	es	Skhirate-Témara
+MA-04-ST	ca	Skhirate-Témara
+MA-04-ST	eu	Skhirate-Témara
+MA-04-ST	ga	Skhirate-Témara
+MA-04-ST	en	Skhirate-Témara
+MA-04-KE	es	Kénitra
+MA-04-KE	ca	Kénitra
+MA-04-KE	eu	Kénitra
+MA-04-KE	ga	Kénitra
+MA-04-KE	en	Kénitra
+MA-04-KH	es	Khémisset
+MA-04-KH	ca	Khémisset
+MA-04-KH	eu	Khémisset
+MA-04-KH	ga	Khémisset
+MA-04-KH	en	Khémisset
+MA-04-SK	es	Sidi Kacem
+MA-04-SK	ca	Sidi Kacem
+MA-04-SK	eu	Sidi Kacem
+MA-04-SK	ga	Sidi Kacem
+MA-04-SK	en	Sidi Kacem
+MA-04-SS	es	Sidi Slimane
+MA-04-SS	ca	Sidi Slimane
+MA-04-SS	eu	Sidi Slimane
+MA-04-SS	ga	Sidi Slimane
+MA-04-SS	en	Sidi Slimane
+MA-05	es	Béni Mellal-Khénifra
+MA-05	ca	Béni Mellal-Khénifra
+MA-05	eu	Béni Mellal-Khénifra
+MA-05	ga	Béni Mellal-Khénifra
+MA-05	en	Béni Mellal-Khénifra
+MA-05-BM	es	Béni-Mellal
+MA-05-BM	ca	Béni-Mellal
+MA-05-BM	eu	Béni-Mellal
+MA-05-BM	ga	Béni-Mellal
+MA-05-BM	en	Béni-Mellal
+MA-05-AZ	es	Azilal
+MA-05-AZ	ca	Azilal
+MA-05-AZ	eu	Azilal
+MA-05-AZ	ga	Azilal
+MA-05-AZ	en	Azilal
+MA-05-FB	es	Fquih Ben Salah
+MA-05-FB	ca	Fquih Ben Salah
+MA-05-FB	eu	Fquih Ben Salah
+MA-05-FB	ga	Fquih Ben Salah
+MA-05-FB	en	Fquih Ben Salah
+MA-05-KF	es	Khénifra
+MA-05-KF	ca	Khénifra
+MA-05-KF	eu	Khénifra
+MA-05-KF	ga	Khénifra
+MA-05-KF	en	Khénifra
+MA-05-KB	es	Khouribga
+MA-05-KB	ca	Khouribga
+MA-05-KB	eu	Khouribga
+MA-05-KB	ga	Khouribga
+MA-05-KB	en	Khouribga
+MA-06	es	Casablanca-Settat
+MA-06	ca	Casablanca-Settat
+MA-06	eu	Casablanca-Settat
+MA-06	ga	Casablanca-Settat
+MA-06	en	Casablanca-Settat
+MA-06-CB	es	Casablanca
+MA-06-CB	ca	Casablanca
+MA-06-CB	eu	Casablanca
+MA-06-CB	ga	Casablanca
+MA-06-CB	en	Casablanca
+MA-06-MH	es	Mohammédia
+MA-06-MH	ca	Mohammédia
+MA-06-MH	eu	Mohammédia
+MA-06-MH	ga	Mohammédia
+MA-06-MH	en	Mohammédia
+MA-06-EJ	es	El Jadida
+MA-06-EJ	ca	El Jadida
+MA-06-EJ	eu	El Jadida
+MA-06-EJ	ga	El Jadida
+MA-06-EJ	en	El Jadida
+MA-06-NC	es	Nouaceur
+MA-06-NC	ca	Nouaceur
+MA-06-NC	eu	Nouaceur
+MA-06-NC	ga	Nouaceur
+MA-06-NC	en	Nouaceur
+MA-06-ME	es	Médiouna
+MA-06-ME	ca	Médiouna
+MA-06-ME	eu	Médiouna
+MA-06-ME	ga	Médiouna
+MA-06-ME	en	Médiouna
+MA-06-BS	es	Benslimane
+MA-06-BS	ca	Benslimane
+MA-06-BS	eu	Benslimane
+MA-06-BS	ga	Benslimane
+MA-06-BS	en	Benslimane
+MA-06-BR	es	Berrechid
+MA-06-BR	ca	Berrechid
+MA-06-BR	eu	Berrechid
+MA-06-BR	ga	Berrechid
+MA-06-BR	en	Berrechid
+MA-06-SE	es	Settat
+MA-06-SE	ca	Settat
+MA-06-SE	eu	Settat
+MA-06-SE	ga	Settat
+MA-06-SE	en	Settat
+MA-06-SB	es	Sidi Bennour
+MA-06-SB	ca	Sidi Bennour
+MA-06-SB	eu	Sidi Bennour
+MA-06-SB	ga	Sidi Bennour
+MA-06-SB	en	Sidi Bennour
+MA-07	es	Marrakech-Safi
+MA-07	ca	Marrakech-Safi
+MA-07	eu	Marrakech-Safi
+MA-07	ga	Marrakech-Safi
+MA-07	en	Marrakech-Safi
+MA-07-MR	es	Marrakech
+MA-07-MR	ca	Marrakech
+MA-07-MR	eu	Marrakech
+MA-07-MR	ga	Marrakech
+MA-07-MR	en	Marrakech
+MA-07-CH	es	Chichaoua
+MA-07-CH	ca	Chichaoua
+MA-07-CH	eu	Chichaoua
+MA-07-CH	ga	Chichaoua
+MA-07-CH	en	Chichaoua
+MA-07-AH	es	Al Haouz
+MA-07-AH	ca	Al Haouz
+MA-07-AH	eu	Al Haouz
+MA-07-AH	ga	Al Haouz
+MA-07-AH	en	Al Haouz
+MA-07-EK	es	El Kelaâ des Sraghna
+MA-07-EK	ca	El Kelaâ des Sraghna
+MA-07-EK	eu	El Kelaâ des Sraghna
+MA-07-EK	ga	El Kelaâ des Sraghna
+MA-07-EK	en	El Kelaâ des Sraghna
+MA-07-ES	es	Essaouira
+MA-07-ES	ca	Essaouira
+MA-07-ES	eu	Essaouira
+MA-07-ES	ga	Essaouira
+MA-07-ES	en	Essaouira
+MA-07-RE	es	Rehamna
+MA-07-RE	ca	Rehamna
+MA-07-RE	eu	Rehamna
+MA-07-RE	ga	Rehamna
+MA-07-RE	en	Rehamna
+MA-07-SA	es	Safi
+MA-07-SA	ca	Safi
+MA-07-SA	eu	Safi
+MA-07-SA	ga	Safi
+MA-07-SA	en	Safi
+MA-07-YO	es	Youssoufia
+MA-07-YO	ca	Youssoufia
+MA-07-YO	eu	Youssoufia
+MA-07-YO	ga	Youssoufia
+MA-07-YO	en	Youssoufia
+MA-08	es	Drâa-Tafilalet
+MA-08	ca	Drâa-Tafilalet
+MA-08	eu	Drâa-Tafilalet
+MA-08	ga	Drâa-Tafilalet
+MA-08	en	Drâa-Tafilalet
+MA-08-ER	es	Errachidia
+MA-08-ER	ca	Errachidia
+MA-08-ER	eu	Errachidia
+MA-08-ER	ga	Errachidia
+MA-08-ER	en	Errachidia
+MA-08-OU	es	Ouarzazate
+MA-08-OU	ca	Ouarzazate
+MA-08-OU	eu	Ouarzazate
+MA-08-OU	ga	Ouarzazate
+MA-08-OU	en	Ouarzazate
+MA-08-MI	es	Midelt
+MA-08-MI	ca	Midelt
+MA-08-MI	eu	Midelt
+MA-08-MI	ga	Midelt
+MA-08-MI	en	Midelt
+MA-08-TI	es	Tinghir
+MA-08-TI	ca	Tinghir
+MA-08-TI	eu	Tinghir
+MA-08-TI	ga	Tinghir
+MA-08-TI	en	Tinghir
+MA-08-ZA	es	Zagora
+MA-08-ZA	ca	Zagora
+MA-08-ZA	eu	Zagora
+MA-08-ZA	ga	Zagora
+MA-08-ZA	en	Zagora
+MA-09	es	Souss-Massa
+MA-09	ca	Souss-Massa
+MA-09	eu	Souss-Massa
+MA-09	ga	Souss-Massa
+MA-09	en	Souss-Massa
+MA-09-AI	es	Agadir Ida-Outanane
+MA-09-AI	ca	Agadir Ida-Outanane
+MA-09-AI	eu	Agadir Ida-Outanane
+MA-09-AI	ga	Agadir Ida-Outanane
+MA-09-AI	en	Agadir Ida-Outanane
+MA-09-IA	es	Inezgane-Aït Melloul
+MA-09-IA	ca	Inezgane-Aït Melloul
+MA-09-IA	eu	Inezgane-Aït Melloul
+MA-09-IA	ga	Inezgane-Aït Melloul
+MA-09-IA	en	Inezgane-Aït Melloul
+MA-09-CA	es	Chtouka-Aït Baha
+MA-09-CA	ca	Chtouka-Aït Baha
+MA-09-CA	eu	Chtouka-Aït Baha
+MA-09-CA	ga	Chtouka-Aït Baha
+MA-09-CA	en	Chtouka-Aït Baha
+MA-09-TR	es	Taroudant
+MA-09-TR	ca	Taroudant
+MA-09-TR	eu	Taroudant
+MA-09-TR	ga	Taroudant
+MA-09-TR	en	Taroudant
+MA-09-TI	es	Tiznit
+MA-09-TI	ca	Tiznit
+MA-09-TI	eu	Tiznit
+MA-09-TI	ga	Tiznit
+MA-09-TI	en	Tiznit
+MA-09-TT	es	Tata
+MA-09-TT	ca	Tata
+MA-09-TT	eu	Tata
+MA-09-TT	ga	Tata
+MA-09-TT	en	Tata
+MA-10	es	Guelmim-Oued Noun
+MA-10	ca	Guelmim-Oued Noun
+MA-10	eu	Guelmim-Oued Noun
+MA-10	ga	Guelmim-Oued Noun
+MA-10	en	Guelmim-Oued Noun
+MA-10-GU	es	Guelmim
+MA-10-GU	ca	Guelmim
+MA-10-GU	eu	Guelmim
+MA-10-GU	ga	Guelmim
+MA-10-GU	en	Guelmim
+MA-10-AZ	es	Assa-Zag
+MA-10-AZ	ca	Assa-Zag
+MA-10-AZ	eu	Assa-Zag
+MA-10-AZ	ga	Assa-Zag
+MA-10-AZ	en	Assa-Zag
+MA-10-TN	es	Tan-Tan
+MA-10-TN	ca	Tan-Tan
+MA-10-TN	eu	Tan-Tan
+MA-10-TN	ga	Tan-Tan
+MA-10-TN	en	Tan-Tan
+MA-10-SI	es	Sidi Ifni
+MA-10-SI	ca	Sidi Ifni
+MA-10-SI	eu	Sidi Ifni
+MA-10-SI	ga	Sidi Ifni
+MA-10-SI	en	Sidi Ifni
+MA-11	es	Laâyoune-Sakia El Hamra
+MA-11	ca	Laâyoune-Sakia El Hamra
+MA-11	eu	Laâyoune-Sakia El Hamra
+MA-11	ga	Laâyoune-Sakia El Hamra
+MA-11	en	Laâyoune-Sakia El Hamra
+MA-11-LA	es	Laâyoune
+MA-11-LA	ca	Laâyoune
+MA-11-LA	eu	Laâyoune
+MA-11-LA	ga	Laâyoune
+MA-11-LA	en	Laâyoune
+MA-11-BO	es	Boujdour
+MA-11-BO	ca	Boujdour
+MA-11-BO	eu	Boujdour
+MA-11-BO	ga	Boujdour
+MA-11-BO	en	Boujdour
+MA-11-TA	es	Tarfaya
+MA-11-TA	ca	Tarfaya
+MA-11-TA	eu	Tarfaya
+MA-11-TA	ga	Tarfaya
+MA-11-TA	en	Tarfaya
+MA-11-ES	es	Es-Semara
+MA-11-ES	ca	Es-Semara
+MA-11-ES	eu	Es-Semara
+MA-11-ES	ga	Es-Semara
+MA-11-ES	en	Es-Semara
+MA-12	es	Dakhla-Oued Ed Dahab
+MA-12	ca	Dakhla-Oued Ed Dahab
+MA-12	eu	Dakhla-Oued Ed Dahab
+MA-12	ga	Dakhla-Oued Ed Dahab
+MA-12	en	Dakhla-Oued Ed Dahab
+MA-12-OE	es	Oued Ed Dahab
+MA-12-OE	ca	Oued Ed Dahab
+MA-12-OE	eu	Oued Ed Dahab
+MA-12-OE	ga	Oued Ed Dahab
+MA-12-OE	en	Oued Ed Dahab
+MA-12-AO	es	Aousserd
+MA-12-AO	ca	Aousserd
+MA-12-AO	eu	Aousserd
+MA-12-AO	ga	Aousserd
+MA-12-AO	en	Aousserd
 MC	es	Mónaco
 MC	ca	Mónaco
 MC	eu	Mónaco
@@ -15109,11 +15139,11 @@ MH-T-WTJ	ca	Wotje
 MH-T-WTJ	eu	Wotje
 MH-T-WTJ	ga	Wotje
 MH-T-WTJ	en	Wotje
-MK	es	República de Macedonia
-MK	ca	República de Macedonia
-MK	eu	República de Macedonia
-MK	ga	República de Macedonia
-MK	en	Macedonia, Republic of
+MK	es	Macedonia del Norte
+MK	ca	Macedonia del Norte
+MK	eu	Macedonia del Norte
+MK	ga	Macedonia del Norte
+MK	en	North Macedonia
 MK-01	es	Aerodrom
 MK-01	ca	Aerodrom
 MK-01	eu	Aerodrom
@@ -17724,11 +17754,16 @@ MX-CHP-119	ca	Santiago el Pinar
 MX-CHP-119	eu	Santiago el Pinar
 MX-CHP-119	ga	Santiago el Pinar
 MX-CHP-119	en	Santiago el Pinar
-MX-COA	es	Coahuila
-MX-COA	ca	Coahuila
-MX-COA	eu	Coahuila
-MX-COA	ga	Coahuila
-MX-COA	en	Coahuila
+MX-CMX	es	Ciudad de México
+MX-CMX	ca	Ciudad de México
+MX-CMX	eu	Ciudad de México
+MX-CMX	ga	Ciudad de México
+MX-CMX	en	Ciudad de México
+MX-COA	es	Coahuila de Zaragoza
+MX-COA	ca	Coahuila de Zaragoza
+MX-COA	eu	Coahuila de Zaragoza
+MX-COA	ga	Coahuila de Zaragoza
+MX-COA	en	Coahuila de Zaragoza
 MX-COA-001	es	Abasolo
 MX-COA-001	ca	Abasolo
 MX-COA-001	eu	Abasolo
@@ -17974,11 +18009,6 @@ MX-COL-010	ca	Villa de Álvarez
 MX-COL-010	eu	Villa de Álvarez
 MX-COL-010	ga	Villa de Álvarez
 MX-COL-010	en	Villa de Álvarez
-MX-CDMX	es	Ciudad de México
-MX-CDMX	ca	Ciudad de México
-MX-CDMX	eu	Ciudad de México
-MX-CDMX	ga	Ciudad de México
-MX-CDMX	en	Ciudad de México
 MX-DUR	es	Durango
 MX-DUR	ca	Durango
 MX-DUR	eu	Durango
@@ -20394,11 +20424,11 @@ MX-MEX-125	ca	Tonanitla
 MX-MEX-125	eu	Tonanitla
 MX-MEX-125	ga	Tonanitla
 MX-MEX-125	en	Tonanitla
-MX-MIC	es	Michoacán
-MX-MIC	ca	Michoacán
-MX-MIC	eu	Michoacán
-MX-MIC	ga	Michoacán
-MX-MIC	en	Michoacán
+MX-MIC	es	Michoacán de Ocampo
+MX-MIC	ca	Michoacán de Ocampo
+MX-MIC	eu	Michoacán de Ocampo
+MX-MIC	ga	Michoacán de Ocampo
+MX-MIC	en	Michoacán de Ocampo
 MX-MIC-001	es	Acuitzio
 MX-MIC-001	ca	Acuitzio
 MX-MIC-001	eu	Acuitzio
@@ -26964,11 +26994,11 @@ MX-TLA-060	ca	Santa Isabel Xiloxoxtla
 MX-TLA-060	eu	Santa Isabel Xiloxoxtla
 MX-TLA-060	ga	Santa Isabel Xiloxoxtla
 MX-TLA-060	en	Santa Isabel Xiloxoxtla
-MX-VER	es	Veracruz
-MX-VER	ca	Veracruz
-MX-VER	eu	Veracruz
-MX-VER	ga	Veracruz
-MX-VER	en	Veracruz
+MX-VER	es	Veracruz de Ignacio de la Llave
+MX-VER	ca	Veracruz de Ignacio de la Llave
+MX-VER	eu	Veracruz de Ignacio de la Llave
+MX-VER	ga	Veracruz de Ignacio de la Llave
+MX-VER	en	Veracruz de Ignacio de la Llave
 MX-VER-001	es	Acajete
 MX-VER-001	ca	Acajete
 MX-VER-001	eu	Acajete
@@ -34263,7 +34293,7 @@ SZ	es	Suazilandia
 SZ	ca	Suazilandia
 SZ	eu	Suazilandia
 SZ	ga	Suazilandia
-SZ	en	Swaziland
+SZ	en	Eswatini
 SZ-HH	es	Hhohho
 SZ-HH	ca	Hhohho
 SZ-HH	eu	Hhohho
@@ -37734,11 +37764,11 @@ ZA-FS	ca	Free State
 ZA-FS	eu	Free State
 ZA-FS	ga	Free State
 ZA-FS	en	Free State
-ZA-GP	es	Gauteng
-ZA-GP	ca	Gauteng
-ZA-GP	eu	Gauteng
-ZA-GP	ga	Gauteng
-ZA-GP	en	Gauteng
+ZA-GT	es	Gauteng
+ZA-GT	ca	Gauteng
+ZA-GT	eu	Gauteng
+ZA-GT	ga	Gauteng
+ZA-GT	en	Gauteng
 ZA-LP	es	Limpopo
 ZA-LP	ca	Limpopo
 ZA-LP	eu	Limpopo
@@ -37754,6 +37784,11 @@ ZA-NC	ca	Northern Cape
 ZA-NC	eu	Northern Cape
 ZA-NC	ga	Northern Cape
 ZA-NC	en	Northern Cape
+ZA-NL	es	Kwazulu-Natal
+ZA-NL	ca	Kwazulu-Natal
+ZA-NL	eu	Kwazulu-Natal
+ZA-NL	ga	Kwazulu-Natal
+ZA-NL	en	Kwazulu-Natal
 ZA-NW	es	North-West (South Africa)
 ZA-NW	ca	North-West (South Africa)
 ZA-NW	eu	North-West (South Africa)
@@ -37764,11 +37799,6 @@ ZA-WC	ca	Western Cape
 ZA-WC	eu	Western Cape
 ZA-WC	ga	Western Cape
 ZA-WC	en	Western Cape
-ZA-ZN	es	Kwazulu-Natal
-ZA-ZN	ca	Kwazulu-Natal
-ZA-ZN	eu	Kwazulu-Natal
-ZA-ZN	ga	Kwazulu-Natal
-ZA-ZN	en	Kwazulu-Natal
 ZM	es	Zambia
 ZM	ca	Zambia
 ZM	eu	Zambia
