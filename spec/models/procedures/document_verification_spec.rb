@@ -65,7 +65,7 @@ describe Procedures::DocumentVerification, :db do
         procedure.accept!
       end
 
-      it "undo revert person membership level to previous value" do
+      it "undo revert person verification to previous value" do
         expect { procedure.undo! } .to change { Person.find(person.id).verified? } .from(true).to(false)
       end
     end
