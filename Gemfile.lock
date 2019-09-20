@@ -53,14 +53,14 @@ GEM
       activemodel (>= 4.1, < 6.1)
       case_transform (>= 0.2)
       jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
-    activeadmin (2.1.0)
+    activeadmin (2.3.1)
       arbre (~> 1.2, >= 1.2.1)
       formtastic (~> 3.1)
       formtastic_i18n (~> 0.4)
       inherited_resources (~> 1.7)
       jquery-rails (~> 4.2)
       kaminari (~> 1.0, >= 1.0.1)
-      railties (>= 5.0, < 6.0)
+      railties (>= 5.0, < 6.1)
       ransack (~> 2.1, >= 2.1.1)
       sassc-rails (~> 2.1)
       sprockets (>= 3.0, < 4.1)
@@ -106,9 +106,9 @@ GEM
       device_detector
       geocoder (>= 1.4.5)
       safely_block (>= 0.2.1)
-    airbrake (5.8.1)
-      airbrake-ruby (~> 1.8)
-    airbrake-ruby (1.8.0)
+    airbrake (7.4.0)
+      airbrake-ruby (~> 2.12)
+    airbrake-ruby (2.12.0)
     airbrussh (1.3.4)
       sshkit (>= 1.6.1, != 1.7.0)
     amq-protocol (2.3.0)
@@ -585,11 +585,11 @@ DEPENDENCIES
   aasm-diagram
   active_job_reporter
   active_model_serializers
-  activeadmin (~> 2.1.0)
+  activeadmin
   activeadmin_addons
   activemerchant
   ahoy_matey
-  airbrake (~> 5.8)
+  airbrake (~> 7.4)
   arctic_admin
   base32
   better_errors
