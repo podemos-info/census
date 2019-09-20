@@ -22,21 +22,29 @@ module Procedures
     def call
       return broadcast(:invalid) unless form&.valid?
 
-      if form.adding_issue?
-        add_issue
-      else
-        process_procedure
-      end
+      result = if form.adding_issue?
+                 add_issue
+               else
+                 process_procedure
+               end
 
-      broadcast result, procedure: form.procedure
+      broadcast result, procedure: procedure
+
+      if result == :ok
+        PersonPendingProcedures.for(procedure.person).each do |procedure|
+          ::UpdateProcedureJob.perform_later(procedure: procedure,
+                                             admin: admin)
+        end
+      end
     end
 
     private
 
-    attr_accessor :form, :admin, :result
+    attr_accessor :form, :admin
+    delegate :procedure, to: :form
 
     def add_issue
-      issue = Issues::People::AdminRemark.for(form.procedure, find: false)
+      issue = Issues::People::AdminRemark.for(procedure, find: false)
       issue.explanation = form.comment
       issue.fill
       ret = :issue_error
@@ -45,29 +53,16 @@ module Procedures
         on(:error) {}
         on(:ok) { ret = :issue_ok }
       end
-      @result = ret
+      ret
     end
 
     def process_procedure
-      @result = :error
-      Procedure.transaction do
-        process form.procedure
-        @result = :ok
-      end
-    end
+      procedure.processed_by = admin
+      procedure.processed_at = Time.current
+      procedure.comment = form.comment
+      procedure.send(form.action)
 
-    def process(current_procedure)
-      current_procedure.processed_by = admin
-      current_procedure.processed_at = Time.current
-      current_procedure.comment = form.comment
-      current_procedure.send(form.action)
-
-      if current_procedure.invalid?
-        @result = :invalid
-        raise ActiveRecord::Rollback
-      end
-
-      current_procedure.save!
+      procedure.save ? :ok : :error
     end
   end
 end

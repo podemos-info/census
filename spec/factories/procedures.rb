@@ -66,6 +66,10 @@ FactoryBot.define do
     to_membership_level { "member" }
 
     person { create(:person, :verified) }
+
+    trait :pending do
+      person { create(:person) }
+    end
   end
 
   factory :registration, parent: :procedure, class: :"procedures/registration" do

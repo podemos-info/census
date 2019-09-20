@@ -118,10 +118,10 @@ describe Procedures::ProcessProcedure do
   end
 
   context "when procedure can't be saved because is invalid" do
-    before { allow(procedure).to receive(:invalid?).and_return(true) }
+    before { allow(procedure).to receive(:valid?).and_return(false) }
 
-    it "broadcasts :invalid" do
-      expect { subject } .to broadcast(:invalid)
+    it "broadcasts :error" do
+      expect { subject } .to broadcast(:error)
     end
 
     it "does not update procedure state" do
