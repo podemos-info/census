@@ -113,7 +113,7 @@ ActiveAdmin.register Procedure do
     end
 
     def form_resource
-      @form_resource ||= Procedures::ProcessProcedureForm.from_params(permitted_params, procedure: resource, processed_by: current_admin)
+      @form_resource ||= Procedures::ProcessProcedureForm.from_params(permitted_params, procedure: resource.object, processed_by: current_admin)
     end
   end
 end
