@@ -35,6 +35,7 @@ Rails.application.configure do
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
+  config.action_mailer.raise_delivery_errors = false
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
@@ -43,7 +44,7 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   # Use a queue adapter for tests
-  Rails.application.config.active_job.queue_adapter = :test
+  config.active_job.queue_adapter = :test
 
   # Used for rack attack request tests
   Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new
