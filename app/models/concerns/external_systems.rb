@@ -19,11 +19,12 @@ module ExternalSystems
   class_methods do
     def qualified_find(qualified_id)
       id, external_system = parse_qualified_id(qualified_id)
-
       if id.nil?
         nil
       elsif external_system == "census"
         find_by id: id
+      elsif external_system == "document_id"
+        find_by document_id: id
       else
         external_system_find id: id, external_system: external_system
       end
@@ -35,8 +36,8 @@ module ExternalSystems
 
     def parse_qualified_id(qualified_id)
       id, external_system = qualified_id.to_s.split("@")
-      id = id.to_i
-      [id, external_system] if id.positive? && external_system.present?
+      id = id.to_i unless external_system == "document_id"
+      [id, external_system] if id.present? && external_system.present?
     end
   end
 end
