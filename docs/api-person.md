@@ -1,7 +1,7 @@
 # Census API: People
 
 ## Qualified identifiers
-:information_source: A person qualified identifier is built joining its numeric identifier and the system name with an at sign (@). For example, a person could be identified with the qualified identifier `123@census`, and also with `126@decidim`. Census API always identify people using its qualified identifier to avoid mixing-up when working with numeric identifiers only.
+:information_source: A person qualified identifier is built joining its numeric identifier and the system name with an at sign (@). For example, a person could be identified with the qualified identifier `123@census`, and also with `126@decidim`. Also, an identifier by document ID could be used, in the form `1R@document_id`. Census API always identify people using its qualified identifier to avoid mixing-up when working with numeric identifiers only.
 
 ## Person registration
 :round_pushpin: Creates a registration procedure for a person.

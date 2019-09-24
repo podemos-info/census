@@ -15,7 +15,7 @@ class PersonSerializer < ActiveModel::Serializer
     end
   end
 
-  basic_attributes :person_id, :external_ids, :scope_code,
+  basic_attributes :person_id, :external_ids, :scope_code, :state,
                    :membership_level, :verification, :phone_verification
 
   sensible_attributes :first_name, :last_name1, :last_name2,
@@ -24,7 +24,7 @@ class PersonSerializer < ActiveModel::Serializer
                       :address, :address_scope_code, :postal_code,
                       :additional_information, :membership_allowed?, :created_at
 
-  has_many :scopes, if: -> { !discarded? && include?(:scopes) }
+  has_many :scopes, if: -> { !discarded? && include?("scopes") }
 
   def scopes
     Scope.includes(:scope_type).where(id: (
@@ -69,6 +69,6 @@ class PersonSerializer < ActiveModel::Serializer
   end
 
   def includes
-    @includes ||= instance_options[:includes]
+    @includes ||= instance_options[:includes] || []
   end
 end
