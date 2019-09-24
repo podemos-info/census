@@ -1,25 +1,30 @@
 # frozen_string_literal: true
 
 class PersonSerializer < ActiveModel::Serializer
-  attributes :person_id, :membership_level, :scope_code, :state, :verification, :phone_verification, :external_ids
-  attribute :first_name, unless: :discarded?
-  attribute :last_name1, unless: :discarded?
-  attribute :last_name2, unless: :discarded?
-  attribute :document_type, unless: :discarded?
-  attribute :document_id, unless: :discarded?
-  attribute :document_scope_code, unless: :discarded?
-  attribute :born_at, unless: :discarded?
-  attribute :gender, unless: :discarded?
-  attribute :address, unless: :discarded?
-  attribute :postal_code, unless: :discarded?
-  attribute :address_scope_code, unless: :discarded?
-  attribute :email, unless: :discarded?
-  attribute :phone, unless: :discarded?
-  attribute :additional_information, unless: :discarded?
-  attribute :membership_allowed?, unless: :discarded?
-  attribute :created_at, unless: :discarded?
+  class << self
+    def basic_attributes(*attributes)
+      attributes.each do |attribute|
+        attribute attribute, if: -> { include?(attribute.to_s) }
+      end
+    end
 
-  has_many :scopes, if: :with_scopes_info?
+    def sensible_attributes(*attributes)
+      attributes.each do |attribute|
+        attribute attribute, if: -> { !discarded? && include?(attribute.to_s) }
+      end
+    end
+  end
+
+  basic_attributes :person_id, :external_ids, :scope_code,
+                   :membership_level, :verification, :phone_verification
+
+  sensible_attributes :first_name, :last_name1, :last_name2,
+                      :document_type, :document_id, :document_scope_code,
+                      :born_at, :gender, :email, :phone,
+                      :address, :address_scope_code, :postal_code,
+                      :additional_information, :membership_allowed?, :created_at
+
+  has_many :scopes, if: -> { !discarded? && include?(:scopes) }
 
   def scopes
     Scope.includes(:scope_type).where(id: (
@@ -46,14 +51,24 @@ class PersonSerializer < ActiveModel::Serializer
   end
 
   def discarded?
-    if object.paper_trail.live?
-      object.discarded?
-    else
-      Person.find(object.id).discarded?
-    end
+    @discarded ||= if object.paper_trail.live?
+                     object.discarded?
+                   else
+                     Person.find(object.id).discarded?
+                   end
   end
 
-  def with_scopes_info?
-    !discarded? && instance_options[:with_scopes]
+  def include?(attribute)
+    (includes.empty? || includes.member?(attribute)) && !excludes.member?(attribute)
+  end
+
+  private
+
+  def excludes
+    @excludes ||= instance_options[:excludes].presence || %w(scopes)
+  end
+
+  def includes
+    @includes ||= instance_options[:includes]
   end
 end
