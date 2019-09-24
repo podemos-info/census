@@ -200,6 +200,12 @@ describe Api::V1::PeopleController, type: :controller do
       it { is_expected.to be_successful }
       include_examples "doesn't track the user visit"
 
+      context "when using the document_id to identify the user" do
+        let(:params) { { id: person.qualified_id_by_document_id } }
+
+        it { is_expected.to be_successful }
+      end
+
       describe "returned data" do
         subject(:response) { JSON.parse(endpoint.body) }
 
@@ -282,7 +288,7 @@ describe Api::V1::PeopleController, type: :controller do
         end
 
         context "when scopes information is requested" do
-          let(:params) { { id: person.qualified_id_at("participa2-1"), with_scopes: true } }
+          let(:params) { { id: person.qualified_id_at("participa2-1"), excludes: [""] } }
 
           include_examples "returns full state information"
 
@@ -291,6 +297,14 @@ describe Api::V1::PeopleController, type: :controller do
           include_examples "returns person scopes information"
 
           include_examples "does not return internal information"
+        end
+
+        context "when only email information is requested" do
+          let(:params) { { id: person.qualified_id_at("participa2-1"), includes: %w(email) } }
+
+          it "only includes the email field" do
+            expect(subject).to eq "email" => person.email
+          end
         end
 
         context "when user is discarded" do

@@ -42,7 +42,7 @@ module Api
     end
 
     def show_params
-      params.permit(:with_scopes)
+      params.permit(includes: [], excludes: [])
     end
   end
 end
