@@ -24,3 +24,4 @@ Sneakers.configure amqp: url,
                    timeout_job_after: 1.minute,
                    threads: 1,
                    workers: 1
+Sneakers.logger.level = Logger::WARN
