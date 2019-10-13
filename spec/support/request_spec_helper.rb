@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 module RequestSpecHelper
-  include Warden::Test::Helpers
-
   def self.included(base)
     base.before { Warden.test_mode! }
     base.after { Warden.test_reset! }
@@ -10,6 +8,10 @@ module RequestSpecHelper
 
   def sign_in(resource)
     login_as(resource, scope: warden_scope(resource))
+  end
+
+  def override_ip(the_ip)
+    allow_any_instance_of(Rack::Attack::Request).to receive(:ip).and_return(the_ip)
   end
 
   private

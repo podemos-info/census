@@ -2,27 +2,44 @@
 
 # This file is copied to spec/ when you run "rails generate rspec:install"
 require "spec_helper"
+require "support/simplecov"
+require "support/vcr"
+
 ENV["RAILS_ENV"] ||= "test"
 ENV["CAS_SERVER"] = ""
 
 require File.expand_path("../config/environment", __dir__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
-require "rspec/rails"
 
-# Add additional requires below this line. Rails is not loaded until this point!
-require "support/ahoy_helper"
-require "support/devise"
-require "support/factory_bot"
-require "support/methods_map"
-require "support/request_spec_helper"
-require "support/rspec_debug"
-require "support/stub_command"
-require "support/stub_sms_service"
-
-require "factory_helper"
-require "rectify/rspec"
+require "faker"
 require "paper_trail/frameworks/rspec"
+require "rectify/rspec"
+require "rspec/rails"
+require "timecop"
+
+require "support/capybara"
+require "support/rspec_debug"
+
+require "support/active_job_helper"
+require "support/ahoy_helper"
+require "support/api_helper"
+require "support/devise_helper"
+require "support/factory_bot_helper"
+require "support/methods_map_helper"
+require "support/rectify_helper"
+require "support/request_spec_helper"
+require "support/sms_service_helper"
+
+require "shared/ahoy"
+require "shared/fast_filter"
+require "shared/login"
+require "shared/has_comments_enabled"
+require "shared/hutch_notifications"
+require "shared/only_authorized_api_clients"
+require "shared/only_authorized_payment_callbacks"
+require "shared/sms_service"
+require "shared/updating_person_locations"
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -71,12 +88,4 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
-
-  config.include Rectify::RSpec::Helpers
-  config.include Warden::Test::Helpers
-  config.include ActiveJob::TestHelper
-
-  config.before(:each, type: :system) do
-    driven_by :rack_test
-  end
 end
