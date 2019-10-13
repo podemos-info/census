@@ -114,6 +114,9 @@ GEM
     airbrussh (1.3.4)
       sshkit (>= 1.6.1, != 1.7.0)
     amq-protocol (2.3.0)
+    apparition (0.4.0)
+      capybara (~> 3.13, < 4)
+      websocket-driver (>= 0.6.5)
     arbre (1.2.1)
       activesupport (>= 3.0.0)
     arctic_admin (3.0.0)
@@ -156,13 +159,13 @@ GEM
       sshkit (~> 1.2)
     capistrano-systemd-multiservice (0.1.0.beta7)
       capistrano (>= 3.7.0, < 3.12.0)
-    capybara (2.18.0)
+    capybara (3.29.0)
       addressable
       mini_mime (>= 0.1.3)
-      nokogiri (>= 1.3.3)
-      rack (>= 1.0.0)
-      rack-test (>= 0.5.4)
-      xpath (>= 2.0, < 4.0)
+      nokogiri (~> 1.8)
+      rack (>= 1.6.0)
+      rack-test (>= 0.6.3)
+      regexp_parser (~> 1.5)
       xpath (~> 3.2)
     carrierwave (2.0.2)
       activemodel (>= 5.0.0)
@@ -585,6 +588,7 @@ PLATFORMS
 DEPENDENCIES
   aasm
   aasm-diagram
+  action-cable-testing
   active_job_reporter
   active_model_serializers
   activeadmin
@@ -592,6 +596,7 @@ DEPENDENCIES
   activemerchant
   ahoy_matey
   airbrake (~> 7.4)
+  apparition
   arctic_admin
   base32
   better_errors
@@ -601,7 +606,7 @@ DEPENDENCIES
   capistrano-rails (~> 1.3)
   capistrano-rvm
   capistrano-systemd-multiservice
-  capybara (~> 2.13)
+  capybara
   carrierwave
   config
   database_cleaner

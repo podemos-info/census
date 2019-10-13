@@ -5,3 +5,4 @@
 //= require data_picker
 //= require header
 //= require fast_filter
+//= require cable
