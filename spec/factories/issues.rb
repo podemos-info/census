@@ -22,12 +22,12 @@ FactoryBot.define do
 
     trait :fixed do
       close_result { :fixed }
-      closed_at { Time.zone.now }
+      closed_at { Time.current }
     end
 
     trait :gone do
       close_result { :gone }
-      closed_at { Time.zone.now }
+      closed_at { Time.current }
     end
   end
 

@@ -16,7 +16,7 @@ describe UpdateProcedureJob, type: :job do
       qualified_id: qualified_id,
       user_agent: person_location.user_agent,
       ip: person_location.ip,
-      time: Time.zone.now
+      time: Time.current
     }
   end
   let(:qualified_id) { person.qualified_id }

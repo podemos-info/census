@@ -41,7 +41,7 @@ class Issue < ApplicationRecord
     do_the_fix
 
     self.close_result ||= :fixed
-    self.closed_at = Time.zone.now
+    self.closed_at = Time.current
     save!
     true
   end
@@ -50,7 +50,7 @@ class Issue < ApplicationRecord
     return if closed?
 
     self.close_result = :gone
-    self.closed_at = Time.zone.now
+    self.closed_at = Time.current
     save!
   end
 

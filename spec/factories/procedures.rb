@@ -13,7 +13,7 @@ FactoryBot.define do
   factory :procedure, class: :procedure do
     association :person, factory: :person, strategy: :build
     information { {} }
-    created_at { Faker::Time.between(person.created_at, Time.zone.now, :between) }
+    created_at { Faker::Time.between(person.created_at, Time.current, :between) }
 
     trait :cancelled_person do
       person { build(:person, :cancelled) }
@@ -21,7 +21,7 @@ FactoryBot.define do
 
     trait :ready_to_process do
       processed_by { build(:admin) }
-      processed_at { Time.zone.now + 1.second }
+      processed_at { Time.current + 1.second }
       comment { Faker::Lorem.paragraph(1, true, 2) }
     end
 
@@ -35,7 +35,7 @@ FactoryBot.define do
     trait :undoable do
       after :create do |procedure|
         procedure.processed_by = build(:admin)
-        procedure.processed_at = Time.zone.now
+        procedure.processed_at = Time.current
         procedure.comment = Faker::Lorem.paragraph(1, true, 2)
         procedure.accept!
       end
@@ -44,7 +44,7 @@ FactoryBot.define do
     trait :undoable_rejected do
       after :create do |procedure|
         procedure.processed_by = build(:admin)
-        procedure.processed_at = Time.zone.now
+        procedure.processed_at = Time.current
         procedure.comment = Faker::Lorem.paragraph(1, true, 2)
         procedure.reject!
       end

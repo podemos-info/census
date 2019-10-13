@@ -10,6 +10,6 @@ class PersonLastActiveDownloads < Rectify::Query
   end
 
   def query
-    @person.downloads.where("expires_at > ?", Time.zone.now).order(created_at: :desc).limit(3)
+    @person.downloads.where("expires_at > ?", Time.current).order(created_at: :desc).limit(3)
   end
 end

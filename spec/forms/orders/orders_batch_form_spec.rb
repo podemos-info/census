@@ -13,7 +13,7 @@ describe Orders::OrdersBatchForm do
 
   let(:orders_batch) { build(:orders_batch) }
   let(:orders_from) { 1.year.ago }
-  let(:orders_to) { Time.zone.now }
+  let(:orders_to) { Time.current }
   let(:description) { orders_batch.description }
   let(:orders) do
     orders_batch.orders.map do |order|
