@@ -1,0 +1,17 @@
+span.admin_icon {
+  &:before {
+    @include icon("\f007");
+    text-align: center;
+    width: 1.5rem;
+    display: inline-block;
+  }
+
+  &.locked:before {
+    @include icon("\f4fe");
+    color: $error-color;
+  }
+
+  &.auto:before {
+    @include icon("\f544");
+  }
+}

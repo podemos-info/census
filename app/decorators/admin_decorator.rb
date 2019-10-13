@@ -34,10 +34,6 @@ class AdminDecorator < ApplicationDecorator
     @count_unread_issues ||= object.issue_unreads.count
   end
 
-  def has_unread_issues?
-    count_unread_issues.positive?
-  end
-
   def count_running_jobs
     @count_running_jobs ||= object.jobs.running.count
   end

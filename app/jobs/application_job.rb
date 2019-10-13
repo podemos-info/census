@@ -2,11 +2,13 @@
 
 class ApplicationJob < ActiveJob::Base
   include ActiveJobReporter::ReportableJob
-  # Automatically retry jobs that encountered a deadlock
-  # retry_on ActiveRecord::Deadlocked
 
-  # Most jobs are safe to ignore if the underlying records are no longer available
-  # discard_on ActiveJob::DeserializationError
+  around_perform do |job, block|
+    admin = job.arguments.first[:admin]
+    notify_admin(admin)
+    block.call
+    notify_admin(admin)
+  end
 
   def related_objects
     []
@@ -14,5 +16,9 @@ class ApplicationJob < ActiveJob::Base
 
   def current_user
     arguments.first&.fetch(:admin, nil)
+  end
+
+  def notify_admin(admin)
+    AdminsChannel.notify_change(admin) if admin
   end
 end
