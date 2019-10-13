@@ -52,6 +52,7 @@ gem "secure_headers"
 gem "sepa_king"
 gem "sneakers"
 gem "spanish_vat_validators"
+gem "sprockets", "~>3.0"
 gem "symmetric-encryption"
 
 gem "ahoy_matey" # must appear after devise gem
