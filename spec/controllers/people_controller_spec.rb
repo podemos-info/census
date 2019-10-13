@@ -143,6 +143,7 @@ describe PeopleController, type: :controller do
 
         it { is_expected.to have_http_status(:found) }
         it { expect(subject.location).to eq(person_url(person.id)) }
+
         it "shows an error message" do
           expect { subject } .to change { flash[:notice] } .from(nil).to("No se han realizado cambios.")
         end
@@ -161,6 +162,7 @@ describe PeopleController, type: :controller do
 
         it { is_expected.to be_successful }
         it { is_expected.to render_template("edit") }
+
         it "shows an error message" do
           expect { subject } .to change { flash.now[:error] } .from(nil).to("Ha ocurrido un error al guardar el registro.")
         end
@@ -227,6 +229,7 @@ describe PeopleController, type: :controller do
         let(:reason) { "Razones de peso" }
 
         it { is_expected.to redirect_to(person_path(person)) }
+
         it "shows a notice message" do
           expect { subject }
             .to change { flash[:notice] }

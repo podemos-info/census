@@ -13,6 +13,7 @@ describe Api::V1::People::ProceduresController, type: :controller do
     let(:procedure2) { create(:membership_level_change, person: person) }
 
     it { is_expected.to be_successful }
+
     include_examples "doesn't track the user visit"
 
     context "with returned data" do

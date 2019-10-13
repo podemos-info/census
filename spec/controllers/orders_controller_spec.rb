@@ -85,6 +85,7 @@ describe OrdersController, type: :controller do
     it "increment the number of orders" do
       expect { subject } .to change(Order, :count)
     end
+
     it "generate the form with the data for the payment" do
       is_expected.to render_template("orders/payment_form")
     end
@@ -94,12 +95,12 @@ describe OrdersController, type: :controller do
     context "with an existing payment_method" do
       let(:payment_method) { create(:credit_card) }
 
-      it "success" do
-        is_expected.to have_http_status(:found)
-      end
+      it { is_expected.to have_http_status(:found) }
+
       it "increments the number of orders" do
         expect { subject } .to change(Order, :count).by(1)
       end
+
       it "shows the created order" do
         expect(subject.location).to eq(order_url(Order.last))
       end
@@ -127,12 +128,12 @@ describe OrdersController, type: :controller do
     context "with a valid authorization token" do
       let(:cassete) { "credit_card_payment_valid" }
 
-      it "success" do
-        is_expected.to have_http_status(:found)
-      end
+      it { is_expected.to have_http_status(:found) }
+
       it "sets the order as processed" do
         expect { subject } .to change { Order.find(order.id).state } .from("pending").to("processed")
       end
+
       it "saves the server response" do
         expect { subject } .to change { Order.find(order.id).raw_response } .from(nil)
       end
@@ -142,12 +143,12 @@ describe OrdersController, type: :controller do
       let(:payment_method) { create(:credit_card, :external_verified, authorization_token: "test") }
       let(:cassete) { "credit_card_payment_invalid" }
 
-      it "success" do
-        is_expected.to have_http_status(:found)
-      end
+      it { is_expected.to have_http_status(:found) }
+
       it "set the order as error" do
         expect { subject } .to change { Order.find(order.id).state } .from("pending").to("error")
       end
+
       it "saves the server response" do
         expect { subject } .to change { Order.find(order.id).raw_response } .from(nil)
       end
@@ -157,10 +158,9 @@ describe OrdersController, type: :controller do
       let(:cassete) { "processed_order" }
       let(:order) { create(:order, :processed, payment_method: payment_method) }
 
-      it "success" do
-        is_expected.to have_http_status(:found)
-      end
+      it { is_expected.to have_http_status(:found) }
       it { expect { subject } .to change { flash[:error] } .from(nil).to("No se pudo procesar la orden.") }
+
       it "shows the index page" do
         expect(subject.location).to eq(orders_url)
       end
@@ -171,9 +171,8 @@ describe OrdersController, type: :controller do
 
       let(:cassete) { "process_order_fails" }
 
-      it "success" do
-        is_expected.to have_http_status(:found)
-      end
+      it { is_expected.to have_http_status(:found) }
+
       it "shows an error message" do
         subject
         expect(flash[:error]).to be_present
@@ -185,9 +184,7 @@ describe OrdersController, type: :controller do
 
       let(:cassete) { "process_order_check_issues_fails" }
 
-      it "success" do
-        is_expected.to have_http_status(:found)
-      end
+      it { is_expected.to have_http_status(:found) }
       it { expect { subject } .to change { flash[:notice] } .from(nil).to("Orden procesada correctamente, pero con errores al comprobar sus incidencias.") }
     end
   end
@@ -197,10 +194,9 @@ describe OrdersController, type: :controller do
 
     let(:result) { "ok" }
 
-    it "success" do
-      is_expected.to have_http_status(:found)
-    end
+    it { is_expected.to have_http_status(:found) }
     it { expect { subject } .to change { flash[:notice] } .from(nil).to("La orden ha sido creada") }
+
     it "shows the index page" do
       expect(subject.location).to eq(orders_url)
     end
@@ -210,10 +206,9 @@ describe OrdersController, type: :controller do
     context "when payment was ko" do
       let(:result) { "ko" }
 
-      it "success" do
-        is_expected.to have_http_status(:found)
-      end
+      it { is_expected.to have_http_status(:found) }
       it { expect { subject } .to change { flash[:error] } .from(nil).to("La orden no ha sido creada") }
+
       it "shows the index page" do
         expect(subject.location).to eq(orders_url)
       end

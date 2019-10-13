@@ -18,6 +18,7 @@ describe Api::V1::Payments::PaymentMethodsController, type: :controller do
     let(:payment_method3) { create(:direct_debit, person: other_person) }
 
     it { is_expected.to be_successful }
+
     include_examples "doesn't track the user visit"
 
     context "with returned data" do
@@ -37,6 +38,7 @@ describe Api::V1::Payments::PaymentMethodsController, type: :controller do
     subject(:endpoint) { get :show, params: { id: payment_method.id } }
 
     it { is_expected.to be_successful }
+
     include_examples "doesn't track the user visit"
 
     context "with returned data" do
