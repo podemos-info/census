@@ -66,7 +66,7 @@ jobs:
           command: /tmp/cc-test-reporter upload-coverage --input /tmp/codeclimate.json
 
       - store_artifacts:
-          path: /root/project/tmp/screenshots
+          path: tmp/screenshots
 
   deploy:
     docker:
