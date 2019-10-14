@@ -167,6 +167,7 @@ describe ProceduresController, type: :controller do
           before { stub_command("Procedures::UndoProcedure", :error) }
 
           it { is_expected.to redirect_to(procedures_path) }
+
           it "shows an error message" do
             expect { subject }
               .to change { flash[:error] }

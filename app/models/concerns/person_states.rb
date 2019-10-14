@@ -30,7 +30,7 @@ module PersonStates
     private
 
     def ensure_discarded
-      self.discarded_at ||= Time.zone.now
+      self.discarded_at ||= Time.current
     end
 
     def kept?

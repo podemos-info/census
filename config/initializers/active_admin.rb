@@ -5,11 +5,8 @@ require "census/active_admin"
 def config_menu(config)
   config.namespace false do |admin|
     admin.build_menu :utility_navigation do |menu|
-      menu.add id: "user_jobs", priority: 5, label: "-", url: -> { jobs_path }
-      menu.add id: "issues_unread", priority: 5, label: "-", url: -> { issues_path(scope: :unread) },
-               if: -> { current_active_admin_user&.decorate&.has_unread_issues? }
-      menu.add id: "issues_read", priority: 5, label: "-", url: -> { issues_path(scope: :open) },
-               if: -> { current_active_admin_user? && !current_active_admin_user.decorate.has_unread_issues? }
+      menu.add id: "admin_jobs", priority: 5, label: "-", url: -> { jobs_path }
+      menu.add id: "admin_issues", priority: 5, label: "-", url: -> { issues_path }
       admin.add_current_user_to_menu menu
       admin.add_logout_button_to_menu menu
     end

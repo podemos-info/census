@@ -4,7 +4,7 @@ Rails.logger.debug "Seeding cancellations"
 
 admins = Admin.where role: [:data, :data_help]
 
-real_now = Time.zone.now
+real_now = Time.current
 
 # create some cancellation procedures
 exclude_ids = (1..14).to_a + Admin.pluck(:person_id)
@@ -23,7 +23,7 @@ random_people(10, include_ids: [4], exclude_ids: exclude_ids).each do |person|
     next
   end
 
-  Timecop.freeze Faker::Time.between(Time.zone.now, real_now, :between)
+  Timecop.freeze Faker::Time.between(Time.current, real_now, :between)
   PaperTrail.request.whodunnit = current_admin
   UpdateProcedureJob.perform_later(procedure: cancellation, admin: current_admin)
 

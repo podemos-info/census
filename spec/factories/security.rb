@@ -32,7 +32,7 @@ FactoryBot.define do
     admin { visit.admin }
     name { "page_view" }
     properties { { controller: "dashboard", action: "index" } }
-    time { Time.zone.now }
+    time { Time.current }
 
     trait :person_view do
       transient do
@@ -79,7 +79,7 @@ FactoryBot.define do
     utm_term { "" }
     utm_content { "" }
     utm_campaign { "" }
-    started_at { Time.zone.now }
+    started_at { Time.current }
   end
 
   factory :version do

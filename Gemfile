@@ -52,6 +52,7 @@ gem "secure_headers"
 gem "sepa_king"
 gem "sneakers"
 gem "spanish_vat_validators"
+gem "sprockets", "~>3.0"
 gem "symmetric-encryption"
 
 gem "ahoy_matey" # must appear after devise gem
@@ -67,7 +68,8 @@ group :development, :test do
 end
 
 group :test do
-  gem "capybara", "~> 2.13"
+  gem "apparition"
+  gem "capybara"
   gem "database_cleaner"
   gem "factory_bot_rails"
   gem "pundit-matchers", "~> 1.4.1"
@@ -80,6 +82,7 @@ end
 
 group :development do
   gem "aasm-diagram", require: false
+  gem "action-cable-testing"
   gem "better_errors"
   gem "i18n-debug"
   gem "i18n-tasks"

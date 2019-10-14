@@ -17,9 +17,11 @@ describe Procedures::Cancellation, :db do
     it "changes the person state" do
       expect { subject } .to change(person, :state).from("enabled").to("cancelled")
     end
+
     it "destroys the person" do
       expect { subject } .to change(person, :discarded_at).from(nil)
     end
+
     it "sends an email to the person" do
       subject
       expect(ActionMailer::Parameterized::DeliveryJob).to have_been_enqueued.on_queue("mailers")
@@ -51,9 +53,11 @@ describe Procedures::Cancellation, :db do
     it "doesn't change the person state" do
       expect { procedure.reject! } .not_to change(person, :state).from("enabled")
     end
+
     it "doesn't destroy the person" do
       expect { procedure.reject! } .not_to change(person, :discarded_at)
     end
+
     it "doesn't sends an email to the person" do
       subject
       expect(ActionMailer::Parameterized::DeliveryJob).not_to have_been_enqueued.on_queue("mailers")
@@ -71,6 +75,7 @@ describe Procedures::Cancellation, :db do
       it "recovers the person" do
         expect { subject } .to change(person, :discarded_at).to(nil)
       end
+
       it "recovers the person state" do
         expect { subject } .to change(person, :state).from("cancelled").to("enabled")
       end

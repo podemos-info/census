@@ -51,7 +51,7 @@ module Api
 
     def add_dates_filter!(orders)
       from_date = params[:from_date] ? Time.zone.parse(params[:from_date]) : Time.zone.at(0)
-      until_date = params[:until_date] ? Time.zone.parse(params[:until_date]) : Time.zone.now
+      until_date = params[:until_date] ? Time.zone.parse(params[:until_date]) : Time.current
       orders.merge!(OrdersBetweenDates.for(from_date, until_date))
     end
   end

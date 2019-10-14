@@ -57,6 +57,7 @@ describe IssuesController, type: :controller do
 
     it { is_expected.to have_http_status(:found) }
     it { expect(subject.location).to eq(issues_url) }
+
     it "assigns the issue to the current admin" do
       expect { subject } .to change { Issue.find(issue.id).assigned_to } .from(nil).to(current_admin.person)
     end
@@ -112,6 +113,7 @@ describe IssuesController, type: :controller do
 
         it { is_expected.to have_http_status(:found) }
         it { expect(subject.location).to eq(issue_url(issue)) }
+
         it "closes the issue" do
           expect { subject } .to change { issue.reload.closed? } .from(false).to(true)
         end
@@ -127,6 +129,7 @@ describe IssuesController, type: :controller do
 
       it { is_expected.to have_http_status(:ok) }
       it { expect { subject } .to change { flash[:error] } .from(nil).to("Ha ocurrido un error al intentar resolver la incidencia") }
+
       it "closes the issue" do
         expect { subject } .not_to change { issue.reload.closed? } .from(false)
       end

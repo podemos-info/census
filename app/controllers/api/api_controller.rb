@@ -56,7 +56,7 @@ module Api
         qualified_id: person&.qualified_id,
         user_agent: request.user_agent,
         ip: request.headers["HTTP_USER_IP"],
-        time: Time.zone.now.to_f
+        time: Time.current.to_f
       }
     end
   end

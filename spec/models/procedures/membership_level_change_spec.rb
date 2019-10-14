@@ -17,6 +17,7 @@ describe Procedures::MembershipLevelChange, :db do
     it "changes person membership level" do
       expect { subject } .to change { Person.find(person.id).membership_level } .from("follower").to("member")
     end
+
     it "sends an email to the person" do
       subject
       expect(ActionMailer::Parameterized::DeliveryJob).to have_been_enqueued.on_queue("mailers")

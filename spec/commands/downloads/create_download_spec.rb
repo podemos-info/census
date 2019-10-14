@@ -41,9 +41,11 @@ describe Downloads::CreateDownload do
       it "has the given person" do
         expect(subject.person.id) .to eq(form.person.id)
       end
+
       it "has the given file" do
         expect(subject.file.read) .to eq(form.file.tempfile.read)
       end
+
       it "has the given expiration date" do
         expect(subject.expires_at) .to eq(form.expires_at)
       end

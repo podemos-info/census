@@ -63,4 +63,7 @@ Rails.application.configure do
 
   # Deliver emails to letter opener
   config.action_mailer.delivery_method = :letter_opener
+
+  # Allow all action cable connections
+  config.action_cable.disable_request_forgery_protection = true
 end

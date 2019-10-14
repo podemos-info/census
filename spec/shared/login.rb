@@ -23,3 +23,11 @@ shared_context "with a CAS login", shared_context: :metadata do
 
   let(:current_admin) { create(:admin) }
 end
+
+shared_context "with a logged user for the channel", shared_context: :metadata do
+  before do
+    stub_connection current_user: current_admin.id
+  end
+
+  let(:current_admin) { create(:admin) }
+end

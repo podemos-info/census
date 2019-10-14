@@ -51,4 +51,6 @@ Rails.application.configure do
 
   # Log file max size
   config.logger = ActiveSupport::Logger.new(config.paths["log"].first, 1, 100 * 1024 * 1024)
+
+  config.action_controller.asset_host = nil
 end

@@ -15,6 +15,7 @@ describe Api::V1::People::AdditionalInformationsController, type: :controller do
 
       it { is_expected.to have_http_status(:accepted) }
       it { expect(subject.content_type).to eq("application/json") }
+
       include_examples "doesn't track the user visit"
 
       it "updates the person record" do

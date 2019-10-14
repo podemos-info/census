@@ -101,15 +101,16 @@ describe CallbacksController, type: :controller do
     context "when redsys response is correct" do
       let(:redsys_response) { ok_request }
 
-      it "returns ok" do
-        is_expected.to be_successful
-      end
+      it { is_expected.to be_successful }
+
       it "updates the order state" do
         expect { subject } .to change { order.reload.state } .to("processed")
       end
+
       it "updates the payment method response_code" do
         expect { subject } .to change { order.reload.response_code } .to("0000")
       end
+
       it "responds an OK WSDL message" do
         expect(subject.body.delete("\n")) .to eq ok_response
       end
@@ -120,12 +121,12 @@ describe CallbacksController, type: :controller do
     context "when redsys response has an invalid format" do
       let(:redsys_response) { "<WRONG DATA<!" }
 
-      it "returns ok" do
-        is_expected.to be_successful
-      end
+      it { is_expected.to be_successful }
+
       it "does not updates the order state" do
         expect { subject } .not_to change { order.reload.state }
       end
+
       it "does not updates the payment method response_code" do
         expect { subject } .not_to change { order.reload.payment_method.response_code }
       end
@@ -135,12 +136,12 @@ describe CallbacksController, type: :controller do
       let(:now) { Time.zone.local(2017, 11, 20, 14, 5) }
       let(:redsys_response) { ok_request }
 
-      it "returns ok" do
-        is_expected.to be_successful
-      end
+      it { is_expected.to be_successful }
+
       it "does not updates the order state" do
         expect { subject } .not_to change { order.reload.state }
       end
+
       it "does not updates the payment method response_code" do
         expect { subject } .not_to change { order.reload.payment_method.response_code }
       end
@@ -151,15 +152,16 @@ describe CallbacksController, type: :controller do
       let(:redsys_response) { ok_request_literal }
       let(:order_id) { 675 }
 
-      it "returns ok" do
-        is_expected.to be_successful
-      end
+      it { is_expected.to be_successful }
+
       it "updates the order state" do
         expect { subject } .to change { order.reload.state } .to("processed")
       end
+
       it "updates the payment method response_code" do
         expect { subject } .to change { order.reload.payment_method.response_code } .to("0000")
       end
+
       it "responds an OK WSDL message" do
         expect(subject.body.delete("\n")) .to eq ok_response_literal
       end
@@ -170,18 +172,20 @@ describe CallbacksController, type: :controller do
       let(:order_id) { 674 }
       let(:created_issue) { Issue.last }
 
-      it "returns ok" do
-        is_expected.to be_successful
-      end
+      it { is_expected.to be_successful }
+
       it "updates the order state" do
         expect { subject } .to change { order.reload.state } .to("error")
       end
+
       it "updates the payment method response_code" do
         expect { subject } .to change { order.reload.payment_method.response_code } .to("0184")
       end
+
       it "does not create a new issue" do
         expect { subject } .not_to change(Issue, :count)
       end
+
       it "responds a KO WSDL message" do
         expect(subject.body.delete("\n")) .to eq error_response
       end

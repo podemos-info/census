@@ -6,7 +6,7 @@ admins = Admin.where role: [:data, :data_help]
 
 attachments_path = File.join(__dir__, "attachments")
 
-real_now = Time.zone.now
+real_now = Time.current
 
 # create processed document verifications
 exclude_ids = (1..14).to_a + Admin.pluck(:person_id)
@@ -23,7 +23,7 @@ random_people(5, scopes: [:enabled, :not_verified], include_ids: [2], exclude_id
   document_verification.attachments.create!(file: File.new(File.join(attachments_path, "#{person.document_type}-sample2.png")))
   Rails.logger.debug { "Person document verification created for: #{document_verification.person.decorate(data_context)}" }
 
-  Timecop.freeze Faker::Time.between(Time.zone.now, real_now, :between)
+  Timecop.freeze Faker::Time.between(Time.current, real_now, :between)
   current_admin = admins.sample
 
   PaperTrail.request.whodunnit = current_admin
@@ -33,7 +33,7 @@ random_people(5, scopes: [:enabled, :not_verified], include_ids: [2], exclude_id
 
   document_verification.update!(
     processed_by: current_admin,
-    processed_at: Time.zone.now,
+    processed_at: Time.current,
     state: state,
     comment: Faker::Lorem.paragraph(1, true, 2)
   )
@@ -70,7 +70,7 @@ random_people(5, scopes: [:enabled]).each do |person|
     next
   end
 
-  Timecop.freeze Faker::Time.between(Time.zone.now, real_now, :between)
+  Timecop.freeze Faker::Time.between(Time.current, real_now, :between)
   PaperTrail.request.whodunnit = current_admin
   UpdateProcedureJob.perform_later(procedure: person_data_change, admin: current_admin)
 

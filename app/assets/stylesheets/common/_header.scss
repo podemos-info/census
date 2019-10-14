@@ -1,15 +1,52 @@
 .header #utility_nav {
-  #issues_read, #issues_unread {
-    a:before {
-      @include icon("\f0f3");
-    }
-  }
-  #user_jobs {
+  #admin_jobs {
     a:before {
       @include icon("\f013");
     }
+
+    &.running a:before {
+      -webkit-animation: fa-spin 2s infinite linear;
+      animation: fa-spin 2s infinite linear;
+    }
   }
-  #issues_read, #issues_unread, #user_jobs, #current_user, #logout {
+
+  #admin_issues {
+    a:before {
+      @include icon("\f0f3");
+    }
+
+    &.unread a:before {
+      color: $error-color;
+      -webkit-animation: ring 4s .7s ease-in-out infinite;
+      -webkit-transform-origin: 50% 4px;
+      -moz-animation: ring 4s .7s ease-in-out infinite;
+      -moz-transform-origin: 50% 4px;
+      animation: ring 7.5s 0s ease-in-out infinite;
+      transform-origin: 50% 4px;
+    }
+
+    @keyframes ring {
+      0% { transform: rotate(15deg); }
+      2% { transform: rotate(-13deg); }
+      4% { transform: rotate(19deg); }
+      6% { transform: rotate(-17deg); }
+      8% { transform: rotate(15deg); }
+      10% { transform: rotate(-13deg); }
+      12% { transform: rotate(11deg); }
+      14% { transform: rotate(-9deg); }
+      16% { transform: rotate(7deg); }
+      18% { transform: rotate(-5deg); }
+      20% { transform: rotate(3deg); }
+      22% { transform: rotate(-3deg); }
+      24% { transform: rotate(2deg); }
+      26% { transform: rotate(-1deg); }
+      28% { transform: rotate(1deg); }
+      32% { transform: rotate(0); }
+      100% { transform: rotate(0); }
+    }
+  }
+
+  #admin_jobs, #admin_issues, #current_user, #logout {
     a {
       visibility: hidden;
       position: relative;
@@ -44,14 +81,7 @@
       }
     }
   }
-  #issues_unread a:before {
-    color: $error-color;
-  }
 
-  #user_jobs.running a:before {
-    -webkit-animation: fa-spin 2s infinite linear;
-    animation: fa-spin 2s infinite linear;
-  }
   #logout {
     min-width: 35px;
   }

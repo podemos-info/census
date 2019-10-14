@@ -5,7 +5,7 @@ version: 2
 jobs:
   main:
     docker:
-      - image: circleci/ruby:2.5.1-node
+      - image: circleci/ruby:2.5.1-node-browsers
         environment:
           DATABASE_USERNAME: postgres
 
@@ -66,7 +66,7 @@ jobs:
           command: /tmp/cc-test-reporter upload-coverage --input /tmp/codeclimate.json
 
       - store_artifacts:
-          path: /root/project/tmp/screenshots
+          path: tmp/screenshots
 
   deploy:
     docker:

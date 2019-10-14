@@ -117,6 +117,7 @@ describe Issues::People::DuplicatedDocument, :db do
       it "doesn't trash the existing person" do
         expect { subject }.not_to change { existing_person.reload.trashed? }.from(false)
       end
+
       it_behaves_like "an event not notifiable with hutch"
     end
   end

@@ -92,6 +92,7 @@ describe OrdersBatchesController, type: :controller do
 
       it { is_expected.to be_successful }
       it { expect(subject).to render_template("new") }
+
       it "shows an error message" do
         expect { subject } .to change { flash[:error] } .from(nil).to("Ha ocurrido un error al guardar el registro.")
       end

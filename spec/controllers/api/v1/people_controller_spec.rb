@@ -94,6 +94,7 @@ describe Api::V1::PeopleController, type: :controller do
 
       it { is_expected.to have_http_status(:accepted) }
       it { expect(subject.content_type).to eq("application/json") }
+
       include_examples "doesn't track the user visit"
 
       it "creates a new person data change procedure" do
@@ -146,6 +147,7 @@ describe Api::V1::PeopleController, type: :controller do
 
       it { is_expected.to have_http_status(:accepted) }
       it { expect(subject.content_type).to eq("application/json") }
+
       include_examples "doesn't track the user visit"
 
       it "creates a new cancellation procedure" do
@@ -198,6 +200,7 @@ describe Api::V1::PeopleController, type: :controller do
       let(:params) { { id: person.qualified_id_at("participa2-1") } }
 
       it { is_expected.to be_successful }
+
       include_examples "doesn't track the user visit"
 
       context "when using the document_id to identify the user" do

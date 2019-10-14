@@ -130,7 +130,7 @@ FactoryBot.define do
 
     trait :cancelled do
       state { :cancelled }
-      discarded_at { Faker::Date.between(created_at, Time.zone.now) }
+      discarded_at { Faker::Date.between(created_at, Time.current) }
     end
   end
 
@@ -145,6 +145,6 @@ FactoryBot.define do
     ip { Faker::Internet.ip_v4_address }
     user_agent { Faker::Internet.user_agent }
     created_at { Faker::Date.between(1.day.from_now, 30.days.from_now) }
-    updated_at { Faker::Date.between(Time.zone.now, created_at) }
+    updated_at { Faker::Date.between(Time.current, created_at) }
   end
 end
