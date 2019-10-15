@@ -5,7 +5,7 @@ module Procedures
     store_accessor :information, :phone
 
     def acceptable?
-      person.enabled?
+      person.enabled? && person.may_verify_phone?
     end
 
     def self.auto_processable?

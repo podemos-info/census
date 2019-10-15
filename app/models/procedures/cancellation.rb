@@ -5,7 +5,7 @@ module Procedures
     store_accessor :information, :channel, :reason, :from_state
 
     def acceptable?
-      !person.discarded?
+      !person.discarded? && person.may_cancel?
     end
 
     def process_accept
