@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_26_111234) do
+ActiveRecord::Schema.define(version: 2019_09_25_105137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -263,10 +263,15 @@ ActiveRecord::Schema.define(version: 2019_08_26_111234) do
     t.datetime "updated_at", null: false
     t.bigint "person_location_id"
     t.tsvector "fast_filter"
+    t.bigint "processing_by_id"
+    t.datetime "processing_at"
+    t.datetime "priorized_at"
+    t.integer "lock_version", default: 0, null: false
     t.index ["fast_filter"], name: "index_procedures_on_fast_filter", using: :gin
     t.index ["person_id"], name: "index_procedures_on_person_id"
     t.index ["person_location_id"], name: "index_procedures_on_person_location_id"
     t.index ["processed_by_id"], name: "index_procedures_on_processed_by_id"
+    t.index ["processing_by_id"], name: "index_procedures_on_processing_by_id"
   end
 
   create_table "scope_types", force: :cascade do |t|
@@ -355,6 +360,7 @@ ActiveRecord::Schema.define(version: 2019_08_26_111234) do
   add_foreign_key "people", "scopes", column: "address_scope_id"
   add_foreign_key "people", "scopes", column: "document_scope_id"
   add_foreign_key "procedures", "admins", column: "processed_by_id"
+  add_foreign_key "procedures", "admins", column: "processing_by_id"
   add_foreign_key "scopes", "scope_types"
   add_foreign_key "scopes", "scopes", column: "parent_id"
 end

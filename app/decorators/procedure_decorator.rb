@@ -6,6 +6,7 @@ class ProcedureDecorator < ApplicationDecorator
   attr_accessor :event
   decorates_association :issues
   decorates_association :person
+  decorates_association :processing_by
   decorates_association :processed_by
 
   def name
@@ -33,6 +34,10 @@ class ProcedureDecorator < ApplicationDecorator
     else
       ""
     end
+  end
+
+  def processing_at
+    h.time_ago_in_words(object.processing_at) if object.processing_at
   end
 
   def link(text = nil)

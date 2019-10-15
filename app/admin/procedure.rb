@@ -12,7 +12,7 @@ ActiveAdmin.register Procedure do
 
   actions :index, :show, :update # update is used for procedure processing
 
-  permit_params :action, :comment
+  permit_params :action, :comment, :lock_version
 
   filter :type, as: :select, collection: -> { ProcedureDecorator.procedures_options }
 
@@ -44,7 +44,15 @@ ActiveAdmin.register Procedure do
       procedure.person.scope&.local_path
     end
     state_column :state
-    bool_column :auto_processed?
+    column :processor, class: :left do |procedure|
+      if procedure.processed_by
+        procedure.processed_by.with_icon
+      elsif procedure.processing_by
+        procedure.processing_by.with_icon(modifier: "locked")
+      elsif procedure.processed?
+        span "auto", class: "admin_icon auto"
+      end
+    end
     column :created_at
   end
 

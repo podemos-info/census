@@ -43,6 +43,7 @@ class UpdateProcedureJob < ApplicationJob
   def auto_process(auto_process_params, procedure, admin)
     form = Procedures::ProcessProcedureForm.from_params(procedure: procedure,
                                                         processed_by: admin,
+                                                        lock_version: procedure.lock_version,
                                                         **auto_process_params)
 
     Procedures::ProcessProcedure.call(form: form, admin: admin) do

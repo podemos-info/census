@@ -6,7 +6,7 @@ module Procedures
     # Public: Initializes the command.
     #
     # form - A form object with the params.
-    # admin - The person that is undoing the procedure.
+    # admin - The person that will process the procedure.
     def initialize(form:, admin:)
       @form = form
       @admin = admin
@@ -57,8 +57,10 @@ module Procedures
     end
 
     def process_procedure
+      procedure.processing_by = nil
       procedure.processed_by = admin
       procedure.processed_at = Time.current
+      procedure.lock_version = form.lock_version
       procedure.comment = form.comment
       procedure.send(form.action)
 

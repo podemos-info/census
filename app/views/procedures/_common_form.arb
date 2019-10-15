@@ -12,6 +12,7 @@ context.instance_eval do
       panel t("census.procedures.process") do
         active_admin_form_for controller.form_resource do |f|
           f.inputs do
+                f.input :lock_version, as: :hidden
             f.input :action, as: :radio, label: false, collection: procedure.actions_options(admin: controller.current_admin, allow_add_issue: true)
             f.input :comment, as: :text, input_html: { rows: 4 }
           end

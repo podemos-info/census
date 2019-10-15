@@ -250,6 +250,7 @@ es:
         person: Persona
         processed_at: Fecha de procesado
         processed_by: Procesado por
+        processor: Procesado por
         reason: Razones
         scope: Lugar de participación
         state: Estado

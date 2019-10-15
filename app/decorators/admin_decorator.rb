@@ -22,6 +22,10 @@ class AdminDecorator < ApplicationDecorator
     end.freeze
   end
 
+  def with_icon(modifier: nil)
+    h.raw "<span class='admin_icon #{modifier}'>#{h.link_to(self)}</span>"
+  end
+
   def last_visits
     @last_visits ||= AdminLastVisits.for(object).decorate(context: context)
   end
