@@ -54,7 +54,7 @@ class ProcedureDecorator < ApplicationDecorator
   end
 
   def comment
-    @comment ||= if object.comment.match(/^[a-z_]+$/)
+    @comment ||= if object.comment&.match(/^[a-z_]+$/)
                    I18n.t("census.procedures.comments.#{object.comment}", default: object.comment)
                  else
                    object.comment
@@ -88,19 +88,27 @@ class ProcedureDecorator < ApplicationDecorator
   end
 
   def after_person
-    @after_person ||= if processed?
+    return @after_person if defined?(@after_person)
+
+    @after_person = begin
+                      if processed?
                         person.paper_trail.version_at(processed_at + 0.01.seconds, dup: true)&.decorate(context: context)
                       else
                         object.deep_dup.tap(&:process_accept).person&.decorate(context: context)
                       end
+                    rescue AASM::InvalidTransition
+                      nil
+                    end
   end
 
   def person_changeset
-    @person_changeset ||= begin
-      changed_attributes = before_person.attributes.keys.zip(before_person.attributes.values.zip(after_person.attributes.values))
-                                        .reject { |_attribute, values| values.first == values.last }
-                                        .map(&:first)
-      classed_changeset(changed_attributes, "")
-    end
+    @person_changeset ||= if after_person
+                            changed_attributes = before_person.attributes.keys.zip(before_person.attributes.values.zip(after_person.attributes.values))
+                                                              .reject { |_attribute, values| values.first == values.last }
+                                                              .map(&:first)
+                            classed_changeset(changed_attributes, "")
+                          else
+                            {}
+                          end
   end
 end
