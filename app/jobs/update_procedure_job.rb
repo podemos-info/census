@@ -16,7 +16,8 @@ class UpdateProcedureJob < ApplicationJob
 
     update_issues(procedure, admin)
 
-    auto_process_params = procedure_auto_process_params(procedure)
+    auto_process_params = prepare_auto_process(procedure)
+
     return unless auto_process_params
 
     auto_process(auto_process_params, procedure, admin)
@@ -58,7 +59,9 @@ class UpdateProcedureJob < ApplicationJob
     end
   end
 
-  def procedure_auto_process_params(procedure)
+  def prepare_auto_process(procedure)
+    procedure.reload
+
     return unless procedure.pending?
 
     if procedure.person.discarded?
