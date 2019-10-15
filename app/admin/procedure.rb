@@ -143,7 +143,7 @@ ActiveAdmin.register Procedure do
     end
 
     def lock_form
-      @lock_form ||= Procedures::LockProcedureForm.from_params(procedure: resource.object)
+      @lock_form ||= Procedures::LockProcedureForm.from_params(procedure: resource.object, lock_version: resource.lock_version)
     end
 
     def render_error(message)

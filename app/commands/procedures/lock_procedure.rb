@@ -31,7 +31,7 @@ module Procedures
     private
 
     attr_accessor :form, :admin
-    delegate :procedure, :force?, to: :form
+    delegate :procedure, :force?, :lock_version, to: :form
 
     def busy?
       !force? && procedure.processing_by && !mine?
@@ -42,6 +42,7 @@ module Procedures
     end
 
     def lock_procedure
+      procedure.lock_version = lock_version
       procedure.processing_by = admin
       procedure.save(touch: false) ? :ok : :error
     rescue ActiveRecord::StaleObjectError

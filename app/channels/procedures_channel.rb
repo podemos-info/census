@@ -12,7 +12,7 @@ class ProceduresChannel < ApplicationCable::Channel
 
     return unless data["acquire"] || data["force"]
 
-    lock_form = Procedures::LockProcedureForm.from_params(procedure: procedure, force: data["force"])
+    lock_form = Procedures::LockProcedureForm.from_params(procedure: procedure, lock_version: procedure.lock_version, force: data["force"])
     Procedures::LockProcedure.call(form: lock_form, admin: current_user)
     notify_status
   end
@@ -22,7 +22,8 @@ class ProceduresChannel < ApplicationCable::Channel
 
     return if keep_lock?
 
-    Procedures::UnlockProcedure.call(procedure: procedure, admin: current_user)
+    unlock_form = Procedures::LockProcedureForm.from_params(procedure: procedure, lock_version: procedure.lock_version)
+    Procedures::UnlockProcedure.call(form: unlock_form, admin: current_user)
     notify_status
   end
 

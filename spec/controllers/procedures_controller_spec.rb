@@ -30,6 +30,9 @@ describe ProceduresController, type: :controller do
     describe "index page" do
       subject { get :index, params: params }
 
+      before { procedure && autoprocessed_procedure }
+
+      let(:autoprocessed_procedure) { create(:registration, :autoprocessed) }
       let(:params) { {} }
 
       it { expect(subject).to be_successful }
@@ -148,7 +151,9 @@ describe ProceduresController, type: :controller do
       end
 
       describe "undo" do
-        subject { patch :undo, params: { id: procedure.id } }
+        subject { patch :undo, params: { id: procedure.id, lock_version: lock_version } }
+
+        let(:lock_version) { procedure.lock_version }
 
         it "notifies that it was ok" do
           subject
@@ -173,6 +178,17 @@ describe ProceduresController, type: :controller do
               .to change { flash[:error] }
               .from(nil)
               .to("Ha ocurrido un error al intentar devolver procedimiento <a href=\"/procedures/#{procedure.id}\">#{procedure.id}</a> a su estado anterior.")
+          end
+        end
+
+        context "when procedure has changes while the undoing" do
+          let(:lock_version) { procedure.lock_version - 1 }
+
+          it { is_expected.to redirect_to(procedures_path) }
+          it { expect { subject } .to change { flash[:error] } .from(nil).to("El procedimiento ha sido modificado por otra persona.") }
+
+          it "does not reject the procedure" do
+            expect { subject } .not_to change { Procedure.find(procedure.id).state }
           end
         end
       end

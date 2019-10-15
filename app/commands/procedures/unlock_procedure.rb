@@ -5,10 +5,10 @@ module Procedures
   class UnlockProcedure < Rectify::Command
     # Public: Initializes the command.
     #
-    # procedure - A procedure to be unlock.
+    # form - A form object with the params.
     # admin - The person that was processing the procedure.
-    def initialize(procedure:, admin:)
-      @procedure = procedure
+    def initialize(form:, admin:)
+      @form = form
       @admin = admin
     end
 
@@ -20,7 +20,7 @@ module Procedures
     #
     # Returns nothing.
     def call
-      return broadcast(:invalid) unless procedure && admin
+      return broadcast(:invalid) unless form&.valid? && admin
       return broadcast(:noop) unless procedure.processing_by == admin
 
       result = unlock_procedure
@@ -30,9 +30,11 @@ module Procedures
 
     private
 
-    attr_accessor :procedure, :admin
+    attr_accessor :form, :admin
+    delegate :procedure, :lock_version, to: :form
 
     def unlock_procedure
+      procedure.lock_version = lock_version
       procedure.processing_by = nil
       procedure.save(touch: false) ? :ok : :error
     rescue ActiveRecord::StaleObjectError

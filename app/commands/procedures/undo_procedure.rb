@@ -32,13 +32,13 @@ module Procedures
     private
 
     attr_accessor :form, :admin
-    delegate :procedure, to: :form
+    delegate :procedure, :lock_version, to: :form
 
     def undo_procedure
       procedure.undo
       procedure.processed_by = procedure.undo_version.processed_by
       procedure.processed_at = procedure.undo_version.processed_at
-      procedure.lock_version = procedure.lock_version
+      procedure.lock_version = lock_version
       procedure.comment = procedure.undo_version.comment
       procedure.save ? :ok : :error
     rescue ActiveRecord::StaleObjectError

@@ -1286,3 +1286,7 @@ RSpec/MultipleExpectations:
 RSpec/ExampleLength:
   Exclude:
     - spec/system/*.rb
+
+Rails/SkipsModelValidations:
+  Exclude:
+  - spec/**/*.rb

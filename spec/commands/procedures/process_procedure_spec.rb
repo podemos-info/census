@@ -176,4 +176,31 @@ describe Procedures::ProcessProcedure do
       expect { subject } .not_to change { Procedure.find(procedure.id).comment }
     end
   end
+
+  context "when procedure has changed while processing" do
+    before do
+      procedure
+      Procedure.find(procedure.id).touch
+    end
+
+    it "broadcasts :conflict" do
+      expect { subject } .to broadcast(:conflict)
+    end
+
+    it "does not update procedure state" do
+      expect { subject } .not_to change { Procedure.find(procedure.id).state }
+    end
+
+    it "does not set processed_by" do
+      expect { subject } .not_to change { Procedure.find(procedure.id).processed_by }
+    end
+
+    it "does not set processing date" do
+      expect { subject } .not_to change { Procedure.find(procedure.id).processed_at }
+    end
+
+    it "does not update comment" do
+      expect { subject } .not_to change { Procedure.find(procedure.id).comment }
+    end
+  end
 end

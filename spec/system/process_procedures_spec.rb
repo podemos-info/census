@@ -33,18 +33,24 @@ describe "Process procedure", type: :system, js: true, action_cable: :async do
     context "when another user is processing the procedure" do
       let(:processing_by) { create(:admin, :data) }
 
-      it "can't unlock the procedure" do
+      it "can't unlock the procedure, unless forcing it" do
         expect(procedure.processing_by).to eq(processing_by)
 
         visit procedure_path(procedure)
 
         expect(page).to have_content("El procedimiento esta siendo procesado")
         expect(page).not_to have_content("Aceptar")
+
+        click_on "Haz click aquí para procesarlo de todos modos"
+
+        expect(page).to have_content("Aceptar") # Very important: waits WebSockets to be working
+        expect(procedure.reload.processing_by).to eq(current_admin)
+
+        visit procedures_path
+
+        expect(procedure.reload.processing_by).to be_nil
       end
     end
-
-    # trying to lock at the same time
-    # trying to update while locked
   end
 
   describe "different procedures processing" do
