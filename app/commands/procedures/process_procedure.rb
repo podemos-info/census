@@ -21,6 +21,7 @@ module Procedures
     # Returns nothing.
     def call
       return broadcast(:invalid) unless form&.valid?
+      return broadcast(:busy) if busy?
 
       result = if form.adding_issue?
                  add_issue
@@ -31,6 +32,7 @@ module Procedures
       broadcast result, procedure: procedure
 
       if result == :ok
+        ProceduresChannel.notify_status(procedure)
         PersonPendingProcedures.for(procedure.person).each do |procedure|
           ::UpdateProcedureJob.perform_later(procedure: procedure,
                                              admin: admin)
@@ -42,6 +44,10 @@ module Procedures
 
     attr_accessor :form, :admin
     delegate :procedure, to: :form
+
+    def busy?
+      procedure.processing_by && procedure.processing_by != admin
+    end
 
     def add_issue
       issue = Issues::People::AdminRemark.for(procedure, find: false)
@@ -65,6 +71,9 @@ module Procedures
       procedure.send(form.action)
 
       procedure.save ? :ok : :error
+    rescue ActiveRecord::StaleObjectError
+      procedure.reload
+      :conflict
     end
   end
 end

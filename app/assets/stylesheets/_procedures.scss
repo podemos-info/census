@@ -21,3 +21,13 @@ body.procedures .panel_contents {
     width: 100%;
   }
 }
+
+#process_processing {
+  .locked, .unlocked {
+    display: none;
+  }
+
+  &.locked .locked, &.unlocked .unlocked {
+    display: block;
+  }
+}

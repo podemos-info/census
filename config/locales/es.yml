@@ -241,7 +241,6 @@ es:
         updated_at: Último acceso
         user_agent: Navegador
       procedure:
-        auto_processed?: Procesado automáticamente
         channel: Recibido a través de
         comment: Comentario
         created_at: Fecha de creación
@@ -578,8 +577,10 @@ es:
     procedures:
       action_message:
         accepted: El procedimiento %{link} ha sido aceptado.
+        busy: El procedimiento está siendo procesado por otra persona.
         cant_process: No se puede procesar un procedimiento ya procesado.
         cant_undo: No se puede devolver al procedimiento %{link} a su estado anterior.
+        conflict: El procedimiento ha sido modificado por otra persona.
         error: Ha ocurrido un error al procesar el procedimiento.
         error_issue: Ha ocurrido un error al abrir la incidencia.
         error_undo: Ha ocurrido un error al intentar devolver procedimiento %{link} a su estado anterior.
@@ -597,6 +598,9 @@ es:
         discarded_person: Procedimiento descartado ya que la persona ha sido dada de baja.
       edit_person: Modificar datos
       fix_issues: Debes resolver las incidencias para poder procesar este procedimiento.
+      locking:
+        locked: El procedimiento esta siendo procesado por @{processing_by_name} desde hace @{processing_at}.
+        change_lock: Haz click aquí para procesarlo de todos modos
       parameters: Parámetros del procedimiento
       person:
         after: Después
@@ -607,6 +611,7 @@ es:
       procedure: Procedimiento
       process: Procesar
       view_person: Ver ficha completa
+      unacceptable: El procedimiento no puede ser aceptado. Comprueba que la persona no tenga otros procedimientos pendientes que deban ser aceptados antes que este.
     scopes:
       picker:
         cancel: Cancelar

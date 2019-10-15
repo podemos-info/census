@@ -57,6 +57,11 @@ ActiveAdmin.register Procedure do
   end
 
   show do
+    if procedure.processable?
+      controller.lock_procedure
+      script { raw "window.procedure_channel = new ProceduresChannel(#{procedure.id}, #{procedure.lock_version})" }
+    end
+
     panel procedure.name do
       render "procedures/#{procedure.procedure_type}/show", context: self
     end
@@ -68,15 +73,19 @@ ActiveAdmin.register Procedure do
 
   action_item :undo_procedure, only: :show do
     if procedure.undoable_by? controller.current_admin
-      link_to t("census.procedures.actions.undo"), undo_procedure_path(procedure), method: :patch,
-                                                                                   data: { confirm: t("census.messages.sure_question") },
-                                                                                   class: "member_link"
+      link_to t("census.procedures.actions.undo"), undo_procedure_path(procedure, lock_version: procedure.lock_version),
+              method: :patch,
+              data: { confirm: t("census.messages.sure_question") },
+              class: "member_link"
     end
   end
 
   member_action :undo, method: :patch do
     procedure = resource
-    Procedures::UndoProcedure.call(procedure: procedure, admin: current_admin) do
+    Procedures::UndoProcedure.call(form: undo_form, admin: current_admin) do
+      on(:conflict) do
+        flash[:error] = t("census.procedures.action_message.conflict", link: view_context.link_to(procedure.id, procedure)).html_safe
+      end
       on(:invalid) do
         flash[:error] = t("census.procedures.action_message.cant_undo", link: view_context.link_to(procedure.id, procedure)).html_safe
       end
@@ -99,8 +108,17 @@ ActiveAdmin.register Procedure do
   controller do
     def update
       set_resource_ivar resource.decorate
-      Procedures::ProcessProcedure.call(form: form_resource, admin: current_admin) do
+
+      Procedures::ProcessProcedure.call(form: process_form, admin: current_admin) do
         on(:invalid) { render :show }
+        on(:busy) do
+          flash.now[:error] = t("census.procedures.action_message.busy")
+          render :show
+        end
+        on(:conflict) do
+          flash.now[:error] = t("census.procedures.action_message.conflict")
+          render :show
+        end
         on(:error) do
           flash.now[:error] = t("census.procedures.action_message.error")
           render :show
@@ -120,8 +138,24 @@ ActiveAdmin.register Procedure do
       end
     end
 
-    def form_resource
-      @form_resource ||= Procedures::ProcessProcedureForm.from_params(permitted_params, procedure: resource.object, processed_by: current_admin)
+    def process_form
+      @process_form ||= Procedures::ProcessProcedureForm.from_params(permitted_params, procedure: resource.object, processed_by: current_admin)
+    end
+
+    def undo_form
+      @undo_form ||= Procedures::UndoProcedureForm.from_params(undo_params, procedure: resource.object)
+    end
+
+    def undo_params
+      params.permit(:lock_version)
+    end
+
+    def lock_procedure
+      Procedures::LockProcedure.call(form: lock_form, admin: current_admin)
+    end
+
+    def lock_form
+      @lock_form ||= Procedures::LockProcedureForm.from_params(procedure: resource.object)
     end
   end
 end

@@ -5,10 +5,10 @@ module Procedures
   class UndoProcedure < Rectify::Command
     # Public: Initializes the command.
     #
-    # procedure - A Procedure object.
+    # form - A form object with the params.
     # admin - The person that is undoing the procedure
-    def initialize(procedure:, admin:)
-      @procedure = procedure
+    def initialize(form:, admin:)
+      @form = form
       @admin = admin
     end
 
@@ -20,31 +20,30 @@ module Procedures
     #
     # Returns nothing.
     def call
-      return broadcast(:invalid) unless admin && procedure&.undoable_by?(admin)
+      return broadcast(:invalid) unless form&.valid? && admin && procedure&.undoable_by?(admin)
 
-      undo_procedure
+      result = undo_procedure
 
       broadcast result, procedure: procedure
+
+      ProceduresChannel.notify_status(procedure) if result == :ok
     end
 
     private
 
-    attr_accessor :procedure, :admin, :result
+    attr_accessor :form, :admin
+    delegate :procedure, to: :form
 
     def undo_procedure
-      @result = :error
-      Procedure.transaction do
-        undo procedure
-        @result = :ok
-      end
-    end
-
-    def undo(current_procedure)
-      current_procedure.undo
-      current_procedure.processed_by = current_procedure.undo_version.processed_by
-      current_procedure.processed_at = current_procedure.undo_version.processed_at
-      current_procedure.comment = current_procedure.undo_version.comment
-      current_procedure.save!
+      procedure.undo
+      procedure.processed_by = procedure.undo_version.processed_by
+      procedure.processed_at = procedure.undo_version.processed_at
+      procedure.lock_version = procedure.lock_version
+      procedure.comment = procedure.undo_version.comment
+      procedure.save ? :ok : :error
+    rescue ActiveRecord::StaleObjectError
+      procedure.reload
+      :conflict
     end
   end
 end

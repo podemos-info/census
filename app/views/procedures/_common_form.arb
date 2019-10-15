@@ -1,22 +1,36 @@
 # frozen_string_literal: true
 
 context.instance_eval do
-  if policy(procedure).update?
-    if issues_for_resource.any?
-      panel t("census.procedures.process") do
+  if policy(procedure).update? && procedure.processable?
+    panel t("census.procedures.process") do
+      if issues_for_resource.any?
         div class: "flash flash_alert" do
           para t("census.procedures.fix_issues")
         end
-      end
-    elsif procedure.processable?
-      panel t("census.procedures.process") do
-        active_admin_form_for controller.form_resource do |f|
-          f.inputs do
-                f.input :lock_version, as: :hidden
-            f.input :action, as: :radio, label: false, collection: procedure.actions_options(admin: controller.current_admin, allow_add_issue: true)
-            f.input :comment, as: :text, input_html: { rows: 4 }
+      elsif procedure.acceptable?
+        div id: "process_processing", "data-current-admin" => controller.current_admin.id do
+          div class: "locked flash flash_alert" do
+            para id: "procedure_status", "data-template" => t("census.procedures.locking.locked")
+
+            para link_to(t("census.procedures.locking.change_lock"),
+                         "javascript: procedure_channel.forceLock()",
+                         data: { confirm: t("census.messages.sure_question") })
           end
-          f.actions
+
+          div class: "unlocked" do
+            active_admin_form_for controller.process_form do |f|
+              f.inputs do
+                f.input :lock_version, as: :hidden
+                f.input :action, as: :radio, label: false, collection: procedure.actions_options(admin: controller.current_admin, allow_add_issue: true)
+                f.input :comment, as: :text, input_html: { rows: 4 }
+              end
+              f.actions
+            end
+          end
+        end
+      else
+        div class: "flash flash_alert" do
+          para t("census.procedures.unacceptable")
         end
       end
     end
