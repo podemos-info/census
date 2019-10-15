@@ -28,4 +28,4 @@ coverage
 
 spec/examples.txt
 
-.env
+.env.*.local
