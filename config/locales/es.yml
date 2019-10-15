@@ -582,9 +582,9 @@ es:
         cant_undo: No se puede devolver al procedimiento %{link} a su estado anterior.
         conflict: El procedimiento ha sido modificado por otra persona.
         error: Ha ocurrido un error al procesar el procedimiento.
-        error_issue: Ha ocurrido un error al abrir la incidencia.
         error_undo: Ha ocurrido un error al intentar devolver procedimiento %{link} a su estado anterior.
         issue: Se ha abierto la incidencia para el procedimiento %{link}.
+        issue_error: Ha ocurrido un error al abrir la incidencia.
         rejected: El procedimiento %{link} ha sido rechazado.
         undone: El procedimiento %{link} ha vuelto a su estado anterior.
       actions:
@@ -599,8 +599,8 @@ es:
       edit_person: Modificar datos
       fix_issues: Debes resolver las incidencias para poder procesar este procedimiento.
       locking:
-        locked: El procedimiento esta siendo procesado por @{processing_by_name} desde hace @{processing_at}.
         change_lock: Haz click aquí para procesarlo de todos modos
+        locked: El procedimiento esta siendo procesado por @{processing_by_name} desde hace @{processing_at}.
       parameters: Parámetros del procedimiento
       person:
         after: Después
@@ -610,8 +610,8 @@ es:
         now: Ahora
       procedure: Procedimiento
       process: Procesar
-      view_person: Ver ficha completa
       unacceptable: El procedimiento no puede ser aceptado. Comprueba que la persona no tenga otros procedimientos pendientes que deban ser aceptados antes que este.
+      view_person: Ver ficha completa
     scopes:
       picker:
         cancel: Cancelar

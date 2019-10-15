@@ -21,8 +21,8 @@ module Procedures
     # Returns nothing.
     def call
       return broadcast(:invalid) unless form&.valid? && admin
-      return broadcast(:noop) if procedure.processing_by == admin
-      return broadcast(:busy) unless force? || procedure.processing_by.nil?
+      return broadcast(:noop) if mine?
+      return broadcast(:busy) if busy?
 
       result = lock_procedure
       broadcast result, procedure: procedure
@@ -32,6 +32,14 @@ module Procedures
 
     attr_accessor :form, :admin
     delegate :procedure, :force?, to: :form
+
+    def busy?
+      !force? && procedure.processing_by && !mine?
+    end
+
+    def mine?
+      procedure.processing_by == admin
+    end
 
     def lock_procedure
       procedure.processing_by = admin

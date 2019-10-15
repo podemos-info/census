@@ -111,22 +111,10 @@ ActiveAdmin.register Procedure do
 
       Procedures::ProcessProcedure.call(form: process_form, admin: current_admin) do
         on(:invalid) { render :show }
-        on(:busy) do
-          flash.now[:error] = t("census.procedures.action_message.busy")
-          render :show
-        end
-        on(:conflict) do
-          flash.now[:error] = t("census.procedures.action_message.conflict")
-          render :show
-        end
-        on(:error) do
-          flash.now[:error] = t("census.procedures.action_message.error")
-          render :show
-        end
-        on(:issue_error) do
-          flash.now[:error] = t("census.procedures.action_message.error_issue")
-          render :show
-        end
+        on(:busy) { render_error(:busy) }
+        on(:conflict) { render_error(:conflict) }
+        on(:error) { render_error(:error) }
+        on(:issue_error) { render_error(:issue_error) }
         on(:ok) do
           flash[:notice] = t("census.procedures.action_message.#{resource.state}", link: view_context.link_to(resource.id, resource)).html_safe
           redirect_to procedures_path
@@ -156,6 +144,11 @@ ActiveAdmin.register Procedure do
 
     def lock_form
       @lock_form ||= Procedures::LockProcedureForm.from_params(procedure: resource.object)
+    end
+
+    def render_error(message)
+      flash.now[:error] = t("census.procedures.action_message.#{message}")
+      render :show
     end
   end
 end
