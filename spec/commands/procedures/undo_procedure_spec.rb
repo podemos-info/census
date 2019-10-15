@@ -4,10 +4,22 @@ require "rails_helper"
 
 describe Procedures::UndoProcedure do
   with_versioning do
-    subject(:undo_procedure) { described_class.call(procedure: procedure, admin: admin) }
+    subject(:undo_procedure) { described_class.call(form: form, admin: admin) }
 
     let(:procedure) { create(:document_verification, :undoable) }
     let(:admin) { procedure.processed_by }
+    let(:form_class) { Procedures::UndoProcedureForm }
+    let(:valid) { true }
+
+    let(:form) do
+      instance_double(
+        form_class,
+        invalid?: !valid,
+        valid?: valid,
+        procedure: procedure,
+        lock_version: procedure.lock_version
+      )
+    end
 
     context "when undoing an accepted procedure" do
       it "broadcasts :ok" do

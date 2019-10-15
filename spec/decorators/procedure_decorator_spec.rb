@@ -126,4 +126,16 @@ describe ProcedureDecorator do
 
     it { is_expected.to eq("procedure") }
   end
+
+  describe "#person_changeset" do
+    subject(:method) { decorator.person_changeset }
+
+    it { is_expected.to eq(created_at: "", updated_at: "", verification: "") }
+
+    context "when procedure is can't be accepted" do
+      before { person.verify! }
+
+      it { is_expected.to eq({}) }
+    end
+  end
 end

@@ -59,6 +59,7 @@ FactoryBot.define do
   end
 
   factory :document_verification, parent: :procedure, class: :"procedures/document_verification" do
+    person { create(:person) }
   end
 
   factory :membership_level_change, parent: :procedure, class: :"procedures/membership_level_change" do
@@ -67,7 +68,7 @@ FactoryBot.define do
 
     person { create(:person, :verified) }
 
-    trait :pending do
+    trait :not_acceptable do
       person { create(:person) }
     end
   end

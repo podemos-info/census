@@ -61,6 +61,7 @@ FactoryBot.define do
     address_scope { nil }
     state { :enabled }
     external_ids { { "participa2-1" => generate(:decidim_id) } }
+    membership_level { :follower }
 
     after :build do |person, evaluator|
       foreign = evaluator.foreign

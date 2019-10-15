@@ -25,7 +25,7 @@ describe Api::V1::People::ProceduresController, type: :controller do
 
       it "each returned procedure includes only id, name and type" do
         subject.each do |payment_method|
-          expect(payment_method.keys) .to contain_exactly("id", "type", "information")
+          expect(payment_method.keys) .to contain_exactly("id", "type", "state", "information")
         end
       end
 
