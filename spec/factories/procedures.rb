@@ -32,6 +32,13 @@ FactoryBot.define do
       comment { Faker::Lorem.paragraph(1, true, 2) }
     end
 
+    trait :autoprocessed do
+      processed_by { nil }
+      processed_at { Faker::Time.between(created_at, [Settings.procedures.undo_minutes.minutes.ago, created_at].max, :between) }
+      state { :accepted }
+      comment { "" }
+    end
+
     trait :undoable do
       after :create do |procedure|
         procedure.processed_by = build(:admin)
@@ -59,6 +66,7 @@ FactoryBot.define do
   end
 
   factory :document_verification, parent: :procedure, class: :"procedures/document_verification" do
+    person { create(:person) }
   end
 
   factory :membership_level_change, parent: :procedure, class: :"procedures/membership_level_change" do
@@ -67,7 +75,7 @@ FactoryBot.define do
 
     person { create(:person, :verified) }
 
-    trait :pending do
+    trait :not_acceptable do
       person { create(:person) }
     end
   end

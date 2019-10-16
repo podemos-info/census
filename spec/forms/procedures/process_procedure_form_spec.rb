@@ -7,15 +7,17 @@ describe Procedures::ProcessProcedureForm do
     described_class.new(
       procedure: procedure,
       processed_by: admin,
+      lock_version: lock_version,
       action: action,
       comment: comment
     )
   end
 
-  let!(:procedure) { create(:registration) }
+  let(:procedure) { create(:registration) }
+  let(:lock_version) { procedure.lock_version }
   let(:action) { :accept }
   let(:comment) { "This is a comment" }
-  let!(:admin) { create(:admin) }
+  let(:admin) { create(:admin) }
 
   it "is accepting" do
     is_expected.to be_accepting

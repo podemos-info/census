@@ -3,7 +3,7 @@
 module Procedures
   class DocumentVerification < Procedure
     def acceptable?
-      person.enabled?
+      person.enabled? && person.may_verify?
     end
 
     def self.auto_processable?

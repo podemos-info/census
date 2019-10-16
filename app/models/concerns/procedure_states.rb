@@ -35,10 +35,6 @@ module ProcedureStates
       accepted? || rejected?
     end
 
-    def auto_processed?
-      processed? && processed_by.nil?
-    end
-
     def undo_minutes
       @undo_minutes ||= Settings.procedures.undo_minutes.minutes
     end

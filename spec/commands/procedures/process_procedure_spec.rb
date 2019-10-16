@@ -5,10 +5,10 @@ require "rails_helper"
 describe Procedures::ProcessProcedure do
   subject(:process_procedure) { described_class.call(form: form, admin: admin) }
 
-  let!(:procedure) { create(:document_verification) }
+  let(:procedure) { create(:document_verification) }
   let(:action) { :accept }
   let(:comment) { "This is a comment" }
-  let!(:admin) { create(:admin) }
+  let(:admin) { create(:admin) }
   let(:form_class) { Procedures::ProcessProcedureForm }
   let(:valid) { true }
 
@@ -20,13 +20,13 @@ describe Procedures::ProcessProcedure do
       invalid?: !valid,
       valid?: valid,
       procedure: procedure,
-      processed_by: admin,
+      lock_version: procedure.lock_version,
       action: action,
       comment: comment
     )
   end
 
-  context "when valid" do
+  shared_examples "a proper procedure processing" do
     it "broadcasts :ok" do
       expect { subject } .to broadcast(:ok)
     end
@@ -45,6 +45,42 @@ describe Procedures::ProcessProcedure do
 
     it "updates comment" do
       expect { subject } .to change { Procedure.find(procedure.id).comment } .to("This is a comment")
+    end
+  end
+
+  it_behaves_like "a proper procedure processing"
+
+  context "when the procedure is locked" do
+    let(:procedure) { create(:document_verification, processing_by: processing_by) }
+
+    context "with the same user" do
+      let(:processing_by) { admin }
+
+      it_behaves_like "a proper procedure processing"
+    end
+
+    context "with other user" do
+      let(:processing_by) { create(:admin) }
+
+      it "broadcasts :busy" do
+        expect { subject } .to broadcast(:busy)
+      end
+
+      it "doesn't updates procedure state" do
+        expect { subject } .not_to change { Procedure.find(procedure.id).state } .from("pending")
+      end
+
+      it "doesn't sets processed_by" do
+        expect { subject } .not_to change { Procedure.find(procedure.id).processed_by }
+      end
+
+      it "doesn't sets processing date" do
+        expect { subject } .not_to change { Procedure.find(procedure.id).processed_at }
+      end
+
+      it "doesn't updates comment" do
+        expect { subject } .not_to change { Procedure.find(procedure.id).comment }
+      end
     end
   end
 
@@ -122,6 +158,33 @@ describe Procedures::ProcessProcedure do
 
     it "broadcasts :error" do
       expect { subject } .to broadcast(:error)
+    end
+
+    it "does not update procedure state" do
+      expect { subject } .not_to change { Procedure.find(procedure.id).state }
+    end
+
+    it "does not set processed_by" do
+      expect { subject } .not_to change { Procedure.find(procedure.id).processed_by }
+    end
+
+    it "does not set processing date" do
+      expect { subject } .not_to change { Procedure.find(procedure.id).processed_at }
+    end
+
+    it "does not update comment" do
+      expect { subject } .not_to change { Procedure.find(procedure.id).comment }
+    end
+  end
+
+  context "when procedure has changed while processing" do
+    before do
+      procedure
+      Procedure.find(procedure.id).touch
+    end
+
+    it "broadcasts :conflict" do
+      expect { subject } .to broadcast(:conflict)
     end
 
     it "does not update procedure state" do

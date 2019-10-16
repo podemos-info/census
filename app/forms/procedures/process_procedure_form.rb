@@ -9,8 +9,9 @@ module Procedures
     attribute :processed_by
     attribute :action, String
     attribute :comment, String
+    attribute :lock_version, Integer
 
-    validates :procedure, :action, presence: true
+    validates :procedure, :action, :lock_version, presence: true
     validates :comment, presence: true, unless: :accepting?
     validate :validate_event
 
@@ -28,6 +29,10 @@ module Procedures
       elsif !(adding_issue? || procedure.permitted_event?(action, processed_by))
         errors.add(:action, :not_permitted_event)
       end
+    end
+
+    def lock_version
+      @lock_version || procedure&.lock_version
     end
   end
 end

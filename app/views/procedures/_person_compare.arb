@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 context.instance_eval do
-  if procedure.processed?
+  if procedure.after_person
     panel t("census.procedures.person.changes") do
       tabs do
         tab t("census.procedures.person.before") do
