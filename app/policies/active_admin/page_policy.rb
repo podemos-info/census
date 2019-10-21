@@ -24,7 +24,7 @@ module ActiveAdmin
     end
 
     def admins_stats?
-      user.system_role?
+      user.data_role? || user.system_role?
     end
   end
 end

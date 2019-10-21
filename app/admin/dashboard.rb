@@ -12,7 +12,7 @@ ActiveAdmin.register_page "Dashboard" do
     page_policy = policy(ActiveAdmin::Page)
 
     if page_policy.procedures_stats?
-      panel helpers.model_name(Procedure, count: 2) do
+      panel helpers.model_name(Procedure, count: 2), id: "procedures_stats" do
         columns do
           column span: 2 do
             h4 "Creados"
@@ -32,20 +32,20 @@ ActiveAdmin.register_page "Dashboard" do
     end
 
     if page_policy.people_stats?
-      panel helpers.model_name(Person, count: 2) do
+      panel helpers.model_name(Person, count: 2), id: "people_stats" do
         line_chart dashboard_people_stats_path(format: :json, interval: controller.interval)
       end
     end
 
-    if page_policy.orders_stats?
-      panel helpers.model_name(Order, count: 2) do
-        line_chart dashboard_orders_stats_path(format: :json, interval: controller.interval)
+    if page_policy.admins_stats?
+      panel helpers.model_name(Admin, count: 2), id: "admins_stats" do
+        line_chart dashboard_admins_stats_path(format: :json, interval: controller.interval)
       end
     end
 
-    if page_policy.admins_stats?
-      panel helpers.model_name(Admin, count: 2) do
-        line_chart dashboard_admins_stats_path(format: :json, interval: controller.interval)
+    if page_policy.orders_stats?
+      panel helpers.model_name(Order, count: 2), id: "orders_stats" do
+        line_chart dashboard_orders_stats_path(format: :json, interval: controller.interval)
       end
     end
   end
@@ -61,19 +61,19 @@ ActiveAdmin.register_page "Dashboard" do
   end
 
   page_action :people_stats do
-    render json: people_stats_data
+    render json: people_stats_data, type: "application/json"
   end
 
   page_action :procedures_stats do
-    render json: procedures_stats_data
+    render json: procedures_stats_data, type: "application/json"
   end
 
   page_action :orders_stats do
-    render json: orders_stats_data
+    render json: orders_stats_data, type: "application/json"
   end
 
   page_action :admins_stats do
-    render json: admins_stats_data
+    render json: admins_stats_data, type: "application/json"
   end
 
   controller do
@@ -123,7 +123,7 @@ ActiveAdmin.register_page "Dashboard" do
     end
 
     def interval
-      @interval = params[:interval]&.to_sym || :week
+      @interval = params[:interval]&.to_sym.presence || :week
     end
 
     def dates_interval
