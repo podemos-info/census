@@ -58,6 +58,7 @@ FactoryBot.define do
     amount { Faker::Number.between(1, 10_000) }
     description { Faker::Lorem.sentence(1, true, 4) }
     campaign { create(:campaign) }
+    created_at { Faker::Time.between(3.days.ago, 1.day.ago, :between) }
 
     trait :credit_card do
       payment_method { build(:credit_card, person: person) }
@@ -81,7 +82,7 @@ FactoryBot.define do
 
     trait :processed do
       state { :processed }
-      processed_at { Faker::Time.between(3.days.ago, 1.day.ago, :between) }
+      processed_at { Faker::Time.between(created_at, Time.current, :between) }
       processed_by { build(:admin) }
       response_code { "0000" }
       after :build do |order|

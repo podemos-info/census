@@ -52,6 +52,6 @@ describe Orders::OrdersBatchForm do
   describe "#orders" do
     subject(:method) { form.orders }
 
-    it { is_expected.to eq(orders) }
+    it { is_expected.to match_array(orders) }
   end
 end

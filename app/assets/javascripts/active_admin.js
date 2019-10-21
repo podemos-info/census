@@ -5,3 +5,6 @@
 //= require data_picker
 //= require filters
 //= require cable
+//= require chartkick
+//= require moment
+//= require Chart.min

@@ -1,12 +1,20 @@
 # frozen_string_literal: true
 
 module ActiveAdmin::BaseHelper
+  def model_name(model, count: 1)
+    I18n.t("activerecord.models.#{model.to_s.underscore}", count: count)
+  end
+
   def model_flags(model)
     Arbre::Context.new do
       model.flags.map do |flag|
         status_tag I18n.t("census.#{model.model_name.plural}.flags.#{flag}"), class: flag
       end
     end
+  end
+
+  def state_name(model, column, state)
+    I18n.t("activerecord.attributes.#{model.to_s.underscore}.#{column}/#{state}")
   end
 
   def show_table(context:, resource:, title:, table:)

@@ -133,6 +133,11 @@ FactoryBot.define do
       state { :cancelled }
       discarded_at { Faker::Date.between(created_at, Time.current) }
     end
+
+    trait :trashed do
+      state { :trashed }
+      discarded_at { Faker::Date.between(created_at, Time.current) }
+    end
   end
 
   factory :download do

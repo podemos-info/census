@@ -10,5 +10,21 @@ module ActiveAdmin
         false
       end
     end
+
+    def people_stats?
+      user.data_role?
+    end
+
+    def procedures_stats?
+      user.data_help_role?
+    end
+
+    def orders_stats?
+      user.finances_role?
+    end
+
+    def admins_stats?
+      user.data_role? || user.system_role?
+    end
   end
 end

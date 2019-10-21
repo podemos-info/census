@@ -368,6 +368,14 @@ es:
         system: Sistema
       view_versions: Ver versiones (%{count})
       view_visits: Ver actividad
+    dashboard:
+      admins:
+        unknown: Desconocido
+      intervals:
+        day: Día
+        month: Mes
+        week: Semana
+        year: Año
     downloads:
       download: Descargar
     events:
