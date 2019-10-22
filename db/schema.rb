@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_25_105137) do
+ActiveRecord::Schema.define(version: 2019_10_17_163940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -267,9 +267,11 @@ ActiveRecord::Schema.define(version: 2019_09_25_105137) do
     t.datetime "processing_at"
     t.datetime "priorized_at"
     t.integer "lock_version", default: 0, null: false
+    t.datetime "prioritized_at"
     t.index ["fast_filter"], name: "index_procedures_on_fast_filter", using: :gin
     t.index ["person_id"], name: "index_procedures_on_person_id"
     t.index ["person_location_id"], name: "index_procedures_on_person_location_id"
+    t.index ["prioritized_at"], name: "index_procedures_on_prioritized_at"
     t.index ["processed_by_id"], name: "index_procedures_on_processed_by_id"
     t.index ["processing_by_id"], name: "index_procedures_on_processing_by_id"
   end

@@ -8,8 +8,11 @@ module People
     mimic "Procedures::DocumentVerification"
 
     attribute :files, Array
+    attribute :prioritize, Boolean
 
     validate :validate_files_presence
+
+    alias prioritize? prioritize
 
     def files=(value)
       super(value.map { |file| parse_uploaded_file file })

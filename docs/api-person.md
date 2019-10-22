@@ -168,10 +168,11 @@ Parameter             | Data type | Description                   | Format
 POST api/v1/people/:person_id/document_verifications
 ```
 
-Parameter             | Data type | Description
-----------------------|-----------|-------------------------------
+Parameter             | Data type | Description                                            | Format
+----------------------|-----------|--------------------------------------------------------|----------------------------------
 `person_id`           |  string   | Person's qualified identifier
 `files`               |  json     | A JSON with an array of hashes with three fields: `filename`, `content_type` and `base_64_content`.
+`prioritized`         |  boolean  | Prioritize the processing of this procedure (optional) | `true` or `false` (by default)
 
 ### Return value
 * When the document verification is successfully created, server response will be `:accepted` (HTTP 202).
