@@ -89,7 +89,7 @@ ActiveAdmin.register Procedure do
       return redirect_to(procedure_path(next_procedure)) if lock(next_procedure)
     end
 
-    flash.now[:error] = t("census.procedures.no_next_procedure")
+    flash.now[:error] = t("census.procedures.action_message.no_next_procedure")
     redirect_to procedures_path
   end
 
@@ -119,12 +119,13 @@ ActiveAdmin.register Procedure do
   end
 
   controller do
-    def browse_ordered_procedures
-      ProceduresPrioritizedDocumentVerifications.since(2.weeks.ago).limit(50).each do |procedure|
-        yield(procedure) if procedure.acceptable?
-      end
+    def browse_ordered_procedures(&block)
+      browse_procedures(ProceduresPrioritizedDocumentVerifications.since(2.weeks.ago), &block)
+      browse_procedures(ProceduresDocumentVerifications.new.query, &block)
+    end
 
-      ProceduresDocumentVerifications.new.query.limit(50).each do |procedure|
+    def browse_procedures(procedures)
+      procedures.limit(50).each do |procedure|
         yield(procedure) if procedure.acceptable?
       end
     end

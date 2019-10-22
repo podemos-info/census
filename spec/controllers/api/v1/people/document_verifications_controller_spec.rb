@@ -13,10 +13,10 @@ describe Api::V1::People::DocumentVerificationsController, type: :controller do
         {
           person_id: person.qualified_id_at("participa2-1"),
           files: [api_attachment_format(attachment), api_attachment_format(attachment)],
-          prioritized: prioritized
+          prioritize: prioritize
         }
       end
-      let(:prioritized) { false }
+      let(:prioritize) { false }
       let(:attachment) { build(:attachment) }
 
       it { is_expected.to have_http_status(:accepted) }
@@ -34,7 +34,7 @@ describe Api::V1::People::DocumentVerificationsController, type: :controller do
       end
 
       context "when prioritizing the procedure" do
-        let(:prioritized) { true }
+        let(:prioritize) { true }
 
         it "creates a new document verification procedure" do
           expect { subject } .to change(Procedure, :count).by(1)
