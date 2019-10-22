@@ -5,9 +5,7 @@ module ApplicationCable
     identified_by :current_user
 
     def current_user
-      @current_user ||= env["warden"].user.tap do
-        env["rack.session.options"][:renew] = false
-      end
+      @current_user ||= env["warden"].user
     end
   end
 end
