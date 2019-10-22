@@ -14,6 +14,7 @@ FactoryBot.define do
     association :person, factory: :person, strategy: :build
     information { {} }
     created_at { Faker::Time.between(person.created_at, Time.current, :between) }
+    prioritized_at { nil }
 
     trait :cancelled_person do
       person { build(:person, :cancelled) }
@@ -62,6 +63,10 @@ FactoryBot.define do
         procedure.attachments.build(attributes_for_list(:attachment, 1, procedure: procedure))
         procedure.attachments.build(attributes_for_list(:attachment, 1, :non_image, procedure: procedure))
       end
+    end
+
+    trait :prioritized do
+      prioritized_at { Time.current }
     end
   end
 

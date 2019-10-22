@@ -117,6 +117,23 @@ describe ProceduresController, type: :controller do
       include_examples "tracks the user visit"
     end
 
+    describe "next pending procedure" do
+      subject { get :next_document_verification }
+
+      before { old_prioritized_procedure && non_prioritized_procedure && procedure && second_procedure }
+
+      let(:old_prioritized_procedure) { create(:document_verification, prioritized_at: 1.year.ago) }
+      let(:procedure) { create(:document_verification, :prioritized) }
+      let(:second_procedure) { create(:document_verification, :prioritized) }
+      let(:non_prioritized_procedure) { create(:document_verification) }
+
+      it "redirect to the right pending procedure page" do
+        expect(subject).to redirect_to(procedure_path(procedure))
+      end
+
+      include_examples "tracks the user visit"
+    end
+
     describe "trying to undone when not undoable" do
       subject { patch :undo, params: { id: procedure.id } }
 
