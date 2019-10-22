@@ -18,6 +18,7 @@ module CasAuthentication
     return redirect_to(Settings.security.cas_server) unless @current_admin
 
     warden.set_user(@current_admin)
+    request.env["rack.session.options"][:renew] = false
   end
 
   private
