@@ -593,6 +593,7 @@ es:
         error_undo: Ha ocurrido un error al intentar devolver procedimiento %{link} a su estado anterior.
         issue: Se ha abierto la incidencia para el procedimiento %{link}.
         issue_error: Ha ocurrido un error al abrir la incidencia.
+        no_next_procedure: En estos momentos no hay más procedimientos pendientes para procesar.
         rejected: El procedimiento %{link} ha sido rechazado.
         undone: El procedimiento %{link} ha vuelto a su estado anterior.
       actions:

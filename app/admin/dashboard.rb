@@ -22,8 +22,9 @@ ActiveAdmin.register_page "Dashboard" do
             h4 "Pendientes"
             div id: "pending_procedures" do
               div pie_chart controller.pending_procedures_stats_data, donut: true
-              a do
+              a href: next_document_verification_procedures_path do
                 div controller.pending_procedures_stats_data.values.sum
+                span t("census.procedures.process"), class: "button"
               end
             end
           end

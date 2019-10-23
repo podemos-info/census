@@ -43,6 +43,7 @@ module People
     def document_verification
       @document_verification ||= begin
         procedure_for(person, ::Procedures::DocumentVerification) do |procedure|
+          procedure.prioritized_at = Time.current if form.prioritize?
           procedure.attachments.clear
           form.files.each do |file|
             procedure.attachments.build(file: file)

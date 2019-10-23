@@ -58,7 +58,7 @@ ActiveAdmin.register Procedure do
 
   show do
     if procedure.processable?
-      controller.lock_procedure
+      controller.lock(resource.object)
       script { raw "window.procedure_channel = new ProceduresChannel(#{procedure.id}, #{procedure.lock_version})" }
     end
 
@@ -71,6 +71,10 @@ ActiveAdmin.register Procedure do
   sidebar :issues, partial: "procedures/issues", only: [:show], if: -> { procedure.issues.any? }
   sidebar :person, partial: "procedures/person", only: [:show]
 
+  action_item :process_flow, only: :index do
+    link_to t("census.procedures.process"), next_document_verification_procedures_path
+  end
+
   action_item :undo_procedure, only: :show do
     if procedure.undoable_by? controller.current_admin
       link_to t("census.procedures.actions.undo"), undo_procedure_path(procedure, lock_version: procedure.lock_version),
@@ -78,6 +82,15 @@ ActiveAdmin.register Procedure do
               data: { confirm: t("census.messages.sure_question") },
               class: "member_link"
     end
+  end
+
+  collection_action :next_document_verification do
+    browse_ordered_procedures do |next_procedure|
+      return redirect_to(procedure_path(next_procedure)) if lock(next_procedure)
+    end
+
+    flash.now[:notice] = t("census.procedures.action_message.no_next_procedure")
+    redirect_to procedures_path
   end
 
   member_action :undo, method: :patch do
@@ -106,6 +119,17 @@ ActiveAdmin.register Procedure do
   end
 
   controller do
+    def browse_ordered_procedures(&block)
+      browse_procedures(ProceduresPrioritizedDocumentVerifications.since(2.weeks.ago), &block)
+      browse_procedures(ProceduresDocumentVerifications.new.query, &block)
+    end
+
+    def browse_procedures(procedures)
+      procedures.limit(50).each do |procedure|
+        yield(procedure) if procedure.acceptable?
+      end
+    end
+
     def update
       set_resource_ivar resource.decorate
 
@@ -138,12 +162,17 @@ ActiveAdmin.register Procedure do
       params.permit(:lock_version)
     end
 
-    def lock_procedure
-      Procedures::LockProcedure.call(form: lock_form, admin: current_admin)
+    def lock(procedure_to_lock)
+      ret = false
+      Procedures::LockProcedure.call(form: lock_form(procedure_to_lock), admin: current_admin) do
+        on(:ok) { ret = true }
+        on(:noop) { ret = true }
+      end
+      ret
     end
 
-    def lock_form
-      @lock_form ||= Procedures::LockProcedureForm.from_params(procedure: resource.object, lock_version: resource.lock_version)
+    def lock_form(procedure_to_lock)
+      @lock_form ||= Procedures::LockProcedureForm.from_params(procedure: procedure_to_lock, lock_version: procedure_to_lock.lock_version)
     end
 
     def render_error(message)

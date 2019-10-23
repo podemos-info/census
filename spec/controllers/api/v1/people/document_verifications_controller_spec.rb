@@ -9,7 +9,14 @@ describe Api::V1::People::DocumentVerificationsController, type: :controller do
     describe "create method" do
       subject(:page) { post :create, params: params }
 
-      let(:params) { { person_id: person.qualified_id_at("participa2-1"), files: [api_attachment_format(attachment), api_attachment_format(attachment)] } }
+      let(:params) do
+        {
+          person_id: person.qualified_id_at("participa2-1"),
+          files: [api_attachment_format(attachment), api_attachment_format(attachment)],
+          prioritize: prioritize
+        }
+      end
+      let(:prioritize) { false }
       let(:attachment) { build(:attachment) }
 
       it { is_expected.to have_http_status(:accepted) }
@@ -19,6 +26,24 @@ describe Api::V1::People::DocumentVerificationsController, type: :controller do
 
       it "creates a new document verification procedure" do
         expect { subject } .to change(Procedure, :count).by(1)
+      end
+
+      it "doesn't prioritize the new procedure" do
+        subject
+        expect(Procedure.last.prioritized_at) .to be_nil
+      end
+
+      context "when prioritizing the procedure" do
+        let(:prioritize) { true }
+
+        it "creates a new document verification procedure" do
+          expect { subject } .to change(Procedure, :count).by(1)
+        end
+
+        it "prioritizes the new procedure" do
+          subject
+          expect(Procedure.last.prioritized_at) .to be_within(1.second).of Time.current
+        end
       end
 
       describe "stores files received as attachments" do
