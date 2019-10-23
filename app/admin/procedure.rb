@@ -89,7 +89,7 @@ ActiveAdmin.register Procedure do
       return redirect_to(procedure_path(next_procedure)) if lock(next_procedure)
     end
 
-    flash.now[:error] = t("census.procedures.action_message.no_next_procedure")
+    flash.now[:notice] = t("census.procedures.action_message.no_next_procedure")
     redirect_to procedures_path
   end
 

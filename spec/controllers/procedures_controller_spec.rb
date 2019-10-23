@@ -6,24 +6,26 @@ describe ProceduresController, type: :controller do
   render_views
   include_context "with a devise login"
 
-  before { procedure && processed_by }
-
   let(:processed_by) { create(:admin) }
   let(:resource_class) { Procedure }
   let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
   let(:resource) { all_resources[resource_class] }
   let(:procedure) { create(:document_verification, :with_attachments) }
 
-  it "defines actions" do
-    expect(resource.defined_actions).to contain_exactly(:index, :show, :update)
-  end
+  describe "active admin resource" do
+    before { procedure && processed_by }
 
-  it "handles procedures" do
-    expect(resource.resource_name).to eq("Procedure")
-  end
+    it "defines actions" do
+      expect(resource.defined_actions).to contain_exactly(:index, :show, :update)
+    end
 
-  it "shows menu" do
-    expect(resource).to be_include_in_menu
+    it "handles procedures" do
+      expect(resource.resource_name).to eq("Procedure")
+    end
+
+    it "shows menu" do
+      expect(resource).to be_include_in_menu
+    end
   end
 
   with_versioning do
@@ -120,18 +122,44 @@ describe ProceduresController, type: :controller do
     describe "next pending procedure" do
       subject { get :next_document_verification }
 
-      before { old_prioritized_procedure && non_prioritized_procedure && procedure && second_procedure }
+      before { old_procedure && non_prioritized_procedure && procedure && second_procedure }
 
-      let(:old_prioritized_procedure) { create(:document_verification, prioritized_at: 1.year.ago) }
-      let(:procedure) { create(:document_verification, :prioritized) }
-      let(:second_procedure) { create(:document_verification, :prioritized) }
-      let(:non_prioritized_procedure) { create(:document_verification) }
+      let(:old_procedure) { create(:document_verification, created_at: 2.years.ago, prioritized_at: 1.year.ago) }
+      let(:procedure) { create(:document_verification, :prioritized, created_at: 6.months.ago) }
+      let(:second_procedure) { create(:document_verification, :prioritized, created_at: 2.months.ago) }
+      let(:non_prioritized_procedure) { create(:document_verification, created_at: 11.months.ago) }
 
       it "redirect to the right pending procedure page" do
         expect(subject).to redirect_to(procedure_path(procedure))
       end
 
       include_examples "tracks the user visit"
+
+      context "when there are not pending prioritized procedures" do
+        let(:old_procedure) { create(:document_verification, created_at: 2.years.ago) }
+        let(:procedure) { create(:document_verification, created_at: 6.months.ago) }
+        let(:second_procedure) { create(:document_verification, created_at: 2.months.ago) }
+
+        it "redirect to the right pending procedure page" do
+          expect(subject).to redirect_to(procedure_path(old_procedure))
+        end
+      end
+
+      context "when there are not pending procedures" do
+        let(:old_procedure) { true }
+        let(:procedure) { true }
+        let(:second_procedure) { true }
+        let(:non_prioritized_procedure) { true }
+
+        it "shows a notice message" do
+          subject
+          expect(flash[:notice]).to be_present
+        end
+
+        it "redirect to the right pending procedure page" do
+          expect(subject).to redirect_to(procedures_path)
+        end
+      end
     end
 
     describe "trying to undone when not undoable" do
