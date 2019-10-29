@@ -5,7 +5,7 @@ module People
   class CancellationForm < Form
     include ::HasPerson
 
-    mimic "Procedures::Cancellation"
+    mimic :procedures_cancellation
 
     attribute :channel, String
     attribute :reason, String
