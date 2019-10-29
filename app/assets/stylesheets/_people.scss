@@ -1,3 +1,6 @@
+tr.pending td a {
+  background-color: $warning-color;
+}
 tr.accepted td a {
   color: $success-color;
 }
