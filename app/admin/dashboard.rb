@@ -78,6 +78,8 @@ ActiveAdmin.register_page "Dashboard" do
   end
 
   controller do
+    before_action :do_not_track_page_view, except: [:index]
+
     def people_stats_data
       [
         { name: helpers.state_name(Person, :state, :pending).capitalize,
