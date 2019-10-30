@@ -7,8 +7,6 @@ ActiveAdmin.register OrdersBatch do
 
   actions :index, :show, :new, :create, :edit, :update
 
-  permit_params :description, :orders_from, :orders_to
-
   index do
     column :description, class: :left do |orders_batch|
       link_to orders_batch.description, orders_batch
@@ -92,7 +90,7 @@ ActiveAdmin.register OrdersBatch do
     attr_accessor :extra_body_class
 
     def build_resource
-      build_params = permitted_params[:orders_batch] || {}
+      build_params = params[:orders_batch] || {}
       first_pending_order = OrdersWithoutOrdersBatch.new.merge(OrdersPending.new).first
 
       if first_pending_order

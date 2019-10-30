@@ -14,6 +14,7 @@ FactoryBot.define do
 
     after :build do |issue, evaluator|
       issue.issuable = evaluator.issuable
+      issue.issue_type ||= "Issues::People::DuplicatedDocument"
     end
 
     trait :not_evaluated do

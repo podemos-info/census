@@ -3,7 +3,7 @@
 # The form object that handles the data for a person
 module People
   class ConfirmPhoneVerificationForm < PhoneVerificationForm
-    mimic "Procedures::PhoneVerification"
+    mimic :procedures_phone_verification
 
     attribute :received_code, String
 

@@ -16,6 +16,10 @@ FactoryBot.define do
     created_at { Faker::Time.between(person.created_at, Time.current, :between) }
     prioritized_at { nil }
 
+    after :build do |procedure, _evaluator|
+      procedure.type ||= "Procedures::DocumentVerification"
+    end
+
     trait :cancelled_person do
       person { build(:person, :cancelled) }
     end

@@ -6,6 +6,7 @@ return if Rails.env.test?
 # TODO: Remove me once this is released: https://github.com/rails/rails/pull/35905
 ActiveSupport.on_load(:active_job) do
   ActiveJob::Base.queue_adapter = Rails.env.development? ? :inline : Rails.application.config.active_job.queue_adapter
+  ActionMailer::Base.delivery_method = :test
 end
 
 base_path = File.expand_path("seeds", __dir__)
