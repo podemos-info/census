@@ -7,9 +7,6 @@ ActiveAdmin.register Person do
 
   includes :scope, :issues
 
-  permit_params :first_name, :last_name1, :last_name2, :document_type, :document_id, :document_scope_id,
-                :born_at, :gender, :address, :postal_code, :email, :phone, :scope_id, :address_scope_id
-
   actions :index, :show, :edit, :update
 
   order_by(:full_name) do |order_clause|

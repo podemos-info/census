@@ -11,8 +11,6 @@ ActiveAdmin.register Bic do
     actions
   end
 
-  permit_params :country, :bank_code, :bic
-
   form do |f|
     f.inputs do
       f.input :country, as: :string, input_html: { readonly: f.object.persisted? }
@@ -25,7 +23,7 @@ ActiveAdmin.register Bic do
 
   controller do
     def build_resource
-      set_resource_ivar decorator_class.new(BicForm.from_params(permitted_params))
+      set_resource_ivar decorator_class.new(BicForm.from_params(params))
     end
 
     def create

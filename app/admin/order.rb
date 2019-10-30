@@ -10,8 +10,6 @@ ActiveAdmin.register Order do
 
   includes :person, :payment_method, :orders_batch
 
-  permit_params :person_id, :payment_method_id, :description, :full_amount, :campaign_code
-
   actions :index, :show, :new, :create
   config.clear_action_items!
 
@@ -103,7 +101,7 @@ ActiveAdmin.register Order do
 
   controller do
     def build_resource
-      build_params = permitted_params[:order] || {}
+      build_params = params[:order] || {}
       build_params[:amount] = (build_params[:full_amount].to_f * 100).to_i
       if build_params[:payment_method_id].present?
         form_class = Orders::ExistingPaymentMethodOrderForm

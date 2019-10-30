@@ -12,8 +12,6 @@ ActiveAdmin.register Procedure do
 
   actions :index, :show, :update # update is used for procedure processing
 
-  permit_params :action, :comment, :lock_version
-
   filter :type, as: :select, collection: -> { ProcedureDecorator.procedures_options }
 
   order_by(:full_name) do |order_clause|
@@ -151,7 +149,11 @@ ActiveAdmin.register Procedure do
     end
 
     def process_form
-      @process_form ||= Procedures::ProcessProcedureForm.from_params(permitted_params, procedure: resource.object, processed_by: current_admin)
+      @process_form ||= Procedures::ProcessProcedureForm.from_params(process_params, procedure: resource.object, processed_by: current_admin)
+    end
+
+    def process_params
+      params.permit :id, procedure: [:action, :comment, :lock_version]
     end
 
     def undo_form
@@ -159,7 +161,7 @@ ActiveAdmin.register Procedure do
     end
 
     def undo_params
-      params.permit(:lock_version)
+      params.permit :lock_version
     end
 
     def lock(procedure_to_lock)
