@@ -19,13 +19,7 @@ class ApplicationController < ActionController::Base
   around_action :switch_locale
 
   slave_mode_check do
-    if slave_mode?
-      if request.get?
-        flash.now[:alert] = I18n.t("census.messages.read_only")
-      elsif !devise_controller?
-        render text: I18n.t("census.messages.read_only"), status: :conflict
-      end
-    end
+    flash.now[:alert] = I18n.t("census.messages.read_only") if slave_mode? && request.get?
   end
 
   def switch_locale(&action)
