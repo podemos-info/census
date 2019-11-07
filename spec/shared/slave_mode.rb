@@ -6,7 +6,7 @@ shared_context "when slave mode" do
   after { Settings.system.slave_mode = false }
 end
 
-shared_examples_for "a policy that forbits data modifications on slave mode" do
+shared_examples_for "a policy that forbids data modifications on slave mode" do
   include_context "when slave mode"
 
   let(:extra_actions) { [] }
@@ -19,4 +19,17 @@ shared_examples_for "a policy that forbits data modifications on slave mode" do
       it { is_expected.to(forbid_actions(extra_actions)) if extra_actions.any? }
     end
   end
+end
+
+shared_examples_for "an API endpoint that forbids modifications on slave mode" do
+  include_context "when slave mode"
+
+  it { is_expected.to have_http_status(:conflict) }
+end
+
+shared_examples_for "an admin page that forbids modifications on slave mode" do
+  include_context "when slave mode"
+
+  it { is_expected.to have_http_status(:found) }
+  it { expect { subject } .to change { flash[:error] } .from(nil).to("No está autorizado/a a realizar esta acción.") }
 end

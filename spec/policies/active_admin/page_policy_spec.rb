@@ -38,7 +38,7 @@ describe ActiveAdmin::PagePolicy do
       it { is_expected.to forbid_actions([:people_stats, :procedures_stats, :admins_stats]) }
     end
 
-    it_behaves_like "a policy that forbits data modifications on slave mode"
+    it_behaves_like "a policy that forbids data modifications on slave mode"
   end
 
   describe "Other page" do

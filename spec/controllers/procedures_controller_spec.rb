@@ -213,6 +213,8 @@ describe ProceduresController, type: :controller do
           expect { subject } .to change { Procedure.find(procedure.id).state } .to("pending")
         end
 
+        it_behaves_like "an admin page that forbids modifications on slave mode"
+
         context "when saving fails" do
           before { stub_command("Procedures::UndoProcedure", :error) }
 
@@ -252,6 +254,8 @@ describe ProceduresController, type: :controller do
     end
 
     include_examples "tracks the user visit"
+
+    it_behaves_like "an admin page that forbids modifications on slave mode"
 
     context "when creating an issue" do
       let(:params) { { action: "issue", comment: Faker::Lorem.paragraph(1, true, 2) } }

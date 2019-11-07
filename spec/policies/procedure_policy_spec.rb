@@ -84,7 +84,7 @@ describe ProcedurePolicy do
     end
   end
 
-  it_behaves_like "a policy that forbits data modifications on slave mode" do
+  it_behaves_like "a policy that forbids data modifications on slave mode" do
     let(:extra_actions) { [:undo] }
   end
 end

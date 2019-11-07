@@ -11,6 +11,7 @@ describe PaymentMethodsController, type: :controller do
   let(:resource_class) { PaymentMethod }
   let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
   let!(:payment_method) { create(:credit_card, :external_verified) }
+  let(:current_admin) { create(:admin, :finances) }
 
   it "defines actions" do
     expect(subject.defined_actions).to contain_exactly(:index, :new, :show, :create, :destroy, :edit, :update)
@@ -67,6 +68,8 @@ describe PaymentMethodsController, type: :controller do
 
     include_examples "tracks the user visit"
 
+    it_behaves_like "an admin page that forbids modifications on slave mode"
+
     context "when saving fails" do
       before { stub_command("Payments::SavePaymentMethod", :error) }
 
@@ -95,6 +98,8 @@ describe PaymentMethodsController, type: :controller do
     it { expect { subject } .to change(payment_method, :name).to("KKKKKK") }
 
     include_examples "tracks the user visit"
+
+    it_behaves_like "an admin page that forbids modifications on slave mode"
 
     context "when saving fails" do
       before { stub_command("Payments::SavePaymentMethod", :error) }

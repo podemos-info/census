@@ -92,12 +92,4 @@ class IssueDecorator < ApplicationDecorator
       [I18n.t("census.issues.causes.#{cause}"), cause]
     end.freeze
   end
-
-  def route_key
-    "issues"
-  end
-
-  def singular_route_key
-    "issue"
-  end
 end

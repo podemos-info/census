@@ -87,6 +87,8 @@ describe OrdersBatchesController, type: :controller do
 
     include_examples "tracks the user visit"
 
+    it_behaves_like "an admin page that forbids modifications on slave mode"
+
     context "when saving fails" do
       before { stub_command("Payments::CreateOrdersBatch", :error) }
 
@@ -115,6 +117,8 @@ describe OrdersBatchesController, type: :controller do
     it { expect(subject.location).to eq(orders_batches_url) }
 
     include_examples "tracks the user visit"
+
+    it_behaves_like "an admin page that forbids modifications on slave mode"
 
     it "inform that the orders batch will be processed" do
       expect { subject } .to change { flash[:notice] } .from(nil).to("El lote de órdenes está siendo procesado.")
@@ -157,6 +161,8 @@ describe OrdersBatchesController, type: :controller do
 
         it { is_expected.to have_http_status(:found) }
         it { expect(subject.location).to eq(orders_batch_url(orders_batch)) }
+
+        it_behaves_like "an admin page that forbids modifications on slave mode"
       end
     end
   end

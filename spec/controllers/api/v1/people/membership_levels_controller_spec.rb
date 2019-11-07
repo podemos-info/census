@@ -17,6 +17,8 @@ describe Api::V1::People::MembershipLevelsController, type: :controller do
 
       include_examples "doesn't track the user visit"
 
+      it_behaves_like "an API endpoint that forbids modifications on slave mode"
+
       it "creates a new change membership procedure" do
         expect { subject } .to change(Procedure, :count).by(1)
       end

@@ -63,6 +63,8 @@ describe IssuesController, type: :controller do
     end
 
     include_examples "tracks the user visit"
+
+    it_behaves_like "an admin page that forbids modifications on slave mode"
   end
 
   describe "edit page" do
@@ -117,6 +119,8 @@ describe IssuesController, type: :controller do
         it "closes the issue" do
           expect { subject } .to change { issue.reload.closed? } .from(false).to(true)
         end
+
+        it_behaves_like "an admin page that forbids modifications on slave mode"
       end
     end
 
@@ -135,6 +139,8 @@ describe IssuesController, type: :controller do
       end
 
       include_examples "tracks the user visit"
+
+      it_behaves_like "an admin page that forbids modifications on slave mode"
     end
   end
 end

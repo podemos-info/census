@@ -11,6 +11,7 @@ describe PayeesController, type: :controller do
   let(:resource_class) { Payee }
   let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
   let!(:payee) { create(:payee) }
+  let(:current_admin) { create(:admin, :finances) }
 
   it "defines actions" do
     expect(resource.defined_actions).to contain_exactly(:index, :show, :new, :create, :edit, :update, :destroy)
@@ -61,6 +62,8 @@ describe PayeesController, type: :controller do
     it { expect(subject.location).to eq(payee_url(Payee.last)) }
 
     include_examples "tracks the user visit"
+
+    it_behaves_like "an admin page that forbids modifications on slave mode"
   end
 
   describe "edit page" do
@@ -83,6 +86,8 @@ describe PayeesController, type: :controller do
     it { expect { subject } .to change(payee, :name).to("KKKKKK") }
 
     include_examples "tracks the user visit"
+
+    it_behaves_like "an admin page that forbids modifications on slave mode"
   end
 
   describe "destroy page" do
@@ -93,5 +98,7 @@ describe PayeesController, type: :controller do
     it { expect(subject.location).to eq(payees_url) }
 
     include_examples "tracks the user visit"
+
+    it_behaves_like "an admin page that forbids modifications on slave mode"
   end
 end

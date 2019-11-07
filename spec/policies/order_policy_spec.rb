@@ -44,7 +44,7 @@ describe OrderPolicy do
     it { is_expected.to forbid_action :destroy }
   end
 
-  it_behaves_like "a policy that forbits data modifications on slave mode" do
+  it_behaves_like "a policy that forbids data modifications on slave mode" do
     let(:extra_actions) { [:charge] }
   end
 end

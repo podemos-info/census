@@ -62,6 +62,8 @@ describe CampaignsController, type: :controller do
     it { expect { subject } .to change(campaign, :campaign_code).to("KKKKKK") }
 
     include_examples "tracks the user visit"
+
+    it_behaves_like "an admin page that forbids modifications on slave mode"
   end
 
   describe "destroy page" do
@@ -72,5 +74,7 @@ describe CampaignsController, type: :controller do
     it { expect(subject.location).to eq(campaigns_url) }
 
     include_examples "tracks the user visit"
+
+    it_behaves_like "an admin page that forbids modifications on slave mode"
   end
 end

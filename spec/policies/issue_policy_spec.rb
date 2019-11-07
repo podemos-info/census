@@ -152,5 +152,5 @@ describe IssuePolicy do
     end
   end
 
-  it_behaves_like "a policy that forbits data modifications on slave mode"
+  it_behaves_like "a policy that forbids data modifications on slave mode"
 end

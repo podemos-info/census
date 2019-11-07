@@ -43,5 +43,5 @@ describe BicPolicy do
     it { is_expected.to permit_action :destroy }
   end
 
-  it_behaves_like "a policy that forbits data modifications on slave mode"
+  it_behaves_like "a policy that forbids data modifications on slave mode"
 end

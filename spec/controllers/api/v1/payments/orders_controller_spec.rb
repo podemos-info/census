@@ -32,6 +32,8 @@ describe Api::V1::Payments::OrdersController, type: :controller do
 
       include_examples "doesn't track the user visit"
 
+      it_behaves_like "an API endpoint that forbids modifications on slave mode"
+
       it "responds with a JSON with payment_method_id" do
         expect(JSON.parse(subject.body)) .to have_key("payment_method_id")
       end

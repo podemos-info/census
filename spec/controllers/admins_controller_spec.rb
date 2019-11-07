@@ -63,6 +63,8 @@ describe AdminsController, type: :controller do
       it { expect { subject } .to change(admin, :role).to("data") }
 
       include_examples "tracks the user visit"
+
+      it_behaves_like "an admin page that forbids modifications on slave mode"
     end
   end
 end

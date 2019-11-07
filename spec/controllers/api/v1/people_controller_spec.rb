@@ -36,6 +36,8 @@ describe Api::V1::PeopleController, type: :controller do
 
       include_examples "doesn't track the user visit"
 
+      it_behaves_like "an API endpoint that forbids modifications on slave mode"
+
       it "creates a new person" do
         expect { subject } .to change(Person, :count).by(1)
       end
@@ -97,6 +99,8 @@ describe Api::V1::PeopleController, type: :controller do
 
       include_examples "doesn't track the user visit"
 
+      it_behaves_like "an API endpoint that forbids modifications on slave mode"
+
       it "creates a new person data change procedure" do
         expect { subject } .to change(Procedures::PersonDataChange, :count).by(1)
       end
@@ -149,6 +153,8 @@ describe Api::V1::PeopleController, type: :controller do
       it { expect(subject.content_type).to eq("application/json") }
 
       include_examples "doesn't track the user visit"
+
+      it_behaves_like "an API endpoint that forbids modifications on slave mode"
 
       it "creates a new cancellation procedure" do
         expect { subject } .to change(Procedures::Cancellation, :count).by(1)

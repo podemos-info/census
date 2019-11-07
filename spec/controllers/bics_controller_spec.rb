@@ -11,6 +11,7 @@ describe BicsController, type: :controller do
   let(:resource_class) { Bic }
   let(:all_resources) { ActiveAdmin.application.namespaces[:root].resources }
   let!(:bic) { create(:bic) }
+  let(:current_admin) { create(:admin, :finances) }
 
   it "defines actions" do
     expect(resource.defined_actions).to contain_exactly(:index, :show, :new, :create, :edit, :update, :destroy)
@@ -62,6 +63,8 @@ describe BicsController, type: :controller do
 
     include_examples "tracks the user visit"
 
+    it_behaves_like "an admin page that forbids modifications on slave mode"
+
     context "with invalid params" do
       let(:bic) { build(:bic, :invalid) }
 
@@ -102,6 +105,8 @@ describe BicsController, type: :controller do
 
     include_examples "tracks the user visit"
 
+    it_behaves_like "an admin page that forbids modifications on slave mode"
+
     context "with invalid params" do
       before { bic.assign_attributes bic: "1a22" }
 
@@ -125,10 +130,12 @@ describe BicsController, type: :controller do
   describe "destroy page" do
     subject { put :destroy, params: { id: bic.id } }
 
-    include_examples "tracks the user visit"
-
     it { expect { subject } .to change(Bic, :count).by(-1) }
     it { is_expected.to have_http_status(:found) }
     it { expect(subject.location).to eq(bics_url) }
+
+    include_examples "tracks the user visit"
+
+    it_behaves_like "an admin page that forbids modifications on slave mode"
   end
 end
