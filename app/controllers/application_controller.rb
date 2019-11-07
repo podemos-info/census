@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   include Rectify::ControllerHelpers
   include Pundit
   include CasAuthentication
+  include SlaveMode
 
   protect_from_forgery with: :exception
 
@@ -13,9 +14,19 @@ class ApplicationController < ActionController::Base
   before_action :set_paper_trail_whodunnit
   before_action :check_resource_issues, only: [:show, :edit]
 
-  after_action :track_action
+  after_action :track_action, unless: :slave_mode?
 
   around_action :switch_locale
+
+  slave_mode_check do
+    if slave_mode?
+      if request.get?
+        flash.now[:alert] = I18n.t("census.messages.read_only")
+      elsif !devise_controller?
+        render text: I18n.t("census.messages.read_only"), status: :conflict
+      end
+    end
+  end
 
   def switch_locale(&action)
     locale = params[:locale] || I18n.default_locale
