@@ -10,7 +10,7 @@ describe ProcedurePolicy do
   context "when user is a system admin" do
     let(:user) { create(:admin) }
 
-    it { is_expected.to permit_actions([:index, :show, :undo, :view_attachment]) }
+    it { is_expected.to permit_actions([:index, :show, :process, :undo, :view_attachment]) }
     it { is_expected.to forbid_new_and_create_actions }
     it { is_expected.to permit_edit_and_update_actions }
     it { is_expected.to forbid_action :destroy }
@@ -19,7 +19,7 @@ describe ProcedurePolicy do
   context "when user is a data admin" do
     let(:user) { create(:admin, :data) }
 
-    it { is_expected.to permit_actions([:index, :show, :undo, :view_attachment]) }
+    it { is_expected.to permit_actions([:index, :show, :process, :undo, :view_attachment]) }
     it { is_expected.to forbid_new_and_create_actions }
     it { is_expected.to permit_edit_and_update_actions }
     it { is_expected.to forbid_action :destroy }
@@ -28,7 +28,7 @@ describe ProcedurePolicy do
   context "when user is a data_help admin" do
     let(:user) { create(:admin, :data_help) }
 
-    it { is_expected.to permit_actions([:index, :show, :undo, :view_attachment]) }
+    it { is_expected.to permit_actions([:index, :show, :process, :undo, :view_attachment]) }
     it { is_expected.to forbid_new_and_create_actions }
     it { is_expected.to permit_edit_and_update_actions }
     it { is_expected.to forbid_action :destroy }
@@ -37,7 +37,7 @@ describe ProcedurePolicy do
   context "when user is a finances admin" do
     let(:user) { create(:admin, :finances) }
 
-    it { is_expected.to forbid_actions([:index, :show, :undo, :view_attachment]) }
+    it { is_expected.to forbid_actions([:index, :show, :process, :undo, :view_attachment]) }
     it { is_expected.to forbid_new_and_create_actions }
     it { is_expected.to forbid_edit_and_update_actions }
     it { is_expected.to forbid_action :destroy }
@@ -49,7 +49,7 @@ describe ProcedurePolicy do
     context "when user is a system admin" do
       let(:user) { create(:admin) }
 
-      it { is_expected.to forbid_actions([:index, :show, :undo, :view_attachment]) }
+      it { is_expected.to forbid_actions([:index, :show, :process, :undo, :view_attachment]) }
       it { is_expected.to forbid_new_and_create_actions }
       it { is_expected.to forbid_edit_and_update_actions }
       it { is_expected.to forbid_action :destroy }
@@ -59,7 +59,7 @@ describe ProcedurePolicy do
       let(:user) { create(:admin, :data) }
 
       it { is_expected.to permit_actions([:index, :show, :view_attachment]) }
-      it { is_expected.to forbid_action :undo }
+      it { is_expected.to forbid_actions([:process, :undo]) }
       it { is_expected.to forbid_new_and_create_actions }
       it { is_expected.to forbid_edit_and_update_actions }
       it { is_expected.to forbid_action :destroy }
@@ -68,7 +68,7 @@ describe ProcedurePolicy do
     context "when user is a data_help admin" do
       let(:user) { create(:admin, :data_help) }
 
-      it { is_expected.to forbid_actions([:index, :show, :undo, :view_attachment]) }
+      it { is_expected.to forbid_actions([:index, :show, :process, :undo, :view_attachment]) }
       it { is_expected.to forbid_new_and_create_actions }
       it { is_expected.to forbid_edit_and_update_actions }
       it { is_expected.to forbid_action :destroy }
@@ -77,10 +77,14 @@ describe ProcedurePolicy do
     context "when user is a finances admin" do
       let(:user) { create(:admin, :finances) }
 
-      it { is_expected.to forbid_actions([:index, :show, :undo, :view_attachment]) }
+      it { is_expected.to forbid_actions([:index, :show, :process, :undo, :view_attachment]) }
       it { is_expected.to forbid_new_and_create_actions }
       it { is_expected.to forbid_edit_and_update_actions }
       it { is_expected.to forbid_action :destroy }
     end
+  end
+
+  it_behaves_like "a policy that forbits data modifications on slave mode" do
+    let(:extra_actions) { [:undo] }
   end
 end

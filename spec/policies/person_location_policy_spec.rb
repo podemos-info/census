@@ -44,4 +44,6 @@ describe PersonLocationPolicy do
       it { is_expected.to forbid_action :destroy }
     end
   end
+
+  it_behaves_like "a policy that forbits data modifications on slave mode"
 end

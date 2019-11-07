@@ -41,6 +41,7 @@ require "shared/has_comments_enabled"
 require "shared/hutch_notifications"
 require "shared/only_authorized_api_clients"
 require "shared/only_authorized_payment_callbacks"
+require "shared/slave_mode"
 require "shared/sms_service"
 require "shared/updating_person_locations"
 

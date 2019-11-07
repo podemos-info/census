@@ -11,6 +11,10 @@ FactoryBot.define do
     password { Faker::Internet.password }
     role { "system" }
 
+    trait :system do
+      role { "system" }
+    end
+
     trait :data do
       role { "data" }
     end

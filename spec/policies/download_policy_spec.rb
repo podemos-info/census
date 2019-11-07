@@ -42,4 +42,6 @@ describe DownloadPolicy do
     it { is_expected.to forbid_edit_and_update_actions }
     it { is_expected.to forbid_action :destroy }
   end
+
+  it_behaves_like "a policy that forbits data modifications on slave mode"
 end
