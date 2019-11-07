@@ -2,10 +2,12 @@
 
 class IssuePolicy < ApplicationPolicy
   def index?
-    !real_issue? || show?
+    show?
   end
 
   def show?
+    return true unless real_issue?
+
     user.role_includes?(record)
   end
 

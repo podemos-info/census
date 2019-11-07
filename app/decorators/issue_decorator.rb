@@ -58,11 +58,9 @@ class IssueDecorator < ApplicationDecorator
   end
 
   def link(text = nil)
-    if object.closed?
-      view_link(text)
-    else
-      edit_link(text)
-    end
+    return view_link(text) if object.closed? || !can?(:update)
+
+    edit_link(text)
   end
 
   def link_with_name
@@ -93,5 +91,13 @@ class IssueDecorator < ApplicationDecorator
     @cause_options ||= object.class.causes.map do |cause|
       [I18n.t("census.issues.causes.#{cause}"), cause]
     end.freeze
+  end
+
+  def route_key
+    "issues"
+  end
+
+  def singular_route_key
+    "issue"
   end
 end
