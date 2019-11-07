@@ -105,6 +105,7 @@ system:
     username: <%= ENV["ESENDEX_USERNAME"] %>
     password: <%= ENV["ESENDEX_PASSWORD"] %>
     account_reference: <%= ENV["ESENDEX_ACCOUNT"] %>
+  slave_mode: <%= ENV["SLAVE_MODE"] %>
   smtp:
     address: <%= ENV["SMTP_ADDRESS"] %>
     authentication: <%= ENV["SMTP_AUTHENTICATION"] %>

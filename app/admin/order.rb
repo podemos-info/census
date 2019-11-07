@@ -119,6 +119,8 @@ ActiveAdmin.register Order do
     end
 
     def create
+      authorize! :create, Order
+
       form = build_resource
       Payments::CreateOrder.call(form: form, admin: current_admin) do
         on(:invalid) { render :new }

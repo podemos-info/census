@@ -12,6 +12,9 @@ describe "Dashboard", type: :system, js: true do
   it "shows admins stats" do
     visit root_path
 
+    expect(page).not_to have_content("Atención: el sistema está en modo de solo lectura y no permite modificaciones.")
+    expect(page).not_to have_css(".hide_buttons")
+
     expect(page).to have_css("#admins_stats")
     within("#admins_stats") do
       expect(page).not_to have_content("Error Loading Chart: Not Found")
@@ -78,6 +81,19 @@ describe "Dashboard", type: :system, js: true do
       within("#orders_stats") do
         expect(page).not_to have_content("Error Loading Chart: Not Found")
       end
+    end
+  end
+
+  context "when slave mode" do
+    let(:current_admin) { create(:admin, :data) }
+
+    include_context "when slave mode"
+
+    it "shows admins stats" do
+      visit root_path
+
+      expect(page).to have_content("Atención: el sistema está en modo de solo lectura y no permite modificaciones.")
+      expect(page).to have_css(".hide_buttons")
     end
   end
 end

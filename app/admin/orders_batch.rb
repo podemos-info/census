@@ -108,6 +108,8 @@ ActiveAdmin.register OrdersBatch do
     end
 
     def create
+      authorize! :create, OrdersBatch
+
       form = build_resource
       Payments::CreateOrdersBatch.call(form: form, admin: current_admin) do
         on(:invalid) { render :new }

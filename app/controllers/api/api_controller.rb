@@ -2,8 +2,18 @@
 
 module Api
   class ApiController < ActionController::API
+    include SlaveMode
+
     before_action :set_paper_trail_whodunnit
     around_action :switch_locale
+
+    slave_mode_check do
+      if request.get?
+        response.status = slave_mode? ? :non_authoritative_information : :ok
+      elsif slave_mode?
+        render json: {}, status: :conflict
+      end
+    end
 
     def switch_locale(&action)
       locale = params[:locale] || I18n.default_locale

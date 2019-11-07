@@ -6,6 +6,6 @@ class OrderPolicy < ApplicationPolicy
   end
 
   def charge?
-    user.finances_role?
+    user.finances_role? && master?
   end
 end

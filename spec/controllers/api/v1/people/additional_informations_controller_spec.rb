@@ -18,6 +18,8 @@ describe Api::V1::People::AdditionalInformationsController, type: :controller do
 
       include_examples "doesn't track the user visit"
 
+      it_behaves_like "an API endpoint that forbids modifications on slave mode"
+
       it "updates the person record" do
         expect { subject } .to change { person.reload.additional_information[key] } .from(nil).to(value)
       end

@@ -498,6 +498,7 @@ es:
     messages:
       error_occurred: Ha ocurrido un error al guardar el registro.
       protected_data: "[Datos no accesibles]"
+      read_only: 'Atención: el sistema está en modo de solo lectura y no permite modificaciones.'
       sure_question: "¿Estás segura?"
     orders:
       action_message:

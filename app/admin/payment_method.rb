@@ -76,6 +76,8 @@ ActiveAdmin.register PaymentMethod do
     end
 
     def create
+      authorize! :create, PaymentMethod
+
       payment_method = build_resource
       Payments::SavePaymentMethod.call(payment_method: payment_method, admin: current_admin) do
         on(:invalid) { render :new }
@@ -88,6 +90,8 @@ ActiveAdmin.register PaymentMethod do
     end
 
     def update
+      authorize! :update, resource
+
       payment_method = resource
       payment_method.assign_attributes permitted_params[:payment_method]
 

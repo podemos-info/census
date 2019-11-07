@@ -6,10 +6,10 @@ class OrdersBatchPolicy < ApplicationPolicy
   end
 
   def review_orders?
-    user.finances_role?
+    user.finances_role? && master?
   end
 
   def charge?
-    user.finances_role?
+    user.finances_role? && master?
   end
 end

@@ -9,5 +9,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    &.hide_buttons .button {
+      display: none;
+    }
   }
 }

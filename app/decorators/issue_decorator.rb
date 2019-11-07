@@ -58,11 +58,9 @@ class IssueDecorator < ApplicationDecorator
   end
 
   def link(text = nil)
-    if object.closed?
-      view_link(text)
-    else
-      edit_link(text)
-    end
+    return view_link(text) if object.closed? || !can?(:update)
+
+    edit_link(text)
   end
 
   def link_with_name

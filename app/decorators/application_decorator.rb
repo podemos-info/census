@@ -33,7 +33,7 @@ class ApplicationDecorator < Draper::Decorator
   end
 
   def can?(action)
-    Pundit.policy(context[:current_admin] || h.current_admin, object).send("#{action}?")
+    Pundit.policy(context[:current_admin] || h.current_admin, self).send("#{action}?")
   end
 
   protected

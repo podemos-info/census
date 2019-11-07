@@ -25,6 +25,16 @@ describe DashboardController, type: :controller do
 
       include_examples "tracks the user visit"
     end
+
+    context "when slave mode" do
+      include_context "when slave mode"
+      include_context "with a devise login"
+
+      it "warns that the system is in read-only mode" do
+        expect { subject } .to change { flash[:alert] }
+          .from(nil).to("Atención: el sistema está en modo de solo lectura y no permite modificaciones.")
+      end
+    end
   end
 
   shared_examples_for "a stats JSON data endpoint" do

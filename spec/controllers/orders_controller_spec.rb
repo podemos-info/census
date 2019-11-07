@@ -92,6 +92,8 @@ describe OrdersController, type: :controller do
 
     include_examples "tracks the user visit"
 
+    it_behaves_like "an admin page that forbids modifications on slave mode"
+
     context "with an existing payment_method" do
       let(:payment_method) { create(:credit_card) }
 
@@ -124,19 +126,18 @@ describe OrdersController, type: :controller do
 
     let(:payment_method) { create(:credit_card, :external_verified) }
     let(:order) { create(:order, payment_method: payment_method) }
+    let(:cassete) { "credit_card_payment_valid" }
 
-    context "with a valid authorization token" do
-      let(:cassete) { "credit_card_payment_valid" }
+    it { is_expected.to have_http_status(:found) }
 
-      it { is_expected.to have_http_status(:found) }
+    it_behaves_like "an admin page that forbids modifications on slave mode"
 
-      it "sets the order as processed" do
-        expect { subject } .to change { Order.find(order.id).state } .from("pending").to("processed")
-      end
+    it "sets the order as processed" do
+      expect { subject } .to change { Order.find(order.id).state } .from("pending").to("processed")
+    end
 
-      it "saves the server response" do
-        expect { subject } .to change { Order.find(order.id).raw_response } .from(nil)
-      end
+    it "saves the server response" do
+      expect { subject } .to change { Order.find(order.id).raw_response } .from(nil)
     end
 
     context "with an invalid authorization token" do

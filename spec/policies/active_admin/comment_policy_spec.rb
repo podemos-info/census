@@ -34,4 +34,6 @@ describe ActiveAdmin::CommentPolicy do
     it { is_expected.to permit_actions [:new, :create, :show, :index] }
     it { is_expected.to forbid_actions [:edit, :update, :destroy] }
   end
+
+  it_behaves_like "a policy that forbids data modifications on slave mode"
 end

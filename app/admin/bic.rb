@@ -27,10 +27,14 @@ ActiveAdmin.register Bic do
     end
 
     def create
+      authorize! :create, Bic
+
       save_bic(:new)
     end
 
     def update
+      authorize! :update, resource
+
       save_bic(:edit)
     end
 

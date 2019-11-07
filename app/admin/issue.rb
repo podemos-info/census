@@ -47,6 +47,8 @@ ActiveAdmin.register Issue do
   sidebar :issue, partial: "issues/show", only: :edit
 
   action_item :assign_me, only: :show do
+    next unless policy(resource).assign_me?
+
     unless resource.closed? || resource.assigned_to_id == current_admin.person_id
       link_to t("census.issues.assign_me"), assign_me_issue_path, method: :patch, data: { confirm: t("census.messages.sure_question") }
     end

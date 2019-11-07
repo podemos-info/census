@@ -55,7 +55,7 @@ ActiveAdmin.register Procedure do
   end
 
   show do
-    if procedure.processable?
+    if procedure.processable? && policy(procedure).process?
       controller.lock(resource.object)
       script { raw "window.procedure_channel = new ProceduresChannel(#{procedure.id}, #{procedure.lock_version})" }
     end
@@ -70,10 +70,14 @@ ActiveAdmin.register Procedure do
   sidebar :person, partial: "procedures/person", only: [:show]
 
   action_item :process_flow, only: :index do
+    next unless policy(Procedure).process?
+
     link_to t("census.procedures.process"), next_document_verification_procedures_path
   end
 
   action_item :undo_procedure, only: :show do
+    next unless policy(procedure).undo?
+
     if procedure.undoable_by? controller.current_admin
       link_to t("census.procedures.actions.undo"), undo_procedure_path(procedure, lock_version: procedure.lock_version),
               method: :patch,

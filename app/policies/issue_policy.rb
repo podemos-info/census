@@ -2,23 +2,27 @@
 
 class IssuePolicy < ApplicationPolicy
   def index?
-    !real_issue? || show?
+    show?
   end
 
   def show?
+    return true unless real_issue?
+
     user.role_includes?(record)
   end
 
   def create?
-    user.data_help_role?
+    user.data_help_role? && master?
   end
 
   def update?
-    show? && record&.open?
+    return false unless real_issue?
+
+    show? && record.open? && master?
   end
 
   def assign_me?
-    show?
+    show? && master?
   end
 
   class Scope

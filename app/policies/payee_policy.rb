@@ -6,6 +6,6 @@ class PayeePolicy < ApplicationPolicy
   end
 
   def destroy?
-    base_role?
+    base_role? && master?
   end
 end

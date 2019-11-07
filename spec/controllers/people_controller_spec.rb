@@ -121,6 +121,8 @@ describe PeopleController, type: :controller do
 
       include_examples "tracks the user visit"
 
+      it_behaves_like "an admin page that forbids modifications on slave mode"
+
       context "when changes the person email" do
         let(:changed_attributes) { { email: "mserveto2@example.org" } }
         let(:notice_message) do
@@ -187,6 +189,8 @@ describe PeopleController, type: :controller do
 
       include_examples "tracks the user visit"
 
+      it_behaves_like "an admin page that forbids modifications on slave mode"
+
       context "when trying to request verification to a verified person" do
         let(:person) { create(:person, :verified) }
 
@@ -229,6 +233,8 @@ describe PeopleController, type: :controller do
         let(:reason) { "Razones de peso" }
 
         it { is_expected.to redirect_to(person_path(person)) }
+
+        it_behaves_like "an admin page that forbids modifications on slave mode"
 
         it "shows a notice message" do
           expect { subject }

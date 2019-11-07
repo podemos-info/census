@@ -53,6 +53,8 @@ describe Api::V1::People::PhoneVerificationsController, type: :controller do
     it { is_expected.to have_http_status(:accepted) }
     it { expect(subject.content_type).to eq("application/json") }
 
+    it_behaves_like "an API endpoint that forbids modifications on slave mode"
+
     it "creates a new phone verification procedure" do
       expect { subject } .to change(Procedures::PhoneVerification, :count).by(1)
     end

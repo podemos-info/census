@@ -5,32 +5,30 @@ require "rails_helper"
 describe IssuePolicy do
   subject(:policy) { described_class.new(user, issue) }
 
-  context "with index pages (no specific issue)" do
-    let(:issue) { Issue }
+  let(:issue) { Issue }
 
-    context "when user is a system admin" do
-      let(:user) { create(:admin) }
+  context "when user is a system admin" do
+    let(:user) { create(:admin) }
 
-      it { is_expected.to permit_action :index }
-    end
+    it { is_expected.to permit_action :index }
+  end
 
-    context "when user is a data admin" do
-      let(:user) { create(:admin, :data) }
+  context "when user is a data admin" do
+    let(:user) { create(:admin, :data) }
 
-      it { is_expected.to permit_action :index }
-    end
+    it { is_expected.to permit_action :index }
+  end
 
-    context "when user is a data_help admin" do
-      let(:user) { create(:admin, :data_help) }
+  context "when user is a data_help admin" do
+    let(:user) { create(:admin, :data_help) }
 
-      it { is_expected.to permit_action :index }
-    end
+    it { is_expected.to permit_action :index }
+  end
 
-    context "when user is a finances admin" do
-      let(:user) { create(:admin, :finances) }
+  context "when user is a finances admin" do
+    let(:user) { create(:admin, :finances) }
 
-      it { is_expected.to permit_action :index }
-    end
+    it { is_expected.to permit_action :index }
   end
 
   context "with a data issue" do
@@ -153,4 +151,6 @@ describe IssuePolicy do
       it { is_expected.to forbid_action :destroy }
     end
   end
+
+  it_behaves_like "a policy that forbids data modifications on slave mode"
 end

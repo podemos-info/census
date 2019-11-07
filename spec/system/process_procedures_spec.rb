@@ -12,22 +12,20 @@ describe "Process procedure", type: :system, js: true, action_cable: :async do
   describe "locking and unlocking" do
     subject(:procedure) { create(:document_verification, processing_by: processing_by) }
 
-    context "when a single admin access to the procedure" do
-      let(:processing_by) { nil }
+    let(:processing_by) { nil }
 
-      it "locks and unlocks the procedure" do
-        expect(procedure.processing_by).to be_nil
+    it "locks and unlocks the procedure" do
+      expect(procedure.processing_by).to be_nil
 
-        visit procedure_path(procedure)
+      visit procedure_path(procedure)
 
-        expect(page).to have_content("Aceptar") # Very important: waits WebSockets to be working
+      expect(page).to have_content("Aceptar") # Very important: waits WebSockets to be working
 
-        expect(procedure.reload.processing_by).to eq(current_admin)
+      expect(procedure.reload.processing_by).to eq(current_admin)
 
-        visit procedures_path
+      visit procedures_path
 
-        expect(procedure.reload.processing_by).to be_nil
-      end
+      expect(procedure.reload.processing_by).to be_nil
     end
 
     context "when another user is processing the procedure" do
@@ -48,6 +46,18 @@ describe "Process procedure", type: :system, js: true, action_cable: :async do
 
         visit procedures_path
 
+        expect(procedure.reload.processing_by).to be_nil
+      end
+    end
+
+    context "when slave mode" do
+      include_context "when slave mode"
+
+      it "warns that the system is in read-only mode" do
+        visit procedure_path(procedure)
+
+        expect(page).to have_content("Atención: el sistema está en modo de solo lectura y no permite modificaciones.")
+        expect(page).not_to have_content("Aceptar")
         expect(procedure.reload.processing_by).to be_nil
       end
     end

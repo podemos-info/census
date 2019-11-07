@@ -42,4 +42,8 @@ describe PaymentMethodPolicy do
     it { is_expected.to permit_edit_and_update_actions }
     it { is_expected.to forbid_action :destroy }
   end
+
+  it_behaves_like "a policy that forbids data modifications on slave mode" do
+    let(:extra_actions) { [:dismiss_issues] }
+  end
 end

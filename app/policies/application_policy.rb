@@ -21,7 +21,7 @@ class ApplicationPolicy
   end
 
   def create?
-    base_role?
+    base_role? && master?
   end
 
   def edit?
@@ -29,7 +29,7 @@ class ApplicationPolicy
   end
 
   def update?
-    base_role?
+    base_role? && master?
   end
 
   def destroy?
@@ -38,6 +38,10 @@ class ApplicationPolicy
 
   def base_role?
     user.system_role?
+  end
+
+  def master?
+    !Settings.system.slave_mode
   end
 
   class Scope

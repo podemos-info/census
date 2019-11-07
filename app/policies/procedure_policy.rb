@@ -14,12 +14,11 @@ class ProcedurePolicy < ApplicationPolicy
   end
 
   def update?
-    !person.discarded? && base_role?
+    !person&.discarded? && base_role? && master?
   end
 
-  def undo?
-    update?
-  end
+  alias process? update?
+  alias undo? update?
 
   def view_attachment?
     base_role?

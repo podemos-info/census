@@ -11,6 +11,6 @@ end
 render partial: "people/show_state", locals: { resource: resource.person }
 
 ul do
-  li link_to t("census.procedures.view_person"), person_path(procedure.person)
-  li link_to t("census.procedures.edit_person"), edit_person_path(procedure.person)
+  li link_to(t("census.procedures.view_person"), person_path(procedure.person))
+  li link_to(t("census.procedures.edit_person"), edit_person_path(procedure.person)) if policy(procedure.person).update?
 end
