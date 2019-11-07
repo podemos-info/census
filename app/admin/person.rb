@@ -55,11 +55,11 @@ ActiveAdmin.register Person do
   end
 
   action_item :request_verification, only: :show do
-    if person.may_request_verification?
-      link_to t("census.people.request_verification"), request_verification_person_path(person), method: :patch,
-                                                                                                 data: { confirm: t("census.messages.sure_question") },
-                                                                                                 class: "member_link"
-    end
+    next unless policy(person).request_verification? && person.may_request_verification?
+
+    link_to t("census.people.request_verification"), request_verification_person_path(person), method: :patch,
+                                                                                               data: { confirm: t("census.messages.sure_question") },
+                                                                                               class: "member_link"
   end
 
   member_action :request_verification, method: :patch do
@@ -79,7 +79,9 @@ ActiveAdmin.register Person do
   end
 
   action_item :cancellation, only: :show do
-    link_to t("census.people.cancellation.action"), cancellation_person_path(person), class: "member_link" if person.may_cancel?
+    next unless policy(person).cancellation? && person.may_cancel?
+
+    link_to t("census.people.cancellation.action"), cancellation_person_path(person), class: "member_link"
   end
 
   member_action :cancellation, method: [:get, :patch] do

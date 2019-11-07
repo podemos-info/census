@@ -12,15 +12,17 @@ class IssuePolicy < ApplicationPolicy
   end
 
   def create?
-    user.data_help_role?
+    user.data_help_role? && master?
   end
 
   def update?
-    show? && record&.open?
+    return false unless real_issue?
+
+    show? && record.open? && master?
   end
 
   def assign_me?
-    show?
+    show? && master?
   end
 
   class Scope

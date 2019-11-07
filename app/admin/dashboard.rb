@@ -22,7 +22,8 @@ ActiveAdmin.register_page "Dashboard" do
             h4 "Pendientes"
             div id: "pending_procedures" do
               div pie_chart controller.pending_procedures_stats_data, donut: true
-              a href: next_document_verification_procedures_path do
+
+              controller.process_path_link(self) do
                 div controller.pending_procedures_stats_data.values.sum
                 span t("census.procedures.process"), class: "button"
               end
@@ -158,6 +159,16 @@ ActiveAdmin.register_page "Dashboard" do
 
     def prefetch_admins(raw_data)
       [raw_data, context: { admins: Hash[Admin.where(id: raw_data.map(&:first).map(&:first)).pluck(:id, :username)] }]
+    end
+
+    def process_path_link(context)
+      options = if policy(Procedure).process?
+                  { href: next_document_verification_procedures_path }
+                else
+                  { class: "hide_buttons" }
+                end
+
+      context.a(options) { yield }
     end
   end
 end

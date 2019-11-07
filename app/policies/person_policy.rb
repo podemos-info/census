@@ -14,14 +14,14 @@ class PersonPolicy < ApplicationPolicy
   end
 
   def update?
-    user.data_help_role? && !record.discarded?
+    user.data_help_role? && !record.discarded? && master?
   end
 
   def cancellation?
-    update?
+    update? && master?
   end
 
   def request_verification?
-    update?
+    update? && master?
   end
 end

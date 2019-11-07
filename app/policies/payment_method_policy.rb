@@ -6,6 +6,6 @@ class PaymentMethodPolicy < ApplicationPolicy
   end
 
   def dismiss_issues?
-    base_role?
+    base_role? && master?
   end
 end

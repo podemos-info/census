@@ -14,7 +14,7 @@ class ProcedurePolicy < ApplicationPolicy
   end
 
   def update?
-    !person.discarded? && base_role?
+    !person&.discarded? && base_role? && master?
   end
 
   alias process? update?
