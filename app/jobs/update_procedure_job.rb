@@ -50,6 +50,7 @@ class UpdateProcedureJob < ApplicationJob
     Procedures::ProcessProcedure.call(form: form, admin: admin) do
       on(:invalid) { log :user, key: "auto_process.invalid" }
       on(:error) { log :user, key: "auto_process.error" }
+      on(:conflict) { log :user, key: "auto_process.conflict" }
     end
   end
 
