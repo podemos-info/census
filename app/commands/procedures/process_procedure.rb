@@ -23,7 +23,7 @@ module Procedures
       return broadcast(:invalid) unless form&.valid?
       return broadcast(:busy) if busy?
 
-      result = add_issue_or_process_procedure
+      add_issue_or_process_procedure
 
       broadcast result, procedure: procedure
 
@@ -32,7 +32,7 @@ module Procedures
 
     private
 
-    attr_accessor :form, :admin
+    attr_accessor :form, :admin, :result
     delegate :procedure, to: :form
 
     def busy?
@@ -43,7 +43,7 @@ module Procedures
       if form.adding_issue?
         add_issue
       else
-        process_procedure
+        process_procedure_transaction
       end
     end
 
@@ -51,13 +51,19 @@ module Procedures
       issue = Issues::People::AdminRemark.for(procedure, find: false)
       issue.explanation = form.comment
       issue.fill
-      ret = :issue_error
+      self.result = :issue_error
       Issues::CreateIssue.call(issue: issue, admin: admin) do
-        on(:invalid) { ret = :invalid }
+        on(:invalid) { self.result = :invalid }
         on(:error) {}
-        on(:ok) { ret = :issue_ok }
+        on(:ok) { self.result = :issue_ok }
       end
-      ret
+    end
+
+    def process_procedure_transaction
+      Procedure.transaction do
+        self.result = process_procedure
+        raise ActiveRecord::Rollback unless result == :ok
+      end
     end
 
     def process_procedure

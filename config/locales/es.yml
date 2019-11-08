@@ -459,8 +459,9 @@ es:
     jobs:
       job_messages:
         auto_process:
-          error: Ha ocurrido un error durante el procesamiento automático del procedimiento
-          invalid: El procedimiento debería poder ser procesado automáticamente, pero la información disponible es incorrecta
+          conflict: El procesamiento automático del procedimiento no ha podido ser realizado porque este fue modificado en ese momento.
+          error: Ha ocurrido un error durante el procesamiento automático del procedimiento.
+          invalid: El procedimiento debería poder ser procesado automáticamente, pero la información disponible es incorrecta.
         issues_job:
           error: Ha ocurrido un error durante el análisis de incidencias para el registro
           existing_issue: El registro ya tenía una incidencia asociada

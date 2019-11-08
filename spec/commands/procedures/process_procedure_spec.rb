@@ -202,5 +202,9 @@ describe Procedures::ProcessProcedure do
     it "does not update comment" do
       expect { subject } .not_to change { Procedure.find(procedure.id).comment }
     end
+
+    it "does not apply the procedure action" do
+      expect { subject } .not_to change { Procedure.find(procedure.id).person.updated_at }
+    end
   end
 end
