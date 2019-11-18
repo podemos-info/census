@@ -6,7 +6,7 @@ class IssuePolicy < ApplicationPolicy
   end
 
   def show?
-    return true unless real_issue?
+    return true unless issue_instance?
 
     user.role_includes?(record)
   end
@@ -16,7 +16,7 @@ class IssuePolicy < ApplicationPolicy
   end
 
   def update?
-    return false unless real_issue?
+    return false unless issue_instance?
 
     show? && record.open? && master?
   end
@@ -38,7 +38,7 @@ class IssuePolicy < ApplicationPolicy
 
   private
 
-  def real_issue?
+  def issue_instance?
     !record.is_a?(Class) && record.role.present?
   end
 end
