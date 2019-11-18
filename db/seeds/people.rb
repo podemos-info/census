@@ -16,7 +16,11 @@ end
 def random_person_data(params)
   local_scopes = Scope.local.descendants.leafs
   emigrant_scopes = Scope.local.not_descendants.leafs
-  doc = Person.document_types.keys.sample
+  doc = if Faker::Boolean.boolean(0.75)
+          :dni
+        else
+          Faker::Boolean.boolean(0.5) ? :nie : :passport
+        end
   young = params.fetch(:young, Faker::Boolean.boolean(0.1))
   emigrant = Faker::Boolean.boolean(0.1)
   scope = local_scopes.sample
