@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
   def check_resource_issues
     return unless current_admin
 
-    flash.now[:alert] = I18n.t("census.issues.issues_for_resource", issues_links: issues_for_resource.map(&:link_with_name).to_sentence).html_safe if issues_for_resource.any?
+    flash.now[:alert] = I18n.t("census.issues.issues_for_resource", issues_links: issues_for_resource.uniq.map(&:link_with_name).to_sentence).html_safe if issues_for_resource.any?
   end
 
   def decorated_current_admin
@@ -54,7 +54,10 @@ class ApplicationController < ActionController::Base
 
   def issues_for_resource
     @issues_for_resource ||= if resource.respond_to?(:issues)
-                               ::AdminIssues.for(current_admin).merge(::IssuesOpen.for).merge(Draper.undecorate(resource.issues)).decorate
+                               ::AdminIssues.for(current_admin)
+                                            .merge(::IssuesOpen.for)
+                                            .merge(Draper.undecorate(resource.issues))
+                                            .decorate
                              else
                                []
                              end
