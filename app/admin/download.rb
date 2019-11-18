@@ -10,7 +10,10 @@ ActiveAdmin.register Download do
 
   includes :person
 
-  actions :index, :show
+  actions :index, :show, :destroy
+
+  scope :kept, default: true
+  scope :discarded
 
   index do
     column :filename, class: :left do |download|
@@ -19,7 +22,8 @@ ActiveAdmin.register Download do
     column :created_at
     column :expires_at
     actions defaults: true do |download|
-      link_to t("census.downloads.download"), download_person_download_path(download.person, download), class: :member_link
+      span link_to(t("census.downloads.recover"), recover_download_path(download), class: :member_link, method: :patch) if download.discarded?
+      span link_to t("census.downloads.download"), download_download_path(download), class: :member_link
     end
   end
 
@@ -41,6 +45,20 @@ ActiveAdmin.register Download do
   end
 
   member_action :download do
-    send_data resource.file.file.read, type: resource.content_type, disposition: "inline"
+    send_data resource.file.file.read, filename: resource.filename, type: resource.content_type, disposition: "attachment"
+  end
+
+  member_action :recover, method: :patch do
+    resource.undiscard!
+
+    redirect_back(fallback_location: downloads_path)
+  end
+
+  controller do
+    def destroy
+      resource.discard!
+
+      redirect_back(fallback_location: downloads_path)
+    end
   end
 end

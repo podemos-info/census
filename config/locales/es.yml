@@ -7,6 +7,10 @@ es:
     payments: Pagos
     powered_by: ''
     resources:
+      download:
+        scopes:
+          discarded: Borradas
+          kept: Todas
       issue:
         scopes:
           assigned: Asignadas
@@ -378,6 +382,7 @@ es:
         year: Año
     downloads:
       download: Descargar
+      recover: Recuperar
     events:
       action:
         cancellation: Dar de baja

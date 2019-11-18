@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Download < ApplicationRecord
+  include Discard::Model
   include Issuable
 
   mount_uploader :file, DownloadUploader
