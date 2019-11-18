@@ -533,7 +533,7 @@ es:
       create_order: Crear orden con este método de pago
       default_names:
         credit_card: Tarjeta de crédito (vencimiento %{expiration})
-        direct_debit: Cuenta bancaria (acabada en %{iban_last_digits})
+        direct_debit: Cuenta bancaria acabada en %{iban_last_digits}
       flags:
         failing: No funciona
         verified: Verificado
