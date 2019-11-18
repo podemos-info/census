@@ -2,7 +2,11 @@
 
 class DownloadPolicy < ApplicationPolicy
   def base_role?
-    !download_instance? || for_me? || user.data_role?
+    true
+  end
+
+  def show?
+    for_me? || user.data_role?
   end
 
   def create?
@@ -13,20 +17,35 @@ class DownloadPolicy < ApplicationPolicy
     false
   end
 
+  def download?
+    show?
+  end
+
   def destroy?
-    base_role? && !(download_instance? && record.discarded?)
+    show? && !record.discarded? && master?
   end
 
   def recover?
-    base_role? && download_instance? && record.discarded?
-  end
-
-  def download?
-    base_role?
+    show? && record.discarded? && master?
   end
 
   def for_me?
     download_instance? && user.person == record.person
+  end
+
+  class Scope
+    def initialize(user, scope)
+      @user = user
+      @scope = scope
+    end
+
+    def resolve
+      if @user.data_role?
+        @scope
+      else
+        @scope.where(person: @user.person)
+      end
+    end
   end
 
   private

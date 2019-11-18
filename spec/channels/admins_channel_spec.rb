@@ -15,13 +15,14 @@ describe AdminsChannel, type: :channel do
   shared_examples "broadcasts the admin status" do
     let(:count_unread_issues) { 0 }
     let(:count_running_jobs) { 0 }
+    let(:count_active_downloads) { 0 }
 
     it "broadcast a new admin status" do
-      expect { subject }.to have_broadcasted_to(current_admin).with(admin: {
-                                                                      id: current_admin.id,
-                                                                      count_unread_issues: count_unread_issues,
-                                                                      count_running_jobs: count_running_jobs
-                                                                    })
+      expect { subject }.to have_broadcasted_to(current_admin).with(
+        admin: { id: current_admin.id,
+                 count_unread_issues: count_unread_issues, count_running_jobs: count_running_jobs,
+                 count_active_downloads: count_active_downloads }
+      )
     end
   end
 
@@ -37,6 +38,26 @@ describe AdminsChannel, type: :channel do
 
       it_behaves_like "broadcasts the admin status" do
         let(:count_unread_issues) { 1 }
+      end
+    end
+
+    context "when admin has running jobs" do
+      let(:running_job) { create(:job, :running, user: current_admin) }
+
+      before { running_job }
+
+      it_behaves_like "broadcasts the admin status" do
+        let(:count_running_jobs) { 1 }
+      end
+    end
+
+    context "when admin has active downloads" do
+      let(:download) { create(:download, person: current_admin.person) }
+
+      before { download }
+
+      it_behaves_like "broadcasts the admin status" do
+        let(:count_active_downloads) { 1 }
       end
     end
   end
