@@ -7,6 +7,7 @@ def config_menu(config)
     admin.build_menu :utility_navigation do |menu|
       menu.add id: "admin_jobs", priority: 5, label: "-", url: -> { jobs_path }
       menu.add id: "admin_issues", priority: 5, label: "-", url: -> { issues_path }
+      menu.add id: "admin_downloads", priority: 5, label: "-", if: :current_admin, url: -> { person_downloads_path(current_admin.person) }
       admin.add_current_user_to_menu menu
       admin.add_logout_button_to_menu menu
     end

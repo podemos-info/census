@@ -39,4 +39,8 @@ class OrdersBatchDecorator < ApplicationDecorator
   def last_jobs
     @last_jobs ||= OrdersBatchLastJobs.for(object).decorate(context: context)
   end
+
+  def last_downloads
+    @last_downloads ||= OrdersBatchLastDownloads.for(object).decorate(context: context)
+  end
 end

@@ -33,7 +33,8 @@ module Downloads
       @download ||= Download.new(
         person: form.person,
         file: form.file,
-        expires_at: form.expires_at
+        expires_at: form.expires_at,
+        orders_batches: form.orders_batches
       )
     end
   end

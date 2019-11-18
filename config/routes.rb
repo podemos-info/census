@@ -48,11 +48,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :downloads
   resources :orders
   [
     :people, :orders_batches
   ].each do |resource|
     resources resource do
+      resources :downloads
       resources :orders
     end
   end

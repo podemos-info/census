@@ -46,7 +46,18 @@
     }
   }
 
-  #admin_jobs, #admin_issues, #current_user, #logout {
+  #admin_downloads {
+    a:before {
+      @include icon("\f56d");
+    }
+
+    &.active a:before {
+      color: $primary-color;
+      transition: color 0.5s;
+    }
+  }
+
+  #admin_jobs, #admin_issues, #admin_downloads, #current_user, #logout {
     a {
       visibility: hidden;
       position: relative;

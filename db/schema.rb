@@ -69,6 +69,14 @@ ActiveRecord::Schema.define(version: 2019_10_17_163940) do
     t.index ["payee_id"], name: "index_campaigns_on_payee_id"
   end
 
+  create_table "download_objects", force: :cascade do |t|
+    t.bigint "download_id"
+    t.string "object_type"
+    t.bigint "object_id"
+    t.index ["download_id"], name: "index_download_objects_on_download_id"
+    t.index ["object_type", "object_id"], name: "index_download_objects_on_object_type_and_object_id"
+  end
+
   create_table "downloads", force: :cascade do |t|
     t.bigint "person_id"
     t.string "file", null: false

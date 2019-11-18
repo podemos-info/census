@@ -3,7 +3,10 @@
 ActiveAdmin.register Download do
   decorate_with DownloadDecorator
 
-  belongs_to :person
+  belongs_to :orders_batch, optional: true
+  belongs_to :person, optional: true
+
+  menu parent: :dashboard
 
   includes :person
 
@@ -21,7 +24,7 @@ ActiveAdmin.register Download do
   end
 
   action_item :download, only: :show do
-    link_to t("census.downloads.download"), download_person_download_path(download.person, download)
+    link_to t("census.downloads.download"), download_download_path(download)
   end
 
   show do
