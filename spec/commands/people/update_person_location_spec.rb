@@ -53,9 +53,9 @@ describe People::UpdatePersonLocation do
     expect(PersonLocation.last.updated_at).to be_within(1.second).of(time)
   end
 
-  it "doesn't set the deleted time" do
+  it "doesn't set the discarded time" do
     subject
-    expect(PersonLocation.last.deleted_at).to be_nil
+    expect(PersonLocation.last.discarded_at).to be_nil
   end
 
   context "when invalid" do
@@ -91,7 +91,7 @@ describe People::UpdatePersonLocation do
     it { expect { subject } .not_to change { person_location.reload.ip } }
     it { expect { subject } .not_to change { person_location.reload.user_agent } }
     it { expect { subject } .not_to change { person_location.reload.created_at } }
-    it { expect { subject } .not_to change { person_location.reload.deleted_at }.from(nil) }
+    it { expect { subject } .not_to change { person_location.reload.discarded_at }.from(nil) }
 
     it "updates the existing update time" do
       expect { subject } .to change { person_location.reload.updated_at.round }
@@ -162,8 +162,8 @@ describe People::UpdatePersonLocation do
     it { expect { subject } .not_to change { person_location.reload.created_at } }
     it { expect { subject } .not_to change { person_location.reload.updated_at } }
 
-    it "sets the existing deleted time" do
-      expect { subject } .to change { person_location.reload.deleted_at&.round }
+    it "sets the existing discarded time" do
+      expect { subject } .to change { person_location.reload.discarded_at&.round }
         .from(nil).to(time.round)
     end
 
@@ -191,9 +191,9 @@ describe People::UpdatePersonLocation do
       expect(PersonLocation.last.updated_at).to be_within(1.second).of(time)
     end
 
-    it "doesn't set the deleted time" do
+    it "doesn't set the discarded time" do
       subject
-      expect(PersonLocation.last.deleted_at).to be_nil
+      expect(PersonLocation.last.discarded_at).to be_nil
     end
 
     context "when existing location was updated after this one" do
@@ -232,9 +232,9 @@ describe People::UpdatePersonLocation do
         expect(PersonLocation.last.updated_at).to be_within(1.second).of(time)
       end
 
-      it "stores the location time as deleted time" do
+      it "stores the location time as discarded time" do
         subject
-        expect(PersonLocation.last.deleted_at).to be_within(1.second).of(time)
+        expect(PersonLocation.last.discarded_at).to be_within(1.second).of(time)
       end
     end
 
@@ -273,9 +273,9 @@ describe People::UpdatePersonLocation do
         expect(PersonLocation.last.updated_at).to be_within(1.second).of(time)
       end
 
-      it "stores the existing location creation time as delete time" do
+      it "stores the existing location creation time as discard time" do
         subject
-        expect(PersonLocation.last.deleted_at).to be_within(1.second).of(person_location.created_at)
+        expect(PersonLocation.last.discarded_at).to be_within(1.second).of(person_location.created_at)
       end
     end
   end

@@ -235,7 +235,7 @@ es:
         verification/verified: verificada
       person_location:
         created_at: Primer acceso
-        deleted_at: Siguiente ubicación
+        discarded_at: Siguiente ubicación
         ip: Dirección IP
         person: Persona
         updated_at: Último acceso

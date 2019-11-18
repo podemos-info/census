@@ -24,7 +24,7 @@ ActiveAdmin.register PersonLocation do
       row :person
       row :created_at
       row :updated_at
-      row :deleted_at
+      row :discarded_at
     end
     active_admin_comments
   end

@@ -18,7 +18,7 @@ panel I18n.t("census.procedures.procedure") do
         row :user_agent
         row :created_at
         row :updated_at
-        row :deleted_at
+        row :discarded_at
       end
     end
   end

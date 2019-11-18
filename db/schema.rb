@@ -247,7 +247,7 @@ ActiveRecord::Schema.define(version: 2019_10_17_163940) do
     t.text "user_agent"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "deleted_at"
+    t.datetime "discarded_at"
     t.index ["person_id"], name: "index_person_locations_on_person_id"
   end
 
