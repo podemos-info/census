@@ -32,6 +32,7 @@ ActiveAdmin.register OrdersBatch do
   end
 
   sidebar :orders, partial: "orders_batches/orders", only: :show
+  sidebar :downloads, partial: "orders_batches/downloads", only: :show
   sidebar :jobs, partial: "orders_batches/jobs", only: :show
   sidebar :versions, partial: "orders_batches/versions", only: :show
 

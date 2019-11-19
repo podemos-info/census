@@ -144,6 +144,11 @@ FactoryBot.define do
     association :person, factory: :person, strategy: :build
     expires_at { Faker::Date.between(1.day.from_now, 30.days.from_now) }
     file { test_file("attachment-non-image.pdf", "application/pdf") }
+
+    trait :discarded do
+      created_at { Faker::Date.between(1.day.from_now, 30.days.from_now) }
+      discarded_at { Faker::Date.between(created_at, Time.current) }
+    end
   end
 
   factory :person_location do

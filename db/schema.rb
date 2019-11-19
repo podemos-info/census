@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_17_163940) do
+ActiveRecord::Schema.define(version: 2019_11_15_171122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,14 @@ ActiveRecord::Schema.define(version: 2019_10_17_163940) do
     t.index ["payee_id"], name: "index_campaigns_on_payee_id"
   end
 
+  create_table "download_objects", force: :cascade do |t|
+    t.bigint "download_id"
+    t.string "object_type"
+    t.bigint "object_id"
+    t.index ["download_id"], name: "index_download_objects_on_download_id"
+    t.index ["object_type", "object_id"], name: "index_download_objects_on_object_type_and_object_id"
+  end
+
   create_table "downloads", force: :cascade do |t|
     t.bigint "person_id"
     t.string "file", null: false
@@ -77,6 +85,7 @@ ActiveRecord::Schema.define(version: 2019_10_17_163940) do
     t.jsonb "information", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
     t.index ["person_id"], name: "index_downloads_on_person_id"
   end
 
@@ -247,7 +256,7 @@ ActiveRecord::Schema.define(version: 2019_10_17_163940) do
     t.text "user_agent"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "deleted_at"
+    t.datetime "discarded_at"
     t.index ["person_id"], name: "index_person_locations_on_person_id"
   end
 

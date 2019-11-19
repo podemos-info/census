@@ -8,6 +8,7 @@ class DownloadForm < Form
 
   attribute :file, Hash
   attribute :expires_at, Date
+  attribute :orders_batches, Array[OrdersBatch]
 
   validates :file, :expires_at, presence: true
 

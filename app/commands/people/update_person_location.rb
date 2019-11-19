@@ -52,7 +52,7 @@ module People
       elsif same_location? && after_current?
         :updated_at
       elsif !same_location? && !before_current?
-        :deleted_at
+        :discarded_at
       end
     end
 
@@ -65,7 +65,7 @@ module People
     def current_location
       @current_location ||= person.person_locations
                                   .where("created_at <= ?", form.time)
-                                  .where("deleted_at IS NULL OR deleted_at > ?", form.time)
+                                  .where("discarded_at IS NULL OR discarded_at > ?", form.time)
                                   .order(created_at: :desc).first ||
                             person.person_locations.order(created_at: :asc).first
     end
@@ -76,15 +76,15 @@ module People
         user_agent: form.user_agent,
         created_at: form.time,
         updated_at: form.time,
-        deleted_at: new_location_deleted_at
+        discarded_at: new_location_discarded_at
       }
     end
 
-    def new_location_deleted_at
+    def new_location_discarded_at
       if before_current?
         current_location.created_at
       elsif after_current?
-        current_location&.deleted_at
+        current_location&.discarded_at
       elsif current_location
         form.time # transient location: see command specs
       end

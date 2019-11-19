@@ -11,6 +11,7 @@ describe Downloads::CreateDownload do
   let(:file) do
     ActionDispatch::Http::UploadedFile.new(filename: download.file.filename, type: download.content_type, tempfile: download.file.file)
   end
+  let(:orders_batches) { build_list(:orders_batch, 1) }
 
   let(:form) do
     instance_double(
@@ -19,7 +20,8 @@ describe Downloads::CreateDownload do
       valid?: valid,
       person: download.person,
       file: file,
-      expires_at: download.expires_at
+      expires_at: download.expires_at,
+      orders_batches: orders_batches
     )
   end
 

@@ -41,4 +41,8 @@ class AdminDecorator < ApplicationDecorator
   def count_running_jobs
     @count_running_jobs ||= object.jobs.running.count
   end
+
+  def count_active_downloads
+    @count_active_downloads ||= PersonLastActiveDownloads.for(object.person).count
+  end
 end

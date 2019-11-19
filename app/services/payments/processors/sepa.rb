@@ -11,7 +11,8 @@ module Payments
         form = DownloadForm.new(
           person_id: orders_batch.processed_by.person_id,
           file: { filename: "#{orders_batch.description.underscore}.xml", content: @direct_debit.to_xml, content_type: "application/xml" },
-          expires_at: Settings.payments.processors.sepa.file_lifespan.hours.from_now
+          expires_at: Settings.payments.processors.sepa.file_lifespan.hours.from_now,
+          orders_batches: [orders_batch]
         )
 
         ret = :ok

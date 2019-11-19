@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     received: function(data) {
       document.getElementById("admin_jobs").className = data["admin"]["count_running_jobs"] > 0 ? "running" : "";
       document.getElementById("admin_issues").className = data["admin"]["count_unread_issues"] > 0 ? "unread" : "";
+      document.getElementById("admin_downloads").className = data["admin"]["count_active_downloads"] > 0 ? "active" : "";
     }
   })
 });
